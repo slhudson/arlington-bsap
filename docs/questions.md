@@ -272,6 +272,34 @@ piece of work for a research assistant.
 roster. The coding agrees across all three, so nothing is miscoded, but any
 tally built from the roster counts him three times.
 
+### Q14. Three missing service dates
+**Owner:** Alex · **Status:** open — small
+
+The roster records the dates of mid-year arrivals and departures in its notes
+column, in prose: "Removed 9/17/52", "until death on Jan 11". Twenty-nine of
+the thirty-two rows flagged as appointed, resigned, died or removed carry one.
+Three do not.
+
+| Year | Person | Note as written |
+|---|---|---|
+| 1990 | John Milliken | *(flagged resigned, no note)* |
+| 1993 | William Newman Jr. | "Appointed as Circuit Court Judge" |
+| 1993 | Benjamin Winslow Jr. | "Replaced Newman" |
+
+**For Alex:** do you have the dates for these three?
+
+Why it is worth asking now: those notes are the only record of when anyone
+served part of a year, and they are the prerequisite for time-weighting the
+fractional seats — see the fractional-seat question. With these three, the
+roster supports weighting every turnover in the series; without them, three
+rows need a rule for unknown dates.
+
+**Noted while checking this:** fractions only appear in the seat counts when
+the people sharing a seat differ in race or gender. Newman and Winslow are
+coded alike, so 1993 shows whole numbers even though the seat changed hands.
+The convention is applied consistently; it is just not always visible. Of the
+years that do show fractions — 1952, 2003 and 2023 — all have dates.
+
 ### Q11. Is "Arlington County" the governed territory or a fixed plot of land?
 **Settled:** 2026-09-22 (Sally) — the governed territory. Tell Alex; no decision needed from him.
 

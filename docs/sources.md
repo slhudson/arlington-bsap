@@ -188,7 +188,8 @@ parsing prose. Nor is the convention obviously proportional: in 2003 Charles
 Monroe died on 11 January and the year is still split half and half.
 
 Turning those note dates into real date columns would make every fraction
-checkable, and would be a contained piece of work for a research assistant.
+checkable. Twenty-nine of the thirty-two flagged rows already carry a date;
+three do not, and are a question for Alex.
 The rule itself is in questions.md.
 
 All three checks that could be made structural now run in `build/` and were
