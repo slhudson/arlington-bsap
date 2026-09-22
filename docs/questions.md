@@ -158,17 +158,17 @@ and they are what identified each cause.
 
 | # | Cell | Workbook | Sources give | Cause |
 |---|---|---|---|---|
-| 1 | 1870 white | 1,075 | **1,175** | the three districts are 517 + 383 + 275 |
+| 1 | 1870 white | 1,075 | **1,175** | Jefferson district keyed as 283; it is 383 |
 | 2 | 1890 total | 4,596 | **4,258** | Freedman village added as a fourth district |
 | 3 | 1890 white | 2,195 | **2,135** | foreign-white-female read as 365; it is 305 |
 
-**1. 1870 white.** Table III, *Population of Civil Divisions Less Than
-Counties*, 1870a-09 printed p.279, gives Arlington 517, Jefferson 383,
-Washington 275 — summing to 1,175. The workbook's own formula for the 1870
-total, `=1374+1256+555`, uses the same three district rows. Each district also
-ties internally (517 + 857 = 1,374, and so on), and 1,175 + 2,010 = 3,185, the
-total. Confirmed by a second route: county white 9,444 minus city white 8,269
-also gives 1,175.
+**1. 1870 white.** The workbook formula is `=517+283+275`. Table III,
+*Population of Civil Divisions Less Than Counties*, 1870a-09 printed p.279,
+gives Jefferson district's white population as **383**, not 283 — so the slip
+is one digit inside the sum. With 383 the total is 1,175, which ties: each
+district balances internally (517 + 857 = 1,374, 383 + 873 = 1,256, 275 + 280 =
+555), and 1,175 + 2,010 = 3,185. Confirmed by a second route: county white
+9,444 minus city white 8,269 also gives 1,175.
 
 **2. 1890 total.** The workbook formula is `=2013+338+1303+942`. Table 5,
 1890a_v1-11 printed p.346, prints Freedman village as an indented sub-line of
@@ -187,6 +187,29 @@ exactly 60.
 is the control case — the method agrees when nothing slips. And the corrected
 figures leave no "Other/multiracial/unreported" residents in 1870 or 1890,
 where the workbook leaves 100 and 278 unexplained.
+
+### Q12. Where did the 1900-1980 race figures come from?
+**Owner:** Alex · **Status:** open — no source traced
+
+Every population total is now traced to a published source. The race and
+ethnicity figures are not, for nine censuses.
+
+The workbook shows working for exactly the three years Alex re-derived:
+1870, 1880 and 1890 carry formulas. From 1900 on, every race figure is a bare
+typed number. The sheet cites two URLs — the 1990 Census working paper and a
+2000 Arlington County demographics page — and neither covers 1900-1980. There
+are no comments, no notes and no other references, in that workbook or in the
+two Board workbooks.
+
+So those figures came from somewhere he did not cite and did not hand over.
+
+**For Alex:** what source did you use for the race and ethnicity counts from
+1900 to 1980? If it was a published Census volume, the volume and table would
+let us transcribe it directly.
+
+Worth asking before doing the work: nine censuses of published volumes is
+several hours of transcription, and his answer might point straight at the
+right table.
 
 **Still genuinely open, not a correction:**
 
