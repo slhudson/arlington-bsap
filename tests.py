@@ -20,6 +20,7 @@ from pathlib import Path
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent / "build"))
+import board_demographics  # noqa: E402
 import board_members  # noqa: E402
 import board_roster  # noqa: E402
 import board_seats  # noqa: E402
@@ -138,6 +139,22 @@ def test_prose_in_the_name_column_is_rejected():
         return patched
     err = breaks(board_roster, "oleary_terms", mangle, build=board_roster.build)
     assert err and "prose" in err, f"not caught: {err}"
+
+
+def test_an_attributed_name_that_misses_the_roster_is_rejected():
+    """The demographics file matches people by exact name. A near-miss
+    ("Bozman" for "Ellen Bozman") would fall silently into the default -
+    the one failure that file exists to prevent - so the build refuses it.
+    """
+    def mangle(orig):
+        def patched(path, *a, **k):
+            d = orig(path, *a, **k)
+            if "name" in d.columns and "basis" in d.columns:      # the attributions file
+                d.loc[d.name == "Ellen Bozman", "name"] = "Bozman"
+            return d
+        return patched
+    err = breaks(board_demographics.pd, "read_csv", mangle, build=board_demographics.build)
+    assert err and "not in the roster" in err, f"not caught: {err}"
 
 
 if __name__ == "__main__":
