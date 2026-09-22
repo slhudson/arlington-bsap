@@ -120,7 +120,7 @@ each category is first reported.
 ## Not blocking the pipeline either
 
 ### Q3. What supports "first Black member since Reconstruction"?
-**Owner:** archive · **Status:** open — Sally contacting Arlington Historical Society
+**Owner:** archive · **Status:** open — held until the internal discrepancies are reconciled with Alex; then the demographics list goes to the Arlington Historical Society as two short tabs (Black members, women) with the default stated
 
 The 1889–1986 stretch is coded all-White, roughly 490 person-years, resting on
 that framing. It is the most load-bearing claim in the report and has not been
