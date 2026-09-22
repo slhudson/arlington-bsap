@@ -388,11 +388,9 @@ Historical Magazine*, 1994. `arlhist.org/wp-content/uploads/2020/02/1994-6-Decad
 from the adoption of the County Manager plan in 1930 through 1994, including
 the circumstances of each mid-term departure and special election.
 
-This is the first source found for the Board membership data, which otherwise
-has nothing behind it. It does not carry race or gender, so it cannot settle
-the descriptive coding — but it can verify who served and when, and it is the
-basis for the three dates in questions.md. If those dates enter the build it
-moves into `data/raw/` and stops being a citation.
+The roster's source for 1932–1994. It carries no race or gender. The PDF is
+in `data/raw/arlington_historical_magazine/` and the transcription in
+`data/transcribed/by_claude/`.
 
 **U.S. Census Bureau.** *Population of States and Counties of the United
 States: 1790-1990.* Virginia notes, printed p.185.
@@ -412,18 +410,15 @@ judgement, so they are the easiest to hand over.
    cover the county including the city; a county-only split may not exist in
    published form, in which case record how it must be derived.
 3. **Establish where the scanned volumes came from** — a citation per file.
-4. **Establish what supports the 1889–1986 Board coding.** Start with the
+4. **Establish what supports the 1931–1986 default.** Start with the
    Historical Society's reply. The judgement-heavy one.
 5. **Verify the five Reconstruction-era members** against the 1870 and 1880
    manuscript census, following Hjerpe's method.
-6. **Add a `source` column to the roster** and fill it, starting with
-   1987–present.
-7. **Spot-check gender coding** against obituaries for pre-1950 years.
-8. **Turn the roster's note dates into date columns.** `appointed`, `resigned`,
-   `died` and `removed` are yes/no flags; the dates sit in free text. This is
-   the prerequisite for time-weighting the fractional seats, which is where
-   questions.md is headed — nothing can be weighted by service until the
-   dates are machine-readable.
+6. **Find a published statement for each gender row** in
+   `data/transcribed/by_claude/board_demographics.csv` — an obituary, a
+   profile — to replace "inferred by Claude from name".
+7. **Check the roster's name forms from 1907**, where O'Leary gives surnames
+   only (see questions.md).
 
 Record each source as you go — the point is that every coded cell can be
 traced.

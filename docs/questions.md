@@ -319,7 +319,7 @@ published by the County.
 
 What it would settle:
 
-- Who served on the board from 1871 to 1931, which the roster does not cover
+- Who served on the board from 1870 to 1915, which the roster now covers
 - Whether the seat counts are right for those years
 - The "first since Reconstruction" claim, from candidate records rather than
   from a phrase
@@ -327,6 +327,15 @@ What it would settle:
 
 What it will not settle: race and gender coding, which these records do not
 carry.
+
+### Who served from 1916 to 1931?
+**Owner:** Alex · **Status:** open
+
+O'Leary's listings stop at the 1915 election and Novack begins with the County
+Manager plan in 1932. The county's candidate history starts at 1920 but its
+first County Board contest is 1931. The roster has nothing for these years.
+Alex's seat counts do cover them, so he had some way of knowing who served;
+that source is the question.
 
 ### Q15. Vacancies are invisible in the data
 **Owner:** Sally + Alex · **Status:** open — affects residents-per-seat
