@@ -79,16 +79,13 @@ changes what gets built. It is empty, which is honest.
 Files are named `<volume>_p<printed page>_table<n>_<state>_<subject>.csv`, so
 the filename is the citation.
 
-`hjerpe/` holds the race identifications from Grace Hjerpe, *A History of
-Representation on the Arlington County Board, 1870-Present* (15 July 2021),
-the Google Doc shared with Sally. **This is the only source in the project that
-identifies any Board member's race before 1932.** The document itself is not in
-`raw/` — it is a living Google Doc the author updates as she finds new
-information, so a copy should be exported and filed if these identifications
-are relied on. The `county/` subfolder holds the two election
-documents, read from their PDF text layers by `build/read_elections.py` and
-`build/read_board_1870_1920.py` rather than by OCR — still a machine reading a
-document, so still `by_claude/`.
+`race_attributions_1870-1931.csv` holds what anyone has said about a named
+Board member's race, with the sentence they said it in. **These are the only
+race identifications in the project for anyone before 1932.**
+
+Its sources are cited rather than filed in `raw/`: Grace Hjerpe's paper and
+O'Leary's prose are read for a handful of claims, not transcribed table by
+table. See Works cited in docs/sources.md.
 
 Each row carries the printed indentation as a `level` column: 0 is the table's
 own total, 1 its parts, 2 a detail of the line above. Sums take level 1 only.
@@ -250,16 +247,13 @@ changes what gets built. It is empty, which is honest.
 Files are named `<volume>_p<printed page>_table<n>_<state>_<subject>.csv`, so
 the filename is the citation.
 
-`hjerpe/` holds the race identifications from Grace Hjerpe, *A History of
-Representation on the Arlington County Board, 1870-Present* (15 July 2021),
-the Google Doc shared with Sally. **This is the only source in the project that
-identifies any Board member's race before 1932.** The document itself is not in
-`raw/` — it is a living Google Doc the author updates as she finds new
-information, so a copy should be exported and filed if these identifications
-are relied on. The `county/` subfolder holds the two election
-documents, read from their PDF text layers by `build/read_elections.py` and
-`build/read_board_1870_1920.py` rather than by OCR — still a machine reading a
-document, so still `by_claude/`.
+`race_attributions_1870-1931.csv` holds what anyone has said about a named
+Board member's race, with the sentence they said it in. **These are the only
+race identifications in the project for anyone before 1932.**
+
+Its sources are cited rather than filed in `raw/`: Grace Hjerpe's paper and
+O'Leary's prose are read for a handful of claims, not transcribed table by
+table. See Works cited in docs/sources.md.
 
 Each row carries the printed indentation as a `level` column: 0 is the table's
 own total, 1 its parts, 2 a detail of the line above. Sums take level 1 only.

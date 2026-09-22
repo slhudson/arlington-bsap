@@ -219,6 +219,8 @@ Hjerpe, on 1889-1930:
 > from 1889-1930, the board became and remained all white for the duration of
 > this system.
 
+*Hjerpe (2021) p.4.*
+
 That is a collective claim with no per-person evidence behind it, and it is the
 sentence the "since Reconstruction" framing rests on.
 
@@ -227,6 +229,8 @@ O'Leary, on the same period's office holders:
 > It is probable that a majority of the early office holders, such as Mr.
 > Holmes, were African-American, however, I lack the photographic evidence to
 > support this assertion.
+
+*O'Leary (2012) p.6.*
 
 Neither is a per-person identification, so neither appears in
 `data/transcribed/by_claude/race_attributions_1870-1931.csv`, which holds only
