@@ -1,129 +1,172 @@
-name,district,start_year,start_month,end_year,end_month,source,note
-H. Dwight Smith,Arlington,1870,5,1871,5,O'Leary (2012) p.9,(No returns.)
-Roach,Jefferson,1870,9,1871,5,O'Leary (2012) p.9,took the seat mid-term; (Replaced by Roach in Sept.)
-Storm V. Boyd,Jefferson,1870,5,1870,9,O'Leary (2012) p.9,(Replaced by Roach in Sept.)
-Charles W. Payne,Washington,1870,5,1871,5,O'Leary (2012) p.9,
-H. Dwight Smith,Arlington,1871,5,1872,5,O'Leary (2012) p.9,(No returns.)
-William A. Rowe,Jefferson,1871,5,1872,5,O'Leary (2012) p.9,
-Edward Deeble,Washington,1871,5,1872,5,O'Leary (2012) p.9,
-H. Dwight Smith,Arlington,1872,12,1873,3,O'Leary (2012) p.10,"took the seat mid-term; (Replaced by H. Dwight Smith in Dec.; replaced by Lott W. Crocker in March 1873, replaced by Francis D. Schutt in April, )"
-John B. Syphax,Arlington,1872,5,1872,12,O'Leary (2012) p.10,"(Replaced by H. Dwight Smith in Dec.; replaced by Lott W. Crocker in March 1873, replaced by Francis D. Schutt in April, )"
-William A. Rowe,Jefferson,1872,5,1873,5,O'Leary (2012) p.10,
-Henry W. Febrey,Washington,1872,5,1873,5,O'Leary (2012) p.10,
-Francis D. Schutt,Arlington,1873,4,1873,5,O'Leary (2012) p.10,"took the seat mid-term; (Replaced by H. Dwight Smith in Dec.; replaced by Lott W. Crocker in March 1873, replaced by Francis D. Schutt in April, )"
-Francis D. Schutt,Arlington,1873,5,1874,5,O'Leary (2012) p.10,
-Lott W. Crocker,Arlington,1873,3,1873,4,O'Leary (2012) p.10,"took the seat mid-term; (Replaced by H. Dwight Smith in Dec.; replaced by Lott W. Crocker in March 1873, replaced by Francis D. Schutt in April, )"
-William A. Rowe,Jefferson,1873,5,1874,5,O'Leary (2012) p.10,
-Samuel Titus,Washington,1873,12,1874,5,O'Leary (2012) p.10,Samuel Titus appointed in Dec.
-Francis G. Schutt,Arlington,1874,5,1875,5,O'Leary (2012) p.11,(No returns)
-William A. Rowe,Jefferson,1874,5,1875,5,O'Leary (2012) p.11,
-Gilbert Vandenberg,Washington,1874,5,1875,5,O'Leary (2012) p.11,
-Francis G. Schutt,Arlington,1875,5,1877,5,O'Leary (2012) p.12,(No returns.)
-William A. Rowe,Jefferson,1875,5,1877,5,O'Leary (2012) p.12,
-Gilbert Vandenberg,Washington,1875,5,1877,5,O'Leary (2012) p.12,
-William H. Robinson,Arlington,1877,5,1879,5,O'Leary (2012) p.13,
-William A. Rowe,Jefferson,1877,5,1879,5,O'Leary (2012) p.13,
-Charles W. Payne,Washington,1877,5,1879,5,O'Leary (2012) p.13,
-William A. Rowe,Arlington,1879,5,1881,5,O'Leary (2012) p.14,
-Travis B. Pinn,Jefferson,1879,5,1881,5,O'Leary (2012) p.14,
-Francis G. Schutt,Washington,1879,5,1881,5,O'Leary (2012) p.14,
-William A. Rowe,Arlington,1881,5,1883,5,O'Leary (2012) p.14,
-Travis B. Pinn,Jefferson,1881,5,1883,5,O'Leary (2012) p.14,
-Christopher Costello,Washington,1881,5,1883,5,O'Leary (2012) p.14,
-Perkins W. Squier,Arlington,1883,5,1885,5,O'Leary (2012) p.15,
-John W. Pendleton,Jefferson,1883,5,1885,5,O'Leary (2012) p.15,
-Christopher Costello,Washington,1883,5,1885,5,O'Leary (2012) p.15,
-George W. Veitch,Arlington,1885,5,1887,5,O'Leary (2012) p.16,
-Richard W. Johnston,Jefferson,1885,5,1887,5,O'Leary (2012) p.16,
-John D. Payne,Washington,1885,5,1887,5,O'Leary (2012) p.16,
-Horatio Ball,Arlington,1887,5,1889,5,O'Leary (2012) p.17,
-Tibbett Allen,Jefferson,1887,5,1889,5,O'Leary (2012) p.17,
-A. B. Grunwell,Washington,1887,5,1889,5,O'Leary (2012) p.17,
-Frederick S. Corbett,Arlington,1889,5,1891,5,O'Leary (2012) p.18,
-Frank Hume,Jefferson,1889,5,1891,5,O'Leary (2012) p.18,
-Walter G. Willson,Washington,1889,5,1891,5,O'Leary (2012) p.18,
-Millard F. Birth,Arlington,1891,5,1893,5,O'Leary (2012) p.18,
-Frank Hume,Jefferson,1891,5,1893,5,O'Leary (2012) p.18,
-Walter G. Willson,Washington,1891,5,1893,5,O'Leary (2012) p.18,
-John W. Clark,Arlington,1893,5,1895,5,O'Leary (2012) p.19,
-Frank Hume,Jefferson,1893,5,1895,5,O'Leary (2012) p.19,
-R. Henry Phillips,Washington,1893,5,1895,5,O'Leary (2012) p.19,
-Frederick S. Corbett,Arlington,1895,5,1897,5,O'Leary (2012) p.20,
-William Duncan,Jefferson,1895,5,1897,5,O'Leary (2012) p.20,
-A. B. Grunwell,Washington,1895,5,1897,5,O'Leary (2012) p.20,
-"A. D. Torreyson elected, but successfully contested by Frederick S. Corbett in Oct.",Arlington,1897,5,1899,5,O'Leary (2012) p.20,
-William Duncan,Jefferson,1897,5,1899,5,O'Leary (2012) p.20,
-A. B. Grunwell,Washington,1897,5,1899,5,O'Leary (2012) p.20,
-Frederick S. Corbett,Arlington,1899,5,1901,5,O'Leary (2012) p.21,
-D. N. Rust,Jefferson,1899,5,1901,5,O'Leary (2012) p.21,
-George N. Saegmulller,Washington,1899,5,1901,5,O'Leary (2012) p.21,
-Rezin W. Darbey,Arlington,1901,5,1903,11,O'Leary (2012) p.22,
-William Duncan,Jefferson,1901,5,1903,11,O'Leary (2012) p.22,
-Christopher J. Costello,Washington,1901,5,1903,11,O'Leary (2012) p.22,
-W.W. Douglas,Arlington,1903,11,1907,11,O'Leary (2012) p.23,
-D. N. Rust,Jefferson,1903,11,1907,11,O'Leary (2012) p.23,
-W. N. Febrey County,Washington,1903,11,1907,11,O'Leary (2012) p.23,
-Corbett,Arlington,1907,11,1915,11,O'Leary (2012) p.25,contested; votes as printed: Corbett 213 Hagen 189
-E. Duncan,Jefferson,1907,11,1915,11,O'Leary (2012) p.25,contested; votes as printed: E. Duncan 61 Varney 59 Walker 41
-W.M. Febrey,Washington,1907,11,1915,11,O'Leary (2012) p.25,contested; votes as printed: W.M. Febrey 98 J.W. Donaldson 73 E.J. Costello 22
-Wibirt,Arlington,1915,11,,,O'Leary (2012) p.27,contested; votes as printed: Wibirt 99 Hall 35 McShea 24 Robinson 4
-Duncan,Jefferson,1915,11,,,O'Leary (2012) p.27,contested; votes as printed: Duncan 181 Hopkins 93
-Walker,Washington,1915,11,,,O'Leary (2012) p.27,contested; votes as printed: Weaver 191 Walker 249
-Elizabeth B. Magruder,at large,1932,1,1947,12,Novack (1994) p.5,"(Served as Chairman in 1938, 1940 and 1947;"
-"Fred A. Gosnell, Sr",at large,1932,1,1933,12,Novack (1994) p.4,"(Resigned on Dec. 11, 1933)"
-Harry A. Fellows,at large,1932,1,1935,12,Novack (1994) p.3,(Served as Chairman in 1932-1933)
-John C. Gall,at large,1932,1,1933,12,Novack (1994) p.4,"(Resigned on May 31, 1933)"
-Lyman M. Kelley,at large,1932,1,1934,12,Novack (1994) p.4,"(Served as Chairman in 1934); (Removed by court order on Nov. 3, 1934)"
-B. M. Smith,at large,1933,1,1935,12,Novack (1994) p.6,"(Appointed on June 1, 1933); (Served as Chairman from Nov. 8, 1934 to Dec. 31, 1935 -Acting Chairman)"
-Christopher B. Garnett,at large,1933,1,1935,12,Novack (1994) p.4,"(Appointed on Dec. 11, 1933)"
-W. A. E. McShea,at large,1934,1,1939,12,Novack (1994) p.5,"(Appointed on Nov. 8, 1934); (Served as Chairman in 1937)"
-F. Freeland Chew,at large,1936,1,1951,12,Novack (1994) p.2,"(Served as Chairman in 1939, 1941 and 1945)"
-George M. Yeatman,at large,1936,1,1939,12,Novack (1994) p.6,"(Served as Chairman in 1936) 66 has been an active member of the Arlington Historical Society since 1984. degree in Public Policy and Management), his work experience in executive management in the public sector, and his long-standing interest in twentieth- century history, he first became interested in documenting the history of the Arlington County Board in 1987 and hopes that this listing will become the framework for a more comprehensive publication of biographical histories of Arlington County Board members. He has previously written a chronology of 'Twentieth Century History of Arlington,' published in the Arlington His- torical Magazine in 1990 (vol. 9, no. 2). 1See Robert Nelson Anderson, 'Arlington Adopts the County Manager Form of Government,' Arlington Historical Magazine, 1958, Vol. 1, No. 2, pp. 52-66, for a detailed history of the circumstances leading to the decision for Arlington to change to this form of government. 2Sources for this roster include 'County Officials in Arlington, 1870-1960,' Arlington Historical Maga- zine, 1967, Vol. 3, No. 3, pp.36-50; and unpublished vertical file material in the collection of the Arlington Central Library, Virginia Room. 67"
-W. P. Ames,at large,1936,1,1939,12,Novack (1994) p.2,
-Basil M. DeLashmutt,at large,1940,1,1949,12,Novack (1994) p.3,"(Served as Chairman in 1943, March-Decem- ber 1947, and 1949)"
-Edmund D. Campbell,at large,1940,1,1946,12,Novack (1994) p.2,(Served as Chairman in 1942 and 1946)
-Leo C. Lloyd,at large,1940,1,1947,12,Novack (1994) p.5,"(Served as Chairman in 1944); (Died in office on Nov. 3, 1947)"
-Alfred E. Frisbie,at large,1947,1,1952,12,Novack (1994) p.4,"(Appointed on Nov. 26, 1947); (Served as Chairman in September-December, 1952)"
-Daniel A. Dugan,at large,1947,1,1952,12,Novack (1994) p.3,"(Served as Chairman in 1948 and 1950); (Removed from office on Sept. 17, 1952 under a ruling of the Virginia Supreme Court of Appeals that the exemption of members of the Arlington County Board from the prohibi- tion against Federal employees holding office in Virginia had been granted by an unconstitu- tional statute.)"
-Harry W. Cuppett,at large,1947,1,1947,12,Novack (1994) p.3,"(Appointed on May 17, 1947)"
-Florence Cannon,at large,1948,1,1951,12,Novack (1994) p.2,(Served as Chairman in 1951)
-RobertW. Cox,at large,1950,1,1952,12,Novack (1994) p.2,"(Served as Chairman in 1952); (Removed from office on Sept. 17, 1952, under a ruling of the Virginia Supreme Court of Appeals that the exemption of members of the Arlington County Board from the prohibi- tion against federal employees holding office in Virginia had been granted by an unconstitu- tional statute.) 62"
-Alan L. Dean,at large,1952,1,1952,12,Novack (1994) p.3,"(Removed from office on Sept. 17, 1952 under a ruling of the Virginia Supreme Court of Appeals that the exemption of members of the Arlington County Board from the prohibi- tion against Federal employees holding office in Virginia had been granted by an unconsti- tutional statute.)"
-Alvin F. Kimel,at large,1952,1,1955,12,Novack (1994) p.4,"(Elected to fill unexpired term on Nov. 10, 1952)"
-Howard R. Massey,at large,1952,1,1952,12,Novack (1994) p.5,"(Appointed on Sept. 18, 1952 to fill vacancy until filled by election on Nov. 10, 1952.)"
-John A. Tillema,at large,1952,1,1952,12,Novack (1994) p.6,"(Appointed on Sept. 18, 1952 to fill vacancy until filled by election on Nov. 10, 1952.)"
-Leone B. Buchholz,at large,1952,1,1958,12,Novack (1994) p.2,"(Elected to filled unexpired term on Nov. 10, 1952); (Served as Chairman in 1954)"
-M. Rex Byrne,at large,1952,1,1952,12,Novack (1994) p.2,"(Appointed on Sept. 18, 1952, to fill vacancy until filled by election on Nov. 10, 1952.)"
-Robert A. Peck,at large,1952,1,1955,12,Novack (1994) p.5,(Served as Chairman in 1953)
-Robert H. Detwiler,at large,1952,1,1953,12,Novack (1994) p.3,"(Elected to fill unexpired term on Nov. 11, 1952)"
-"George M. Rowzee, Jr",at large,1953,1,1956,12,Novack (1994) p.6,(Served as Chairman in 1955)
-Wesley W. Cooper,at large,1954,1,1957,12,Novack (1994) p.2,(Served as Chairman in 1956 and 1957)
-DavidL. Krupsaw,at large,1956,1,1960,12,Novack (1994) p.4,"(Served as Chairman in 1959); (Died in office on Jan. 21, 1960) 64"
-Ralph Kaul,at large,1956,1,1963,12,Novack (1994) p.4,(Served as Chairman in 1958)
-Lucas H. Blevins,at large,1957,1,1960,12,Novack (1994) p.2,
-"HerbertL. Brown, Jr",at large,1958,1,1961,12,Novack (1994) p.2,(Served as Chairman in 1960)
-"Leo Urbanske, Jr",at large,1959,1,1966,12,Novack (1994) p.6,(Served as Chairman in 1961 and 1966)
-Ernest D. Wilt,at large,1960,1,1963,12,Novack (1994) p.6,"(Appointed on Jan. 29, 1960); (Served as Chairman in 1962)"
-Thomas W. Richards,at large,1961,1,1968,12,Novack (1994) p.6,"(Served as Chairman in 1963 and 1968); (Appointed in 1975 to fill the unexpired term of Joseph L. Fisher, who had been elected to the U.S. House of Representatives.); (Only Board member to serve in two non- continuous time periods)"
-Roye L. Lowry,at large,1962,1,1965,12,Novack (1994) p.5,(Served as Chairman in 1964)
-Joseph L. Fisher,at large,1963,1,1974,12,Novack (1994) p.3,(Served as Chairman in 1963 and 1971); (Served as Vice Chairman in 1968); (Resigned following his election to the U.S. 63
-Harold J. Casto,at large,1964,1,1967,12,Novack (1994) p.2,(Served as Chairman in 1967)
-Dr. Kenneth M. Haggerty,at large,1966,1,1973,12,Novack (1994) p.4,(Served as Chairman in 1969); (Served as Vice Chairman in 1967)
-Ned R. Thomas,at large,1967,1,1970,12,Novack (1994) p.6,(Served as Chairman in 1970); (Served as Vice Chairman in 1969)
-Jay E. Ricks,at large,1968,1,1971,12,Novack (1994) p.6,(Served as Vice Chairman in 1971)
-A. Leslie Phillips,at large,1969,1,1972,12,Novack (1994) p.5,(Served as Vice Chairman in 1970) 65
-Joseph S. Wholey,at large,1971,1,1978,12,Novack (1994) p.6,"(Served as Chairman in 1972, 1974 and 1977); (Served as Vice Chairman in 1976)"
-Everard Munsey,at large,1972,1,1975,12,Novack (1994) p.5,(Served as Chairman in 1973); (Served as Vice Chairman in 1972)
-John Purdy,at large,1973,1,1980,12,Novack (1994) p.5,(Served as Chairman in 1975 and 1978); (Served as Vice Chairman in 1973 and 1977)
-Ellen Bozman,at large,1974,1,,,Novack (1994) p.2,still serving at publication in 1994
-Thomas W. Richards,at large,1975,1,1975,12,Novack (1994) p.6,"(Served as Chairman in 1963 and 1968); (Appointed in 1975 to fill the unexpired term of Joseph L. Fisher, who had been elected to the U.S. House of Representatives.); (Only Board member to serve in two non- continuous time periods)"
-Dorothy Grotos,at large,1976,1,1983,12,Novack (1994) p.4,(Served as Chainnan in 1979); (Served as Vice Chairman in 1981 and 1982)
-Walter Frankland,at large,1976,1,1983,12,Novack (1994) p.4,(Served as Chairman in 1980); (Served as Vice Chairman in 1979)
-Stephen Detwiler,at large,1979,1,1982,12,Novack (1994) p.3,(Served as Chairman in 1981 and 1982); (Served as Vice Chairman in 1980)
-John G. Milliken,at large,1981,2,1990,12,Novack (1994) p.5,"(Served as Chairman in 1985 and 1988); (Served as Vice Chairman in 1983, 1984 and 1987); (Resigned in February 1990 following his appointment as Secretary of Transportation of the Commonwealth of Virginia)"
-Mary Margaret Whipple,at large,1983,1,,,Novack (1994) p.6,still serving at publication in 1994
-Albert C. Eisenberg,at large,1984,1,,,Novack (1994) p.3,still serving at publication in 1994
-Michael E. Brunner,at large,1984,1,1987,12,Novack (1994) p.2,
-"William T. Newman, Jr",at large,1988,3,1993,12,Novack (1994) p.5,(Served as Chairman in 1991); (Served as Vice Chairman in 1990); (Resigned in March 1993 following his appointment as a Circuit Judge)
-James B. Hunter III,at large,1990,5,,,Novack (1994) p.4,still serving at publication in 1994
-"Benjamin H. Winslow, Jr",at large,1993,4,,,Novack (1994) p.6,still serving at publication in 1994
+name,term_number,district,start_year,start_month,end_year,end_month,end_status,source,note
+H. Dwight Smith,1,Arlington,1870,5,1871,5,recorded,O'Leary (2012) p.9,(No returns.)
+Storm V. Boyd,1,Jefferson,1870,5,1870,9,recorded,O'Leary (2012) p.9,(Replaced by Roach in Sept.)
+Charles W. Payne,1,Washington,1870,5,1871,5,recorded,O'Leary (2012) p.9,
+Roach,1,Jefferson,1870,9,1871,5,recorded,O'Leary (2012) p.9,took the seat mid-term; (Replaced by Roach in Sept.)
+H. Dwight Smith,2,Arlington,1871,5,1872,5,recorded,O'Leary (2012) p.9,(No returns.)
+William A. Rowe,1,Jefferson,1871,5,1872,5,recorded,O'Leary (2012) p.9,
+Edward Deeble,1,Washington,1871,5,1872,5,recorded,O'Leary (2012) p.9,
+John B. Syphax,1,Arlington,1872,5,1872,12,recorded,O'Leary (2012) p.10,"(Replaced by H. Dwight Smith in Dec.; replaced by Lott W. Crocker in March 1873, replaced by Francis D. Schutt in April, )"
+William A. Rowe,2,Jefferson,1872,5,1873,5,recorded,O'Leary (2012) p.10,
+Henry W. Febrey,1,Washington,1872,5,1873,5,recorded,O'Leary (2012) p.10,
+H. Dwight Smith,3,Arlington,1872,12,1873,3,recorded,O'Leary (2012) p.10,"took the seat mid-term; (Replaced by H. Dwight Smith in Dec.; replaced by Lott W. Crocker in March 1873, replaced by Francis D. Schutt in April, )"
+Lott W. Crocker,1,Arlington,1873,3,1873,4,recorded,O'Leary (2012) p.10,"took the seat mid-term; (Replaced by H. Dwight Smith in Dec.; replaced by Lott W. Crocker in March 1873, replaced by Francis D. Schutt in April, )"
+Francis D. Schutt,1,Arlington,1873,4,1873,5,recorded,O'Leary (2012) p.10,"took the seat mid-term; (Replaced by H. Dwight Smith in Dec.; replaced by Lott W. Crocker in March 1873, replaced by Francis D. Schutt in April, )"
+Francis D. Schutt,2,Arlington,1873,5,1874,5,recorded,O'Leary (2012) p.10,
+William A. Rowe,3,Jefferson,1873,5,1874,5,recorded,O'Leary (2012) p.10,
+Samuel Titus,1,Washington,1873,12,1874,5,recorded,O'Leary (2012) p.10,Samuel Titus appointed in Dec.
+Francis G. Schutt,1,Arlington,1874,5,1875,5,recorded,O'Leary (2012) p.11,(No returns)
+William A. Rowe,4,Jefferson,1874,5,1875,5,recorded,O'Leary (2012) p.11,
+Gilbert Vandenberg,1,Washington,1874,5,1875,5,recorded,O'Leary (2012) p.11,
+Francis G. Schutt,2,Arlington,1875,5,1877,5,recorded,O'Leary (2012) p.12,(No returns.)
+William A. Rowe,5,Jefferson,1875,5,1877,5,recorded,O'Leary (2012) p.12,
+Gilbert Vandenberg,2,Washington,1875,5,1877,5,recorded,O'Leary (2012) p.12,
+William H. Robinson,1,Arlington,1877,5,1879,5,recorded,O'Leary (2012) p.13,
+William A. Rowe,6,Jefferson,1877,5,1879,5,recorded,O'Leary (2012) p.13,
+Charles W. Payne,2,Washington,1877,5,1879,5,recorded,O'Leary (2012) p.13,
+William A. Rowe,7,Arlington,1879,5,1881,5,recorded,O'Leary (2012) p.14,
+Travis B. Pinn,1,Jefferson,1879,5,1881,5,recorded,O'Leary (2012) p.14,
+Francis G. Schutt,3,Washington,1879,5,1881,5,recorded,O'Leary (2012) p.14,
+William A. Rowe,8,Arlington,1881,5,1883,5,recorded,O'Leary (2012) p.14,
+Travis B. Pinn,2,Jefferson,1881,5,1883,5,recorded,O'Leary (2012) p.14,
+Christopher Costello,1,Washington,1881,5,1883,5,recorded,O'Leary (2012) p.14,
+Perkins W. Squier,1,Arlington,1883,5,1885,5,recorded,O'Leary (2012) p.15,
+John W. Pendleton,1,Jefferson,1883,5,1885,5,recorded,O'Leary (2012) p.15,
+Christopher Costello,2,Washington,1883,5,1885,5,recorded,O'Leary (2012) p.15,
+George W. Veitch,1,Arlington,1885,5,1887,5,recorded,O'Leary (2012) p.16,
+Richard W. Johnston,1,Jefferson,1885,5,1887,5,recorded,O'Leary (2012) p.16,
+John D. Payne,1,Washington,1885,5,1887,5,recorded,O'Leary (2012) p.16,
+Horatio Ball,1,Arlington,1887,5,1889,5,recorded,O'Leary (2012) p.17,
+Tibbett Allen,1,Jefferson,1887,5,1889,5,recorded,O'Leary (2012) p.17,
+A. B. Grunwell,1,Washington,1887,5,1889,5,recorded,O'Leary (2012) p.17,
+Frederick S. Corbett,1,Arlington,1889,5,1891,5,recorded,O'Leary (2012) p.18,
+Frank Hume,1,Jefferson,1889,5,1891,5,recorded,O'Leary (2012) p.18,
+Walter G. Willson,1,Washington,1889,5,1891,5,recorded,O'Leary (2012) p.18,
+Millard F. Birth,1,Arlington,1891,5,1893,5,recorded,O'Leary (2012) p.18,
+Frank Hume,2,Jefferson,1891,5,1893,5,recorded,O'Leary (2012) p.18,
+Walter G. Willson,2,Washington,1891,5,1893,5,recorded,O'Leary (2012) p.18,
+John W. Clark,1,Arlington,1893,5,1895,5,recorded,O'Leary (2012) p.19,
+Frank Hume,3,Jefferson,1893,5,1895,5,recorded,O'Leary (2012) p.19,
+R. Henry Phillips,1,Washington,1893,5,1895,5,recorded,O'Leary (2012) p.19,
+Frederick S. Corbett,2,Arlington,1895,5,1897,5,recorded,O'Leary (2012) p.20,
+William Duncan,1,Jefferson,1895,5,1897,5,recorded,O'Leary (2012) p.20,
+A. B. Grunwell,2,Washington,1895,5,1897,5,recorded,O'Leary (2012) p.20,
+"A. D. Torreyson elected, but successfully contested by Frederick S. Corbett in Oct.",1,Arlington,1897,5,1899,5,recorded,O'Leary (2012) p.20,
+William Duncan,2,Jefferson,1897,5,1899,5,recorded,O'Leary (2012) p.20,
+A. B. Grunwell,3,Washington,1897,5,1899,5,recorded,O'Leary (2012) p.20,
+Frederick S. Corbett,3,Arlington,1899,5,1901,5,recorded,O'Leary (2012) p.21,
+D. N. Rust,1,Jefferson,1899,5,1901,5,recorded,O'Leary (2012) p.21,
+George N. Saegmulller,1,Washington,1899,5,1901,5,recorded,O'Leary (2012) p.21,
+Rezin W. Darbey,1,Arlington,1901,5,1903,11,recorded,O'Leary (2012) p.22,
+William Duncan,3,Jefferson,1901,5,1903,11,recorded,O'Leary (2012) p.22,
+Christopher J. Costello,1,Washington,1901,5,1903,11,recorded,O'Leary (2012) p.22,
+W.W. Douglas,1,Arlington,1903,11,1907,11,recorded,O'Leary (2012) p.23,
+D. N. Rust,2,Jefferson,1903,11,1907,11,recorded,O'Leary (2012) p.23,
+W. N. Febrey County,1,Washington,1903,11,1907,11,recorded,O'Leary (2012) p.23,
+Corbett,1,Arlington,1907,11,1915,11,recorded,O'Leary (2012) p.25,contested; votes as printed: Corbett 213 Hagen 189
+E. Duncan,1,Jefferson,1907,11,1915,11,recorded,O'Leary (2012) p.25,contested; votes as printed: E. Duncan 61 Varney 59 Walker 41
+W.M. Febrey,1,Washington,1907,11,1915,11,recorded,O'Leary (2012) p.25,contested; votes as printed: W.M. Febrey 98 J.W. Donaldson 73 E.J. Costello 22
+Wibirt,1,Arlington,1915,11,,,not recorded,O'Leary (2012) p.27,end of service not recorded; O'Leary's listings stop at 1915; contested; votes as printed: Wibirt 99 Hall 35 McShea 24 Robinson 4
+Duncan,1,Jefferson,1915,11,,,not recorded,O'Leary (2012) p.27,end of service not recorded; O'Leary's listings stop at 1915; contested; votes as printed: Duncan 181 Hopkins 93
+Walker,1,Washington,1915,11,,,not recorded,O'Leary (2012) p.27,end of service not recorded; O'Leary's listings stop at 1915; contested; votes as printed: Weaver 191 Walker 249
+Elizabeth B. Magruder,1,at large,1932,1,1935,12,recorded,Novack (1994) p.5; term boundaries from Arlington County (2021),"(Served as Chairman in 1938, 1940 and 1947;"
+"Fred A. Gosnell, Sr",1,at large,1932,1,1933,12,recorded,Novack (1994) p.4,"(Resigned on Dec. 11, 1933)"
+Harry A. Fellows,1,at large,1932,1,1935,12,recorded,Novack (1994) p.3,(Served as Chairman in 1932-1933)
+John C. Gall,1,at large,1932,1,1933,12,recorded,Novack (1994) p.4,"(Resigned on May 31, 1933)"
+Lyman M. Kelley,1,at large,1932,1,1934,12,recorded,Novack (1994) p.4,"(Served as Chairman in 1934); (Removed by court order on Nov. 3, 1934)"
+B. M. Smith,1,at large,1933,1,1935,12,recorded,Novack (1994) p.6,"(Appointed on June 1, 1933); (Served as Chairman from Nov. 8, 1934 to Dec. 31, 1935 -Acting Chairman)"
+Christopher B. Garnett,1,at large,1933,1,1935,12,recorded,Novack (1994) p.4,"(Appointed on Dec. 11, 1933)"
+W. A. E. McShea,1,at large,1934,1,1935,12,recorded,Novack (1994) p.5; term boundaries from Arlington County (2021),"(Appointed on Nov. 8, 1934); (Served as Chairman in 1937)"
+Elizabeth B. Magruder,2,at large,1936,1,1939,12,recorded,Novack (1994) p.5; term boundaries from Arlington County (2021),re-elected
+F. Freeland Chew,1,at large,1936,1,1939,12,recorded,Novack (1994) p.2; term boundaries from Arlington County (2021),"(Served as Chairman in 1939, 1941 and 1945)"
+George M. Yeatman,1,at large,1936,1,1939,12,recorded,Novack (1994) p.6,"(Served as Chairman in 1936) 66 has been an active member of the Arlington Historical Society since 1984. degree in Public Policy and Management), his work experience in executive management in the public sector, and his long-standing interest in twentieth- century history, he first became interested in documenting the history of the Arlington County Board in 1987 and hopes that this listing will become the framework for a more comprehensive publication of biographical histories of Arlington County Board members. He has previously written a chronology of 'Twentieth Century History of Arlington,' published in the Arlington His- torical Magazine in 1990 (vol. 9, no. 2). 1See Robert Nelson Anderson, 'Arlington Adopts the County Manager Form of Government,' Arlington Historical Magazine, 1958, Vol. 1, No. 2, pp. 52-66, for a detailed history of the circumstances leading to the decision for Arlington to change to this form of government. 2Sources for this roster include 'County Officials in Arlington, 1870-1960,' Arlington Historical Maga- zine, 1967, Vol. 3, No. 3, pp.36-50; and unpublished vertical file material in the collection of the Arlington Central Library, Virginia Room. 67"
+W. A. E. McShea,2,at large,1936,1,1939,12,recorded,Novack (1994) p.5; term boundaries from Arlington County (2021),re-elected
+W. P. Ames,1,at large,1936,1,1939,12,recorded,Novack (1994) p.2,
+Basil M. DeLashmutt,1,at large,1940,1,1941,12,recorded,Novack (1994) p.3; term boundaries from Arlington County (2021),"(Served as Chairman in 1943, March-Decem- ber 1947, and 1949)"
+Edmund D. Campbell,1,at large,1940,1,1942,12,recorded,Novack (1994) p.2; term boundaries from Arlington County (2021),(Served as Chairman in 1942 and 1946)
+Elizabeth B. Magruder,3,at large,1940,1,1943,12,recorded,Novack (1994) p.5; term boundaries from Arlington County (2021),re-elected
+F. Freeland Chew,2,at large,1940,1,1943,12,recorded,Novack (1994) p.2; term boundaries from Arlington County (2021),re-elected
+Leo C. Lloyd,1,at large,1940,1,1940,12,recorded,Novack (1994) p.5; term boundaries from Arlington County (2021),"(Served as Chairman in 1944); (Died in office on Nov. 3, 1947)"
+Leo C. Lloyd,2,at large,1941,1,1944,12,recorded,Novack (1994) p.5; term boundaries from Arlington County (2021),re-elected
+Basil M. DeLashmutt,2,at large,1942,1,1945,12,recorded,Novack (1994) p.3; term boundaries from Arlington County (2021),re-elected
+Edmund D. Campbell,2,at large,1943,1,1946,12,recorded,Novack (1994) p.2; term boundaries from Arlington County (2021),re-elected
+Elizabeth B. Magruder,4,at large,1944,1,1947,12,recorded,Novack (1994) p.5; term boundaries from Arlington County (2021),re-elected
+F. Freeland Chew,3,at large,1944,1,1947,12,recorded,Novack (1994) p.2; term boundaries from Arlington County (2021),re-elected
+Leo C. Lloyd,3,at large,1945,1,1947,12,recorded,Novack (1994) p.5; term boundaries from Arlington County (2021),re-elected
+Basil M. DeLashmutt,3,at large,1946,1,1949,12,recorded,Novack (1994) p.3; term boundaries from Arlington County (2021),re-elected
+Alfred E. Frisbie,1,at large,1947,1,1947,12,recorded,Novack (1994) p.4; term boundaries from Arlington County (2021),"(Appointed on Nov. 26, 1947); (Served as Chairman in September-December, 1952)"
+Daniel A. Dugan,1,at large,1947,1,1950,12,recorded,Novack (1994) p.3; term boundaries from Arlington County (2021),"(Served as Chairman in 1948 and 1950); (Removed from office on Sept. 17, 1952 under a ruling of the Virginia Supreme Court of Appeals that the exemption of members of the Arlington County Board from the prohibi- tion against Federal employees holding office in Virginia had been granted by an unconstitu- tional statute.)"
+Harry W. Cuppett,1,at large,1947,1,1947,12,recorded,Novack (1994) p.3,"(Appointed on May 17, 1947)"
+Alfred E. Frisbie,2,at large,1948,1,1948,12,recorded,Novack (1994) p.4; term boundaries from Arlington County (2021),re-elected
+F. Freeland Chew,4,at large,1948,1,1951,12,recorded,Novack (1994) p.2; term boundaries from Arlington County (2021),re-elected
+Florence Cannon,1,at large,1948,1,1951,12,recorded,Novack (1994) p.2,(Served as Chairman in 1951)
+Alfred E. Frisbie,3,at large,1949,1,1952,12,recorded,Novack (1994) p.4; term boundaries from Arlington County (2021),re-elected
+RobertW. Cox,1,at large,1950,1,1952,12,recorded,Novack (1994) p.2,"(Served as Chairman in 1952); (Removed from office on Sept. 17, 1952, under a ruling of the Virginia Supreme Court of Appeals that the exemption of members of the Arlington County Board from the prohibi- tion against federal employees holding office in Virginia had been granted by an unconstitu- tional statute.) 62"
+Daniel A. Dugan,2,at large,1951,1,1952,12,recorded,Novack (1994) p.3; term boundaries from Arlington County (2021),re-elected
+Alan L. Dean,1,at large,1952,1,1952,12,recorded,Novack (1994) p.3,"(Removed from office on Sept. 17, 1952 under a ruling of the Virginia Supreme Court of Appeals that the exemption of members of the Arlington County Board from the prohibi- tion against Federal employees holding office in Virginia had been granted by an unconsti- tutional statute.)"
+Alvin F. Kimel,1,at large,1952,1,1955,12,recorded,Novack (1994) p.4,"(Elected to fill unexpired term on Nov. 10, 1952)"
+Howard R. Massey,1,at large,1952,1,1952,12,recorded,Novack (1994) p.5,"(Appointed on Sept. 18, 1952 to fill vacancy until filled by election on Nov. 10, 1952.)"
+John A. Tillema,1,at large,1952,1,1952,12,recorded,Novack (1994) p.6,"(Appointed on Sept. 18, 1952 to fill vacancy until filled by election on Nov. 10, 1952.)"
+Leone B. Buchholz,1,at large,1952,1,1952,12,recorded,Novack (1994) p.2; term boundaries from Arlington County (2021),"(Elected to filled unexpired term on Nov. 10, 1952); (Served as Chairman in 1954)"
+M. Rex Byrne,1,at large,1952,1,1952,12,recorded,Novack (1994) p.2,"(Appointed on Sept. 18, 1952, to fill vacancy until filled by election on Nov. 10, 1952.)"
+Robert A. Peck,1,at large,1952,1,1955,12,recorded,Novack (1994) p.5,(Served as Chairman in 1953)
+Robert H. Detwiler,1,at large,1952,1,1953,12,recorded,Novack (1994) p.3,"(Elected to fill unexpired term on Nov. 11, 1952)"
+"George M. Rowzee, Jr",1,at large,1953,1,1956,12,recorded,Novack (1994) p.6,(Served as Chairman in 1955)
+Leone B. Buchholz,2,at large,1953,1,1954,12,recorded,Novack (1994) p.2; term boundaries from Arlington County (2021),re-elected
+Wesley W. Cooper,1,at large,1954,1,1957,12,recorded,Novack (1994) p.2,(Served as Chairman in 1956 and 1957)
+Leone B. Buchholz,3,at large,1955,1,1958,12,recorded,Novack (1994) p.2; term boundaries from Arlington County (2021),re-elected
+DavidL. Krupsaw,1,at large,1956,1,1959,12,recorded,Novack (1994) p.4; term boundaries from Arlington County (2021),"(Served as Chairman in 1959); (Died in office on Jan. 21, 1960) 64"
+Ralph Kaul,1,at large,1956,1,1959,12,recorded,Novack (1994) p.4; term boundaries from Arlington County (2021),(Served as Chairman in 1958)
+Lucas H. Blevins,1,at large,1957,1,1960,12,recorded,Novack (1994) p.2,
+"HerbertL. Brown, Jr",1,at large,1958,1,1961,12,recorded,Novack (1994) p.2,(Served as Chairman in 1960)
+"Leo Urbanske, Jr",1,at large,1959,1,1962,12,recorded,Novack (1994) p.6; term boundaries from Arlington County (2021),(Served as Chairman in 1961 and 1966)
+DavidL. Krupsaw,2,at large,1960,1,1960,12,recorded,Novack (1994) p.4; term boundaries from Arlington County (2021),re-elected
+Ernest D. Wilt,1,at large,1960,1,1960,12,recorded,Novack (1994) p.6; term boundaries from Arlington County (2021),"(Appointed on Jan. 29, 1960); (Served as Chairman in 1962)"
+Ralph Kaul,2,at large,1960,1,1963,12,recorded,Novack (1994) p.4; term boundaries from Arlington County (2021),re-elected
+Ernest D. Wilt,2,at large,1961,1,1963,12,recorded,Novack (1994) p.6; term boundaries from Arlington County (2021),re-elected
+Thomas W. Richards,1,at large,1961,1,1964,12,recorded,Novack (1994) p.6; term boundaries from Arlington County (2021),"(Served as Chairman in 1963 and 1968); (Appointed in 1975 to fill the unexpired term of Joseph L. Fisher, who had been elected to the U.S. House of Representatives.); (Only Board member to serve in two non- continuous time periods)"
+Roye L. Lowry,1,at large,1962,1,1965,12,recorded,Novack (1994) p.5,(Served as Chairman in 1964)
+Joseph L. Fisher,1,at large,1963,1,1963,12,recorded,Novack (1994) p.3; term boundaries from Arlington County (2021),(Served as Chairman in 1963 and 1971); (Served as Vice Chairman in 1968); (Resigned following his election to the U.S. 63
+"Leo Urbanske, Jr",2,at large,1963,1,1966,12,recorded,Novack (1994) p.6; term boundaries from Arlington County (2021),re-elected
+Harold J. Casto,1,at large,1964,1,1967,12,recorded,Novack (1994) p.2,(Served as Chairman in 1967)
+Joseph L. Fisher,2,at large,1964,1,1967,12,recorded,Novack (1994) p.3; term boundaries from Arlington County (2021),re-elected
+Thomas W. Richards,2,at large,1965,1,1968,12,recorded,Novack (1994) p.6; term boundaries from Arlington County (2021),re-elected
+Dr. Kenneth M. Haggerty,1,at large,1966,1,1969,12,recorded,Novack (1994) p.4; term boundaries from Arlington County (2021),(Served as Chairman in 1969); (Served as Vice Chairman in 1967)
+Ned R. Thomas,1,at large,1967,1,1970,12,recorded,Novack (1994) p.6,(Served as Chairman in 1970); (Served as Vice Chairman in 1969)
+Jay E. Ricks,1,at large,1968,1,1971,12,recorded,Novack (1994) p.6,(Served as Vice Chairman in 1971)
+Joseph L. Fisher,3,at large,1968,1,1971,12,recorded,Novack (1994) p.3; term boundaries from Arlington County (2021),re-elected
+A. Leslie Phillips,1,at large,1969,1,1972,12,recorded,Novack (1994) p.5,(Served as Vice Chairman in 1970) 65
+Dr. Kenneth M. Haggerty,2,at large,1970,1,1973,12,recorded,Novack (1994) p.4; term boundaries from Arlington County (2021),re-elected
+Joseph S. Wholey,1,at large,1971,1,1974,12,recorded,Novack (1994) p.6; term boundaries from Arlington County (2021),"(Served as Chairman in 1972, 1974 and 1977); (Served as Vice Chairman in 1976)"
+Everard Munsey,1,at large,1972,1,1975,12,recorded,Novack (1994) p.5,(Served as Chairman in 1973); (Served as Vice Chairman in 1972)
+Joseph L. Fisher,4,at large,1972,1,1974,12,recorded,Novack (1994) p.3; term boundaries from Arlington County (2021),re-elected
+John Purdy,1,at large,1973,1,1976,12,recorded,Novack (1994) p.5; term boundaries from Arlington County (2021),(Served as Chairman in 1975 and 1978); (Served as Vice Chairman in 1973 and 1977)
+Ellen Bozman,1,at large,1974,1,1977,12,recorded,Novack (1994) p.2; term boundaries from Arlington County (2021),still serving at publication in 1994
+Joseph S. Wholey,2,at large,1975,1,1978,12,recorded,Novack (1994) p.6; term boundaries from Arlington County (2021),re-elected
+Thomas W. Richards,3,at large,1975,1,1975,12,recorded,Novack (1994) p.6,"(Served as Chairman in 1963 and 1968); (Appointed in 1975 to fill the unexpired term of Joseph L. Fisher, who had been elected to the U.S. House of Representatives.); (Only Board member to serve in two non- continuous time periods)"
+Dorothy Grotos,1,at large,1976,1,1979,12,recorded,Novack (1994) p.4; term boundaries from Arlington County (2021),(Served as Chainnan in 1979); (Served as Vice Chairman in 1981 and 1982)
+Walter Frankland,1,at large,1976,1,1979,12,recorded,Novack (1994) p.4; term boundaries from Arlington County (2021),(Served as Chairman in 1980); (Served as Vice Chairman in 1979)
+John Purdy,2,at large,1977,1,1980,12,recorded,Novack (1994) p.5; term boundaries from Arlington County (2021),re-elected
+Ellen Bozman,2,at large,1978,1,1981,12,recorded,Novack (1994) p.2; term boundaries from Arlington County (2021),re-elected
+Stephen Detwiler,1,at large,1979,1,1982,12,recorded,Novack (1994) p.3,(Served as Chairman in 1981 and 1982); (Served as Vice Chairman in 1980)
+Dorothy Grotos,2,at large,1980,1,1983,12,recorded,Novack (1994) p.4; term boundaries from Arlington County (2021),re-elected
+Walter Frankland,2,at large,1980,1,1983,12,recorded,Novack (1994) p.4; term boundaries from Arlington County (2021),re-elected
+John G. Milliken,1,at large,1981,2,1984,12,recorded,Novack (1994) p.5; term boundaries from Arlington County (2021),"(Served as Chairman in 1985 and 1988); (Served as Vice Chairman in 1983, 1984 and 1987); (Resigned in February 1990 following his appointment as Secretary of Transportation of the Commonwealth of Virginia)"
+Ellen Bozman,3,at large,1982,1,1985,12,recorded,Novack (1994) p.2; term boundaries from Arlington County (2021),re-elected
+Mary Margaret Whipple,1,at large,1983,1,1986,12,recorded,Novack (1994) p.6; term boundaries from Arlington County (2021),still serving at publication in 1994
+Albert C. Eisenberg,1,at large,1984,1,1987,12,recorded,Novack (1994) p.3; term boundaries from Arlington County (2021),still serving at publication in 1994
+Michael E. Brunner,1,at large,1984,1,1987,12,recorded,Novack (1994) p.2,
+John G. Milliken,2,at large,1985,1,1988,12,recorded,Novack (1994) p.5; term boundaries from Arlington County (2021),re-elected
+Ellen Bozman,4,at large,1986,1,1993,12,recorded,Novack (1994) p.2; term boundaries from Arlington County (2021),re-elected
+Mary Margaret Whipple,2,at large,1987,1,1990,12,recorded,Novack (1994) p.6; term boundaries from Arlington County (2021),re-elected
+Albert C. Eisenberg,2,at large,1988,1,1991,12,recorded,Novack (1994) p.3; term boundaries from Arlington County (2021),re-elected
+"William T. Newman, Jr",1,at large,1988,3,1991,12,recorded,Novack (1994) p.5; term boundaries from Arlington County (2021),(Served as Chairman in 1991); (Served as Vice Chairman in 1990); (Resigned in March 1993 following his appointment as a Circuit Judge)
+John G. Milliken,3,at large,1989,1,1990,12,recorded,Novack (1994) p.5; term boundaries from Arlington County (2021),re-elected
+James B. Hunter III,1,at large,1990,5,1990,12,recorded,Novack (1994) p.4; term boundaries from Arlington County (2021),still serving at publication in 1994
+James B. Hunter III,2,at large,1991,1,1992,12,recorded,Novack (1994) p.4; term boundaries from Arlington County (2021),re-elected
+Mary Margaret Whipple,3,at large,1991,1,,,still serving at publication,Novack (1994) p.6; term boundaries from Arlington County (2021),re-elected
+Albert C. Eisenberg,3,at large,1992,1,,,still serving at publication,Novack (1994) p.3; term boundaries from Arlington County (2021),re-elected
+"William T. Newman, Jr",2,at large,1992,1,1993,12,recorded,Novack (1994) p.5; term boundaries from Arlington County (2021),re-elected
+James B. Hunter III,3,at large,1993,1,,,still serving at publication,Novack (1994) p.4; term boundaries from Arlington County (2021),re-elected
+"Benjamin H. Winslow, Jr",1,at large,1993,4,,,still serving at publication,Novack (1994) p.6,still serving at publication in 1994
+Ellen Bozman,5,at large,1994,1,,,still serving at publication,Novack (1994) p.2; term boundaries from Arlington County (2021),re-elected

@@ -163,7 +163,23 @@ obituaries.
 ### A roster built from sources
 
 `data/clean/board_roster.csv` holds one row per person per term: name,
-district, and when service began and ended. A term is the natural unit —
+term number, district, and when service began and ended. 171 terms, 101
+people, 1870-1994.
+
+`term_number` counts within a person, so someone appointed to a vacancy who
+then won twice has three rows numbered 1, 2, 3. William A. Rowe has eight,
+including his move from Jefferson district to Arlington at term 7.
+
+Novack records a person once with their whole service compressed into a string
+— "1932-1947" for Elizabeth Magruder — so those spans are split at each
+election the person contested, using the county's candidate history. Magruder
+becomes four terms rather than one block. Members elected in November take
+office the following January.
+
+`end_status` distinguishes three things a blank end can mean: **recorded**,
+**still serving at publication** for the five people still in office when
+Novack wrote in 1994, and **not recorded** for the three whose service runs
+past O'Leary's last listing in 1915. A term is the natural unit —
 person-years fall out of it, while the reverse does not, because a term
 starting in May or ending in February cannot be recovered from a list of
 years.
