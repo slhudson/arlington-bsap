@@ -96,6 +96,27 @@ Five exist. The caveats need to be consistent across whichever ship.
 
 ## Settled
 
+### Q6. One repo, or paper/ split into its own repo?
+**Settled:** 2026-09-22 (Sally) — one repo, revisit later
+
+Overleaf syncs an entire repository; it cannot be scoped to `paper/` and
+`figures/`, contrary to what the handoff assumed. So Overleaf will carry the
+census scans too, and the project starts at 67MB against Overleaf's
+recommended 100MB ceiling.
+
+One repo was chosen because the case being made to Alex is that this setup is
+simpler than emailing files around, and pushing figures across a repo boundary
+would undercut that on day one.
+
+**Revisit when** the repo approaches 100MB — `run.sh` warns at 80MB, so this
+does not depend on anyone remembering. At that point the options are splitting
+`paper/` into its own repo, or downsampling the scans and keeping the
+originals in Drive.
+
+Zipping the scans was measured and rejected: they are already-compressed page
+images, so zip recovers 1-3% (67MB -> 65MB) while making them unbrowsable on
+GitHub and Overleaf and undiffable in git.
+
 ### 1890 county population is 4,596
 **Settled:** 2026-09-22, from the scanned 1890 volumes in `raw/`. An earlier
 working estimate of 4,258 — derived by subtracting a secondary-source city

@@ -25,3 +25,14 @@ for s in "${scripts[@]}"; do
   echo "ok"
 done
 echo "-> figures/ ($(ls figures | wc -l | tr -d ' ') files)"
+
+# Overleaf syncs the WHOLE repo and recommends staying under 100MB. We chose a
+# single repo on that basis, so the choice needs a tripwire rather than a note
+# someone has to remember: warn at 80MB, which is when splitting paper/ into
+# its own repo should be reconsidered. See QUESTIONS.md Q6.
+mb=$(du -sm . --exclude=.venv 2>/dev/null | cut -f1 || du -sm . | cut -f1)
+if [ "$mb" -ge 80 ]; then
+  echo
+  echo "WARNING: repo is ${mb}MB, approaching Overleaf's 100MB ceiling."
+  echo "         Time to revisit the one-repo decision - see QUESTIONS.md Q6."
+fi
