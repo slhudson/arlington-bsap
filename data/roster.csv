@@ -1,0 +1,498 @@
+year,last_name,first_name,middle_name,notes,chair,vice,appointed,resigned,died,removed,woman,white,black,hispanic_latino
+1932,Magruder,Elizabeth,B.,,0,0,0,0,0,0,1,1,0,0
+1932,Fellows,Harry,A., Chairman,1,0,0,0,0,0,0,1,0,0
+1932,Gall,John,C.,,0,0,0,0,0,0,0,1,0,0
+1932,Gosnell,Fred,A., Sr.,0,0,0,0,0,0,0,1,0,0
+1932,Kelley,Lyman,M.,,0,0,0,0,0,0,0,1,0,0
+1933,Magruder,Elizabeth,B.,,0,0,0,0,0,0,1,1,0,0
+1933,Fellows,Harry,A., Chairman,1,0,0,0,0,0,0,1,0,0
+1933,Gall,John,C., – Resigned 5/13/33,0,0,0,1,0,0,0,1,0,0
+1933,Garnett,Christopher,B.,– Appointed 12/11/33,0,0,1,0,0,0,0,1,0,0
+1933,Gosnell,Fred,A.," Sr. ,  Resigned 12/11/33",0,0,0,1,0,0,0,1,0,0
+1933,Kelley,Lyman,M.,,0,0,0,0,0,0,0,1,0,0
+1933,Smith,B.M.,, – Appointed 6/1/33,0,0,1,0,0,0,0,1,0,0
+1934,Magruder,Elizabeth,B.,,0,0,0,0,0,0,1,1,0,0
+1934,Fellows,Harry,A.,,0,0,0,0,0,0,0,1,0,0
+1934,Garnett,Christopher,B.,,0,0,0,0,0,0,0,1,0,0
+1934,Kelley,Lyman,M.," Chairman, Removed 11/3/34",1,0,0,0,0,1,0,1,0,0
+1934,McShea,W.A.E.,, – Appointed 11/8/34,0,0,1,0,0,0,0,1,0,0
+1934,Smith,B.M.,,"Acting chairman, 11/14/34 ",1,0,0,0,0,0,0,1,0,0
+1935,Magruder,Elizabeth,B.,,0,0,0,0,0,0,1,1,0,0
+1935,Fellows,Harry,A.,,0,0,0,0,0,0,0,1,0,0
+1935,Garnett,Christopher,B.,,0,0,0,0,0,0,0,1,0,0
+1935,McShea,W.A.E.,,,0,0,0,0,0,0,0,1,0,0
+1935,Smith,B.M.,, Chairman,1,0,0,0,0,0,0,1,0,0
+1936,Magruder,Elizabeth,B.,,0,0,0,0,0,0,1,1,0,0
+1936,Ames,W.P.,,,0,0,0,0,0,0,0,1,0,0
+1936,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
+1936,McShea,W.A.E.,,,0,0,0,0,0,0,0,1,0,0
+1936,Yeatman,George,M., Chairman,1,0,0,0,0,0,0,1,0,0
+1937,Magruder,Elizabeth,B.,,0,0,0,0,0,0,1,1,0,0
+1937,Ames,W.P.,,,0,0,0,0,0,0,0,1,0,0
+1937,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
+1937,McShea,W.A.E.,, Chairman,1,0,0,0,0,0,0,1,0,0
+1937,Yeatman,George,M.,,0,0,0,0,0,0,0,1,0,0
+1938,Magruder,Elizabeth,B., Chairman,1,0,0,0,0,0,1,1,0,0
+1938,Ames,W.P.,,,0,0,0,0,0,0,0,1,0,0
+1938,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
+1938,McShea,W.A.E.,,,0,0,0,0,0,0,0,1,0,0
+1938,Yeatman,George,M.,,0,0,0,0,0,0,0,1,0,0
+1939,Magruder,Elizabeth,B., Chairman,1,0,0,0,0,0,1,1,0,0
+1939,Campbell,Edmund,D.,,0,0,0,0,0,0,0,1,0,0
+1939,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
+1939,DeLashmutt,Basil,M.,,0,0,0,0,0,0,0,1,0,0
+1939,Lloyd,Leo,C.,,0,0,0,0,0,0,0,1,0,0
+1940,Magruder,Elizabeth,B., Chairman,1,0,0,0,0,0,1,1,0,0
+1940,Campbell,Edmund,D.,,0,0,0,0,0,0,0,1,0,0
+1940,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
+1940,DeLashmutt,Basil,M.,,0,0,0,0,0,0,0,1,0,0
+1940,Lloyd,Leo,C.,,0,0,0,0,0,0,0,1,0,0
+1941,Campbell,Edmund,D.,,0,0,0,0,0,0,0,1,0,0
+1941,Chew,F.,Freeland, Chairman,1,0,0,0,0,0,0,1,0,0
+1941,Magruder,Elizabeth,B.,,0,0,0,0,0,0,1,1,0,0
+1941,DeLashmutt,Basil,M.,,0,0,0,0,0,0,0,1,0,0
+1941,Lloyd,Leo,C.,,0,0,0,0,0,0,0,1,0,0
+1942,Magruder,Elizabeth,B.,,0,0,0,0,0,0,1,1,0,0
+1942,Campbell,Edmund,D., Chairman,1,0,0,0,0,0,0,1,0,0
+1942,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
+1942,DeLashmutt,Basil,M.,,0,0,0,0,0,0,0,1,0,0
+1942,Lloyd,Leo,C.,,0,0,0,0,0,0,0,1,0,0
+1943,Magruder,Elizabeth,B.,,0,0,0,0,0,0,1,1,0,0
+1943,Campbell,Edmund,D.,,0,0,0,0,0,0,0,1,0,0
+1943,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
+1943,DeLashmutt,Basil,M., Chairman,1,0,0,0,0,0,0,1,0,0
+1943,Lloyd,Leo,C.,,0,0,0,0,0,0,0,1,0,0
+1944,Magruder,Elizabeth,B.,,0,0,0,0,0,0,1,1,0,0
+1944,Campbell,Edmund,D.,,0,0,0,0,0,0,0,1,0,0
+1944,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
+1944,DeLashmutt,Basil,M.,,0,0,0,0,0,0,0,1,0,0
+1944,Lloyd,Leo,C., Chairman,1,0,0,0,0,0,0,1,0,0
+1945,Magruder,Elizabeth,B.,,0,0,0,0,0,0,1,1,0,0
+1945,Campbell,Edmund,D.,,0,0,0,0,0,0,0,1,0,0
+1945,Chew,F.,Freeland, Chairman,1,0,0,0,0,0,0,1,0,0
+1945,Delashmutt,Basil,M.,,0,0,0,0,0,0,0,1,0,0
+1945,Lloyd,Leo,C.,,0,0,0,0,0,0,0,1,0,0
+1946,Magruder,Elizabeth,B.,,0,0,0,0,0,0,1,1,0,0
+1946,Campbell,Edmund,D., Chairman,1,0,0,0,0,0,0,1,0,0
+1946,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
+1946,DeLashmutt,Basil,M.,,0,0,0,0,0,0,0,1,0,0
+1946,Lloyd,Leo,C.,,0,0,0,0,0,0,0,1,0,0
+1947,Magruder,Elizabeth,B.,"Resigned as Chairman 3/11/47, Resigned from Board 5/11/47",1,0,0,1,0,0,1,1,0,0
+1947,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
+1947,Cuppett,Harry,W.,Appointed 5/17/47,0,0,1,0,0,0,0,1,0,0
+1947,DeLashmutt,Basil,M.,Chairman – 3/11/47 – 12/31/47,1,0,0,0,0,0,0,1,0,0
+1947,Dugan,Daniel,A.,,0,0,0,0,0,0,0,1,0,0
+1947,Frisbie,Alfred,E., – Appointed 11/26/47,0,0,1,0,0,0,0,1,0,0
+1947,Lloyd,Leo,C., – Died 11/3/47,0,0,0,0,1,0,0,1,0,0
+1948,Cannon,Florence,,,0,0,0,0,0,0,1,1,0,0
+1948,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
+1948,DeLashmutt,Basil,M.,,0,0,0,0,0,0,0,1,0,0
+1948,Dugan,Daniel,A., Chairman,1,0,0,0,0,0,0,1,0,0
+1948,Frisbie,Alfred,E.,,0,0,0,0,0,0,0,1,0,0
+1949,Cannon,Florence,,,0,0,0,0,0,0,1,1,0,0
+1949,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
+1949,DeLashmutt,Basil,M., Chairman,1,0,0,0,0,0,0,1,0,0
+1949,Dugan,Daniel,A.,,0,0,0,0,0,0,0,1,0,0
+1949,Frisbie,Alfred,E.,,0,0,0,0,0,0,0,1,0,0
+1950,Cannon,Florence,,,0,0,0,0,0,0,1,1,0,0
+1950,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
+1950,Cox,Robert,W.,,0,0,0,0,0,0,0,1,0,0
+1950,Dugan,Daniel,A., Chairman,1,0,0,0,0,0,0,1,0,0
+1950,Frisbie,Alfred,E.,,0,0,0,0,0,0,0,1,0,0
+1951,Cannon,Florence,, Chairman,1,0,0,0,0,0,1,1,0,0
+1951,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
+1951,Cox,Robert,W.,,0,0,0,0,0,0,0,1,0,0
+1951,Dugan,Daniel,A.,,0,0,0,0,0,0,0,1,0,0
+1951,Frisbie,Alfred,E.,,0,0,0,0,0,0,0,1,0,0
+1952,Buchholz,Leone,B., – Elected 11/4/52 – Took Office 11/10/52,0,0,0,0,0,0,1,1,0,0
+1952,Byrne,M.,Rex, – Appointed 9/18/52 – 11/10/52,0,0,1,0,0,0,0,1,0,0
+1952,Cox,Robert,W.," Chairman, Removed 9/17/52",1,0,0,0,0,1,0,1,0,0
+1952,Dean,Allan,L.,– Removed 9/17/52,0,0,0,0,0,1,0,1,0,0
+1952,Detwiler,Robert,H., – Elected 11/4/52 – Took Office 11/10/52,0,0,0,0,0,0,0,1,0,0
+1952,Dugan,Daniel,A., – Removed 9/17/52,0,0,0,0,0,1,0,1,0,0
+1952,Frisbie,Alfred,E.,,0,0,0,0,0,0,0,1,0,0
+1952,Frisbie,Alfred,E., Chairman,1,0,0,0,0,0,0,1,0,0
+1952,Frisbie,Alfred,E., Chairman,1,0,0,0,0,0,0,1,0,0
+1952,Kimel,Alvin,F.,Elected 11/4/52 – Took Office 11/10/52,0,0,0,0,0,0,0,1,0,0
+1952,Massey,Howard,R., – Appointed 11/10/52,0,0,1,0,0,0,0,1,0,0
+1952,Peck,Robert,A.," appointed 9/18/52 - 11/10/52, elected to full term",0,0,1,0,0,0,0,1,0,0
+1952,Tillema,John,A., – Appointed 9/18/52 – 11/10/52,0,0,1,0,0,0,0,1,0,0
+1953,Buchholz,Leone,B.,,0,0,0,0,0,0,1,1,0,0
+1953,Detwiler,Robert,H.,,0,0,0,0,0,0,0,1,0,0
+1953,Kimel,Alvin,F.,,0,0,0,0,0,0,0,1,0,0
+1953,Peck,Robert,A., Chairman,1,0,0,0,0,0,0,1,0,0
+1953,Rowzee,George,M., Jr.,0,0,0,0,0,0,0,1,0,0
+1954,Buchholz,Leone,B., Chairman,1,0,0,0,0,0,1,1,0,0
+1954,Cooper,Wesley,W.,,0,0,0,0,0,0,0,1,0,0
+1954,Kimel,Alvin,F.,,0,0,0,0,0,0,0,1,0,0
+1954,Peck,Robert,A.,,0,0,0,0,0,0,0,1,0,0
+1954,Rowzee,George,M., Jr.,0,0,0,0,0,0,0,1,0,0
+1955,Buchholz,Leone,B.,,0,0,0,0,0,0,1,1,0,0
+1955,Cooper,Wesley,W.,,0,0,0,0,0,0,0,1,0,0
+1955,Kimel,Alvin,F.,,0,0,0,0,0,0,0,1,0,0
+1955,Peck,Robert,A.,,0,0,0,0,0,0,0,1,0,0
+1955,Rowzee,George,M.," Jr., Chairman",1,0,0,0,0,0,0,1,0,0
+1956,Buchholz,Leone,B.,,0,0,0,0,0,0,1,1,0,0
+1956,Cooper,Wesley,W., Chairman,1,0,0,0,0,0,0,1,0,0
+1956,Kaul,Ralph,,,0,0,0,0,0,0,0,1,0,0
+1956,Krupsaw,David,L.,,0,0,0,0,0,0,0,1,0,0
+1956,Rowzee,George,M., Jr.,0,0,0,0,0,0,0,1,0,0
+1957,Buchholz,Leone,B.,,0,0,0,0,0,0,1,1,0,0
+1957,Bleviins,Lucas,H.,,0,0,0,0,0,0,0,1,0,0
+1957,Cooper,Wesley,W., Chairman,1,0,0,0,0,0,0,1,0,0
+1957,Kaul,Ralph,,,0,0,0,0,0,0,0,1,0,0
+1957,Krupsaw,David,L.,,0,0,0,0,0,0,0,1,0,0
+1958,Buchholz,Leone,B.,,0,0,0,0,0,0,1,1,0,0
+1958,Blevins,Lucas,H.,,0,0,0,0,0,0,0,1,0,0
+1958,Brown,Herbert,L., Jr.,0,0,0,0,0,0,0,1,0,0
+1958,Kaul,Ralph,, Chairman,1,0,0,0,0,0,0,1,0,0
+1958,Krupsaw,David,L.,,0,0,0,0,0,0,0,1,0,0
+1959,Blevins,Lucas,H.,,0,0,0,0,0,0,0,1,0,0
+1959,Brown,Herbert,L., Jr.,0,0,0,0,0,0,0,1,0,0
+1959,Kaul,Ralph,,,0,0,0,0,0,0,0,1,0,0
+1959,Krupsaw,David,L., Chairman,1,0,0,0,0,0,0,1,0,0
+1959,Urbanske,Leo,, Jr.,0,0,0,0,0,0,0,1,0,0
+1960,Blevins,Lucas,H.,,0,0,0,0,0,0,0,1,0,0
+1960,Brown,Herbert,L.," Jr., Chairman",1,0,0,0,0,0,0,1,0,0
+1960,Kaul,Ralph,,,0,0,0,0,0,0,0,1,0,0
+1960,Krupsaw,David,L.,– Died 1/21/60,0,0,0,0,1,0,0,1,0,0
+1960,Urbanske,Leo,, Jr.,0,0,0,0,0,0,0,1,0,0
+1960,Wilt,Ernest,D.,– Appointed 1/29/60,0,0,1,0,0,0,0,1,0,0
+1961,Brown,Herbert,L., Jr.,0,0,0,0,0,0,0,1,0,0
+1961,Kaul,Ralph,,,0,0,0,0,0,0,0,1,0,0
+1961,Richards,Thomas,W.,,0,0,0,0,0,0,0,1,0,0
+1961,Urbanske,Leo,, Jr. Chairman,1,0,0,0,0,0,0,1,0,0
+1961,Wilt,Ernest,D.,,0,0,0,0,0,0,0,1,0,0
+1962,Kaul,Ralph,,,0,0,0,0,0,0,0,1,0,0
+1962,Lowry,Roye,L.,,0,0,0,0,0,0,0,1,0,0
+1962,Richards,Thomas,W.,,0,0,0,0,0,0,0,1,0,0
+1962,Urbanske,Leo,, Jr.,0,0,0,0,0,0,0,1,0,0
+1962,Wilt,Ernest,D., Chairman,1,0,0,0,0,0,0,1,0,0
+1963,Kaul,Ralph,,,0,0,0,0,0,0,0,1,0,0
+1963,Lowry,Roye,L.,,0,0,0,0,0,0,0,1,0,0
+1963,Richards,Thomas,W., Chairman,1,0,0,0,0,0,0,1,0,0
+1963,Urbanske,Leo,, Jr.,0,0,0,0,0,0,0,1,0,0
+1963,Wilt,Ernest,D.,,0,0,0,0,0,0,0,1,0,0
+1964,Casto,Harold,J.,,0,0,0,0,0,0,0,1,0,0
+1964,Fisher,Joseph,L.,,0,0,0,0,0,0,0,1,0,0
+1964,Lowry,Roye,L., Chairman,1,0,0,0,0,0,0,1,0,0
+1964,Richards,Thomas,W.,,0,0,0,0,0,0,0,1,0,0
+1964,Urbanske,Leo,, Jr.,0,0,0,0,0,0,0,1,0,0
+1965,Casto,Harold,J.,,0,0,0,0,0,0,0,1,0,0
+1965,Fisher,Joseph,L., Chairman,1,0,0,0,0,0,0,1,0,0
+1965,Lowry,Roye,L.,,0,0,0,0,0,0,0,1,0,0
+1965,Richards,Thomas,W.,,0,0,0,0,0,0,0,1,0,0
+1965,Urbanske,Leo,, Jr.,0,0,0,0,0,0,0,1,0,0
+1966,Casto,Harold,J.,,0,0,0,0,0,0,0,1,0,0
+1966,Fisher,Joseph,L.,,0,0,0,0,0,0,0,1,0,0
+1966,Haggerty,Kenneth,M.,,0,0,0,0,0,0,0,1,0,0
+1966,Richards,Thomas,W.,,0,0,0,0,0,0,0,1,0,0
+1966,Urbanske,Leo,," Jr., Chairman",1,0,0,0,0,0,0,1,0,0
+1967,Casto,Harold,J., Chairman,1,0,0,0,0,0,0,1,0,0
+1967,Fisher,Joseph,L.,,0,0,0,0,0,0,0,1,0,0
+1967,Haggerty,Kenneth,M., Vice-Chairman,0,1,0,0,0,0,0,1,0,0
+1967,Richards,Thomas,W.,,0,0,0,0,0,0,0,1,0,0
+1967,Thomas,Ned,R.,,0,0,0,0,0,0,0,1,0,0
+1968,Fisher,Joseph,L., Vice-Chairman,0,1,0,0,0,0,0,1,0,0
+1968,Haggerty,Kenneth,M.,,0,0,0,0,0,0,0,1,0,0
+1968,Richards,Thomas,W., Chairman,1,0,0,0,0,0,0,1,0,0
+1968,Ricks,Jay,E.,,0,0,0,0,0,0,0,1,0,0
+1968,Thomas,Ned,R.,,0,0,0,0,0,0,0,1,0,0
+1969,Fisher,Joseph,L.,,0,0,0,0,0,0,0,1,0,0
+1969,Haggerty,Kenneth,M., Chairman,1,0,0,0,0,0,0,1,0,0
+1969,Phillips,A.,Leslie,,0,0,0,0,0,0,0,1,0,0
+1969,Ricks,Jay,E.,,0,0,0,0,0,0,0,1,0,0
+1969,Thomas,Ned,R., Vice-Chairman,0,1,0,0,0,0,0,1,0,0
+1970,Fisher,Joseph,L.,,0,0,0,0,0,0,0,1,0,0
+1970,Haggerty,Kenneth M.,M.,Dr.,0,0,0,0,0,0,0,1,0,0
+1970,Phillips,A.,Leslie, Vice-Chairman,0,1,0,0,0,0,0,1,0,0
+1970,Ricks,Jay,E.,,0,0,0,0,0,0,0,1,0,0
+1970,Thomas,Ned,R., Chairman,1,0,0,0,0,0,0,1,0,0
+1971,Fisher,Joseph,L., Chairman,1,0,0,0,0,0,0,1,0,0
+1971,Haggerty,Kenneth,M.,,0,0,0,0,0,0,0,1,0,0
+1971,Phillips,A.,Leslie,,0,0,0,0,0,0,0,1,0,0
+1971,Ricks,Jay,E., Vice-Chairman,0,1,0,0,0,0,0,1,0,0
+1971,Wholey,Joseph,S.,,0,0,0,0,0,0,0,1,0,0
+1972,Fisher,Joseph,L.,,0,0,0,0,0,0,0,1,0,0
+1972,Haggerty,Kenneth,M.,,0,0,0,0,0,0,0,1,0,0
+1972,Munsey,Everard,, Vice-Chairman,0,1,0,0,0,0,0,1,0,0
+1972,Phillips,A.,Leslie,,0,0,0,0,0,0,0,1,0,0
+1972,Wholey,Joseph,S., Chairman,1,0,0,0,0,0,0,1,0,0
+1973,Fisher,Joseph,L.,,0,0,0,0,0,0,0,1,0,0
+1973,Haggerty,Kenneth,,,0,0,0,0,0,0,0,1,0,0
+1973,Munsey,Everard,, Chairman,1,0,0,0,0,0,0,1,0,0
+1973,Purdy,John,, Vice-Chairman,0,1,0,0,0,0,0,1,0,0
+1973,Wholey,Joseph,S.,,0,0,0,0,0,0,0,1,0,0
+1974,Bozman,Ellen,M.,,0,0,0,0,0,0,1,1,0,0
+1974,Fisher,Joseph,," Vice-Chairman, Resigned from Board 12/31/74",0,1,0,1,0,0,0,1,0,0
+1974,Munsey,Everard,,,0,0,0,0,0,0,0,1,0,0
+1974,Purdy,John,W.,,0,0,0,0,0,0,0,1,0,0
+1974,Wholey,Joseph,, Chairman,0,0,0,0,0,0,0,1,0,0
+1975,Bozman,Ellen,M., Vice-Chairman,0,1,0,0,0,0,1,1,0,0
+1975,Munsey,Everard,,,0,0,0,0,0,0,0,1,0,0
+1975,Purdy,John,W., Chairman,1,0,0,0,0,0,0,1,0,0
+1975,Richards,Thomas,,– Appointed 1/1/75,0,0,1,0,0,0,0,1,0,0
+1975,Wholey,Joseph,S.,,0,0,0,0,0,0,0,1,0,0
+1976,Bozman,Ellen,M., Chairman,1,0,0,0,0,0,1,1,0,0
+1976,Grotos,Dorothy,T.,,0,0,0,0,0,0,1,1,0,0
+1976,Frankland,Walter,L., Jr.,0,0,0,0,0,0,0,1,0,0
+1976,Purdy,John,W.,,0,0,0,0,0,0,0,1,0,0
+1976,Wholey,Joseph,S., Vice-Chairman,0,1,0,0,0,0,0,1,0,0
+1977,Bozman,Ellen,M.,,0,0,0,0,0,0,1,1,0,0
+1977,Grotos,Dorothy,T.,,0,0,0,0,0,0,1,1,0,0
+1977,Frankland,Walter,L., Jr.,0,0,0,0,0,0,0,1,0,0
+1977,Purdy,John,W., Vice-President,0,1,0,0,0,0,0,1,0,0
+1977,Wholey,Joseph,S., Chairman,1,0,0,0,0,0,0,1,0,0
+1978,Bozman,Ellen,M., Vice-Chairman,0,1,0,0,0,0,1,1,0,0
+1978,Grotos,Dorothy,T.,,0,0,0,0,0,0,1,1,0,0
+1978,Frankland,Walter,L., Jr.,0,0,0,0,0,0,0,1,0,0
+1978,Purdy,John,W., Chairman,1,0,0,0,0,0,0,1,0,0
+1978,Wholey,Joseph,S.,,0,0,0,0,0,0,0,1,0,0
+1979,Bozman,Ellen,M.,,0,0,0,0,0,0,1,1,0,0
+1979,Grotos,Dorothy,T., Chairman,1,0,0,0,0,0,1,1,0,0
+1979,Detwiler,Stephen,H.,,0,0,0,0,0,0,0,1,0,0
+1979,Frankland,Walter,L.," Jr.,  Vice-Chairman",0,1,0,0,0,0,0,1,0,0
+1979,Purdy,John,W.,,0,0,0,0,0,0,0,1,0,0
+1980,Bozman,Ellen,M.,,0,0,0,0,0,0,1,1,0,0
+1980,Grotos,Dorothy,T.,,0,0,0,0,0,0,1,1,0,0
+1980,Detwiler,Stephen,H., Vice-Chairman,0,1,0,0,0,0,0,1,0,0
+1980,Frankland,Walter,L.," Jr.,  Chairman",1,0,0,0,0,0,0,1,0,0
+1980,Purdy,John,W.,,0,0,0,0,0,0,0,1,0,0
+1981,Bozman,Ellen,M.,,0,0,0,0,0,0,1,1,0,0
+1981,Grotos,Dorothy,T., Vice-Chairman,0,1,0,0,0,0,1,1,0,0
+1981,Detwiler,Stephen,H., Chairman,1,0,0,0,0,0,0,1,0,0
+1981,Frankland,Walter,L., Jr.,0,0,0,0,0,0,0,1,0,0
+1981,Milliken,John,G.,,0,0,0,0,0,0,0,1,0,0
+1982,Bozman,Ellen,M.,,0,0,0,0,0,0,1,1,0,0
+1982,Grotos,Dorothy,T., Vice-Chairman,0,1,0,0,0,0,1,1,0,0
+1982,Detwiler,Stephen,H., Chairman,1,0,0,0,0,0,0,1,0,0
+1982,Frankland,Walter,L., Jr.,0,0,0,0,0,0,0,1,0,0
+1982,Milliken,John,G.,,0,0,0,0,0,0,0,1,0,0
+1983,Bozman,Ellen,M., Chairman,1,0,0,0,0,0,1,1,0,0
+1983,Grotos,Dorothy,T.,,0,0,0,0,0,0,1,1,0,0
+1983,Whipple,Mary,Margaret,,0,0,0,0,0,0,1,1,0,0
+1983,Frankland,Walter,L., Jr.,0,0,0,0,0,0,0,1,0,0
+1983,Milliken,John,G., Vice-Chairman,0,1,0,0,0,0,0,1,0,0
+1984,Bozman,Ellen,M., Chairman,1,0,0,0,0,0,1,1,0,0
+1984,Whipple,Mary,Margaret,,0,0,0,0,0,0,1,1,0,0
+1984,Brunner,Michael,E.,,0,0,0,0,0,0,0,1,0,0
+1984,Eisenberg,Albert,C.,,0,0,0,0,0,0,0,1,0,0
+1984,Milliken,John,G., Vice-Chairman,0,1,0,0,0,0,0,1,0,0
+1985,Bozman,Ellen,M.,,0,0,0,0,0,0,1,1,0,0
+1985,Whipple,Mary,Margaret, Vice-Chairman,0,1,0,0,0,0,1,1,0,0
+1985,Brunner,Michael,E.,,0,0,0,0,0,0,0,1,0,0
+1985,Eisenberg,Albert,C.,,0,0,0,0,0,0,0,1,0,0
+1985,Milliken,John,G., Chairman,1,0,0,0,0,0,0,1,0,0
+1986,Bozman,Ellen,M.,,0,0,0,0,0,0,1,1,0,0
+1986,Whipple,Mary,Margaret, Chairman,1,0,0,0,0,0,1,1,0,0
+1986,Milliken,John,G.,,0,0,0,0,0,0,0,1,0,0
+1986,Brunner,Michael,E.,,0,0,0,0,0,0,0,1,0,0
+1986,Eisenberg,Albert,C.,. Vice-Chairman,0,1,0,0,0,0,0,1,0,0
+1987,Bozman,Ellen,M.,,0,0,0,0,0,0,1,1,0,0
+1987,Whipple,Mary,Margaret,,0,0,0,0,0,0,1,1,0,0
+1987,Brunner,Michael,E.,,0,0,0,0,0,0,0,1,0,0
+1987,Eisenberg,Albert,C., Chairman,1,0,0,0,0,0,0,1,0,0
+1987,Milliken,John,G., Vice-Chairman,0,1,0,0,0,0,0,1,0,0
+1988,Bozman,Ellen,M., Vice-Chairman,0,1,0,0,0,0,1,1,0,0
+1988,Whipple,Mary,Margaret,,0,0,0,0,0,0,1,1,0,0
+1988,Eisenberg,Albert,C.,,0,0,0,0,0,0,0,1,0,0
+1988,Milliken,John,G., Chairman,1,0,0,0,0,0,0,1,0,0
+1988,Newman,William,T., Jr.,0,0,0,0,0,0,0,0,1,0
+1989,Bozman,Ellen,M., Chairman,1,0,0,0,0,0,1,1,0,0
+1989,Whipple,Mary,Margaret,,0,0,0,0,0,0,1,1,0,0
+1989,Eisenberg,Albert,C., Vice-Chairman,0,1,0,0,0,0,0,1,0,0
+1989,Milliken,John,G.,,0,0,0,0,0,0,0,1,0,0
+1989,Newman,William,T., Jr.,0,0,0,0,0,0,0,0,1,0
+1990,Bozman,Ellen,M.,,0,0,0,0,0,0,1,1,0,0
+1990,Whipple,Mary,Margaret,,0,0,0,0,0,0,1,1,0,0
+1990,Eisenberg,Albert,C., Chairman,1,0,0,0,0,0,0,1,0,0
+1990,Hunter,James,B., - appointed(5/15/90),0,0,1,0,0,0,0,1,0,0
+1990,Milliken,John,G.,,0,0,0,1,0,0,0,1,0,0
+1990,Newman,William,T.," Jr.,  Vice-Chairman",0,1,0,0,0,0,0,0,1,0
+1991,Bozman,Ellen,M., Vice-Chairman,0,1,0,0,0,0,1,1,0,0
+1991,Whipple,Mary,Margaret,,0,0,0,0,0,0,1,1,0,0
+1991,Eisenberg,Albert,C.,,0,0,0,0,0,0,0,1,0,0
+1991,Hunter,James,B., III,0,0,0,0,0,0,0,1,0,0
+1991,Newman,William,T.," Jr.,  Chairman",1,0,0,0,0,0,0,0,1,0
+1992,Bozman,Ellen,M., Chairman,1,0,0,0,0,0,1,1,0,0
+1992,Whipple,Mary,Margaret,,0,0,0,0,0,0,1,1,0,0
+1992,Eisenberg,Albert,C.,,0,0,0,0,0,0,0,1,0,0
+1992,Hunter,James,B.," III, vice-chairman",0,1,0,0,0,0,0,1,0,0
+1992,Newman,William,T., Jr.,0,0,0,0,0,0,0,0,1,0
+1993,Bozman,Ellen,M.,,0,0,0,0,0,0,1,1,0,0
+1993,Whipple,Mary,Margaret, Vice-Chairman,0,1,0,0,0,0,1,1,0,0
+1993,Eisenberg,Albert,C.,,0,0,0,0,0,0,0,1,0,0
+1993,Hunter,James,B.," III, chairman",1,0,0,0,0,0,0,1,0,0
+1993,Newman,William,T., Jr. Appointed as Circuit Court Judge,0,0,0,1,0,0,0,0,1,0
+1993,Winslow,Benjamin,H., Jr. Replaced Newman,0,0,1,0,0,0,0,1,0,0
+1994,Bozman,Ellen,M.,,0,0,0,0,0,0,1,1,0,0
+1994,Whipple,Mary,Margaret, Chairman,1,0,0,0,0,0,1,1,0,0
+1994,Eisenberg,Albert,C., Vice-Chairman,0,2,0,0,0,0,0,1,0,0
+1994,Hunter,James,B., III,0,0,0,0,0,0,0,1,0,0
+1994,Winslow,Benjamin,H., Jr.,0,0,0,0,0,0,0,1,0,0
+1995,Bozman,Ellen,M., Vice-Chairman,0,1,0,0,0,0,1,1,0,0
+1995,Whipple,Mary,Margaret, Resigned 12/14/95,0,0,0,1,0,0,1,1,0,0
+1995,Eisenberg,Albert,C., Chairman,1,0,0,0,0,0,0,1,0,0
+1995,Hunter,James,B., III,0,0,0,0,0,0,0,1,0,0
+1995,Winslow,Benjamin,H., Jr.,0,0,0,0,0,0,0,1,0,0
+1996,Bozman,Ellen,M., Vice-Chairman,0,1,0,0,0,0,1,1,0,0
+1996,Eisenberg,Albert,C.,,0,0,0,0,0,0,0,1,0,0
+1996,Ferguson,Paul,,,0,0,0,0,0,0,0,1,0,0
+1996,Hunter,James,B., III Chairman,1,0,0,0,0,0,0,1,0,0
+1996,Zimmerman,Christopher,E.,Special Election 1/30/96:,0,0,0,0,0,0,0,1,0,0
+1997,Bozman,Ellen,M., Chairman,1,0,0,0,0,0,1,1,0,0
+1997,Favola,Barbara,A., Special Election 11/4/97 replaced James Hunter,0,0,0,0,0,0,1,1,0,0
+1997,Eisenberg,Albert,C.,,0,0,0,0,0,0,0,1,0,0
+1997,Ferguson,Paul,,,0,0,0,0,0,0,0,1,0,0
+1997,Hunter,James,B.," III,  Resigned 9/8/97",0,0,0,1,0,0,0,1,0,0
+1997,Zimmerman,Christopher,E., Vice-Chairman,0,1,0,0,0,0,0,1,0,0
+1998,Favola,Barbara,A.,,0,0,0,0,0,0,1,1,0,0
+1998,Eisenberg,Albert,C., Vice Chairman,0,1,0,0,0,0,0,1,0,0
+1998,Ferguson,Paul,,,0,0,0,0,0,0,0,1,0,0
+1998,Fisette,Jay,, Elected 11/4/97 – Begin 1/1/98,0,0,0,0,0,0,0,1,0,0
+1998,Zimmerman,Christopher,, Chairman,1,0,0,0,0,0,0,1,0,0
+1999,Favola,Barbara,A., Vice Chairman Member until 2/13/99,0,1,0,0,0,0,1,1,0,0
+1999,Eisenberg,Albert,C., Chairman Resigned as of 2/13/99,1,0,0,1,0,0,0,1,0,0
+1999,Ferguson,Paul,, Chairman Vice Chairman until 2/13/99,1,1,0,0,0,0,0,1,0,0
+1999,Fisette,Jay,,,0,0,0,0,0,0,0,1,0,0
+1999,Lane,Michael,D., Special Election 4/13/99 for Eisenberg Seat,0,0,0,0,0,0,0,1,0,0
+1999,Zimmerman,Christopher,,,0,0,0,0,0,0,0,1,0,0
+2000,Favola,Barbara,A., Chairman (Reelected 11/00),1,0,0,0,0,0,1,1,0,0
+2000,Ferguson,Paul,,,0,0,0,0,0,0,0,1,0,0
+2000,Fisette,Jay,, Vice Chairman,0,1,0,0,0,0,0,1,0,0
+2000,Monroe,Charles,P., (Elected 11/99 to Lane Seat),0,0,0,0,0,0,0,0,1,0
+2000,Zimmerman,Christopher,,,0,0,0,0,0,0,0,1,0,0
+2001,Favola,Barbara,A.,,0,0,0,0,0,0,1,1,0,0
+2001,Ferguson,Paul,,,0,0,0,0,0,0,0,1,0,0
+2001,Fisette,Jay,, Chairman (Reelected 11/01),1,0,0,0,0,0,0,1,0,0
+2001,Monroe,Charles,P.,,0,0,0,0,0,0,0,0,1,0
+2001,Zimmerman,Christopher,, Vice Chairman,0,1,0,0,0,0,0,1,0,0
+2002,Favola,Barbara,A.,,0,0,0,0,0,0,1,1,0,0
+2002,Ferguson,Paul,,,0,0,0,0,0,0,0,1,0,0
+2002,Fisette,Jay,,,0,0,0,0,0,0,0,1,0,0
+2002,Monroe,Charles,P., Vice Chairman,0,1,0,0,0,0,0,0,1,0
+2002,Zimmerman,Christopher,, Chairman (Reelected 11/02),1,0,0,0,0,0,0,1,0,0
+2003,Monroe,Charles,P.,Chairman (until death on Jan 11),1,0,0,0,1,0,0,0,1,0
+2003,Favola,Barbara,A., Vice Chairman (Elected as Vice Chairman on 1/17/03),0,1,0,0,0,0,1,1,0,0
+2003,Ferguson,Paul,, Chairman (Elected as Vice Chairman on 1/1/03; elected as Chairman on 1/17/03; reelected 11/4/03),1,0,0,0,0,0,0,1,0,0
+2003,Fisette,Jay,, Member,0,0,0,0,0,0,0,1,0,0
+2003,Tejada,J.,Walter, Member (Special election on 3/11/03 for seat of Charles P. Monroe who died 1/11/03; reelected 11/4/03),0,0,0,0,0,0,0,0,0,1
+2003,Zimmerman,Christopher,, Member,0,0,0,0,0,0,0,1,0,0
+2004,Favola,Barbara,A.,(Elected as Chairman on 1/1/04; re-elected 11/2/04),1,0,0,0,0,0,1,1,0,0
+2004,Ferguson,Paul,,,0,0,0,0,0,0,0,1,0,0
+2004,Fisette,Jay,, Vice Chairman (Elected as Vice Chairman on 1/1/04),0,1,0,0,0,0,0,1,0,0
+2004,Tejada,J.,Walter,,0,0,0,0,0,0,0,0,0,1
+2004,Zimmerman,Christopher,,,0,0,0,0,0,0,0,1,0,0
+2005,Favola,Barbara,A., Member,0,0,0,0,0,0,1,1,0,0
+2005,Ferguson,Paul,, Member,0,0,0,0,0,0,0,1,0,0
+2005,Fisette,Jay,, Chairman (Elected as Chairman on 1/1/05; reelected 11/8/05),1,0,0,0,0,0,0,1,0,0
+2005,Tejada,J.,Walter, Member,0,0,0,0,0,0,0,0,0,1
+2005,Zimmerman,Christopher,, Vice Chairman (Elected as Vice Chairman 1/1/05),0,1,0,0,0,0,0,1,0,0
+2006,Favola,Barbara,A., Member,0,0,0,0,0,0,1,1,0,0
+2006,Ferguson,Paul,, Vice Chairman (Elected as Vice Chairman on 1/2/06),0,1,0,0,0,0,0,1,0,0
+2006,Fisette,Jay,, Member,0,0,0,0,0,0,0,1,0,0
+2006,Tejada,J.,Walter, Member,0,0,0,0,0,0,0,0,0,1
+2006,Zimmerman,Christopher,, Chairman (Elected as Chairman on 1/2/06,1,0,0,0,0,0,0,1,0,0
+2007,Favola,Barbara,A., Member,0,0,0,0,0,0,1,1,0,0
+2007,Ferguson,Paul,, Chairman (Elected as Chairman on 1/1/07),1,0,0,0,0,0,0,1,0,0
+2007,Fisette,Jay,, Member,0,0,0,0,0,0,0,1,0,0
+2007,Tejada,J.,Walter, Vice Chairman (Elected as Vice Chairman on 1/1/07),0,1,0,0,0,0,0,0,0,1
+2007,Zimmerman,Christopher,, Member,0,0,0,0,0,0,0,1,0,0
+2008,Favola,Barbara,A., Vice Chairman (Elected as Vice Chairman on 1/1/08),0,1,0,0,0,0,1,1,0,0
+2008,Hynes,Mary,Hughes, Member,0,0,0,0,0,0,1,1,0,0
+2008,Fisette,Jay,, Member,0,0,0,0,0,0,0,1,0,0
+2008,Tejada,J.,Walter, Chairman (Elected as Chairman on 1/1/08),1,0,0,0,0,0,0,0,0,1
+2008,Zimmerman,Christopher,, Member,0,0,0,0,0,0,0,1,0,0
+2009,Favola,Barbara,A., Chairman (Elected as Chairman on 1/1/09),1,0,0,0,0,0,1,1,0,0
+2009,Hynes,Mary,Hughes, Member,0,0,0,0,0,0,1,1,0,0
+2009,Fisette,Jay,, Vice Chairman (Elected as Vice Chairman on 1/1/09),0,1,0,0,0,0,0,1,0,0
+2009,Tejada,J.,Walter, Member,0,0,0,0,0,0,0,0,0,1
+2009,Zimmerman,Christopher,, Member,0,0,0,0,0,0,0,1,0,0
+2010,Favola,Barbara,A., Member,0,0,0,0,0,0,1,1,0,0
+2010,Hynes,Mary,Hughes, Member,0,0,0,0,0,0,1,1,0,0
+2010,Fisette,Jay,, Chairman (Elected as Chairman on 1/1/10),1,0,0,0,0,0,0,1,0,0
+2010,Tejada,J.,Walter, Member,0,0,0,0,0,0,0,0,0,1
+2010,Zimmerman,Christopher,, Vice Chairman (Elected as Vice Chairman on 1/1/10),0,1,0,0,0,0,0,1,0,0
+2011,Favola,Barbara,A., Member,0,0,0,0,0,0,1,1,0,0
+2011,Hynes,Mary,Hughes, Vice Chairman (Elected as Vice Chairman on 1/1/11),0,1,0,0,0,0,1,1,0,0
+2011,Fisette,Jay,, Member,0,0,0,0,0,0,0,1,0,0
+2011,Tejada,J.,Walter, Member,0,0,0,0,0,0,0,0,0,1
+2011,Zimmerman,Christopher,, Chairman (Elected as Chairman on 1/1/11),1,0,0,0,0,0,0,1,0,0
+2012,Garvey,Libby,, Member (Elected in March 2012),0,0,0,0,0,0,1,1,0,0
+2012,Hynes,Mary,Hughes, Chairman (Elected as Chairman on 1/2/12),1,0,0,0,0,0,1,1,0,0
+2012,Fisette,Jay,, Member,0,0,0,0,0,0,0,1,0,0
+2012,Tejada,J.,Walter, Vice Chairman (Elected as Vice Chairman on 1/2/12),0,1,0,0,0,0,0,0,0,1
+2012,Zimmerman,Christopher,, Member,0,0,0,0,0,0,0,1,0,0
+2013,Garvey,Libby,, Member,0,0,0,0,0,0,1,1,0,0
+2013,Hynes,Mary,Hughes, Member,0,0,0,0,0,0,1,1,0,0
+2013,Fisette,Jay,,(Elected as Vice Chairman on 1/1/13),0,1,0,0,0,0,0,1,0,0
+2013,Tejada,J.,Walter, Chairman (Elected as Chairman on 1/1/13),1,0,0,0,0,0,0,0,0,1
+2013,Zimmerman,Christopher,, Member,0,0,0,0,0,0,0,1,0,0
+2014,Garvey,Libby,, Member,0,0,0,0,0,0,1,1,0,0
+2014,Hynes,Mary,Hughes, (Elected as Vice Chairman on 1/1/14),0,1,0,0,0,0,1,1,0,0
+2014,Fisette,Jay,,  (Elected as Chairman on 1/1/14),1,0,0,0,0,0,0,1,0,0
+2014,Tejada,J.,Walter, Member,0,0,0,0,0,0,0,0,0,1
+2014,Vihstadt,John,E., Member (Elected in Special Election 4/8/14),0,0,0,0,0,0,0,1,0,0
+2014,Zimmerman,Christopher,, Member (Resigned 2/10/14),0,0,0,1,0,0,0,1,0,0
+2015,Garvey,Libby,, Member,0,0,0,0,0,0,1,1,0,0
+2015,Hynes,Mary,Hughes, (Elected as Chair on 1/1/15),1,0,0,0,0,0,1,1,0,0
+2015,Fisette,Jay,, Member,0,0,0,0,0,0,0,1,0,0
+2015,Tejada,J.,Walter, (Elected as Vice-Chair on 1/1/15),0,1,0,0,0,0,0,0,0,1
+2015,Vihstadt,John,E., Member,0,0,0,0,0,0,0,1,0,0
+2016,Cristol,Katie,, Member,0,0,0,0,0,0,1,1,0,0
+2016,Garvey,Libby,, (Elected as Chair on 1/1/16),1,0,0,0,0,0,1,1,0,0
+2016,Dorsey,Christian,, Member,0,0,0,0,0,0,0,0,1,0
+2016,Fisette,Jay,, (Elected as Vice-Chair on 1/1/16),0,1,0,0,0,0,0,1,0,0
+2016,Vihstadt,John,, Member,0,0,0,0,0,0,0,1,0,0
+2017,Cristol,Katie,, (Elected as Vice-Chair on 1/3/17),0,1,0,0,0,0,1,1,0,0
+2017,Garvey,Libby,, Member,0,0,0,0,0,0,1,1,0,0
+2017,Dorsey,Christian,, Member,0,0,0,0,0,0,0,0,1,0
+2017,Fisette,Jay,, (Elected as Chair on 1/3/17),1,0,0,0,0,0,0,1,0,0
+2017,Vihstadt,John,, Member,0,0,0,0,0,0,0,1,0,0
+2018,Cristol,Katie,, (Elected as Chair on 1/2/18),1,0,0,0,0,0,1,1,0,0
+2018,Garvey,Libby,, Member,0,0,0,0,0,0,1,1,0,0
+2018,Dorsey,Christian,, (Elected as Vice-Chair on 1/2/18),0,1,0,0,0,0,0,0,1,0
+2018,Gutshall,Erik,, Member,0,0,0,0,0,0,0,1,0,0
+2018,Vihstadt,John,, Member,0,0,0,0,0,0,0,1,0,0
+2019,Cristol,Katie,, Member,0,0,0,0,0,0,1,1,0,0
+2019,Garvey,Libby,, (Elected as Vice-Chair on 1/2/19),0,1,0,0,0,0,1,1,0,0
+2019,de Ferranti,Matt,, Member,0,0,0,0,0,0,0,1,0,0
+2019,Dorsey,Christian,, (Elected as Chair on 1/2/19),1,0,0,0,0,0,0,0,1,0
+2019,Gutshall,Erik,, Member,0,0,0,0,0,0,0,1,0,0
+2020,Cristol,Katie,, Member,0,0,0,0,0,0,1,1,0,0
+2020,Garvey,Libby,, (Elected as Chair on 1/2/20),1,0,0,0,0,0,1,1,0,0
+2020,de Ferranti,Matt,, Member,0,0,0,0,0,0,0,1,0,0
+2020,Dorsey,Christian,, Member,0,0,0,0,0,0,0,0,1,0
+2020,Gutshall,Erik,, (Elected as Vice-Chair on 1/2/20),0,1,0,0,1,0,0,1,0,0
+2020,Karantonis,Takis,, Member (Special election on 7/7/20 for seat of Erik Gutshall who died 4/16/20),0,0,0,0,0,0,0,1,0,0
+2021,Cristol,Katie,,(Elected as Vice-Chair on 1/4/2021),0,1,0,0,0,0,1,1,0,0
+2021,Garvey,Libby,,,0,0,0,0,0,0,1,1,0,0
+2021,de Ferranti,Matt,,(Elected as Chair on 1/4/2021),1,0,0,0,0,0,0,1,0,0
+2021,Dorsey,Christian,,,0,0,0,0,0,0,0,0,1,0
+2021,Karantonis,Takis,,,0,0,0,0,0,0,0,1,0,0
+2022,Cristol,Katie,,(Elected as Chair on 1/4/2022),1,0,0,0,0,0,1,1,0,0
+2022,Garvey,Libby,,,0,0,0,0,0,0,1,1,0,0
+2022,de Ferranti,Matt,,,0,0,0,0,0,0,0,1,0,0
+2022,Dorsey,Christian,,(Elected as Vice-Chair on 1/4/2022),0,1,0,0,0,0,0,0,1,0
+2022,Karantonis,Takis,,,0,0,0,0,0,0,0,1,0,0
+2023,Cristol,Katie,, (Resigned 7/4/2023),0,0,0,0,0,0,1,1,0,0
+2023,Garvey,Libby,,(Elected as Vice-Chair on 1/3/2023),0,1,0,0,0,0,1,1,0,0
+2023,Talento,Tannia,,(Appointed on 7/15/2023 to fill seat vacated by Katie Cristol),0,0,0,0,0,0,1,0,0,1
+2023,de Ferranti,Matt,,,0,0,0,0,0,0,0,1,0,0
+2023,Dorsey,Christian,,"(Elected as Chair on 1/3/2023, Resigned 12/31/2023)",1,0,0,1,0,0,0,0,1,0
+2023,Karantonis,Takis,,,0,0,0,0,0,0,0,1,0,0
+2024,Coffey,Maureen,,,0,0,0,0,0,0,1,1,0,0
+2024,Cunningham,Susan,,,0,0,0,0,0,0,1,1,0,0
+2024,Garvey,Libby,, (Elected as Chair on 1/2/2024),1,0,0,0,0,0,1,1,0,0
+2024,de Ferranti,Matt,,,0,0,0,0,0,0,0,1,0,0
+2024,Karantonis,Takis,, (Elected as Vice-Chair on 1/2/2024),0,1,0,0,0,0,0,1,0,0
+2025,Coffey,Maureen,,,0,0,0,0,0,0,1,1,0,0
+2025,Cunningham,Susan,,,0,0,0,0,0,0,1,1,0,0
+2025,de Ferranti,Matt,,(Elected as Vice-Chair on 1/7/2025),0,1,0,0,0,0,0,1,0,0
+2025,Karantonis,Takis,, (Elected as Chair on 1/7/2025),1,0,0,0,0,0,0,1,0,0
+2025,Spain,Julius,"D. ""JD""", Sr.,0,0,0,0,0,0,0,0,1,0
+2026,Coffey,Maureen,,(Elected as Vice-Chair on 1/5/2026),0,1,0,0,0,0,1,1,0,0
+2026,Cunningham,Susan,,,0,0,0,0,0,0,1,1,0,0
+2026,de Ferranti,Matt,,(Elected as Chair on 1/6/2026),1,0,0,0,0,0,0,1,0,0
+2026,Karantonis,Takis,,,0,0,0,0,0,0,0,1,0,0
+2026,Spain,Julius,"D. ""JD""", Sr.,0,0,0,0,0,0,0,0,1,0

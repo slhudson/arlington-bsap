@@ -7,8 +7,8 @@ a first pass, and its reasoning is recorded here so the choices are visible and
 can be revisited deliberately.
 
 A transcript of the session exists and is held by Sally. It is not in the repo.
-Anything from it that bears on the work is written up here, in `sources.md` or
-in `questions.md`.
+Anything from it that bears on the work is written up here, in `docs/sources.md` or
+in `docs/questions.md`.
 
 ## The five
 
@@ -74,8 +74,16 @@ for women and slate `#A9BBCB` for men.
 
 White and the gender pair were both revised during the working session toward
 softer tones. The current values are chosen to stay distinguishable for
-colorblind readers and in grayscale. They are currently redeclared in each
-script; consolidating them into a shared style module is an outstanding task.
+colorblind readers and in grayscale. They live in `analysis/style.py` and are imported by every
+figure, so a palette change is a single edit.
+
+## Where the code is
+
+Each figure is one script in `analysis/`, reading only from `data/`. The
+cleaning that produces `data/` is in `build/clean.py`. The two contested
+treatments — the 1970/1990 overlap and whether not-reported reads as zero —
+are in `build/conventions.py`, called explicitly by the figures that use them,
+so it is greppable which figure takes which position.
 
 ## Set aside
 

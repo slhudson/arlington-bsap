@@ -2,93 +2,91 @@
 
 Historical and descriptive-representation analysis for Arlington County's Board
 Structure and Performance study. Figures and the final PDF are built from this
-repo; prose is written in Overleaf, which syncs `paper/` and `figures/`.
+repo; prose is written in Overleaf, which syncs the repository.
+
+## The two stages
+
+```
+raw/        frozen sources, read-only
+  |  build/     <- every subjective decision about what a number IS
+data/       clean, analysis-ready
+  |  analysis/  <- presentation only; cannot see raw/
+figures/    generated output
+  |
+paper/      prose -> Overleaf -> compiled PDF
+```
+
+**Build resolves ambiguity in the sources.** What a blank means, whether
+categories overlap, which of two conflicting totals is right. If two reasonable
+people could disagree about what the value *is*, the decision belongs in
+`build/`.
+
+**Analysis does arithmetic that is fully determined once those are settled.**
+Dividing counts into shares, choosing a log axis, deciding which years to show.
+Presentation choices are still subjective, but they cannot change a value. If
+they would only disagree about how to *show* it, it belongs in `analysis/`.
+
+This is enforced structurally, not by convention: `analysis/paths.py` has no
+path to `raw/`. A figure script that wants to reach around the cleaning step
+has nothing to reach with. Note that `analysis` scripts *append* `build/` to
+`sys.path` rather than inserting it, so `build/paths.py` cannot shadow
+`analysis/paths.py` and quietly restore that route.
 
 ## The rules that matter
 
 **`raw/` is read-only.** It is a dated snapshot of the files as received. Never
-edit, rename, clean or "fix" anything inside it — not even the `aapi_m embers`
-header typo. Corrections belong downstream, in `build/`, where they are visible
-as code.
+edit, rename, clean or "fix" anything inside it — including the spacing in the
+`aapi_m embers` header, which is corrected in `build/clean.py`.
 
 **Everything is built by `bash run.sh`.** One entry point, no exceptions. If a
-figure cannot be produced by running that script from a clean checkout, it is
-not finished.
+figure cannot be produced by running that from a clean checkout, it is not
+finished.
 
-**Never hand-edit anything in `figures/`.** It is generated output and the next
-run will silently overwrite it. A change you want to keep is a change to a
-script.
+**Never hand-edit `data/` or `figures/`.** Both are generated and the next run
+overwrites them. A change you want to keep is a change to a script.
 
-**Data transformations live in `build/`, not in plotting scripts.** A cleaning
-decision — how 1970/1990 category overlap is reconciled, how not-reported is
-distinguished from zero — is made once, in one place, and every figure inherits
-it. The moment two scripts decide the same question differently, they can
-disagree in print.
+**`data/` is committed even though it is generated.** The usual rule is the
+opposite, and we follow it elsewhere. These are small CSVs, and committing them
+means a cleaning decision shows up as a reviewable diff — you can see exactly
+which numbers moved and by how much. That matters while Q1 and Q2 are open.
 
-**Visual conventions live in the shared style module.** Colors, fonts and figure
-dimensions are imported, never redeclared per script, so a palette change is a
-single edit.
-
-**Paths come from `build/paths.py`.** No absolute paths anywhere, so the repo
-works on anyone's machine.
+**Visual conventions live in `analysis/style.py`.** Colors, fonts and figure
+dimensions are imported, never redeclared, so a palette change is one edit.
 
 **Fail loudly.** A script that cannot find its input, or whose numbers stop
 tying out, should raise — not carry on and emit a plausible-looking figure with
-wrong values. Template-filling and find-and-replace are the usual offenders:
-raise when the anchor is missing rather than silently no-op.
+wrong values. `build/clean.py` asserts its derived columns still agree with the
+figures they derive from.
 
-**Both authors edit the figure code.** Write it to be read by someone else.
-
-## Layout
-
-```
-raw/2026-09-22-handoff/   frozen inputs, read-only
-build/                    data prep, style module, figure scripts
-figures/                  generated output — never hand-edited
-paper/                    Overleaf-synced prose
-run.sh                    rebuilds every figure from raw/
-```
+**Both authors edit this code.** Write it to be read by someone else.
 
 ## Running it
 
 ```bash
-bash run.sh               # rebuild all figures
-bash run.sh pct log       # rebuild only matching scripts
+python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl
+bash run.sh               # build, then every figure
+bash run.sh pct log       # build, then only matching figures
 ```
 
-Invoke it through `bash`, not as `./run.sh`. Overleaf does not preserve file
+Invoke through `bash`, not `./run.sh`. Overleaf does not preserve Unix file
 permissions, so a push from Overleaf strips the executable bit.
-
-Needs `.venv` (gitignored): `python3 -m venv .venv && .venv/bin/pip install
-pandas matplotlib openpyxl`.
-
-## Known data issues
-
-Tracked in the handoff; unresolved ones are listed here so they are not
-rediscovered. Do not silently pick a side on any of these.
-
-- **1970 and 1990 race categories sum above the reported total** (~2.8% and
-  ~0.2%). `_pct` rescales to 100%; the count chart plots as reported. They
-  disagree. Must be settled in `build/` before figures go to the County.
-- **Not-reported read as zero.** Hispanic is blank before 1970, AAPI before
-  1950, because those categories were not separately tabulated. `fillna(0)`
-  treats absence as zero; the log chart instead starts each line when first
-  reported. A zero and an absence are different claims.
-- **1883, 1884, 1931** are `"."` in the counts file and render as gaps.
-- **Fractional seats** occur when a member resigned or died mid-year and was
-  replaced. Figure note: "Half seats occur when a Board member resigned or died
-  before the end of the year and was subsequently replaced."
-- **The two board files cover different periods** — roster from 1932, counts
-  from 1871. The 1871–1931 counts have no person-level backing.
-- **1890 population is 4,596**, from the scanned volumes in `raw/`. An earlier
-  estimate of 4,258 is superseded.
 
 ## Open questions
 
-Questions that come up while working the files go in `questions.md` at the
+Questions that come up while working the files go in `docs/questions.md` at the
 moment they arise, with an owner — not carried in your head or in chat. When
 one is answered, write the answer into the file, not just the fix into the
-code: the next person needs the reasoning, not only the result.
+code.
 
-Sourcing for the descriptive coding lives in `sources.md`, which doubles as the
-work order for a research assistant.
+Two are currently unresolved and deliberately **not** settled in `build/`: the
+1970/1990 category overlap (Q1) and whether not-reported reads as zero (Q2).
+Both treatments live in `build/conventions.py`, applied explicitly by each
+figure, so the current disagreement between figures is visible in code rather
+than buried. When they are settled, the chosen treatment moves into
+`build/clean.py` and the per-figure calls go away.
+
+## Register
+
+This repository is read by collaborators. Write about artifacts and open
+questions, never about people's performance. Early work here was exploratory by
+design.

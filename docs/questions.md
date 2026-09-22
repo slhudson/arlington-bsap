@@ -12,7 +12,7 @@ works independently for a few days, then sends a consolidated list. Anything
 owned by Alex should therefore be written so it can be read cold, without the
 surrounding conversation.
 
-Sourcing questions for the descriptive coding live in `sources.md` instead.
+Sourcing questions for the descriptive coding live in `docs/sources.md` instead.
 
 ---
 
@@ -83,7 +83,7 @@ those years.
 
 The 1889–1986 stretch is coded all-White, roughly 490 person-years, resting on
 that framing. It is the most load-bearing claim in the report and has not been
-independently verified. Detail in `sources.md`.
+independently verified. Detail in `docs/sources.md`.
 
 ### Q4. Should the roster be extended back to 1871?
 **Owner:** Sally · **Status:** open
@@ -106,7 +106,7 @@ Five exist. The caveats need to be consistent across whichever ship.
 Several earlier figures were produced and not carried forward — a combined
 three-panel version with census, Board race and Board gender, in percentage and
 raw-count forms, and a broken-axis variant of the residents chart. They are not
-in `raw/`. Listed in `figures.md`.
+in `raw/`. Listed in `docs/figures.md`.
 
 ## Settled
 
