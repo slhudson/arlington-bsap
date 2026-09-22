@@ -21,18 +21,24 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent / "build"))
 import board_members  # noqa: E402
+import board_roster  # noqa: E402
 import board_seats  # noqa: E402
 import residents  # noqa: E402
 
 
 def breaks(module, attr, mangle, build=None):
-    """Run a build with one input mangled; return the error it raised, or None."""
+    """Run a build with one input mangled; return the error it raised, or None.
+
+    Most guards in this repository raise AssertionError. board_roster's raise
+    ValueError instead - they are refusals over irreconcilable historical
+    sources, not sanity checks on arithmetic - so both are caught here.
+    """
     original = getattr(module, attr)
     setattr(module, attr, mangle(original))
     try:
         (build or module.build)()
         return None
-    except AssertionError as e:
+    except (AssertionError, ValueError) as e:
         return str(e)
     finally:
         setattr(module, attr, original)
@@ -94,6 +100,27 @@ def test_a_new_duplicate_person_year_is_rejected():
         return patched
     err = breaks(pd, "read_excel", mangle, build=board_members.build)
     assert err and "duplicate" in err, f"not caught: {err}"
+
+
+def test_a_wrong_term_length_is_rejected():
+    """Stretching one term by a year should throw off the five-seat count.
+
+    check_five_seats() is what catches a wrong term boundary anywhere in the
+    roster - Novack's open-ended spans, a special election's handover, a
+    regular four-year cycle. This mangles one term after election_terms()
+    has produced it, so the mistake looks exactly like a bad source read: an
+    extra year that overlaps the next member's term.
+    """
+    def mangle(orig):
+        def patched(earlier):
+            d = orig(earlier)
+            at_large = d.index[(d.district == "at large") & (d.end_year == 1997)]
+            d = d.copy()
+            d.loc[at_large, "end_year"] += 1
+            return d
+        return patched
+    err = breaks(board_roster, "election_terms", mangle, build=board_roster.build)
+    assert err and "at large" in err, f"not caught: {err}"
 
 
 if __name__ == "__main__":

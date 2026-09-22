@@ -37,6 +37,7 @@ NOVACK_PUBLISHED = 1994
 MONTHS = {m: i for i, m in enumerate(
     ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], start=1)}
+MONTH_NAMES = {v: k for k, v in MONTHS.items()}
 MONTH_RE = re.compile(r"\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?", re.I)
 YEAR_RE = re.compile(r"\b((?:18|19|20)\d\d)\b")
 # "Corbett 213 Hagen 189" - a name followed by its vote count, repeated
@@ -122,14 +123,20 @@ def oleary_terms():
                     y1, m1 = holders[i + 1][1], holders[i + 1][2]
                 else:
                     y1, m1 = term_end_year, term_end_month
-                base = note if i == 0 else f"took the seat mid-term; {note}"
+                # A note explains an irregularity. Nothing else belongs here:
+                # not chairmanships, not vote counts, not the fact that someone
+                # was re-elected. Most rows have none.
+                parts = []
+                if i > 0:
+                    parts.append("Appointed after the seat fell vacant."
+                                 if vacant else "Took the seat mid-term.")
                 if end_unrecorded and i == len(holders) - 1:
-                    base = ("end of service not recorded; O'Leary's listings stop "
-                            "at 1915" + (f"; {base}" if base else ""))
+                    parts.append("End of service not recorded; O'Leary's "
+                                 "listings stop at 1915.")
+                base = " ".join(parts)
                 yield {"name": who, "district": r.district,
                        "start_year": y0, "start_month": m0,
                        "end_year": y1, "end_month": m1,
-                       "end_status": "not recorded" if end_unrecorded and i == len(holders) - 1 else "recorded",
                        "source": f"O'Leary (2012) p.{r.page}", "note": base}
 
 
@@ -149,12 +156,36 @@ def surname(name):
 
 
 def board_elections():
-    """Years the County Board was on the ballot, and who stood, from 1931."""
+    """Regular County Board elections from 1931: year -> surnames who stood.
+
+    Only November general elections: a primary does not start a term, and a
+    special election fills one already under way.
+    """
     c = pd.read_csv(BY_CLAUDE / "county" / "candidate_history_1920-present.csv")
     c = c[c.office.str.contains("County Board", na=False)].dropna(subset=["year"])
+    c = c[c.election_date.str.startswith("November", na=False)
+          & ~c.election_kind.str.contains("Primary", na=False)]
     out = {}
     for _, r in c.iterrows():
         out.setdefault(int(r.year), set()).add(surname(r.candidate))
+    return out
+
+
+def general_winners():
+    """Regular County Board elections: year -> surnames who won.
+
+    Unlike board_elections(), this counts only winners, and only regular
+    elections - never a special. It answers a different question: not "did
+    this person contest a County Board race that year" (which a Novack span
+    already settles, since he says they were serving throughout) but "did
+    this person's service *begin* with a win here," which a losing run or a
+    special election cannot answer yes to.
+    """
+    out = {}
+    for c in contests():
+        if c["special"]:
+            continue
+        out.setdefault(c["year"], set()).update(surname(w) for w in c["winners"])
     return out
 
 
@@ -171,6 +202,7 @@ def novack_terms():
     A span with no election inside it stays a single term.
     """
     elections = board_elections()
+    winners = general_winners()
     d = pd.read_csv(BY_CLAUDE / "arlington_historical_magazine"
                     / "novack_terms_1930-1994.csv")
     for _, r in d.iterrows():
@@ -195,31 +227,194 @@ def novack_terms():
             first_month = MONTHS[months[0].title()] if months else 1
             last_month = "" if open_ended else (
                 MONTHS[months[-1].title()] if len(months) > 1 else 12)
-            note = ("still serving at publication in 1994" if open_ended
-                    else str(r.notes) if pd.notna(r.notes) else "")
+            # Novack's parentheticals are semicolon-separated clauses, most of
+            # them chairmanships. Only the clauses describing an irregularity
+            # are kept - how someone entered or left the seat.
+            raw = str(r.notes) if pd.notna(r.notes) else ""
+            clauses = [c.strip(" ();.") for c in re.split(r"[;)]\s*", raw) if c.strip(" ();.")]
+            def tidy(c):
+                c = re.sub(r"\s+\d{1,3}$", "", c)      # Novack's footnote markers
+                c = c.rstrip(" ,;.")
+                return (c[0].upper() + c[1:]) + "."
+            irregular = " ".join(
+                tidy(c) for c in clauses
+                if re.search(r"appointed|unexpired|vacancy|resign|died|removed", c, re.I)
+                and not re.search(r"\b(chairman|chairwoman|chair)\b", c, re.I))
 
             for i in range(len(bounds) - 1):
                 first, final = bounds[i], bounds[i + 1] - 1
+                open_end_year = None
+                if open_ended and final == span_end:
+                    # Novack's trailing "-" means still serving in 1994, with
+                    # no end date of his own. Two ways a segment can begin:
+                    #
+                    # - the January after an election this person won (every
+                    #   cut but the first is exactly this) - so the seat is on
+                    #   its usual four-year clock and this term runs to
+                    #   first+3. If they leave early, election_terms() finds
+                    #   the special election that shortens it; if they win
+                    #   again, that next win is outside Novack's span and
+                    #   becomes its own row via election_terms().
+                    # - an appointment or special election, when Novack's
+                    #   span has no election inside it at all (no cuts) - the
+                    #   term then runs to whichever regular election this
+                    #   person next stood in.
+                    began_by_election = last in winners.get(first - 1, set())
+                    if began_by_election:
+                        open_end_year = first + 3
+                    else:
+                        later = [y for y, who in elections.items() if last in who and y >= first]
+                        if not later:
+                            raise ValueError(f"{name} was serving when Novack published and "
+                                             "never stood again; the term's end cannot be inferred")
+                        open_end_year = min(later)
                 if final < first:
                     continue
                 yield {
                     "name": name, "district": "at large",
-                    "end_status": ("still serving at publication"
-                                   if open_ended and final == span_end else "recorded"),
+
                     "start_year": first,
                     "start_month": first_month if i == 0 else 1,
-                    "end_year": "" if (open_ended and final == span_end) else final,
-                    "end_month": "" if (open_ended and final == span_end) else (
+                    # A term still open when Novack published ends with the
+                    # seat's next regular election, which is the next one this
+                    # person stood in (a special election can shorten it - see
+                    # election_terms).
+                    "end_year": open_end_year if (open_ended and final == span_end) else final,
+                    "end_month": 12 if (open_ended and final == span_end) else (
                         last_month if final == span_end else 12),
                     "source": f"Novack (1994) p.{r.page}"
                               + ("; term boundaries from Arlington County (2021)"
-                                 if cuts else ""),
-                    "note": note if i == 0 else "re-elected",
+                                 if cuts or (open_ended and final == span_end) else ""),
+                    "note": irregular if i == 0 else "",
                 }
+
+
+TWO_SEATS = re.compile(r"two seats|2 seats|vote for 2|two elected", re.I)
+SPECIAL = re.compile(r"special|unexpired", re.I)
+# "(to fill Eisenberg's unexpired term)", "(... following death of Charles Monroe)"
+FILLS = re.compile(r"to fill ([A-Za-z]+)['\u2019]s unexpired term|death of ([A-Za-z. ]+?)\)", re.I)
+PARTY = re.compile(r"\s*\((?:[^)]+)\)\s*$")
+ELECTIONS_END = 2021       # last election in the county's candidate history
+
+
+def contests():
+    """Each County Board general election from 1993: who won, how many seats.
+
+    The county's candidate history lists primaries and generals under the
+    same office; its own label for the election ("Democratic Primary",
+    "General Election", "Special Election") tells them apart.
+    A parenthetical on the office - "(Two Seats)", "(to fill Zimmerman's
+    unexpired term)" - qualifies the contest, so rows are grouped on the
+    office with it stripped, and the qualifiers of every row in the group
+    (write-ins included, since the annotation can sit on any row) are read
+    together.
+    """
+    c = pd.read_csv(BY_CLAUDE / "county" / "candidate_history_1920-present.csv")
+    c = c[c.office.str.contains("County Board", na=False)].dropna(subset=["year"]).copy()
+    c["year"] = c.year.astype(int)
+    c["votes"] = pd.to_numeric(c.votes.astype(str).str.replace(",", ""), errors="coerce")
+    c["base"] = c.office.str.replace(r"\s*\(.*", "", regex=True).str.strip()
+    key = ["year", "election_date", "base"]
+    qualifiers = c.groupby(key).office.agg(" ".join)
+    general = c[~c.election_kind.str.contains("Primary", na=False)
+                & ~c.candidate.str.contains("write", case=False)]
+    for k, g in general.groupby(key):
+        year, date, base = k
+        text = qualifiers[k]
+        seats = 2 if TWO_SEATS.search(text) else 1
+        won = g.nlargest(seats, "votes")
+        fills = FILLS.search(text)
+        yield {"year": year, "month": MONTHS[date[:3]],
+               "special": bool(SPECIAL.search(text)) or not date.startswith("November"),
+               "page": int(g.page.iloc[0]),
+               "fills": surname(fills.group(1) or fills.group(2)) if fills else None,
+               "winners": [PARTY.sub("", n).strip() for n in won.candidate],
+               "stood": [PARTY.sub("", n).strip() for n in g.candidate]}
+
+
+def election_terms(earlier: pd.DataFrame):
+    """Terms from 1995 on, built from election results.
+
+    Novack ends in 1994; from there each regular November win in year Y is a
+    four-year term from January Y+1. A special election fills the rest of a
+    term that ended early: the winner serves until the seat's next regular
+    election, which is the next November contest they stand in, and the
+    member whose term covered that date and ended then is closed at the
+    special election. If that member cannot be identified uniquely the build
+    stops rather than guess.
+
+    A person is named as Novack spells them where the surname matches one of
+    his; otherwise as the county spells them the first time they win.
+    """
+    rows = list(contests())
+    known = {surname(n): n for n in earlier.name}
+    def canonical(n):
+        return known.setdefault(surname(n), n)
+
+    terms = []
+    for c in rows:
+        if c["special"] or c["year"] < 1994:
+            continue
+        for w in c["winners"]:
+            terms.append({"name": canonical(w), "district": "at large",
+                          "start_year": c["year"] + 1, "start_month": 1,
+                          "end_year": c["year"] + 4, "end_month": 12,
+                          "source": f"Arlington County (2021) p.{c['page']}", "note": ""})
+    d = pd.concat([earlier, pd.DataFrame(terms)], ignore_index=True)
+
+    for c in sorted((c for c in rows if c["special"] and c["year"] >= 1995),
+                    key=lambda c: (c["year"], c["month"])):
+        for w in c["winners"]:
+            w = canonical(w)
+            nxt = [r["year"] for r in rows if not r["special"] and r["year"] >= c["year"]
+                   and any(canonical(s) == w for s in r["stood"])]
+            if not nxt:
+                raise ValueError(f"{w} won a special election in {c['year']} and never "
+                                 "stood again; the seat's cycle cannot be inferred")
+            end = min(nxt)
+            when = f"{MONTH_NAMES[c['month']]} {c['year']}"
+            covers = ((d.start_year * 12 + d.start_month <= c["year"] * 12 + c["month"])
+                      & (d.end_year == end) & (d.end_month == 12) & (d.name != w))
+            if c["fills"]:
+                covers &= d.name.map(surname) == c["fills"]
+            if covers.sum() != 1:
+                raise ValueError(f"special election {when}: {covers.sum()} members "
+                                 f"hold a term ending {end}, expected 1:\n"
+                                 f"{d[covers][['name', 'start_year', 'end_year']]}")
+            i = d.index[covers][0]
+            d.loc[i, ["end_year", "end_month"]] = [c["year"], c["month"]]
+            d.loc[i, "note"] = (d.loc[i, "note"] + " " if d.loc[i, "note"] else "") + \
+                f"Left the seat before the end of the term; filled by special election in {when}."
+            d.loc[len(d)] = {"name": w, "district": "at large",
+                             "start_year": c["year"], "start_month": c["month"],
+                             "end_year": end, "end_month": 12,
+                             "source": f"Arlington County (2021) p.{c['page']}",
+                             "note": f"Elected in a special election in {when} to fill an unexpired term."}
+    return d
+
+
+def check_five_seats(d: pd.DataFrame, first=1995, last=ELECTIONS_END):
+    """Five members at large in every month, apart from a handover month.
+
+    A member who leaves mid-term and the one elected to replace them share
+    that month, so it shows six; any other count means a term is wrong.
+    """
+    at_large = d[d.district == "at large"]
+    start = at_large.start_year * 12 + at_large.start_month
+    end = pd.to_numeric(at_large.end_year) * 12 + pd.to_numeric(at_large.end_month)
+    handover = set(start[at_large.note.str.startswith("Elected in a special election", na=False)])
+    for m in range(first * 12 + 1, last * 12 + 13):
+        n = ((start <= m) & (end >= m)).sum()
+        expected = 6 if m in handover else 5
+        if n != expected:
+            raise ValueError(f"{(m - 1) // 12}-{(m - 1) % 12 + 1:02d}: {n} members "
+                             f"at large, expected {expected}")
 
 
 def build() -> pd.DataFrame:
     d = pd.DataFrame(list(oleary_terms()) + list(novack_terms()))
+    d = election_terms(d)
+    check_five_seats(d)
     d = d.sort_values(["name", "start_year", "start_month"]).reset_index(drop=True)
 
     # A counter within each person: their first term is 1, the term beginning
@@ -229,7 +424,7 @@ def build() -> pd.DataFrame:
     d["term_number"] = d.groupby(d.name.str.strip()).cumcount() + 1
 
     cols = ["name", "term_number", "district", "start_year", "start_month",
-            "end_year", "end_month", "end_status", "source", "note"]
+            "end_year", "end_month", "source", "note"]
     return d[cols].sort_values(["start_year", "start_month", "district", "name"]).reset_index(drop=True)
 
 
