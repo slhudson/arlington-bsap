@@ -6,8 +6,9 @@ belongs in depends on that, not on what it is about.
 | Folder | How it was produced | Read by |
 |---|---|---|
 | `raw/` | published, as it exists in the world | `build/` |
-| `extracted/by_ocr/` | read off `raw/` by software | people |
-| `extracted/by_eye/` | read off `raw/` by a person, with volume/table/page | `build/` |
+| `extracted/by_ocr/` | an OCR engine read the text layer | people |
+| `extracted/by_claude/` | a vision model read a rendered page | `build/` |
+| `extracted/by_human/` | a person checked it | `build/`, in preference |
 | `manual/` | keyed in by a person | `build/` |
 | `clean/` | computed by `build/` from `raw/` and `manual/` | `analysis/` |
 
@@ -59,16 +60,23 @@ Use it to find a table and a page. Do not read numbers from it: OCR of
 19th-century tables misreads digits routinely, and the text layer already
 embedded in the 1880 files renders 13,659 as `lB, 659`.
 
-## extracted/by_eye/
+## extracted/by_claude/ and by_human/
 
-What a person read off the scans, with volume, table and page for every value,
-so each one can be checked against the image. `build/early_census.py` reads
-this.
+Transcribed source tables, one file per printed table, laid out as the table is
+laid out. `by_claude/` is a machine's reading of a page image — better than
+OCR, wrong in different ways, and confirmed by nobody. `by_human/` holds values
+a person has checked, and `build/` prefers it for the same table, so confirming
+something changes what gets built. It is empty so far, which is honest.
 
-`census_1870_1890.csv` holds the published figures for 1870, 1880 and 1890 —
-county including the city, the city, and the magisterial districts. It holds
-only what is printed. No arithmetic: before 1900 no table gives the territory
-the Board governed, and that subtraction happens in `build/`, not here.
+Each row carries the printed indentation as a `level` column: level 0 is the
+table's total, level 1 its parts, level 2 a detail of the line above. Sums take
+level 1 only. Freedman village is printed at level 2 inside Arlington district,
+so it cannot be added as a fourth district — the error that produced 4,596 is
+unrepresentable rather than merely warned against.
+
+No arithmetic lives in these files. Before 1900 no published table gives the
+territory the Board governed, and that subtraction happens in
+`build/early_census.py`.
 
 ## manual/
 
