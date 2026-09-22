@@ -87,6 +87,17 @@ which numbers moved and by how much. That matters while Q1 and Q2 are open.
 **Visual conventions live in `analysis/style.py`.** Colors, fonts and figure
 dimensions are imported, never redeclared, so a palette change is one edit.
 
+**`run.sh` never touches the network.** Fetching a source is a separate script
+run by hand, which saves into `data/raw/` and commits the file. The build then
+reads only what is committed.
+
+Two reasons. Anyone who clones the repository can build it — no account, no API
+key, no connection. And an API can change its answer, so a live call could move
+a figure between runs with nothing in the repo to explain it; a committed file
+is the same evidence standard as a scanned page.
+
+`build/ocr_census.py` already works this way, and so must anything that fetches.
+
 **`data/` holds what we take numbers out of.** A source consulted only to
 settle a question — a boundary history, a news article, a methods note — is
 cited under Works cited in `docs/sources.md`, not downloaded into `data/raw/`.
