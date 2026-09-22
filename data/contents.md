@@ -3,6 +3,10 @@
 Four layers, sorted by how the numbers were produced. Which folder something
 belongs in depends on that, not on what it is about.
 
+Inside `raw/`, folders are named for **who published the material** — the
+Census Bureau, Arlington County — not for its subject. Two documents from the
+same publisher sit together even if they cover different things.
+
 | Folder | How it was produced | Read by |
 |---|---|---|
 | `raw/` | published, as it exists in the world | `build/` |
@@ -147,7 +151,7 @@ moved and by how much.
 workbooks are a way station, not a permanent input, and that column is where
 the remaining distance shows.
 
-## raw/elections/
+## raw/arlington_county/
 
 Arlington County's own election records, published by the Office of Voter
 Registration and Elections. These are the primary material behind who served on
@@ -165,7 +169,7 @@ onward. 85 of its pages mention the County Board. The Electoral Board's own
 preamble notes it was compiled from their records and historical news sources,
 that earlier vote tallies are incomplete, and that they welcome corrections.
 
-Both carry names, offices and dates that will be extracted, which is why they
+Both carry names, offices and dates that will be transcribed, which is why they
 are here rather than cited in docs/sources.md. Neither carries race or gender.
 
 ## raw/census/ — Census Bureau data files, 2000-2020
