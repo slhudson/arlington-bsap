@@ -77,7 +77,10 @@ checked, and `build/` prefers it for the same table, so confirming something
 changes what gets built. It is empty, which is honest.
 
 Files are named `<volume>_p<printed page>_table<n>_<state>_<subject>.csv`, so
-the filename is the citation.
+the filename is the citation. The `county/` subfolder holds the two election
+documents, read from their PDF text layers by `build/read_elections.py` and
+`build/read_board_1870_1920.py` rather than by OCR — still a machine reading a
+document, so still `by_claude/`.
 
 Each row carries the printed indentation as a `level` column: 0 is the table's
 own total, 1 its parts, 2 a detail of the line above. Sums take level 1 only.
@@ -237,7 +240,10 @@ checked, and `build/` prefers it for the same table, so confirming something
 changes what gets built. It is empty, which is honest.
 
 Files are named `<volume>_p<printed page>_table<n>_<state>_<subject>.csv`, so
-the filename is the citation.
+the filename is the citation. The `county/` subfolder holds the two election
+documents, read from their PDF text layers by `build/read_elections.py` and
+`build/read_board_1870_1920.py` rather than by OCR — still a machine reading a
+document, so still `by_claude/`.
 
 Each row carries the printed indentation as a `level` column: 0 is the table's
 own total, 1 its parts, 2 a detail of the line above. Sums take level 1 only.

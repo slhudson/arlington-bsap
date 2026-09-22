@@ -272,8 +272,39 @@ piece of work for a research assistant.
 roster. The coding agrees across all three, so nothing is miscoded, but any
 tally built from the roster counts him three times.
 
+### Q17. The Reconstruction-era Black member counts disagree
+**Owner:** Alex, with Sally · **Status:** open — affects the report's central finding
+
+O'Leary's electoral history names every Board member by district from 1870.
+Cross-referencing those names against the five men Hjerpe identifies as Black —
+Rowe, Syphax, Pinn, Pendleton, Allen — gives a count per term that matches the
+delivered seat counts for 1871-1880 and from 1889, and disagrees in three
+places.
+
+| Term | Board as elected | Implied Black members | Delivered counts |
+|---|---|---|---|
+| 1881-82 | Rowe, Pinn, Costello | **2** | 1, 1 |
+| 1883-84 | Squier, Pendleton, Costello | **1** | missing ("." in the source) |
+| 1885-86 | Veitch, Johnston, Payne | **0** | 1, 1 |
+| 1887-88 | Ball, **Allen**, Grunwell | **1** | 0, 0 |
+
+1885-86 and 1887-88 look transposed, and 1881-82 is one short: William A. Rowe
+held Arlington district while Travis B. Pinn held Jefferson, which is two.
+
+**What this rests on, and does not.** O'Leary gives names, not race. The
+identification of those five men as Black is Hjerpe's, from 1880 manuscript
+census records reproduced in her appendices. So this is a disagreement between
+the delivered counts and what Hjerpe's identifications imply — not proof the
+counts are wrong. Confirming it needs the census linking checked, which is the
+research-assistant task in sources.md.
+
+**Why it matters more than the census corrections.** These are the years the
+report's most substantive finding rests on. The delivered data has no
+person-level backing before 1932, so until now there was nothing to check the
+Reconstruction-era counts against at all.
+
 ### Q16. Fetch and transcribe the Arlington election records
-**Owner:** Sally (or an RA) · **Status:** open — no longer blocked on anyone
+**Owner:** Sally (or an RA) · **Status:** done for both documents
 
 Grace Hjerpe's paper cites two primary sources for Board membership that we had
 not found, both published by Arlington County:
