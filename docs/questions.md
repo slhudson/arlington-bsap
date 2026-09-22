@@ -197,62 +197,57 @@ where the workbook leaves 100 and 278 unexplained.
   mulatto, quadroon, octoroon, Chinese, Japanese and civilized Indian.
 
 ### Q11. Is "Arlington County" the governed territory or a fixed plot of land?
-**Owner:** Sally + Alex · **Status:** A chosen for now; needs Alex's sign-off
+**Settled:** 2026-09-22 (Sally) — the governed territory. Tell Alex; no decision needed from him.
 
-Two possible definitions:
+**Arlington County means the territory the Board governed at each point in
+time.** Not a fixed plot of land held constant backwards.
 
-**A. The territory the Board governed at each point in time.** Boundaries move
-as the county's boundaries moved.
+The reasoning: the report assesses the Board's performance. The Board governed
+whoever lived inside its boundaries in a given year. When territory moved to
+another jurisdiction, the Board genuinely governed fewer people, and the
+population series should show that. A time-invariant definition of a plot of
+land would answer a different question.
 
-**B. A fixed plot of land** — the present-day county — held constant backwards.
+So residents-per-seat measures the right thing as it stands, and the boundary
+changes below are context for reading the figures rather than a correction to
+make.
 
-**A is chosen.** It is what makes residents-per-seat mean anything: a claim
-about how many people each Board member represented needs the population the
-Board actually governed. It is also the basis on which Alexandria city is
-excluded from 1870-1890.
-
-**Two things make this a question rather than a settled decision.**
-
-First, the definition in docs/sources.md is written by Claude from the
-evidence, not by Alex. What exists from him is a single sentence in a chat
-message, about one case — "the census population data for 1870, 1880 and 1890
-erroneously includes the City of Alexandria, which was not governed by the
-board." Correct, and correctly applied, but never written down as a definition
-or generalised beyond that case. So it needs his sign-off rather than his
-confirmation.
-
-Second — and this is now researched — **Arlington's boundaries did move again
-after 1900, twice.** So the population series has silent steps in it where
-territory left the county, and A has only been applied to the first of three
-boundary changes.
+### The boundary changes, for the record
 
 | Change | What left Arlington |
 |---|---|
 | 1900 | Alexandria city reported separately from the county (independent since 1871) |
-| **1915** | 866 acres annexed by Alexandria, effective 1 April 1915 — Rosemont, Shuter's Hill, Carlyle, Eisenhower East, the former West End |
-| **1930** | A further annexation bounded by Duke Street, Quaker Lane and Four Mile Run — including the **Town of Potomac**, incorporated in its own right in 1908 |
+| 1915 | 866 acres annexed by Alexandria, effective 1 April 1915 — Rosemont, Shuter's Hill, Carlyle, Eisenhower East, the former West End |
+| 1930 | A further annexation bounded by Duke Street, Quaker Lane and Four Mile Run — including the Town of Potomac, incorporated in its own right in 1908 |
 
 Sources: *A History of the Boundaries of the City of Alexandria, Virginia:
 1749-2024*, City of Alexandria; and C. B. Rose, "Annexation of a Portion of
 Arlington County by the City of Alexandria in 1915", *Arlington Historical
 Magazine*, 1964. Both in `data/raw/boundaries/`.
 
-**What this means for the figures.** The 1915 change falls between the 1910 and
-1920 censuses; the 1930 change falls around the 1930 census. So part of the
-1910-1920 and 1920-1930 movement is territory changing hands rather than people
-arriving or leaving. The Town of Potomac was an incorporated place, so real
-population moved on paper.
+The 1915 change falls between the 1910 and 1920 censuses and the 1930 change
+around the 1930 census, so part of the movement in those decades is territory
+changing hands. Worth a figure note wherever the early 20th century is
+discussed.
 
-Not yet established: how many residents each annexation carried, and whether
-the 1930 change took effect before or after the April 1930 census date. Those
-determine whether this is a footnote or a correction.
+### The census series matches this definition
 
-**Where it bites hardest is residents-per-seat**, which divides population by
-Board seats. If the county shed populated territory in 1915 and 1930, that
-figure moves for reasons unrelated to representation.
+The Census county series measures the jurisdiction as constituted at each
+census, not a constant area. The document normalises *states* to present-day
+boundaries and says so; it makes no such claim for counties, and states that
+county figures "refer to the inclusion and boundaries of the county in
+decennial census publications." Arlington's own row shows it — 18,597 in 1890
+and 6,430 in 1900.
 
-Under B the same problem appears from the other side: every year before 2020
-would need adjusting to present-day boundaries.
+The document also carries a separate table, *Population of Counties Including
+Associated Independent Cities*, which exists because the main table does not
+hold geography constant. That parallel series is the nearest thing to the
+fixed-land definition, and is not what this project uses.
+
+**Still Alex's to see rather than decide:** the definition in `docs/sources.md`
+was written here, from the evidence. What exists from him is one sentence in a
+chat about the 1870-1890 city problem. Worth him reading it and saying whether
+it matches what he intended.
 
 ### Q9. How should Freedman village be treated, and described?
 **Owner:** Sally + Alex · **Status:** open
