@@ -220,10 +220,7 @@ make.
 | 1915 | 866 acres annexed by Alexandria, effective 1 April 1915 — Rosemont, Shuter's Hill, Carlyle, Eisenhower East, the former West End |
 | 1930 | A further annexation bounded by Duke Street, Quaker Lane and Four Mile Run — including the Town of Potomac, incorporated in its own right in 1908 |
 
-Sources: *A History of the Boundaries of the City of Alexandria, Virginia:
-1749-2024*, City of Alexandria; and C. B. Rose, "Annexation of a Portion of
-Arlington County by the City of Alexandria in 1915", *Arlington Historical
-Magazine*, 1964. Both in `data/raw/boundaries/`.
+Sources cited in `docs/sources.md` under Works cited.
 
 The 1915 change falls between the 1910 and 1920 censuses and the 1930 change
 around the 1930 census, so part of the movement in those decades is territory

@@ -200,6 +200,32 @@ Q8.
 
 ---
 
+## Works cited
+
+Prose sources consulted to settle a question. They are cited here rather than
+saved into `data/`, which holds only material we take numbers out of.
+
+**City of Alexandria.** *A History of the Boundaries of the City of Alexandria,
+Virginia: 1749-2024.*
+`alexandriava.gov/sites/default/files/2024-06/History of the Boundaries of Alexandria 1749-2024.pdf`
+— Establishes that Alexandria annexed land from Alexandria County in 1915 and
+again in 1930, the second including the Town of Potomac. Used for questions.md
+Q11.
+
+**Rose, C. B.** "Annexation of a Portion of Arlington County by the City of
+Alexandria in 1915." *Arlington Historical Magazine*, 1964.
+`arlhist.org/wp-content/uploads/2017/02/1964-4-Annex.pdf`
+— Gives the size and effective date of the 1915 annexation: 866 acres from
+Arlington County, effective 1 April 1915. Used for Q11.
+
+**U.S. Census Bureau.** *Population of States and Counties of the United
+States: 1790-1990.* Virginia notes, printed p.185.
+— Establishes that Alexandria city became independent of the county in 1900 for
+census purposes and that the county was renamed Arlington in 1920; and that
+county figures reflect boundaries as reported at each census rather than a
+constant area. The Virginia pages are excerpted into `data/raw/census/`
+because numbers are taken from them; the notes are cited here.
+
 ## For a research assistant
 
 Roughly in order of value. The first items are mechanical and need no
