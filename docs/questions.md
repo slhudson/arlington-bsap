@@ -207,9 +207,18 @@ So those figures came from somewhere he did not cite and did not hand over.
 1900 to 1980? If it was a published Census volume, the volume and table would
 let us transcribe it directly.
 
-Worth asking before doing the work: nine censuses of published volumes is
-several hours of transcription, and his answer might point straight at the
-right table.
+**Already checked, so nobody repeats it:**
+
+- *POP-TWPS0056, Table 61, "Virginia — Race and Hispanic Origin: 1790 to 1990".*
+  The sibling of POP-TWPS0076, which the workbook does cite, so a natural
+  guess. It is **state-level only** — no counties.
+- *Arlington County's own Historical Census Data page*, `arlingtonva.us`.
+  Plausible, since the workbook cites an arlingtonva.us URL. It holds **2000
+  and later only**.
+
+What remains are the scanned decennial volumes, decade by decade, or a paid
+aggregator such as Social Explorer or NHGIS. Several hours either way, which is
+why the question is worth asking before the work.
 
 **Still genuinely open, not a correction:**
 
