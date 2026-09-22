@@ -274,16 +274,23 @@ for "non-residence".
 
 Its footnotes point at two primary sources we had not found:
 
-**Office of Frank O'Leary.** *The Electoral History of That Part of Alexandria
-County Now Known as Arlington County, 1870-1920.*
-`vote.arlingtonva.us/files/assets/vote/elections/electionresults/pre-1920_candidate_history.pdf`
+**O'Leary, Frank.** *The Electoral History of That Part of Alexandria County
+Now Known as Arlington County, 1870-1920.* Version 2. Arlington County
+Treasurer. Now in `data/raw/county/`.
 
-**Arlington County Elections.** *Candidate History, 1920-Present.*
-`vote.arlingtonva.us/files/assets/vote/elections/electionresults/candidate-history.pdf`
+**Arlington County Office of Voter Registration and Elections.** *Candidate
+History, 1920-Present.* Now in `data/raw/county/`.
 
-— Between them these cover Board membership for the whole period the report
-addresses. They are the primary source the Board data has been missing. Not yet
-fetched or transcribed.
+— Between them these cover Board elections for the whole period. **Both are
+compilations rather than primary records**, and both say so: O'Leary compiles
+from the Alexandria Gazette with party affiliation "inferred", and the
+Electoral Board's own preamble notes incomplete early tallies and invites
+corrections. They record elections rather than service, and neither carries
+race or gender.
+
+Hjerpe's 2021 footnotes point at `vote.arlingtonva.us`, which now returns a
+not-found page *rendered as a PDF* — a naive fetch gets an 85 KB file that
+looks like a document. The live copies are on `vote.arlingtonva.gov`.
 
 **Novack, Norman S.** "Six Decades of Arlington Leadership." *Arlington
 Historical Magazine*, 1994. `arlhist.org/wp-content/uploads/2020/02/1994-6-Decades.pdf`
