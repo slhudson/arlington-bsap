@@ -1,33 +1,28 @@
-"""Arlington County residents by race/ethnicity (share of residents), 1870-2020.
+"""Residents by race/ethnicity, share of residents, stacked bars, 1870-2020.
 
-The 1970 and 1990 columns are rescaled to sum to 100%. This figure and the
-count version therefore treat the same overlap differently - see
+The 1970 and 1990 columns are rescaled to sum to 100%. This figure and
+residents_by_race.py therefore treat the same overlap differently - see
 docs/questions.md Q1, which is unresolved.
 """
-import sys
-from pathlib import Path
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
 from matplotlib.ticker import MultipleLocator, PercentFormatter
 
-# Append, never insert: build/ also has a paths.py, and putting it first would
-# shadow this directory's own paths.py - handing analysis a route to raw/.
-sys.path.append(str(Path(__file__).resolve().parents[1] / "build"))
+import files
 import style
-from conventions import not_reported_as_zero, rescale_overlapping_years
-from paths import DEMOGRAPHICS, out
+
+files.build_stage_on_path()
+from assumptions import not_reported_as_zero, rescale_to_100   # noqa: E402
 
 style.apply()
-OUT = out("arlington_residents_by_race_pct")
 
-c = pd.read_csv(DEMOGRAPHICS)
+c = pd.read_csv(files.RESIDENTS)
 c = not_reported_as_zero(c)                        # Q2
 shares = c[style.GROUPS].div(c["total"], axis=0) * 100
-other = (100 - shares.sum(axis=1)).clip(lower=0)   # before rescaling
-shares = rescale_overlapping_years(shares)         # Q1
+other = (100 - shares.sum(axis=1)).clip(lower=0)   # computed before rescaling
+shares = rescale_to_100(shares)                    # Q1
 
 fig, ax = plt.subplots(figsize=style.WIDE)
 bottom = np.zeros(len(c))
@@ -50,5 +45,4 @@ hand.append(Patch(fc=style.OTHER, ec=style.OTHER_EDGE, hatch="////", lw=0.4,
 ax.legend(handles=hand, loc="upper center", bbox_to_anchor=(0.5, -0.18), ncol=2, frameon=False,
           handlelength=1.2, columnspacing=1.0, handletextpad=0.4, fontsize=7.5)
 
-fig.savefig(OUT + ".pdf", bbox_inches="tight")
-fig.savefig(OUT + ".png", dpi=200, bbox_inches="tight")
+files.save(fig, "residents_by_race_share")

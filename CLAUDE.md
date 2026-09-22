@@ -26,17 +26,38 @@ Dividing counts into shares, choosing a log axis, deciding which years to show.
 Presentation choices are still subjective, but they cannot change a value. If
 they would only disagree about how to *show* it, it belongs in `analysis/`.
 
-This is enforced structurally, not by convention: `analysis/paths.py` has no
+This is enforced structurally, not by convention: `analysis/files.py` has no
 path to `raw/`. A figure script that wants to reach around the cleaning step
 has nothing to reach with. Note that `analysis` scripts *append* `build/` to
-`sys.path` rather than inserting it, so `build/paths.py` cannot shadow
-`analysis/paths.py` and quietly restore that route.
+`sys.path` rather than inserting it, so `build/files.py` cannot shadow
+`analysis/files.py` and quietly restore that route.
+
+## Naming
+
+**A file is named after what it produces.** `build/residents.py` writes
+`data/residents.csv`. `analysis/board_seats.py` writes
+`figures/pdf/board_seats.pdf` and `figures/png/board_seats.png`. No `make_`
+prefixes, no `_chart` suffixes: the directory says what the stage does, the
+filename says which thing. `run.sh` checks this after every figure, and warns
+about figures in `figures/` that no step produces.
+
+**Two subjects: `residents` and `board`.** Everything is Arlington, so nothing
+is prefixed `arlington_`.
+
+**If you can run it, it lives with the code. If you can only read it, it lives
+in `docs/`.** `build/assumptions.py` holds the mechanism of the two open
+questions; the reasoning is in `docs/questions.md`. Code files carry a pointer,
+not an argument.
+
+**`files.py` is where real filenames are assigned to the short names the code
+uses.** Fix the mapping once and every script follows. There is one per stage,
+and that is deliberate — see above.
 
 ## The rules that matter
 
 **`raw/` is read-only.** It is a dated snapshot of the files as received. Never
 edit, rename, clean or "fix" anything inside it — including the spacing in the
-`aapi_m embers` header, which is corrected in `build/clean.py`.
+`aapi_m embers` header, which is corrected in `build/board_seats.py`.
 
 **Everything is built by `bash run.sh`.** One entry point, no exceptions. If a
 figure cannot be produced by running that from a clean checkout, it is not
@@ -55,8 +76,9 @@ dimensions are imported, never redeclared, so a palette change is one edit.
 
 **Fail loudly.** A script that cannot find its input, or whose numbers stop
 tying out, should raise — not carry on and emit a plausible-looking figure with
-wrong values. `build/clean.py` asserts its derived columns still agree with the
-figures they derive from.
+wrong values. `build/residents.py` asserts its derived columns still agree with
+the figures they derive from, and `run.sh` fails if a script does not write the
+figure it is named for.
 
 **Both authors edit this code.** Write it to be read by someone else.
 
@@ -65,7 +87,7 @@ figures they derive from.
 ```bash
 python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl
 bash run.sh               # build, then every figure
-bash run.sh pct log       # build, then only matching figures
+bash run.sh residents_per # build, then only matching figures
 ```
 
 Invoke through `bash`, not `./run.sh`. Overleaf does not preserve Unix file
@@ -80,10 +102,10 @@ code.
 
 Two are currently unresolved and deliberately **not** settled in `build/`: the
 1970/1990 category overlap (Q1) and whether not-reported reads as zero (Q2).
-Both treatments live in `build/conventions.py`, applied explicitly by each
-figure, so the current disagreement between figures is visible in code rather
-than buried. When they are settled, the chosen treatment moves into
-`build/clean.py` and the per-figure calls go away.
+Both live in `build/assumptions.py`, applied by name in each figure, so the
+current disagreement between figures is greppable rather than buried. When they
+are settled, the assumption moves into the relevant build step and the function
+is deleted.
 
 ## Register
 

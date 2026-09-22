@@ -1,31 +1,24 @@
-"""Arlington County Board seats by race/ethnicity and gender, 1871-2026.
+"""Board seats by race/ethnicity and gender, 1871-2026.
 
 Seat counts rather than shares, so the 1932 expansion from three to five seats
 is legible. Half-height segments are genuine: a member left mid-year and was
 replaced.
 
-1883, 1884 and 1931 are not reported and appear as gaps rather than zeros. The
-runs logic below is what produces those gaps: each unbroken stretch of reported
-years is filled separately, so no band is drawn across a missing year.
+1883, 1884 and 1931 are missing in the source and appear as gaps rather than
+zeros. The runs logic below is what produces those gaps: each unbroken stretch
+of reported years is filled separately, so no band is drawn across a gap.
 """
-import sys
-from pathlib import Path
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
 
-# Append, never insert: build/ also has a paths.py, and putting it first would
-# shadow this directory's own paths.py - handing analysis a route to raw/.
-sys.path.append(str(Path(__file__).resolve().parents[1] / "build"))
+import files
 import style
-from paths import BOARD_COUNTS, out
 
 style.apply()
-OUT = out("board_seats_by_race_gender")
 
-d = pd.read_csv(BOARD_COUNTS)
+d = pd.read_csv(files.BOARD_SEATS)
 years = d["year"].to_numpy()
 valid = d["white"].notna().to_numpy()
 
@@ -53,7 +46,7 @@ def stacked_step(ax, cols, colors, labels):
         cum_prev = top
 
 
-fig, (ax1, ax2) = plt.subplots(2, 1, figsize=style.STACKED, sharex=True,
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=style.TWO_PANEL, sharex=True,
                                gridspec_kw={"hspace": 0.34})
 
 stacked_step(ax1, style.GROUPS, style.GROUP_COLORS, style.GROUP_LABELS)
@@ -81,6 +74,4 @@ ax2.legend(loc="upper center", bbox_to_anchor=(0.5, -0.20), ncol=2, frameon=Fals
 ax2.text(0.5, -0.36, style.HALF_SEAT_NOTE, transform=ax2.transAxes, ha="center", va="top",
          fontsize=7.5, style="italic", linespacing=1.3)
 
-fig.savefig(OUT + ".pdf", bbox_inches="tight")
-fig.savefig(OUT + ".png", dpi=200, bbox_inches="tight")
-print("ok")
+files.save(fig, "board_seats")

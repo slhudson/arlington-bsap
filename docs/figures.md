@@ -12,7 +12,7 @@ in `docs/questions.md`.
 
 ## The five
 
-### `arlington_residents_by_race`
+### `residents_by_race`
 Stacked bars, raw census counts, linear scale, on a 4 x 8 inch canvas — twice
 as high as wide.
 
@@ -25,7 +25,7 @@ line on this figure.
 Counts are plotted as reported, so the 1970 and 1990 bars sit slightly above
 the county total — see Q1.
 
-### `arlington_residents_by_race_log`
+### `residents_by_race_log`
 Log-scale line chart, one line per group plus a dashed total.
 
 This exists because the log scale shows something the stacked version cannot:
@@ -37,14 +37,14 @@ band, since the total line already accounts for the remainder.
 A log axis shows proportional change, not absolute change — worth a caption
 note wherever it appears.
 
-### `arlington_residents_by_race_pct`
+### `residents_by_race_share`
 Stacked bars, each group's share of residents, 0–100%.
 
 Every bar reaches 100%, so the early decades read as clearly as the later ones.
 The 1970 and 1990 columns are rescaled to sum to 100% — see Q1. Hispanic before
 1970 and AAPI before 1950 are plotted as 0% — see Q2.
 
-### `arlington_residents_per_seat`
+### `residents_per_seat`
 Log-scale lines: actual residents per seat against the cube-root-law benchmark,
 with the gap between them shaded.
 
@@ -53,7 +53,7 @@ residents per seat that would obtain if the Board's size followed the cube-root
 law. The log axis is necessary because the benchmark is roughly a tenth of the
 actual figure. This figure keeps the 1932 line and annotation.
 
-### `board_seats_by_race_gender`
+### `board_seats`
 Two panels sharing an x-axis: (a) race/ethnicity, (b) gender, both as seat
 counts on a 0–5 scale rather than shares.
 
@@ -80,9 +80,9 @@ figure, so a palette change is a single edit.
 ## Where the code is
 
 Each figure is one script in `analysis/`, reading only from `data/`. The
-cleaning that produces `data/` is in `build/clean.py`. The two contested
+cleaning that produces `data/` is in `build/residents.py`. The two contested
 treatments — the 1970/1990 overlap and whether not-reported reads as zero —
-are in `build/conventions.py`, called explicitly by the figures that use them,
+are in `build/assumptions.py`, called explicitly by the figures that use them,
 so it is greppable which figure takes which position.
 
 ## Set aside

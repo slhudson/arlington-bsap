@@ -30,18 +30,28 @@ In both years the four race categories sum to more than the reported total —
 about 4,800 people in 1970 (2.8%) and 400 in 1990 (0.2%).
 
 The figures currently disagree with each other:
-- `make_residents_by_race_chart_pct.py` rescales both years so the bars total 100%
-- `make_residents_by_race_chart.py` plots the counts as reported and notes the
+- `residents_by_race_share.py` rescales both years so the bars total 100%
+- `residents_by_race.py` plots the counts as reported and notes the
   discrepancy in a comment
 
 Both are defensible; they cannot both appear in the same report. Whatever is
 decided belongs in `build/` so every figure inherits it.
 
-Working hypothesis, unconfirmed: Hispanic/Latino is an ethnicity the census
-tabulates *across* races, so Hispanic residents are counted twice — once by
-race, once as Hispanic. If that is the cause, the overlap is expected rather
-than an error, and the honest fix is to stop treating the four categories as a
-partition at all.
+Working hypothesis, unconfirmed: the Census asks race and Hispanic origin as
+two separate questions, so a Hispanic resident also answers the race question
+and lands in two categories at once. The bar exceeds the population because
+some people are counted in it twice.
+
+If that is the cause, the overlap is expected rather than an error, and the
+real question is not "rescale or don't" but whether Hispanic belongs in a
+stack with the other three at all, given it answers a different question.
+Common alternatives: drop it from the stack and show it as a separate line, or
+use the Census's non-Hispanic race categories so the four really are mutually
+exclusive.
+
+**In code:** `rescale_to_100()` in `build/assumptions.py`, applied by
+`analysis/residents_by_race_share.py`. `analysis/residents_by_race.py` applies
+nothing and plots as reported.
 
 **Origin of the current treatment:** the rescaling was introduced while the
 figures were being built, as a working choice, and was noted at the time. It
@@ -73,6 +83,11 @@ second.
 Recommendation when this is taken up: follow the log chart, which starts each
 line the year the category is first reported, and add a caption note giving
 those years.
+
+**In code:** `not_reported_as_zero()` in `build/assumptions.py`, applied by
+`analysis/residents_by_race.py` and `analysis/residents_by_race_share.py`.
+`analysis/residents_by_race_log.py` applies nothing, so its lines begin when
+each category is first reported.
 
 ---
 

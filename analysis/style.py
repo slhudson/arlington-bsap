@@ -1,11 +1,11 @@
 """Shared visual conventions. Every figure imports these; none redeclares them.
 
-A palette or font change is a single edit here, and a group keeps the same
+A palette or font change is a single edit here, and a category keeps the same
 colour in every figure it appears in.
 """
 import matplotlib as mpl
 
-# Race/ethnicity. Order is the stacking order used by the area and bar charts.
+# Race/ethnicity. Order is the stacking order used by the bar and area charts.
 BLACK = "#E69F00"
 HISP = "#009E73"
 AAPI = "#CC79A7"
@@ -37,9 +37,9 @@ GAP = "#EFE6DC"
 GRID = "#DDDDDD"
 
 # Figure dimensions, inches.
-WIDE = (6.5, 4.6)        # standard single-panel figure at LaTeX text width
+WIDE = (6.5, 4.6)        # single panel at LaTeX text width
 TALL = (4.0, 8.0)        # 1:2, so the early decades have visible height
-STACKED = (6.5, 6.4)     # two panels sharing an x-axis
+TWO_PANEL = (6.5, 6.4)
 PER_SEAT = (6.5, 4.4)
 
 # 1932: the Board expands from three to five seats and magisterial districts
@@ -58,8 +58,7 @@ def apply(legend_fontsize=8):
 
     Computer Modern matches Overleaf's default body text, so figure labels sit
     in the same typeface as the surrounding prose. pdf.fonttype 42 embeds
-    TrueType rather than Type 3, which keeps text selectable and searchable in
-    the compiled PDF.
+    TrueType rather than Type 3, keeping text selectable in the compiled PDF.
     """
     mpl.rcParams.update({
         "font.family": "serif", "font.serif": ["cmr10"], "mathtext.fontset": "cm",

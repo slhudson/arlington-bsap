@@ -1,8 +1,9 @@
 % Arlington County Board Structure and Performance study.
 %
-% Figures are NOT defined in this file. They are built from raw/ by ../run.sh
-% and written to ../figures/, which \graphicspath points at below. To change a
-% figure, edit its script in build/ and re-run; never paste plot data here.
+% Figures are NOT defined in this file. They are built from raw/ by run.sh and
+% written to ../figures/pdf/, which \graphicspath points at below. To change a
+% figure, edit its script in analysis/ and re-run. Never paste plot data here:
+% that makes a second copy of the numbers, free to go stale.
 \documentclass{article}
 
 \usepackage{graphicx}
@@ -10,8 +11,8 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
 
-% Figures come from the build, one directory up from paper/.
-\graphicspath{{../figures/}}
+% The paper includes the PDF versions; figures/png/ is for slides and email.
+\graphicspath{{../figures/pdf/}}
 
 \title{Report for Arlington County Board}
 \author{Sally Hudson and Alex Keena}
@@ -25,19 +26,19 @@
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth]{arlington_residents_by_race_pct.pdf}
+  \includegraphics[width=\textwidth]{residents_by_race_share.pdf}
   \caption{Share of Arlington County residents by race and ethnicity,
   1870--2020. Hispanic/Latino and Asian American/Pacific Islander residents
   were not separately tabulated before 1970 and 1950 respectively, and are
   shown as zero before those years. The four categories sum to slightly more
   than the reported total in 1970 and 1990; those columns are rescaled to
   100\%.}
-  \label{fig:residents-pct}
+  \label{fig:residents-share}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth]{board_seats_by_race_gender.pdf}
+  \includegraphics[width=\textwidth]{board_seats.pdf}
   \caption{Composition of the Arlington County Board by race/ethnicity and
   gender, 1871--2026, in seats rather than shares. The dashed line marks 1932,
   when the Board expanded from three to five seats and magisterial districts

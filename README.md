@@ -9,17 +9,17 @@ Hudson (Ranked Choice Virginia) and Alex Keena (VCU).
 ```
 raw/         frozen source files, read-only
     |
-    |   build/       cleaning: decides what each number IS
+    |   build/       decides what each number IS
     v
-data/        clean, analysis-ready CSVs
+data/        residents.csv, board_seats.csv, board_members.csv
     |
-    |   analysis/    figures: decides how a number is SHOWN
+    |   analysis/    decides how a number is SHOWN
     v
-figures/     generated PDFs and PNGs
+figures/     pdf/ for the paper, png/ for slides and email
     |
     |   \includegraphics, via \graphicspath
     v
-paper/       main.tex - the prose
+paper/       arlington-bsap.tex - the prose
     |
     |   git push  ->  GitHub  ->  pull in Overleaf
     v
@@ -33,7 +33,7 @@ The split between the two stages is the important part. **`build/` is where
 judgment goes** — what a blank means, whether census categories overlap, which
 of two conflicting totals is right. **`analysis/` is deterministic given the
 data** — it chooses how to show a number but cannot change one. That is
-enforced rather than trusted: `analysis/paths.py` has no path to `raw/`.
+enforced rather than trusted: `analysis/files.py` has no path to `raw/`.
 
 ## Rebuilding
 
@@ -42,7 +42,12 @@ python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl
 bash run.sh
 ```
 
-`bash run.sh pct log` rebuilds only matching figures.
+`bash run.sh residents_per` rebuilds only matching figures.
+
+Files are named after what they produce: `build/residents.py` writes
+`data/residents.csv`, `analysis/board_seats.py` writes `board_seats.pdf` and
+`board_seats.png`. `run.sh` enforces that, and warns about figures no step
+produces.
 
 Use `bash run.sh` rather than `./run.sh`. Overleaf does not preserve Unix file
 permissions, so any push from Overleaf strips the executable bit and
@@ -52,7 +57,7 @@ permissions, so any push from Overleaf strips the executable bit and
 
 Prose is written in Overleaf, in the project linked to this repository.
 Overleaf syncs the whole repo, so the scans and scripts are visible there; only
-`paper/main.tex` and `figures/` matter for compiling.
+`paper/arlington-bsap.tex` and `figures/pdf/` matter for compiling.
 
 **Pull from GitHub before a writing session, push when you finish.** In
 Overleaf the control is the **Integrations** tab in the narrow icon rail down

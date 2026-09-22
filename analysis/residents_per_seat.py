@@ -1,27 +1,20 @@
 """Residents per Board seat against the cube-root-law benchmark, 1870-2020.
 
 The benchmark is population divided by the cube root of population - the
-residents per seat that would obtain if the Board's size followed the cube-root
-law. The log axis is necessary because the benchmark is roughly a tenth of the
-actual figure; a linear axis would flatten it.
+residents per seat that would obtain if the Board's size followed the
+cube-root law. The log axis is necessary because the benchmark is roughly a
+tenth of the actual figure; a linear axis would flatten it.
 """
-import sys
-from pathlib import Path
-
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FixedLocator, FuncFormatter, NullLocator
 
-# Append, never insert: build/ also has a paths.py, and putting it first would
-# shadow this directory's own paths.py - handing analysis a route to raw/.
-sys.path.append(str(Path(__file__).resolve().parents[1] / "build"))
+import files
 import style
-from paths import DEMOGRAPHICS, out
 
 style.apply(legend_fontsize=8.5)
-OUT = out("arlington_residents_per_seat")
 
-d = pd.read_csv(DEMOGRAPHICS)[
+d = pd.read_csv(files.RESIDENTS)[
     ["year", "total", "board_seats", "residents_per_seat", "cube_root_resident_ratio"]
 ].dropna().reset_index(drop=True)
 d.columns = ["year", "pop", "seats", "rps", "benchmark"]
@@ -57,6 +50,5 @@ ax.text(1936, 1.045, style.EXPANSION_NOTE, transform=ax.get_xaxis_transform(),
 
 ax.legend(loc="lower right", frameon=False, handlelength=2.2)
 
-fig.savefig(OUT + ".pdf", bbox_inches="tight")
-fig.savefig(OUT + ".png", dpi=200, bbox_inches="tight")
+files.save(fig, "residents_per_seat")
 print(d.assign(ratio=(d.rps / d.benchmark).round(1)).round(0).to_string())
