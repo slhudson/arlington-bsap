@@ -31,6 +31,20 @@ def build() -> pd.DataFrame:
 
     missing = b.loc[b["white"].isna(), "year"].tolist()
     assert missing == [1883, 1884, 1931], f"unexpected missing years: {missing}"
+
+    # The Board is split two independent ways - by race and by gender - and
+    # both must account for the same seats. Three seats through 1930, five
+    # from 1932. Fractions are genuine, so compare as floats.
+    reported = b.dropna(subset=["white"]).copy()
+    reported["seats"] = reported["year"].apply(lambda y: 3 if y < 1932 else 5)
+    by_race = reported[["white", "black", "hisp", "aapi"]].sum(axis=1)
+    by_gender = reported[["men", "women"]].sum(axis=1)
+
+    for label, totals in (("race categories", by_race), ("men + women", by_gender)):
+        off = reported.loc[(totals - reported["seats"]).abs() > 1e-9, "year"]
+        assert off.empty, f"{label} do not sum to the seat count in {list(off.astype(int))}"
+    off = reported.loc[(by_race - by_gender).abs() > 1e-9, "year"]
+    assert off.empty, f"race and gender totals disagree in {list(off.astype(int))}"
     return b
 
 

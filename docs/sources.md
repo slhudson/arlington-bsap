@@ -160,6 +160,39 @@ Unlike the census, there is no primary material behind these anywhere in the
 repository — they rest on news coverage, the Arlington Historical Society and
 obituaries.
 
+### What the two files can say about each other
+
+Sourcing them needs archival work, but they overlap from 1932 and can be
+checked against each other. That has now been done.
+
+**The seat counts are internally coherent everywhere.** Across all 153 reported
+years, the four race categories sum to the number of seats, men plus women sum
+to the number of seats, and the two totals agree. Three seats through 1930,
+five from 1932, fractions included. No drift.
+
+**The roster reproduces the seat counts in 82 of 95 overlapping years.** All 13
+exceptions are years in which more people served than there were seats, which
+is what the fractional seats encode. So the two files agree wherever nothing
+complicated happened.
+
+**One duplicate.** Alfred Frisbie has three rows for 1952. The coding agrees
+across them, so nothing is miscoded, but a tally built from the roster would
+count him three times. 1952 was a chaotic year: three members removed on 17
+September, four appointed the next day, and four more elected in November.
+
+**The fractional seats cannot currently be reconstructed.** The roster records
+`appointed`, `resigned`, `died` and `removed` as yes/no flags, with the actual
+dates only in free-text notes — "Removed 9/17/52", "until death on Jan 11". So
+the halves in the seat counts cannot be checked against service dates without
+parsing prose. Nor is the convention obviously proportional: in 2003 Charles
+Monroe died on 11 January and the year is still split half and half.
+
+Turning those note dates into real date columns would make every fraction
+checkable, and would be a contained piece of work for a research assistant.
+
+All three checks that could be made structural now run in `build/` and were
+verified by breaking them deliberately.
+
 | Period | Status |
 |---|---|
 | 1871–1888 | Five named Black members. Census-linkable: Grace Hjerpe's 2021 paper demonstrates the method using 1880 manuscript census records. Small n, verifiable — not yet verified. |
