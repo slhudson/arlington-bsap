@@ -7,11 +7,13 @@ Hudson (Ranked Choice Virginia) and Alex Keena (VCU).
 ## How this fits together
 
 ```
-raw/         frozen source files, read-only
+data/raw/        published sources (census volumes)
+data/manual/     hand-keyed workbooks
+data/extracted/  OCR - for people to search, never read by code
     |
     |   build/       decides what each number IS
     v
-data/        residents.csv, board_seats.csv, board_members.csv
+data/clean/      residents.csv, board_seats.csv, board_members.csv
     |
     |   analysis/    decides how a number is SHOWN
     v
@@ -33,7 +35,9 @@ The split between the two stages is the important part. **`build/` is where
 judgment goes** — what a blank means, whether census categories overlap, which
 of two conflicting totals is right. **`analysis/` is deterministic given the
 data** — it chooses how to show a number but cannot change one. That is
-enforced rather than trusted: `analysis/files.py` has no path to `raw/`.
+enforced rather than trusted: `analysis/files.py` has no path to anything above
+`data/clean/`. What is in which data folder is set by how the numbers got
+there — see `data/contents.md`.
 
 ## Rebuilding
 

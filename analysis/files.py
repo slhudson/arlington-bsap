@@ -11,12 +11,12 @@ change to build/, not an import added here.
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA = ROOT / "data"
+CLEAN = ROOT / "data" / "clean"
 FIGURES = ROOT / "figures"
 
-RESIDENTS = DATA / "residents.csv"
-BOARD_SEATS = DATA / "board_seats.csv"
-BOARD_MEMBERS = DATA / "board_members.csv"
+RESIDENTS = CLEAN / "residents.csv"
+BOARD_SEATS = CLEAN / "board_seats.csv"
+BOARD_MEMBERS = CLEAN / "board_members.csv"
 
 for _f in (RESIDENTS, BOARD_SEATS):
     if not _f.exists():

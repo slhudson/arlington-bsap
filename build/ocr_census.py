@@ -1,4 +1,4 @@
-"""Census scans -> data/census_ocr/*.txt, one text file per volume.
+"""Census scans -> data/extracted/census/*.txt, one text file per volume.
 
 Seven of the nine scanned volumes have no text layer, so nothing in them can
 be searched or cited without this. Running it makes all 521 pages greppable,
@@ -28,10 +28,10 @@ import Quartz
 import Vision
 from Foundation import NSData
 
-from files import DATA, RAW
+from files import EXTRACTED, RAW
 
-SCANS = RAW / "Historical Census Records"
-OUT = DATA / "census_ocr"
+SCANS = RAW / "census"
+OUT = EXTRACTED / "census"
 DPI = 300
 
 

@@ -7,14 +7,20 @@ repo; prose is written in Overleaf, which syncs the repository.
 ## The two stages
 
 ```
-raw/        frozen sources, read-only
-  |  build/     <- every subjective decision about what a number IS
-data/       clean, analysis-ready
-  |  analysis/  <- presentation only; cannot see raw/
-figures/    generated output
+data/raw/        published sources - a file here is its own citation
+data/manual/     hand-keyed - needs a citation per cell
+data/extracted/  machine-derived, NOT trusted - read by people, never by code
+  |  build/        <- every subjective decision about what a number IS
+data/clean/      built output
+  |  analysis/     <- presentation only; cannot see anything above clean/
+figures/         pdf/ for the paper, png/ for slides
   |
-paper/      prose -> Overleaf -> compiled PDF
+paper/           prose -> Overleaf -> compiled PDF
 ```
+
+The four data layers are ordered by trust, and which folder something belongs
+in depends on how the numbers got there, not what they are about. See
+`data/contents.md`.
 
 **Build resolves ambiguity in the sources.** What a blank means, whether
 categories overlap, which of two conflicting totals is right. If two reasonable
@@ -27,7 +33,7 @@ Presentation choices are still subjective, but they cannot change a value. If
 they would only disagree about how to *show* it, it belongs in `analysis/`.
 
 This is enforced structurally, not by convention: `analysis/files.py` has no
-path to `raw/`. A figure script that wants to reach around the cleaning step
+path to `data/raw/`, `data/manual/` or `data/extracted/`. A figure script that wants to reach around the cleaning step
 has nothing to reach with. Note that `analysis` scripts *append* `build/` to
 `sys.path` rather than inserting it, so `build/files.py` cannot shadow
 `analysis/files.py` and quietly restore that route.
@@ -55,18 +61,23 @@ and that is deliberate — see above.
 
 ## The rules that matter
 
-**`raw/` is read-only.** It is a dated snapshot of the files as received. Never
-edit, rename, clean or "fix" anything inside it — including the spacing in the
-`aapi_m embers` header, which is corrected in `build/board_seats.py`.
+**`data/raw/` and `data/manual/` are read-only.** They are the files as
+received. Never edit, rename, clean or "fix" anything inside them — including
+the spacing in the `aapi_m embers` header, which is corrected in
+`build/board_seats.py`.
+
+**Nothing reads `data/extracted/`.** OCR misreads digits. The only way out of
+that folder is a person reading the scan and typing the number into
+`data/manual/`, with a citation.
 
 **Everything is built by `bash run.sh`.** One entry point, no exceptions. If a
 figure cannot be produced by running that from a clean checkout, it is not
 finished.
 
-**Never hand-edit `data/` or `figures/`.** Both are generated and the next run
-overwrites them. A change you want to keep is a change to a script.
+**Never hand-edit `data/clean/` or `figures/`.** Both are generated and the
+next run overwrites them. A change you want to keep is a change to a script.
 
-**`data/` is committed even though it is generated.** The usual rule is the
+**`data/clean/` is committed even though it is generated.** The usual rule is the
 opposite, and we follow it elsewhere. These are small CSVs, and committing them
 means a cleaning decision shows up as a reviewable diff — you can see exactly
 which numbers moved and by how much. That matters while Q1 and Q2 are open.
