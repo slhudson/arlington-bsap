@@ -58,7 +58,11 @@ def read():
                 continue
             if YEAR.match(row["year"]):
                 year = row["year"]
-            if row["date"]:
+            # A date only belongs to the election it heads. The document's own
+            # revision date appears in the same column and would otherwise be
+            # carried down over unrelated years, which is how 1927 rows came to
+            # be stamped 11/18/2021.
+            if row["date"] and (YEAR.match(row["year"]) or not date):
                 date = row["date"]
             if row["office"]:
                 office = row["office"]

@@ -24,10 +24,14 @@ the locator: "O'Leary (2012) p.14", "Hjerpe (2021) Appendix 1". Neither county
 document carries printed page numbers, so the page is the PDF's; full details
 are in docs/sources.md.
 
-The `basis` column separates the two. O'Leary names who *held* each district;
-the candidate history names everyone who *ran*, without marking winners. Six
-candidates appear for three seats in 1927 for that reason, and they are not
-evidence that six people served.
+`elected` is 1 for anyone who took the seat and 0 for anyone who stood and
+lost. `basis` says how that was known: O'Leary names who *held* each district,
+while the candidate history names everyone who *ran* without marking winners,
+so for 1927 the highest vote in each district is taken as the winner. That is
+an inference and says so.
+
+Arlington district has no 1927 entry at all, so that seat is simply absent for
+1927-1931 rather than assumed.
 
 **Race is blank wherever nobody has established it.** For 1889-1931 that is
 every row. The delivered seat counts record those years as all-White; here the
@@ -64,11 +68,18 @@ def build() -> pd.DataFrame:
             entries = [(r.district, r.entry, f"O'Leary (2012) p.{r.page}", "held office")
                        for _, r in block.iterrows()]
         else:
-            # The candidate history lists everyone who ran, winners not marked,
-            # so these are candidates rather than confirmed office-holders.
-            block = later[later.year.astype(int) == year]
-            entries = [("", r.candidate, f"Arlington County (2021) p.{r.page}", "candidate only")
-                       for _, r in block.iterrows()]
+            # The candidate history lists everyone who ran and does not mark
+            # winners. The district is inside the office label, and the highest
+            # vote in each district is taken as the winner - an inference, and
+            # flagged as one.
+            block = later[later.year.astype(int) == year].copy()
+            block["district"] = block.office.str.extract(r"Supervisor\s+(\w+)\s+District")[0]
+            block["n"] = pd.to_numeric(block.votes.astype(str).str.replace(",", ""),
+                                       errors="coerce")
+            best = block.groupby("district").n.transform("max")
+            entries = [(r.district, r.candidate, f"Arlington County (2021) p.{r.page}",
+                        "elected, inferred from highest vote" if r.n == b else "stood, not elected")
+                       for (_, r), b in zip(block.iterrows(), best)]
 
         for district, entry, source, basis in entries:
             # The printed entry is the name plus any note about replacement or
@@ -84,7 +95,8 @@ def build() -> pd.DataFrame:
                 rows.append({
                     "year": served, "district": district, "name": name,
                     "race": race, "source_race": source_race, "source_name": source,
-                    "basis": basis, "elected": year, "note": note,
+                    "elected": 0 if basis == "stood, not elected" else 1,
+                    "basis": basis, "election_year": year, "note": note,
                     "carried_forward": "" if served == year else "yes",
                 })
     return pd.DataFrame(rows)
