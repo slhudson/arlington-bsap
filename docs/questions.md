@@ -493,3 +493,15 @@ figure from a combined total — is superseded.
 figures as received by a few pixels, from a newer matplotlib. Formatting is open for
 redesign, so visual fidelity to the originals is not a goal and versions are
 not pinned. Regression checks target the numbers, not the rendering.
+
+### From 1907 O'Leary gives surnames only
+**Owner:** Sally · **Status:** open
+
+From the 1907 election O'Leary lists candidates by surname with a vote count -
+"Wibirt 99 Hall 35 McShea 24 Robinson 4" - where earlier listings give full
+names. The roster keys a person on the full name, so "Corbett" from 1907 is a
+different person from "Frederick S. Corbett" before it, and starts again at
+term 1. Whether they are the same man is a fact about the sources; joining
+them would need a rule (surname plus district plus continuity?) or a note per
+case. Three people are affected: Corbett, and the two others in that stretch
+who appear under both forms.

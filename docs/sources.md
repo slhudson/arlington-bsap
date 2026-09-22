@@ -163,8 +163,11 @@ obituaries.
 ### A roster built from sources
 
 `data/clean/board_roster.csv` holds one row per person per term: name,
-term number, district, and when service began and ended. 171 terms, 101
-people, 1870-1994.
+term number, district, and when service began and ended. 221 terms, 1870 to
+the 2025 election, from three sources in sequence: O'Leary's electoral
+history to 1915, Novack's roster from 1932 to 1994, and election results
+after that - the county's candidate history to 2021, the state's elections
+database from 2022. Nothing covers 1916-1931.
 
 `term_number` counts within a person, so someone appointed to a vacancy who
 then won twice has three rows numbered 1, 2, 3. William A. Rowe has eight,
@@ -176,13 +179,22 @@ election the person contested, using the county's candidate history. Magruder
 becomes four terms rather than one block. Members elected in November take
 office the following January.
 
-`end_status` distinguishes three things a blank end can mean: **recorded**,
-**still serving at publication** for the five people still in office when
-Novack wrote in 1994, and **not recorded** for the three whose service runs
-past O'Leary's last listing in 1915. A term is the natural unit —
-person-years fall out of it, while the reverse does not, because a term
-starting in May or ending in February cannot be recovered from a list of
-years.
+**From 1995 a term is built from election results.** A November win starts
+a four-year term the following January. A special election fills the rest of
+a term that ended early: the member who left is closed at that month, and the
+winner serves until the seat's next regular election. Where two members' terms
+end in the same year, the county's own annotation ("to fill Eisenberg's
+unexpired term") says whose seat it was, and the build refuses to guess when
+it is absent. The five people still serving when Novack published have their
+last term closed the same way. A check runs every month from 1995: five
+members at large, six only in a month a special election changed hands.
+
+The county and state sources both hold the 2021 election, and the build
+insists they name the same winner there before using the second.
+
+A term is the natural unit — person-years fall out of it, while the reverse
+does not, because a term starting in May or ending in February cannot be
+recovered from a list of years.
 
 A vacant seat is not a row: nobody served, so there is no person and no term.
 
@@ -349,7 +361,15 @@ Now Known as Arlington County, 1870-1920.* Version 2. Arlington County
 Treasurer. Now in `data/raw/county/`.
 
 **Arlington County Office of Voter Registration and Elections.** *Candidate
-History, 1920-Present.* Now in `data/raw/county/`.
+History, 1920-Present.* Last updated 18 November 2021. Now in
+`data/raw/county/`. The county has since taken it down; its results page
+points to the state.
+
+**Virginia Department of Elections.** *Historical Elections Database.*
+`historical.elections.virginia.gov`. Every County Board contest from 2021 on,
+by precinct and vote channel, saved as the database's own CSV in
+`data/raw/virginia/` by `build/fetch_elections.py`. Cited by contest id,
+which is the database's own key for a race.
 
 — Between them these cover Board elections for the whole period. **Both are
 compilations rather than primary records**, and both say so: O'Leary compiles

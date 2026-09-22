@@ -29,7 +29,7 @@ import re
 
 import pandas as pd
 
-from files import TRANSCRIBED, write
+from files import RAW, TRANSCRIBED, write
 
 BY_CLAUDE = TRANSCRIBED / "by_claude"
 NOVACK_PUBLISHED = 1994
@@ -298,11 +298,12 @@ SPECIAL = re.compile(r"special|unexpired", re.I)
 # "(to fill Eisenberg's unexpired term)", "(... following death of Charles Monroe)"
 FILLS = re.compile(r"to fill ([A-Za-z]+)['\u2019]s unexpired term|death of ([A-Za-z. ]+?)\)", re.I)
 PARTY = re.compile(r"\s*\((?:[^)]+)\)\s*$")
-ELECTIONS_END = 2021       # last election in the county's candidate history
+COUNTY_HISTORY_END = 2021  # last election in the county's candidate history
+ELECTIONS_END = 2025       # last election in the state database file
 
 
-def contests():
-    """Each County Board general election from 1993: who won, how many seats.
+def county_contests():
+    """Each County Board general election from 1993 to 2021: who won, how many seats.
 
     The county's candidate history lists primaries and generals under the
     same office; its own label for the election ("Democratic Primary",
@@ -336,6 +337,52 @@ def contests():
                "stood": [PARTY.sub("", n).strip() for n in g.candidate]}
 
 
+def state_contests():
+    """Each County Board general election from 2022, from the state database.
+
+    The file is the Department of Elections' own CSV, one row per candidate
+    per precinct per vote channel, so a candidate's votes are summed. Its
+    `election_type` column says what kind of election it was, and
+    `number_seats` how many were filled. Names are taken as the state spells
+    them, which differs from the county's ("Matthew David De Ferranti" for
+    "Matthew D. \"Matt\" de Ferranti"), so a person is matched by surname.
+    """
+    c = pd.read_csv(RAW / "virginia" / "county_board_2021-2026.csv")
+    c = c[c.candidate_name.str.match(r"^(?!Total|Write|Under|Over)")]
+    c["date"] = pd.to_datetime(c.election_date)
+    general = c[c.election_type.str.startswith("General")]
+    for (date, contest), g in general.groupby(["date", "contest_id"]):
+        by_name = g.groupby("candidate_name").votes.sum().sort_values(ascending=False)
+        seats = int(g.number_seats.iloc[0])
+        yield {"year": date.year, "month": date.month,
+               "special": date.month != 11,
+               "page": None, "contest": int(contest), "fills": None,
+               "winners": list(by_name.index[:seats]),
+               "stood": list(by_name.index)}
+
+
+def contests():
+    """Every County Board general election from 1993, from both sources.
+
+    The county's candidate history runs to 2021 and the state database is
+    used from 2022. Both hold 2021, and the build insists they name the same
+    winner there before trusting the second source for what follows.
+    """
+    county = list(county_contests())
+    state = list(state_contests())
+    overlap = [(c["year"], sorted(map(surname, c["winners"]))) for c in county + state
+               if c["year"] == COUNTY_HISTORY_END and not c["special"]]
+    if len(overlap) != 2 or overlap[0][1] != overlap[1][1]:
+        raise ValueError(f"county and state sources disagree on {COUNTY_HISTORY_END}: {overlap}")
+    return county + [c for c in state if c["year"] > COUNTY_HISTORY_END]
+
+
+def cite(c):
+    if c["page"] is not None:
+        return f"Arlington County (2021) p.{c['page']}"
+    return f"Virginia Department of Elections (2026) contest {c['contest']}"
+
+
 def election_terms(earlier: pd.DataFrame):
     """Terms from 1995 on, built from election results.
 
@@ -363,7 +410,7 @@ def election_terms(earlier: pd.DataFrame):
             terms.append({"name": canonical(w), "district": "at large",
                           "start_year": c["year"] + 1, "start_month": 1,
                           "end_year": c["year"] + 4, "end_month": 12,
-                          "source": f"Arlington County (2021) p.{c['page']}", "note": ""})
+                          "source": cite(c), "note": ""})
     d = pd.concat([earlier, pd.DataFrame(terms)], ignore_index=True)
 
     for c in sorted((c for c in rows if c["special"] and c["year"] >= 1995),
@@ -392,7 +439,7 @@ def election_terms(earlier: pd.DataFrame):
             d.loc[len(d)] = {"name": w, "district": "at large",
                              "start_year": c["year"], "start_month": c["month"],
                              "end_year": end, "end_month": 12,
-                             "source": f"Arlington County (2021) p.{c['page']}",
+                             "source": cite(c),
                              "note": f"Elected in a special election in {when} to fill an unexpired term."}
     return d
 
