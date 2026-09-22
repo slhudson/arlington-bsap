@@ -1,167 +1,76 @@
-# Sources for the descriptive coding
+# Sources
 
-What backs each claim about a Board member's race, ethnicity and gender — and,
-just as importantly, what does not yet back it. The roster is person-level, so
-sourcing is recorded per person in a `source` column; this file explains the
-scheme and tracks what is outstanding.
+What backs each number, and what does not yet. Covers both strands: the census
+population figures, and the race and gender coding of Board members.
 
-This is also the work order for a research assistant.
+This is also the work order for a research assistant — see the end.
 
-## Status as of 2026-09-22
+---
 
-| Period | Members | What it rests on | Confidence |
-|---|---|---|---|
-| 1871–1888 | 5 named Black members | Census-linkable. Grace Hjerpe's 2021 paper demonstrates the method using 1880 manuscript census records. | Small n, verifiable — not yet verified |
-| 1889–1986 | Coded all-White | The "first since Reconstruction" framing, and nothing else located so far | **Weakest link.** ~490 person-years |
-| 1987–present | Newman (1987), Monroe (1999), Dorsey (2015), Spain (2024), Tejada | Contemporary news coverage; Arlington Historical Society maintains a curated entry covering all four | Well documented |
-| Gender, all years | All | Naming conventions, with obituaries consulted for some earlier years | Adequate with a methods note; cheap to spot-check |
+## What "Arlington County" means here
 
-## The one that matters
+The Board governed a territory whose name, boundaries and census treatment all
+changed across the period. Every population figure depends on getting this
+right, and the one error found so far came from getting it wrong.
 
-The 1889–1986 stretch is a negative claim — that no Black member served for
-nearly a century — and a negative claim needs evidence that someone looked.
-Right now it rests on a phrase, not a review.
+**Arlington County is the territory of the present-day county: the Arlington,
+Jefferson and Washington magisterial districts. It excludes the City of
+Alexandria in every year**, because the Board never governed the city.
 
-Open: whether that record was ever systematically examined, and by whom. Sally
-is contacting the Arlington Historical Society (info@arlingtonhistorical.com),
-which authored the curated roster and uses the phrasing, to find out.
-
-If the answer is that nobody has checked, the report should say so plainly
-rather than repeat the framing.
-
-## Census population, 1870-1890
-
-The county-only population figures for 1870, 1880 and 1890 were established
-from original census records, and the scanned volumes in
-`raw/2026-09-22-handoff/Historical Census Records/` are those records.
-
-This corrects an earlier reading. The totals first used for those three decades
-counted the City of Alexandria alongside the county, which the Board did not
-govern. Arlington County was named Alexandria County before 1920, and the
-combined figure is what several sources report. The discrepancy surfaced while
-building the residents-per-seat figure: the drop from 18,597 in 1890 to 6,430
-in 1900 was too large to be real.
-
-The county-only 1890 figure is **4,596**, from the census volumes. A working
-estimate of 4,258 was derived by subtracting a secondary-source city figure
-from a secondary-source combined total; it is superseded and should not be
-cited.
-
-Race breakdowns for those years are in the corrected spreadsheet. They are
-incomplete: in 1870 the White and Black counts total 3,085 of 3,185 residents,
-and in 1890 4,318 of 4,596. The remainder appears as "Other/multiracial/
-unreported". Whether those census tables list further categories is worth
-checking against the scans.
-
-## What the census scans actually are
-
-Nine PDFs, 521 pages, in `raw/2026-09-22-handoff/Historical Census Records/`.
-They are extracts from the published 1870, 1880 and 1890 census volumes.
-
-| File | Pages | Searchable? |
+| Period | Name | What the published county figure contains |
 |---|---|---|
-| `1870a-01.pdf` | 6 | no — page images only |
-| `1870a-04.pdf` | 36 | no |
-| `1870a-09.pdf` | 46 | no |
-| `1880_v1-12.pdf` | 72 | yes, poor OCR |
-| `1880_v1-13.pdf` | 85 | yes, poor OCR |
-| `1890a_v1-11.pdf` | 86 | no |
-| `1890a_v1-12.pdf` | 24 | no |
-| `1890a_v1-13.pdf` | 93 | no |
-| `1890a_v1-14.pdf` | 73 | no |
+| to 1846 | Alexandria County, D.C. | part of the District of Columbia |
+| 1847–1919 | Alexandria County, Virginia | the three districts **and** Alexandria city |
+| 1920– | Arlington County, Virginia | the three districts only |
 
-Seven of the nine have no text layer, so nothing in them can be searched or
-quoted without OCR first. That is the single biggest obstacle to documenting
-where the early figures came from.
+Two dates do the work. **In 1900** Alexandria city became independent of the
+county, so from that census onward the published county figure already excludes
+the city. **In 1920** the county was renamed — a name change only, the
+territory did not move.
 
-**What is confirmed.** `1880_v1-13.pdf` p.52 is Table VI, *Population, by Race,
-of Cities and Towns*, and its Virginia section lists Alexandria **city** in
-1880: total 13,659, white 8,279, colored 5,380.
+So 1870, 1880 and 1890 need a county-only figure derived, by subtracting the
+city or summing the three districts. 1900 onward can be used directly. That is
+why the early years are the hard ones.
 
-**What is not.** That is the city, not the county. The spreadsheet's 1880
-county figures are 3,887 total, 1,693 white, 2,194 black. Which table produced
-them — and whether the county figure was printed as county-excluding-city or
-derived by subtracting the city from a combined total — is not recorded
-anywhere. The same question stands for 1870 and 1890, and those volumes cannot
-even be searched yet.
+*Source: Population of States and Counties of the United States: 1790-1990,
+census.gov, Virginia notes, pdf p185.*
 
-This matters because the city/county distinction is exactly what the earlier
-1890 estimate got wrong. Arlington County was Alexandria County before 1920,
-and the City of Alexandria, which the Board did not govern, is counted with it
-in several published tables.
+### The three districts, and what sits inside them
 
-## What the spreadsheet cites
+| District | 1890 | 1880 |
+|---|---|---|
+| Arlington | 2,013 | 1,754 |
+| Jefferson | 1,303 | 1,319 |
+| Washington | 942 | 814 |
+| **County outside the city** | **4,258** | **3,887** |
 
-Two URLs sit in rows below the data in the census workbook:
+**Freedman village is not a fourth district.** It was a settlement of formerly
+enslaved people on the confiscated Lee estate, inside Arlington district. The
+census lists it as an indented sub-line — "Arlington district, *including*
+Freedman village" — the same way it lists Alexandria city's wards beneath the
+city total. Its 338 residents in 1890 are already within Arlington district's
+2,013.
 
-- `census.gov/library/working-papers/2005/demo/pop-twps0076/vatab.pdf`
-- `arlingtonva.us/.../2000-general-demographics.pdf`
+Counting it as a fourth district adds those people twice and gives 4,596, the
+figure currently in `data/manual/`. See questions.md Q8, and Q9 for why the
+settlement matters beyond the arithmetic.
 
-Sixteen census years, two citations, and no record of which years each one
-covers. The Census working paper is a county population series, so it would
-account for totals but not for the race breakdowns.
+### Checks for any new early figure
 
-## Coverage of the race categories
+- Does county-outside-city equal the sum of the three districts?
+- Does city plus the three districts equal the published county total?
+- Is every line being added a place, rather than a detail of the line above it?
 
-| Years | Categories present |
-|---|---|
-| 1870–1940 | White, Black |
-| 1950–1960 | White, Black, AAPI |
-| 1970–2020 | White, Black, AAPI, Hispanic/Latino |
+The third is the one that failed.
 
-This matches when the Census began tabulating each category separately, so the
-gaps are a feature of the source rather than of this dataset — which is the
-reason docs/questions.md Q2 matters.
-
-## What backs the Board data
-
-Nothing is recorded, for either file.
-
-`data/board_seats.csv` covers 1871–2026, 156 years of seat counts, with no
-source noted. `data/board_members.csv` covers 1932–2026, 497 person-years, with
-race and gender coded on every row and no source column. Its `notes` column
-holds appointment, resignation and chair information for 276 rows, which is
-useful but is not sourcing.
-
-Adding a `source` column to the roster is straightforward — it is already
-person-level, so nothing needs restructuring.
-
-## The verification record
-
-`data/manual/census_verification.csv` is the running record: one row per year
-per field, with the workbook value, the source value where one has been found,
-and the volume, table and page behind it. It is compiled here, not received
-from Alex — the three workbooks beside it stay exactly as delivered.
-
-As of 2026-09-22, of 28 rows: 14 confirmed, 1 contradicted, 4 where the source
-covers a different geography, 4 unverified, 2 categories the workbook omits, 1
-category mismatch, 1 URL not yet opened.
-
-## The fact that organises all of this
-
-Written up in full in `docs/geography.md`, which defines what "Arlington
-County" means here and what has to be done to each era's figures.
-
-**Alexandria city became independent of the county in 1900, and Alexandria
-County was renamed Arlington in 1920.**
-
-That single fact explains the shape of the whole dataset. Before 1900, every
-published county figure *includes* the city, so a county-only number has to be
-derived by subtraction. From 1900 onward the published county figure already is
-the county, and needs nothing done to it.
-
-It is why 1870, 1880 and 1890 are the hard years and everything after is
-straightforward — and why the one error found so far is in that early stretch.
-
-Source: *Population of States and Counties of the United States: 1790-1990*,
-census.gov, Virginia notes, pdf p185.
+---
 
 ## Population totals, year by year
 
 | Year | Workbook | Status |
 |---|---|---|
 | 1870 | 3,185 | consistent — county incl. city is 16,755, implying a city of 13,570 |
-| 1880 | 3,887 | **confirmed** — two independent ways |
+| 1880 | 3,887 | **confirmed**, two independent ways |
 | 1890 | 4,596 | **contradicted** — the tables give 4,258 |
 | 1900 | 6,430 | **confirmed** |
 | 1910 | 10,231 | **confirmed** |
@@ -177,44 +86,115 @@ census.gov, Virginia notes, pdf p185.
 | 2010 | 207,627 | not yet checked |
 | 2020 | 238,643 | not yet checked |
 
-Eleven of sixteen totals are now traced to a published table. The race and
-ethnicity figures are far less well established than the totals.
+Eleven of sixteen totals are traced to a published table. 1900–1990 all come
+from one table in *Population of States and Counties of the United States:
+1790-1990*, and every one matched exactly.
 
-The method throughout: search `data/extracted/census/` to find a table, then
-render the page and read it by eye. OCR located every table cited here and
-misread digits on the first one checked, which is why it is never the source of
-a number.
+The per-cell record, with volume, table and page, is
+`data/manual/census_verification.csv`. It is compiled here rather than received
+— the three workbooks beside it stay exactly as delivered, and a discrepancy is
+recorded, never corrected in place.
+
+---
+
+## Race and ethnicity figures
+
+Much less well established than the totals.
+
+| Years | Categories the census reports |
+|---|---|
+| 1870–1940 | White, Black |
+| 1950–1960 | White, Black, AAPI |
+| 1970–2020 | White, Black, AAPI, Hispanic/Latino |
+
+The gaps are a feature of the source rather than of this dataset, which is why
+questions.md Q2 matters.
+
+**The categories were never meant to sum.** The census asks race and Hispanic
+origin as two separate questions, so a Hispanic resident appears in both a race
+count and the Hispanic count. For 1990 the cited source shows this exactly:
+white 130,873 + Black 17,940 + American Indian 537 + Asian/PI 11,560 + Other
+race 10,026 = 170,936, with Hispanic (23,089) cutting across all five.
+
+The workbook mixes the two systems — non-Hispanic white alongside all-race
+Black and Asian totals, with American Indian and Other race dropped. That
+accounts for the 1990 overshoot of 381 to the person. See questions.md Q1.
+
+Neither 1880's nor 1890's race split has a located source. The tables found so
+far cover the county *including* the city.
+
+---
+
+## What backs the Board data
+
+Nothing is recorded, for either file.
+
+`board_seats.csv` covers 156 years of seat counts with no source noted.
+`board_members.csv` covers 497 person-years with race and gender coded on every
+row and no source column. The `notes` column holds appointments and
+resignations for 276 rows, which is not sourcing.
+
+Unlike the census, there is no primary material behind these anywhere in the
+repository — they rest on news coverage, the Arlington Historical Society and
+obituaries.
+
+| Period | Status |
+|---|---|
+| 1871–1888 | Five named Black members. Census-linkable: Grace Hjerpe's 2021 paper demonstrates the method using 1880 manuscript census records. Small n, verifiable — not yet verified. |
+| 1889–1986 | Coded all-White, resting on the "first since Reconstruction" framing. **Weakest link**, ~490 person-years. |
+| 1987–present | Newman (1987), Monroe (1999), Dorsey (2015), Spain (2024), plus Tejada. Well documented; the Arlington Historical Society maintains a curated entry. |
+| Gender, all years | Naming conventions plus some obituaries. Adequate with a methods note; cheap to spot-check. |
+
+### The one that matters
+
+The 1889–1986 stretch is a negative claim — that no Black member served for
+nearly a century — and a negative claim needs evidence that someone looked.
+Right now it rests on a phrase, not a review.
+
+Open: whether that record was ever systematically examined, and by whom. Sally
+is contacting the Arlington Historical Society
+(info@arlingtonhistorical.com), which authored the curated roster and uses the
+phrasing.
+
+If nobody has checked, the report should say so plainly rather than repeat the
+framing.
+
+---
+
+## The census scans
+
+Nine PDFs, 521 pages, in `data/raw/census/`, from the published 1870, 1880 and
+1890 volumes. Seven have no text layer. `data/extracted/census/` holds OCR of
+all of them.
+
+**The method:** search the OCR to locate a table, then render the page and read
+it by eye. OCR found every table cited here and misread digits on the first one
+checked — 17,546 as 17,516, 14,339 as 14,830 — which is why it is never the
+source of a number.
+
+Where the volumes came from is not recorded. The filenames match how the Census
+Bureau chunks its scanned volumes, but that is an inference. See questions.md
+Q8.
+
+---
 
 ## For a research assistant
 
-Roughly in order of value. The first two are mechanical and need no judgement,
-so they are the easiest to hand over.
+Roughly in order of value. The first items are mechanical and need no
+judgement, so they are the easiest to hand over.
 
-1. **OCR the seven image-only PDFs.** Nothing else about the early census can
-   be documented until the volumes are searchable. Output searchable PDFs
-   alongside the originals — in a new directory, not in `raw/`, which is
-   frozen.
-
-2. **Trace each census figure to a table and page.** For all sixteen years,
-   record which volume, which table number and title, and which page produced
-   the total and each race count. The deliverable is a citation per cell, not
-   prose. 1870, 1880 and 1890 matter most, because those are the years where
-   the city/county distinction can go wrong.
-
-3. **Settle how the county-only figures were derived** for 1870–1890: printed
-   as such, or computed by subtracting the City of Alexandria. If computed,
-   record the arithmetic and both inputs.
-
+1. **Verify 2000, 2010 and 2020 totals.** The only unchecked totals left.
+2. **Trace the race splits for 1870, 1880 and 1890.** The tables found so far
+   cover the county including the city; a county-only split may not exist in
+   published form, in which case record how it must be derived.
+3. **Establish where the scanned volumes came from** — a citation per file.
 4. **Establish what supports the 1889–1986 Board coding.** Start with the
-   Arlington Historical Society's reply. This is the judgement-heavy one.
-
+   Historical Society's reply. The judgement-heavy one.
 5. **Verify the five Reconstruction-era members** against the 1870 and 1880
    manuscript census, following Hjerpe's method.
+6. **Add a `source` column to the roster** and fill it, starting with
+   1987–present.
+7. **Spot-check gender coding** against obituaries for pre-1950 years.
 
-6. **Add a `source` column to the roster** and fill it, starting with the
-   1987–present members, who are well documented.
-
-7. **Spot-check gender coding** against obituaries for the pre-1950 years.
-
-Record each source in the roster's `source` column as you go, rather than in a
-separate document — the point is that every coded cell can be traced.
+Record each source as you go — the point is that every coded cell can be
+traced.

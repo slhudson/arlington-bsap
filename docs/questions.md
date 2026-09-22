@@ -196,7 +196,7 @@ unresolved.
 treated as a fourth magisterial district alongside Arlington, Jefferson and
 Washington, when the census lists it as a settlement inside Arlington district.
 That counts its 338 residents twice and gives 4,596 where the districts give
-4,258. The county definition this rests on is written up in docs/geography.md.
+4,258. The county definition this rests on is written up in docs/sources.md.
 
 Proceeding on that basis, but it is not confirmed and the confirmation is one
 line of reply.
