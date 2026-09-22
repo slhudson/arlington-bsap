@@ -3,8 +3,8 @@
 Four layers, sorted by how the numbers were produced. Which folder something
 belongs in depends on that, not on what it is about.
 
-Inside `raw/`, folders are named for **who published the material** — the
-Census Bureau, Arlington County — not for its subject. Two documents from the
+Inside `raw/`, folders are named for **who published the material** — `census`,
+`county` — not for its subject. Two documents from the
 same publisher sit together even if they cover different things.
 
 | Folder | How it was produced | Read by |
@@ -151,19 +151,19 @@ moved and by how much.
 workbooks are a way station, not a permanent input, and that column is where
 the remaining distance shows.
 
-## raw/arlington_county/
+## raw/county/
 
 Arlington County's own election records, published by the Office of Voter
 Registration and Elections. These are the primary material behind who served on
 the Board, which the two Board workbooks otherwise rest on nothing.
 
-**`electoral_history_alexandria_county_1870-1920.pdf`** — 28 pages, *The
+**`electoral_history_1870-1920.pdf`** — 28 pages, *The
 Electoral History of That Part of Alexandria County Now Known as Arlington
 County, 1870-1920*, compiled by the Office of Frank O'Leary. Narrative history
 with election listings, covering exactly the period the person-level roster does
 not reach.
 
-**`candidate_history_arlington_county_1920-present.pdf`** — 122 pages, a table
+**`candidate_history_1920-present.pdf`** — 122 pages, a table
 of Year, Election Date, Office/Question, Candidate and Votes Received from 1920
 onward. 85 of its pages mention the County Board. The Electoral Board's own
 preamble notes it was compiled from their records and historical news sources,
