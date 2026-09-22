@@ -1,29 +1,29 @@
-year,field,workbook_value,source_value,source_volume,source_table,source_page,status,note
-1870,total,3185,,1870a-04,"Table II, Population by Counties 1790-1870, Virginia",printed 69,unresolved,"Volume gives Alexandria County white 9444 + colored 7310 = 16754, which includes Alexandria city. Workbook 3185 implies a city of 13569. Consistent with county-minus-city but the city figure was not located in these volumes."
-1870,white,1075,9444,1870a-04,"Table II, WHITE section, Virginia",printed 69,geography differs,"9444 is county including city. Workbook 1075 would be county-only."
-1870,black,2010,7310,1870a-04,"Table II, FREE COLORED section, Virginia",printed 69,geography differs,"7310 is county including city. Workbook 2010 would be county-only."
-1880,total,3887,3887,1890a_v1-11,"Table 5, Population by Minor Civil Divisions 1880 and 1890",printed 346,confirmed,"County 17546 minus city 13659 = 3887; three districts (1754+1319+814) also sum to 3887."
-1880,white,1693,,,,,unverified,"Sums with black to exactly 3887, the confirmed total. County race table not yet located."
+year,field,workbook_value,source_value,source,source_table,source_page,status,note
+1870,total,3185,,"census.gov, Population of States and Counties of the United States: 1790-1990","Population of Counties - Virginia: 1790-1880",pdf p178,consistent,"Table gives Alexandria County 16755 for 1870, which includes Alexandria city (the city became independent of the county only in 1900). Workbook 3185 implies a city of 13570. The 1870 volume's own white (9444) and colored (7310) columns sum to 16754, agreeing with 16755 to within one. The city figure itself has not been read off a table."
+1870,white,1075,9444,"data/raw/census/1870a-04.pdf","Table II, Population by Counties 1790-1870, Virginia, WHITE",printed 69,geography differs,"9444 is county including city."
+1870,black,2010,7310,"data/raw/census/1870a-04.pdf","Table II, Population by Counties 1790-1870, Virginia, FREE COLORED",printed 69,geography differs,"7310 is county including city. Workbook white+black = 3085, which is 100 short of 3185."
+1880,total,3887,3887,"data/raw/census/1890a_v1-11.pdf","Table 5, Population by Minor Civil Divisions: 1880 and 1890",printed 346,confirmed,"County 17546 minus city 13659 = 3887; districts 1754+1319+814 also sum to 3887. County total 17546 independently confirmed in census.gov, Population of States and Counties of the United States: 1790-1990 pdf p178."
+1880,white,1693,,,,,unverified,"Sums with black to exactly 3887, the confirmed total. County race table not located."
 1880,black,2194,,,,,unverified,"See white."
-1890,total,4596,4258,1890a_v1-11,"Table 5, Population by Minor Civil Divisions 1880 and 1890",printed 346,contradicted,"County 18597 minus city 14339 = 4258; three districts (2013+1303+942) also sum to 4258. City wards sum to 14339. Workbook is higher by 338, exactly the Freedman village sub-line, which Table 5 prints inside Arlington district."
-1890,white,2195,11361,1890a_v1-14,"Table 22, Native and Foreign Born and White and Colored, by Counties",printed 520,geography differs,"11361 is county including city (row totals to 18597). Workbook figure is county-only from an unlocated source."
-1890,black,2123,7236,1890a_v1-14,"Table 22, Native and Foreign Born and White and Colored, by Counties",printed 520,geography differs,"7236 is county including city. Workbook white+black = 4318, which exceeds the county-outside-city total of 4258 by 60."
-1900,total,6430,,,,,no source,"No source cited for 1900-1980 anywhere in the workbook or repo."
-1910,total,10231,,,,,no source,
-1920,total,16040,,,,,no source,
-1930,total,26615,,,,,no source,
-1940,total,57040,,,,,no source,
-1950,total,135449,,,,,no source,
-1960,total,163401,,,,,no source,
-1970,total,174284,,,,,no source,"Race categories exceed the total by 4823; first census to ask Hispanic origin separately. See questions.md Q1."
-1980,total,152599,,,,,no source,
-1990,total,170936,170936,census.gov,"Working paper POP-TWPS0076, Virginia table",p1,confirmed,"URL cited in the workbook. https://www2.census.gov/library/working-papers/2005/demo/pop-twps0076/vatab.pdf"
-1990,white,118728,130873,census.gov,"Working paper POP-TWPS0076, Virginia table",p1,category mismatch,"Source white 130873 is all-race white. Workbook 118728 is 12145 lower, consistent with non-Hispanic white."
-1990,black,17940,17940,census.gov,"Working paper POP-TWPS0076, Virginia table",p1,confirmed,"Source figure includes Hispanic Black residents."
-1990,aapi,11560,11560,census.gov,"Working paper POP-TWPS0076, Virginia table",p1,confirmed,"Source figure includes Hispanic Asian residents."
-1990,hisp,23089,23089,census.gov,"Working paper POP-TWPS0076, Virginia table",p1,confirmed,"Counted across all races, not beside them."
-1990,,,537,census.gov,"Working paper POP-TWPS0076, Virginia table",p1,omitted,"American Indian 537 is absent from the workbook entirely."
-1990,,,10026,census.gov,"Working paper POP-TWPS0076, Virginia table",p1,omitted,"Other race 10026 is absent from the workbook entirely."
+1890,total,4596,4258,"data/raw/census/1890a_v1-11.pdf","Table 5, Population by Minor Civil Divisions: 1880 and 1890",printed 346,CONTRADICTED,"County 18597 minus city 14339 = 4258; districts 2013+1303+942 also sum to 4258; city wards sum to 14339. County total 18597 independently confirmed in census.gov, Population of States and Counties of the United States: 1790-1990 pdf p177. Workbook is higher by 338, exactly the Freedman village sub-line that Table 5 prints inside Arlington district."
+1890,white,2195,11361,"data/raw/census/1890a_v1-14.pdf","Table 22, Native and Foreign Born and White and Colored, by Counties",printed 520,geography differs,"11361 is county including city; that row totals 18597. Workbook figure is county-only from an unlocated source."
+1890,black,2123,7236,"data/raw/census/1890a_v1-14.pdf","Table 22, Native and Foreign Born and White and Colored, by Counties",printed 520,geography differs,"7236 is county including city. Workbook white+black = 4318, exceeding the county-outside-city total of 4258 by 60."
+1900,total,6430,6430,"census.gov, Population of States and Counties of the United States: 1790-1990","Population of Counties - Virginia: 1890-1990",pdf p177,confirmed,"First census after Alexandria city became independent, so county figures need no subtraction from here on."
+1910,total,10231,10231,"census.gov, Population of States and Counties of the United States: 1790-1990","Population of Counties - Virginia: 1890-1990",pdf p177,confirmed,
+1920,total,16040,16040,"census.gov, Population of States and Counties of the United States: 1790-1990","Population of Counties - Virginia: 1890-1990",pdf p177,confirmed,"Alexandria County renamed Arlington in 1920."
+1930,total,26615,26615,"census.gov, Population of States and Counties of the United States: 1790-1990","Population of Counties - Virginia: 1890-1990",pdf p177,confirmed,
+1940,total,57040,57040,"census.gov, Population of States and Counties of the United States: 1790-1990","Population of Counties - Virginia: 1890-1990",pdf p177,confirmed,
+1950,total,135449,135449,"census.gov, Population of States and Counties of the United States: 1790-1990","Population of Counties - Virginia: 1890-1990",pdf p177,confirmed,
+1960,total,163401,163401,"census.gov, Population of States and Counties of the United States: 1790-1990","Population of Counties - Virginia: 1890-1990",pdf p177,confirmed,
+1970,total,174284,174284,"census.gov, Population of States and Counties of the United States: 1790-1990","Population of Counties - Virginia: 1890-1990",pdf p177,confirmed,"Total confirmed. Race categories exceed it by 4823 - see questions.md Q1."
+1980,total,152599,152599,"census.gov, Population of States and Counties of the United States: 1790-1990","Population of Counties - Virginia: 1890-1990",pdf p177,confirmed,
+1990,total,170936,170936,"census.gov, Population of States and Counties of the United States: 1790-1990","Population of Counties - Virginia: 1890-1990",pdf p177,confirmed,"Also confirmed by the working paper cited in the workbook."
+1990,white,118728,130873,"census.gov working paper POP-TWPS0076","Virginia table",p1,category mismatch,"Source white 130873 is all-race white. Workbook 118728 is 12145 lower, consistent with non-Hispanic white."
+1990,black,17940,17940,"census.gov working paper POP-TWPS0076","Virginia table",p1,confirmed,"Source figure includes Hispanic Black residents."
+1990,aapi,11560,11560,"census.gov working paper POP-TWPS0076","Virginia table",p1,confirmed,"Source figure includes Hispanic Asian residents."
+1990,hisp,23089,23089,"census.gov working paper POP-TWPS0076","Virginia table",p1,confirmed,"Counted across all races, not beside them."
+1990,american_indian,,537,"census.gov working paper POP-TWPS0076","Virginia table",p1,omitted,"Absent from the workbook entirely."
+1990,other_race,,10026,"census.gov working paper POP-TWPS0076","Virginia table",p1,omitted,"Absent from the workbook entirely."
 2000,total,189453,,arlingtonva.us,"2000 general demographics",,not yet opened,"Second URL cited in the workbook."
-2010,total,207627,,,,,no source,
-2020,total,238643,,,,,no source,
+2010,total,207627,,,,,unverified,
+2020,total,238643,,,,,unverified,

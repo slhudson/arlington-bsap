@@ -133,18 +133,49 @@ per field, with the workbook value, the source value where one has been found,
 and the volume, table and page behind it. It is compiled here, not received
 from Alex — the three workbooks beside it stay exactly as delivered.
 
-As of 2026-09-22, of 28 rows:
+As of 2026-09-22, of 28 rows: 14 confirmed, 1 contradicted, 4 where the source
+covers a different geography, 4 unverified, 2 categories the workbook omits, 1
+category mismatch, 1 URL not yet opened.
 
-| Status | Count | Meaning |
+## The fact that organises all of this
+
+**Alexandria city became independent of the county in 1900, and Alexandria
+County was renamed Arlington in 1920.**
+
+That single fact explains the shape of the whole dataset. Before 1900, every
+published county figure *includes* the city, so a county-only number has to be
+derived by subtraction. From 1900 onward the published county figure already is
+the county, and needs nothing done to it.
+
+It is why 1870, 1880 and 1890 are the hard years and everything after is
+straightforward — and why the one error found so far is in that early stretch.
+
+Source: *Population of States and Counties of the United States: 1790-1990*,
+census.gov, Virginia notes, pdf p185.
+
+## Population totals, year by year
+
+| Year | Workbook | Status |
 |---|---|---|
-| no source | 11 | 1900-1980 and 2010-2020 — nothing cited anywhere |
-| confirmed | 5 | matches a located table |
-| geography differs | 4 | source found, but it covers county *including* city |
-| unverified | 2 | internally consistent, no source located |
-| omitted | 2 | categories in the source that the workbook drops |
-| unresolved / contradicted | 2 | 1870 total; 1890 total |
-| category mismatch | 1 | 1990 white |
-| not yet opened | 1 | the 2000 URL |
+| 1870 | 3,185 | consistent — county incl. city is 16,755, implying a city of 13,570 |
+| 1880 | 3,887 | **confirmed** — two independent ways |
+| 1890 | 4,596 | **contradicted** — the tables give 4,258 |
+| 1900 | 6,430 | **confirmed** |
+| 1910 | 10,231 | **confirmed** |
+| 1920 | 16,040 | **confirmed** |
+| 1930 | 26,615 | **confirmed** |
+| 1940 | 57,040 | **confirmed** |
+| 1950 | 135,449 | **confirmed** |
+| 1960 | 163,401 | **confirmed** |
+| 1970 | 174,284 | **confirmed** |
+| 1980 | 152,599 | **confirmed** |
+| 1990 | 170,936 | **confirmed** twice |
+| 2000 | 189,453 | not yet checked |
+| 2010 | 207,627 | not yet checked |
+| 2020 | 238,643 | not yet checked |
+
+Eleven of sixteen totals are now traced to a published table. The race and
+ethnicity figures are far less well established than the totals.
 
 The method throughout: search `data/extracted/census/` to find a table, then
 render the page and read it by eye. OCR located every table cited here and
