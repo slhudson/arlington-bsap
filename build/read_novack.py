@@ -35,10 +35,25 @@ ENTRY = re.compile(r"^(.+?)\s*\.{3,}\s*\.*\s*(.+)$")
 def read():
     doc = pymupdf.open(SOURCE)
     current = None
+    open_paren = False
     for page_no, page in enumerate(doc, start=1):
         for raw_line in (page.get_text() or "").splitlines():
             line = " ".join(raw_line.split())
             if not line:
+                continue
+            # A note runs until its closing paren, however many lines that
+            # takes. Testing that directly is what keeps a note from being cut
+            # short - guessing from the wrapped line's first word does not,
+            # because a wrapped line can begin with a capital ("House of
+            # Representatives") or follow a footnote marker.
+            if current and open_paren:
+                # A word broken across lines is rejoined; the page shows one
+                # word ("unconstitutional"), and the hyphen is typesetting.
+                if current["notes"].endswith("-") and line[:1].islower():
+                    current["notes"] = current["notes"][:-1] + line
+                else:
+                    current["notes"] += " " + line
+                open_paren = current["notes"].count("(") > current["notes"].count(")")
                 continue
             m = ENTRY.match(line)
             if m and not line.startswith("("):
@@ -57,13 +72,8 @@ def read():
                 name = re.sub(r"\b111\b", "III", name)
                 current = {"page": page_no, "name": name, "term": term, "notes": ""}
             elif current and line.startswith("("):
-                # a new parenthetical note
                 current["notes"] += ("; " if current["notes"] else "") + line
-            elif current and current["notes"] and not line[0].isupper():
-                # continuation of the note above, wrapped across lines
-                current["notes"] += " " + line
-            elif current and current["notes"].endswith(("and", "on", "of", "the", "to", "in")):
-                current["notes"] += " " + line
+                open_paren = current["notes"].count("(") > current["notes"].count(")")
     if current:
         yield current
 
