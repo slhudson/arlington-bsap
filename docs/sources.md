@@ -160,6 +160,36 @@ Unlike the census, there is no primary material behind these anywhere in the
 repository — they rest on news coverage, the Arlington Historical Society and
 obituaries.
 
+### A roster built from sources
+
+`data/clean/board_roster.csv` is who served and when, assembled from sources
+rather than delivered: 511 person-years, 1870-1994, every row citing the
+document it came from. O'Leary covers 1870-1915 by magisterial district,
+Novack covers 1930-1994 by term of service.
+
+Two gaps are left empty rather than assumed. **1916-1929**: O'Leary stops at
+1915 and the county's candidate history has a single 1927 election before it,
+which names only Jefferson and Washington districts. **1995-2026**: Novack
+stops at 1994, and after that only election results exist, which record who
+ran rather than who served.
+
+**Where it overlaps the delivered roster, 1932-1994, the two agree on
+membership in 60 of 63 years.** Two files assembled independently, one from an
+unrecorded source, reaching the same answer for sixty years.
+
+The three exceptions:
+
+- **1957** — the delivered roster reads `Bleviins`; Novack has Lucas H.
+  **Blevins**. A doubled letter.
+- **1939** — Novack ends Ames, McShea and Yeatman in 1939 and begins Campbell,
+  DeLashmutt and Lloyd in 1940; the delivered roster seats the incoming three
+  in 1939.
+- **1963** — the same shape, for Joseph L. Fisher.
+
+The last two are a question about what a term written "1936-1939" means: served
+through the end of 1939, with successors seated the following January, or
+replaced during 1939. Not an error on either side until that is settled.
+
 ### What the two files can say about each other
 
 Sourcing them needs archival work, but they overlap from 1932 and can be
