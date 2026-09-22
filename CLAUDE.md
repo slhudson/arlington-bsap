@@ -80,8 +80,12 @@ rediscovered. Do not silently pick a side on any of these.
 - **1890 population is 4,596**, from the scanned volumes in `raw/`. An earlier
   estimate of 4,258 is superseded.
 
-## Provenance
+## Open questions
 
-Descriptive coding sources are being collected in `PROVENANCE.md`. The
-load-bearing open question is what supports "first Black member since
-Reconstruction" — i.e. whether 1889–1986 was ever systematically reviewed.
+Questions that come up while working the files go in `QUESTIONS.md` at the
+moment they arise, with an owner — not carried in your head or in chat. When
+one is answered, write the answer into the file, not just the fix into the
+code: the next person needs the reasoning, not only the result.
+
+Sourcing for the descriptive coding lives in `SOURCES.md`, which doubles as the
+work order for a research assistant.
