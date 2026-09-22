@@ -2,7 +2,7 @@
 
 The 1970 and 1990 columns are rescaled to sum to 100%. This figure and
 residents_by_race.py therefore treat the same overlap differently - see
-docs/questions.md Q1, which is unresolved.
+docs/questions.md.
 """
 import numpy as np
 import pandas as pd
@@ -19,10 +19,10 @@ from assumptions import not_reported_as_zero, rescale_to_100   # noqa: E402
 style.apply()
 
 c = pd.read_csv(files.RESIDENTS)
-c = not_reported_as_zero(c)                        # Q2
+c = not_reported_as_zero(c)                        # not-reported read as zero
 shares = c[style.GROUPS].div(c["total"], axis=0) * 100
 other = (100 - shares.sum(axis=1)).clip(lower=0)   # computed before rescaling
-shares = rescale_to_100(shares)                    # Q1
+shares = rescale_to_100(shares)                    # the 1970/1990 overlap
 
 fig, ax = plt.subplots(figsize=style.WIDE)
 bottom = np.zeros(len(c))

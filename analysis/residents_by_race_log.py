@@ -2,7 +2,7 @@
 
 No assumption from build/assumptions.py is applied here: blanks stay missing,
 so each line begins the year its category is first reported. That is the
-opposite of the stacked figures - see docs/questions.md Q2.
+opposite of the stacked figures - see docs/questions.md.
 
 The log scale is what makes the early crossover visible: Black residents
 outnumbered White residents in 1870 and 1880.

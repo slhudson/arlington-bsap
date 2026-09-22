@@ -2,7 +2,7 @@
 
 Tall format (twice as high as wide) so the early decades have visible height.
 Counts are plotted as reported, so the 1970 and 1990 bars sit slightly above
-the county total. See docs/questions.md Q1.
+the county total. See docs/questions.md.
 """
 import numpy as np
 import pandas as pd
@@ -19,7 +19,7 @@ from assumptions import not_reported_as_zero      # noqa: E402  (needs the path 
 style.apply()
 
 c = pd.read_csv(files.RESIDENTS)
-c = not_reported_as_zero(c)                       # Q2
+c = not_reported_as_zero(c)                       # not-reported read as zero
 c["sum"] = c[style.GROUPS].sum(axis=1)
 c["other"] = (c["total"] - c["sum"]).clip(lower=0)
 

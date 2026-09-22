@@ -1,7 +1,7 @@
 """raw/ member database -> data/board_members.csv
 
 One row per member per year, 1932-2026. Person-level, where board_seats.csv is
-year-level; the two cover different periods, which is docs/questions.md Q4.
+year-level, and the two cover different periods. See docs/questions.md.
 
 No figure uses this yet. It is built so the descriptive coding has a home, and
 so a source column can be added per docs/sources.md recording what backs each

@@ -41,7 +41,7 @@ STATE, COUNTY = "51", "013"   # Virginia, Arlington County
 
 # Which tables to fetch for each census. RACE gives the race partition; the
 # Hispanic-origin table gives race crossed with Hispanic origin, which is what
-# any consistent set of categories has to be built from - see questions.md Q1.
+# any consistent set of categories has to be built from - see docs/questions.md.
 # Group names differ by census even where the variables do not: 2000 uses
 # P003, 2010 the same table as P3, 2020 as P1. Named here rather than derived.
 TABLES = {

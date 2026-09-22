@@ -52,7 +52,7 @@ city total. Its 338 residents in 1890 are already within Arlington district's
 2,013.
 
 Counting it as a fourth district adds those people twice and gives 4,596, the
-figure currently in `data/transcribed/by_human/`. See questions.md Q8, and Q9 for why the
+figure currently in `data/transcribed/by_human/`. See questions.md for the correction, and for why the
 settlement matters beyond the arithmetic.
 
 ### Checks for any new early figure
@@ -108,7 +108,7 @@ Much less well established than the totals.
 | 1970–2020 | White, Black, AAPI, Hispanic/Latino |
 
 The gaps are a feature of the source rather than of this dataset, which is why
-questions.md Q2 matters.
+questions.md matters.
 
 **The categories were never meant to sum.** The census asks race and Hispanic
 origin as two separate questions, so a Hispanic resident appears in both a race
@@ -118,7 +118,7 @@ race 10,026 = 170,936, with Hispanic (23,089) cutting across all five.
 
 The workbook mixes the two systems — non-Hispanic white alongside all-race
 Black and Asian totals, with American Indian and Other race dropped. That
-accounts for the 1990 overshoot of 381 to the person. See questions.md Q1.
+accounts for the 1990 overshoot of 381 to the person. See questions.md.
 
 **1870, 1880 and 1890 are now fully derived from the volumes.** Each year's
 county figure comes from subtracting the city, with both the total and the race
@@ -189,7 +189,7 @@ Monroe died on 11 January and the year is still split half and half.
 
 Turning those note dates into real date columns would make every fraction
 checkable, and would be a contained piece of work for a research assistant.
-The rule itself is questions.md Q13.
+The rule itself is in questions.md.
 
 All three checks that could be made structural now run in `build/` and were
 verified by breaking them deliberately.
@@ -230,7 +230,7 @@ source of a number.
 
 Where the volumes came from is not recorded. The filenames match how the Census
 Bureau chunks its scanned volumes, but that is an inference. See questions.md
-Q8.
+questions.md.
 
 ---
 
@@ -244,13 +244,13 @@ Virginia: 1749-2024.*
 `alexandriava.gov/sites/default/files/2024-06/History of the Boundaries of Alexandria 1749-2024.pdf`
 — Establishes that Alexandria annexed land from Alexandria County in 1915 and
 again in 1930, the second including the Town of Potomac. Used for questions.md
-Q11.
+questions.md.
 
 **Rose, C. B.** "Annexation of a Portion of Arlington County by the City of
 Alexandria in 1915." *Arlington Historical Magazine*, 1964.
 `arlhist.org/wp-content/uploads/2017/02/1964-4-Annex.pdf`
 — Gives the size and effective date of the 1915 annexation: 866 acres from
-Arlington County, effective 1 April 1915. Used for Q11.
+Arlington County, effective 1 April 1915. Used for questions.md.
 
 **U.S. Census Bureau.** *Population of States and Counties of the United
 States: 1790-1990.* Virginia notes, printed p.185.
@@ -280,7 +280,7 @@ judgement, so they are the easiest to hand over.
 8. **Turn the roster's note dates into date columns.** `appointed`, `resigned`,
    `died` and `removed` are yes/no flags; the dates sit in free text. This is
    the prerequisite for time-weighting the fractional seats, which is where
-   questions.md Q13 is headed — nothing can be weighted by service until the
+   questions.md is headed — nothing can be weighted by service until the
    dates are machine-readable.
 
 Record each source as you go — the point is that every coded cell can be

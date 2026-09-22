@@ -82,7 +82,7 @@ next run overwrites them. A change you want to keep is a change to a script.
 **`data/clean/` is committed even though it is generated.** The usual rule is the
 opposite, and we follow it elsewhere. These are small CSVs, and committing them
 means a cleaning decision shows up as a reviewable diff — you can see exactly
-which numbers moved and by how much. That matters while Q1 and Q2 are open.
+which numbers moved and by how much. That matters while those are open.
 
 **Visual conventions live in `analysis/style.py`.** Colors, fonts and figure
 dimensions are imported, never redeclared, so a palette change is one edit.
@@ -139,7 +139,8 @@ one is answered, write the answer into the file, not just the fix into the
 code.
 
 Two are currently unresolved and deliberately **not** settled in `build/`: the
-1970/1990 category overlap (Q1) and whether not-reported reads as zero (Q2).
+1970/1990 category overlap, and whether not-reported reads as zero. Both are
+in docs/questions.md.
 Both live in `build/assumptions.py`, applied by name in each figure, so the
 current disagreement between figures is greppable rather than buried. When they
 are settled, the assumption moves into the relevant build step and the function

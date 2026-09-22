@@ -34,7 +34,7 @@ checksums are so that a change would be noticed.
 
 Where exactly they came from is not recorded. The filenames match how the
 Census Bureau chunks its scanned volumes, but that is an inference — see
-`docs/questions.md` Q8.
+`docs/questions.md`.
 
 | File | Pages | Text layer | SHA-256 (first 16) |
 |---|---|---|---|

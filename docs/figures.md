@@ -23,7 +23,7 @@ total is printed above its bar so the early figures remain readable. No 1932
 line on this figure.
 
 Counts are plotted as reported, so the 1970 and 1990 bars sit slightly above
-the county total — see Q1.
+the county total — see `questions.md`.
 
 ### `residents_by_race_log`
 Log-scale line chart, one line per group plus a dashed total.
@@ -41,8 +41,8 @@ note wherever it appears.
 Stacked bars, each group's share of residents, 0–100%.
 
 Every bar reaches 100%, so the early decades read as clearly as the later ones.
-The 1970 and 1990 columns are rescaled to sum to 100% — see Q1. Hispanic before
-1970 and AAPI before 1950 are plotted as 0% — see Q2.
+The 1970 and 1990 columns are rescaled to sum to 100%, and Hispanic before 1970
+and AAPI before 1950 are plotted as 0%. Both are open — see `questions.md`.
 
 ### `residents_per_seat`
 Log-scale lines: actual residents per seat against the cube-root-law benchmark,
@@ -94,4 +94,4 @@ Earlier versions were produced and not carried forward:
 - a broken-axis version of the residents chart, with the y-axis split at 40,000
 - an unbroken linear variant kept alongside it
 
-These are not in `raw/`. Whether any should be revived is Q7.
+These are not in `raw/`. Whether any should be revived is in `questions.md`.

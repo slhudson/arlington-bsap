@@ -1,4 +1,4 @@
-"""Assumptions currently in force while docs/questions.md Q1 and Q2 are open.
+"""Assumptions currently in force while two questions are open.
 
 Mechanism only. The reasoning is in docs/questions.md.
 
@@ -12,7 +12,7 @@ GROUPS = ["black", "hisp", "aapi", "white"]
 
 
 def not_reported_as_zero(df: pd.DataFrame, cols=GROUPS) -> pd.DataFrame:
-    """Q2: read a not-yet-tabulated category as zero rather than missing."""
+    """Read a not-yet-tabulated category as zero rather than missing."""
     out = df.copy()
     for c in cols:
         out[c] = out[c].fillna(0)
@@ -20,7 +20,7 @@ def not_reported_as_zero(df: pd.DataFrame, cols=GROUPS) -> pd.DataFrame:
 
 
 def rescale_to_100(shares: pd.DataFrame, cols=GROUPS) -> pd.DataFrame:
-    """Q1: rescale shares so each year sums to 100%, where they exceed it."""
+    """Rescale shares so each year sums to 100%, where they exceed it."""
     out = shares.copy()
     total = out[cols].sum(axis=1)
     over = total > 100

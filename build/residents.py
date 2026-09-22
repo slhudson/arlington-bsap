@@ -11,7 +11,7 @@ sat inside the county, so no published table gives the territory the Board
 governed - it has to be derived by subtracting the city. That happens in
 early_years() below, from the tables transcribed under
 data/extracted/by_claude/, and it replaces the delivered workbook for those
-three years. See docs/questions.md Q8.
+three years. See docs/questions.md.
 
 **1900-1990 totals come from the published Census county series**, transcribed
 from data/raw/census/. They were checked against the workbook first and matched
@@ -28,7 +28,7 @@ the workbook for it. The `source` column names the document behind every row,
 so what is left to do is visible in the data.
 
 Values are otherwise written as reported. The contested treatments are not
-applied here while docs/questions.md Q1 and Q2 are open.
+applied here; see docs/questions.md.
 """
 import pandas as pd
 
@@ -167,7 +167,7 @@ def build() -> pd.DataFrame:
         # The published figure is what gets used. The workbook's own value is
         # still compared against it: a disagreement would mean that row was
         # keyed from something else, which puts its race figures in doubt too -
-        # and those have no traced source (questions.md Q12).
+        # and those have no traced source - see docs/questions.md.
         delivered = d.loc[m, "total"]
         if not delivered.empty and int(delivered.iloc[0]) != int(published):
             raise AssertionError(
