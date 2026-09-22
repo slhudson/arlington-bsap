@@ -7,6 +7,11 @@ answer is written in here — not just implemented — so the reasoning survives
 **Owner** is who can actually settle it: *Sally*, *Alex*, *Nick*, *archive*
 (needs an outside source), or *RA*.
 
+Questions owned by Alex are batched rather than sent one at a time — Sally
+works independently for a few days, then sends a consolidated list. Anything
+owned by Alex should therefore be written so it can be read cold, without the
+surrounding conversation.
+
 Sourcing questions for the descriptive coding live in `SOURCES.md` instead.
 
 ---
@@ -14,7 +19,7 @@ Sourcing questions for the descriptive coding live in `SOURCES.md` instead.
 ## Blocking the County deliverable
 
 ### Q1. How should 1970 and 1990 race categories be reconciled?
-**Owner:** Sally, after checking with Alex · **Status:** open
+**Owner:** Alex · **Status:** queued for the next batch to Alex — not blocking
 
 In both years the four race categories sum to more than the reported total —
 about 4,800 people in 1970 (2.8%) and 400 in 1990 (0.2%).
@@ -33,7 +38,13 @@ race, once as Hispanic. If that is the cause, the overlap is expected rather
 than an error, and the honest fix is to stop treating the four categories as a
 partition at all.
 
-*Needed to close:* confirmation of where Alex's 1970 and 1990 figures came from.
+**For Alex:** where did the 1970 and 1990 race figures come from — decennial
+census tables pulled directly, or a secondary source? If directly from the
+Census, the double-count explanation above is almost certainly right.
+
+Until he answers, both scripts keep their current behaviour and neither
+treatment moves into `build/`. Whatever he says, we can live with — the cost of
+waiting is low and the change is a few lines.
 
 ### Q2. Should not-reported be plotted as zero?
 **Owner:** Sally · **Status:** open
