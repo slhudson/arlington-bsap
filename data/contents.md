@@ -57,7 +57,7 @@ Seven of the nine have no text layer at all.
 ## transcribed/by_ocr/
 
 OCR of all 521 pages, one text file per volume, produced by
-`build/ocr_census.py` using macOS Vision. Not part of `bash run.sh` — it takes
+`transcribe/census.py` using macOS Vision. Not part of `bash run.sh` — it takes
 about twelve minutes and its input never changes.
 
 Use it to find a table and a page. Do not read numbers from it: OCR of
@@ -225,7 +225,7 @@ Seven of the nine have no text layer at all.
 ## transcribed/by_ocr/
 
 OCR of all 521 pages, one text file per volume, produced by
-`build/ocr_census.py` using macOS Vision. Not part of `bash run.sh` — it takes
+`transcribe/census.py` using macOS Vision. Not part of `bash run.sh` — it takes
 about twelve minutes and its input never changes.
 
 Use it to find a table and a page. Do not read numbers from it: OCR of
@@ -352,7 +352,7 @@ are here rather than cited in docs/sources.md. Neither carries race or gender.
 
 For 2000, 2010 and 2020 the Bureau publishes machine-readable data, so there is
 no page to read and no transcription step — and therefore no reading error to
-make. `build/fetch_census.py` saves each table whole: one row per Virginia
+make. `fetch/census.py` saves each table whole: one row per Virginia
 county, one column per variable, exactly the shape it is published in.
 Arlington is a row in it, which also allows a figure to be checked against
 neighbouring counties.

@@ -13,7 +13,7 @@ NOT part of `bash run.sh`. It takes minutes, not seconds, and its output only
 changes if raw/ changes - which it never does. Run it by hand if the output is
 ever lost:
 
-    .venv/bin/python build/ocr_census.py
+    .venv/bin/python transcribe/census.py
 
 Read the output as a finding aid, not as data. OCR of 19th-century tables
 misreads digits routinely - the existing text layer renders 13,659 as

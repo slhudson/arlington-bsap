@@ -1,6 +1,6 @@
 """Arlington County election PDFs -> data/transcribed/by_claude/county/*.csv
 
-NOT part of `bash run.sh`. Like ocr_census.py, this is run by hand and its
+NOT part of `bash run.sh`. Like census.py beside it, this runs on demand and its
 output committed, so the build reads only committed files.
 
 The candidate history is a positional table: year at one x-offset, election
@@ -14,7 +14,7 @@ The whole table is transcribed, every office, not only the County Board rows.
 Picking out today's rows would hide what sits beside them, and the file should
 be checkable against the page as a whole.
 
-    .venv/bin/python build/read_elections.py
+    .venv/bin/python transcribe/candidate_history.py
 """
 import csv
 import re

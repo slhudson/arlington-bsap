@@ -24,7 +24,7 @@ record-keeping was "ragged and incomplete" and that elections were "not always
 held (or at least not reported)". Absence of an entry is not evidence of
 absence.
 
-    .venv/bin/python build/read_board_1870_1920.py
+    .venv/bin/python transcribe/board_1870_1920.py
 """
 import re
 

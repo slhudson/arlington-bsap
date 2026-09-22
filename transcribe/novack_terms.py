@@ -15,7 +15,7 @@ NOT part of `bash run.sh`. Run by hand, output committed.
 A compilation, not a record. Novack worked from Electoral Board material and
 local history; nothing here is a primary document.
 
-    .venv/bin/python build/read_novack.py
+    .venv/bin/python transcribe/novack_terms.py
 """
 import re
 

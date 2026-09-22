@@ -10,7 +10,7 @@ file cannot, which is the standard the scanned volumes are held to.
 
 Run by hand when a year is needed:
 
-    .venv/bin/python build/fetch_census.py
+    .venv/bin/python fetch/census.py
 
 Needs CENSUS_API_KEY in .env at the repository root. That file is gitignored.
 

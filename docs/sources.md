@@ -368,7 +368,7 @@ points to the state.
 **Virginia Department of Elections.** *Historical Elections Database.*
 `historical.elections.virginia.gov`. Every County Board contest from 2021 on,
 by precinct and vote channel, saved as the database's own CSV in
-`data/raw/virginia/` by `build/fetch_elections.py`. Cited by contest id,
+`data/raw/virginia/` by `fetch/elections.py`. Cited by contest id,
 which is the database's own key for a race.
 
 — Between them these cover Board elections for the whole period. **Both are

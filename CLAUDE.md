@@ -7,9 +7,10 @@ repo; prose is written in Overleaf, which syncs the repository.
 ## The two stages
 
 ```
+  |  fetch/        <- on demand: the network, output committed
 data/raw/        published sources - a file here is its own citation
-data/transcribed/by_human/     hand-keyed - needs a citation per cell
-data/transcribed/  read off raw/ by software - for people to search, not for code
+  |  transcribe/   <- on demand: OCR and reading, output committed
+data/transcribed/  by_ocr/ and by_claude/ read off raw/; by_human/ hand-keyed
   |  build/        <- every subjective decision about what a number IS
 data/clean/      built output
   |  analysis/     <- presentation only; cannot see anything above clean/
@@ -87,8 +88,8 @@ which numbers moved and by how much. That matters while those are open.
 **Visual conventions live in `analysis/style.py`.** Colors, fonts and figure
 dimensions are imported, never redeclared, so a palette change is one edit.
 
-**`run.sh` never touches the network.** Fetching a source is a separate script
-run by hand, which saves into `data/raw/` and commits the file. The build then
+**`run.sh` never touches the network.** Fetching a source is `fetch/`, run on
+demand, which saves into `data/raw/` and commits the file. The build then
 reads only what is committed.
 
 Two reasons. Anyone who clones the repository can build it — no account, no API
@@ -96,7 +97,13 @@ key, no connection. And an API can change its answer, so a live call could move
 a figure between runs with nothing in the repo to explain it; a committed file
 is the same evidence standard as a scanned page.
 
-`build/ocr_census.py` already works this way, and so must anything that fetches.
+**Each code folder writes one data layer.** `fetch/` writes `data/raw/`,
+`transcribe/` writes `data/transcribed/`, `build/` writes `data/clean/`,
+`analysis/` writes `figures/`. `run.sh` runs the last two every time; the
+first two run on demand — the network for one, a slow Mac-only OCR for the
+other — and their output is committed, so the build is reproducible without
+either. A script is named for what it produces: `fetch/elections.py`,
+`transcribe/novack_terms.py`.
 
 **`data/` holds what we take numbers out of.** A source consulted only to
 settle a question — a boundary history, a news article, a methods note — is

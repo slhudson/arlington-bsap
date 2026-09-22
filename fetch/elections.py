@@ -1,11 +1,11 @@
 """Virginia elections database -> data/raw/virginia/county_board_2021-2026.csv
 
 NOT part of `bash run.sh`, deliberately. The build never touches the network:
-see fetch_census.py for why.
+see fetch/census.py for why.
 
 Run by hand when a newer election is needed:
 
-    .venv/bin/python build/fetch_elections.py
+    .venv/bin/python fetch/elections.py
 
 The county's own candidate history stops at the 2021 election, and the county
 no longer publishes it. From 2022 the source is the Department of Elections'
