@@ -123,7 +123,42 @@ three-panel version with census, Board race and Board gender, in percentage and
 raw-count forms, and a broken-axis variant of the residents chart. They are not
 in `raw/`. Listed in `docs/figures.md`.
 
-## Settled
+### Q8. How were the 1870-1890 county census figures obtained?
+**Owner:** Alex · **Status:** open — for the next batch
+
+The scanned volumes in `raw/` are the primary sources for the county-only
+population figures, but nothing records which table in which volume produced
+which number, or how the county was separated from the City of Alexandria.
+That separation is what the superseded 4,258 estimate for 1890 got wrong, so
+it is worth pinning down.
+
+Four questions, in rough order of value:
+
+1. **Where did the volumes come from?** The filenames (`1880_v1-12`,
+   `1890a_v1-11`) look like the Census Bureau's own scans of its published
+   decennial volumes, but that is a guess from the naming. A URL or a citation
+   per file would settle it.
+
+2. **Which table and page gives the county-only figure for each of 1870, 1880
+   and 1890?** Volume, table number, page.
+
+3. **Was the county figure printed as such, or computed?** "Data for
+   Alexandria County without Alexandria City" could mean either a table that
+   reports the county separately, or subtracting the city from a combined
+   total. If computed, the arithmetic and both inputs are worth recording.
+
+4. **Do those volumes list race categories beyond White and Black?** In 1870
+   the White and Black counts total 3,085 of 3,185 residents, and in 1890
+   4,318 of 4,596. The remainder currently renders as
+   "Other/multiracial/unreported". If the tables break it out — the 1890
+   volumes have a table classifying the colored population as Negro, mulatto,
+   quadroon, octoroon, Chinese, Japanese and civilized Indian — those counts
+   could be recorded instead.
+
+*Not blocking.* `data/census_ocr/` now makes all nine volumes searchable, so
+questions 2 and 3 can be narrowed without Alex if it is quicker to look than
+to ask. Whatever is found should still be confirmed with him, since he read
+these tables himself.
 
 ### Q6. One repo, or paper/ split into its own repo?
 **Settled:** 2026-09-22 (Sally) — one repo, revisit later
