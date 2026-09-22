@@ -59,7 +59,13 @@ embedded in the 1880 files renders 13,659 as `lB, 659`.
 
 ## manual/
 
-Assembled by Alex Keena, received 2026-09-22.
+**The three workbooks are under glass.** They are exactly as Alex Keena
+delivered them on 2026-09-22 and are never edited here. A discrepancy is
+recorded, not corrected.
+
+`census_verification.csv` is the exception: it is compiled in this repository
+rather than received, and holds the running record of which workbook figures
+have been traced to a source table. See `docs/sources.md`.
 
 **`arlington county demographic data.xlsx`** — 16 census years, 1870–2020:
 population totals, race and ethnicity counts, Board seats, and derived

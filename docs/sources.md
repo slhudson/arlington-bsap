@@ -126,6 +126,31 @@ useful but is not sourcing.
 Adding a `source` column to the roster is straightforward — it is already
 person-level, so nothing needs restructuring.
 
+## The verification record
+
+`data/manual/census_verification.csv` is the running record: one row per year
+per field, with the workbook value, the source value where one has been found,
+and the volume, table and page behind it. It is compiled here, not received
+from Alex — the three workbooks beside it stay exactly as delivered.
+
+As of 2026-09-22, of 28 rows:
+
+| Status | Count | Meaning |
+|---|---|---|
+| no source | 11 | 1900-1980 and 2010-2020 — nothing cited anywhere |
+| confirmed | 5 | matches a located table |
+| geography differs | 4 | source found, but it covers county *including* city |
+| unverified | 2 | internally consistent, no source located |
+| omitted | 2 | categories in the source that the workbook drops |
+| unresolved / contradicted | 2 | 1870 total; 1890 total |
+| category mismatch | 1 | 1990 white |
+| not yet opened | 1 | the 2000 URL |
+
+The method throughout: search `data/extracted/census/` to find a table, then
+render the page and read it by eye. OCR located every table cited here and
+misread digits on the first one checked, which is why it is never the source of
+a number.
+
 ## For a research assistant
 
 Roughly in order of value. The first two are mechanical and need no judgement,

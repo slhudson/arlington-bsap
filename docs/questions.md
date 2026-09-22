@@ -53,6 +53,32 @@ exclusive.
 `analysis/residents_by_race_share.py`. `analysis/residents_by_race.py` applies
 nothing and plots as reported.
 
+**Resolved for 1990, from the source the workbook itself cites.** The Census
+working paper at `census.gov/library/working-papers/2005/demo/pop-twps0076/vatab.pdf`
+gives Arlington 1990 directly. Its race categories partition the population
+exactly — white 130,873 + Black 17,940 + American Indian 537 + Asian/Pacific
+Islander 11,560 + Other race 10,026 = 170,936 — and Hispanic (23,089) is a
+separate question cutting across all five.
+
+The workbook mixes the two systems. Its white, 118,728, is 12,145 below the
+source's 130,873, consistent with non-Hispanic white. But its Black and Asian
+figures are the source totals, which include Hispanic Black and Hispanic Asian
+residents. American Indian and Other race are absent altogether.
+
+A clean partition needs non-Hispanic Black + American Indian + Asian + Other to
+be 29,119. The workbook supplies 29,500. The difference is **381 — exactly the
+1990 overshoot**, accounted for to the person.
+
+So rescaling is the wrong correction: it spreads a category-definition problem
+across all four bands. The fix is consistent categories, which the cited source
+already provides. 1970 is very likely the same, and larger — its overshoot is
+4,823, and 1970 was the first census to ask Hispanic origin separately.
+
+Two further consequences. The "Other/multiracial/unreported" band shows near
+zero for 1990 when the source has 537 American Indian and 10,026 Other race
+residents — they were dropped, not unreported. And the same check has not been
+run for any other year, because no source is cited for 1900-1980.
+
 **Origin of the current treatment:** the rescaling was introduced while the
 figures were being built, as a working choice, and was noted at the time. It
 has not since been ratified by either author. The pgfplots chart in the
