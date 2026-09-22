@@ -19,8 +19,15 @@ one: O'Leary warns that elections "were not always held (or at least not
 reported) when it seems that they should have occurred", so a long gap between
 listed elections may mean no election or no surviving record.
 
-Every row carries the page it came from, so any cell can be checked against
-the scan without re-deriving anything.
+Every row carries a citation in one format - author, year in parentheses, then
+the locator: "O'Leary (2012) p.14", "Hjerpe (2021) Appendix 1". Neither county
+document carries printed page numbers, so the page is the PDF's; full details
+are in docs/sources.md.
+
+The `basis` column separates the two. O'Leary names who *held* each district;
+the candidate history names everyone who *ran*, without marking winners. Six
+candidates appear for three seats in 1927 for that reason, and they are not
+evidence that six people served.
 
 **Race is blank wherever nobody has established it.** For 1889-1931 that is
 every row. The delivered seat counts record those years as all-White; here the
@@ -52,17 +59,18 @@ def build() -> pd.DataFrame:
         ends = min(ends, LAST_MAGISTERIAL_YEAR)
 
         if year in set(seats.year):
+            # O'Leary lists who held each district.
             block = seats[seats.year == year]
-            entries = [(r.district, r.entry,
-                        f"O'Leary, Electoral History 1870-1920, PDF p.{r.page}")
+            entries = [(r.district, r.entry, f"O'Leary (2012) p.{r.page}", "held office")
                        for _, r in block.iterrows()]
         else:
+            # The candidate history lists everyone who ran, winners not marked,
+            # so these are candidates rather than confirmed office-holders.
             block = later[later.year.astype(int) == year]
-            entries = [("", r.candidate,
-                        f"Arlington County, Candidate History 1920-present, PDF p.{r.page}")
+            entries = [("", r.candidate, f"Arlington County (2021) p.{r.page}", "candidate only")
                        for _, r in block.iterrows()]
 
-        for district, entry, source in entries:
+        for district, entry, source, basis in entries:
             # The printed entry is the name plus any note about replacement or
             # vacancy. Keep both: the note is often the only record of a
             # mid-term change.
@@ -76,7 +84,7 @@ def build() -> pd.DataFrame:
                 rows.append({
                     "year": served, "district": district, "name": name,
                     "race": race, "source_race": source_race, "source_name": source,
-                    "elected": year, "note": note,
+                    "basis": basis, "elected": year, "note": note,
                     "carried_forward": "" if served == year else "yes",
                 })
     return pd.DataFrame(rows)
