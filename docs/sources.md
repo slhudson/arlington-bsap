@@ -69,7 +69,7 @@ The third is the one that failed.
 
 | Year | Workbook | Status |
 |---|---|---|
-| 1870 | 3,185 | consistent — county incl. city is 16,755, implying a city of 13,570 |
+| 1870 | 3,185 | **confirmed** |
 | 1880 | 3,887 | **confirmed**, two independent ways |
 | 1890 | 4,596 | **contradicted** — the tables give 4,258 |
 | 1900 | 6,430 | **confirmed** |
@@ -120,8 +120,30 @@ The workbook mixes the two systems — non-Hispanic white alongside all-race
 Black and Asian totals, with American Indian and Other race dropped. That
 accounts for the 1990 overshoot of 381 to the person. See questions.md Q1.
 
-Neither 1880's nor 1890's race split has a located source. The tables found so
-far cover the county *including* the city.
+**1870, 1880 and 1890 are now fully derived from the volumes.** Each year's
+county figure comes from subtracting the city, with both the total and the race
+split read off published tables:
+
+| Year | | Workbook | From the sources | |
+|---|---|---|---|---|
+| 1870 | total | 3,185 | 3,185 | confirmed |
+| | white | 1,075 | **1,175** | differs by 100 |
+| | black | 2,010 | 2,010 | confirmed |
+| 1880 | total | 3,887 | 3,887 | confirmed |
+| | white | 1,693 | 1,693 | confirmed |
+| | black | 2,194 | 2,194 | confirmed |
+| 1890 | total | 4,596 | **4,258** | differs by 338 |
+| | white | 2,195 | **2,135** | differs by 60 |
+| | black | 2,123 | 2,123 | confirmed |
+
+1880 is confirmed in full. In the derived figures, white plus black accounts for
+each year's total exactly — no residual in any of the three. The
+"Other/multiracial/unreported" band the charts currently show for these years
+(3.1% in 1870, 6.0% in 1890) is an artefact of the discrepancies, not a
+category of residents.
+
+The 338 in 1890 is the Freedman village double count. The 100 in 1870 and the
+60 in 1890 are keying differences with no pattern between them.
 
 ---
 
