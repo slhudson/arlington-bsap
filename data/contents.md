@@ -147,6 +147,22 @@ moved and by how much.
 workbooks are a way station, not a permanent input, and that column is where
 the remaining distance shows.
 
+## raw/census/ — Census Bureau data files, 2000-2020
+
+For 2000, 2010 and 2020 the Bureau publishes machine-readable data, so there is
+no page to read and no transcription step — and therefore no reading error to
+make. `build/fetch_census.py` saves each table whole: one row per Virginia
+county, one column per variable, exactly the shape it is published in.
+Arlington is a row in it, which also allows a figure to be checked against
+neighbouring counties.
+
+Each census gets a data dictionary beside its tables, so the variable codes are
+readable without the API documentation.
+
+The fetch is run by hand and its output committed. `run.sh` never touches the
+network, so anyone who clones this repository can build every figure with no
+account, no API key and no connection.
+
 ## raw/census/ — the Census Bureau documents
 
 Two published documents alongside the volume scans, fetched from census.gov in September

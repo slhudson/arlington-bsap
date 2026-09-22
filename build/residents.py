@@ -17,8 +17,12 @@ three years. See docs/questions.md Q8.
 from data/raw/census/. They were checked against the workbook first and matched
 every year.
 
-**The workbook still supplies** the race and ethnicity figures for 1900-2020,
-the 2000-2020 totals, and the seat columns. Each of those is a candidate for
+**2000-2020 totals come from the Bureau's own data files**, fetched by
+build/fetch_census.py into data/raw/census/. No transcription step, so no
+reading error to make.
+
+**The workbook still supplies** the race and ethnicity figures for 1900-2020
+and the seat columns. Each of those is a candidate for
 the same treatment: find the published source, transcribe it, and stop reading
 the workbook for it. The `source` column names the document behind every row,
 so what is left to do is visible in the data.
@@ -28,7 +32,7 @@ applied here while docs/questions.md Q1 and Q2 are open.
 """
 import pandas as pd
 
-from files import RESIDENTS_XLSX, TRANSCRIBED, numeric, write
+from files import RAW, RESIDENTS_XLSX, TRANSCRIBED, numeric, write
 
 # Which document each year's population total comes from. Named here rather
 # than decided by a rule, so it can be read off rather than inferred, and so a
@@ -40,13 +44,30 @@ TOTAL_SOURCE = {
     1940: "census county series", 1950: "census county series",
     1960: "census county series", 1970: "census county series",
     1980: "census county series", 1990: "census county series",
-    2000: "workbook", 2010: "workbook", 2020: "workbook",
+    2000: "census data file", 2010: "census data file", 2020: "census data file",
 }
 
 
 def table(path):
     """Read a transcribed table by its path under data/transcribed/."""
     return pd.read_csv(TRANSCRIBED / path)
+
+
+def arlington(year, table):
+    """Arlington's row from a Census data file, which holds every Virginia county.
+
+    The table is named by its Census code - P003, P3, P1 - because the codes
+    differ by census and a name like "race" also matches
+    "hispanic_origin_by_race".
+    """
+    hits = sorted((RAW / "census" / str(year)).glob(f"censusapi_*_{table}_*_virginia_counties.csv"))
+    if len(hits) != 1:
+        raise FileNotFoundError(f"expected one {table} file for {year}, found {len(hits)}")
+    d = pd.read_csv(hits[0])
+    row = d[d.NAME.str.startswith("Arlington")]
+    if len(row) != 1:
+        raise AssertionError(f"{hits[0].name}: expected one Arlington row, found {len(row)}")
+    return row.iloc[0]
 
 
 def early_years() -> pd.DataFrame:
@@ -142,7 +163,14 @@ def build() -> pd.DataFrame:
     for year in range(1900, 2000, 10):
         m = d["year"] == year
         d.loc[m, "total"] = series[f"y{year}"]
-        d.loc[m, "source"] = "census county series"
+
+    # 2000-2020 come from the Bureau's own data files, fetched by
+    # build/fetch_census.py. No transcription step, so no reading error.
+    # (year, race table, its total variable) - all three differ by census.
+    for year, race_table, total in ((2000, "P003", "P003001"),
+                                    (2010, "P3", "P003001"),
+                                    (2020, "P1", "P1_001N")):
+        d.loc[d["year"] == year, "total"] = arlington(year, race_table)[total]
 
     # Replace 1870-1890 with the figures derived from the volumes.
     early = early_years().set_index("year")
