@@ -196,6 +196,42 @@ where the workbook leaves 100 and 278 unexplained.
   1890 volumes include a table classifying the colored population as Negro,
   mulatto, quadroon, octoroon, Chinese, Japanese and civilized Indian.
 
+### Q11. Is "Arlington County" the governed territory or a fixed plot of land?
+**Owner:** Sally + Alex · **Status:** A chosen for now; needs Alex's sign-off
+
+Two possible definitions:
+
+**A. The territory the Board governed at each point in time.** Boundaries move
+as the county's boundaries moved.
+
+**B. A fixed plot of land** — the present-day county — held constant backwards.
+
+**A is chosen.** It is what makes residents-per-seat mean anything: a claim
+about how many people each Board member represented needs the population the
+Board actually governed. It is also the basis on which Alexandria city is
+excluded from 1870-1890.
+
+**Two things make this a question rather than a settled decision.**
+
+First, the definition in docs/sources.md is written by Claude from the
+evidence, not by Alex. What exists from him is a single sentence in a chat
+message, about one case — "the census population data for 1870, 1880 and 1890
+erroneously includes the City of Alexandria, which was not governed by the
+board." Correct, and correctly applied, but never written down as a definition
+or generalised beyond that case. So it needs his sign-off rather than his
+confirmation.
+
+Second, A has only been applied to the one boundary change we knew about. The
+Census county series does not hold geography constant — 1890 includes the city
+and 1900 does not — and the Virginia notes record that annexations from
+counties to cities were common. Whether Arlington's boundaries moved again
+after 1900 is unresearched. If they did, the population series has silent steps
+where territory left, and a flattening could be a boundary change rather than
+people moving. That would matter most for residents-per-seat.
+
+Under B the same problem appears differently: the early figures would need
+adjusting to today's boundaries instead.
+
 ### Q9. How should Freedman village be treated, and described?
 **Owner:** Sally + Alex · **Status:** open
 
