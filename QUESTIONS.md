@@ -123,7 +123,7 @@ working estimate of 4,258 — derived by subtracting a secondary-source city
 figure from a combined total — is superseded.
 
 ### Figure formatting is not fixed
-**Settled:** 2026-09-22 (Sally). The rebuilt figures differ from Alex's
-originals by a few pixels, from a newer matplotlib. Formatting is open for
+**Settled:** 2026-09-22 (Sally). The rebuilt figures differ from the
+figures as received by a few pixels, from a newer matplotlib. Formatting is open for
 redesign, so visual fidelity to the originals is not a goal and versions are
 not pinned. Regression checks target the numbers, not the rendering.
