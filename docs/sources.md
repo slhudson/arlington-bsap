@@ -268,60 +268,32 @@ The rule itself is in questions.md.
 All three checks that could be made structural now run in `build/` and were
 verified by breaking them deliberately.
 
-| Period | Status |
-|---|---|
-*Six Decades of Arlington Leadership* (Works cited) covers membership and terms
-from 1930 to 1994, which is most of the roster's span. It carries no race or
-gender, so it verifies who served rather than how they were coded.
+## Race and gender of Board members
 
-| 1871–1888 | Five named Black members. Census-linkable: Grace Hjerpe's 2021 paper demonstrates the method using 1880 manuscript census records. Small n, verifiable — not yet verified. |
-| 1889–1986 | Coded all-White, resting on the "first since Reconstruction" framing. **Weakest link**, ~490 person-years. |
-| 1987–present | Newman (1987), Monroe (1999), Dorsey (2015), Spain (2024), plus Tejada. Well documented; the Arlington Historical Society maintains a curated entry. |
-| Gender, all years | Naming conventions plus some obituaries. Adequate with a methods note; cheap to spot-check. |
+The roster says who served and when. Race and gender are recorded separately,
+in `data/transcribed/by_claude/board_demographics.csv`: one row per member
+for whom a source says something, with the source's own words. A member not in
+that file is treated as a white man. That default is a claim, and the table
+below says what stands behind it in each period.
 
-### The one that matters
+| Period | Race | Gender |
+|---|---|---|
+| 1870–1888 | Five Black members named by Hjerpe (2021), identified from 1880 manuscript census records; O'Leary (2012) adds that "a majority of the early office holders" were probably African-American but lacks evidence to name them. The five are in the attributions file. Not yet verified against the census ourselves. | Names in O'Leary. |
+| 1889–1930 | One collective sentence: the board "became and remained all white for the duration of this system" (Hjerpe 2021, p.4), which she sources to the county's election records. No per-person evidence. | Names in O'Leary. |
+| 1931–1986 | Nothing per-person from any source. The default rests on Newman (1987) being described as the first Black member since Reconstruction. About 280 person-years. **The weakest stretch.** | Names and honorifics in Novack (1994). |
+| 1987–present | Per-person: Newman (1987), Monroe (1999), Dorsey (2015), Spain (2024), and Tejada as the first Latino member (Hjerpe 2021). The Arlington Historical Society keeps a curated entry. | Names in the county candidate history. |
 
-The 1889–1986 stretch is a negative claim — that no Black member served for
-nearly a century — and a negative claim needs evidence that someone looked.
+None of the three roster sources — O'Leary, Novack, the county candidate
+history — states anyone's race or gender. Race comes from Hjerpe and from
+whatever the Historical Society can add. Gender comes from names and
+honorifics, which is a weaker attribution than a statement and is labelled as
+such in the file.
 
-**Two statements bear on it directly, and they point opposite ways.**
-
-Hjerpe, on 1889-1930:
-
-> While Alexandria County still had a by-district system for its county board
-> from 1889-1930, the board became and remained all white for the duration of
-> this system.
-
-*Hjerpe (2021) p.4.*
-
-That is a collective claim with no per-person evidence behind it, and it is the
-sentence the "since Reconstruction" framing rests on.
-
-O'Leary, on the same period's office holders:
-
-> It is probable that a majority of the early office holders, such as Mr.
-> Holmes, were African-American, however, I lack the photographic evidence to
-> support this assertion.
-
-*O'Leary (2012) p.6.*
-
-Neither is a per-person identification, so neither appears in
-`data/transcribed/by_claude/race_attributions_1870-1931.csv`, which holds only
-named members.
-
-**Hjerpe's paper addresses the question directly:** after 1888 the
-board "became and remained all white for the duration of this system", and no
-Black candidate is recorded as running for the county board again until after
-1930. She sources this to Arlington County's own election records rather than
-to the phrase, and those records are listed under Works cited.
-
-So the claim now rests on candidate histories kept by the Elections Office,
-which is a different and much stronger thing than a curator's wording. What
-remains is to fetch those records and check them, rather than to find out
-whether anyone ever looked.
-
-Sally is still contacting the Arlington Historical Society
-(info@arlingtonhistorical.com), which may hold more.
+**What is being asked of the Arlington Historical Society.** The attributions
+file, presented as two short lists — Black members and women — with the
+default stated plainly: every other member has been treated as a white man;
+where is that wrong? The lists are short enough to check by eye, and the
+1931–1986 stretch is where an answer would matter most.
 
 ---
 
