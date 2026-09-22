@@ -162,7 +162,19 @@ def build() -> pd.DataFrame:
     series = table("by_claude/censusgov_pop1790-1990_p177_counties_virginia_arlington.csv").iloc[0]
     for year in range(1900, 2000, 10):
         m = d["year"] == year
-        d.loc[m, "total"] = series[f"y{year}"]
+        published = series[f"y{year}"]
+
+        # The published figure is what gets used. The workbook's own value is
+        # still compared against it: a disagreement would mean that row was
+        # keyed from something else, which puts its race figures in doubt too -
+        # and those have no traced source (questions.md Q12).
+        delivered = d.loc[m, "total"]
+        if not delivered.empty and int(delivered.iloc[0]) != int(published):
+            raise AssertionError(
+                f"{year}: the workbook total is {delivered.iloc[0]:,.0f} but the "
+                f"Census county series gives {published:,.0f}")
+
+        d.loc[m, "total"] = published
 
     # 2000-2020 come from the Bureau's own data files, fetched by
     # build/fetch_census.py. No transcription step, so no reading error.

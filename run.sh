@@ -25,6 +25,12 @@ BUILD=(residents board_seats board_members)
 FIGURES=(residents_by_race residents_by_race_share residents_by_race_log
          residents_per_seat board_seats)
 
+# The guards live in build/. These prove the guards still fire, so editing
+# build/ cannot quietly disable one. Under a second; run first so a broken
+# check is known before anything is written.
+echo "tests"
+"$PY" tests.py | sed 's/^/  /'
+
 echo "build"
 for s in "${BUILD[@]}"; do
   (cd build && ../"$PY" "$s.py")

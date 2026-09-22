@@ -103,6 +103,15 @@ settle a question — a boundary history, a news article, a methods note — is
 cited under Works cited in `docs/sources.md`, not downloaded into `data/raw/`.
 The test is whether a figure derives from it.
 
+**Guards that prevent silent wrongness get a test.** `tests.py` reintroduces
+the specific mistake each guard exists to catch and asserts the build refuses,
+so editing `build/` cannot quietly disable a check. `bash run.sh` runs it first;
+it takes under a second.
+
+Only silent failures are worth this. A figure script saving under the wrong
+name halts the build with an error in your face; the Freedman village check
+failing would show 4,596 in a figure and tell nobody.
+
 **Fail loudly.** A script that cannot find its input, or whose numbers stop
 tying out, should raise — not carry on and emit a plausible-looking figure with
 wrong values. `build/residents.py` asserts its derived columns still agree with
