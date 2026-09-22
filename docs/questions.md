@@ -221,16 +221,38 @@ board." Correct, and correctly applied, but never written down as a definition
 or generalised beyond that case. So it needs his sign-off rather than his
 confirmation.
 
-Second, A has only been applied to the one boundary change we knew about. The
-Census county series does not hold geography constant — 1890 includes the city
-and 1900 does not — and the Virginia notes record that annexations from
-counties to cities were common. Whether Arlington's boundaries moved again
-after 1900 is unresearched. If they did, the population series has silent steps
-where territory left, and a flattening could be a boundary change rather than
-people moving. That would matter most for residents-per-seat.
+Second — and this is now researched — **Arlington's boundaries did move again
+after 1900, twice.** So the population series has silent steps in it where
+territory left the county, and A has only been applied to the first of three
+boundary changes.
 
-Under B the same problem appears differently: the early figures would need
-adjusting to today's boundaries instead.
+| Change | What left Arlington |
+|---|---|
+| 1900 | Alexandria city reported separately from the county (independent since 1871) |
+| **1915** | 866 acres annexed by Alexandria, effective 1 April 1915 — Rosemont, Shuter's Hill, Carlyle, Eisenhower East, the former West End |
+| **1930** | A further annexation bounded by Duke Street, Quaker Lane and Four Mile Run — including the **Town of Potomac**, incorporated in its own right in 1908 |
+
+Sources: *A History of the Boundaries of the City of Alexandria, Virginia:
+1749-2024*, City of Alexandria; and C. B. Rose, "Annexation of a Portion of
+Arlington County by the City of Alexandria in 1915", *Arlington Historical
+Magazine*, 1964. Both in `data/raw/boundaries/`.
+
+**What this means for the figures.** The 1915 change falls between the 1910 and
+1920 censuses; the 1930 change falls around the 1930 census. So part of the
+1910-1920 and 1920-1930 movement is territory changing hands rather than people
+arriving or leaving. The Town of Potomac was an incorporated place, so real
+population moved on paper.
+
+Not yet established: how many residents each annexation carried, and whether
+the 1930 change took effect before or after the April 1930 census date. Those
+determine whether this is a footnote or a correction.
+
+**Where it bites hardest is residents-per-seat**, which divides population by
+Board seats. If the county shed populated territory in 1915 and 1930, that
+figure moves for reasons unrelated to representation.
+
+Under B the same problem appears from the other side: every year before 2020
+would need adjusting to present-day boundaries.
 
 ### Q9. How should Freedman village be treated, and described?
 **Owner:** Sally + Alex · **Status:** open
