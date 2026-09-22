@@ -28,26 +28,25 @@ applied here while docs/questions.md Q1 and Q2 are open.
 """
 import pandas as pd
 
-from files import EXTRACTED, RESIDENTS_XLSX, numeric, write
+from files import RESIDENTS_XLSX, TRANSCRIBED, numeric, write
 
-BY_CLAUDE = EXTRACTED / "by_claude"
-BY_HUMAN = EXTRACTED / "by_human"
+# Which document each year's population total comes from. Named here rather
+# than decided by a rule, so it can be read off rather than inferred, and so a
+# change of source is a visible edit.
+TOTAL_SOURCE = {
+    1870: "census volumes", 1880: "census volumes", 1890: "census volumes",
+    1900: "census county series", 1910: "census county series",
+    1920: "census county series", 1930: "census county series",
+    1940: "census county series", 1950: "census county series",
+    1960: "census county series", 1970: "census county series",
+    1980: "census county series", 1990: "census county series",
+    2000: "workbook", 2010: "workbook", 2020: "workbook",
+}
 
 
-def table(stem):
-    """Read a transcribed source table, preferring a human-checked copy.
-
-    Searches recursively, because transcriptions are filed under the census
-    year they describe. Filenames are unique, so the year folder is for reading
-    by people rather than for finding files.
-    """
-    for root in (BY_HUMAN, BY_CLAUDE):
-        hits = sorted(root.rglob(f"{stem}.csv"))
-        if len(hits) > 1:
-            raise AssertionError(f"{stem}.csv appears more than once under {root}")
-        if hits:
-            return pd.read_csv(hits[0])
-    raise FileNotFoundError(f"no transcription named {stem}.csv under {BY_CLAUDE}")
+def table(path):
+    """Read a transcribed table by its path under data/transcribed/."""
+    return pd.read_csv(TRANSCRIBED / path)
 
 
 def early_years() -> pd.DataFrame:
@@ -60,13 +59,13 @@ def early_years() -> pd.DataFrame:
     fourth district. That error is unrepresentable here rather than warned
     against; it is what produced 4,596 where the districts give 4,258.
     """
-    t5_1890 = table("1890a_v1-11_p346_table5_virginia_alexandria")
-    t2_1870 = table("1870a-04_p69_table2_virginia_alexandria").set_index("section")
-    t3_1870 = table("1870a-09_p278_table3_virginia_alexandria")
-    t5_1880 = table("1880_v1-13_p412_table5_virginia_alexandria")
-    t6_1880 = table("1880_v1-13_p425_table6_virginia_alexandria")
-    t22 = table("1890a_v1-14_p520_table22_virginia_alexandria").iloc[0]
-    t23 = table("1890a_v1-14_p556_table23_virginia_alexandria").iloc[0]
+    t5_1890 = table("by_claude/1890/1890a_v1-11_p346_table5_virginia_alexandria.csv")
+    t2_1870 = table("by_claude/1870/1870a-04_p69_table2_virginia_alexandria.csv").set_index("section")
+    t3_1870 = table("by_claude/1870/1870a-09_p278_table3_virginia_alexandria.csv")
+    t5_1880 = table("by_claude/1880/1880_v1-13_p412_table5_virginia_alexandria.csv")
+    t6_1880 = table("by_claude/1880/1880_v1-13_p425_table6_virginia_alexandria.csv")
+    t22 = table("by_claude/1890/1890a_v1-14_p520_table22_virginia_alexandria.csv").iloc[0]
+    t23 = table("by_claude/1890/1890a_v1-14_p556_table23_virginia_alexandria.csv").iloc[0]
 
     rows = {}
     for year, col in ((1890, "pop_1890"), (1880, "pop_1880")):
@@ -138,8 +137,8 @@ def build() -> pd.DataFrame:
     # Take 1900-1990 totals from the published Census county series rather than
     # from the workbook. They were checked against it and matched every year,
     # so there is no reason to go on reading them second-hand.
-    d["source"] = "workbook"
-    series = table("censusgov_pop1790-1990_p177_counties_virginia_arlington").iloc[0]
+    d["source"] = d["year"].map(TOTAL_SOURCE)
+    series = table("by_claude/censusgov_pop1790-1990_p177_counties_virginia_arlington.csv").iloc[0]
     for year in range(1900, 2000, 10):
         m = d["year"] == year
         d.loc[m, "total"] = series[f"y{year}"]

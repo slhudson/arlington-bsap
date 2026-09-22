@@ -149,79 +149,52 @@ three-panel version with census, Board race and Board gender, in percentage and
 raw-count forms, and a broken-axis variant of the residents chart. They are not
 in `raw/`. Listed in `docs/figures.md`.
 
-### Q8. How were the 1870-1890 county census figures obtained?
-**Owner:** Alex · **Status:** open — affects published numbers
+### Q8. Three transcription corrections to confirm
+**Owner:** Alex · **Status:** open — already applied in the build
 
-Two tables have now been located in the scans and read directly at 600 dpi.
-They confirm 1880 and raise a question about 1890.
+Each is a keying-level difference, not a methods disagreement. Alex used the
+right tables and the right principle; his workbook formulas show the working,
+and they are what identified each cause.
 
-**Table 5, `1890a_v1-11`, printed page 346** — *Population of States and
-Territories by Minor Civil Divisions: 1880 and 1890*:
+| # | Cell | Workbook | Sources give | Cause |
+|---|---|---|---|---|
+| 1 | 1870 white | 1,075 | **1,175** | the three districts are 517 + 383 + 275 |
+| 2 | 1890 total | 4,596 | **4,258** | Freedman village added as a fourth district |
+| 3 | 1890 white | 2,195 | **2,135** | foreign-white-female read as 365; it is 305 |
 
-```
-ALEXANDRIA COUNTY                                 18,597    17,546
-    Alexandria city                               14,339    13,659
-        Ward 1 2,494  Ward 2 2,051  Ward 3 6,037  Ward 4 3,757
-    Arlington district, including Freedman village 2,013     1,754
-        Freedman village                             338    ......
-    Jefferson district                             1,303     1,319
-    Washington district                              942       814
-```
+**1. 1870 white.** Table III, *Population of Civil Divisions Less Than
+Counties*, 1870a-09 printed p.279, gives Arlington 517, Jefferson 383,
+Washington 275 — summing to 1,175. The workbook's own formula for the 1870
+total, `=1374+1256+555`, uses the same three district rows. Each district also
+ties internally (517 + 857 = 1,374, and so on), and 1,175 + 2,010 = 3,185, the
+total. Confirmed by a second route: county white 9,444 minus city white 8,269
+also gives 1,175.
 
-**1880 is confirmed.** County minus city is 3,887; the three districts sum to
-3,887; the workbook says 3,887.
+**2. 1890 total.** The workbook formula is `=2013+338+1303+942`. Table 5,
+1890a_v1-11 printed p.346, prints Freedman village as an indented sub-line of
+"Arlington district, *including* Freedman village" — its 338 residents are
+already inside that district's 2,013. The three districts alone give 4,258,
+which also equals county 18,597 minus city 14,339.
 
-**1890 does not reconcile.** County minus city is 4,258, and the three
-districts also sum to 4,258. The city wards sum to 14,339, confirming the city
-figure independently. The workbook says 4,596 — higher by exactly 338, the
-Freedman village line.
+**3. 1890 white.** The workbook formula is `=(5262+5415+379+365)-9226`. In
+Table 22, 1890a_v1-14 printed p.520, the foreign-white-female figure is 305,
+not 365. The table settles it without re-reading the glyph: native born plus
+foreign born is 18,597, the confirmed county total, and only 305 makes white
+plus colored tie to that same 18,597. With 365 the row overshoots itself by
+exactly 60.
 
-Freedman village is printed as an indented sub-line of "Arlington district,
-*including* Freedman village", so its 338 residents are already within that
-district's 2,013. Adding the sub-line as though it were a fourth district gives
-2,013 + 338 + 1,303 + 942 = 4,596 exactly. The arithmetic fits, but that is an
-inference from a coincidence of numbers, not something established.
+**Also worth telling him:** 1880 came out identical to his in every value, which
+is the control case — the method agrees when nothing slips. And the corrected
+figures leave no "Other/multiracial/unreported" residents in 1870 or 1890,
+where the workbook leaves 100 and 278 unexplained.
 
-**Table 22, `1890a_v1-14`, printed page 520** — *Native and Foreign Born and
-White and Colored Population, Classified by Sex, by Counties: 1890*. Its
-Alexandria row totals 8,734 + 9,173 + 382 + 308 = 18,597, so it reports the
-county **including** the city: white 11,361, colored 7,236.
+**Still genuinely open, not a correction:**
 
-The workbook's 1890 county figures are white 2,195 and black 2,123, summing to
-4,318 — 60 more than 4,258, so they are not a breakdown of the
-county-outside-city total either. Which geography the race split covers is
-unresolved.
-
-**Working conclusion, pending Alex's confirmation.** Freedman village was
-treated as a fourth magisterial district alongside Arlington, Jefferson and
-Washington, when the census lists it as a settlement inside Arlington district.
-That counts its 338 residents twice and gives 4,596 where the districts give
-4,258. The county definition this rests on is written up in docs/sources.md.
-
-Proceeding on that basis, but it is not confirmed and the confirmation is one
-line of reply.
-
-**For Alex:**
-
-1. Which table gives the county-only totals for 1870, 1880 and 1890?
-2. Table 5 on printed page 346 gives the three districts as 2,013 + 1,303 + 942
-   = 4,258 for 1890. Was Freedman village's 338 added to that as a fourth
-   district? It is printed as a sub-line of Arlington district.
-3. Which table gives the 1870-1890 race splits, and does it cover the county
-   with or without the city?
-4. Do the volumes list race categories beyond White and Black? In 1870 the two
-   sum to 3,085 of 3,185 residents; the 1890 volumes include a table
-   classifying the colored population as Negro, mulatto, quadroon, octoroon,
-   Chinese, Japanese and civilized Indian.
-
-**Why it matters beyond arithmetic.** The 1890 population feeds the
-residents-per-seat figure and the race charts, and 338 people is 7% of the
-county that year. See also Q9.
-
-*Method note.* `data/extracted/by_ocr/` was used to locate these tables by
-searching for county names, then each page was rendered and read by eye. OCR
-misread two of the four figures on page 346 — 17,546 as 17,516 and 14,339 as
-14,830 — which is why the index is used to find pages, never to read numbers.
+- Where the scanned volumes came from — a citation per file. The filenames
+  match how the Census Bureau chunks its scans, but that is an inference.
+- Whether those volumes break out race categories beyond White and Black. The
+  1890 volumes include a table classifying the colored population as Negro,
+  mulatto, quadroon, octoroon, Chinese, Japanese and civilized Indian.
 
 ### Q9. How should Freedman village be treated, and described?
 **Owner:** Sally + Alex · **Status:** open

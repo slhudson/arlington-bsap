@@ -6,20 +6,20 @@ belongs in depends on that, not on what it is about.
 | Folder | How it was produced | Read by |
 |---|---|---|
 | `raw/` | published, as it exists in the world | `build/` |
-| `extracted/by_ocr/` | an OCR engine read the text layer | people |
-| `extracted/by_claude/` | a vision model read a rendered page | `build/` |
-| `extracted/by_human/` | a person checked it | `build/`, in preference |
-| `manual/` | keyed in by a person | `build/` |
-| `clean/` | computed by `build/` from `raw/` and `manual/` | `analysis/` |
+| `transcribed/by_ocr/` | an OCR engine read the text layer | people |
+| `transcribed/by_claude/` | a vision model read a rendered page | `build/` |
+| `transcribed/by_human/` | a person checked it | `build/`, in preference |
+| `transcribed/by_human/` | keyed in by a person | `build/` |
+| `clean/` | computed by `build/` from `raw/` and `transcribed/by_human/` | `analysis/` |
 
 A file in `raw/` is its own citation: the volume is the evidence. A file in
-`manual/` is not — someone read something and typed a number, so it needs a
+`transcribed/by_human/` is not — someone read something and typed a number, so it needs a
 citation per cell. That difference is the whole of the sourcing problem, and
 `docs/sources.md` tracks it.
 
-`extracted/by_ocr/` is absent from `build/files.py` and `analysis/files.py` by
+`transcribed/by_ocr/` is absent from `build/files.py` and `analysis/files.py` by
 design. OCR misreads digits, so it is a finding aid: it locates a table and a
-page, and never supplies a number. `extracted/by_claude/` is the other half of
+page, and never supplies a number. `transcribed/by_claude/` is the other half of
 that — the table transcribed once the OCR found the page, with the volume,
 table and page in the filename so anyone can check it against the scan.
 
@@ -50,7 +50,7 @@ Census Bureau chunks its scanned volumes, but that is an inference — see
 
 Seven of the nine have no text layer at all.
 
-## extracted/by_ocr/
+## transcribed/by_ocr/
 
 OCR of all 521 pages, one text file per volume, produced by
 `build/ocr_census.py` using macOS Vision. Not part of `bash run.sh` — it takes
@@ -60,7 +60,7 @@ Use it to find a table and a page. Do not read numbers from it: OCR of
 19th-century tables misreads digits routinely, and the text layer already
 embedded in the 1880 files renders 13,659 as `lB, 659`.
 
-## extracted/by_claude/ and by_human/
+## transcribed/by_claude/ and by_human/
 
 Transcribed source tables, one file per printed table, laid out as the table is
 laid out rather than reshaped into whatever a script wanted. Transcribing the

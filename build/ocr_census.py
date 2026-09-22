@@ -28,10 +28,10 @@ import Quartz
 import Vision
 from Foundation import NSData
 
-from files import EXTRACTED, RAW
+from files import RAW, TRANSCRIBED
 
 SCANS = RAW / "census"
-OUT = EXTRACTED / "by_ocr"
+OUT = TRANSCRIBED / "by_ocr"
 DPI = 300
 
 

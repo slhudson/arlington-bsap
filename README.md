@@ -8,8 +8,8 @@ Hudson (Ranked Choice Virginia) and Alex Keena (VCU).
 
 ```
 data/raw/        published sources (census volumes)
-data/manual/     hand-keyed workbooks
-data/extracted/  OCR - for people to search, never read by code
+data/transcribed/by_human/     hand-keyed workbooks
+data/transcribed/  OCR - for people to search, never read by code
     |
     |   build/       decides what each number IS
     v

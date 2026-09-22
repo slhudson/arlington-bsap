@@ -2,14 +2,19 @@
 
 data/ has four layers, sorted by how the numbers were produced:
 
-    raw/        published, as it exists in the world
-    extracted/  read off raw/ by software
-    manual/     keyed in by a person, so it needs a citation per cell
-    clean/      computed by build/, and the only layer analysis/ reads
+    raw/          published sources, as they exist in the world
+    transcribed/  someone read a source and wrote the numbers down:
+                    by_ocr/     an OCR engine
+                    by_claude/  a vision model reading a page image
+                    by_human/   a person
+    clean/        computed by build/, and the only layer analysis/ reads
 
-extracted/ is deliberately absent from this module. OCR misreads digits, so a
-number leaves that folder the way it would without it: a person reads the scan
-and keys it into manual/.
+Nothing reads by_ocr/. OCR misreads digits, so it locates a table and never
+supplies a number.
+
+No folder outranks another. build/residents.py names the source it uses for
+each year, in one place, so which document a figure came from is something you
+read rather than infer.
 
 Fix the mapping here once and every script that imports it follows. Without
 this, each script carries its own copy of a filename - which is how five
@@ -32,14 +37,14 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 RAW = DATA / "raw"          # published sources, self-citing
-MANUAL = DATA / "manual"    # hand-keyed, needs a citation per cell
+TRANSCRIBED = DATA / "transcribed"   # by_ocr / by_claude / by_human
 CLEAN = DATA / "clean"      # built here, read by analysis/
-EXTRACTED = DATA / "extracted"  # machine-derived, for people only - never read by code
+
 
 # The three workbooks, named exactly as received (spaces and all).
-RESIDENTS_XLSX = MANUAL / "arlington county demographic data.xlsx"
-BOARD_SEATS_XLSX = MANUAL / "arlington board - descriptive representation (1870-2026).xlsx"
-BOARD_MEMBERS_XLSX = MANUAL / "arlington county board member database (1932-2026).xlsx"
+RESIDENTS_XLSX = TRANSCRIBED / "by_human" / "arlington county demographic data.xlsx"
+BOARD_SEATS_XLSX = TRANSCRIBED / "by_human" / "arlington board - descriptive representation (1870-2026).xlsx"
+BOARD_MEMBERS_XLSX = TRANSCRIBED / "by_human" / "arlington county board member database (1932-2026).xlsx"
 
 for _f in (RESIDENTS_XLSX, BOARD_SEATS_XLSX, BOARD_MEMBERS_XLSX):
     if not _f.exists():

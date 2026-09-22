@@ -8,8 +8,8 @@ repo; prose is written in Overleaf, which syncs the repository.
 
 ```
 data/raw/        published sources - a file here is its own citation
-data/manual/     hand-keyed - needs a citation per cell
-data/extracted/  read off raw/ by software - for people to search, not for code
+data/transcribed/by_human/     hand-keyed - needs a citation per cell
+data/transcribed/  read off raw/ by software - for people to search, not for code
   |  build/        <- every subjective decision about what a number IS
 data/clean/      built output
   |  analysis/     <- presentation only; cannot see anything above clean/
@@ -34,7 +34,7 @@ Presentation choices are still subjective, but they cannot change a value. If
 they would only disagree about how to *show* it, it belongs in `analysis/`.
 
 This is enforced structurally, not by convention: `analysis/files.py` has no
-path to `data/raw/`, `data/manual/` or `data/extracted/`. A figure script that wants to reach around the cleaning step
+path to `data/raw/`, `data/transcribed/by_human/` or `data/transcribed/`. A figure script that wants to reach around the cleaning step
 has nothing to reach with. Note that `analysis` scripts *append* `build/` to
 `sys.path` rather than inserting it, so `build/files.py` cannot shadow
 `analysis/files.py` and quietly restore that route.
@@ -62,14 +62,14 @@ and that is deliberate — see above.
 
 ## The rules that matter
 
-**`data/raw/` and `data/manual/` are read-only.** They are the files as
+**`data/raw/` and `data/transcribed/by_human/` are read-only.** They are the files as
 received. Never edit, rename, clean or "fix" anything inside them — including
 the spacing in the `aapi_m embers` header, which is corrected in
 `build/board_seats.py`.
 
-**Nothing reads `data/extracted/`.** OCR misreads digits, so a number leaves
+**Nothing reads `data/transcribed/`.** OCR misreads digits, so a number leaves
 that folder the way it would without it: a person reads the scan and keys it
-into `data/manual/`, with a citation. The OCR shortens the search; it does not
+into `data/transcribed/by_human/`, with a citation. The OCR shortens the search; it does not
 do the reading.
 
 **Everything is built by `bash run.sh`.** One entry point, no exceptions. If a

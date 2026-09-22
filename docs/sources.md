@@ -52,7 +52,7 @@ city total. Its 338 residents in 1890 are already within Arlington district's
 2,013.
 
 Counting it as a fourth district adds those people twice and gives 4,596, the
-figure currently in `data/manual/`. See questions.md Q8, and Q9 for why the
+figure currently in `data/transcribed/by_human/`. See questions.md Q8, and Q9 for why the
 settlement matters beyond the arithmetic.
 
 ### Checks for any new early figure
@@ -91,7 +91,7 @@ from one table in *Population of States and Counties of the United States:
 1790-1990*, and every one matched exactly.
 
 The per-cell record, with volume, table and page, is
-`data/manual/census_verification.csv`. It is compiled here rather than received
+`data/transcribed/by_human/census_verification.csv`. It is compiled here rather than received
 — the three workbooks beside it stay exactly as delivered, and a discrepancy is
 recorded, never corrected in place.
 
@@ -186,7 +186,7 @@ framing.
 ## The census scans
 
 Nine PDFs, 521 pages, in `data/raw/census/`, from the published 1870, 1880 and
-1890 volumes. Seven have no text layer. `data/extracted/by_ocr/` holds OCR of
+1890 volumes. Seven have no text layer. `data/transcribed/by_ocr/` holds OCR of
 all of them.
 
 **The method:** search the OCR to locate a table, then render the page and read
