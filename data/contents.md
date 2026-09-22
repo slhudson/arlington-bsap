@@ -63,20 +63,30 @@ embedded in the 1880 files renders 13,659 as `lB, 659`.
 ## extracted/by_claude/ and by_human/
 
 Transcribed source tables, one file per printed table, laid out as the table is
-laid out. `by_claude/` is a machine's reading of a page image — better than
-OCR, wrong in different ways, and confirmed by nobody. `by_human/` holds values
-a person has checked, and `build/` prefers it for the same table, so confirming
-something changes what gets built. It is empty so far, which is honest.
+laid out rather than reshaped into whatever a script wanted. Transcribing the
+whole table means it can be checked against the page as a whole — a missing row
+or a misaligned column shows up, where a list of extracted values hides it.
 
-Each row carries the printed indentation as a `level` column: level 0 is the
-table's total, level 1 its parts, level 2 a detail of the line above. Sums take
-level 1 only. Freedman village is printed at level 2 inside Arlington district,
-so it cannot be added as a fourth district — the error that produced 4,596 is
+`by_claude/` is a machine's reading of a page image: better than OCR, wrong in
+different ways, and confirmed by nobody. `by_human/` holds tables a person has
+checked, and `build/` prefers it for the same table, so confirming something
+changes what gets built. It is empty, which is honest.
+
+Files are named `<volume>_p<printed page>_table<n>_<state>_<subject>.csv`, so
+the filename is the citation.
+
+Each row carries the printed indentation as a `level` column: 0 is the table's
+own total, 1 its parts, 2 a detail of the line above. Sums take level 1 only.
+Freedman village is printed at level 2 inside Arlington district, so it cannot
+be added as a fourth district — the error that produced 4,596 is
 unrepresentable rather than merely warned against.
 
 No arithmetic lives in these files. Before 1900 no published table gives the
 territory the Board governed, and that subtraction happens in
-`build/early_census.py`.
+`build/residents.py`.
+
+Seven tables so far, covering Alexandria County and city for 1870, 1880 and
+1890. Four values were read twice from different volumes and all four agreed.
 
 ## manual/
 
@@ -130,3 +140,8 @@ cleaning decision shows up as a reviewable diff — you can see which numbers
 moved and by how much.
 
 `residents.csv` · `board_seats.csv` · `board_members.csv`
+
+`residents.csv` carries a `source` column: 1870-1890 read "census volumes,
+derived" and come from `extracted/by_claude/`; 1900 onward read "delivered
+workbook". As more years are traced to sources, that column is where the shift
+shows.
