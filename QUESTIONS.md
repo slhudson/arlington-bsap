@@ -16,7 +16,12 @@ Sourcing questions for the descriptive coding live in `SOURCES.md` instead.
 
 ---
 
-## Blocking the County deliverable
+## Deferred — settle before the report, not before the pipeline
+
+The near-term deliverable is the working environment itself: repo, build,
+Overleaf sync, both authors able to use it. These data questions are real and
+must be answered before the report ships, but answering them does not move that
+along, so they wait.
 
 ### Q1. How should 1970 and 1990 race categories be reconciled?
 **Owner:** Alex · **Status:** queued for the next batch to Alex — not blocking
@@ -47,7 +52,7 @@ treatment moves into `build/`. Whatever he says, we can live with — the cost o
 waiting is low and the change is a few lines.
 
 ### Q2. Should not-reported be plotted as zero?
-**Owner:** Sally · **Status:** open
+**Owner:** Sally · **Status:** deferred — not blocking the pipeline
 
 Hispanic is blank before 1970 and AAPI before 1950, because the census did not
 separately tabulate them. `fillna(0)` in the stacked charts renders that
@@ -55,11 +60,17 @@ absence as a zero-height band; the log chart instead starts each line when the
 category is first reported.
 
 A zero and an absence are different claims: one says nobody was there, the
-other says nobody counted. Needs one convention plus a caption note.
+other says nobody counted. As drawn, the stacked charts show a flat zero line
+for a century, which asserts the first when the record only supports the
+second.
+
+Recommendation when this is taken up: follow the log chart, which starts each
+line the year the category is first reported, and add a caption note giving
+those years.
 
 ---
 
-## Not blocking
+## Not blocking the pipeline either
 
 ### Q3. What supports "first Black member since Reconstruction"?
 **Owner:** archive · **Status:** open — Sally contacting Arlington Historical Society
