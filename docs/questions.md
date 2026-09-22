@@ -229,7 +229,7 @@ why the question is worth asking before the work.
   mulatto, quadroon, octoroon, Chinese, Japanese and civilized Indian.
 
 ### Q13. What rule sets the size of a fractional seat?
-**Owner:** Alex · **Status:** open
+**Owner:** Alex · **Status:** even split accepted for now; time-weighting is the goal
 
 The seat counts carry fractions — 3.5 white and 0.5 Black in 2003 — and the
 figure note explains when one appears: "Half seats occur when a Board member
@@ -240,10 +240,26 @@ The evidence suggests the seat is split evenly between its occupants regardless
 of timing. Charles Monroe died on 11 January 2003, having served eleven days,
 and 2003 is still recorded as half and half.
 
-**For Alex:** is the rule that a seat is divided equally among everyone who held
-it during the year, irrespective of how long each served? If so it should be
-stated in the methods note, because a reader will assume time-weighting. If it
-was meant to be time-weighted, 2003 needs revisiting.
+**Decided (Sally, 2026-09-22):** an even split is a reasonable simplification
+for now, and the figures keep it. **Time-weighting is where this should end up**
+— a seat counted by the share of the year each person actually served.
+
+**For Alex, narrowly:** confirm that an even split is what the counts do, so the
+methods note can say so. A reader will otherwise assume time-weighting.
+
+**What time-weighting would need**, in order:
+
+1. The roster's note dates turned into real date columns — item 8 of the
+   research-assistant work order. Nothing can be time-weighted until service
+   dates are machine-readable.
+2. A rule for members whose dates are unknown or partial.
+3. The build to compute seats from the roster rather than read them from the
+   counts file, at which point the two Board files collapse into one source.
+
+It moves numbers: Charles Monroe served eleven days of 2003 and currently
+counts as half a seat, where time-weighting would give him about a thirtieth.
+Small in any one year, and it accumulates across every turnover year in the
+series.
 
 **Why it cannot be checked here.** The roster records `appointed`, `resigned`,
 `died` and `removed` as yes/no flags, with the actual dates only in free-text

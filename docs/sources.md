@@ -278,8 +278,10 @@ judgement, so they are the easiest to hand over.
    1987–present.
 7. **Spot-check gender coding** against obituaries for pre-1950 years.
 8. **Turn the roster's note dates into date columns.** `appointed`, `resigned`,
-   `died` and `removed` are yes/no flags; the dates sit in free text. Real
-   columns would make every fractional seat checkable against service dates.
+   `died` and `removed` are yes/no flags; the dates sit in free text. This is
+   the prerequisite for time-weighting the fractional seats, which is where
+   questions.md Q13 is headed — nothing can be weighted by service until the
+   dates are machine-readable.
 
 Record each source as you go — the point is that every coded cell can be
 traced.
