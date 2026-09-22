@@ -233,7 +233,7 @@ moved and by how much.
 `residents.csv` — census population by year, with a `source` column naming
 the document behind each row.
 
-`board_roster.csv` — one row per person per term, 1870 to the 2025 election:
+`board_roster.csv` — one row per person per term, 1870 through 2026:
 name, term number, district, start and end to the month, source, and a note
 only where something irregular happened. Nothing covers 1916–1931.
 

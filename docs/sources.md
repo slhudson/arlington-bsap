@@ -163,8 +163,8 @@ obituaries.
 ### A roster built from sources
 
 `data/clean/board_roster.csv` holds one row per person per term: name,
-term number, district, and when service began and ended. 221 terms, 1870 to
-the 2025 election, from three sources in sequence: O'Leary's electoral
+term number, district, and when service began and ended. 221 terms, 1870 through 2026
+(the next election is November 2026), from three sources in sequence: O'Leary's electoral
 history to 1915, Novack's roster from 1932 to 1994, and election results
 after that - the county's candidate history to 2021, the state's elections
 database from 2022. Nothing covers 1916-1931.
