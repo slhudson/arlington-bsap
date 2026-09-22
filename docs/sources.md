@@ -211,7 +211,28 @@ gender, so it verifies who served rather than how they were coded.
 The 1889–1986 stretch is a negative claim — that no Black member served for
 nearly a century — and a negative claim needs evidence that someone looked.
 
-**That has changed.** Grace Hjerpe's paper addresses it directly: after 1888 the
+**Two statements bear on it directly, and they point opposite ways.**
+
+Hjerpe, on 1889-1930:
+
+> While Alexandria County still had a by-district system for its county board
+> from 1889-1930, the board became and remained all white for the duration of
+> this system.
+
+That is a collective claim with no per-person evidence behind it, and it is the
+sentence the "since Reconstruction" framing rests on.
+
+O'Leary, on the same period's office holders:
+
+> It is probable that a majority of the early office holders, such as Mr.
+> Holmes, were African-American, however, I lack the photographic evidence to
+> support this assertion.
+
+Neither is a per-person identification, so neither appears in
+`data/transcribed/by_claude/race_attributions_1870-1931.csv`, which holds only
+named members.
+
+**Hjerpe's paper addresses the question directly:** after 1888 the
 board "became and remained all white for the duration of this system", and no
 Black candidate is recorded as running for the county board again until after
 1930. She sources this to Arlington County's own election records rather than
