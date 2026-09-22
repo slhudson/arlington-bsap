@@ -1,143 +1,68 @@
-# Open questions
+# Sources for the descriptive coding
 
-Methods and data questions that came up while working the files. One line per
-question, newest at the bottom of its section. When a question is answered, the
-answer is written in here — not just implemented — so the reasoning survives.
+What backs each claim about a Board member's race, ethnicity and gender — and,
+just as importantly, what does not yet back it. The roster is person-level, so
+sourcing is recorded per person in a `source` column; this file explains the
+scheme and tracks what is outstanding.
 
-**Owner** is who can actually settle it: *Sally*, *Alex*, *Nick*, *archive*
-(needs an outside source), or *RA*.
+This is also the work order for a research assistant.
 
-Questions owned by Alex are batched rather than sent one at a time — Sally
-works independently for a few days, then sends a consolidated list. Anything
-owned by Alex should therefore be written so it can be read cold, without the
-surrounding conversation.
+## Status as of 2026-09-22
 
-Sourcing questions for the descriptive coding live in `sources.md` instead.
+| Period | Members | What it rests on | Confidence |
+|---|---|---|---|
+| 1871–1888 | 5 named Black members | Census-linkable. Grace Hjerpe's 2021 paper demonstrates the method using 1880 manuscript census records. | Small n, verifiable — not yet verified |
+| 1889–1986 | Coded all-White | The "first since Reconstruction" framing, and nothing else located so far | **Weakest link.** ~490 person-years |
+| 1987–present | Newman (1987), Monroe (1999), Dorsey (2015), Spain (2024), Tejada | Contemporary news coverage; Arlington Historical Society maintains a curated entry covering all four | Well documented |
+| Gender, all years | All | Naming conventions, with obituaries consulted for some earlier years | Adequate with a methods note; cheap to spot-check |
 
----
+## The one that matters
 
-## Deferred — settle before the report, not before the pipeline
+The 1889–1986 stretch is a negative claim — that no Black member served for
+nearly a century — and a negative claim needs evidence that someone looked.
+Right now it rests on a phrase, not a review.
 
-The near-term deliverable is the working environment itself: repo, build,
-Overleaf sync, both authors able to use it. These data questions are real and
-must be answered before the report ships, but answering them does not move that
-along, so they wait.
+Open: whether that record was ever systematically examined, and by whom. Sally
+is contacting the Arlington Historical Society (info@arlingtonhistorical.com),
+which authored the curated roster and uses the phrasing, to find out.
 
-### Q1. How should 1970 and 1990 race categories be reconciled?
-**Owner:** Alex · **Status:** queued for the next batch to Alex — not blocking
+If the answer is that nobody has checked, the report should say so plainly
+rather than repeat the framing.
 
-In both years the four race categories sum to more than the reported total —
-about 4,800 people in 1970 (2.8%) and 400 in 1990 (0.2%).
+## Census population, 1870-1890
 
-The figures currently disagree with each other:
-- `make_residents_by_race_chart_pct.py` rescales both years so the bars total 100%
-- `make_residents_by_race_chart.py` plots the counts as reported and notes the
-  discrepancy in a comment
+The county-only population figures for 1870, 1880 and 1890 were established
+from original census records, and the scanned volumes in
+`raw/2026-09-22-handoff/Historical Census Records/` are those records.
 
-Both are defensible; they cannot both appear in the same report. Whatever is
-decided belongs in `build/` so every figure inherits it.
+This corrects an earlier reading. The totals first used for those three decades
+counted the City of Alexandria alongside the county, which the Board did not
+govern. Arlington County was named Alexandria County before 1920, and the
+combined figure is what several sources report. The discrepancy surfaced while
+building the residents-per-seat figure: the drop from 18,597 in 1890 to 6,430
+in 1900 was too large to be real.
 
-Working hypothesis, unconfirmed: Hispanic/Latino is an ethnicity the census
-tabulates *across* races, so Hispanic residents are counted twice — once by
-race, once as Hispanic. If that is the cause, the overlap is expected rather
-than an error, and the honest fix is to stop treating the four categories as a
-partition at all.
+The county-only 1890 figure is **4,596**, from the census volumes. A working
+estimate of 4,258 was derived by subtracting a secondary-source city figure
+from a secondary-source combined total; it is superseded and should not be
+cited.
 
-**Origin of the current treatment:** the rescaling was introduced while the
-figures were being built, as a working choice, and was noted at the time. It
-has not since been ratified by either author. The pgfplots chart in the
-Overleaf project carries the rescaled values too, so the decision is currently
-embedded in three places.
+Race breakdowns for those years are in the corrected spreadsheet. They are
+incomplete: in 1870 the White and Black counts total 3,085 of 3,185 residents,
+and in 1890 4,318 of 4,596. The remainder appears as "Other/multiracial/
+unreported". Whether those census tables list further categories is worth
+checking against the scans.
 
-**For Alex:** where did the 1970 and 1990 race figures come from — decennial
-census tables pulled directly, or a secondary source? If directly from the
-Census, the double-count explanation above is almost certainly right.
+## For a research assistant
 
-Until he answers, both scripts keep their current behaviour and neither
-treatment moves into `build/`. Whatever he says, we can live with — the cost of
-waiting is low and the change is a few lines.
+Roughly in order of value:
 
-### Q2. Should not-reported be plotted as zero?
-**Owner:** Sally · **Status:** deferred — not blocking the pipeline
+1. Establish what supports the 1889–1986 coding. Start with the Historical
+   Society's reply.
+2. Verify the five Reconstruction-era members against the 1870 and 1880
+   manuscript census, following Hjerpe's method.
+3. Collect citations for the 1987–present members into the `source` column.
+4. Spot-check gender coding against obituaries for the pre-1950 years.
 
-Hispanic is blank before 1970 and AAPI before 1950, because the census did not
-separately tabulate them. `fillna(0)` in the stacked charts renders that
-absence as a zero-height band; the log chart instead starts each line when the
-category is first reported.
-
-A zero and an absence are different claims: one says nobody was there, the
-other says nobody counted. As drawn, the stacked charts show a flat zero line
-for a century, which asserts the first when the record only supports the
-second.
-
-Recommendation when this is taken up: follow the log chart, which starts each
-line the year the category is first reported, and add a caption note giving
-those years.
-
----
-
-## Not blocking the pipeline either
-
-### Q3. What supports "first Black member since Reconstruction"?
-**Owner:** archive · **Status:** open — Sally contacting Arlington Historical Society
-
-The 1889–1986 stretch is coded all-White, roughly 490 person-years, resting on
-that framing. It is the most load-bearing claim in the report and has not been
-independently verified. Detail in `sources.md`.
-
-### Q4. Should the roster be extended back to 1871?
-**Owner:** Sally · **Status:** open
-
-The person-level roster starts in 1932; the year-level counts start in 1871. So
-the 1871–1931 counts — including the Reconstruction-era Black members, among
-the most substantive findings — have no person-level backing. Extending the
-roster would let both files derive from one source.
-
-### Q5. Which figures go to the County, and with what caveats?
-**Owner:** Sally + Nick · **Status:** open
-
-Five exist. The caveats need to be consistent across whichever ship.
-
----
-
-### Q7. Should any of the set-aside figures be revived?
-**Owner:** Sally + Alex · **Status:** open, low priority
-
-Several earlier figures were produced and not carried forward — a combined
-three-panel version with census, Board race and Board gender, in percentage and
-raw-count forms, and a broken-axis variant of the residents chart. They are not
-in `raw/`. Listed in `figures.md`.
-
-## Settled
-
-### Q6. One repo, or paper/ split into its own repo?
-**Settled:** 2026-09-22 (Sally) — one repo, revisit later
-
-Overleaf syncs an entire repository; it cannot be scoped to `paper/` and
-`figures/`, contrary to what the handoff assumed. So Overleaf will carry the
-census scans too, and the project starts at 67MB against Overleaf's
-recommended 100MB ceiling.
-
-One repo was chosen because the case being made to Alex is that this setup is
-simpler than emailing files around, and pushing figures across a repo boundary
-would undercut that on day one.
-
-**Revisit when** the repo approaches 100MB — `run.sh` warns at 80MB, so this
-does not depend on anyone remembering. At that point the options are splitting
-`paper/` into its own repo, or downsampling the scans and keeping the
-originals in Drive.
-
-Zipping the scans was measured and rejected: they are already-compressed page
-images, so zip recovers 1-3% (67MB -> 65MB) while making them unbrowsable on
-GitHub and Overleaf and undiffable in git.
-
-### 1890 county population is 4,596
-**Settled:** 2026-09-22, from the scanned 1890 volumes in `raw/`. An earlier
-working estimate of 4,258 — derived by subtracting a secondary-source city
-figure from a combined total — is superseded.
-
-### Figure formatting is not fixed
-**Settled:** 2026-09-22 (Sally). The rebuilt figures differ from the
-figures as received by a few pixels, from a newer matplotlib. Formatting is open for
-redesign, so visual fidelity to the originals is not a goal and versions are
-not pinned. Regression checks target the numbers, not the rendering.
+Record each source in the roster's `source` column as you go, rather than in a
+separate document — the point is that every coded cell can be traced.
