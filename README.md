@@ -29,10 +29,15 @@ Figure data is never retyped. A number appears once, in a spreadsheet under
 
 ```bash
 python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl
-./run.sh
+bash run.sh
 ```
 
-`./run.sh pct log` rebuilds only matching scripts.
+`bash run.sh pct log` rebuilds only matching scripts.
+
+Use `bash run.sh` rather than `./run.sh`. Overleaf does not preserve Unix file
+permissions, so any push from Overleaf silently strips the executable bit and
+`./run.sh` then fails with "permission denied". Invoking it through `bash`
+works either way.
 
 ## Writing
 

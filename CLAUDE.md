@@ -11,7 +11,7 @@ edit, rename, clean or "fix" anything inside it — not even the `aapi_m embers`
 header typo. Corrections belong downstream, in `build/`, where they are visible
 as code.
 
-**Everything is built by `./run.sh`.** One entry point, no exceptions. If a
+**Everything is built by `bash run.sh`.** One entry point, no exceptions. If a
 figure cannot be produced by running that script from a clean checkout, it is
 not finished.
 
@@ -52,9 +52,12 @@ run.sh                    rebuilds every figure from raw/
 ## Running it
 
 ```bash
-./run.sh                  # rebuild all five figures
-./run.sh pct log          # rebuild only matching scripts
+bash run.sh               # rebuild all figures
+bash run.sh pct log       # rebuild only matching scripts
 ```
+
+Invoke it through `bash`, not as `./run.sh`. Overleaf does not preserve file
+permissions, so a push from Overleaf strips the executable bit.
 
 Needs `.venv` (gitignored): `python3 -m venv .venv && .venv/bin/pip install
 pandas matplotlib openpyxl`.
