@@ -124,41 +124,83 @@ raw-count forms, and a broken-axis variant of the residents chart. They are not
 in `raw/`. Listed in `docs/figures.md`.
 
 ### Q8. How were the 1870-1890 county census figures obtained?
-**Owner:** Alex · **Status:** open — for the next batch
+**Owner:** Alex · **Status:** open — affects published numbers
 
-The scanned volumes in `raw/` are the primary sources for the county-only
-population figures, but nothing records which table in which volume produced
-which number, or how the county was separated from the City of Alexandria.
-That separation is what the superseded 4,258 estimate for 1890 got wrong, so
-it is worth pinning down.
+Two tables have now been located in the scans and read directly at 600 dpi.
+They confirm 1880 and raise a question about 1890.
 
-Four questions, in rough order of value:
+**Table 5, `1890a_v1-11`, printed page 346** — *Population of States and
+Territories by Minor Civil Divisions: 1880 and 1890*:
 
-1. **Where did the volumes come from?** The filenames (`1880_v1-12`,
-   `1890a_v1-11`) look like the Census Bureau's own scans of its published
-   decennial volumes, but that is a guess from the naming. A URL or a citation
-   per file would settle it.
+```
+ALEXANDRIA COUNTY                                 18,597    17,546
+    Alexandria city                               14,339    13,659
+        Ward 1 2,494  Ward 2 2,051  Ward 3 6,037  Ward 4 3,757
+    Arlington district, including Freedman village 2,013     1,754
+        Freedman village                             338    ......
+    Jefferson district                             1,303     1,319
+    Washington district                              942       814
+```
 
-2. **Which table and page gives the county-only figure for each of 1870, 1880
-   and 1890?** Volume, table number, page.
+**1880 is confirmed.** County minus city is 3,887; the three districts sum to
+3,887; the workbook says 3,887.
 
-3. **Was the county figure printed as such, or computed?** "Data for
-   Alexandria County without Alexandria City" could mean either a table that
-   reports the county separately, or subtracting the city from a combined
-   total. If computed, the arithmetic and both inputs are worth recording.
+**1890 does not reconcile.** County minus city is 4,258, and the three
+districts also sum to 4,258. The city wards sum to 14,339, confirming the city
+figure independently. The workbook says 4,596 — higher by exactly 338, the
+Freedman village line.
 
-4. **Do those volumes list race categories beyond White and Black?** In 1870
-   the White and Black counts total 3,085 of 3,185 residents, and in 1890
-   4,318 of 4,596. The remainder currently renders as
-   "Other/multiracial/unreported". If the tables break it out — the 1890
-   volumes have a table classifying the colored population as Negro, mulatto,
-   quadroon, octoroon, Chinese, Japanese and civilized Indian — those counts
-   could be recorded instead.
+Freedman village is printed as an indented sub-line of "Arlington district,
+*including* Freedman village", so its 338 residents are already within that
+district's 2,013. Adding the sub-line as though it were a fourth district gives
+2,013 + 338 + 1,303 + 942 = 4,596 exactly. The arithmetic fits, but that is an
+inference from a coincidence of numbers, not something established.
 
-*Not blocking.* `data/census_ocr/` now makes all nine volumes searchable, so
-questions 2 and 3 can be narrowed without Alex if it is quicker to look than
-to ask. Whatever is found should still be confirmed with him, since he read
-these tables himself.
+**Table 22, `1890a_v1-14`, printed page 520** — *Native and Foreign Born and
+White and Colored Population, Classified by Sex, by Counties: 1890*. Its
+Alexandria row totals 8,734 + 9,173 + 382 + 308 = 18,597, so it reports the
+county **including** the city: white 11,361, colored 7,236.
+
+The workbook's 1890 county figures are white 2,195 and black 2,123, summing to
+4,318 — 60 more than 4,258, so they are not a breakdown of the
+county-outside-city total either. Which geography the race split covers is
+unresolved.
+
+**For Alex:**
+
+1. Which table gives the county-only totals for 1870, 1880 and 1890?
+2. For 1890, was Freedman village's 338 added to the three districts?
+3. Which table gives the 1870-1890 race splits, and does it cover the county
+   with or without the city?
+4. Do the volumes list race categories beyond White and Black? In 1870 the two
+   sum to 3,085 of 3,185 residents; the 1890 volumes include a table
+   classifying the colored population as Negro, mulatto, quadroon, octoroon,
+   Chinese, Japanese and civilized Indian.
+
+**Why it matters beyond arithmetic.** The 1890 population feeds the
+residents-per-seat figure and the race charts, and 338 people is 7% of the
+county that year. See also Q9.
+
+*Method note.* `data/extracted/census/` was used to locate these tables by
+searching for county names, then each page was rendered and read by eye. OCR
+misread two of the four figures on page 346 — 17,546 as 17,516 and 14,339 as
+14,830 — which is why the index is used to find pages, never to read numbers.
+
+### Q9. How should Freedman village be treated, and described?
+**Owner:** Sally + Alex · **Status:** open
+
+Freedman village was a settlement of formerly enslaved people on the Arlington
+estate. The census returns it separately in 1890, at 338 residents, and does
+not return it separately in 1880 — so its visibility in the published record
+changes between the two censuses, independently of who lived there.
+
+Whatever the resolution of Q8, this is substantively relevant to a report about
+race and representation in Arlington, and it is currently invisible in the data
+and the figures alike. Worth deciding whether it appears in the report at all,
+and if so whether as a caption note, a data point, or a marked feature of the
+1890 figures.
+
+Treating it only as an arithmetic discrepancy would miss what it is.
 
 ### Q6. One repo, or paper/ split into its own repo?
 **Settled:** 2026-09-22 (Sally) — one repo, revisit later
