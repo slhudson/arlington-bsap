@@ -19,9 +19,9 @@ citation per cell. That difference is the whole of the sourcing problem, and
 
 `extracted/by_ocr/` is absent from `build/files.py` and `analysis/files.py` by
 design. OCR misreads digits, so it is a finding aid: it locates a table and a
-page, and never supplies a number. `extracted/by_eye/` is the other half of
-that — what a person read once the OCR found the page, with the volume, table
-and page recorded so anyone can check it against the scan.
+page, and never supplies a number. `extracted/by_claude/` is the other half of
+that — the table transcribed once the OCR found the page, with the volume,
+table and page in the filename so anyone can check it against the scan.
 
 ---
 
