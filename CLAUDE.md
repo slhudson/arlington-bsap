@@ -87,6 +87,11 @@ which numbers moved and by how much. That matters while Q1 and Q2 are open.
 **Visual conventions live in `analysis/style.py`.** Colors, fonts and figure
 dimensions are imported, never redeclared, so a palette change is one edit.
 
+**`data/` holds what we take numbers out of.** A source consulted only to
+settle a question — a boundary history, a news article, a methods note — is
+cited under Works cited in `docs/sources.md`, not downloaded into `data/raw/`.
+The test is whether a figure derives from it.
+
 **Fail loudly.** A script that cannot find its input, or whose numbers stop
 tying out, should raise — not carry on and emit a plausible-looking figure with
 wrong values. `build/residents.py` asserts its derived columns still agree with
