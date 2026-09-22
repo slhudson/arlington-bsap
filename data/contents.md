@@ -145,3 +145,24 @@ moved and by how much.
 derived" and come from `extracted/by_claude/`; 1900 onward read "delivered
 workbook". As more years are traced to sources, that column is where the shift
 shows.
+
+## raw/census_bureau/
+
+Two published Census Bureau documents, fetched from census.gov in September
+2026. They are excerpts, like the volume scans beside them.
+
+**`population_of_states_and_counties_1790-1990_virginia_pages.pdf`** — the
+title page plus the seven Virginia pages of *Population of States and Counties
+of the United States: 1790-1990*. Printed page 177 carries Arlington County for
+every census from 1890 to 1990; page 185 carries the Virginia notes that state
+Alexandria city became independent of the county in 1900 and that the county
+was renamed Arlington in 1920.
+
+The full 236-page document is at
+`www2.census.gov/library/publications/decennial/1990/population-of-states-and-counties-us-1790-1990/population-of-states-and-counties-of-the-united-states-1790-1990.pdf`
+— 14.2 MB, which would have taken the repository past the 80 MB warning for
+229 pages nobody needs.
+
+**`pop-twps0076_virginia_1990.pdf`** — Census working paper POP-TWPS0076,
+Virginia table, giving Arlington's 1990 population by race and Hispanic origin.
+This is one of the two URLs cited inside the delivered workbook.

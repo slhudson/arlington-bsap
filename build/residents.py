@@ -13,8 +13,10 @@ early_years() below, from the tables transcribed under
 data/extracted/by_claude/, and it replaces the delivered workbook for those
 three years. See docs/questions.md Q8.
 
-**1900 onward comes from the delivered workbook**, whose totals are confirmed
-against census.gov for every year through 1990.
+**1900 onward comes from the delivered workbook.** Its 1900-1990 totals are
+checked here against the published Census county series, transcribed from
+data/raw/census_bureau/, so a drift between the two stops the build. 2000-2020
+are not yet checked against anything.
 
 Values are otherwise written as reported. The contested treatments are not
 applied here while docs/questions.md Q1 and Q2 are open.
@@ -118,9 +120,22 @@ def build() -> pd.DataFrame:
     assert (d["cube_root_resident_ratio"] - d["total"] ** (2 / 3)).abs().max() < 1e-6, \
         "cube_root_resident_ratio no longer equals population^(2/3)"
 
+    # Cross-check 1900-1990 totals against the published Census county series,
+    # transcribed from data/raw/census_bureau/. A workbook total that drifts
+    # from the published one stops the build rather than reaching a figure.
+    published = table("censusgov_pop1790-1990_p177_counties_virginia_arlington").iloc[0]
+    for year in range(1900, 2000, 10):
+        want = published[f"y{year}"]
+        got = d.loc[d["year"] == year, "total"]
+        if not got.empty and int(got.iloc[0]) != int(want):
+            raise AssertionError(
+                f"{year}: workbook total {got.iloc[0]:,.0f} but the Census county "
+                f"series gives {want:,.0f}")
+
     # Replace 1870-1890 with the figures derived from the volumes, and record
     # where every row came from.
     d["source"] = "delivered workbook"
+    d.loc[d["year"].between(1900, 1990), "source"] = "workbook, total confirmed"
     early = early_years().set_index("year")
     for year, r in early.iterrows():
         m = d["year"] == year
