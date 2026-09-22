@@ -7,8 +7,8 @@ a first pass, and its reasoning is recorded here so the choices are visible and
 can be revisited deliberately.
 
 A transcript of the session exists and is held by Sally. It is not in the repo.
-Anything from it that bears on the work is written up here, in `SOURCES.md` or
-in `QUESTIONS.md`.
+Anything from it that bears on the work is written up here, in `sources.md` or
+in `questions.md`.
 
 ## The five
 

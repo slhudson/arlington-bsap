@@ -29,12 +29,12 @@ echo "-> figures/ ($(ls figures | wc -l | tr -d ' ') files)"
 # Overleaf syncs the WHOLE repo and recommends staying under 100MB. We chose a
 # single repo on that basis, so the choice needs a tripwire rather than a note
 # someone has to remember: warn at 80MB, which is when splitting paper/ into
-# its own repo should be reconsidered. See QUESTIONS.md Q6.
+# its own repo should be reconsidered. See questions.md Q6.
 # Measure what Overleaf actually receives: the git-tracked files. du on the
 # working directory would count .venv and figures/ too, which never sync.
 kb=$(git ls-files -z | xargs -0 stat -f%z 2>/dev/null | awk '{s+=$1} END {print int(s/1024)}')
 if [ "${kb:-0}" -ge 81920 ]; then
   echo
   echo "WARNING: tracked files total $((kb/1024))MB, approaching Overleaf's 100MB ceiling."
-  echo "         Time to revisit the one-repo decision - see QUESTIONS.md Q6."
+  echo "         Time to revisit the one-repo decision - see questions.md Q6."
 fi

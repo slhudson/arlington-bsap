@@ -82,10 +82,10 @@ rediscovered. Do not silently pick a side on any of these.
 
 ## Open questions
 
-Questions that come up while working the files go in `QUESTIONS.md` at the
+Questions that come up while working the files go in `questions.md` at the
 moment they arise, with an owner — not carried in your head or in chat. When
 one is answered, write the answer into the file, not just the fix into the
 code: the next person needs the reasoning, not only the result.
 
-Sourcing for the descriptive coding lives in `SOURCES.md`, which doubles as the
+Sourcing for the descriptive coding lives in `sources.md`, which doubles as the
 work order for a research assistant.

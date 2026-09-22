@@ -12,7 +12,7 @@ works independently for a few days, then sends a consolidated list. Anything
 owned by Alex should therefore be written so it can be read cold, without the
 surrounding conversation.
 
-Sourcing questions for the descriptive coding live in `SOURCES.md` instead.
+Sourcing questions for the descriptive coding live in `sources.md` instead.
 
 ---
 
@@ -42,12 +42,6 @@ tabulates *across* races, so Hispanic residents are counted twice — once by
 race, once as Hispanic. If that is the cause, the overlap is expected rather
 than an error, and the honest fix is to stop treating the four categories as a
 partition at all.
-
-**Origin of the current treatment:** the rescaling was introduced while the
-figures were being built, as a working choice, and was noted at the time. It
-has not since been ratified by either author. The pgfplots chart in the
-Overleaf project carries the rescaled values too, so the decision is currently
-embedded in three places.
 
 **For Alex:** where did the 1970 and 1990 race figures come from — decennial
 census tables pulled directly, or a secondary source? If directly from the
@@ -83,7 +77,7 @@ those years.
 
 The 1889–1986 stretch is coded all-White, roughly 490 person-years, resting on
 that framing. It is the most load-bearing claim in the report and has not been
-independently verified. Detail in `SOURCES.md`.
+independently verified. Detail in `sources.md`.
 
 ### Q4. Should the roster be extended back to 1871?
 **Owner:** Sally · **Status:** open
@@ -99,14 +93,6 @@ roster would let both files derive from one source.
 Five exist. The caveats need to be consistent across whichever ship.
 
 ---
-
-### Q7. Should any of the set-aside figures be revived?
-**Owner:** Sally + Alex · **Status:** open, low priority
-
-Several earlier figures were produced and not carried forward — a combined
-three-panel version with census, Board race and Board gender, in percentage and
-raw-count forms, and a broken-axis variant of the residents chart. They are not
-in `raw/`. Listed in `FIGURES.md`.
 
 ## Settled
 
