@@ -123,6 +123,23 @@ def test_a_wrong_term_length_is_rejected():
     assert err and "at large" in err, f"not caught: {err}"
 
 
+def test_prose_in_the_name_column_is_rejected():
+    """O'Leary sometimes writes a sentence where a name goes - "A. D. Torreyson
+    elected, but successfully contested by Frederick S. Corbett in Oct." - and
+    a parser that misses the pattern would carry the whole sentence through as
+    a person. check_names() refuses any name that reads as prose.
+    """
+    def mangle(orig):
+        def patched():
+            for row in orig():
+                if row["name"] == "A. D. Torreyson":
+                    row = dict(row, name="A. D. Torreyson elected, but contested")
+                yield row
+        return patched
+    err = breaks(board_roster, "oleary_terms", mangle, build=board_roster.build)
+    assert err and "prose" in err, f"not caught: {err}"
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in sorted(globals().items()) if n.startswith("test_")]
     failed = 0

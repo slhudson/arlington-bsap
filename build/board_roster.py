@@ -51,7 +51,7 @@ def month_of(text):
 
 # "Replaced by H. Dwight Smith in Dec." / "Samuel Titus appointed in Dec."
 SUCCESSION = re.compile(
-    r"(?:replaced by|appointed)\s+(?:by\s+)?([A-Z][A-Za-z.'\u2019\- ]+?)\s+in\s+"
+    r"(?:replaced by|appointed|successfully contested by)\s+(?:by\s+)?([A-Z][A-Za-z.'\u2019\- ]+?)\s+in\s+"
     r"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?"
     r"(?:\s+((?:18|19)\d\d))?", re.I)
 APPOINTED_AFTER_VACANCY = re.compile(
@@ -91,13 +91,13 @@ def oleary_terms():
             # The highest is taken as the winner; the rest did not serve.
             # Prose about a replacement is never a list of candidates, so the
             # two formats are told apart before either is parsed.
-            prose = "(" in entry or re.search(r"replac|vacant|appointed", entry, re.I)
+            prose = "(" in entry or re.search(r"replac|vacant|appointed|contested", entry, re.I)
             paired = [] if prose else CANDIDATE_VOTES.findall(entry)
             if paired:
                 name = max(paired, key=lambda p: int(p[1].replace(",", "")))[0].strip()
                 note = f"contested; votes as printed: {entry.strip()}"
             else:
-                name = re.split(r"\s*[(–]", entry, maxsplit=1)[0].strip(" -")
+                name = re.split(r"\s*[(–]|\s+elected\b", entry, maxsplit=1)[0].strip(" -,")
                 note = entry[len(name):].strip(" -–")
 
             # Where there is no next listed election, the end of service is
@@ -128,8 +128,12 @@ def oleary_terms():
                 # was re-elected. Most rows have none.
                 parts = []
                 if i > 0:
-                    parts.append("Appointed after the seat fell vacant."
-                                 if vacant else "Took the seat mid-term.")
+                    parts.append("Appointed after the seat fell vacant." if vacant
+                                 else "Took the seat after successfully contesting the election."
+                                 if "contested" in entry else "Took the seat mid-term.")
+                elif "contested" in entry:
+                    parts.append("Election successfully contested; the seat passed to "
+                                 f"{holders[1][0]}.")
                 if end_unrecorded and i == len(holders) - 1:
                     parts.append("End of service not recorded; O'Leary's "
                                  "listings stop at 1915.")
@@ -411,9 +415,21 @@ def check_five_seats(d: pd.DataFrame, first=1995, last=ELECTIONS_END):
                              f"at large, expected {expected}")
 
 
+NOT_A_NAME = re.compile(r"\b(?:elected|contested|replaced|appointed|vacant|resigned|died)\b|\d", re.I)
+
+
+def check_names(d: pd.DataFrame):
+    """A name is a name. Prose that reached this column was not parsed."""
+    bad = d[d.name.str.contains(NOT_A_NAME, regex=True)]
+    if len(bad):
+        raise ValueError("these names read as prose, not people:\n"
+                         + "\n".join(f"  {n!r}" for n in bad.name))
+
+
 def build() -> pd.DataFrame:
     d = pd.DataFrame(list(oleary_terms()) + list(novack_terms()))
     d = election_terms(d)
+    check_names(d)
     check_five_seats(d)
     d = d.sort_values(["name", "start_year", "start_month"]).reset_index(drop=True)
 
