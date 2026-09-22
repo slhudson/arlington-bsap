@@ -186,7 +186,7 @@ winner serves until the seat's next regular election. Where two members' terms
 end in the same year, the county's own annotation ("to fill Eisenberg's
 unexpired term") says whose seat it was, and the build refuses to guess when
 it is absent. The five people still serving when Novack published have their
-last term closed the same way. A check runs every month from 1995: five
+last term closed the same way. A check runs every month from 1995 through 2026: five
 members at large, six only in a month a special election changed hands.
 
 The county and state sources both hold the 2021 election, and the build

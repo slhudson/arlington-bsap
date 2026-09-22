@@ -503,5 +503,4 @@ names. The roster keys a person on the full name, so "Corbett" from 1907 is a
 different person from "Frederick S. Corbett" before it, and starts again at
 term 1. Whether they are the same man is a fact about the sources; joining
 them would need a rule (surname plus district plus continuity?) or a note per
-case. Three people are affected: Corbett, and the two others in that stretch
-who appear under both forms.
+case. Two people appear under both forms: Corbett and Duncan.

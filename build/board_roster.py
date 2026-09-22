@@ -299,7 +299,7 @@ SPECIAL = re.compile(r"special|unexpired", re.I)
 FILLS = re.compile(r"to fill ([A-Za-z]+)['\u2019]s unexpired term|death of ([A-Za-z. ]+?)\)", re.I)
 PARTY = re.compile(r"\s*\((?:[^)]+)\)\s*$")
 COUNTY_HISTORY_END = 2021  # last election in the county's candidate history
-ELECTIONS_END = 2025       # last election in the state database file
+CHECK_THROUGH = 2026       # the roster is checked month by month up to here
 
 
 def county_contests():
@@ -444,7 +444,7 @@ def election_terms(earlier: pd.DataFrame):
     return d
 
 
-def check_five_seats(d: pd.DataFrame, first=1995, last=ELECTIONS_END):
+def check_five_seats(d: pd.DataFrame, first=1995, last=CHECK_THROUGH):
     """Five members at large in every month, apart from a handover month.
 
     A member who leaves mid-term and the one elected to replace them share
