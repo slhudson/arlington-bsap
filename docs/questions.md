@@ -272,6 +272,31 @@ piece of work for a research assistant.
 roster. The coding agrees across all three, so nothing is miscoded, but any
 tally built from the roster counts him three times.
 
+### Q16. Fetch and transcribe the Arlington election records
+**Owner:** Sally (or an RA) · **Status:** open — no longer blocked on anyone
+
+Grace Hjerpe's paper cites two primary sources for Board membership that we had
+not found, both published by Arlington County:
+
+- *The Electoral History of That Part of Alexandria County Now Known as
+  Arlington County, 1870-1920*, Office of Frank O'Leary
+- *Candidate History, 1920-Present*, Arlington County Elections
+
+Between them they cover the whole period. This is the primary material the
+Board data has been missing entirely, and it needs nobody's permission — it is
+published by the County.
+
+What it would settle:
+
+- Who served on the board from 1871 to 1931, which the roster does not cover
+- Whether the seat counts are right for those years
+- The "first since Reconstruction" claim, from candidate records rather than
+  from a phrase
+- Vacancies, if the records show when seats went unfilled
+
+What it will not settle: race and gender coding, which these records do not
+carry.
+
 ### Q15. Vacancies are invisible in the data
 **Owner:** Sally + Alex · **Status:** open — affects residents-per-seat
 

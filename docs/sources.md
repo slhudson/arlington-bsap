@@ -210,15 +210,20 @@ gender, so it verifies who served rather than how they were coded.
 
 The 1889–1986 stretch is a negative claim — that no Black member served for
 nearly a century — and a negative claim needs evidence that someone looked.
-Right now it rests on a phrase, not a review.
 
-Open: whether that record was ever systematically examined, and by whom. Sally
-is contacting the Arlington Historical Society
-(info@arlingtonhistorical.com), which authored the curated roster and uses the
-phrasing.
+**That has changed.** Grace Hjerpe's paper addresses it directly: after 1888 the
+board "became and remained all white for the duration of this system", and no
+Black candidate is recorded as running for the county board again until after
+1930. She sources this to Arlington County's own election records rather than
+to the phrase, and those records are listed under Works cited.
 
-If nobody has checked, the report should say so plainly rather than repeat the
-framing.
+So the claim now rests on candidate histories kept by the Elections Office,
+which is a different and much stronger thing than a curator's wording. What
+remains is to fetch those records and check them, rather than to find out
+whether anyone ever looked.
+
+Sally is still contacting the Arlington Historical Society
+(info@arlingtonhistorical.com), which may hold more.
 
 ---
 
@@ -256,6 +261,29 @@ Alexandria in 1915." *Arlington Historical Magazine*, 1964.
 `arlhist.org/wp-content/uploads/2017/02/1964-4-Annex.pdf`
 — Gives the size and effective date of the 1915 annexation: 866 acres from
 Arlington County, effective 1 April 1915. Used for questions.md.
+
+**Hjerpe, Grace.** *A History of Representation on the Arlington County Board,
+1870-Present.* Updated 15 July 2021. Google Doc, shared with Sally.
+— The paper the handoff refers to. Names all five Black members of the
+Reconstruction-era board, with 1880 manuscript census records reproduced as
+appendices, and tabulates every Board member by district from 1871 to 1888. It
+also documents the 1930 change-of-government referendum, the 1974 Vollin case,
+and that the federal government began removing residents from Freedman's
+village in 1888 — the year Tibbett Allen, the last Black member, was removed
+for "non-residence".
+
+Its footnotes point at two primary sources we had not found:
+
+**Office of Frank O'Leary.** *The Electoral History of That Part of Alexandria
+County Now Known as Arlington County, 1870-1920.*
+`vote.arlingtonva.us/files/assets/vote/elections/electionresults/pre-1920_candidate_history.pdf`
+
+**Arlington County Elections.** *Candidate History, 1920-Present.*
+`vote.arlingtonva.us/files/assets/vote/elections/electionresults/candidate-history.pdf`
+
+— Between them these cover Board membership for the whole period the report
+addresses. They are the primary source the Board data has been missing. Not yet
+fetched or transcribed.
 
 **Novack, Norman S.** "Six Decades of Arlington Leadership." *Arlington
 Historical Magazine*, 1994. `arlhist.org/wp-content/uploads/2020/02/1994-6-Decades.pdf`
