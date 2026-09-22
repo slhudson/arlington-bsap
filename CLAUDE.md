@@ -9,7 +9,7 @@ repo; prose is written in Overleaf, which syncs the repository.
 ```
 data/raw/        published sources - a file here is its own citation
 data/manual/     hand-keyed - needs a citation per cell
-data/extracted/  machine-derived, NOT trusted - read by people, never by code
+data/extracted/  read off raw/ by software - for people to search, not for code
   |  build/        <- every subjective decision about what a number IS
 data/clean/      built output
   |  analysis/     <- presentation only; cannot see anything above clean/
@@ -18,8 +18,9 @@ figures/         pdf/ for the paper, png/ for slides
 paper/           prose -> Overleaf -> compiled PDF
 ```
 
-The four data layers are ordered by trust, and which folder something belongs
-in depends on how the numbers got there, not what they are about. See
+The four data layers are sorted by how the numbers were produced — published,
+read by software, keyed in by a person, or computed here. Which folder
+something belongs in depends on that, not on what it is about. See
 `data/contents.md`.
 
 **Build resolves ambiguity in the sources.** What a blank means, whether
@@ -66,9 +67,10 @@ received. Never edit, rename, clean or "fix" anything inside them — including
 the spacing in the `aapi_m embers` header, which is corrected in
 `build/board_seats.py`.
 
-**Nothing reads `data/extracted/`.** OCR misreads digits. The only way out of
-that folder is a person reading the scan and typing the number into
-`data/manual/`, with a citation.
+**Nothing reads `data/extracted/`.** OCR misreads digits, so a number leaves
+that folder the way it would without it: a person reads the scan and keys it
+into `data/manual/`, with a citation. The OCR shortens the search; it does not
+do the reading.
 
 **Everything is built by `bash run.sh`.** One entry point, no exceptions. If a
 figure cannot be produced by running that from a clean checkout, it is not

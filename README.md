@@ -35,7 +35,7 @@ The split between the two stages is the important part. **`build/` is where
 judgment goes** — what a blank means, whether census categories overlap, which
 of two conflicting totals is right. **`analysis/` is deterministic given the
 data** — it chooses how to show a number but cannot change one. That is
-enforced rather than trusted: `analysis/files.py` has no path to anything above
+enforced rather than left to habit: `analysis/files.py` has no path to anything above
 `data/clean/`. What is in which data folder is set by how the numbers got
 there — see `data/contents.md`.
 

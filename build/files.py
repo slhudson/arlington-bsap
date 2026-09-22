@@ -1,15 +1,15 @@
 """Where real filenames are assigned to the short names the code uses.
 
-data/ has four layers, by how much they can be trusted:
+data/ has four layers, sorted by how the numbers were produced:
 
-    raw/        published sources, as they exist in the world
-    extracted/  machine-derived from raw/ - NOT trusted, and read by nobody
-    manual/     hand-keyed by a person, needs a citation per cell
-    clean/      built from raw/ and manual/, the only thing analysis/ reads
+    raw/        published, as it exists in the world
+    extracted/  read off raw/ by software
+    manual/     keyed in by a person, so it needs a citation per cell
+    clean/      computed by build/, and the only layer analysis/ reads
 
-extracted/ is deliberately absent from this module. OCR misreads digits, so
-the only way out of that folder is a person reading the scan and typing the
-number into manual/.
+extracted/ is deliberately absent from this module. OCR misreads digits, so a
+number leaves that folder the way it would without it: a person reads the scan
+and keys it into manual/.
 
 Fix the mapping here once and every script that imports it follows. Without
 this, each script carries its own copy of a filename - which is how five

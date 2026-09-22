@@ -1,14 +1,14 @@
 # Contents of data/
 
-Four layers, ordered by how much they can be trusted. Which folder something
-belongs in is decided by how the numbers got there, not by what they are about.
+Four layers, sorted by how the numbers were produced. Which folder something
+belongs in depends on that, not on what it is about.
 
-| Folder | What it holds | Who reads it |
+| Folder | How it was produced | Read by |
 |---|---|---|
-| `raw/` | published sources, as they exist in the world | `build/` |
-| `extracted/` | machine-derived from `raw/` — **not trusted** | people only |
-| `manual/` | hand-keyed by a person | `build/` |
-| `clean/` | built from `raw/` and `manual/` | `analysis/` |
+| `raw/` | published, as it exists in the world | `build/` |
+| `extracted/` | read off `raw/` by software | people |
+| `manual/` | keyed in by a person | `build/` |
+| `clean/` | computed by `build/` from `raw/` and `manual/` | `analysis/` |
 
 A file in `raw/` is its own citation: the volume is the evidence. A file in
 `manual/` is not — someone read something and typed a number, so it needs a
@@ -16,8 +16,9 @@ citation per cell. That difference is the whole of the sourcing problem, and
 `docs/sources.md` tracks it.
 
 `extracted/` is absent from `build/files.py` and `analysis/files.py` by design.
-OCR misreads digits, so the only way out of that folder is a person reading the
-scan and typing the number into `manual/`.
+OCR misreads digits, so a number leaves that folder the same way it would
+without it: a person reads the scan and keys it into `manual/`, with a
+citation. The OCR shortens the search; it does not do the reading.
 
 ---
 
