@@ -49,14 +49,15 @@ def ocr_image(png_bytes):
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    pdfs = sorted(SCANS.glob("*.pdf"))
+    pdfs = sorted(SCANS.rglob("*.pdf"))
     if not pdfs:
         raise FileNotFoundError(f"no scans in {SCANS}")
 
     for pdf in pdfs:
         started = time.time()
         doc = pymupdf.open(pdf)
-        out = OUT / f"{pdf.stem}.txt"
+        out = OUT / pdf.parent.relative_to(SCANS) / f"{pdf.stem}.txt"
+        out.parent.mkdir(parents=True, exist_ok=True)
         with out.open("w") as fh:
             fh.write(f"# OCR of {pdf.name} ({len(doc)} pages)\n")
             fh.write("# Finding aid only - verify every digit against the scan.\n")

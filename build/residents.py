@@ -35,9 +35,19 @@ BY_HUMAN = EXTRACTED / "by_human"
 
 
 def table(stem):
-    """Read a transcribed source table, preferring a human-checked copy."""
-    human = BY_HUMAN / f"{stem}.csv"
-    return pd.read_csv(human if human.exists() else BY_CLAUDE / f"{stem}.csv")
+    """Read a transcribed source table, preferring a human-checked copy.
+
+    Searches recursively, because transcriptions are filed under the census
+    year they describe. Filenames are unique, so the year folder is for reading
+    by people rather than for finding files.
+    """
+    for root in (BY_HUMAN, BY_CLAUDE):
+        hits = sorted(root.rglob(f"{stem}.csv"))
+        if len(hits) > 1:
+            raise AssertionError(f"{stem}.csv appears more than once under {root}")
+        if hits:
+            return pd.read_csv(hits[0])
+    raise FileNotFoundError(f"no transcription named {stem}.csv under {BY_CLAUDE}")
 
 
 def early_years() -> pd.DataFrame:
