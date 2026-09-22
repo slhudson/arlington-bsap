@@ -272,6 +272,33 @@ piece of work for a research assistant.
 roster. The coding agrees across all three, so nothing is miscoded, but any
 tally built from the roster counts him three times.
 
+### Q15. Vacancies are invisible in the data
+**Owner:** Sally + Alex · **Status:** open — affects residents-per-seat
+
+The seat counts always sum to exactly three or five. A seat that sat empty
+cannot be represented, so every year looks fully staffed.
+
+At least one year was not. John Milliken resigned in February 1990 and James
+Hunter III was elected in a special election in May 1990 to fill the unexpired
+term. For roughly three months the Board had four members, and 1990 still
+records five filled seats.
+
+**Why it matters beyond bookkeeping.** `residents_per_seat` divides population
+by the number of seats — three through 1930, five after. If seats sat empty,
+each serving member represented more people than that figure shows, which is
+the opposite direction from the story the figure tells.
+
+**It is also an argument for time-weighting.** Under an even split Milliken and
+Hunter take half a seat each and the vacancy vanishes. Weighted by service they
+account for about ten months between them, and the remaining two months are
+genuinely unfilled — 1990 would then total less than five seats, which is what
+happened.
+
+**Not yet known:** how many such gaps there are. *Six Decades of Arlington
+Leadership* (see sources.md) lists terms of service to the month for every
+member through 1994, so the gaps are findable for that period. After 1994 they
+are not yet sourced.
+
 ### Q14. Three missing service dates
 **Owner:** Alex · **Status:** open — small
 
@@ -286,7 +313,20 @@ Three do not.
 | 1993 | William Newman Jr. | "Appointed as Circuit Court Judge" |
 | 1993 | Benjamin Winslow Jr. | "Replaced Newman" |
 
-**For Alex:** do you have the dates for these three?
+**Answered from the record**, pending Alex's confirmation. *Six Decades of
+Arlington Leadership*, Arlington Historical Magazine 1994, gives:
+
+| Person | Term |
+|---|---|
+| John G. Milliken | 1981 – Feb 1990 |
+| James B. Hunter III | May 1990 – *(special election, Milliken's unexpired term)* |
+| William T. Newman Jr. | 1988 – March 1993 |
+| Benjamin H. Winslow Jr. | April 1993 – *(special election, Newman's unexpired term)* |
+
+Month precision, not day. Enough to weight a seat by month, which is finer than
+the even split in use now.
+
+**For Alex:** does that match your own record, and do you have day-level dates?
 
 Why it is worth asking now: those notes are the only record of when anyone
 served part of a year, and they are the prerequisite for time-weighting the

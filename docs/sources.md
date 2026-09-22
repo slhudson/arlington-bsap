@@ -197,6 +197,10 @@ verified by breaking them deliberately.
 
 | Period | Status |
 |---|---|
+*Six Decades of Arlington Leadership* (Works cited) covers membership and terms
+from 1930 to 1994, which is most of the roster's span. It carries no race or
+gender, so it verifies who served rather than how they were coded.
+
 | 1871–1888 | Five named Black members. Census-linkable: Grace Hjerpe's 2021 paper demonstrates the method using 1880 manuscript census records. Small n, verifiable — not yet verified. |
 | 1889–1986 | Coded all-White, resting on the "first since Reconstruction" framing. **Weakest link**, ~490 person-years. |
 | 1987–present | Newman (1987), Monroe (1999), Dorsey (2015), Spain (2024), plus Tejada. Well documented; the Arlington Historical Society maintains a curated entry. |
@@ -252,6 +256,18 @@ Alexandria in 1915." *Arlington Historical Magazine*, 1964.
 `arlhist.org/wp-content/uploads/2017/02/1964-4-Annex.pdf`
 — Gives the size and effective date of the 1915 annexation: 866 acres from
 Arlington County, effective 1 April 1915. Used for questions.md.
+
+**Novack, Norman S.** "Six Decades of Arlington Leadership." *Arlington
+Historical Magazine*, 1994. `arlhist.org/wp-content/uploads/2020/02/1994-6-Decades.pdf`
+— A complete roster of County Board members with terms of service to the month,
+from the adoption of the County Manager plan in 1930 through 1994, including
+the circumstances of each mid-term departure and special election.
+
+This is the first source found for the Board membership data, which otherwise
+has nothing behind it. It does not carry race or gender, so it cannot settle
+the descriptive coding — but it can verify who served and when, and it is the
+basis for the three dates in questions.md. If those dates enter the build it
+moves into `data/raw/` and stops being a citation.
 
 **U.S. Census Bureau.** *Population of States and Counties of the United
 States: 1790-1990.* Virginia notes, printed p.185.
