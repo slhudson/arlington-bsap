@@ -4,7 +4,7 @@ One row per census year, 1870-2020: population totals, the four race
 categories, Board seats, and the derived residents-per-seat and cube-root
 columns.
 
-Two sources, recorded per row in the `source` column.
+The `source` column names the document each row's figures come from.
 
 **1870-1890 are derived from the census volumes.** Before 1900 Alexandria city
 sat inside the county, so no published table gives the territory the Board
@@ -13,10 +13,15 @@ early_years() below, from the tables transcribed under
 data/extracted/by_claude/, and it replaces the delivered workbook for those
 three years. See docs/questions.md Q8.
 
-**1900 onward comes from the delivered workbook.** Its 1900-1990 totals are
-checked here against the published Census county series, transcribed from
-data/raw/census_bureau/, so a drift between the two stops the build. 2000-2020
-are not yet checked against anything.
+**1900-1990 totals come from the published Census county series**, transcribed
+from data/raw/census/. They were checked against the workbook first and matched
+every year.
+
+**The workbook still supplies** the race and ethnicity figures for 1900-2020,
+the 2000-2020 totals, and the seat columns. Each of those is a candidate for
+the same treatment: find the published source, transcribe it, and stop reading
+the workbook for it. The `source` column names the document behind every row,
+so what is left to do is visible in the data.
 
 Values are otherwise written as reported. The contested treatments are not
 applied here while docs/questions.md Q1 and Q2 are open.
@@ -120,28 +125,23 @@ def build() -> pd.DataFrame:
     assert (d["cube_root_resident_ratio"] - d["total"] ** (2 / 3)).abs().max() < 1e-6, \
         "cube_root_resident_ratio no longer equals population^(2/3)"
 
-    # Cross-check 1900-1990 totals against the published Census county series,
-    # transcribed from data/raw/census_bureau/. A workbook total that drifts
-    # from the published one stops the build rather than reaching a figure.
-    published = table("censusgov_pop1790-1990_p177_counties_virginia_arlington").iloc[0]
+    # Take 1900-1990 totals from the published Census county series rather than
+    # from the workbook. They were checked against it and matched every year,
+    # so there is no reason to go on reading them second-hand.
+    d["source"] = "workbook"
+    series = table("censusgov_pop1790-1990_p177_counties_virginia_arlington").iloc[0]
     for year in range(1900, 2000, 10):
-        want = published[f"y{year}"]
-        got = d.loc[d["year"] == year, "total"]
-        if not got.empty and int(got.iloc[0]) != int(want):
-            raise AssertionError(
-                f"{year}: workbook total {got.iloc[0]:,.0f} but the Census county "
-                f"series gives {want:,.0f}")
+        m = d["year"] == year
+        d.loc[m, "total"] = series[f"y{year}"]
+        d.loc[m, "source"] = "census county series"
 
-    # Replace 1870-1890 with the figures derived from the volumes, and record
-    # where every row came from.
-    d["source"] = "delivered workbook"
-    d.loc[d["year"].between(1900, 1990), "source"] = "workbook, total confirmed"
+    # Replace 1870-1890 with the figures derived from the volumes.
     early = early_years().set_index("year")
     for year, r in early.iterrows():
         m = d["year"] == year
         for col in ("total", "white", "black"):
             d.loc[m, col] = r[col]
-        d.loc[m, "source"] = "census volumes, derived"
+        d.loc[m, "source"] = "census volumes"
 
     # Seat-derived columns must be recomputed for any year whose total moved.
     d["residents_per_seat"] = d["total"] / d["board_seats"]

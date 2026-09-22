@@ -141,14 +141,15 @@ moved and by how much.
 
 `residents.csv` · `board_seats.csv` · `board_members.csv`
 
-`residents.csv` carries a `source` column: 1870-1890 read "census volumes,
-derived" and come from `extracted/by_claude/`; 1900 onward read "delivered
-workbook". As more years are traced to sources, that column is where the shift
-shows.
+`residents.csv` carries a `source` column naming the document behind each row —
+`census volumes` for 1870-1890, `census county series` for 1900-1990,
+`workbook` for what has not been traced to a published source yet. The
+workbooks are a way station, not a permanent input, and that column is where
+the remaining distance shows.
 
-## raw/census_bureau/
+## raw/census/ — the Census Bureau documents
 
-Two published Census Bureau documents, fetched from census.gov in September
+Two published documents alongside the volume scans, fetched from census.gov in September
 2026. They are excerpts, like the volume scans beside them.
 
 **`population_of_states_and_counties_1790-1990_virginia_pages.pdf`** — the
