@@ -147,6 +147,27 @@ moved and by how much.
 workbooks are a way station, not a permanent input, and that column is where
 the remaining distance shows.
 
+## raw/elections/
+
+Arlington County's own election records, published by the Office of Voter
+Registration and Elections. These are the primary material behind who served on
+the Board, which the two Board workbooks otherwise rest on nothing.
+
+**`electoral_history_alexandria_county_1870-1920.pdf`** — 28 pages, *The
+Electoral History of That Part of Alexandria County Now Known as Arlington
+County, 1870-1920*, compiled by the Office of Frank O'Leary. Narrative history
+with election listings, covering exactly the period the person-level roster does
+not reach.
+
+**`candidate_history_arlington_county_1920-present.pdf`** — 122 pages, a table
+of Year, Election Date, Office/Question, Candidate and Votes Received from 1920
+onward. 85 of its pages mention the County Board. The Electoral Board's own
+preamble notes it was compiled from their records and historical news sources,
+that earlier vote tallies are incomplete, and that they welcome corrections.
+
+Both carry names, offices and dates that will be extracted, which is why they
+are here rather than cited in docs/sources.md. Neither carries race or gender.
+
 ## raw/census/ — Census Bureau data files, 2000-2020
 
 For 2000, 2010 and 2020 the Bureau publishes machine-readable data, so there is
