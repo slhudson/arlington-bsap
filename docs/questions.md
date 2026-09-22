@@ -192,10 +192,21 @@ The workbook's 1890 county figures are white 2,195 and black 2,123, summing to
 county-outside-city total either. Which geography the race split covers is
 unresolved.
 
+**Working conclusion, pending Alex's confirmation.** Freedman village was
+treated as a fourth magisterial district alongside Arlington, Jefferson and
+Washington, when the census lists it as a settlement inside Arlington district.
+That counts its 338 residents twice and gives 4,596 where the districts give
+4,258. The county definition this rests on is written up in docs/geography.md.
+
+Proceeding on that basis, but it is not confirmed and the confirmation is one
+line of reply.
+
 **For Alex:**
 
 1. Which table gives the county-only totals for 1870, 1880 and 1890?
-2. For 1890, was Freedman village's 338 added to the three districts?
+2. Table 5 on printed page 346 gives the three districts as 2,013 + 1,303 + 942
+   = 4,258 for 1890. Was Freedman village's 338 added to that as a fourth
+   district? It is printed as a sub-line of Arlington district.
 3. Which table gives the 1870-1890 race splits, and does it cover the county
    with or without the city?
 4. Do the volumes list race categories beyond White and Black? In 1870 the two

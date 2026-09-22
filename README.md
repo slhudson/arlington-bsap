@@ -79,6 +79,7 @@ silently go stale.
 | `docs/questions.md` | Open methods questions, each with an owner |
 | `docs/sources.md` | What backs the race and gender coding; RA work order |
 | `docs/figures.md` | Why each figure takes the form it does |
+| `docs/geography.md` | What "Arlington County" means, and how it changed |
 
 Open questions are logged as they arise and answered in place, so the reasoning
 survives alongside the fix.

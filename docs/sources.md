@@ -139,6 +139,9 @@ category mismatch, 1 URL not yet opened.
 
 ## The fact that organises all of this
 
+Written up in full in `docs/geography.md`, which defines what "Arlington
+County" means here and what has to be done to each era's figures.
+
 **Alexandria city became independent of the county in 1900, and Alexandria
 County was renamed Arlington in 1920.**
 
