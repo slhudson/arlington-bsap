@@ -189,6 +189,7 @@ Monroe died on 11 January and the year is still split half and half.
 
 Turning those note dates into real date columns would make every fraction
 checkable, and would be a contained piece of work for a research assistant.
+The rule itself is questions.md Q13.
 
 All three checks that could be made structural now run in `build/` and were
 verified by breaking them deliberately.
@@ -276,6 +277,9 @@ judgement, so they are the easiest to hand over.
 6. **Add a `source` column to the roster** and fill it, starting with
    1987–present.
 7. **Spot-check gender coding** against obituaries for pre-1950 years.
+8. **Turn the roster's note dates into date columns.** `appointed`, `resigned`,
+   `died` and `removed` are yes/no flags; the dates sit in free text. Real
+   columns would make every fractional seat checkable against service dates.
 
 Record each source as you go — the point is that every coded cell can be
 traced.

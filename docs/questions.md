@@ -228,6 +228,34 @@ why the question is worth asking before the work.
   1890 volumes include a table classifying the colored population as Negro,
   mulatto, quadroon, octoroon, Chinese, Japanese and civilized Indian.
 
+### Q13. What rule sets the size of a fractional seat?
+**Owner:** Alex · **Status:** open
+
+The seat counts carry fractions — 3.5 white and 0.5 Black in 2003 — and the
+figure note explains when one appears: "Half seats occur when a Board member
+resigned or died before the end of the year and was subsequently replaced."
+That says when, not how much.
+
+The evidence suggests the seat is split evenly between its occupants regardless
+of timing. Charles Monroe died on 11 January 2003, having served eleven days,
+and 2003 is still recorded as half and half.
+
+**For Alex:** is the rule that a seat is divided equally among everyone who held
+it during the year, irrespective of how long each served? If so it should be
+stated in the methods note, because a reader will assume time-weighting. If it
+was meant to be time-weighted, 2003 needs revisiting.
+
+**Why it cannot be checked here.** The roster records `appointed`, `resigned`,
+`died` and `removed` as yes/no flags, with the actual dates only in free-text
+notes — "Removed 9/17/52", "until death on Jan 11". So no fraction can be
+verified against service dates without parsing prose. Turning those note dates
+into real date columns would make every fraction checkable, and is a contained
+piece of work for a research assistant.
+
+**Also worth telling him:** Alfred Frisbie has three rows for 1952 in the
+roster. The coding agrees across all three, so nothing is miscoded, but any
+tally built from the roster counts him three times.
+
 ### Q11. Is "Arlington County" the governed territory or a fixed plot of land?
 **Settled:** 2026-09-22 (Sally) — the governed territory. Tell Alex; no decision needed from him.
 
