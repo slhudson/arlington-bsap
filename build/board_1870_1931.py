@@ -8,10 +8,15 @@ This is built from sources rather than delivered, and every row says where it
 came from. It is meant partly as a demonstration of what the layer underneath a
 roster looks like when each cell is traceable.
 
-Two sources, doing different jobs:
+Two kinds of source, doing different jobs:
 
   O'Leary's electoral history  who held each magisterial district, by election
-  Hjerpe's paper               which of those men were Black, from 1880 census
+  race_attributions            what anyone has said about a member's race, with
+                               the sentence they said it in
+
+Race attributions are quoted rather than summarised, because they are going to
+be sent to the Arlington Historical Society to confirm or deny. Someone
+checking needs to see what was actually written, not a reading of it.
 
 Elections were roughly biennial in May, so each one seats a board that serves
 until the next is listed. That carry-forward is an assumption, and a visible
@@ -50,7 +55,11 @@ LAST_MAGISTERIAL_YEAR = 1931   # the County Manager board takes over in 1932
 
 def build() -> pd.DataFrame:
     seats = pd.read_csv(BY_CLAUDE / "county" / "board_1870-1920.csv")
-    black = pd.read_csv(BY_CLAUDE / "hjerpe" / "black_board_members_1871-1888.csv")
+    attributions = pd.read_csv(BY_CLAUDE / "race_attributions_1870-1931.csv")
+    # One row per claim, so a person can carry two - Syphax is identified by
+    # both Hjerpe and O'Leary, independently. Keep the first for the roster and
+    # count the rest as corroboration.
+    people = attributions[attributions.name.str.match(r"^[A-Z]")]
 
     # A 1927 Board of Supervisors election appears in the candidate history.
     later = pd.read_csv(BY_CLAUDE / "county" / "candidate_history_1920-present.csv")
@@ -88,13 +97,19 @@ def build() -> pd.DataFrame:
             name = re.split(r"\s*[(–-]\s*", entry, maxsplit=1)[0].strip()
             note = entry[len(name):].strip(" -–")
             surname = name.split()[-1] if name else ""
-            match = black[black.surname == surname]
-            race = "Black" if len(match) else ""
-            source_race = match.iloc[0].evidence_location if len(match) else ""
+            # A person may be identified by more than one source - Syphax by
+            # both Hjerpe and O'Leary, independently. All of them are kept,
+            # joined by semicolons, rather than picking one and losing the rest.
+            match = people[people.name.str.split().str[-1] == surname]
+            race = "; ".join(sorted(set(match.race.dropna()))) if len(match) else ""
+            source_race = "; ".join(f"{r.source_author} {r.source_locator}"
+                                    for _, r in match.iterrows())
+            quote = " | ".join(r.quote for _, r in match.iterrows())
             for served in range(year, ends + 1):
                 rows.append({
                     "year": served, "district": district, "name": name,
-                    "race": race, "source_race": source_race, "source_name": source,
+                    "race": race, "source_race": source_race,
+                    "source_race_quote": quote, "source_name": source,
                     "elected": 0 if basis == "stood, not elected" else 1,
                     "basis": basis, "election_year": year, "note": note,
                     "carried_forward": "" if served == year else "yes",
