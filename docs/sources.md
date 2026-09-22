@@ -170,16 +170,22 @@ years.
 
 A vacant seat is not a row: nobody served, so there is no person and no term.
 
-**Known limitation.** Mid-term replacements before 1932 are not yet terms. The
-magisterial listings record them in prose beside the elected member — "Replaced
-by H. Dwight Smith in Dec.; replaced by Lott W. Crocker in March 1873" —
-so Smith, Crocker and Schutt each held that Arlington seat during 1872-73 and
-none of them has a row. The same is true of Samuel Titus, appointed to
-Washington in December 1873 after a vacancy. Those chains are preserved
-verbatim in the `note` column; turning them into terms is outstanding work.
+**Mid-term handovers are terms like any other.** O'Leary records them as prose
+beside the elected member — "Replaced by H. Dwight Smith in Dec.; replaced by
+Lott W. Crocker in March 1873, replaced by Francis D. Schutt in April" — and
+those are parsed into their own rows. The Arlington seat in 1872-73 is four
+terms: Syphax from May to December 1872, Smith to March 1873, Crocker to April,
+Schutt to the May election. Where a month is given without a year, the year
+carries from the previous handover and rolls forward when the month goes
+backwards.
 
-Under the County Manager plan from 1932, Novack gives terms directly, so that
-period does not have the problem.
+Francis D. Schutt holds two consecutive terms in 1873 — appointed in April,
+then elected in May. That is two terms, not a duplicate.
+
+**Recorded vacancies.** A vacant seat produces no row, since nobody served.
+One is documented in this period: the Washington district seat was vacant from
+the May 1873 election until Samuel Titus was appointed that December. Titus has
+a term; the vacancy is recorded here.
 
 ### Superseded: the person-year version
 

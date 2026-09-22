@@ -1,15 +1,20 @@
 name,district,start_year,start_month,end_year,end_month,source,note
 H. Dwight Smith,Arlington,1870,5,1871,5,O'Leary (2012) p.9,(No returns.)
-Storm V. Boyd,Jefferson,1870,5,1871,5,O'Leary (2012) p.9,(Replaced by Roach in Sept.)
+Roach,Jefferson,1870,9,1871,5,O'Leary (2012) p.9,took the seat mid-term; (Replaced by Roach in Sept.)
+Storm V. Boyd,Jefferson,1870,5,1870,9,O'Leary (2012) p.9,(Replaced by Roach in Sept.)
 Charles W. Payne,Washington,1870,5,1871,5,O'Leary (2012) p.9,
 H. Dwight Smith,Arlington,1871,5,1872,5,O'Leary (2012) p.9,(No returns.)
 William A. Rowe,Jefferson,1871,5,1872,5,O'Leary (2012) p.9,
 Edward Deeble,Washington,1871,5,1872,5,O'Leary (2012) p.9,
-John B. Syphax,Arlington,1872,5,1873,5,O'Leary (2012) p.10,"(Replaced by H. Dwight Smith in Dec.; replaced by Lott W. Crocker in March 1873, replaced by Francis D. Schutt in April, )"
+H. Dwight Smith,Arlington,1872,12,1873,3,O'Leary (2012) p.10,"took the seat mid-term; (Replaced by H. Dwight Smith in Dec.; replaced by Lott W. Crocker in March 1873, replaced by Francis D. Schutt in April, )"
+John B. Syphax,Arlington,1872,5,1872,12,O'Leary (2012) p.10,"(Replaced by H. Dwight Smith in Dec.; replaced by Lott W. Crocker in March 1873, replaced by Francis D. Schutt in April, )"
 William A. Rowe,Jefferson,1872,5,1873,5,O'Leary (2012) p.10,
 Henry W. Febrey,Washington,1872,5,1873,5,O'Leary (2012) p.10,
+Francis D. Schutt,Arlington,1873,4,1873,5,O'Leary (2012) p.10,"took the seat mid-term; (Replaced by H. Dwight Smith in Dec.; replaced by Lott W. Crocker in March 1873, replaced by Francis D. Schutt in April, )"
 Francis D. Schutt,Arlington,1873,5,1874,5,O'Leary (2012) p.10,
+Lott W. Crocker,Arlington,1873,3,1873,4,O'Leary (2012) p.10,"took the seat mid-term; (Replaced by H. Dwight Smith in Dec.; replaced by Lott W. Crocker in March 1873, replaced by Francis D. Schutt in April, )"
 William A. Rowe,Jefferson,1873,5,1874,5,O'Leary (2012) p.10,
+Samuel Titus,Washington,1873,12,1874,5,O'Leary (2012) p.10,Samuel Titus appointed in Dec.
 Francis G. Schutt,Arlington,1874,5,1875,5,O'Leary (2012) p.11,(No returns)
 William A. Rowe,Jefferson,1874,5,1875,5,O'Leary (2012) p.11,
 Gilbert Vandenberg,Washington,1874,5,1875,5,O'Leary (2012) p.11,

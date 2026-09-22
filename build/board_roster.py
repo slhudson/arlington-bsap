@@ -48,6 +48,34 @@ def month_of(text):
     return MONTHS[m.group(1).title()] if m else ""
 
 
+# "Replaced by H. Dwight Smith in Dec." / "Samuel Titus appointed in Dec."
+SUCCESSION = re.compile(
+    r"(?:replaced by|appointed)\s+(?:by\s+)?([A-Z][A-Za-z.'\u2019\- ]+?)\s+in\s+"
+    r"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?"
+    r"(?:\s+((?:18|19)\d\d))?", re.I)
+APPOINTED_AFTER_VACANCY = re.compile(
+    r"([A-Z][A-Za-z.'\u2019\- ]+?)\s+appointed\s+in\s+"
+    r"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?"
+    r"(?:\s+((?:18|19)\d\d))?", re.I)
+
+
+def succession(entry, start_year, start_month):
+    """Every handover described in an entry's prose, in order.
+
+    Yields (name, year, month) for each person who takes the seat. Where a
+    month is given without a year - "in Dec." - the year is carried from the
+    previous handover, rolling forward when the month goes backwards.
+    """
+    matches = list(SUCCESSION.finditer(entry)) or list(APPOINTED_AFTER_VACANCY.finditer(entry))
+    year, month = start_year, start_month or 1
+    for m in matches:
+        name = m.group(1).strip()
+        new_month = MONTHS[m.group(2).title()]
+        new_year = int(m.group(3)) if m.group(3) else (year + 1 if new_month < month else year)
+        yield name, new_year, new_month
+        year, month = new_year, new_month
+
+
 def oleary_terms():
     """Who held each magisterial district, from the election listings."""
     d = pd.read_csv(BY_CLAUDE / "county" / "board_1870-1920.csv")
@@ -57,8 +85,6 @@ def oleary_terms():
         block = d[d.year == year]
         for _, r in block.iterrows():
             entry = str(r.entry)
-            if entry.lower().startswith("vacant"):
-                continue                      # no person, so no term
 
             # From 1903 the listings give every candidate with a vote count.
             # The highest is taken as the winner; the rest did not serve.
@@ -73,13 +99,30 @@ def oleary_terms():
                 name = re.split(r"\s*[(–]", entry, maxsplit=1)[0].strip(" -")
                 note = entry[len(name):].strip(" -–")
 
-            if not name:
-                continue
-            yield {"name": name, "district": r.district,
-                   "start_year": int(year), "start_month": month_of(r.election_date),
-                   "end_year": int(nxt) if nxt else "",
-                   "end_month": month_of(d[d.year == nxt].election_date.iloc[0]) if nxt else "",
-                   "source": f"O'Leary (2012) p.{r.page}", "note": note}
+            term_end_year = int(nxt) if nxt else ""
+            term_end_month = (month_of(d[d.year == nxt].election_date.iloc[0])
+                              if nxt else "")
+            start_month = month_of(r.election_date)
+
+            # Each handover ends the sitting member's term and begins the
+            # successor's. A vacancy produces no row - nobody served - but the
+            # person appointed into it does.
+            handovers = list(succession(entry, int(year), start_month))
+            vacant = name.lower().startswith("vacant") or not name
+
+            holders = [] if vacant else [(name, int(year), start_month)]
+            holders += handovers
+
+            for i, (who, y0, m0) in enumerate(holders):
+                if i + 1 < len(holders):
+                    y1, m1 = holders[i + 1][1], holders[i + 1][2]
+                else:
+                    y1, m1 = term_end_year, term_end_month
+                yield {"name": who, "district": r.district,
+                       "start_year": y0, "start_month": m0,
+                       "end_year": y1, "end_month": m1,
+                       "source": f"O'Leary (2012) p.{r.page}",
+                       "note": note if i == 0 else f"took the seat mid-term; {note}"}
 
 
 def novack_terms():
