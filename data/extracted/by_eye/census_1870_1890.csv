@@ -1,0 +1,20 @@
+year,geography,measure,value,volume,table,page,read_by,note
+1870,alexandria_county_incl_city,total,16755,"census.gov Population of States and Counties 1790-1990","Population of Counties - Virginia: 1790-1880",pdf 178,eye,
+1870,alexandria_county_incl_city,white,9444,data/raw/census/1870a-04.pdf,"Table II, Population by Counties 1790-1870, Virginia, WHITE section",printed 69,eye,"1870 is the first numeric column"
+1870,alexandria_county_incl_city,colored,7310,data/raw/census/1870a-04.pdf,"Table II, Population by Counties 1790-1870, Virginia, FREE COLORED section",printed 69,eye,"After emancipation this column is all colored residents"
+1870,alexandria_city,total,13570,data/raw/census/1870a-09.pdf,"Table III, Population of Civil Divisions Less Than Counties, Virginia",printed 278,eye,"Four wards sum to 13570"
+1870,alexandria_city,white,8269,data/raw/census/1870a-09.pdf,"Table III, Population of Civil Divisions Less Than Counties, Virginia",printed 278,eye,
+1870,alexandria_city,colored,5300,data/raw/census/1870a-09.pdf,"Table III, Population of Civil Divisions Less Than Counties, Virginia",printed 278,eye,"Footnoted: also 1 Chinese, so white+colored is 13569 not 13570"
+1880,alexandria_county_incl_city,total,17546,data/raw/census/1890a_v1-11.pdf,"Table 5, Population by Minor Civil Divisions: 1880 and 1890",printed 346,eye,"Independently confirmed in census.gov 1790-1990, pdf 178"
+1880,alexandria_city,total,13659,data/raw/census/1890a_v1-11.pdf,"Table 5, Population by Minor Civil Divisions: 1880 and 1890",printed 346,eye,
+1880,arlington_district,total,1754,data/raw/census/1890a_v1-11.pdf,"Table 5, Population by Minor Civil Divisions: 1880 and 1890",printed 346,eye,"Includes Freedman village; not separately returned in 1880"
+1880,jefferson_district,total,1319,data/raw/census/1890a_v1-11.pdf,"Table 5, Population by Minor Civil Divisions: 1880 and 1890",printed 346,eye,
+1880,washington_district,total,814,data/raw/census/1890a_v1-11.pdf,"Table 5, Population by Minor Civil Divisions: 1880 and 1890",printed 346,eye,
+1890,alexandria_county_incl_city,total,18597,data/raw/census/1890a_v1-11.pdf,"Table 5, Population by Minor Civil Divisions: 1880 and 1890",printed 346,eye,"Independently confirmed in census.gov 1790-1990, pdf 177"
+1890,alexandria_county_incl_city,white,11361,data/raw/census/1890a_v1-14.pdf,"Table 22, Native and Foreign Born and White and Colored, by Counties",printed 520,eye,"Native white 5262+5415 plus foreign white 379+305"
+1890,alexandria_county_incl_city,colored,7236,data/raw/census/1890a_v1-14.pdf,"Table 22, Native and Foreign Born and White and Colored, by Counties",printed 520,eye,"Total colored, males 3475 plus females 3761"
+1890,alexandria_city,total,14339,data/raw/census/1890a_v1-11.pdf,"Table 5, Population by Minor Civil Divisions: 1880 and 1890",printed 346,eye,"Four wards 2494+2051+6037+3757 sum to 14339"
+1890,arlington_district,total,2013,data/raw/census/1890a_v1-11.pdf,"Table 5, Population by Minor Civil Divisions: 1880 and 1890",printed 346,eye,"Printed as 'including Freedman village'"
+1890,freedman_village,total,338,data/raw/census/1890a_v1-11.pdf,"Table 5, Population by Minor Civil Divisions: 1880 and 1890",printed 346,eye,"INSIDE arlington_district, not beside it - never add this to the district total"
+1890,jefferson_district,total,1303,data/raw/census/1890a_v1-11.pdf,"Table 5, Population by Minor Civil Divisions: 1880 and 1890",printed 346,eye,
+1890,washington_district,total,942,data/raw/census/1890a_v1-11.pdf,"Table 5, Population by Minor Civil Divisions: 1880 and 1890",printed 346,eye,

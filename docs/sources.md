@@ -164,7 +164,7 @@ framing.
 ## The census scans
 
 Nine PDFs, 521 pages, in `data/raw/census/`, from the published 1870, 1880 and
-1890 volumes. Seven have no text layer. `data/extracted/census/` holds OCR of
+1890 volumes. Seven have no text layer. `data/extracted/by_ocr/` holds OCR of
 all of them.
 
 **The method:** search the OCR to locate a table, then render the page and read

@@ -6,7 +6,8 @@ belongs in depends on that, not on what it is about.
 | Folder | How it was produced | Read by |
 |---|---|---|
 | `raw/` | published, as it exists in the world | `build/` |
-| `extracted/` | read off `raw/` by software | people |
+| `extracted/by_ocr/` | read off `raw/` by software | people |
+| `extracted/by_eye/` | read off `raw/` by a person, with volume/table/page | `build/` |
 | `manual/` | keyed in by a person | `build/` |
 | `clean/` | computed by `build/` from `raw/` and `manual/` | `analysis/` |
 
@@ -15,10 +16,11 @@ A file in `raw/` is its own citation: the volume is the evidence. A file in
 citation per cell. That difference is the whole of the sourcing problem, and
 `docs/sources.md` tracks it.
 
-`extracted/` is absent from `build/files.py` and `analysis/files.py` by design.
-OCR misreads digits, so a number leaves that folder the same way it would
-without it: a person reads the scan and keys it into `manual/`, with a
-citation. The OCR shortens the search; it does not do the reading.
+`extracted/by_ocr/` is absent from `build/files.py` and `analysis/files.py` by
+design. OCR misreads digits, so it is a finding aid: it locates a table and a
+page, and never supplies a number. `extracted/by_eye/` is the other half of
+that — what a person read once the OCR found the page, with the volume, table
+and page recorded so anyone can check it against the scan.
 
 ---
 
@@ -47,7 +49,7 @@ Census Bureau chunks its scanned volumes, but that is an inference — see
 
 Seven of the nine have no text layer at all.
 
-## extracted/census/
+## extracted/by_ocr/
 
 OCR of all 521 pages, one text file per volume, produced by
 `build/ocr_census.py` using macOS Vision. Not part of `bash run.sh` — it takes
@@ -56,6 +58,17 @@ about twelve minutes and its input never changes.
 Use it to find a table and a page. Do not read numbers from it: OCR of
 19th-century tables misreads digits routinely, and the text layer already
 embedded in the 1880 files renders 13,659 as `lB, 659`.
+
+## extracted/by_eye/
+
+What a person read off the scans, with volume, table and page for every value,
+so each one can be checked against the image. `build/early_census.py` reads
+this.
+
+`census_1870_1890.csv` holds the published figures for 1870, 1880 and 1890 —
+county including the city, the city, and the magisterial districts. It holds
+only what is printed. No arithmetic: before 1900 no table gives the territory
+the Board governed, and that subtraction happens in `build/`, not here.
 
 ## manual/
 

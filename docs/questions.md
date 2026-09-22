@@ -218,7 +218,7 @@ line of reply.
 residents-per-seat figure and the race charts, and 338 people is 7% of the
 county that year. See also Q9.
 
-*Method note.* `data/extracted/census/` was used to locate these tables by
+*Method note.* `data/extracted/by_ocr/` was used to locate these tables by
 searching for county names, then each page was rendered and read by eye. OCR
 misread two of the four figures on page 346 — 17,546 as 17,516 and 14,339 as
 14,830 — which is why the index is used to find pages, never to read numbers.
