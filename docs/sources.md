@@ -162,6 +162,27 @@ obituaries.
 
 ### A roster built from sources
 
+`data/clean/board_roster.csv` holds one row per person per term: name,
+district, and when service began and ended. A term is the natural unit —
+person-years fall out of it, while the reverse does not, because a term
+starting in May or ending in February cannot be recovered from a list of
+years.
+
+A vacant seat is not a row: nobody served, so there is no person and no term.
+
+**Known limitation.** Mid-term replacements before 1932 are not yet terms. The
+magisterial listings record them in prose beside the elected member — "Replaced
+by H. Dwight Smith in Dec.; replaced by Lott W. Crocker in March 1873" —
+so Smith, Crocker and Schutt each held that Arlington seat during 1872-73 and
+none of them has a row. The same is true of Samuel Titus, appointed to
+Washington in December 1873 after a vacancy. Those chains are preserved
+verbatim in the `note` column; turning them into terms is outstanding work.
+
+Under the County Manager plan from 1932, Novack gives terms directly, so that
+period does not have the problem.
+
+### Superseded: the person-year version
+
 `data/clean/board_roster.csv` is who served and when, assembled from sources
 rather than delivered: 511 person-years, 1870-1994, every row citing the
 document it came from. O'Leary covers 1870-1915 by magisterial district,
