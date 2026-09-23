@@ -31,7 +31,7 @@ for profile in style.PROFILES:
     fig, ax = charts.figure(style.SEATS, profile)
     charts.stacked_steps(ax, d["year"].to_numpy(), series, spans)
     charts.seats(ax)
-    charts.years(ax, 1880, 2020, step=20, label="year")
+    charts.years(ax, 1870, 2020, step=20, label="year")
     ax.set_xlim(1866, 2027)
     charts.rule(ax, note=style.EXPANSION_NOTE_SEATS)
     charts.legend(fig, {style.GROUP_LABELS[g]: style.RACE_COLORS[g] for g in held})
