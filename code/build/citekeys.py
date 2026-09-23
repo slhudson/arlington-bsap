@@ -68,6 +68,9 @@ CENSUS_1880 = "census1880"
 CENSUS_1890 = "census1890"
 CENSUS_COUNTY_SERIES = "forstall1996"
 CENSUS_DATA_FILE = "censusapi"
+# The archived Summary Tape Files, which the API does not carry.
+CENSUS_1980_STF1A = "census1980stf1a"
+CENSUS_1990_STF1A = "census1990stf1a"
 HJERPE = "hjerpe2021"
 
 

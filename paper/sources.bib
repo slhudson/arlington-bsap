@@ -185,3 +185,31 @@
                  document; cited so that the basis of the coding is on the
                  record rather than silently absent},
 }
+
+@online{census1980stf1a,
+  author      = {{U.S. Bureau of the Census}},
+  title       = {Census of Population and Housing, 1980: Summary Tape File 1A,
+                 Virginia},
+  url         = {https://www2.census.gov/census_1980/stf1a/stf1axva.zip},
+  urldate     = {2026-09-23},
+  annotation  = {Fixed-width ASCII, one file per state, 100-percent counts.
+                 Table 7 race, Table 8 Spanish origin, Table 9 race of persons
+                 of Spanish origin. Record layout is the Bureau's own
+                 dictionary, saved alongside the extract in data/raw/. Fetched
+                 by code/fetch/census.py, which saves Virginia county rows
+                 only: the published file is 30MB},
+}
+
+@online{census1990stf1a,
+  author      = {{U.S. Bureau of the Census}},
+  title       = {Census of Population and Housing, 1990: Summary Tape File 1A,
+                 Virginia},
+  url         = {https://www2.census.gov/census_1990/STF1A_ASCII/90STF1A-VA.ZIP},
+  urldate     = {2026-09-23},
+  annotation  = {Fixed-width ASCII, 100-percent counts, summary level 050 for
+                 counties. Title and date read from the file header and the
+                 archive path; the technical documentation is published only as
+                 PDF, so cell offsets were derived from the file and are checked
+                 against the totals it states on every fetch. Virginia county
+                 rows only: the published segments are 172MB},
+}

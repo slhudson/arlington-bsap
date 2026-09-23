@@ -28,7 +28,49 @@ must be answered before the report ships, but answering them does not move that
 along, so they wait.
 
 ### Q1. How should 1970 and 1990 race categories be reconciled?
-**Owner:** Alex · **Status:** queued for the next batch to Alex — not blocking
+**Owner:** Sally · **Status:** answered 23 Sept 2026 — the categories are rebuilt from the crossed census tables for 1980–2020; what remains is 1970 and earlier
+
+**The answer is consistent categories, not a correction to the old ones.** The
+overlap was never an error to be rescaled away: race and Hispanic origin are
+two census questions, so a person answers both and is counted in two of the
+four delivered columns at once.
+
+`code/fetch/census.py` now fetches the crossed table — race by Hispanic origin
+— for every census from 1980, and `code/build/residents.py` builds five groups
+that partition the county exactly:
+
+    hispanic + nh_white + nh_black + nh_aapi + nh_other == total
+
+It ties to the person in all five years, and the build refuses to write if it
+ever stops doing so.
+
+**Two things the crossed tables settled while being read.**
+
+The 1990 arithmetic in this entry was right. Non-Hispanic Black, American
+Indian, Asian and Other sum to 29,119 against the workbook's 29,500 — a
+difference of 381, exactly the overshoot.
+
+The delivered columns are not one kind of number. `white` is non-Hispanic
+white in every year from 1980. `black` is the race total including Hispanic
+Black in 1980, 1990 and 2000, and non-Hispanic Black from 2010 — so the column
+changes meaning partway along. The delivered columns are kept as received
+rather than quietly patched, because a column that changes definition mid-series
+is precisely what the new set exists to replace.
+
+**1970 cannot join them and should not be made to look as if it has.** Hispanic
+origin that year was asked of a 5 percent sample rather than the full count,
+the Bureau's own position is that it is not comparable with later years, and it
+miscoded people in the southern and central states into "Central or South
+American". Before 1970 the question does not exist at all, and `white` means
+white.
+
+**Still open:** what to do with 1900–1970, which have no traced source for race
+at all beyond the workbook, and how the figures should show the join between
+the two bases. Neither blocks the 1980–2020 series.
+
+---
+
+*Original entry, kept for the reasoning:*
 
 In both years the four race categories sum to more than the reported total —
 about 4,800 people in 1970 (2.8%) and 400 in 1990 (0.2%).
