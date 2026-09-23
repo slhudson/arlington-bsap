@@ -65,6 +65,13 @@ mid-year and was replaced, and the figure carries a note saying so.
 AAPI appears in the legend with no visible area, because no AAPI member has
 served in any year. That is a finding rather than a gap in the data.
 
+Seats are measured against the months the Board existed in each year, not the
+calendar year. The Board came into existence at the May 1870 election, so 1870
+counts eight months and reads a full Board rather than two seats. Two years do
+sit below a full Board and both are real: 1873, when Washington district was
+vacant from June to November, and 1990, between a February resignation and a
+May special election. See `docs/sources.md`.
+
 ## Colors
 
 The palette is shared across figures so a group keeps its color everywhere:
