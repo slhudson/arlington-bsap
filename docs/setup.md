@@ -21,12 +21,12 @@ page it came from.
 The repository can be read from a Claude chat, or worked in directly with
 Claude Code. They are not exclusive, and the first is far less to set up.
 
-**A chat is enough if you mainly want to read and discuss.** A Claude Project
-can sync the repository from GitHub, which puts the data, the documentation
-and the code where you can ask questions of them: what a figure is built
-from, what backs a particular number, what is still open and who owns it.
-Nothing to install. The sync is one-directional — you can read everything and
-change nothing, so any correction still has to be made in the repository.
+**A chat gives you read access.** A Claude Project can sync the repository
+from GitHub, and can then answer anything the repository can answer: what a
+figure is built from, which source backs a particular number, where a figure
+differs from the workbook and why, what is still open and who owns it. The
+sync is one-directional, so it can tell you where a number came from but
+cannot change it. Nothing to install.
 
 Sync `code/`, `docs/`, `paper/`, `data/clean/` and `data/contents.md`, and
 leave out `data/raw/` and `data/transcribed/`. That is the same rule the
@@ -40,9 +40,9 @@ knowledge (its project files), not under settings or connectors, which is
 the step that is easy to go looking for in the wrong place. It needs a
 GitHub personal access token with read access to the repository.
 
-**Claude Code is what you want if you will change something.** Editing a
-figure, correcting a number, adding a source, rebuilding the outputs: those
-write to the repository and push back, and that needs the tools below.
+**Claude Code gives you write access.** Correcting a number, editing a
+figure, adding a source, rebuilding the outputs, pushing any of it back to
+GitHub. That needs the tools below.
 
 ## The tools
 
@@ -118,11 +118,10 @@ For the Claude Code path:
 
 ## How to help
 
-First work out which of the two paths they need — ask what they expect to
-do with the repository. Reading, asking questions and discussing methods is
-the chat path, and the whole job is scoping the sync as described above.
-Changing a figure or a number is the Claude Code path, and the rest of this
-note applies.
+First work out which of the two paths they need: ask whether they expect to
+change anything in the repository. If not, the chat path is enough and the
+whole job is scoping the sync as described above. If they do, the rest of
+this note applies.
 
 Any of these tools may be new to the person you're working with, or all of
 them may already be in place; ask rather than assume, in either direction.
