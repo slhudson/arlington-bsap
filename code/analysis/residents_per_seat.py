@@ -17,12 +17,11 @@ import style
 
 for profile in style.PROFILES:
     style.apply(profile)
-    p = style.palette()
 
     d = pd.read_csv(files.RESIDENTS)[["year", "total", "residents_per_seat"]].dropna()
     series = {
-        "total population": (d["total"], p[style.SERIES_HUES["population"]]),
-        "residents per\nBoard seat": (d["residents_per_seat"], p[style.SERIES_HUES["per_seat"]]),
+        "total population": (d["total"], style.SERIES_COLORS["population"]),
+        "residents per\nBoard seat": (d["residents_per_seat"], style.SERIES_COLORS["per_seat"]),
     }
 
     fig, ax = charts.figure(0.62, profile)

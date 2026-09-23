@@ -21,12 +21,11 @@ import style
 
 for profile in style.PROFILES:
     style.apply(profile)
-    p = style.palette()
 
     c = pd.read_csv(files.RESIDENTS)
-    series = {"total population": (c["total"], p["spacegrey"])}
+    series = {"total population": (c["total"], style.RESIDUAL_COLOR)}
     for g in style.GROUP_ORDER:
-        series[style.GROUP_LABELS[g]] = (c[g], p[style.GROUP_HUES[g]])
+        series[style.GROUP_LABELS[g]] = (c[g], style.RACE_COLORS[g])
 
     fig, ax = charts.figure(0.62, profile)
     charts.lines(ax, c["year"], series)
@@ -42,7 +41,7 @@ for profile in style.PROFILES:
     # White is the pale neutral, which is close to invisible as a line on white
     # paper. Legend rather than end labels here: five lines converge at the
     # right-hand edge, which is the case Urban's guide sends to a legend.
-    ax.lines[style.GROUP_ORDER.index("white") + 1].set_color(p["spacegrey"])
+    ax.lines[style.GROUP_ORDER.index("white") + 1].set_color(style.RESIDUAL_COLOR)
     ax.lines[style.GROUP_ORDER.index("white") + 1].set_linestyle((0, (5, 2)))
     ax.lines[0].set_linestyle((0, (1, 1.6)))
     charts.legend(fig, {k: v[1] for k, v in series.items()})

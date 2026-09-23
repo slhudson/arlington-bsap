@@ -20,13 +20,12 @@ import style
 
 for profile in style.PROFILES:
     style.apply(profile)
-    p = style.palette()
 
     d = pd.read_csv(files.BOARD_SEATS)
     spans = charts.runs(d["white"].notna().to_numpy())
     held = [g for g in style.GROUP_ORDER if d[g].fillna(0).sum() > 0]
     assert held, "no seat is attributed to any race category - check the build"
-    series = {style.GROUP_LABELS[g]: (d[g].fillna(0).to_numpy(), p[style.GROUP_HUES[g]])
+    series = {style.GROUP_LABELS[g]: (d[g].fillna(0).to_numpy(), style.RACE_COLORS[g])
               for g in held}
 
     fig, ax = charts.figure(0.52, profile)
@@ -34,6 +33,6 @@ for profile in style.PROFILES:
     charts.seats(ax)
     charts.years(ax, 1880, 2020, step=20, label="year")
     ax.set_xlim(1866, 2027)
-    charts.rule(ax, note=style.EXPANSION_NOTE_SEATS, y=0.95)
-    charts.legend(fig, {style.GROUP_LABELS[g]: p[style.GROUP_HUES[g]] for g in held})
+    charts.rule(ax, note=style.EXPANSION_NOTE_SEATS)
+    charts.legend(fig, {style.GROUP_LABELS[g]: style.RACE_COLORS[g] for g in held})
     files.save(fig, "board_race", profile)

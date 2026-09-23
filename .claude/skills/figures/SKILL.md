@@ -12,7 +12,6 @@ visual is set inside a figure script.
     urban.mplstyle  the rcParams, cited to the guide
     charts.py       the four chart types, with legend and note placement built in
     files.py        where things are written
-    gallery.py      every chart type, both profiles, each palette candidate
 
 A figure script reads `data/clean/`, calls `charts.*`, and calls
 `files.save()`. If it needs a colour, a size, a font, a margin or a legend
@@ -43,8 +42,11 @@ gives the reason.
 - Two-panel figures go side by side, not stacked. Panel titles are centred and
   plain: `(a) number of residents`.
 - An explanatory note that belongs to a mark, such as the 1932 rule, appears
-  once per figure, inside one panel. Notes that belong to the document -
-  sources, caveats, definitions - go in the caption, not the image.
+  once per figure, and goes **above the top of the frame**, not inside the
+  plot. Inside, it sits on whatever the chart has drawn there - on a filled
+  seat chart that is a solid band, and the text stops being legible. Notes
+  that belong to the document - sources, caveats, definitions - go in the
+  caption, not the image.
 
 ## Axes
 
@@ -56,7 +58,9 @@ gives the reason.
 ## Legend
 
 - One legend for the whole figure, not one per panel.
-- One row, in stacking order, stretched across the top, outside the axes.
+- One row, in stacking order, below the figure and outside the axes. Urban
+  stretches legends across the top; here they go below, because several
+  figures carry a note above the plot and the two compete for that band.
 - If labels are too long for one row, shorten the labels. Do not break the row
   and do not shrink the type.
 - A category with no data anywhere gets no swatch. An empty legend entry reads
@@ -64,6 +68,16 @@ gives the reason.
   the prose. Test on the data, not on the category name.
 - Direct end-labels on a line chart are preferred to a legend where the lines
   allow it. This is Urban's rule and it applies.
+
+## Colour
+
+- The palette is Okabe-Ito, in `style.py`, assigned per subject. Do not
+  introduce a colour that is not in it.
+- Nothing shares a colour with anything a reader meets beside it. Asian/Pacific
+  Islander is blue rather than reddish purple because the reddish purple
+  carries women on the gender chart.
+- The largest group takes a near-neutral. No group holds a saturated lead
+  colour on a chart about representation.
 
 ## Labels
 
@@ -77,8 +91,9 @@ gives the reason.
 - Render the figure, look at the image, and check it against this file before
   showing Sally anything. Every rule above has been broken at least once by
   not looking.
-- The gallery is how a style change is reviewed, not five figures one at a
-  time. Rebuild it after any change to the style layer.
+- After any change to the style layer, rebuild every figure and look at all of
+  them. A change to a shared colour, size or placement is never local to the
+  figure that prompted it.
 - Every note Sally gives becomes a line in this file and applies to every
   figure from then on, not only the one she was looking at.
 - Report judgment calls, not fixes. She does not need to be told that a

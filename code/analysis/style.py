@@ -13,8 +13,12 @@ reason.** There are three.
 *The palette is Okabe-Ito, not Urban's.* Urban's categorical colours are
 designed for the web, not for colour vision deficiency. Okabe and Ito's set is
 built for exactly that, and holds four separable hues under simulated
-deuteranopia where Urban's does not. Urban's colours stay in the gallery as
+deuteranopia where Urban's does not. Urban's colours stay in gallery.py as
 candidates so the choice remains reviewable.
+
+*The legend sits below the figure, not above it.* Urban stretches it across the
+top. Below reads better here, where several figures carry a note above the
+plot.
 
 *No group holds the lead colour.* Urban's hierarchy runs blue first, then
 yellow and magenta, with grey for residuals. Applied straight down a stack
@@ -39,79 +43,64 @@ HERE = pathlib.Path(__file__).resolve().parent
 MPLSTYLE = HERE / "urban.mplstyle"
 FONTS = HERE / "fonts"
 
-# --- Urban's palette, as published ------------------------------------------
-# Categorical, in the guide's own order of preference.
-URBAN = {
-    "blue":    "#1696D2",
-    "yellow":  "#FDBF11",
-    "magenta": "#EC008B",
-    "green":   "#55B748",
-    "grey":    "#D2D2D2",
-    "black":   "#000000",
-    "red":     "#DB2B27",
-}
-# A darker neutral for a second residual band, from Urban's grey ramp.
-URBAN_SPACE_GREY = "#5C5859"
-
-
-def _mute(hexcolor, amount):
-    """Pull a colour toward neutral, keeping its hue and lightness.
-
-    Saturation only. Shifting lightness as well would change which bands read
-    as heavier, which is a different decision from taking the heat out.
-    """
-    r, g, b = mpl.colors.to_rgb(hexcolor)
-    h, l, s = colorsys.rgb_to_hls(r, g, b)
-    return mpl.colors.to_hex(colorsys.hls_to_rgb(h, l, s * (1 - amount)))
-
-
-# Three candidates to choose between. Each is the whole palette at one
-# saturation; the hues and their order never change.
-LEVELS = {"soft": 0.25, "muted": 0.45, "quiet": 0.65}
-PALETTES = {name: {k: _mute(v, amount) if k not in ("grey", "black") else v
-                   for k, v in URBAN.items()}
-            for name, amount in LEVELS.items()}
-
-# **The palette in use.** Okabe and Ito's Color Universal Design set, which is
-# built so that no two hues collapse into one another under colour vision
-# deficiency - what Urban's categorical colours, chosen for the web, are not
-# designed for. Checked against Urban's in figures/gallery/: Okabe-Ito holds
-# four separable hues under simulated deuteranopia where Urban's magenta goes
-# olive. It gives up some tonal spread in greyscale, which costs nothing unless
-# the memo is printed in black and white.
+# --- the palette --------------------------------------------------------------
+# Okabe and Ito's Color Universal Design set, built so that no two hues collapse
+# into one another under colour vision deficiency. Urban's categorical colours
+# are designed for the web and are not: under simulated deuteranopia Okabe-Ito
+# holds four separable hues where Urban's magenta goes olive. It gives up some
+# tonal spread in greyscale, which costs nothing unless the memo is printed in
+# black and white. Both are drawn in figures/gallery/.
 #
 #   Masataka Okabe and Kei Ito, "Color Universal Design (CUD): How to make
 #   figures and presentations that are friendly to colorblind people".
-#   The eight are #E69F00 orange, #56B4E9 sky blue, #009E73 bluish green,
-#   #F0E442 yellow, #0072B2 blue, #D55E00 vermilion, #CC79A7 reddish purple,
-#   #000000 black.
-#
-# Two values here are not from the set and were chosen for this report: the
-# sand that carries White, and the grey that carries the residual band. Both
-# are near-neutrals, which is the point - no group holds a saturated lead
-# colour on a chart about representation.
-#
-# The keys keep Urban's hue names so the rest of the layer is unchanged by the
-# choice; they name a slot in the stacking order, not a hue.
-PALETTES["okabe_ito"] = {
-    "blue": "#E69F00",       # orange - first group in the stack
-    "yellow": "#009E73",     # bluish green
-    "magenta": "#CC79A7",    # reddish purple
-    "green": "#56B4E9",      # sky blue; no figure uses it yet
-    "grey": "#D9D3C4",       # not Okabe-Ito: the near-neutral for the mass
-    "black": "#000000",
+OKABE_ITO = {
+    "orange":         "#E69F00",
+    "sky_blue":       "#56B4E9",
+    "bluish_green":   "#009E73",
+    "yellow":         "#F0E442",
+    "blue":           "#0072B2",
+    "vermilion":      "#D55E00",
+    "reddish_purple": "#CC79A7",
+    "black":          "#000000",
 }
-LEVELS["okabe_ito"] = None
 
-# Urban's own colours are kept as candidates so the choice stays reviewable in
-# the gallery, not so a figure can quietly use one.
-DEFAULT_LEVEL = "okabe_ito"
+# Two near-neutrals, not from the set, chosen for this report. No group holds a
+# saturated lead colour on a chart about representation, so the largest group
+# takes the neutral and the residual band takes the darker one.
+SAND = "#D9D3C4"          # the mass: White residents
+GREY = "#8C8C8C"          # the residual: other, multiracial or unreported
 
-# --- which colour belongs to which group ------------------------------------
-# Stacking order, axis upward. The neutral goes to the largest group; see the
-# module docstring for why that is a departure from Urban's hierarchy.
+# Colours are assigned per subject rather than through numbered slots. A slot
+# called "blue" that holds orange is how this got confusing once already.
+#
+# Nothing shares a colour with anything it appears beside. Asian/Pacific
+# Islander takes Okabe-Ito's blue rather than its reddish purple, because the
+# reddish purple carries women on the gender chart and the two should not read
+# as the same category across a section.
+RACE_COLORS = {
+    "black": OKABE_ITO["orange"],
+    "hisp":  OKABE_ITO["bluish_green"],
+    "aapi":  OKABE_ITO["blue"],
+    "white": SAND,
+}
+CENSUS_COLORS = {
+    "nh_black": OKABE_ITO["orange"],
+    "hispanic": OKABE_ITO["bluish_green"],
+    "nh_aapi":  OKABE_ITO["blue"],
+    "nh_white": SAND,
+    "nh_other": GREY,
+}
+GENDER_COLORS = {
+    "women": OKABE_ITO["reddish_purple"],
+    "men":   OKABE_ITO["sky_blue"],
+}
+# The growth figure: two counts of people, no categories.
+SERIES_COLORS = {"population": "#5C5859", "per_seat": OKABE_ITO["blue"]}
+
+RESIDUAL_COLOR = GREY
+
+# Stacking order, axis upward.
 GROUP_ORDER = ["black", "hisp", "aapi", "white"]
-GROUP_HUES = {"black": "blue", "hisp": "yellow", "aapi": "magenta", "white": "grey"}
 GROUP_LABELS = {
     "black": "Black",
     "hisp": "Hispanic/Latino",
@@ -119,16 +108,12 @@ GROUP_LABELS = {
     "white": "White",
 }
 
-# The census basis, 1980 on: five groups that partition the county. Same hues,
-# so a reader moving between the two bases is not also relearning the colours.
+# The census basis, 1980 on: five groups that partition the county. Same
+# colours, so a reader moving between the two bases is not relearning them.
 CENSUS_ORDER = ["nh_black", "hispanic", "nh_aapi", "nh_white", "nh_other"]
-CENSUS_HUES = {"nh_black": "blue", "hispanic": "yellow", "nh_aapi": "magenta",
-               "nh_white": "grey", "nh_other": "spacegrey"}
 # On this basis every group except Hispanic/Latino is non-Hispanic, so a legend
-# that says so five times is repeating itself. The qualifier goes in the
-# caption once: "groups other than Hispanic/Latino are non-Hispanic". Five long
-# labels also cannot fit one row at Urban's 6.25in width, and one row is the
-# rule.
+# that says so five times repeats itself; the caption says it once. Five long
+# labels also cannot fit one row at Urban's width, and one row is the rule.
 CENSUS_LABELS = {
     "nh_black": "Black",
     "hispanic": "Hispanic/Latino",
@@ -138,14 +123,11 @@ CENSUS_LABELS = {
 }
 
 GENDER_ORDER = ["women", "men"]
-GENDER_HUES = {"women": "blue", "men": "grey"}
 GENDER_LABELS = {"women": "Women", "men": "Men"}
 
 # The residual band on the old basis: everything the four categories miss.
 OTHER_LABEL = "Other, multiracial or unreported"
 
-# Two series that are both counts of people, on the growth figure.
-SERIES_HUES = {"population": "spacegrey", "per_seat": "blue"}
 
 # --- output profiles --------------------------------------------------------
 # Same figure code, two destinations. Width and text size differ; nothing else.
@@ -179,19 +161,6 @@ def _register_fonts():
     for ttf in sorted(FONTS.glob("*.ttf")):
         font_manager.fontManager.addfont(str(ttf))
 
-
-def palette(level=DEFAULT_LEVEL):
-    p = dict(PALETTES[level])
-    p.setdefault("spacegrey", URBAN_SPACE_GREY)
-    if level == "okabe_ito":
-        p["spacegrey"] = "#8C8C8C"
-    return p
-
-
-def colors(order, hues, level=DEFAULT_LEVEL):
-    """Colours for a group order, in stacking order."""
-    p = palette(level)
-    return [p[hues[g]] for g in order]
 
 
 def apply(profile=DEFAULT_PROFILE):

@@ -128,27 +128,37 @@ def stacked_steps(ax, years, series, spans):
 
 
 def legend(fig, entries):
-    """One legend for the whole figure, across the top, one row.
+    """One legend for the whole figure, below it, one row.
 
     entries is an ordered {label: colour}, in stacking order, which is the
     order Urban asks a legend to follow. Patches are built here rather than
     collected from the axes so that a figure with two panels showing the same
     groups gets one legend rather than two.
+
+    Below rather than Urban's across-the-top: several of these figures carry a
+    note above the plot, and the two compete for the same band.
     """
     handles = [Patch(facecolor=c, label=l) for l, c in entries.items()]
-    fig.legend(handles=handles, labels=list(entries), loc="outside upper center",
+    fig.legend(handles=handles, labels=list(entries), loc="outside lower center",
                ncol=len(entries))
 
 
-def rule(ax, year=style.EXPANSION_YEAR, note=style.EXPANSION_NOTE, y=0.97):
-    """A dated vertical rule with its annotation inside the panel.
+def rule(ax, year=style.EXPANSION_YEAR, note=style.EXPANSION_NOTE):
+    """A dated vertical rule, with its note above the plot rather than in it.
 
     The note is an annotation attached to a mark, not a source note, so it
-    stays in the image. It is drawn once per figure, not once per panel.
+    belongs to the image rather than the caption. But inside the axes it sits
+    on whatever the chart has drawn there - on a filled seat chart that is a
+    solid band, and the text stops being legible. So it goes above the top of
+    the frame, and the rule is extended up to meet it.
+
+    Drawn once per figure, not once per panel.
     """
     ax.axvline(year, zorder=5, **style.EXPANSION_LINE)
-    ax.text(year + 4, y, note, transform=ax.get_xaxis_transform(),
-            ha="left", va="top", zorder=6,
+    ax.plot([year, year], [1.0, 1.045], transform=ax.get_xaxis_transform(),
+            clip_on=False, zorder=5, **style.EXPANSION_LINE)
+    ax.text(year, 1.06, note, transform=ax.get_xaxis_transform(),
+            ha="center", va="bottom", zorder=6, clip_on=False,
             fontsize=plt.rcParams["font.size"])
 
 

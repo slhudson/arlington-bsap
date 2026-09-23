@@ -27,7 +27,6 @@ from assumptions import not_reported_as_zero, rescale_to_100   # noqa: E402
 
 for profile in style.PROFILES:
     style.apply(profile)
-    p = style.palette()
 
     c = not_reported_as_zero(pd.read_csv(files.RESIDENTS))     # not-reported read as zero
     order = style.GROUP_ORDER
@@ -37,12 +36,12 @@ for profile in style.PROFILES:
     other_share = (100 - shares.sum(axis=1)).clip(lower=0)     # before rescaling
     shares = rescale_to_100(shares)                            # the 1970/1990 overlap
 
-    residual = (style.OTHER_LABEL, None, p["spacegrey"], "white")
+    residual = (style.OTHER_LABEL, None, style.RESIDUAL_COLOR, "white")
 
     fig, (a, b) = charts.panels(0.80, profile)
 
     charts.stacked_bars(a, c["year"],
-                        {style.GROUP_LABELS[g]: (c[g].to_numpy(), p[style.GROUP_HUES[g]])
+                        {style.GROUP_LABELS[g]: (c[g].to_numpy(), style.RACE_COLORS[g])
                          for g in order},
                         residual=(residual[0], other.to_numpy(), residual[2], residual[3]))
     charts.counts(a, 250000, 50000)
@@ -50,15 +49,15 @@ for profile in style.PROFILES:
     a.set_title("(a) number of residents")
 
     charts.stacked_bars(b, c["year"],
-                        {style.GROUP_LABELS[g]: (shares[g].to_numpy(), p[style.GROUP_HUES[g]])
+                        {style.GROUP_LABELS[g]: (shares[g].to_numpy(), style.RACE_COLORS[g])
                          for g in order},
                         residual=(residual[0], other_share.to_numpy(), residual[2], residual[3]))
     charts.shares(b)
     charts.years(b, 1870, 2020, rotate=True)
     b.set_title("(b) share of residents")
 
-    entries = {style.GROUP_LABELS[g]: p[style.GROUP_HUES[g]] for g in order}
-    entries[style.OTHER_LABEL] = p["spacegrey"]
+    entries = {style.GROUP_LABELS[g]: style.RACE_COLORS[g] for g in order}
+    entries[style.OTHER_LABEL] = style.RESIDUAL_COLOR
     charts.legend(fig, entries)
 
     files.save(fig, "residents_by_race", profile)
