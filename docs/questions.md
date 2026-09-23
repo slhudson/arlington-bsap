@@ -140,34 +140,37 @@ treatment moves into `code/build/`. Whatever he says, we can live with — the c
 waiting is low and the change is a few lines.
 
 ### Q2. Should not-reported be plotted as zero?
-**Owner:** Sally · **Status:** deferred — not blocking the pipeline
+**Owner:** Sally · **Status:** closed 23 Sept 2026 for the figures that exist —
+stated in the caption; reopen only if a figure draws these as lines
 
-Hispanic is blank before 1970 and AAPI before 1950, because the census did not
-separately tabulate them. `fillna(0)` in the stacked charts renders that
-absence as a zero-height band; the log chart instead starts each line when the
-category is first reported.
+Hispanic is blank before 1970 and AAPI before 1950, because the Census did not
+tabulate them separately. `fillna(0)` renders that absence as a zero-height
+band. A zero and an absence are different claims: one says nobody was there,
+the other says nobody counted.
 
-A zero and an absence are different claims: one says nobody was there, the
-other says nobody counted. As drawn, the stacked charts show a flat zero line
-for a century, which asserts the first when the record only supports the
-second.
+**Why it is closed rather than fixed.** The recommendation was to start each
+category the year it is first reported, as the log line chart did. That works
+for lines and cannot work for stacked bars: a band of height zero and a band
+that has not started yet are the same picture. There is no drawing that
+distinguishes them, so for these figures it is a caption matter.
 
-Recommendation when this is taken up: start each category the year it is first
-reported rather than at zero, and add a caption note giving those years. The
-retired log figure did this, and it is the treatment to copy.
+**And the quantity is small.** Each group was tiny the first year it was
+counted — Asian and Pacific Islander 57 residents in 1950, 0.04 per cent of
+the county; Hispanic or Latino 1,387 in 1970, 0.8 per cent — and the real
+growth comes well after each question appears, Hispanic reaching 23,089 by
+1990. Whatever the zeros hide is unlikely to be much.
+
+One clause that belongs with it and is now in the caption: Hispanic residents
+before 1970 were not uncounted, they were counted as white. So the step at 1970
+is partly the question appearing rather than people arriving. At 0.8 per cent,
+barely.
+
+**From 1980 the question does not arise at all.** The `nh_` columns partition
+the county and Hispanic or Latino is a reported category, not a blank. What
+remains is 1870–1970.
 
 **In code:** `not_reported_as_zero()` in `code/build/assumptions.py`, applied by
-both panels of `code/analysis/residents_by_race.py`. No figure now applies
-nothing, because the one that did has been retired.
-
-**Narrowed by the census basis.** From 1980 the question does not arise: the
-`nh_` columns partition the county and Hispanic/Latino is a reported category,
-not a blank. What is left is 1870-1970, where Hispanic really is unreported
-before 1970 and AAPI before 1950.
-
----
-
-## Not blocking the pipeline either
+both panels of `code/analysis/residents_by_race.py`.
 
 ### Q3. What supports "first Black member since Reconstruction"?
 **Owner:** archive · **Status:** open — held until the internal discrepancies are reconciled with Alex; then the demographics list goes to the Arlington Historical Society as two short tabs (Black members, women) with the default stated
