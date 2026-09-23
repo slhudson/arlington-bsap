@@ -433,7 +433,7 @@ def state_contests():
     them, which differs from the county's ("Matthew David De Ferranti" for
     "Matthew D. \"Matt\" de Ferranti"), so a person is matched by surname.
     """
-    c = pd.read_csv(RAW / "va_dept_of_elections" / "county_board_2021-2026.csv")
+    c = pd.read_csv(RAW / "va_dept_of_elections" / "county_board_2000-2026.csv")
     c = c[c.candidate_name.str.match(r"^(?!Total|Write|Under|Over)")]
     c["date"] = pd.to_datetime(c.election_date)
     general = c[c.election_type.str.startswith("General")]

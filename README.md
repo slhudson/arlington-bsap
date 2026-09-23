@@ -26,17 +26,20 @@ without a network connection, an API key, or a Mac.
 | Script | Writes | Explained in |
 |---|---|---|
 | `code/fetch/census.py` | `data/raw/us_census_bureau/<year>/*.csv` | `data/contents.md` |
-| `code/fetch/elections.py` | `data/raw/va_dept_of_elections/county_board_2021-2026.csv` | `data/contents.md` |
+| `code/fetch/elections.py` | `data/raw/va_dept_of_elections/county_board_2000-2026.csv` | `data/contents.md` |
+| `code/fetch/president.py` | `data/raw/va_dept_of_elections/president_1924-2024.csv` | `data/contents.md` |
 | `code/transcribe/census.py` | `data/transcribed/by_ocr/us_census_bureau/<year>/*.txt` | `data/contents.md` |
 | `code/transcribe/board_1870_1920.py` | `data/transcribed/by_claude/arlington_county/board_1870-1920.csv` | `data/contents.md` |
+| `code/transcribe/president_1872_1920.py` | `data/transcribed/by_claude/arlington_county/president_1872-1920.csv` | `data/contents.md` |
 | `code/transcribe/candidate_history.py` | `data/transcribed/by_claude/arlington_county/candidate_history_1920-present.csv` | `data/contents.md` |
 | `code/transcribe/novack_terms.py` | `data/transcribed/by_claude/arlington_historical_magazine/novack_terms_1930-1994.csv` | `data/contents.md` |
 | `code/build/residents.py` | `data/clean/residents.csv` | `docs/sources.md` — population |
+| `code/build/voters.py` | `data/clean/voters.csv` | `docs/sources.md` — voters |
 | `code/build/board_members.py` | `data/clean/board_members.csv` | `docs/sources.md` — the roster, race and gender |
 | `code/build/board_seats.py` | `data/clean/board_seats.csv` | `docs/sources.md` — seat-years |
 | `code/analysis/<figure>.py` | `figures/pdf/<figure>.pdf`, `figures/png/<figure>.png` | `docs/figures.md` |
 
-Four figures build. Two are in the paper so far, `residents_by_race` and
+Six figures build. Two are in the paper so far, `residents_by_race` and
 `board_race`; the rest are built and waiting on the outline.
 
 ## Rebuilding

@@ -1,4 +1,4 @@
-"""Virginia elections database -> data/raw/va_dept_of_elections/county_board_2021-2026.csv
+"""Virginia elections database -> data/raw/va_dept_of_elections/county_board_2000-2026.csv
 
 NOT part of `bash run.sh`, deliberately. The build never touches the network:
 see code/fetch/census.py for why.
@@ -16,9 +16,17 @@ channel, primaries included. The build sums a candidate's rows and reads the
 kind of election from the file's own column.
 
 The office is Arlington's alone - no other Virginia locality calls its
-governing body a County Board - so the search needs no locality filter. It
-starts at 2021 so that one election overlaps the county's candidate history;
-the build checks that the two agree there.
+governing body a County Board - so the search needs no locality filter.
+
+It starts at 2000 because that is where the database starts for this office.
+The database reaches back to 1789 for federal and statewide races, but its
+only Arlington contests before 2000 are federal, statewide and General
+Assembly ones (checked on 23 September 2026 by searching every 1930-1999
+contest and filtering to Arlington divisions). The County Board rows for
+2000-2003 carry no party and, from 2002, no votes; party is recorded from
+2007. So the county's candidate history remains the roster's source through
+2021, and this file is the second source for a member's party where the two
+overlap - the build checks that they agree - and the only one from 2022.
 """
 import json
 import pathlib
@@ -26,11 +34,11 @@ import urllib.parse
 import urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
-OUT = ROOT / "data" / "raw" / "va_dept_of_elections" / "county_board_2021-2026.csv"
+OUT = ROOT / "data" / "raw" / "va_dept_of_elections" / "county_board_2000-2026.csv"
 
 ENDPOINT = "https://va2.elstats.civera.com/api/download_search.csv"
 COUNTY_BOARD_MEMBER = 546            # the database's id for the office
-YEARS = {"from": 2021, "to": 2026}
+YEARS = {"from": 2000, "to": 2026}
 
 SEARCH = {
     "global": {"years": YEARS},
