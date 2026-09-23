@@ -44,13 +44,15 @@ for profile in style.PROFILES:
     #
     # Residents per seat has the population line only just above it and its own
     # line running under where a left-hand label would sit, so that label goes
-    # directly over its point instead.
+    # directly over its point instead - and over three lines, because one long
+    # line would reach back to 1985 for no reason. The block then matches the
+    # shape of the population label rather than cutting across the panel.
     last = d.iloc[-1]
     charts.end_label(ax, 2020, last["total"],
-                     f"total population:\n{int(last['total']):,}",
+                     f"2020 population:\n{int(last['total']):,}",
                      style.SERIES_COLORS["population"], gap=0.035)
     charts.end_label(ax, 2020, last["residents_per_seat"],
-                     f"residents per Board seat:\n"
+                     f"2020 residents\nper Board seat:\n"
                      f"{int(round(last['residents_per_seat'])):,}",
                      style.SERIES_COLORS["per_seat"], where="above", gap=0.02)
 
