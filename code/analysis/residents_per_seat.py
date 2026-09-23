@@ -47,10 +47,10 @@ for profile in style.PROFILES:
     # directly over its point instead.
     last = d.iloc[-1]
     charts.end_label(ax, 2020, last["total"],
-                     f"total population\n{int(last['total']):,}",
+                     f"total population:\n{int(last['total']):,}",
                      style.SERIES_COLORS["population"], gap=0.035)
     charts.end_label(ax, 2020, last["residents_per_seat"],
-                     f"residents per Board seat\n"
+                     f"residents per Board seat:\n"
                      f"{int(round(last['residents_per_seat'])):,}",
                      style.SERIES_COLORS["per_seat"], where="above", gap=0.02)
 
