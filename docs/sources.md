@@ -211,6 +211,22 @@ One is documented in this period: the Washington district seat was vacant from
 the May 1873 election until Samuel Titus was appointed that December. Titus has
 a term; the vacancy is recorded here.
 
+### Seat-years
+
+`data/clean/board_seats.csv` is one row per year, 1870 through 2026: seats
+held by each race and by each gender, in seat-years, so a member who sat for
+four months of a year counts 4/12. From 1932 (and for 1870–1915) it is
+computed from `board_members.csv`; the handover month belongs to the incoming
+member (Q13). 1916–1931 has no terms and stays on the delivered counts, and a
+`source` column says which. The seats held can never exceed the seats that
+exist, and fall short only in 1870 (the Board began in May), 1873 (a recorded
+vacancy) and 1990 (a February resignation, a May special election); anything
+else stops the build.
+
+Against the delivered counts, 138 years overlap: 120 identical, 128 within
+half a seat. The rest are the three Reconstruction terms in Q17 and handover
+years where the delivered file's half-and-half split and the months disagree.
+
 ### Compared with the delivered roster
 
 Alex's roster (`board_members.csv`, read from the workbook as delivered) and
@@ -225,11 +241,16 @@ The three exceptions:
 - **1939** — Novack ends Ames, McShea and Yeatman in 1939 and begins Campbell,
   DeLashmutt and Lloyd in 1940; the delivered roster seats the incoming three
   in 1939.
-- **1963** — the same shape, for Joseph L. Fisher.
+- **1963** — Novack writes Fisher "1963-1974"; the delivered roster seats him
+  from 1964. The county's candidate history settles it: Fisher won in
+  November 1963, so he sat from January 1964, and Novack dated the span from
+  the election. The build now reads a span that way wherever its first year
+  is one the person won the November election without having stood the year
+  before.
 
-The last two are a question about what a term written "1936-1939" means: served
-through the end of 1939, with successors seated the following January, or
-replaced during 1939. Not an error on either side until that is settled.
+1939 is the same question in the other direction — Novack seats Campbell,
+DeLashmutt and Lloyd from 1940, after their November 1939 wins — and there
+the build follows Novack.
 
 ### What the two files can say about each other
 
@@ -251,7 +272,7 @@ across them, so nothing is miscoded, but a tally built from the roster would
 count him three times. 1952 was a chaotic year: three members removed on 17
 September, four appointed the next day, and four more elected in November.
 
-**The fractional seats cannot currently be reconstructed.** The delivered roster records
+**The delivered fractions are half-and-half.** The delivered roster records
 `appointed`, `resigned`, `died` and `removed` as yes/no flags, with the actual
 dates only in free-text notes — "Removed 9/17/52", "until death on Jan 11". So
 the halves in the seat counts cannot be checked against service dates without

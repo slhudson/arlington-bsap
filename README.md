@@ -32,7 +32,7 @@ without a network connection, an API key, or a Mac.
 | `transcribe/novack_terms.py` | `data/transcribed/by_claude/arlington_historical_magazine/novack_terms_1930-1994.csv` | `data/contents.md` |
 | `build/residents.py` | `data/clean/residents.csv` | `docs/sources.md` — population |
 | `build/board_members.py` | `data/clean/board_members.csv` | `docs/sources.md` — the roster, race and gender |
-| `build/board_seats.py` | `data/clean/board_seats.csv` | `data/contents.md` — the delivered seat counts |
+| `build/board_seats.py` | `data/clean/board_seats.csv` | `docs/sources.md` — seat-years |
 | `analysis/<figure>.py` | `figures/pdf/<figure>.pdf`, `figures/png/<figure>.png` | `docs/figures.md` |
 
 Five figures build. Two are in the paper so far, `residents_by_race_share` and

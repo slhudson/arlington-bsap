@@ -240,5 +240,7 @@ something irregular happened; then race and gender, each with its own source
 and note — a cited attribution, "Keena workbook", or "default". Nothing
 covers 1916–1931.
 
-`board_seats.csv` — Alex's seat counts by race and gender, 1871–2026, read
-from the workbook as delivered. The only file covering 1916–1931.
+`board_seats.csv` — seats held per year by race and by gender, 1870–2026,
+in seat-years (months served ÷ 12), computed from `board_members.csv`;
+1916–1931 from Alex's seat-count workbook, the only thing that covers those
+years. A `source` column says which.

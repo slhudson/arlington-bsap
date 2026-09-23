@@ -233,7 +233,7 @@ why the question is worth asking before the work.
   mulatto, quadroon, octoroon, Chinese, Japanese and civilized Indian.
 
 ### Q13. What rule sets the size of a fractional seat?
-**Owner:** Alex · **Status:** decided 2026-09-22 — weight by months served; to be built
+**Owner:** Alex · **Status:** built 2026-09-22 — `board_seats.csv` weights by months served from 1932; the delivered counts remain for 1916–1931
 
 **Decided (Sally, 2026-09-22): a seat-year is months served ÷ 12.** The
 roster now records every term from 1932 to the month, so the even split is no
