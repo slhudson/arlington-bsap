@@ -2,9 +2,7 @@
 
 For anyone joining the repository. Paste everything below the line into a
 new Claude conversation; it tells Claude what the project is and how to help
-get a machine set up to build it. If you're reading this as an email
-attachment, that's expected — the repository is private, so the first copy
-has to arrive outside it.
+get a machine set up to build it.
 
 ---
 
