@@ -72,13 +72,18 @@ def label_line(ax, x, y, text, color, ha="left"):
 
 
 def end_label(ax, x, y, text, color, gap=0.012):
-    """Name a line just to the left of the point it describes.
+    """Name a line immediately beside the point it describes, at that height.
 
-    A direct label has to sit near its own mark. Placed anywhere else it is a
-    caption the reader has to match up, which is what a legend already is.
+    A direct label has to sit near its own mark; placed anywhere else it is a
+    caption the reader has to match to a line, which is what a legend already
+    is. Level with the final point and just to its right is the least ambiguous
+    position available, and wrapping the name above the value keeps it short
+    enough that the room it needs does not visibly stretch the axis.
+
+    Call after years(), which sets the limit this reads.
     """
     lo, hi = ax.get_xlim()
-    label_line(ax, x - (hi - lo) * gap, y, text, color, ha="right")
+    label_line(ax, x + (hi - lo) * gap, y, text, color, ha="left")
 
 
 def stacked_bars(ax, x, series, width=7):

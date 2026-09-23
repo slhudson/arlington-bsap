@@ -14,11 +14,13 @@ Two series on one linear axis, 1870–2020: total population, and residents per
 Board seat. Both are counts of people, so the vertical distance between them
 means the same thing everywhere on the page.
 
-Each line is named where it runs, on one line, with its final value — not at
-the far right outside the plot, which is Urban's placement. A label long enough
-to be readable needs enough headroom past 2020 to visibly stretch the axis,
-which distorts the series to make room for its own caption. The band between
-the two lines is empty from 1950 on and costs nothing.
+Each line is named beside its own 2020 point, at that point's height, with the
+name wrapped above the value. Three placements were tried. Outside the plot on
+one line — Urban's placement — needed enough headroom past 2020 to visibly
+stretch the axis. In the empty band between the lines, the label sat nowhere
+near the line it named, which makes it a caption to be matched up, which is
+what a legend already is. Wrapping to two lines halves the room a label needs,
+so it sits immediately beside its point and the axis barely moves.
 
 "Seat", not "member". The denominator is seats that exist — three through 1930
 and five after — not members actually serving, and the two differ in 1873 and

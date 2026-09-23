@@ -31,21 +31,17 @@ for profile in style.PROFILES:
     charts.lines(ax, d["year"], series)
     charts.counts(ax, 250000, 50000)
     # Decades collide at this width, so labels every twenty years with an
-    # unlabelled tick at each census between. No headroom: the labels sit in
-    # the space between the two lines rather than past the end of the data.
-    charts.years(ax, 1870, 2020, step=20)
+    # unlabelled tick at each census between. The headroom is for the two end
+    # labels, which sit inside the axes beside the points they name.
+    charts.years(ax, 1870, 2020, step=20, headroom=0.16)
 
-    # Each label sits just left of the 2020 point it describes, at that
-    # point's own height. Anywhere else and it is a caption the reader has to
-    # match to a line, which is what a legend already is.
     last = d.iloc[-1]
-    charts.end_label(ax, 2020, last["total"],
-                     f"2020 population: {int(last['total']):,}",
-                     style.SERIES_COLORS["population"])
-    charts.end_label(ax, 2020, last["residents_per_seat"],
-                     f"2020 residents per Board seat: "
-                     f"{int(round(last['residents_per_seat'])):,}",
-                     style.SERIES_COLORS["per_seat"])
+    for value, name, colour in (
+        (last["total"], "total population", style.SERIES_COLORS["population"]),
+        (last["residents_per_seat"], "residents per Board seat",
+         style.SERIES_COLORS["per_seat"]),
+    ):
+        charts.end_label(ax, 2020, value, f"{name}\n{int(round(value)):,}", colour)
 
     charts.rule(ax)
     paths.save(fig, "residents_per_seat", profile)

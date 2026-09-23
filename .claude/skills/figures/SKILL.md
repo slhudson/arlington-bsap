@@ -101,6 +101,11 @@ too, in the LaTeX caption.
   the prose. Test on the data, not on the category name.
 - Direct end-labels on a line chart are preferred to a legend where the lines
   allow it. This is Urban's rule and it applies.
+- **A direct label sits beside the point it names, at that point's height.**
+  Anywhere else it is a caption the reader has to match to a line, which is
+  what a legend already is. Wrap the name above the value: two short lines need
+  half the room of one long one, so it fits without the axis visibly
+  stretching to hold it.
 
 ## Colour
 
