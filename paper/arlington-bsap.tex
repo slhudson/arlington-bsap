@@ -39,89 +39,103 @@
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{residents_per_seat.pdf}
-  \caption{Arlington County residents and residents per Board seat, 1870--2020.
-  Both series count people, so the vertical distance between them is the number
-  of residents each seat does not account for. The denominator is the seats
-  that exist --- three through 1930 and five after --- not the members serving;
-  the two differ only in 1873 and 1990, when a seat sat vacant. Population is
-  the decennial census count for the territory the Board governed in each year.
-  Alexandria city, independent since 1871, is reported separately from 1900;
-  Alexandria annexed 866 acres in 1915 and a further tract in 1930, so part of
-  the movement between the 1910 and 1930 censuses is territory changing hands
-  rather than people arriving or leaving.}
+  \caption{Arlington County residents and residents per Board seat, 1870--2020. Both
+  series count people, so the gap between them is the residents each seat does
+  not account for. The denominator is the seats that exist --- three through
+  1930, five after --- not the members serving.}
   \label{fig:residents-per-seat}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{board_gender.pdf}
-  \caption{Composition of the Arlington County Board by gender, 1871--2026, in
-  seats rather than shares, on the same scale as
-  figure~\ref{fig:board-race}. The dashed line marks 1932, when the Board
-  expanded from three to five seats and magisterial districts were replaced by
-  at-large elections. The first woman took a seat that same year. Half seats
-  occur when a member resigned or died before the end of the year and was
-  subsequently replaced; 1931 is not reported in the source data and appears as
-  a gap. Seats are measured in seat-years against the months the Board existed
-  in each year, so 1870 counts the eight months from the Board's first election
-  in May.}
+  \caption{Arlington County Board seats by gender, 1871--2026, in seats rather than
+  shares. The dashed line marks 1932, when the Board expanded from three to
+  five seats and magisterial districts gave way to at-large elections; the
+  first woman took a seat that year. 1931 is not reported in the source and
+  appears as a gap.}
   \label{fig:board-gender}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{residents_by_race.pdf}
-  \caption{Arlington County residents by race and ethnicity, 1870--2020.
-  Panel (a) gives counts as unstacked lines, panel (b) each group's share as
-  stacked bars. Lines rather than bars in (a) because a line begins the year
-  the Census first counted that group, which a stacked band cannot show. The
-  White line leaves the top of panel (a) in the late 1930s, where the triangle
-  marks it: it reaches 161,329 by 1970 and falls to 114,489 by 2000, and
-  plotting that range would leave the other four groups, none of which passes
-  37,362, in the bottom quarter of the axis. White is drawn a shade darker as
-  a line than as bars, because the lighter tone is not legible as a stroke. From 1980 the groups
-  are the Census Bureau's categories crossed with Hispanic origin, so they do
-  not overlap and sum to the county exactly; groups other than Hispanic or
-  Latino are non-Hispanic. Before 1980 they are race categories as reported,
-  because the Bureau did not ask Hispanic origin of every household until 1980.
-  Terms follow the Bureau's own wording. Hispanic or Latino residents were not
-  counted separately before 1970, nor Asian and Pacific Islander residents
-  before 1950. In panel (a) each line begins in the first year its group was
-  counted; in panel (b) they are shown as zero before that. Each was small when
-  first counted --- 1,387 residents and 57 respectively, 0.8 and 0.04 per cent
-  of the county --- so little is likely to be hidden, though Hispanic residents
-  before 1970 were recorded as white rather than not recorded at all.
-  Asian and Pacific Islander are reported together before 2000 and separately
-  after; they are combined throughout so the series is consistent. Because
-  race and Hispanic origin were separate questions answered by the same people,
-  the pre-1980 categories can overlap: in 1970 they sum to about 2.8 per cent
-  more than the county total, and panel (b) rescales that column to 100 per
-  cent. ``Other or Multiracial'' is American Indian and Alaska Native, some
-  other race, and two or more races; before 1980 it is the residents the four
-  reported categories do not account for, never more than 202 people.}
+  \caption{Arlington County residents by race and ethnicity, 1870--2020. Panel (a)
+  gives counts, panel (b) each group's share. A line in (a) begins the year the
+  Census first counted that group. The White line leaves the top of panel (a)
+  in the late 1930s, where the triangle marks it; it reaches 161,329 by 1970.}
   \label{fig:residents-race}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{board_race.pdf}
-  \caption{Composition of the Arlington County Board by race and ethnicity,
-  1871--2026, in seats rather than shares. The dashed line marks 1932, when the
-  Board expanded from three to five seats and magisterial districts were
-  replaced by at-large elections. Half seats occur when a Board member resigned
-  or died before the end of the year and was subsequently replaced. 1931 is not
-  reported in the source data and appears as a gap. Seats are measured in
-  seat-years against the months the Board existed in each year: Arlington's
-  Board came into existence at the May 1870 election, so 1870 counts eight
-  months rather than twelve. 1873 and 1990 fall below a full Board because
-  seats were genuinely vacant. No Asian American or Pacific
-  Islander member has served in any year, so no such category is drawn. Each
-  member carries one code, so the categories do not overlap and can be read
-  against figure~\ref{fig:residents-race} directly: a Hispanic or Latino member
-  appears in that category whatever their race, and the others are members who
-  are not Hispanic or Latino.}
+  \caption{Arlington County Board seats by race and ethnicity, 1871--2026, in seats
+  rather than shares. The dashed line marks 1932, when the Board expanded from
+  three to five seats and magisterial districts gave way to at-large elections.
+  No Asian American or Pacific Islander member has served in any year, so no
+  such band is drawn.}
   \label{fig:board-race}
 \end{figure}
+
+% Flush every pending figure before the notes. The running text is short and
+% the figures are floats, so without this they queue up behind the prose and
+% the notes print in front of the figures they describe.
+\clearpage
+
+\section*{Notes on the figures}
+
+\subsection*{Seats}
+
+Seats are counted in seat-years: a member who sat four months of a year counts
+four twelfths of a seat, so a year in which one member replaced another shows
+as half a seat each rather than a whole seat for both. The denominator is the
+months the Board existed, which is twelve in every year but its first ---
+Arlington's Board came into existence at the May 1870 election, so 1870 counts
+eight months.
+
+Two years fall below a full Board and both are real: 1873, when a district sat
+vacant from June to November, and 1990, between a February resignation and a
+May special election. 1931 is not reported in the source and is drawn as a gap
+rather than a zero.
+
+Race and gender are two splits of the same seats, drawn on the same scale, so
+the two Board figures can be read against each other.
+
+\subsection*{Population}
+
+Population is the decennial census count for the territory the Board governed
+in each year. Alexandria city has been independent since 1871 and is reported
+separately from 1900; Alexandria annexed 866 acres in 1915 and a further tract
+in 1930, so part of the movement between the 1910 and 1930 censuses is
+territory changing hands rather than people arriving or leaving.
+
+\subsection*{Race and ethnicity}
+
+From 1980 the groups are the Census Bureau's race categories crossed with
+Hispanic origin. They do not overlap and account for the county exactly:
+Hispanic or Latino is of any race, and every other group is non-Hispanic.
+Before 1980 they are race categories as reported, because the Bureau did not
+ask Hispanic origin of every household until then. Race and Hispanic origin
+being separate questions answered by the same people, those earlier categories
+can overlap --- in 1970 they sum to about 2.8 per cent more than the county,
+and panel (b) rescales that column to 100 per cent.
+
+Hispanic or Latino residents were not counted separately before 1970, nor Asian
+and Pacific Islander residents before 1950. Each was small when first counted
+--- 1,387 and 57 residents, 0.8 and 0.04 per cent of the county --- so little
+is likely to be hidden, though Hispanic residents before 1970 were recorded as
+white rather than not recorded at all. Asian and Pacific Islander are reported
+together before 2000 and separately after, and are combined throughout so the
+series is consistent. ``Other or Multiracial'' is American Indian and Alaska
+Native, some other race, and two or more races; before 1980 it is the residents
+the four reported categories do not account for, never more than 202 people.
+
+Board members carry one code each, so the Board categories do not overlap and
+can be read against the census ones directly: a Hispanic or Latino member
+appears in that category whatever their race.
+
+Terms follow the Bureau's own wording throughout.
 
 % Dormant until the first citation is written. biblatex lists only what is
 % cited, so uncommenting this now prints an empty heading. To start citing:
