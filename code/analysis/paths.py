@@ -47,7 +47,12 @@ def save(fig, stem, profile=None):
         kind = spec["format"]
         d = FIGURES / kind
         d.mkdir(parents=True, exist_ok=True)
-        fig.savefig(d / f"{stem}.{kind}", dpi=spec["dpi"])
+        # No creation timestamp. matplotlib stamps one into a PDF by default,
+        # so an unchanged figure is a changed file: every run rewrites all of
+        # them, git records the churn, and run.sh's report of what a run
+        # changed would name every figure every time.
+        meta = {"CreationDate": None} if kind == "pdf" else {}
+        fig.savefig(d / f"{stem}.{kind}", dpi=spec["dpi"], metadata=meta)
 
 
 def build_stage_on_path():

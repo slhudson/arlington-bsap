@@ -72,6 +72,23 @@ for s in "${selected[@]}"; do
 done
 echo "-> figures/pdf, figures/png ($(ls figures/pdf | wc -l | tr -d ' ') each)"
 
+# Which figures this run actually changed. figures/ is committed, so a script
+# edited without re-running leaves a stale PDF compiling into the paper, and
+# nothing else would say so.
+#
+# A report rather than a failure, and deliberately. The figures are the
+# baseline - there is no second copy of them to compare against, which is the
+# point - so a change here is usually the change you just made. What matters is
+# seeing it at the moment it happens rather than discovering it in a diff later.
+#
+# Tolerates not being a git repository, and never fails the build.
+if changed=$(git diff --name-only -- figures/ 2>/dev/null) && [ -n "$changed" ]; then
+  echo
+  echo "figures changed by this run:"
+  printf '%s\n' "$changed" | sed 's/^/  /'
+  echo "  (commit them, or git checkout -- figures/ to discard)"
+fi
+
 # On a full run, figures/ should contain exactly what the steps produce and
 # nothing else. Renaming a figure otherwise leaves the old one behind, and it
 # keeps compiling into the paper long after its script is gone.
