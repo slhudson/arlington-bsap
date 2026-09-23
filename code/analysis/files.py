@@ -33,10 +33,14 @@ def save(fig, stem):
     code/analysis/residents_by_race.py produces residents_by_race.pdf and .png.
     run.sh checks that after every build.
     """
+    import style                      # imported here: this is the only visual choice files.py makes
     for kind, kwargs in (("pdf", {}), ("png", {"dpi": 200})):
         d = FIGURES / kind
         d.mkdir(parents=True, exist_ok=True)
-        fig.savefig(d / f"{stem}.{kind}", bbox_inches="tight", **kwargs)
+        # A tight box crops to the legend and the rotated ticks exactly, which
+        # reads as cramped on the page. style.PAD is the margin every figure keeps.
+        fig.savefig(d / f"{stem}.{kind}", bbox_inches="tight",
+                    pad_inches=style.PAD, **kwargs)
 
 
 def build_stage_on_path():
