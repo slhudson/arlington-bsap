@@ -285,10 +285,13 @@ citekey a footnote in the report will. `bash run.sh` refuses to build if a cell
 names an entry that is not there, so a number that cannot be traced to a
 document stops the build rather than reaching a figure.
 
-Three entries are marked provisional in their annotations, because the excerpt
-we hold carries no front matter: the 1880 and 1890 volumes, whose identity is
-inferred from the filename, and working paper POP-TWPS0076. That is the open
-question below, now visible in the bibliography as well as in prose.
+One entry is still marked provisional in its annotation. The 1880 and 1890
+volumes were settled on 23 September 2026: `code/fetch/census_volumes.py`
+proved the held chunks are the Bureau's own by checksum and saved each volume's
+title page into `data/raw/`, so both entries are now read off a page rather
+than inferred from a filename. Working paper POP-TWPS0076 could not be settled
+— the Bureau publishes it as one table per state with no front matter at all.
+See Q23.
 
 Two details were corrected against the documents while the entries were built.
 **O'Leary's electoral history is dated March 2010** in its own text; the 2012

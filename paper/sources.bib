@@ -99,21 +99,36 @@
 }
 
 @book{census1880,
-  author      = {{U.S. Census Bureau}},
-  title       = {Tenth Census of the United States, 1880},
+  author      = {{U.S. Department of the Interior, Census Office}},
+  title       = {Statistics of the Population of the United States at the Tenth
+                 Census (June 1, 1880)},
+  publisher   = {Government Printing Office},
+  location    = {Washington, DC},
   date        = {1880},
-  annotation  = {PROVISIONAL. The excerpt held carries interior pages only, so
-                 the volume cannot be identified from the document itself; the
-                 title above is inferred from the filename. See
-                 docs/questions.md, ``where the scanned volumes came from''},
+  annotation  = {Read off the title page, now held as 1880_v1-01.pdf. Francis
+                 A. Walker, Superintendent (resigned 3 November 1881), and
+                 Chas. W. Seaton, Superintendent (appointed 4 November 1881).
+                 **The imprint year is obscured** on this copy by a Bureau of
+                 the Census library stamp; the title page names an Act of
+                 Congress of 7 August 1882, so printing is no earlier than
+                 that, and the date field above is the census year rather than
+                 the imprint. The held chunks are the Bureau's own, proven byte
+                 for byte by code/fetch/census_volumes.py},
 }
 
 @book{census1890,
-  author      = {{U.S. Census Bureau}},
-  title       = {Eleventh Census of the United States, 1890},
-  date        = {1890},
-  annotation  = {PROVISIONAL, on the same footing as census1880: interior pages
-                 only, volume inferred from the filename},
+  author      = {{U.S. Department of the Interior, Census Office}},
+  title       = {Report on Population of the United States at the Eleventh
+                 Census: 1890},
+  subtitle    = {Part I},
+  publisher   = {Government Printing Office},
+  location    = {Washington, DC},
+  date        = {1895},
+  annotation  = {Read off the title page, now held as 1890a_v1-01.pdf. Robert
+                 P. Porter, Superintendent, and Carroll D. Wright, Commissioner
+                 of Labor in charge; letter of transmittal dated 22 October
+                 1894; imprint 1895. The held chunks are the Bureau's own,
+                 proven byte for byte by code/fetch/census_volumes.py},
 }
 
 @report{censusbureau1990twps76,
@@ -124,10 +139,14 @@
   number      = {POP-TWPS0076},
   institution = {U.S. Bureau of the Census},
   date        = {1990},
-  annotation  = {PROVISIONAL. The excerpt held is the Virginia table only and
-                 carries no front matter; title read from the table header,
-                 number and date from the filename and the workbook that cites
-                 it},
+  annotation  = {STILL PROVISIONAL, and now for a known reason. The Bureau
+                 publishes this paper at working-papers/2005/demo/pop-twps0076/
+                 as one PDF per state and nothing else - there is no front
+                 matter to fetch, checked 23 September 2026. What is held is
+                 the Virginia table, vatab.pdf, which is the URL the workbook
+                 itself cites. Title read from the table header; the number and
+                 date come from the path and the workbook, not from the
+                 document},
 }
 
 @online{censusapi,

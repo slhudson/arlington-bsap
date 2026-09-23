@@ -151,6 +151,21 @@ read something we cannot see" and "nobody has looked" are different problems,
 and only the second is a finding about the historical record. The draft for the
 Data Cleaning doc keeps them as two paragraphs for that reason.
 
+### Q23. POP-TWPS0076 has no front matter to find
+**Owner:** Claude · **Status:** closed as far as it can go — the entry stays provisional
+
+The other two provisional entries were settled by fetching their volumes' title
+pages. This one cannot be. The Bureau publishes the paper at
+`working-papers/2005/demo/pop-twps0076/` as one PDF per state and nothing else —
+no cover, no abstract, no combined document; checked 23 September 2026, and the
+2005 path is the one the workbook itself cites. What is held is `vatab.pdf`,
+the Virginia table.
+
+So its title is read from the table header, and its number and date come from
+the path and the workbook rather than from the document. The entry says so.
+Anyone who finds the paper itself — a library copy, or a Bureau index that
+still lists it — can close this by reading its title page.
+
 ### Q21. Hjerpe frames the five Black members as an open question
 **Owner:** Claude · **Status:** answered — the row is relabelled, 23 Sept 2026
 
@@ -347,8 +362,14 @@ why the question is worth asking before the work.
 
 **Still genuinely open, not a correction:**
 
-- Where the scanned volumes came from — a citation per file. The filenames
-  match how the Census Bureau chunks its scans, but that is an inference.
+- ~~Where the scanned volumes came from — a citation per file.~~ **Answered
+  23 September 2026.** `code/fetch/census_volumes.py` fetches the Bureau's own
+  copy of a held chunk from each volume and compares checksums; both the 1880
+  and 1890 files matched byte for byte, so the filenames are confirmed rather
+  than assumed, and the script refuses to go on if one ever stops matching. It
+  also saves each volume's first chunk, which carries the title page, so the
+  bibliography is built from a page in the repository. The 1870 volume already
+  carried its own title page.
 - Whether those volumes break out race categories beyond White and Black. The
   1890 volumes include a table classifying the colored population as Negro,
   mulatto, quadroon, octoroon, Chinese, Japanese and civilized Indian.
