@@ -14,7 +14,7 @@ The whole table is transcribed, every office, not only the County Board rows.
 Picking out today's rows would hide what sits beside them, and the file should
 be checkable against the page as a whole.
 
-    .venv/bin/python transcribe/candidate_history.py
+    .venv/bin/python code/transcribe/candidate_history.py
 """
 import csv
 import re

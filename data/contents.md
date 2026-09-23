@@ -10,18 +10,18 @@ different things. `transcribed/by_claude/` mirrors those folder names.
 
 | Folder | How it was produced | Written by | Read by |
 |---|---|---|---|
-| `raw/` | published, as it exists in the world | `fetch/`, or saved by hand | `transcribe/`, `build/` |
-| `transcribed/by_ocr/` | an OCR engine read the scan | `transcribe/` | people |
-| `transcribed/by_claude/` | Claude read a rendered page or text layer | `transcribe/`, or Claude directly | `build/` |
-| `transcribed/by_human/` | keyed in by a person | — | `build/` |
-| `clean/` | computed from the layers above | `build/` | `analysis/` |
+| `raw/` | published, as it exists in the world | `code/fetch/`, or saved by hand | `code/transcribe/`, `code/build/` |
+| `transcribed/by_ocr/` | an OCR engine read the scan | `code/transcribe/` | people |
+| `transcribed/by_claude/` | Claude read a rendered page or text layer | `code/transcribe/`, or Claude directly | `code/build/` |
+| `transcribed/by_human/` | keyed in by a person | — | `code/build/` |
+| `clean/` | computed from the layers above | `code/build/` | `code/analysis/` |
 
 A file in `raw/` is its own citation: the volume is the evidence. A file in
 `transcribed/` is not — someone or something read a page and typed what it
 said, so every row needs a citation back to the page. That difference is the
 whole of the sourcing problem, and `docs/sources.md` tracks it.
 
-`transcribed/by_ocr/` is absent from `build/files.py` and `analysis/files.py`
+`transcribed/by_ocr/` is absent from `code/build/files.py` and `code/analysis/files.py`
 by design. OCR misreads digits, so it is a finding aid: it locates a table and
 a page, and never supplies a number.
 
@@ -70,7 +70,7 @@ One of the two URLs cited inside the delivered workbook.
 
 **Data files, 2000–2020.** For 2000, 2010 and 2020 the Bureau publishes
 machine-readable data, so there is no page to read and no transcription step —
-and therefore no reading error to make. `fetch/census.py` saves each table
+and therefore no reading error to make. `code/fetch/census.py` saves each table
 whole: one row per Virginia county, one column per variable, exactly the shape
 it is published in. Arlington is a row in it, which also allows a figure to be
 checked against neighbouring counties. Each census gets a data dictionary
@@ -120,7 +120,7 @@ newspaper returns and Electoral Board minutes — and has not been consulted.
 
 **`county_board_2021-2026.csv`** — every County Board contest from 2021 on,
 from the Virginia Department of Elections' historical database, saved as the
-database's own CSV by `fetch/elections.py`: one row per candidate per precinct
+database's own CSV by `code/fetch/elections.py`: one row per candidate per precinct
 per vote channel, primaries included, with the kind of election and the number
 of seats in their own columns. It starts at 2021 so that one election overlaps
 the county's candidate history, and the build checks that the two agree there.
@@ -137,7 +137,7 @@ gender.
 ## transcribed/by_ocr/
 
 OCR of all 521 census pages, one text file per volume, produced by
-`transcribe/census.py` using macOS Vision. Not part of `bash run.sh` — it takes
+`code/transcribe/census.py` using macOS Vision. Not part of `bash run.sh` — it takes
 about twelve minutes and its input never changes.
 
 Use it to find a table and a page. Do not read numbers from it: OCR of
@@ -160,28 +160,28 @@ is the table's own total, 1 its parts, 2 a detail of the line above. Sums take
 level 1 only, which is what keeps a sub-line from being added as if it were a
 district (the Freedman village case, in `docs/sources.md`). No arithmetic lives in
 these files; the subtraction that isolates the Board's territory before 1900
-happens in `build/residents.py`.
+happens in `code/build/residents.py`.
 
 **`arlington_county/board_1870-1920.csv`** — O'Leary's election listings, one row per
 district per election, read from the rotated pages by
-`transcribe/board_1870_1920.py`. The entry is kept as printed, prose about
-replacements included; `build/board_roster.py` parses it.
+`code/transcribe/board_1870_1920.py`. The entry is kept as printed, prose about
+replacements included; `code/build/board_roster.py` parses it.
 
 **`arlington_county/candidate_history_1920-present.csv`** — the county's whole candidate
-table, every office, read by `transcribe/candidate_history.py`, with the kind
+table, every office, read by `code/transcribe/candidate_history.py`, with the kind
 of election ("Democratic Primary", "General Election", "Special Election")
 carried from the date column onto every row.
 
 **`arlington_historical_magazine/novack_terms_1930-1994.csv`** — Novack's
 roster, one row per person, term string and parenthetical notes as printed,
-read by `transcribe/novack_terms.py`.
+read by `code/transcribe/novack_terms.py`.
 
 **`board_demographics.csv`** — what a source says about a named Board
 member's race or gender, one row per claim: the category, the basis, the
 citation, and the sentence in the source's own words. It sits above the
 publisher folders because it draws on several. A member absent from it takes
 Alex's workbook coding from 1932, and is a white man by default before that;
-`build/board_members.py` writes which of the three applies on every row, and
+`code/build/board_members.py` writes which of the three applies on every row, and
 `docs/sources.md` says what stands behind the default in each period. The women are here on Claude's reading of their
 given names, and the rows say so. Grace Hjerpe's paper and O'Leary's prose
 are cited rather than filed in `raw/`: they are read for a handful of claims,
@@ -207,7 +207,7 @@ the City of Alexandria, which the Board did not govern.
 **`arlington board - descriptive representation (1870-2026).xlsx`** — 156 years
 of Board seat counts by race/ethnicity and gender, 1871–2026. No sources
 recorded. The header `aapi_m embers` contains a space, corrected in
-`build/board_seats.py` rather than here.
+`code/build/board_seats.py` rather than here.
 
 **`arlington county board member database (1932-2026).xlsx`** — 497
 person-years, 1932–2026, one row per member per year, race and gender coded on
@@ -234,10 +234,10 @@ missing. `keena-workbook` - a real claim whose evidence Alex did not record.
 `assumed` - no claim existed and the build supplied one. `derived` - computed
 from another table in `clean/`, whose rows carry the citations. `unsourced` -
 the general case of the first. Every build prints how many of each, so the
-numbers are in front of whoever is working; `build/citekeys.py` says why they
+numbers are in front of whoever is working; `code/build/citekeys.py` says why they
 are kept apart.
 
-Written by `build/`, read by `analysis/`. Never edited by hand; `bash run.sh`
+Written by `code/build/`, read by `code/analysis/`. Never edited by hand; `bash run.sh`
 overwrites it. Committed even though it is generated, so that a change to a
 cleaning decision shows up as a reviewable diff — you can see which numbers
 moved and by how much.

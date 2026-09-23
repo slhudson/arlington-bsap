@@ -74,16 +74,16 @@ for women and slate `#A9BBCB` for men.
 
 White and the gender pair were both revised during the working session toward
 softer tones. The current values are chosen to stay distinguishable for
-colorblind readers and in grayscale. They live in `analysis/style.py` and are imported by every
+colorblind readers and in grayscale. They live in `code/analysis/style.py` and are imported by every
 figure, so a palette change is a single edit.
 
 ## Where the code is
 
-One script per figure in `analysis/`, named for the figure it writes, reading
+One script per figure in `code/analysis/`, named for the figure it writes, reading
 only `data/clean/`. The two contested treatments — the 1970/1990 overlap and
-whether not-reported reads as zero — are in `build/assumptions.py`, called by
+whether not-reported reads as zero — are in `code/build/assumptions.py`, called by
 name in each figure that takes a position, so it is greppable which figure
-takes which. The build/analysis split itself is explained once, in
+takes which. The code/build/analysis split itself is explained once, in
 `CLAUDE.md`.
 
 ## Set aside

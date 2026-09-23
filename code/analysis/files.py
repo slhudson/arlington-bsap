@@ -1,16 +1,16 @@
 """Where real filenames are assigned to the short names the code uses.
 
-The analysis-stage counterpart to build/files.py. It maps data/ and figures/;
+The analysis-stage counterpart to code/build/files.py. It maps data/ and figures/;
 it defines no route to raw/. A figure script asking for a source workbook gets
 an ImportError, so the wall between deciding what a number IS and deciding how
 it is SHOWN is a thing that is not there, rather than a rule to remember.
 
 If a figure seems to need something raw/ has and data/ does not, the fix is a
-change to build/, not an import added here.
+change to code/build/, not an import added here.
 """
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 CLEAN = ROOT / "data" / "clean"
 FIGURES = ROOT / "figures"
 
@@ -30,7 +30,7 @@ def save(fig, stem):
     PNG is for slides, email and anywhere that cannot take a PDF.
 
     By convention the stem matches the script's own filename, so
-    analysis/residents_by_race.py produces residents_by_race.pdf and .png.
+    code/analysis/residents_by_race.py produces residents_by_race.pdf and .png.
     run.sh checks that after every build.
     """
     for kind, kwargs in (("pdf", {}), ("png", {"dpi": 200})):
@@ -40,10 +40,10 @@ def save(fig, stem):
 
 
 def build_stage_on_path():
-    """Let a figure import build/open_questions.py.
+    """Let a figure import code/build/open_questions.py.
 
-    Appends rather than inserts, because build/ also has a files.py: putting it
+    Appends rather than inserts, because code/build/ also has a files.py: putting it
     first would shadow this module and hand analysis a route to raw/.
     """
     import sys
-    sys.path.append(str(ROOT / "build"))
+    sys.path.append(str(ROOT / "code" / "build"))

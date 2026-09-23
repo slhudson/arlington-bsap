@@ -7,12 +7,12 @@ data/ has four layers, sorted by how the numbers were produced:
                     by_ocr/     an OCR engine
                     by_claude/  a vision model reading a page image
                     by_human/   a person
-    clean/        computed by build/, and the only layer analysis/ reads
+    clean/        computed by code/build/, and the only layer code/analysis/ reads
 
 Nothing reads by_ocr/. OCR misreads digits, so it locates a table and never
 supplies a number.
 
-No folder outranks another. build/residents.py names the source it uses for
+No folder outranks another. code/build/residents.py names the source it uses for
 each year, in one place, so which document a figure came from is something you
 read rather than infer.
 
@@ -25,7 +25,7 @@ It also fails fast: a missing input raises here, with the path, before any work
 starts, rather than surfacing as a confusing error from inside pandas.
 
 This is the only module in the repository that knows where raw/ is.
-analysis/files.py does the same job for data/ and figures/, and deliberately
+code/analysis/files.py does the same job for data/ and figures/, and deliberately
 defines no route to raw/ - so a figure script asking for a source workbook gets
 an ImportError. The wall between the stages is a thing that is not there,
 rather than a rule someone has to remember.
@@ -36,11 +36,11 @@ import pandas as pd
 
 import citekeys
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 DATA = ROOT / "data"
 RAW = DATA / "raw"          # published sources, self-citing
 TRANSCRIBED = DATA / "transcribed"   # by_ocr / by_claude / by_human
-CLEAN = DATA / "clean"      # built here, read by analysis/
+CLEAN = DATA / "clean"      # built here, read by code/analysis/
 
 
 # The three workbooks, named exactly as received (spaces and all).

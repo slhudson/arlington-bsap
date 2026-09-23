@@ -7,13 +7,13 @@ repo; prose is written in Overleaf, which syncs the repository.
 ## The two stages
 
 ```
-  |  fetch/        <- on demand: the network, output committed
+  |  code/fetch/        <- on demand: the network, output committed
 data/raw/        published sources - a file here is its own citation
-  |  transcribe/   <- on demand: OCR and reading, output committed
+  |  code/transcribe/   <- on demand: OCR and reading, output committed
 data/transcribed/  by_ocr/ and by_claude/ read off raw/; by_human/ hand-keyed
-  |  build/        <- every subjective decision about what a number IS
+  |  code/build/        <- every subjective decision about what a number IS
 data/clean/      built output
-  |  analysis/     <- presentation only; cannot see anything above clean/
+  |  code/analysis/     <- presentation only; cannot see anything above clean/
 figures/         pdf/ for the paper, png/ for slides
   |
 paper/           prose -> Overleaf -> compiled PDF
@@ -27,23 +27,23 @@ something belongs in depends on that, not on what it is about. See
 **Build resolves ambiguity in the sources.** What a blank means, whether
 categories overlap, which of two conflicting totals is right. If two reasonable
 people could disagree about what the value *is*, the decision belongs in
-`build/`.
+`code/build/`.
 
 **Analysis does arithmetic that is fully determined once those are settled.**
 Dividing counts into shares, choosing a log axis, deciding which years to show.
 Presentation choices are still subjective, but they cannot change a value. If
-they would only disagree about how to *show* it, it belongs in `analysis/`.
+they would only disagree about how to *show* it, it belongs in `code/analysis/`.
 
-This is enforced structurally, not by convention: `analysis/files.py` has no
+This is enforced structurally, not by convention: `code/analysis/files.py` has no
 path to `data/raw/`, `data/transcribed/by_human/` or `data/transcribed/`. A figure script that wants to reach around the cleaning step
-has nothing to reach with. Note that `analysis` scripts *append* `build/` to
-`sys.path` rather than inserting it, so `build/files.py` cannot shadow
-`analysis/files.py` and quietly restore that route.
+has nothing to reach with. Note that `analysis` scripts *append* `code/build/` to
+`sys.path` rather than inserting it, so `code/build/files.py` cannot shadow
+`code/analysis/files.py` and quietly restore that route.
 
 ## Naming
 
-**A file is named after what it produces.** `build/residents.py` writes
-`data/residents.csv`. `analysis/board_seats.py` writes
+**A file is named after what it produces.** `code/build/residents.py` writes
+`data/residents.csv`. `code/analysis/board_seats.py` writes
 `figures/pdf/board_seats.pdf` and `figures/png/board_seats.png`. No `make_`
 prefixes, no `_chart` suffixes: the directory says what the stage does, the
 filename says which thing. `run.sh` checks this after every figure, and warns
@@ -53,7 +53,7 @@ about figures in `figures/` that no step produces.
 is prefixed `arlington_`.
 
 **If you can run it, it lives with the code. If you can only read it, it lives
-in `docs/`.** `build/assumptions.py` holds the mechanism of the two open
+in `docs/`.** `code/build/assumptions.py` holds the mechanism of the two open
 questions; the reasoning is in `docs/questions.md`. Code files carry a pointer,
 not an argument.
 
@@ -66,7 +66,7 @@ and that is deliberate — see above.
 **`data/raw/` and `data/transcribed/by_human/` are read-only.** They are the files as
 received. Never edit, rename, clean or "fix" anything inside them — including
 the spacing in the `aapi_m embers` header, which is corrected in
-`build/board_seats.py`.
+`code/build/board_seats.py`.
 
 **Nothing reads `data/transcribed/`.** OCR misreads digits, so a number leaves
 that folder the way it would without it: a person reads the scan and keys it
@@ -85,10 +85,10 @@ opposite, and we follow it elsewhere. These are small CSVs, and committing them
 means a cleaning decision shows up as a reviewable diff — you can see exactly
 which numbers moved and by how much. That matters while those are open.
 
-**Visual conventions live in `analysis/style.py`.** Colors, fonts and figure
+**Visual conventions live in `code/analysis/style.py`.** Colors, fonts and figure
 dimensions are imported, never redeclared, so a palette change is one edit.
 
-**`run.sh` never touches the network.** Fetching a source is `fetch/`, run on
+**`run.sh` never touches the network.** Fetching a source is `code/fetch/`, run on
 demand, which saves into `data/raw/` and commits the file. The build then
 reads only what is committed.
 
@@ -97,13 +97,13 @@ key, no connection. And an API can change its answer, so a live call could move
 a figure between runs with nothing in the repo to explain it; a committed file
 is the same evidence standard as a scanned page.
 
-**Each code folder writes one data layer.** `fetch/` writes `data/raw/`,
-`transcribe/` writes `data/transcribed/`, `build/` writes `data/clean/`,
-`analysis/` writes `figures/`. `run.sh` runs the last two every time; the
+**Each code folder writes one data layer.** `code/fetch/` writes `data/raw/`,
+`code/transcribe/` writes `data/transcribed/`, `code/build/` writes `data/clean/`,
+`code/analysis/` writes `figures/`. `run.sh` runs the last two every time; the
 first two run on demand — the network for one, a slow Mac-only OCR for the
 other — and their output is committed, so the build is reproducible without
-either. A script is named for what it produces: `fetch/elections.py`,
-`transcribe/novack_terms.py`.
+either. A script is named for what it produces: `code/fetch/elections.py`,
+`code/transcribe/novack_terms.py`.
 
 **`data/` holds what we take numbers out of.** A source consulted only to
 settle a question — a boundary history, a news article, a methods note — is
@@ -115,12 +115,12 @@ for the prose and the data, so a footnote in the report and a cell in a table
 name the same document. Entries are built from the document in hand, never from
 memory; what is missing from the copy we hold goes in `annotation`, which
 biblatex does not print. Four values are not citekeys - `keena-workbook`,
-`assumed`, `derived`, `unsourced` - and `build/citekeys.py` says what each one
+`assumed`, `derived`, `unsourced` - and `code/build/citekeys.py` says what each one
 admits to. Anything else stops the build.
 
-**Guards that prevent silent wrongness get a test.** `tests.py` reintroduces
+**Guards that prevent silent wrongness get a test.** `code/tests.py` reintroduces
 the specific mistake each guard exists to catch and asserts the build refuses,
-so editing `build/` cannot quietly disable a check. `bash run.sh` runs it first;
+so editing `code/build/` cannot quietly disable a check. `bash run.sh` runs it first;
 it takes under a second.
 
 Only silent failures are worth this. A figure script saving under the wrong
@@ -129,7 +129,7 @@ failing would show 4,596 in a figure and tell nobody.
 
 **Fail loudly.** A script that cannot find its input, or whose numbers stop
 tying out, should raise — not carry on and emit a plausible-looking figure with
-wrong values. `build/residents.py` asserts its derived columns still agree with
+wrong values. `code/build/residents.py` asserts its derived columns still agree with
 the figures they derive from, and `run.sh` fails if a script does not write the
 figure it is named for.
 
@@ -144,7 +144,7 @@ bash run.sh residents_per # build, then only matching figures
 ```
 
 Invoke through `bash`, not `./run.sh` — the reason is at the top of `run.sh`.
-`fetch/` and `transcribe/` also need `pymupdf`; the OCR needs a Mac. Neither
+`code/fetch/` and `code/transcribe/` also need `pymupdf`; the OCR needs a Mac. Neither
 is required to rebuild.
 
 ## Open questions
@@ -154,10 +154,10 @@ moment they arise, with an owner — not carried in your head or in chat. When
 one is answered, write the answer into the file, not just the fix into the
 code.
 
-Two are currently unresolved and deliberately **not** settled in `build/`: the
+Two are currently unresolved and deliberately **not** settled in `code/build/`: the
 1970/1990 category overlap, and whether not-reported reads as zero. Both are
 in docs/questions.md.
-Both live in `build/assumptions.py`, applied by name in each figure, so the
+Both live in `code/build/assumptions.py`, applied by name in each figure, so the
 current disagreement between figures is greppable rather than buried. When they
 are settled, the assumption moves into the relevant build step and the function
 is deleted.

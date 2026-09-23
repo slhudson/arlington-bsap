@@ -1,11 +1,11 @@
 """Virginia elections database -> data/raw/va_dept_of_elections/county_board_2021-2026.csv
 
 NOT part of `bash run.sh`, deliberately. The build never touches the network:
-see fetch/census.py for why.
+see code/fetch/census.py for why.
 
 Run by hand when a newer election is needed:
 
-    .venv/bin/python fetch/elections.py
+    .venv/bin/python code/fetch/elections.py
 
 The county's own candidate history stops at the 2021 election, and the county
 no longer publishes it. From 2022 the source is the Department of Elections'
@@ -25,7 +25,7 @@ import pathlib
 import urllib.parse
 import urllib.request
 
-ROOT = pathlib.Path(__file__).resolve().parents[1]
+ROOT = pathlib.Path(__file__).resolve().parents[2]
 OUT = ROOT / "data" / "raw" / "va_dept_of_elections" / "county_board_2021-2026.csv"
 
 ENDPOINT = "https://va2.elstats.civera.com/api/download_search.csv"

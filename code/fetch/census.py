@@ -10,7 +10,7 @@ file cannot, which is the standard the scanned volumes are held to.
 
 Run by hand when a year is needed:
 
-    .venv/bin/python fetch/census.py
+    .venv/bin/python code/fetch/census.py
 
 Needs CENSUS_API_KEY in .env at the repository root. That file is gitignored.
 
@@ -35,7 +35,7 @@ import pathlib
 import urllib.parse
 import urllib.request
 
-ROOT = pathlib.Path(__file__).resolve().parents[1]
+ROOT = pathlib.Path(__file__).resolve().parents[2]
 RAW = ROOT / "data" / "raw" / "us_census_bureau"
 STATE, COUNTY = "51", "013"   # Virginia, Arlington County
 

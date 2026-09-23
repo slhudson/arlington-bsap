@@ -39,7 +39,7 @@ The figures currently disagree with each other:
   discrepancy in a comment
 
 Both are defensible; they cannot both appear in the same report. Whatever is
-decided belongs in `build/` so every figure inherits it.
+decided belongs in `code/build/` so every figure inherits it.
 
 Working hypothesis, unconfirmed: the Census asks race and Hispanic origin as
 two separate questions, so a Hispanic resident also answers the race question
@@ -53,8 +53,8 @@ Common alternatives: drop it from the stack and show it as a separate line, or
 use the Census's non-Hispanic race categories so the four really are mutually
 exclusive.
 
-**In code:** `rescale_to_100()` in `build/assumptions.py`, applied by
-`analysis/residents_by_race_share.py`. `analysis/residents_by_race.py` applies
+**In code:** `rescale_to_100()` in `code/build/assumptions.py`, applied by
+`code/analysis/residents_by_race_share.py`. `code/analysis/residents_by_race.py` applies
 nothing and plots as reported.
 
 **Resolved for 1990, from the source the workbook itself cites.** The Census
@@ -94,7 +94,7 @@ census tables pulled directly, or a secondary source? If directly from the
 Census, the double-count explanation above is almost certainly right.
 
 Until he answers, both scripts keep their current behaviour and neither
-treatment moves into `build/`. Whatever he says, we can live with — the cost of
+treatment moves into `code/build/`. Whatever he says, we can live with — the cost of
 waiting is low and the change is a few lines.
 
 ### Q2. Should not-reported be plotted as zero?
@@ -114,9 +114,9 @@ Recommendation when this is taken up: follow the log chart, which starts each
 line the year the category is first reported, and add a caption note giving
 those years.
 
-**In code:** `not_reported_as_zero()` in `build/assumptions.py`, applied by
-`analysis/residents_by_race.py` and `analysis/residents_by_race_share.py`.
-`analysis/residents_by_race_log.py` applies nothing, so its lines begin when
+**In code:** `not_reported_as_zero()` in `code/build/assumptions.py`, applied by
+`code/analysis/residents_by_race.py` and `code/analysis/residents_by_race_share.py`.
+`code/analysis/residents_by_race_log.py` applies nothing, so its lines begin when
 each category is first reported.
 
 ---

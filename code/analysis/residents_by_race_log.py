@@ -1,6 +1,6 @@
 """Residents by race/ethnicity, log-scale lines, 1870-2020.
 
-No assumption from build/assumptions.py is applied here: blanks stay missing,
+No assumption from code/build/assumptions.py is applied here: blanks stay missing,
 so each line begins the year its category is first reported. That is the
 opposite of the stacked figures - see docs/questions.md.
 

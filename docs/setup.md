@@ -39,17 +39,17 @@ Everything is built by one command, `bash run.sh`, from files that are
 committed in the repository. Data flows downward through four folders of
 code, each writing one folder of data:
 
-- `fetch/` downloads a published source and saves it, unchanged, into
+- `code/fetch/` downloads a published source and saves it, unchanged, into
   `data/raw/`. It is run only when a new source is needed; the downloaded
   file is committed, so nobody else needs to fetch it again.
-- `transcribe/` reads the scanned documents in `data/raw/` into tables in
+- `code/transcribe/` reads the scanned documents in `data/raw/` into tables in
   `data/transcribed/`. Also run only when something new needs reading, and
   its output is committed. (`data/transcribed/by_human/` holds tables that
   were typed in by a person rather than read by a program.)
-- `build/` turns the raw and transcribed files into the clean tables in
+- `code/build/` turns the raw and transcribed files into the clean tables in
   `data/clean/`. This is where every decision about what a number *is* gets
   made — what a blank means, which of two conflicting figures to trust.
-- `analysis/` draws the figures from `data/clean/` into `figures/`. One
+- `code/analysis/` draws the figures from `data/clean/` into `figures/`. One
   script per figure. These scripts decide how a number is shown, and they
   cannot see anything above `data/clean/`, so a figure can never quietly
   change a value.
@@ -112,6 +112,6 @@ what to send them, rather than working around it.
 Once `bash run.sh` works, the setup is done. For orientation, a good first
 thing to do is to open Claude Code inside the repository folder and ask it
 to walk through `README.md` and `CLAUDE.md`; then change something small in
-one figure — `analysis/` has one script per figure, named for the figure it
-produces, and `analysis/style.py` holds the colours and fonts they share —
+one figure — `code/analysis/` has one script per figure, named for the figure it
+produces, and `code/analysis/style.py` holds the colours and fonts they share —
 and rebuild, to see the loop work end to end.

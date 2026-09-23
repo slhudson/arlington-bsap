@@ -3,7 +3,7 @@
     .venv/bin/python tests.py
 
 The build already refuses bad data. What these test is that it still refuses -
-so that editing build/ cannot quietly disable a check. Each test reintroduces
+so that editing code/build/ cannot quietly disable a check. Each test reintroduces
 the specific mistake a guard exists to catch and asserts the build stops.
 
 Only guards whose failure would be *silent* are worth this. If a figure script

@@ -25,15 +25,15 @@ BUILD=(residents board_members board_seats)
 FIGURES=(residents_by_race residents_by_race_share residents_by_race_log
          residents_per_seat board_seats)
 
-# The guards live in build/. These prove the guards still fire, so editing
+# The guards live in code/build/. These prove the guards still fire, so editing
 # build/ cannot quietly disable one. Under a second; run first so a broken
 # check is known before anything is written.
 echo "tests"
-"$PY" tests.py | sed 's/^/  /'
+"$PY" code/tests.py | sed 's/^/  /'
 
 echo "build"
 for s in "${BUILD[@]}"; do
-  (cd build && ../"$PY" "$s.py")
+  (cd code/build && ../../"$PY" "$s.py")
 done
 
 echo "analysis"
@@ -51,7 +51,7 @@ for s in "${selected[@]}"; do
   # is not enough: a previous run's copy would still be sitting there, so a
   # script saving under the wrong name would pass while leaving a stale figure.
   rm -f "figures/pdf/$s.pdf" "figures/png/$s.png"
-  (cd analysis && ../"$PY" "$s.py") >/dev/null
+  (cd code/analysis && ../../"$PY" "$s.py") >/dev/null
   for kind in pdf png; do
     [ -f "figures/$kind/$s.$kind" ] || {
       echo "FAILED"

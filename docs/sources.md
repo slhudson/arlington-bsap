@@ -284,7 +284,7 @@ checkable. Twenty-nine of the thirty-two flagged rows already carry a date;
 three do not, and are a question for Alex.
 The rule itself is in questions.md.
 
-All three checks that could be made structural now run in `build/` and were
+All three checks that could be made structural now run in `code/build/` and were
 verified by breaking them deliberately.
 
 ## Race and gender of Board members
@@ -393,7 +393,7 @@ points to the state.
 **Virginia Department of Elections.** *Historical Elections Database.*
 `historical.elections.virginia.gov`. Every County Board contest from 2021 on,
 by precinct and vote channel, saved as the database's own CSV in
-`data/raw/va_dept_of_elections/` by `fetch/elections.py`. Cited by contest id,
+`data/raw/va_dept_of_elections/` by `code/fetch/elections.py`. Cited by contest id,
 which is the database's own key for a race.
 
 — Between them these cover Board elections for the whole period. **Both are

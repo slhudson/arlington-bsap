@@ -18,7 +18,7 @@ from data/raw/us_census_bureau/. They were checked against the workbook first an
 every year.
 
 **2000-2020 totals come from the Bureau's own data files**, fetched by
-fetch/census.py into data/raw/us_census_bureau/. No transcription step, so no
+code/fetch/census.py into data/raw/us_census_bureau/. No transcription step, so no
 reading error to make.
 
 **The workbook still supplies** the race and ethnicity figures for 1900-2020
@@ -187,7 +187,7 @@ def build() -> pd.DataFrame:
         d.loc[m, "total"] = published
 
     # 2000-2020 come from the Bureau's own data files, fetched by
-    # fetch/census.py. No transcription step, so no reading error.
+    # code/fetch/census.py. No transcription step, so no reading error.
     # (year, race table, its total variable) - all three differ by census.
     for year, race_table, total in ((2000, "P003", "P003001"),
                                     (2010, "P3", "P003001"),
