@@ -21,8 +21,8 @@ term. Vacancies are recorded in docs/sources.md instead.
 
 Sources:
 
-  O'Leary (2012)   1870-1915  who held each magisterial district, by election
-  Novack (1994)    1930-1994  terms of service, with mid-term departures
+  oleary2010       1870-1915  who held each magisterial district, by election
+  novack1994       1930-1994  terms of service, with mid-term departures
 
 Gaps left empty rather than assumed: 1916-1929, and 1995 onward.
 """
@@ -30,6 +30,7 @@ import re
 
 import pandas as pd
 
+import citekeys
 from files import RAW, TRANSCRIBED
 
 BY_CLAUDE = TRANSCRIBED / "by_claude"
@@ -142,7 +143,7 @@ def oleary_terms():
                 yield {"name": who, "district": r.district,
                        "start_year": y0, "start_month": m0,
                        "end_year": y1, "end_month": m1,
-                       "source": f"O'Leary (2012) p.{r.page}", "note": base}
+                       "source": f"{citekeys.OLEARY} p.{r.page}", "note": base}
 
 
 def surname(name):
@@ -361,8 +362,8 @@ def _novack_spans():
                     "start_month": first_month if i == 0 else 1,
                     "end_year": open_end_year if (open_ended and is_last) else final,
                     "end_month": 12 if (open_ended and is_last) else (last_month if is_last else 12),
-                    "source": f"Novack (1994) p.{r.page}"
-                              + ("; term boundaries from Arlington County (2021)"
+                    "source": f"{citekeys.NOVACK} p.{r.page}"
+                              + (f"; term boundaries from {citekeys.ARLINGTON_ELECTIONS}"
                                  if cuts or (open_ended and is_last) else ""),
                     "note": " ".join(filter(None, [arrive_note if i == 0 else "",
                                                    depart_note if is_last else ""])),
@@ -464,8 +465,8 @@ def contests():
 
 def cite(c):
     if c["page"] is not None:
-        return f"Arlington County (2021) p.{c['page']}"
-    return f"Virginia Department of Elections (2026) contest {c['contest']}"
+        return f"{citekeys.ARLINGTON_ELECTIONS} p.{c['page']}"
+    return f"{citekeys.VA_ELECTIONS} contest {c['contest']}"
 
 
 def election_terms(earlier: pd.DataFrame):

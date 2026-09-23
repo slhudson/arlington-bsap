@@ -225,13 +225,25 @@ them; `docs/sources.md` records where the two agree and where they do not.
 
 ## clean/
 
+**Every source column holds a citekey from `paper/sources.bib`**, so a cell in
+a table and a footnote in the report name the same entry. `bash run.sh` refuses
+to write a file whose source column names an entry that is not there.
+
+Four values are not citekeys, and each says something different about what is
+missing. `keena-workbook` - a real claim whose evidence Alex did not record.
+`assumed` - no claim existed and the build supplied one. `derived` - computed
+from another table in `clean/`, whose rows carry the citations. `unsourced` -
+the general case of the first. Every build prints how many of each, so the
+numbers are in front of whoever is working; `build/citekeys.py` says why they
+are kept apart.
+
 Written by `build/`, read by `analysis/`. Never edited by hand; `bash run.sh`
 overwrites it. Committed even though it is generated, so that a change to a
 cleaning decision shows up as a reviewable diff — you can see which numbers
 moved and by how much.
 
-`residents.csv` — census population by year, with a `source` column naming
-the document behind each row, the Board's seat count (`at_large`) and the
+`residents.csv` — census population by year, with `total_source` and
+`race_source` columns naming the document behind each, the Board's seat count (`at_large`) and the
 residents-per-seat and cube-root columns the figures plot.
 
 `board_members.csv` — one row per person per term, 1870 through 2026: name,

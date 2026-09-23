@@ -335,8 +335,26 @@ questions.md.
 
 ## Works cited
 
-Prose sources consulted to settle a question. They are cited here rather than
-saved into `data/`, which holds only material we take numbers out of.
+Every source named on this page has an entry in `paper/sources.bib`, which the
+prose and the data share: a `source` cell in `data/clean/` holds the same
+citekey a footnote in the report will. `bash run.sh` refuses to build if a cell
+names an entry that is not there, so a number that cannot be traced to a
+document stops the build rather than reaching a figure.
+
+Three entries are marked provisional in their annotations, because the excerpt
+we hold carries no front matter: the 1880 and 1890 volumes, whose identity is
+inferred from the filename, and working paper POP-TWPS0076. That is the open
+question below, now visible in the bibliography as well as in prose.
+
+Two details were corrected against the documents while the entries were built.
+**O'Leary's electoral history is dated March 2010** in its own text; the 2012
+previously carried in the data was the PDF file's creation date. And the
+county's compilation is titled **Arlington County Election Results**;
+"Candidate History, 1920-Present" was the website's link text.
+
+The sources below are consulted to settle a question rather than to take
+numbers from. They are cited here rather than saved into `data/`, which holds
+only material we take numbers out of.
 
 **City of Alexandria.** *A History of the Boundaries of the City of Alexandria,
 Virginia: 1749-2024.*
@@ -428,4 +446,6 @@ judgement, so they are the easiest to hand over.
    only (see questions.md).
 
 Record each source as you go — the point is that every coded cell can be
-traced.
+traced. A new source means an entry in `paper/sources.bib`, built from the
+document rather than from memory, and the citekey written into the `source`
+cell it backs. Until then the cell says `unsourced`, and every build counts it.

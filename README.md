@@ -15,7 +15,7 @@ fetch/       -> data/raw/          published sources, saved as published
 transcribe/  -> data/transcribed/  read off the scans; by_human/ is hand-keyed
 build/       -> data/clean/        every decision about what a number is
 analysis/    -> figures/           how a number is shown; pdf/ and png/
-paper/                             the prose, synced with Overleaf
+paper/                             the prose and sources.bib, via Overleaf
 ```
 
 `bash run.sh` runs the tests, then `build/`, then `analysis/`. The first two
@@ -53,8 +53,14 @@ rebuild.
 ## Writing
 
 Prose is written in Overleaf, in the project linked to this repository.
-Overleaf syncs the whole repo; only `paper/arlington-bsap.tex` and
-`figures/pdf/` matter for compiling.
+Overleaf syncs the whole repo; only `paper/arlington-bsap.tex`,
+`paper/sources.bib` and `figures/pdf/` matter for compiling.
+
+**Citations come from `paper/sources.bib`**, which is also where the `source`
+columns in `data/clean/` point. Cite with `\autocite[6]{oleary2010}`; the key
+is the same one the data uses, so a claim in the prose and a cell in a table
+name the same document. The bibliography is set up but dormant - the `.tex`
+says how to turn it on once the first citation is written.
 
 **Pull from GitHub before a writing session, push when you finish.** In
 Overleaf the control is the **Integrations** tab in the icon rail down the
@@ -74,6 +80,7 @@ silently go stale.
 | `docs/questions.md` | Open methods questions, each with an owner; answered in place |
 | `docs/figures.md` | Why each figure takes the form it does |
 | `docs/setup.md` | Getting a machine set up to build; written for a collaborator joining |
+| `paper/sources.bib` | Every source, cited by key from both the prose and `data/clean/` |
 
 Open questions are logged as they arise and answered in place, so the reasoning
 survives alongside the fix.

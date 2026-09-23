@@ -110,6 +110,14 @@ settle a question — a boundary history, a news article, a methods note — is
 cited under Works cited in `docs/sources.md`, not downloaded into `data/raw/`.
 The test is whether a figure derives from it.
 
+**Every source column holds a citekey from `paper/sources.bib`.** One registry
+for the prose and the data, so a footnote in the report and a cell in a table
+name the same document. Entries are built from the document in hand, never from
+memory; what is missing from the copy we hold goes in `annotation`, which
+biblatex does not print. Four values are not citekeys - `keena-workbook`,
+`assumed`, `derived`, `unsourced` - and `build/citekeys.py` says what each one
+admits to. Anything else stops the build.
+
 **Guards that prevent silent wrongness get a test.** `tests.py` reintroduces
 the specific mistake each guard exists to catch and asserts the build refuses,
 so editing `build/` cannot quietly disable a check. `bash run.sh` runs it first;

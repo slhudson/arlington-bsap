@@ -24,27 +24,37 @@ reading error to make.
 **The workbook still supplies** the race and ethnicity figures for 1900-2020
 and the seat columns. Each of those is a candidate for
 the same treatment: find the published source, transcribe it, and stop reading
-the workbook for it. The `source` column names the document behind every row,
-so what is left to do is visible in the data.
+the workbook for it.
+
+Which is why there are two source columns rather than one. `total_source`
+names the document the year's total came from; `race_source` names where its
+race and ethnicity figures came from, which before 1900 is the same volume and
+after it is Alex's workbook, whose own source is not recorded. One column
+saying `forstall1996` beside race figures that document never supplied would
+be a false citation - so what is left to do stays visible in the data.
 
 Values are otherwise written as reported. The contested treatments are not
 applied here; see docs/questions.md.
 """
 import pandas as pd
 
+import citekeys
 from files import RAW, RESIDENTS_XLSX, TRANSCRIBED, numeric, write
 
 # Which document each year's population total comes from. Named here rather
 # than decided by a rule, so it can be read off rather than inferred, and so a
 # change of source is a visible edit.
 TOTAL_SOURCE = {
-    1870: "census volumes", 1880: "census volumes", 1890: "census volumes",
-    1900: "census county series", 1910: "census county series",
-    1920: "census county series", 1930: "census county series",
-    1940: "census county series", 1950: "census county series",
-    1960: "census county series", 1970: "census county series",
-    1980: "census county series", 1990: "census county series",
-    2000: "census data file", 2010: "census data file", 2020: "census data file",
+    1870: citekeys.CENSUS_1870,
+    1880: citekeys.CENSUS_1880,
+    1890: citekeys.CENSUS_1890,
+    1900: citekeys.CENSUS_COUNTY_SERIES, 1910: citekeys.CENSUS_COUNTY_SERIES,
+    1920: citekeys.CENSUS_COUNTY_SERIES, 1930: citekeys.CENSUS_COUNTY_SERIES,
+    1940: citekeys.CENSUS_COUNTY_SERIES, 1950: citekeys.CENSUS_COUNTY_SERIES,
+    1960: citekeys.CENSUS_COUNTY_SERIES, 1970: citekeys.CENSUS_COUNTY_SERIES,
+    1980: citekeys.CENSUS_COUNTY_SERIES, 1990: citekeys.CENSUS_COUNTY_SERIES,
+    2000: citekeys.CENSUS_DATA_FILE, 2010: citekeys.CENSUS_DATA_FILE,
+    2020: citekeys.CENSUS_DATA_FILE,
 }
 
 
@@ -158,7 +168,7 @@ def build() -> pd.DataFrame:
     # Take 1900-1990 totals from the published Census county series rather than
     # from the workbook. They were checked against it and matched every year,
     # so there is no reason to go on reading them second-hand.
-    d["source"] = d["year"].map(TOTAL_SOURCE)
+    d["total_source"] = d["year"].map(TOTAL_SOURCE)
     series = table("by_claude/us_census_bureau/censusgov_pop1790-1990_p177_counties_virginia_arlington.csv").iloc[0]
     for year in range(1900, 2000, 10):
         m = d["year"] == year
@@ -190,9 +200,14 @@ def build() -> pd.DataFrame:
         m = d["year"] == year
         for col in ("total", "white", "black"):
             d.loc[m, col] = r[col]
-        d.loc[m, "source"] = "census volumes"
+        d.loc[m, "total_source"] = TOTAL_SOURCE[year]
 
     # Seat-derived columns must be recomputed for any year whose total moved.
+    # The race and ethnicity figures have their own provenance: derived from
+    # the volumes before 1900, and taken from the workbook after it.
+    d["race_source"] = [TOTAL_SOURCE[y] if y < 1900 else citekeys.KEENA
+                        for y in d["year"]]
+
     d["residents_per_seat"] = d["total"] / d["board_seats"]
     d["cube_root_p"] = d["total"] ** (1 / 3)
     d["cube_root_resident_ratio"] = d["total"] ** (2 / 3)

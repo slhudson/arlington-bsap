@@ -21,6 +21,7 @@ roster has months.
 """
 import pandas as pd
 
+import citekeys
 from files import BOARD_SEATS_XLSX, CLEAN, numeric, write
 
 COLUMNS = ["year", "white", "black", "hisp", "aapi", "men", "women"]
@@ -94,11 +95,11 @@ def build() -> pd.DataFrame:
     by_gender = held.pivot_table(index="year", columns="gender", values="months", aggfunc="sum", fill_value=0) / 12
     built = by_race.join(by_gender).reindex(columns=COLUMNS[1:], fill_value=0.0).reset_index()
     built = built[built.year <= LAST_YEAR]
-    built["source"] = "board_members"
+    built["source"] = citekeys.DERIVED
 
     delivered = workbook()
     fill = delivered[delivered.year.isin(WORKBOOK_YEARS)].copy()
-    fill["source"] = "Keena workbook"
+    fill["source"] = citekeys.KEENA
 
     d = pd.concat([built[~built.year.isin(WORKBOOK_YEARS)], fill]).sort_values("year").reset_index(drop=True)
     years = list(d.year)
@@ -110,7 +111,7 @@ def build() -> pd.DataFrame:
     total = d[["white", "black", "hisp", "aapi"]].sum(axis=1)
     over = d.loc[total - seats > 1e-9, "year"]
     assert over.empty, f"more seat-years than seats in {list(over)}"
-    short = d.loc[(seats - total > 1e-9) & (d.source == "board_members"), "year"]
+    short = d.loc[(seats - total > 1e-9) & (d.source == citekeys.DERIVED), "year"]
     # 1870: the Board began in May. 1873: Washington district vacant from the
     # May election to December. 1990: Milliken resigned in February and the
     # special election was in May.

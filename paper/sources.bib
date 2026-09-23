@@ -1,0 +1,187 @@
+% Bibliography for the Arlington BSaP report.
+%
+% One registry, shared by the prose and the data. The `source` column in
+% data/clean/ holds a citekey from this file, so a claim in the report and a
+% cell in a table point at the same entry. tests.py checks that every citekey
+% used in data/clean/ exists here.
+%
+% Every entry is built from the document itself, not from memory. Where a
+% detail could not be read off the document in hand, the entry says so in its
+% `note` rather than carrying a plausible guess. docs/sources.md holds the
+% prose about what each source can and cannot support.
+%
+% `annotation` holds what we know about the document as evidence - what is
+% missing from the copy we hold, what its compiler warns about. biblatex does
+% not print it, so it stays in the repository for whoever works on the sources
+% next, and the report's footnotes carry only the caveats a reader needs.
+%
+% Citekeys are lowercase author + year and are PINNED in Zotero: editing a
+% field must never silently rename one, because the CSVs cite by key.
+
+% ---------------------------------------------------------------- the roster
+
+@report{oleary2010,
+  author      = {O'Leary, Frank},
+  title       = {The Electoral History of That Part of Alexandria County Now
+                 Known as Arlington County, 1870--1920},
+  institution = {Office of the Treasurer, Arlington County, Virginia},
+  date        = {2010-03},
+  version     = {2},
+  annotation  = {Signed and dated March 2010 in the text; the PDF file held in
+                 data/raw/ was created in May 2012 and is marked Version 2.
+                 Compiled from the Alexandria Gazette and other newspapers;
+                 O'Leary states that party affiliation is inferred and that
+                 early record-keeping was ragged and incomplete},
+}
+
+@report{arlingtonelections2021,
+  author      = {{Arlington County Office of Voter Registration and Elections}},
+  title       = {Arlington County Election Results},
+  institution = {Arlington County, Virginia},
+  date        = {2021-11-18},
+  annotation  = {The document's own title; the county's website called it
+                 ``Candidate History, 1920--Present'', which is how the file in
+                 data/raw/ is named. PDF metadata names Linda Lindberg. States
+                 that it was compiled from Electoral Board records and
+                 historical news sources, that early vote tallies are
+                 incomplete, and that corrections are welcome. The county has
+                 since taken it down},
+}
+
+@article{novack1994,
+  author      = {Novack, Norman S.},
+  title       = {Six Decades of Arlington Leadership},
+  journaltitle = {Arlington Historical Magazine},
+  date        = {1994-10},
+  pages       = {61--67},
+  annotation  = {Volume and issue number are not printed on the pages held},
+}
+
+@online{vaelections,
+  author      = {{Virginia Department of Elections}},
+  title       = {Historical Elections Database},
+  url         = {https://historical.elections.virginia.gov},
+  urldate     = {2026-09-22},
+  annotation  = {Cited by contest id, the database's own key for a race},
+}
+
+% -------------------------------------------------------------- the census
+
+@book{forstall1996,
+  editor      = {Forstall, Richard L.},
+  title       = {Population of States and Counties of the United States:
+                 1790--1990},
+  publisher   = {U.S. Bureau of the Census, Population Division},
+  location    = {Washington, DC},
+  date        = {1996},
+  annotation  = {Cover carries no date; 1996 is taken from the report number
+                 PB96-119060 printed on it. Only the title page and the
+                 Virginia pages are held in data/raw/},
+}
+
+@book{walker1872,
+  author      = {Walker, Francis A.},
+  title       = {The Statistics of the Population of the United States},
+  subtitle    = {Ninth Census, Volume I},
+  publisher   = {Government Printing Office},
+  location    = {Washington, DC},
+  date        = {1872},
+  annotation  = {Read from the title page of the scan held in data/raw/},
+}
+
+@book{census1880,
+  author      = {{U.S. Census Bureau}},
+  title       = {Tenth Census of the United States, 1880},
+  date        = {1880},
+  annotation  = {PROVISIONAL. The excerpt held carries interior pages only, so
+                 the volume cannot be identified from the document itself; the
+                 title above is inferred from the filename. See
+                 docs/questions.md, ``where the scanned volumes came from''},
+}
+
+@book{census1890,
+  author      = {{U.S. Census Bureau}},
+  title       = {Eleventh Census of the United States, 1890},
+  date        = {1890},
+  annotation  = {PROVISIONAL, on the same footing as census1880: interior pages
+                 only, volume inferred from the filename},
+}
+
+@report{censusbureau1990twps76,
+  author      = {{U.S. Bureau of the Census}},
+  title       = {Race and Hispanic Origin for Selected Large Cities and Other
+                 Places: Earliest Census to 1990},
+  type        = {Population Division Working Paper},
+  number      = {POP-TWPS0076},
+  institution = {U.S. Bureau of the Census},
+  date        = {1990},
+  annotation  = {PROVISIONAL. The excerpt held is the Virginia table only and
+                 carries no front matter; title read from the table header,
+                 number and date from the filename and the workbook that cites
+                 it},
+}
+
+@online{censusapi,
+  author      = {{U.S. Census Bureau}},
+  title       = {Decennial Census Summary File and Redistricting Data},
+  url         = {https://api.census.gov/data},
+  urldate     = {2026-09-22},
+  annotation  = {2000 and 2010 Summary File 1, 2020 Redistricting Data (P.L.
+                 94-171), fetched by fetch/census.py and saved whole in
+                 data/raw/},
+}
+
+% ------------------------------------------------- race and gender of members
+
+@unpublished{hjerpe2021,
+  author      = {Hjerpe, Grace},
+  title       = {A History of Representation on the Arlington County Board,
+                 1870--Present},
+  date        = {2021-07-15},
+  annotation  = {Unpublished research, shared with the authors as a Google
+                 Doc. Names the five Black members of the Reconstruction-era
+                 board, reproduces the 1880 manuscript census records that
+                 identify them, and tabulates every Board member by district
+                 from 1871 to 1888},
+}
+
+@misc{census1880schedule,
+  title       = {1880 U.S. Census, population schedule, Jefferson Township,
+                 Alexandria County, Virginia},
+  date        = {1880},
+  annotation  = {Reproduced in \cite{hjerpe2021}, appendices 1--3. Not yet
+                 consulted directly; when it is, this note goes and the entry
+                 stands on its own},
+}
+
+% ------------------------------------------- consulted to settle a question
+
+@article{rose1964,
+  author      = {Rose, C. B.},
+  title       = {Annexation of a Portion of Arlington County by the City of
+                 Alexandria in 1915},
+  journaltitle = {Arlington Historical Magazine},
+  date        = {1964},
+  url         = {https://arlhist.org/wp-content/uploads/2017/02/1964-4-Annex.pdf},
+  urldate     = {2026-09-22},
+}
+
+@report{alexandria2024,
+  author      = {{City of Alexandria}},
+  title       = {A History of the Boundaries of the City of Alexandria,
+                 Virginia: 1749--2024},
+  institution = {City of Alexandria, Virginia},
+  date        = {2024},
+  url         = {https://alexandriava.gov/sites/default/files/2024-06/History
+                 %20of%20the%20Boundaries%20of%20Alexandria%201749-2024.pdf},
+  urldate     = {2026-09-22},
+}
+
+@misc{hudson2026,
+  author      = {Hudson, Sally},
+  title       = {Personal knowledge of a serving Board member},
+  date        = {2026},
+  annotation  = {Personal knowledge, recorded by one of the authors. Not a
+                 document; cited so that the basis of the coding is on the
+                 record rather than silently absent},
+}

@@ -8,8 +8,8 @@ first of three places that has something to say:
   1. data/transcribed/by_claude/board_demographics.csv - a source's own
      words about a named member, with a citation. The note carries the
      basis and the quotation.
-  2. Alex Keena's member workbook, 1932-2026, cited as "Keena workbook".
-  3. Nothing, in which case the source reads "default" and the member is
+  2. Alex Keena's member workbook, 1932-2026, cited as citekeys.KEENA.
+  3. Nothing, in which case the source reads citekeys.ASSUMED and the member is
      taken to be a white man. Only 1870-1931 falls through to this.
 
 Every attributed name must match a roster name exactly - a near-miss would
@@ -20,6 +20,7 @@ anything else rather than guess.
 import pandas as pd
 
 import board_roster
+import citekeys
 from files import BOARD_MEMBERS_XLSX, TRANSCRIBED, write
 
 BY_CLAUDE = TRANSCRIBED / "by_claude"
@@ -119,9 +120,9 @@ def build() -> pd.DataFrame:
                     att[field], att[field + "_source"], att[field + "_note"])
             elif wb is not None:
                 row[field], row[field + "_source"], row[field + "_note"] = (
-                    wb[field], "Keena workbook", "")
+                    wb[field], citekeys.KEENA, "")
             else:
-                row[field], row[field + "_source"], row[field + "_note"] = (default, "default", "")
+                row[field], row[field + "_source"], row[field + "_note"] = (default, citekeys.ASSUMED, "")
         rows.append(row)
 
     cols = ["name", "term_number", "district", "start_year", "start_month",

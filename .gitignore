@@ -6,4 +6,12 @@ paper/*.log
 paper/*.out
 paper/*.pdf
 paper/*.synctex.gz
+# biblatex/biber and latexmk leave these behind on a local compile. Overleaf
+# does its own build, so none of it belongs in the repository.
+paper/*.bbl
+paper/*.bcf
+paper/*.blg
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.run.xml
 .env

@@ -34,6 +34,8 @@ from pathlib import Path
 
 import pandas as pd
 
+import citekeys
+
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 RAW = DATA / "raw"          # published sources, self-citing
@@ -55,8 +57,15 @@ def write(frame, stem):
     """Write a built dataset to data/<stem>.csv, matching this script's name."""
     CLEAN.mkdir(parents=True, exist_ok=True)
     path = CLEAN / f"{stem}.csv"
+    counts = citekeys.check(
+        (v for c in frame.columns if c == "source" or c.endswith("_source")
+           for v in frame[c].astype(str)), path.name)
     frame.to_csv(path, index=False)
-    print(f"  {path.name:<22} {len(frame):>4} rows")
+    print(f"  {path.name:<22} {len(frame):>4} rows", end="")
+    # Printed on every build rather than left to be discovered: these are the
+    # rows whose basis is still a research errand, and they should fall.
+    said = ", ".join(f"{n} {k}" for k, n in counts.items() if n)
+    print(f"   [{said}]" if said else "")
 
 
 def numeric(df, cols):

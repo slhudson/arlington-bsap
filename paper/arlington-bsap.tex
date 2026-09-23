@@ -11,6 +11,18 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
 
+% Chicago notes-bibliography: a superscript number in the sentence, the full
+% citation in a footnote, and the bibliography at the end. Chosen over
+% author-date because this project's sources need caveats stated where the
+% claim is - that O'Leary infers party affiliation, that Hjerpe's work is
+% unpublished - and a footnote is the only place those fit.
+%
+% sources.bib is the registry the data shares: the `source` columns in
+% data/clean/ hold citekeys from it, and bash run.sh refuses to build if one
+% of them names an entry that is not here.
+\usepackage[notes, backend=biber]{biblatex-chicago}
+\addbibresource{sources.bib}
+
 % The paper includes the PDF versions; figures/png/ is for slides and email.
 \graphicspath{{../figures/pdf/}}
 
@@ -49,5 +61,12 @@
   so that category appears in the legend with no visible area.}
   \label{fig:board-seats}
 \end{figure}
+
+% Dormant until the first citation is written. biblatex lists only what is
+% cited, so uncommenting this now prints an empty heading. To start citing:
+% write \autocite[6]{oleary2010} in a sentence - the key comes from
+% sources.bib, which is the same registry the data/clean/ source columns use -
+% then uncomment the line below.
+% \printbibliography[title={Works cited}]
 
 \end{document}

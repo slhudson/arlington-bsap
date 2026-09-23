@@ -23,6 +23,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent / "build"))
 import board_members  # noqa: E402
 import board_roster  # noqa: E402
 import board_seats  # noqa: E402
+import citekeys  # noqa: E402
 import residents  # noqa: E402
 
 
@@ -171,6 +172,28 @@ def test_two_sources_disagreeing_on_race_is_a_finding():
         return patched
     err = breaks(board_members.pd, "read_csv", mangle, build=board_members.build)
     assert err and "disagree" in err, f"not caught: {err}"
+
+def test_a_citekey_with_no_bibliography_entry_is_rejected():
+    """A source cell naming an entry that does not exist in sources.bib is a
+    number in the report that cannot be traced to a document. That is exactly
+    the silent kind: the figure still draws, and the citation points nowhere."""
+    try:
+        citekeys.check(["novack1994 p.4", "oleary2O10 p.6"], "board_members.csv")
+        err = None
+    except AssertionError as e:
+        err = str(e)
+    assert err and "oleary2O10" in err, f"not caught: {err}"
+
+
+def test_a_placeholder_is_allowed_and_counted():
+    """The placeholders are the way to say "we do not know yet" without
+    stopping the build - draft work over an incomplete record needs one. They
+    must pass, and must come back counted so every run reports them."""
+    counts = citekeys.check(
+        [citekeys.ASSUMED, citekeys.ASSUMED, citekeys.UNSOURCED], "x.csv")
+    assert counts[citekeys.ASSUMED] == 2, counts
+    assert counts[citekeys.UNSOURCED] == 1, counts
+
 
 if __name__ == "__main__":
     tests = [(n, f) for n, f in sorted(globals().items()) if n.startswith("test_")]
