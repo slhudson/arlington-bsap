@@ -1,498 +1,222 @@
-year,last_name,first_name,middle_name,notes,chair,vice,appointed,resigned,died,removed,woman,white,black,hispanic_latino
-1932,Magruder,Elizabeth,B.,,0,0,0,0,0,0,1,1,0,0
-1932,Fellows,Harry,A., Chairman,1,0,0,0,0,0,0,1,0,0
-1932,Gall,John,C.,,0,0,0,0,0,0,0,1,0,0
-1932,Gosnell,Fred,A., Sr.,0,0,0,0,0,0,0,1,0,0
-1932,Kelley,Lyman,M.,,0,0,0,0,0,0,0,1,0,0
-1933,Magruder,Elizabeth,B.,,0,0,0,0,0,0,1,1,0,0
-1933,Fellows,Harry,A., Chairman,1,0,0,0,0,0,0,1,0,0
-1933,Gall,John,C., – Resigned 5/13/33,0,0,0,1,0,0,0,1,0,0
-1933,Garnett,Christopher,B.,– Appointed 12/11/33,0,0,1,0,0,0,0,1,0,0
-1933,Gosnell,Fred,A.," Sr. ,  Resigned 12/11/33",0,0,0,1,0,0,0,1,0,0
-1933,Kelley,Lyman,M.,,0,0,0,0,0,0,0,1,0,0
-1933,Smith,B.M.,, – Appointed 6/1/33,0,0,1,0,0,0,0,1,0,0
-1934,Magruder,Elizabeth,B.,,0,0,0,0,0,0,1,1,0,0
-1934,Fellows,Harry,A.,,0,0,0,0,0,0,0,1,0,0
-1934,Garnett,Christopher,B.,,0,0,0,0,0,0,0,1,0,0
-1934,Kelley,Lyman,M.," Chairman, Removed 11/3/34",1,0,0,0,0,1,0,1,0,0
-1934,McShea,W.A.E.,, – Appointed 11/8/34,0,0,1,0,0,0,0,1,0,0
-1934,Smith,B.M.,,"Acting chairman, 11/14/34 ",1,0,0,0,0,0,0,1,0,0
-1935,Magruder,Elizabeth,B.,,0,0,0,0,0,0,1,1,0,0
-1935,Fellows,Harry,A.,,0,0,0,0,0,0,0,1,0,0
-1935,Garnett,Christopher,B.,,0,0,0,0,0,0,0,1,0,0
-1935,McShea,W.A.E.,,,0,0,0,0,0,0,0,1,0,0
-1935,Smith,B.M.,, Chairman,1,0,0,0,0,0,0,1,0,0
-1936,Magruder,Elizabeth,B.,,0,0,0,0,0,0,1,1,0,0
-1936,Ames,W.P.,,,0,0,0,0,0,0,0,1,0,0
-1936,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
-1936,McShea,W.A.E.,,,0,0,0,0,0,0,0,1,0,0
-1936,Yeatman,George,M., Chairman,1,0,0,0,0,0,0,1,0,0
-1937,Magruder,Elizabeth,B.,,0,0,0,0,0,0,1,1,0,0
-1937,Ames,W.P.,,,0,0,0,0,0,0,0,1,0,0
-1937,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
-1937,McShea,W.A.E.,, Chairman,1,0,0,0,0,0,0,1,0,0
-1937,Yeatman,George,M.,,0,0,0,0,0,0,0,1,0,0
-1938,Magruder,Elizabeth,B., Chairman,1,0,0,0,0,0,1,1,0,0
-1938,Ames,W.P.,,,0,0,0,0,0,0,0,1,0,0
-1938,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
-1938,McShea,W.A.E.,,,0,0,0,0,0,0,0,1,0,0
-1938,Yeatman,George,M.,,0,0,0,0,0,0,0,1,0,0
-1939,Magruder,Elizabeth,B., Chairman,1,0,0,0,0,0,1,1,0,0
-1939,Campbell,Edmund,D.,,0,0,0,0,0,0,0,1,0,0
-1939,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
-1939,DeLashmutt,Basil,M.,,0,0,0,0,0,0,0,1,0,0
-1939,Lloyd,Leo,C.,,0,0,0,0,0,0,0,1,0,0
-1940,Magruder,Elizabeth,B., Chairman,1,0,0,0,0,0,1,1,0,0
-1940,Campbell,Edmund,D.,,0,0,0,0,0,0,0,1,0,0
-1940,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
-1940,DeLashmutt,Basil,M.,,0,0,0,0,0,0,0,1,0,0
-1940,Lloyd,Leo,C.,,0,0,0,0,0,0,0,1,0,0
-1941,Campbell,Edmund,D.,,0,0,0,0,0,0,0,1,0,0
-1941,Chew,F.,Freeland, Chairman,1,0,0,0,0,0,0,1,0,0
-1941,Magruder,Elizabeth,B.,,0,0,0,0,0,0,1,1,0,0
-1941,DeLashmutt,Basil,M.,,0,0,0,0,0,0,0,1,0,0
-1941,Lloyd,Leo,C.,,0,0,0,0,0,0,0,1,0,0
-1942,Magruder,Elizabeth,B.,,0,0,0,0,0,0,1,1,0,0
-1942,Campbell,Edmund,D., Chairman,1,0,0,0,0,0,0,1,0,0
-1942,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
-1942,DeLashmutt,Basil,M.,,0,0,0,0,0,0,0,1,0,0
-1942,Lloyd,Leo,C.,,0,0,0,0,0,0,0,1,0,0
-1943,Magruder,Elizabeth,B.,,0,0,0,0,0,0,1,1,0,0
-1943,Campbell,Edmund,D.,,0,0,0,0,0,0,0,1,0,0
-1943,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
-1943,DeLashmutt,Basil,M., Chairman,1,0,0,0,0,0,0,1,0,0
-1943,Lloyd,Leo,C.,,0,0,0,0,0,0,0,1,0,0
-1944,Magruder,Elizabeth,B.,,0,0,0,0,0,0,1,1,0,0
-1944,Campbell,Edmund,D.,,0,0,0,0,0,0,0,1,0,0
-1944,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
-1944,DeLashmutt,Basil,M.,,0,0,0,0,0,0,0,1,0,0
-1944,Lloyd,Leo,C., Chairman,1,0,0,0,0,0,0,1,0,0
-1945,Magruder,Elizabeth,B.,,0,0,0,0,0,0,1,1,0,0
-1945,Campbell,Edmund,D.,,0,0,0,0,0,0,0,1,0,0
-1945,Chew,F.,Freeland, Chairman,1,0,0,0,0,0,0,1,0,0
-1945,Delashmutt,Basil,M.,,0,0,0,0,0,0,0,1,0,0
-1945,Lloyd,Leo,C.,,0,0,0,0,0,0,0,1,0,0
-1946,Magruder,Elizabeth,B.,,0,0,0,0,0,0,1,1,0,0
-1946,Campbell,Edmund,D., Chairman,1,0,0,0,0,0,0,1,0,0
-1946,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
-1946,DeLashmutt,Basil,M.,,0,0,0,0,0,0,0,1,0,0
-1946,Lloyd,Leo,C.,,0,0,0,0,0,0,0,1,0,0
-1947,Magruder,Elizabeth,B.,"Resigned as Chairman 3/11/47, Resigned from Board 5/11/47",1,0,0,1,0,0,1,1,0,0
-1947,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
-1947,Cuppett,Harry,W.,Appointed 5/17/47,0,0,1,0,0,0,0,1,0,0
-1947,DeLashmutt,Basil,M.,Chairman – 3/11/47 – 12/31/47,1,0,0,0,0,0,0,1,0,0
-1947,Dugan,Daniel,A.,,0,0,0,0,0,0,0,1,0,0
-1947,Frisbie,Alfred,E., – Appointed 11/26/47,0,0,1,0,0,0,0,1,0,0
-1947,Lloyd,Leo,C., – Died 11/3/47,0,0,0,0,1,0,0,1,0,0
-1948,Cannon,Florence,,,0,0,0,0,0,0,1,1,0,0
-1948,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
-1948,DeLashmutt,Basil,M.,,0,0,0,0,0,0,0,1,0,0
-1948,Dugan,Daniel,A., Chairman,1,0,0,0,0,0,0,1,0,0
-1948,Frisbie,Alfred,E.,,0,0,0,0,0,0,0,1,0,0
-1949,Cannon,Florence,,,0,0,0,0,0,0,1,1,0,0
-1949,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
-1949,DeLashmutt,Basil,M., Chairman,1,0,0,0,0,0,0,1,0,0
-1949,Dugan,Daniel,A.,,0,0,0,0,0,0,0,1,0,0
-1949,Frisbie,Alfred,E.,,0,0,0,0,0,0,0,1,0,0
-1950,Cannon,Florence,,,0,0,0,0,0,0,1,1,0,0
-1950,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
-1950,Cox,Robert,W.,,0,0,0,0,0,0,0,1,0,0
-1950,Dugan,Daniel,A., Chairman,1,0,0,0,0,0,0,1,0,0
-1950,Frisbie,Alfred,E.,,0,0,0,0,0,0,0,1,0,0
-1951,Cannon,Florence,, Chairman,1,0,0,0,0,0,1,1,0,0
-1951,Chew,F.,Freeland,,0,0,0,0,0,0,0,1,0,0
-1951,Cox,Robert,W.,,0,0,0,0,0,0,0,1,0,0
-1951,Dugan,Daniel,A.,,0,0,0,0,0,0,0,1,0,0
-1951,Frisbie,Alfred,E.,,0,0,0,0,0,0,0,1,0,0
-1952,Buchholz,Leone,B., – Elected 11/4/52 – Took Office 11/10/52,0,0,0,0,0,0,1,1,0,0
-1952,Byrne,M.,Rex, – Appointed 9/18/52 – 11/10/52,0,0,1,0,0,0,0,1,0,0
-1952,Cox,Robert,W.," Chairman, Removed 9/17/52",1,0,0,0,0,1,0,1,0,0
-1952,Dean,Allan,L.,– Removed 9/17/52,0,0,0,0,0,1,0,1,0,0
-1952,Detwiler,Robert,H., – Elected 11/4/52 – Took Office 11/10/52,0,0,0,0,0,0,0,1,0,0
-1952,Dugan,Daniel,A., – Removed 9/17/52,0,0,0,0,0,1,0,1,0,0
-1952,Frisbie,Alfred,E.,,0,0,0,0,0,0,0,1,0,0
-1952,Frisbie,Alfred,E., Chairman,1,0,0,0,0,0,0,1,0,0
-1952,Frisbie,Alfred,E., Chairman,1,0,0,0,0,0,0,1,0,0
-1952,Kimel,Alvin,F.,Elected 11/4/52 – Took Office 11/10/52,0,0,0,0,0,0,0,1,0,0
-1952,Massey,Howard,R., – Appointed 11/10/52,0,0,1,0,0,0,0,1,0,0
-1952,Peck,Robert,A.," appointed 9/18/52 - 11/10/52, elected to full term",0,0,1,0,0,0,0,1,0,0
-1952,Tillema,John,A., – Appointed 9/18/52 – 11/10/52,0,0,1,0,0,0,0,1,0,0
-1953,Buchholz,Leone,B.,,0,0,0,0,0,0,1,1,0,0
-1953,Detwiler,Robert,H.,,0,0,0,0,0,0,0,1,0,0
-1953,Kimel,Alvin,F.,,0,0,0,0,0,0,0,1,0,0
-1953,Peck,Robert,A., Chairman,1,0,0,0,0,0,0,1,0,0
-1953,Rowzee,George,M., Jr.,0,0,0,0,0,0,0,1,0,0
-1954,Buchholz,Leone,B., Chairman,1,0,0,0,0,0,1,1,0,0
-1954,Cooper,Wesley,W.,,0,0,0,0,0,0,0,1,0,0
-1954,Kimel,Alvin,F.,,0,0,0,0,0,0,0,1,0,0
-1954,Peck,Robert,A.,,0,0,0,0,0,0,0,1,0,0
-1954,Rowzee,George,M., Jr.,0,0,0,0,0,0,0,1,0,0
-1955,Buchholz,Leone,B.,,0,0,0,0,0,0,1,1,0,0
-1955,Cooper,Wesley,W.,,0,0,0,0,0,0,0,1,0,0
-1955,Kimel,Alvin,F.,,0,0,0,0,0,0,0,1,0,0
-1955,Peck,Robert,A.,,0,0,0,0,0,0,0,1,0,0
-1955,Rowzee,George,M.," Jr., Chairman",1,0,0,0,0,0,0,1,0,0
-1956,Buchholz,Leone,B.,,0,0,0,0,0,0,1,1,0,0
-1956,Cooper,Wesley,W., Chairman,1,0,0,0,0,0,0,1,0,0
-1956,Kaul,Ralph,,,0,0,0,0,0,0,0,1,0,0
-1956,Krupsaw,David,L.,,0,0,0,0,0,0,0,1,0,0
-1956,Rowzee,George,M., Jr.,0,0,0,0,0,0,0,1,0,0
-1957,Buchholz,Leone,B.,,0,0,0,0,0,0,1,1,0,0
-1957,Bleviins,Lucas,H.,,0,0,0,0,0,0,0,1,0,0
-1957,Cooper,Wesley,W., Chairman,1,0,0,0,0,0,0,1,0,0
-1957,Kaul,Ralph,,,0,0,0,0,0,0,0,1,0,0
-1957,Krupsaw,David,L.,,0,0,0,0,0,0,0,1,0,0
-1958,Buchholz,Leone,B.,,0,0,0,0,0,0,1,1,0,0
-1958,Blevins,Lucas,H.,,0,0,0,0,0,0,0,1,0,0
-1958,Brown,Herbert,L., Jr.,0,0,0,0,0,0,0,1,0,0
-1958,Kaul,Ralph,, Chairman,1,0,0,0,0,0,0,1,0,0
-1958,Krupsaw,David,L.,,0,0,0,0,0,0,0,1,0,0
-1959,Blevins,Lucas,H.,,0,0,0,0,0,0,0,1,0,0
-1959,Brown,Herbert,L., Jr.,0,0,0,0,0,0,0,1,0,0
-1959,Kaul,Ralph,,,0,0,0,0,0,0,0,1,0,0
-1959,Krupsaw,David,L., Chairman,1,0,0,0,0,0,0,1,0,0
-1959,Urbanske,Leo,, Jr.,0,0,0,0,0,0,0,1,0,0
-1960,Blevins,Lucas,H.,,0,0,0,0,0,0,0,1,0,0
-1960,Brown,Herbert,L.," Jr., Chairman",1,0,0,0,0,0,0,1,0,0
-1960,Kaul,Ralph,,,0,0,0,0,0,0,0,1,0,0
-1960,Krupsaw,David,L.,– Died 1/21/60,0,0,0,0,1,0,0,1,0,0
-1960,Urbanske,Leo,, Jr.,0,0,0,0,0,0,0,1,0,0
-1960,Wilt,Ernest,D.,– Appointed 1/29/60,0,0,1,0,0,0,0,1,0,0
-1961,Brown,Herbert,L., Jr.,0,0,0,0,0,0,0,1,0,0
-1961,Kaul,Ralph,,,0,0,0,0,0,0,0,1,0,0
-1961,Richards,Thomas,W.,,0,0,0,0,0,0,0,1,0,0
-1961,Urbanske,Leo,, Jr. Chairman,1,0,0,0,0,0,0,1,0,0
-1961,Wilt,Ernest,D.,,0,0,0,0,0,0,0,1,0,0
-1962,Kaul,Ralph,,,0,0,0,0,0,0,0,1,0,0
-1962,Lowry,Roye,L.,,0,0,0,0,0,0,0,1,0,0
-1962,Richards,Thomas,W.,,0,0,0,0,0,0,0,1,0,0
-1962,Urbanske,Leo,, Jr.,0,0,0,0,0,0,0,1,0,0
-1962,Wilt,Ernest,D., Chairman,1,0,0,0,0,0,0,1,0,0
-1963,Kaul,Ralph,,,0,0,0,0,0,0,0,1,0,0
-1963,Lowry,Roye,L.,,0,0,0,0,0,0,0,1,0,0
-1963,Richards,Thomas,W., Chairman,1,0,0,0,0,0,0,1,0,0
-1963,Urbanske,Leo,, Jr.,0,0,0,0,0,0,0,1,0,0
-1963,Wilt,Ernest,D.,,0,0,0,0,0,0,0,1,0,0
-1964,Casto,Harold,J.,,0,0,0,0,0,0,0,1,0,0
-1964,Fisher,Joseph,L.,,0,0,0,0,0,0,0,1,0,0
-1964,Lowry,Roye,L., Chairman,1,0,0,0,0,0,0,1,0,0
-1964,Richards,Thomas,W.,,0,0,0,0,0,0,0,1,0,0
-1964,Urbanske,Leo,, Jr.,0,0,0,0,0,0,0,1,0,0
-1965,Casto,Harold,J.,,0,0,0,0,0,0,0,1,0,0
-1965,Fisher,Joseph,L., Chairman,1,0,0,0,0,0,0,1,0,0
-1965,Lowry,Roye,L.,,0,0,0,0,0,0,0,1,0,0
-1965,Richards,Thomas,W.,,0,0,0,0,0,0,0,1,0,0
-1965,Urbanske,Leo,, Jr.,0,0,0,0,0,0,0,1,0,0
-1966,Casto,Harold,J.,,0,0,0,0,0,0,0,1,0,0
-1966,Fisher,Joseph,L.,,0,0,0,0,0,0,0,1,0,0
-1966,Haggerty,Kenneth,M.,,0,0,0,0,0,0,0,1,0,0
-1966,Richards,Thomas,W.,,0,0,0,0,0,0,0,1,0,0
-1966,Urbanske,Leo,," Jr., Chairman",1,0,0,0,0,0,0,1,0,0
-1967,Casto,Harold,J., Chairman,1,0,0,0,0,0,0,1,0,0
-1967,Fisher,Joseph,L.,,0,0,0,0,0,0,0,1,0,0
-1967,Haggerty,Kenneth,M., Vice-Chairman,0,1,0,0,0,0,0,1,0,0
-1967,Richards,Thomas,W.,,0,0,0,0,0,0,0,1,0,0
-1967,Thomas,Ned,R.,,0,0,0,0,0,0,0,1,0,0
-1968,Fisher,Joseph,L., Vice-Chairman,0,1,0,0,0,0,0,1,0,0
-1968,Haggerty,Kenneth,M.,,0,0,0,0,0,0,0,1,0,0
-1968,Richards,Thomas,W., Chairman,1,0,0,0,0,0,0,1,0,0
-1968,Ricks,Jay,E.,,0,0,0,0,0,0,0,1,0,0
-1968,Thomas,Ned,R.,,0,0,0,0,0,0,0,1,0,0
-1969,Fisher,Joseph,L.,,0,0,0,0,0,0,0,1,0,0
-1969,Haggerty,Kenneth,M., Chairman,1,0,0,0,0,0,0,1,0,0
-1969,Phillips,A.,Leslie,,0,0,0,0,0,0,0,1,0,0
-1969,Ricks,Jay,E.,,0,0,0,0,0,0,0,1,0,0
-1969,Thomas,Ned,R., Vice-Chairman,0,1,0,0,0,0,0,1,0,0
-1970,Fisher,Joseph,L.,,0,0,0,0,0,0,0,1,0,0
-1970,Haggerty,Kenneth M.,M.,Dr.,0,0,0,0,0,0,0,1,0,0
-1970,Phillips,A.,Leslie, Vice-Chairman,0,1,0,0,0,0,0,1,0,0
-1970,Ricks,Jay,E.,,0,0,0,0,0,0,0,1,0,0
-1970,Thomas,Ned,R., Chairman,1,0,0,0,0,0,0,1,0,0
-1971,Fisher,Joseph,L., Chairman,1,0,0,0,0,0,0,1,0,0
-1971,Haggerty,Kenneth,M.,,0,0,0,0,0,0,0,1,0,0
-1971,Phillips,A.,Leslie,,0,0,0,0,0,0,0,1,0,0
-1971,Ricks,Jay,E., Vice-Chairman,0,1,0,0,0,0,0,1,0,0
-1971,Wholey,Joseph,S.,,0,0,0,0,0,0,0,1,0,0
-1972,Fisher,Joseph,L.,,0,0,0,0,0,0,0,1,0,0
-1972,Haggerty,Kenneth,M.,,0,0,0,0,0,0,0,1,0,0
-1972,Munsey,Everard,, Vice-Chairman,0,1,0,0,0,0,0,1,0,0
-1972,Phillips,A.,Leslie,,0,0,0,0,0,0,0,1,0,0
-1972,Wholey,Joseph,S., Chairman,1,0,0,0,0,0,0,1,0,0
-1973,Fisher,Joseph,L.,,0,0,0,0,0,0,0,1,0,0
-1973,Haggerty,Kenneth,,,0,0,0,0,0,0,0,1,0,0
-1973,Munsey,Everard,, Chairman,1,0,0,0,0,0,0,1,0,0
-1973,Purdy,John,, Vice-Chairman,0,1,0,0,0,0,0,1,0,0
-1973,Wholey,Joseph,S.,,0,0,0,0,0,0,0,1,0,0
-1974,Bozman,Ellen,M.,,0,0,0,0,0,0,1,1,0,0
-1974,Fisher,Joseph,," Vice-Chairman, Resigned from Board 12/31/74",0,1,0,1,0,0,0,1,0,0
-1974,Munsey,Everard,,,0,0,0,0,0,0,0,1,0,0
-1974,Purdy,John,W.,,0,0,0,0,0,0,0,1,0,0
-1974,Wholey,Joseph,, Chairman,0,0,0,0,0,0,0,1,0,0
-1975,Bozman,Ellen,M., Vice-Chairman,0,1,0,0,0,0,1,1,0,0
-1975,Munsey,Everard,,,0,0,0,0,0,0,0,1,0,0
-1975,Purdy,John,W., Chairman,1,0,0,0,0,0,0,1,0,0
-1975,Richards,Thomas,,– Appointed 1/1/75,0,0,1,0,0,0,0,1,0,0
-1975,Wholey,Joseph,S.,,0,0,0,0,0,0,0,1,0,0
-1976,Bozman,Ellen,M., Chairman,1,0,0,0,0,0,1,1,0,0
-1976,Grotos,Dorothy,T.,,0,0,0,0,0,0,1,1,0,0
-1976,Frankland,Walter,L., Jr.,0,0,0,0,0,0,0,1,0,0
-1976,Purdy,John,W.,,0,0,0,0,0,0,0,1,0,0
-1976,Wholey,Joseph,S., Vice-Chairman,0,1,0,0,0,0,0,1,0,0
-1977,Bozman,Ellen,M.,,0,0,0,0,0,0,1,1,0,0
-1977,Grotos,Dorothy,T.,,0,0,0,0,0,0,1,1,0,0
-1977,Frankland,Walter,L., Jr.,0,0,0,0,0,0,0,1,0,0
-1977,Purdy,John,W., Vice-President,0,1,0,0,0,0,0,1,0,0
-1977,Wholey,Joseph,S., Chairman,1,0,0,0,0,0,0,1,0,0
-1978,Bozman,Ellen,M., Vice-Chairman,0,1,0,0,0,0,1,1,0,0
-1978,Grotos,Dorothy,T.,,0,0,0,0,0,0,1,1,0,0
-1978,Frankland,Walter,L., Jr.,0,0,0,0,0,0,0,1,0,0
-1978,Purdy,John,W., Chairman,1,0,0,0,0,0,0,1,0,0
-1978,Wholey,Joseph,S.,,0,0,0,0,0,0,0,1,0,0
-1979,Bozman,Ellen,M.,,0,0,0,0,0,0,1,1,0,0
-1979,Grotos,Dorothy,T., Chairman,1,0,0,0,0,0,1,1,0,0
-1979,Detwiler,Stephen,H.,,0,0,0,0,0,0,0,1,0,0
-1979,Frankland,Walter,L.," Jr.,  Vice-Chairman",0,1,0,0,0,0,0,1,0,0
-1979,Purdy,John,W.,,0,0,0,0,0,0,0,1,0,0
-1980,Bozman,Ellen,M.,,0,0,0,0,0,0,1,1,0,0
-1980,Grotos,Dorothy,T.,,0,0,0,0,0,0,1,1,0,0
-1980,Detwiler,Stephen,H., Vice-Chairman,0,1,0,0,0,0,0,1,0,0
-1980,Frankland,Walter,L.," Jr.,  Chairman",1,0,0,0,0,0,0,1,0,0
-1980,Purdy,John,W.,,0,0,0,0,0,0,0,1,0,0
-1981,Bozman,Ellen,M.,,0,0,0,0,0,0,1,1,0,0
-1981,Grotos,Dorothy,T., Vice-Chairman,0,1,0,0,0,0,1,1,0,0
-1981,Detwiler,Stephen,H., Chairman,1,0,0,0,0,0,0,1,0,0
-1981,Frankland,Walter,L., Jr.,0,0,0,0,0,0,0,1,0,0
-1981,Milliken,John,G.,,0,0,0,0,0,0,0,1,0,0
-1982,Bozman,Ellen,M.,,0,0,0,0,0,0,1,1,0,0
-1982,Grotos,Dorothy,T., Vice-Chairman,0,1,0,0,0,0,1,1,0,0
-1982,Detwiler,Stephen,H., Chairman,1,0,0,0,0,0,0,1,0,0
-1982,Frankland,Walter,L., Jr.,0,0,0,0,0,0,0,1,0,0
-1982,Milliken,John,G.,,0,0,0,0,0,0,0,1,0,0
-1983,Bozman,Ellen,M., Chairman,1,0,0,0,0,0,1,1,0,0
-1983,Grotos,Dorothy,T.,,0,0,0,0,0,0,1,1,0,0
-1983,Whipple,Mary,Margaret,,0,0,0,0,0,0,1,1,0,0
-1983,Frankland,Walter,L., Jr.,0,0,0,0,0,0,0,1,0,0
-1983,Milliken,John,G., Vice-Chairman,0,1,0,0,0,0,0,1,0,0
-1984,Bozman,Ellen,M., Chairman,1,0,0,0,0,0,1,1,0,0
-1984,Whipple,Mary,Margaret,,0,0,0,0,0,0,1,1,0,0
-1984,Brunner,Michael,E.,,0,0,0,0,0,0,0,1,0,0
-1984,Eisenberg,Albert,C.,,0,0,0,0,0,0,0,1,0,0
-1984,Milliken,John,G., Vice-Chairman,0,1,0,0,0,0,0,1,0,0
-1985,Bozman,Ellen,M.,,0,0,0,0,0,0,1,1,0,0
-1985,Whipple,Mary,Margaret, Vice-Chairman,0,1,0,0,0,0,1,1,0,0
-1985,Brunner,Michael,E.,,0,0,0,0,0,0,0,1,0,0
-1985,Eisenberg,Albert,C.,,0,0,0,0,0,0,0,1,0,0
-1985,Milliken,John,G., Chairman,1,0,0,0,0,0,0,1,0,0
-1986,Bozman,Ellen,M.,,0,0,0,0,0,0,1,1,0,0
-1986,Whipple,Mary,Margaret, Chairman,1,0,0,0,0,0,1,1,0,0
-1986,Milliken,John,G.,,0,0,0,0,0,0,0,1,0,0
-1986,Brunner,Michael,E.,,0,0,0,0,0,0,0,1,0,0
-1986,Eisenberg,Albert,C.,. Vice-Chairman,0,1,0,0,0,0,0,1,0,0
-1987,Bozman,Ellen,M.,,0,0,0,0,0,0,1,1,0,0
-1987,Whipple,Mary,Margaret,,0,0,0,0,0,0,1,1,0,0
-1987,Brunner,Michael,E.,,0,0,0,0,0,0,0,1,0,0
-1987,Eisenberg,Albert,C., Chairman,1,0,0,0,0,0,0,1,0,0
-1987,Milliken,John,G., Vice-Chairman,0,1,0,0,0,0,0,1,0,0
-1988,Bozman,Ellen,M., Vice-Chairman,0,1,0,0,0,0,1,1,0,0
-1988,Whipple,Mary,Margaret,,0,0,0,0,0,0,1,1,0,0
-1988,Eisenberg,Albert,C.,,0,0,0,0,0,0,0,1,0,0
-1988,Milliken,John,G., Chairman,1,0,0,0,0,0,0,1,0,0
-1988,Newman,William,T., Jr.,0,0,0,0,0,0,0,0,1,0
-1989,Bozman,Ellen,M., Chairman,1,0,0,0,0,0,1,1,0,0
-1989,Whipple,Mary,Margaret,,0,0,0,0,0,0,1,1,0,0
-1989,Eisenberg,Albert,C., Vice-Chairman,0,1,0,0,0,0,0,1,0,0
-1989,Milliken,John,G.,,0,0,0,0,0,0,0,1,0,0
-1989,Newman,William,T., Jr.,0,0,0,0,0,0,0,0,1,0
-1990,Bozman,Ellen,M.,,0,0,0,0,0,0,1,1,0,0
-1990,Whipple,Mary,Margaret,,0,0,0,0,0,0,1,1,0,0
-1990,Eisenberg,Albert,C., Chairman,1,0,0,0,0,0,0,1,0,0
-1990,Hunter,James,B., - appointed(5/15/90),0,0,1,0,0,0,0,1,0,0
-1990,Milliken,John,G.,,0,0,0,1,0,0,0,1,0,0
-1990,Newman,William,T.," Jr.,  Vice-Chairman",0,1,0,0,0,0,0,0,1,0
-1991,Bozman,Ellen,M., Vice-Chairman,0,1,0,0,0,0,1,1,0,0
-1991,Whipple,Mary,Margaret,,0,0,0,0,0,0,1,1,0,0
-1991,Eisenberg,Albert,C.,,0,0,0,0,0,0,0,1,0,0
-1991,Hunter,James,B., III,0,0,0,0,0,0,0,1,0,0
-1991,Newman,William,T.," Jr.,  Chairman",1,0,0,0,0,0,0,0,1,0
-1992,Bozman,Ellen,M., Chairman,1,0,0,0,0,0,1,1,0,0
-1992,Whipple,Mary,Margaret,,0,0,0,0,0,0,1,1,0,0
-1992,Eisenberg,Albert,C.,,0,0,0,0,0,0,0,1,0,0
-1992,Hunter,James,B.," III, vice-chairman",0,1,0,0,0,0,0,1,0,0
-1992,Newman,William,T., Jr.,0,0,0,0,0,0,0,0,1,0
-1993,Bozman,Ellen,M.,,0,0,0,0,0,0,1,1,0,0
-1993,Whipple,Mary,Margaret, Vice-Chairman,0,1,0,0,0,0,1,1,0,0
-1993,Eisenberg,Albert,C.,,0,0,0,0,0,0,0,1,0,0
-1993,Hunter,James,B.," III, chairman",1,0,0,0,0,0,0,1,0,0
-1993,Newman,William,T., Jr. Appointed as Circuit Court Judge,0,0,0,1,0,0,0,0,1,0
-1993,Winslow,Benjamin,H., Jr. Replaced Newman,0,0,1,0,0,0,0,1,0,0
-1994,Bozman,Ellen,M.,,0,0,0,0,0,0,1,1,0,0
-1994,Whipple,Mary,Margaret, Chairman,1,0,0,0,0,0,1,1,0,0
-1994,Eisenberg,Albert,C., Vice-Chairman,0,2,0,0,0,0,0,1,0,0
-1994,Hunter,James,B., III,0,0,0,0,0,0,0,1,0,0
-1994,Winslow,Benjamin,H., Jr.,0,0,0,0,0,0,0,1,0,0
-1995,Bozman,Ellen,M., Vice-Chairman,0,1,0,0,0,0,1,1,0,0
-1995,Whipple,Mary,Margaret, Resigned 12/14/95,0,0,0,1,0,0,1,1,0,0
-1995,Eisenberg,Albert,C., Chairman,1,0,0,0,0,0,0,1,0,0
-1995,Hunter,James,B., III,0,0,0,0,0,0,0,1,0,0
-1995,Winslow,Benjamin,H., Jr.,0,0,0,0,0,0,0,1,0,0
-1996,Bozman,Ellen,M., Vice-Chairman,0,1,0,0,0,0,1,1,0,0
-1996,Eisenberg,Albert,C.,,0,0,0,0,0,0,0,1,0,0
-1996,Ferguson,Paul,,,0,0,0,0,0,0,0,1,0,0
-1996,Hunter,James,B., III Chairman,1,0,0,0,0,0,0,1,0,0
-1996,Zimmerman,Christopher,E.,Special Election 1/30/96:,0,0,0,0,0,0,0,1,0,0
-1997,Bozman,Ellen,M., Chairman,1,0,0,0,0,0,1,1,0,0
-1997,Favola,Barbara,A., Special Election 11/4/97 replaced James Hunter,0,0,0,0,0,0,1,1,0,0
-1997,Eisenberg,Albert,C.,,0,0,0,0,0,0,0,1,0,0
-1997,Ferguson,Paul,,,0,0,0,0,0,0,0,1,0,0
-1997,Hunter,James,B.," III,  Resigned 9/8/97",0,0,0,1,0,0,0,1,0,0
-1997,Zimmerman,Christopher,E., Vice-Chairman,0,1,0,0,0,0,0,1,0,0
-1998,Favola,Barbara,A.,,0,0,0,0,0,0,1,1,0,0
-1998,Eisenberg,Albert,C., Vice Chairman,0,1,0,0,0,0,0,1,0,0
-1998,Ferguson,Paul,,,0,0,0,0,0,0,0,1,0,0
-1998,Fisette,Jay,, Elected 11/4/97 – Begin 1/1/98,0,0,0,0,0,0,0,1,0,0
-1998,Zimmerman,Christopher,, Chairman,1,0,0,0,0,0,0,1,0,0
-1999,Favola,Barbara,A., Vice Chairman Member until 2/13/99,0,1,0,0,0,0,1,1,0,0
-1999,Eisenberg,Albert,C., Chairman Resigned as of 2/13/99,1,0,0,1,0,0,0,1,0,0
-1999,Ferguson,Paul,, Chairman Vice Chairman until 2/13/99,1,1,0,0,0,0,0,1,0,0
-1999,Fisette,Jay,,,0,0,0,0,0,0,0,1,0,0
-1999,Lane,Michael,D., Special Election 4/13/99 for Eisenberg Seat,0,0,0,0,0,0,0,1,0,0
-1999,Zimmerman,Christopher,,,0,0,0,0,0,0,0,1,0,0
-2000,Favola,Barbara,A., Chairman (Reelected 11/00),1,0,0,0,0,0,1,1,0,0
-2000,Ferguson,Paul,,,0,0,0,0,0,0,0,1,0,0
-2000,Fisette,Jay,, Vice Chairman,0,1,0,0,0,0,0,1,0,0
-2000,Monroe,Charles,P., (Elected 11/99 to Lane Seat),0,0,0,0,0,0,0,0,1,0
-2000,Zimmerman,Christopher,,,0,0,0,0,0,0,0,1,0,0
-2001,Favola,Barbara,A.,,0,0,0,0,0,0,1,1,0,0
-2001,Ferguson,Paul,,,0,0,0,0,0,0,0,1,0,0
-2001,Fisette,Jay,, Chairman (Reelected 11/01),1,0,0,0,0,0,0,1,0,0
-2001,Monroe,Charles,P.,,0,0,0,0,0,0,0,0,1,0
-2001,Zimmerman,Christopher,, Vice Chairman,0,1,0,0,0,0,0,1,0,0
-2002,Favola,Barbara,A.,,0,0,0,0,0,0,1,1,0,0
-2002,Ferguson,Paul,,,0,0,0,0,0,0,0,1,0,0
-2002,Fisette,Jay,,,0,0,0,0,0,0,0,1,0,0
-2002,Monroe,Charles,P., Vice Chairman,0,1,0,0,0,0,0,0,1,0
-2002,Zimmerman,Christopher,, Chairman (Reelected 11/02),1,0,0,0,0,0,0,1,0,0
-2003,Monroe,Charles,P.,Chairman (until death on Jan 11),1,0,0,0,1,0,0,0,1,0
-2003,Favola,Barbara,A., Vice Chairman (Elected as Vice Chairman on 1/17/03),0,1,0,0,0,0,1,1,0,0
-2003,Ferguson,Paul,, Chairman (Elected as Vice Chairman on 1/1/03; elected as Chairman on 1/17/03; reelected 11/4/03),1,0,0,0,0,0,0,1,0,0
-2003,Fisette,Jay,, Member,0,0,0,0,0,0,0,1,0,0
-2003,Tejada,J.,Walter, Member (Special election on 3/11/03 for seat of Charles P. Monroe who died 1/11/03; reelected 11/4/03),0,0,0,0,0,0,0,0,0,1
-2003,Zimmerman,Christopher,, Member,0,0,0,0,0,0,0,1,0,0
-2004,Favola,Barbara,A.,(Elected as Chairman on 1/1/04; re-elected 11/2/04),1,0,0,0,0,0,1,1,0,0
-2004,Ferguson,Paul,,,0,0,0,0,0,0,0,1,0,0
-2004,Fisette,Jay,, Vice Chairman (Elected as Vice Chairman on 1/1/04),0,1,0,0,0,0,0,1,0,0
-2004,Tejada,J.,Walter,,0,0,0,0,0,0,0,0,0,1
-2004,Zimmerman,Christopher,,,0,0,0,0,0,0,0,1,0,0
-2005,Favola,Barbara,A., Member,0,0,0,0,0,0,1,1,0,0
-2005,Ferguson,Paul,, Member,0,0,0,0,0,0,0,1,0,0
-2005,Fisette,Jay,, Chairman (Elected as Chairman on 1/1/05; reelected 11/8/05),1,0,0,0,0,0,0,1,0,0
-2005,Tejada,J.,Walter, Member,0,0,0,0,0,0,0,0,0,1
-2005,Zimmerman,Christopher,, Vice Chairman (Elected as Vice Chairman 1/1/05),0,1,0,0,0,0,0,1,0,0
-2006,Favola,Barbara,A., Member,0,0,0,0,0,0,1,1,0,0
-2006,Ferguson,Paul,, Vice Chairman (Elected as Vice Chairman on 1/2/06),0,1,0,0,0,0,0,1,0,0
-2006,Fisette,Jay,, Member,0,0,0,0,0,0,0,1,0,0
-2006,Tejada,J.,Walter, Member,0,0,0,0,0,0,0,0,0,1
-2006,Zimmerman,Christopher,, Chairman (Elected as Chairman on 1/2/06,1,0,0,0,0,0,0,1,0,0
-2007,Favola,Barbara,A., Member,0,0,0,0,0,0,1,1,0,0
-2007,Ferguson,Paul,, Chairman (Elected as Chairman on 1/1/07),1,0,0,0,0,0,0,1,0,0
-2007,Fisette,Jay,, Member,0,0,0,0,0,0,0,1,0,0
-2007,Tejada,J.,Walter, Vice Chairman (Elected as Vice Chairman on 1/1/07),0,1,0,0,0,0,0,0,0,1
-2007,Zimmerman,Christopher,, Member,0,0,0,0,0,0,0,1,0,0
-2008,Favola,Barbara,A., Vice Chairman (Elected as Vice Chairman on 1/1/08),0,1,0,0,0,0,1,1,0,0
-2008,Hynes,Mary,Hughes, Member,0,0,0,0,0,0,1,1,0,0
-2008,Fisette,Jay,, Member,0,0,0,0,0,0,0,1,0,0
-2008,Tejada,J.,Walter, Chairman (Elected as Chairman on 1/1/08),1,0,0,0,0,0,0,0,0,1
-2008,Zimmerman,Christopher,, Member,0,0,0,0,0,0,0,1,0,0
-2009,Favola,Barbara,A., Chairman (Elected as Chairman on 1/1/09),1,0,0,0,0,0,1,1,0,0
-2009,Hynes,Mary,Hughes, Member,0,0,0,0,0,0,1,1,0,0
-2009,Fisette,Jay,, Vice Chairman (Elected as Vice Chairman on 1/1/09),0,1,0,0,0,0,0,1,0,0
-2009,Tejada,J.,Walter, Member,0,0,0,0,0,0,0,0,0,1
-2009,Zimmerman,Christopher,, Member,0,0,0,0,0,0,0,1,0,0
-2010,Favola,Barbara,A., Member,0,0,0,0,0,0,1,1,0,0
-2010,Hynes,Mary,Hughes, Member,0,0,0,0,0,0,1,1,0,0
-2010,Fisette,Jay,, Chairman (Elected as Chairman on 1/1/10),1,0,0,0,0,0,0,1,0,0
-2010,Tejada,J.,Walter, Member,0,0,0,0,0,0,0,0,0,1
-2010,Zimmerman,Christopher,, Vice Chairman (Elected as Vice Chairman on 1/1/10),0,1,0,0,0,0,0,1,0,0
-2011,Favola,Barbara,A., Member,0,0,0,0,0,0,1,1,0,0
-2011,Hynes,Mary,Hughes, Vice Chairman (Elected as Vice Chairman on 1/1/11),0,1,0,0,0,0,1,1,0,0
-2011,Fisette,Jay,, Member,0,0,0,0,0,0,0,1,0,0
-2011,Tejada,J.,Walter, Member,0,0,0,0,0,0,0,0,0,1
-2011,Zimmerman,Christopher,, Chairman (Elected as Chairman on 1/1/11),1,0,0,0,0,0,0,1,0,0
-2012,Garvey,Libby,, Member (Elected in March 2012),0,0,0,0,0,0,1,1,0,0
-2012,Hynes,Mary,Hughes, Chairman (Elected as Chairman on 1/2/12),1,0,0,0,0,0,1,1,0,0
-2012,Fisette,Jay,, Member,0,0,0,0,0,0,0,1,0,0
-2012,Tejada,J.,Walter, Vice Chairman (Elected as Vice Chairman on 1/2/12),0,1,0,0,0,0,0,0,0,1
-2012,Zimmerman,Christopher,, Member,0,0,0,0,0,0,0,1,0,0
-2013,Garvey,Libby,, Member,0,0,0,0,0,0,1,1,0,0
-2013,Hynes,Mary,Hughes, Member,0,0,0,0,0,0,1,1,0,0
-2013,Fisette,Jay,,(Elected as Vice Chairman on 1/1/13),0,1,0,0,0,0,0,1,0,0
-2013,Tejada,J.,Walter, Chairman (Elected as Chairman on 1/1/13),1,0,0,0,0,0,0,0,0,1
-2013,Zimmerman,Christopher,, Member,0,0,0,0,0,0,0,1,0,0
-2014,Garvey,Libby,, Member,0,0,0,0,0,0,1,1,0,0
-2014,Hynes,Mary,Hughes, (Elected as Vice Chairman on 1/1/14),0,1,0,0,0,0,1,1,0,0
-2014,Fisette,Jay,,  (Elected as Chairman on 1/1/14),1,0,0,0,0,0,0,1,0,0
-2014,Tejada,J.,Walter, Member,0,0,0,0,0,0,0,0,0,1
-2014,Vihstadt,John,E., Member (Elected in Special Election 4/8/14),0,0,0,0,0,0,0,1,0,0
-2014,Zimmerman,Christopher,, Member (Resigned 2/10/14),0,0,0,1,0,0,0,1,0,0
-2015,Garvey,Libby,, Member,0,0,0,0,0,0,1,1,0,0
-2015,Hynes,Mary,Hughes, (Elected as Chair on 1/1/15),1,0,0,0,0,0,1,1,0,0
-2015,Fisette,Jay,, Member,0,0,0,0,0,0,0,1,0,0
-2015,Tejada,J.,Walter, (Elected as Vice-Chair on 1/1/15),0,1,0,0,0,0,0,0,0,1
-2015,Vihstadt,John,E., Member,0,0,0,0,0,0,0,1,0,0
-2016,Cristol,Katie,, Member,0,0,0,0,0,0,1,1,0,0
-2016,Garvey,Libby,, (Elected as Chair on 1/1/16),1,0,0,0,0,0,1,1,0,0
-2016,Dorsey,Christian,, Member,0,0,0,0,0,0,0,0,1,0
-2016,Fisette,Jay,, (Elected as Vice-Chair on 1/1/16),0,1,0,0,0,0,0,1,0,0
-2016,Vihstadt,John,, Member,0,0,0,0,0,0,0,1,0,0
-2017,Cristol,Katie,, (Elected as Vice-Chair on 1/3/17),0,1,0,0,0,0,1,1,0,0
-2017,Garvey,Libby,, Member,0,0,0,0,0,0,1,1,0,0
-2017,Dorsey,Christian,, Member,0,0,0,0,0,0,0,0,1,0
-2017,Fisette,Jay,, (Elected as Chair on 1/3/17),1,0,0,0,0,0,0,1,0,0
-2017,Vihstadt,John,, Member,0,0,0,0,0,0,0,1,0,0
-2018,Cristol,Katie,, (Elected as Chair on 1/2/18),1,0,0,0,0,0,1,1,0,0
-2018,Garvey,Libby,, Member,0,0,0,0,0,0,1,1,0,0
-2018,Dorsey,Christian,, (Elected as Vice-Chair on 1/2/18),0,1,0,0,0,0,0,0,1,0
-2018,Gutshall,Erik,, Member,0,0,0,0,0,0,0,1,0,0
-2018,Vihstadt,John,, Member,0,0,0,0,0,0,0,1,0,0
-2019,Cristol,Katie,, Member,0,0,0,0,0,0,1,1,0,0
-2019,Garvey,Libby,, (Elected as Vice-Chair on 1/2/19),0,1,0,0,0,0,1,1,0,0
-2019,de Ferranti,Matt,, Member,0,0,0,0,0,0,0,1,0,0
-2019,Dorsey,Christian,, (Elected as Chair on 1/2/19),1,0,0,0,0,0,0,0,1,0
-2019,Gutshall,Erik,, Member,0,0,0,0,0,0,0,1,0,0
-2020,Cristol,Katie,, Member,0,0,0,0,0,0,1,1,0,0
-2020,Garvey,Libby,, (Elected as Chair on 1/2/20),1,0,0,0,0,0,1,1,0,0
-2020,de Ferranti,Matt,, Member,0,0,0,0,0,0,0,1,0,0
-2020,Dorsey,Christian,, Member,0,0,0,0,0,0,0,0,1,0
-2020,Gutshall,Erik,, (Elected as Vice-Chair on 1/2/20),0,1,0,0,1,0,0,1,0,0
-2020,Karantonis,Takis,, Member (Special election on 7/7/20 for seat of Erik Gutshall who died 4/16/20),0,0,0,0,0,0,0,1,0,0
-2021,Cristol,Katie,,(Elected as Vice-Chair on 1/4/2021),0,1,0,0,0,0,1,1,0,0
-2021,Garvey,Libby,,,0,0,0,0,0,0,1,1,0,0
-2021,de Ferranti,Matt,,(Elected as Chair on 1/4/2021),1,0,0,0,0,0,0,1,0,0
-2021,Dorsey,Christian,,,0,0,0,0,0,0,0,0,1,0
-2021,Karantonis,Takis,,,0,0,0,0,0,0,0,1,0,0
-2022,Cristol,Katie,,(Elected as Chair on 1/4/2022),1,0,0,0,0,0,1,1,0,0
-2022,Garvey,Libby,,,0,0,0,0,0,0,1,1,0,0
-2022,de Ferranti,Matt,,,0,0,0,0,0,0,0,1,0,0
-2022,Dorsey,Christian,,(Elected as Vice-Chair on 1/4/2022),0,1,0,0,0,0,0,0,1,0
-2022,Karantonis,Takis,,,0,0,0,0,0,0,0,1,0,0
-2023,Cristol,Katie,, (Resigned 7/4/2023),0,0,0,0,0,0,1,1,0,0
-2023,Garvey,Libby,,(Elected as Vice-Chair on 1/3/2023),0,1,0,0,0,0,1,1,0,0
-2023,Talento,Tannia,,(Appointed on 7/15/2023 to fill seat vacated by Katie Cristol),0,0,0,0,0,0,1,0,0,1
-2023,de Ferranti,Matt,,,0,0,0,0,0,0,0,1,0,0
-2023,Dorsey,Christian,,"(Elected as Chair on 1/3/2023, Resigned 12/31/2023)",1,0,0,1,0,0,0,0,1,0
-2023,Karantonis,Takis,,,0,0,0,0,0,0,0,1,0,0
-2024,Coffey,Maureen,,,0,0,0,0,0,0,1,1,0,0
-2024,Cunningham,Susan,,,0,0,0,0,0,0,1,1,0,0
-2024,Garvey,Libby,, (Elected as Chair on 1/2/2024),1,0,0,0,0,0,1,1,0,0
-2024,de Ferranti,Matt,,,0,0,0,0,0,0,0,1,0,0
-2024,Karantonis,Takis,, (Elected as Vice-Chair on 1/2/2024),0,1,0,0,0,0,0,1,0,0
-2025,Coffey,Maureen,,,0,0,0,0,0,0,1,1,0,0
-2025,Cunningham,Susan,,,0,0,0,0,0,0,1,1,0,0
-2025,de Ferranti,Matt,,(Elected as Vice-Chair on 1/7/2025),0,1,0,0,0,0,0,1,0,0
-2025,Karantonis,Takis,, (Elected as Chair on 1/7/2025),1,0,0,0,0,0,0,1,0,0
-2025,Spain,Julius,"D. ""JD""", Sr.,0,0,0,0,0,0,0,0,1,0
-2026,Coffey,Maureen,,(Elected as Vice-Chair on 1/5/2026),0,1,0,0,0,0,1,1,0,0
-2026,Cunningham,Susan,,,0,0,0,0,0,0,1,1,0,0
-2026,de Ferranti,Matt,,(Elected as Chair on 1/6/2026),1,0,0,0,0,0,0,1,0,0
-2026,Karantonis,Takis,,,0,0,0,0,0,0,0,1,0,0
-2026,Spain,Julius,"D. ""JD""", Sr.,0,0,0,0,0,0,0,0,1,0
+name,term_number,district,start_year,start_month,end_year,end_month,source,note,race,race_source,race_note,gender,gender_source,gender_note
+H. Dwight Smith,1,Arlington,1870,5,1871,5,O'Leary (2012) p.9,,White,default,,man,default,
+Storm V. Boyd,1,Jefferson,1870,5,1870,9,O'Leary (2012) p.9,,White,default,,man,default,
+Charles W. Payne,1,Washington,1870,5,1871,5,O'Leary (2012) p.9,,White,default,,man,default,
+Roach,1,Jefferson,1870,9,1871,5,O'Leary (2012) p.9,Took the seat mid-term.,White,default,,man,default,
+H. Dwight Smith,2,Arlington,1871,5,1872,5,O'Leary (2012) p.9,,White,default,,man,default,
+William A. Rowe,1,Jefferson,1871,5,1872,5,O'Leary (2012) p.9,,Black,Hjerpe (2021) p.3,"stated directly: “The first such member, William A. Rowe, was Alexandria County's first black police officer.”",man,default,
+Edward Deeble,1,Washington,1871,5,1872,5,O'Leary (2012) p.9,,White,default,,man,default,
+John B. Syphax,1,Arlington,1872,5,1872,12,O'Leary (2012) p.10,,Black,Hjerpe (2021) p.1; O'Leary (2012) p.6,"stated directly: “In my research, I found census records which seemed to indicate that there were 5 Black members of the county board during the 1870s and 1880s: William A. Rowe, John B. Syphax, Travis B. Pinn, John W. Pendleton, and Tibbett Allen.” | photographic: “Yet, neither Henry Holmes nor John B. Syphax, whose photos clearly demonstrate that they were African Americans were so labeled.”",man,default,
+William A. Rowe,2,Jefferson,1872,5,1873,5,O'Leary (2012) p.10,,Black,Hjerpe (2021) p.3,"stated directly: “The first such member, William A. Rowe, was Alexandria County's first black police officer.”",man,default,
+Henry W. Febrey,1,Washington,1872,5,1873,5,O'Leary (2012) p.10,,White,default,,man,default,
+H. Dwight Smith,3,Arlington,1872,12,1873,3,O'Leary (2012) p.10,Took the seat mid-term.,White,default,,man,default,
+Lott W. Crocker,1,Arlington,1873,3,1873,4,O'Leary (2012) p.10,Took the seat mid-term.,White,default,,man,default,
+Francis D. Schutt,1,Arlington,1873,4,1873,5,O'Leary (2012) p.10,Took the seat mid-term.,White,default,,man,default,
+Francis D. Schutt,2,Arlington,1873,5,1874,5,O'Leary (2012) p.10,,White,default,,man,default,
+William A. Rowe,3,Jefferson,1873,5,1874,5,O'Leary (2012) p.10,,Black,Hjerpe (2021) p.3,"stated directly: “The first such member, William A. Rowe, was Alexandria County's first black police officer.”",man,default,
+Samuel Titus,1,Washington,1873,12,1874,5,O'Leary (2012) p.10,,White,default,,man,default,
+Francis G. Schutt,1,Arlington,1874,5,1875,5,O'Leary (2012) p.11,,White,default,,man,default,
+William A. Rowe,4,Jefferson,1874,5,1875,5,O'Leary (2012) p.11,,Black,Hjerpe (2021) p.3,"stated directly: “The first such member, William A. Rowe, was Alexandria County's first black police officer.”",man,default,
+Gilbert Vandenberg,1,Washington,1874,5,1875,5,O'Leary (2012) p.11,,White,default,,man,default,
+Francis G. Schutt,2,Arlington,1875,5,1877,5,O'Leary (2012) p.12,,White,default,,man,default,
+William A. Rowe,5,Jefferson,1875,5,1877,5,O'Leary (2012) p.12,,Black,Hjerpe (2021) p.3,"stated directly: “The first such member, William A. Rowe, was Alexandria County's first black police officer.”",man,default,
+Gilbert Vandenberg,2,Washington,1875,5,1877,5,O'Leary (2012) p.12,,White,default,,man,default,
+William H. Robinson,1,Arlington,1877,5,1879,5,O'Leary (2012) p.13,,White,default,,man,default,
+William A. Rowe,6,Jefferson,1877,5,1879,5,O'Leary (2012) p.13,,Black,Hjerpe (2021) p.3,"stated directly: “The first such member, William A. Rowe, was Alexandria County's first black police officer.”",man,default,
+Charles W. Payne,2,Washington,1877,5,1879,5,O'Leary (2012) p.13,,White,default,,man,default,
+William A. Rowe,7,Arlington,1879,5,1881,5,O'Leary (2012) p.14,,Black,Hjerpe (2021) p.3,"stated directly: “The first such member, William A. Rowe, was Alexandria County's first black police officer.”",man,default,
+Travis B. Pinn,1,Jefferson,1879,5,1881,5,O'Leary (2012) p.14,,Black,"Hjerpe (2021) p.8, Appendix 1","1880 census record: “1880 US Census Document listing Travis B Pinn, Mixed Race resident of Jefferson Township, Alexandria County”",man,default,
+Francis G. Schutt,3,Washington,1879,5,1881,5,O'Leary (2012) p.14,,White,default,,man,default,
+William A. Rowe,8,Arlington,1881,5,1883,5,O'Leary (2012) p.14,,Black,Hjerpe (2021) p.3,"stated directly: “The first such member, William A. Rowe, was Alexandria County's first black police officer.”",man,default,
+Travis B. Pinn,2,Jefferson,1881,5,1883,5,O'Leary (2012) p.14,,Black,"Hjerpe (2021) p.8, Appendix 1","1880 census record: “1880 US Census Document listing Travis B Pinn, Mixed Race resident of Jefferson Township, Alexandria County”",man,default,
+Christopher Costello,1,Washington,1881,5,1883,5,O'Leary (2012) p.14,,White,default,,man,default,
+Perkins W. Squier,1,Arlington,1883,5,1885,5,O'Leary (2012) p.15,,White,default,,man,default,
+John W. Pendleton,1,Jefferson,1883,5,1885,5,O'Leary (2012) p.15,,Black,"Hjerpe (2021) p.9, Appendix 2","1880 census record: “1880 US Census document listing John W Pendleton, Black resident of Jefferson Township, Alexandria County”",man,default,
+Christopher Costello,2,Washington,1883,5,1885,5,O'Leary (2012) p.15,,White,default,,man,default,
+George W. Veitch,1,Arlington,1885,5,1887,5,O'Leary (2012) p.16,,White,default,,man,default,
+Richard W. Johnston,1,Jefferson,1885,5,1887,5,O'Leary (2012) p.16,,White,default,,man,default,
+John D. Payne,1,Washington,1885,5,1887,5,O'Leary (2012) p.16,,White,default,,man,default,
+Horatio Ball,1,Arlington,1887,5,1889,5,O'Leary (2012) p.17,,White,default,,man,default,
+Tibbett Allen,1,Jefferson,1887,5,1889,5,O'Leary (2012) p.17,,Black,"Hjerpe (2021) p.10, Appendix 3; Hjerpe (2021) p.4","1880 census record: “1880 US Census Document listing Tibbett Allen, black resident of Jefferson Township, Alexandria County” | stated directly: “The last black man to serve on the Magisterial Board, Tibbett Allen, was the first Senior Warden of Arlington Lodge #58, a long-running black Free Masons organization which still exists today.”",man,default,
+A. B. Grunwell,1,Washington,1887,5,1889,5,O'Leary (2012) p.17,,White,default,,man,default,
+Frederick S. Corbett,1,Arlington,1889,5,1891,5,O'Leary (2012) p.18,,White,default,,man,default,
+Frank Hume,1,Jefferson,1889,5,1891,5,O'Leary (2012) p.18,,White,Hjerpe (2021) p.8,"described as a former Confederate soldier: “All else that the author could find was a listing from the next month's edition announcing Allen's resignation and the appointment of Frank Hume, a former confederate soldier and the namesake for the Hume School on Arlington Ridge Road, to the seat.”",man,default,
+Walter G. Willson,1,Washington,1889,5,1891,5,O'Leary (2012) p.18,,White,default,,man,default,
+Millard F. Birth,1,Arlington,1891,5,1893,5,O'Leary (2012) p.18,,White,default,,man,default,
+Frank Hume,2,Jefferson,1891,5,1893,5,O'Leary (2012) p.18,,White,Hjerpe (2021) p.8,"described as a former Confederate soldier: “All else that the author could find was a listing from the next month's edition announcing Allen's resignation and the appointment of Frank Hume, a former confederate soldier and the namesake for the Hume School on Arlington Ridge Road, to the seat.”",man,default,
+Walter G. Willson,2,Washington,1891,5,1893,5,O'Leary (2012) p.18,,White,default,,man,default,
+John W. Clark,1,Arlington,1893,5,1895,5,O'Leary (2012) p.19,,White,default,,man,default,
+Frank Hume,3,Jefferson,1893,5,1895,5,O'Leary (2012) p.19,,White,Hjerpe (2021) p.8,"described as a former Confederate soldier: “All else that the author could find was a listing from the next month's edition announcing Allen's resignation and the appointment of Frank Hume, a former confederate soldier and the namesake for the Hume School on Arlington Ridge Road, to the seat.”",man,default,
+R. Henry Phillips,1,Washington,1893,5,1895,5,O'Leary (2012) p.19,,White,default,,man,default,
+Frederick S. Corbett,2,Arlington,1895,5,1897,5,O'Leary (2012) p.20,,White,default,,man,default,
+William Duncan,1,Jefferson,1895,5,1897,5,O'Leary (2012) p.20,,White,default,,man,default,
+A. B. Grunwell,2,Washington,1895,5,1897,5,O'Leary (2012) p.20,,White,default,,man,default,
+A. D. Torreyson,1,Arlington,1897,5,1897,10,O'Leary (2012) p.20,Election successfully contested; the seat passed to Frederick S. Corbett.,White,default,,man,default,
+William Duncan,2,Jefferson,1897,5,1899,5,O'Leary (2012) p.20,,White,default,,man,default,
+A. B. Grunwell,3,Washington,1897,5,1899,5,O'Leary (2012) p.20,,White,default,,man,default,
+Frederick S. Corbett,3,Arlington,1897,10,1899,5,O'Leary (2012) p.20,Took the seat after successfully contesting the election.,White,default,,man,default,
+Frederick S. Corbett,4,Arlington,1899,5,1901,5,O'Leary (2012) p.21,,White,default,,man,default,
+D. N. Rust,1,Jefferson,1899,5,1901,5,O'Leary (2012) p.21,,White,default,,man,default,
+George N. Saegmulller,1,Washington,1899,5,1901,5,O'Leary (2012) p.21,,White,default,,man,default,
+Rezin W. Darbey,1,Arlington,1901,5,1903,11,O'Leary (2012) p.22,,White,default,,man,default,
+William Duncan,3,Jefferson,1901,5,1903,11,O'Leary (2012) p.22,,White,default,,man,default,
+Christopher J. Costello,1,Washington,1901,5,1903,11,O'Leary (2012) p.22,,White,default,,man,default,
+W.W. Douglas,1,Arlington,1903,11,1907,11,O'Leary (2012) p.23,,White,default,,man,default,
+D. N. Rust,2,Jefferson,1903,11,1907,11,O'Leary (2012) p.23,,White,default,,man,default,
+W. N. Febrey County,1,Washington,1903,11,1907,11,O'Leary (2012) p.23,,White,default,,man,default,
+Corbett,1,Arlington,1907,11,1915,11,O'Leary (2012) p.25,,White,default,,man,default,
+E. Duncan,1,Jefferson,1907,11,1915,11,O'Leary (2012) p.25,,White,default,,man,default,
+W.M. Febrey,1,Washington,1907,11,1915,11,O'Leary (2012) p.25,,White,default,,man,default,
+Wibirt,1,Arlington,1915,11,,,O'Leary (2012) p.27,End of service not recorded; O'Leary's listings stop at 1915.,White,default,,man,default,
+Duncan,1,Jefferson,1915,11,,,O'Leary (2012) p.27,End of service not recorded; O'Leary's listings stop at 1915.,White,default,,man,default,
+Walker,1,Washington,1915,11,,,O'Leary (2012) p.27,End of service not recorded; O'Leary's listings stop at 1915.,White,default,,man,default,
+Elizabeth B. Magruder,1,at large,1932,1,1935,12,Novack (1994) p.5; term boundaries from Arlington County (2021),,White,Keena workbook,,woman,Novack (1994) p.5,inferred by Claude from name
+"Fred A. Gosnell, Sr",1,at large,1932,1,1933,12,Novack (1994) p.4,"Resigned on Dec. 11, 1933.",White,Keena workbook,,man,Keena workbook,
+Harry A. Fellows,1,at large,1932,1,1935,12,Novack (1994) p.3,,White,Keena workbook,,man,Keena workbook,
+John C. Gall,1,at large,1932,1,1933,12,Novack (1994) p.4,"Resigned on May 31, 1933.",White,Keena workbook,,man,Keena workbook,
+Lyman M. Kelley,1,at large,1932,1,1934,12,Novack (1994) p.4,"Removed by court order on Nov. 3, 1934.",White,Keena workbook,,man,Keena workbook,
+B. M. Smith,1,at large,1933,1,1935,12,Novack (1994) p.6,"Appointed on June 1, 1933.",White,Keena workbook,,man,Keena workbook,
+Christopher B. Garnett,1,at large,1933,1,1935,12,Novack (1994) p.4,"Appointed on Dec. 11, 1933.",White,Keena workbook,,man,Keena workbook,
+W. A. E. McShea,1,at large,1934,1,1935,12,Novack (1994) p.5; term boundaries from Arlington County (2021),"Appointed on Nov. 8, 1934.",White,Keena workbook,,man,Keena workbook,
+Elizabeth B. Magruder,2,at large,1936,1,1939,12,Novack (1994) p.5; term boundaries from Arlington County (2021),,White,Keena workbook,,woman,Novack (1994) p.5,inferred by Claude from name
+F. Freeland Chew,1,at large,1936,1,1939,12,Novack (1994) p.2; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+George M. Yeatman,1,at large,1936,1,1939,12,Novack (1994) p.6,,White,Keena workbook,,man,Keena workbook,
+W. A. E. McShea,2,at large,1936,1,1939,12,Novack (1994) p.5; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+W. P. Ames,1,at large,1936,1,1939,12,Novack (1994) p.2,,White,Keena workbook,,man,Keena workbook,
+Basil M. DeLashmutt,1,at large,1940,1,1941,12,Novack (1994) p.3; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Edmund D. Campbell,1,at large,1940,1,1942,12,Novack (1994) p.2; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Elizabeth B. Magruder,3,at large,1940,1,1943,12,Novack (1994) p.5; term boundaries from Arlington County (2021),,White,Keena workbook,,woman,Novack (1994) p.5,inferred by Claude from name
+F. Freeland Chew,2,at large,1940,1,1943,12,Novack (1994) p.2; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Leo C. Lloyd,1,at large,1940,1,1940,12,Novack (1994) p.5; term boundaries from Arlington County (2021),"Died in office on Nov. 3, 1947.",White,Keena workbook,,man,Keena workbook,
+Leo C. Lloyd,2,at large,1941,1,1944,12,Novack (1994) p.5; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Basil M. DeLashmutt,2,at large,1942,1,1945,12,Novack (1994) p.3; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Edmund D. Campbell,2,at large,1943,1,1946,12,Novack (1994) p.2; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Elizabeth B. Magruder,4,at large,1944,1,1947,12,Novack (1994) p.5; term boundaries from Arlington County (2021),,White,Keena workbook,,woman,Novack (1994) p.5,inferred by Claude from name
+F. Freeland Chew,3,at large,1944,1,1947,12,Novack (1994) p.2; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Leo C. Lloyd,3,at large,1945,1,1947,12,Novack (1994) p.5; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Basil M. DeLashmutt,3,at large,1946,1,1949,12,Novack (1994) p.3; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Alfred E. Frisbie,1,at large,1947,1,1947,12,Novack (1994) p.4; term boundaries from Arlington County (2021),"Appointed on Nov. 26, 1947.",White,Keena workbook,,man,Keena workbook,
+Daniel A. Dugan,1,at large,1947,1,1950,12,Novack (1994) p.3; term boundaries from Arlington County (2021),"Removed from office on Sept. 17, 1952 under a ruling of the Virginia Supreme Court of Appeals that the exemption of members of the Arlington County Board from the prohibition against Federal employees holding office in Virginia had been granted by an unconstitutional statute.",White,Keena workbook,,man,Keena workbook,
+Harry W. Cuppett,1,at large,1947,1,1947,12,Novack (1994) p.3,"Appointed on May 17, 1947.",White,Keena workbook,,man,Keena workbook,
+Alfred E. Frisbie,2,at large,1948,1,1948,12,Novack (1994) p.4; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+F. Freeland Chew,4,at large,1948,1,1951,12,Novack (1994) p.2; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Florence Cannon,1,at large,1948,1,1951,12,Novack (1994) p.2,,White,Keena workbook,,woman,Novack (1994) p.2,inferred by Claude from name
+Alfred E. Frisbie,3,at large,1949,1,1952,12,Novack (1994) p.4; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+RobertW. Cox,1,at large,1950,1,1952,12,Novack (1994) p.2,"Removed from office on Sept. 17, 1952, under a ruling of the Virginia Supreme Court of Appeals that the exemption of members of the Arlington County Board from the prohibition against federal employees holding office in Virginia had been granted by an unconstitutional statute.",White,Keena workbook,,man,Keena workbook,
+Daniel A. Dugan,2,at large,1951,1,1952,12,Novack (1994) p.3; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Alan L. Dean,1,at large,1952,1,1952,12,Novack (1994) p.3,"Removed from office on Sept. 17, 1952 under a ruling of the Virginia Supreme Court of Appeals that the exemption of members of the Arlington County Board from the prohibition against Federal employees holding office in Virginia had been granted by an unconstitutional statute.",White,Keena workbook,,man,Keena workbook,
+Alvin F. Kimel,1,at large,1952,1,1952,12,Novack (1994) p.4; term boundaries from Arlington County (2021),"Elected to fill unexpired term on Nov. 10, 1952.",White,Keena workbook,,man,Keena workbook,
+Howard R. Massey,1,at large,1952,1,1952,12,Novack (1994) p.5,"Appointed on Sept. 18, 1952 to fill vacancy until filled by election on Nov. 10, 1952.",White,Keena workbook,,man,Keena workbook,
+John A. Tillema,1,at large,1952,1,1952,12,Novack (1994) p.6,"Appointed on Sept. 18, 1952 to fill vacancy until filled by election on Nov. 10, 1952.",White,Keena workbook,,man,Keena workbook,
+Leone B. Buchholz,1,at large,1952,1,1952,12,Novack (1994) p.2; term boundaries from Arlington County (2021),"Elected to filled unexpired term on Nov. 10, 1952.",White,Keena workbook,,woman,Novack (1994) p.2,inferred by Claude from name
+M. Rex Byrne,1,at large,1952,1,1952,12,Novack (1994) p.2,"Appointed on Sept. 18, 1952, to fill vacancy until filled by election on Nov. 10, 1952.",White,Keena workbook,,man,Keena workbook,
+Robert A. Peck,1,at large,1952,1,1955,12,Novack (1994) p.5,,White,Keena workbook,,man,Keena workbook,
+Robert H. Detwiler,1,at large,1952,1,1952,12,Novack (1994) p.3; term boundaries from Arlington County (2021),"Elected to fill unexpired term on Nov. 11, 1952.",White,Keena workbook,,man,Keena workbook,
+Alvin F. Kimel,2,at large,1953,1,1955,12,Novack (1994) p.4; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+"George M. Rowzee, Jr",1,at large,1953,1,1956,12,Novack (1994) p.6,,White,Keena workbook,,man,Keena workbook,
+Leone B. Buchholz,2,at large,1953,1,1954,12,Novack (1994) p.2; term boundaries from Arlington County (2021),,White,Keena workbook,,woman,Novack (1994) p.2,inferred by Claude from name
+Robert H. Detwiler,2,at large,1953,1,1953,12,Novack (1994) p.3; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Wesley W. Cooper,1,at large,1954,1,1957,12,Novack (1994) p.2,,White,Keena workbook,,man,Keena workbook,
+Leone B. Buchholz,3,at large,1955,1,1958,12,Novack (1994) p.2; term boundaries from Arlington County (2021),,White,Keena workbook,,woman,Novack (1994) p.2,inferred by Claude from name
+DavidL. Krupsaw,1,at large,1956,1,1959,12,Novack (1994) p.4; term boundaries from Arlington County (2021),"Died in office on Jan. 21, 1960.",White,Keena workbook,,man,Keena workbook,
+Ralph Kaul,1,at large,1956,1,1959,12,Novack (1994) p.4; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Lucas H. Blevins,1,at large,1957,1,1960,12,Novack (1994) p.2,,White,Keena workbook,,man,Keena workbook,
+"HerbertL. Brown, Jr",1,at large,1958,1,1961,12,Novack (1994) p.2,,White,Keena workbook,,man,Keena workbook,
+"Leo Urbanske, Jr",1,at large,1959,1,1962,12,Novack (1994) p.6; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+DavidL. Krupsaw,2,at large,1960,1,1960,12,Novack (1994) p.4; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Ernest D. Wilt,1,at large,1960,1,1960,12,Novack (1994) p.6; term boundaries from Arlington County (2021),"Appointed on Jan. 29, 1960.",White,Keena workbook,,man,Keena workbook,
+Ralph Kaul,2,at large,1960,1,1963,12,Novack (1994) p.4; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Ernest D. Wilt,2,at large,1961,1,1963,12,Novack (1994) p.6; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Thomas W. Richards,1,at large,1961,1,1964,12,Novack (1994) p.6; term boundaries from Arlington County (2021),"Appointed in 1975 to fill the unexpired term of Joseph L. Fisher, who had been elected to the U.S. House of Representatives.",White,Keena workbook,,man,Keena workbook,
+Roye L. Lowry,1,at large,1962,1,1965,12,Novack (1994) p.5,,White,Keena workbook,,man,Keena workbook,
+Joseph L. Fisher,1,at large,1963,1,1963,12,Novack (1994) p.3; term boundaries from Arlington County (2021),Resigned following his election to the U.S. House of Representatives.,White,Keena workbook,,man,Keena workbook,
+"Leo Urbanske, Jr",2,at large,1963,1,1966,12,Novack (1994) p.6; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Harold J. Casto,1,at large,1964,1,1967,12,Novack (1994) p.2,,White,Keena workbook,,man,Keena workbook,
+Joseph L. Fisher,2,at large,1964,1,1967,12,Novack (1994) p.3; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Thomas W. Richards,2,at large,1965,1,1968,12,Novack (1994) p.6; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Dr. Kenneth M. Haggerty,1,at large,1966,1,1969,12,Novack (1994) p.4; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Ned R. Thomas,1,at large,1967,1,1970,12,Novack (1994) p.6,,White,Keena workbook,,man,Keena workbook,
+Jay E. Ricks,1,at large,1968,1,1971,12,Novack (1994) p.6,,White,Keena workbook,,man,Keena workbook,
+Joseph L. Fisher,3,at large,1968,1,1971,12,Novack (1994) p.3; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+A. Leslie Phillips,1,at large,1969,1,1972,12,Novack (1994) p.5,,White,Keena workbook,,man,Keena workbook,
+Dr. Kenneth M. Haggerty,2,at large,1970,1,1973,12,Novack (1994) p.4; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Joseph S. Wholey,1,at large,1971,1,1974,12,Novack (1994) p.6; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Everard Munsey,1,at large,1972,1,1975,12,Novack (1994) p.5,,White,Keena workbook,,man,Keena workbook,
+Joseph L. Fisher,4,at large,1972,1,1974,12,Novack (1994) p.3; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+John Purdy,1,at large,1973,1,1976,12,Novack (1994) p.5; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Ellen Bozman,1,at large,1974,1,1977,12,Novack (1994) p.2; term boundaries from Arlington County (2021),,White,Keena workbook,,woman,Novack (1994) p.2,inferred by Claude from name
+Joseph S. Wholey,2,at large,1975,1,1978,12,Novack (1994) p.6; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Thomas W. Richards,3,at large,1975,1,1975,12,Novack (1994) p.6,"Appointed in 1975 to fill the unexpired term of Joseph L. Fisher, who had been elected to the U.S. House of Representatives.",White,Keena workbook,,man,Keena workbook,
+Dorothy Grotos,1,at large,1976,1,1979,12,Novack (1994) p.4; term boundaries from Arlington County (2021),,White,Keena workbook,,woman,Novack (1994) p.4,inferred by Claude from name
+Walter Frankland,1,at large,1976,1,1979,12,Novack (1994) p.4; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+John Purdy,2,at large,1977,1,1980,12,Novack (1994) p.5; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Ellen Bozman,2,at large,1978,1,1981,12,Novack (1994) p.2; term boundaries from Arlington County (2021),,White,Keena workbook,,woman,Novack (1994) p.2,inferred by Claude from name
+Stephen Detwiler,1,at large,1979,1,1982,12,Novack (1994) p.3,,White,Keena workbook,,man,Keena workbook,
+Dorothy Grotos,2,at large,1980,1,1983,12,Novack (1994) p.4; term boundaries from Arlington County (2021),,White,Keena workbook,,woman,Novack (1994) p.4,inferred by Claude from name
+Walter Frankland,2,at large,1980,1,1983,12,Novack (1994) p.4; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+John G. Milliken,1,at large,1981,2,1984,12,Novack (1994) p.5; term boundaries from Arlington County (2021),Resigned in February 1990 following his appointment as Secretary of Transportation of the Commonwealth of Virginia.,White,Keena workbook,,man,Keena workbook,
+Ellen Bozman,3,at large,1982,1,1985,12,Novack (1994) p.2; term boundaries from Arlington County (2021),,White,Keena workbook,,woman,Novack (1994) p.2,inferred by Claude from name
+Mary Margaret Whipple,1,at large,1983,1,1986,12,Novack (1994) p.6; term boundaries from Arlington County (2021),,White,Keena workbook,,woman,Novack (1994) p.6,inferred by Claude from name
+Albert C. Eisenberg,1,at large,1984,1,1987,12,Novack (1994) p.3; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Michael E. Brunner,1,at large,1984,1,1987,12,Novack (1994) p.2,,White,Keena workbook,,man,Keena workbook,
+John G. Milliken,2,at large,1985,1,1988,12,Novack (1994) p.5; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Ellen Bozman,4,at large,1986,1,1989,12,Novack (1994) p.2; term boundaries from Arlington County (2021),,White,Keena workbook,,woman,Novack (1994) p.2,inferred by Claude from name
+Mary Margaret Whipple,2,at large,1987,1,1990,12,Novack (1994) p.6; term boundaries from Arlington County (2021),,White,Keena workbook,,woman,Novack (1994) p.6,inferred by Claude from name
+Albert C. Eisenberg,2,at large,1988,1,1991,12,Novack (1994) p.3; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+"William T. Newman, Jr",1,at large,1988,3,1991,12,Novack (1994) p.5; term boundaries from Arlington County (2021),Resigned in March 1993 following his appointment as a Circuit Judge.,Black,Hjerpe (2021) p.6,"stated directly: “After 1930, it would be more than half a century before William T. Newman was elected, breaking the all-white pattern of county governance in 1988.”",man,Keena workbook,
+John G. Milliken,3,at large,1989,1,1990,12,Novack (1994) p.5; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+Ellen Bozman,5,at large,1990,1,1993,12,Novack (1994) p.2; term boundaries from Arlington County (2021),,White,Keena workbook,,woman,Novack (1994) p.2,inferred by Claude from name
+James B. Hunter III,1,at large,1990,5,1992,12,Novack (1994) p.4; term boundaries from Arlington County (2021),"Elected in a special election in May 1990 to fill the unexpired term of John G. Milliken, who had been appointed as Secretary of Transportation of the Commonwealth of Virginia.",White,Keena workbook,,man,Keena workbook,
+Mary Margaret Whipple,3,at large,1991,1,1994,12,Novack (1994) p.6; term boundaries from Arlington County (2021),,White,Keena workbook,,woman,Novack (1994) p.6,inferred by Claude from name
+Albert C. Eisenberg,3,at large,1992,1,1995,12,Novack (1994) p.3; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+"William T. Newman, Jr",2,at large,1992,1,1993,12,Novack (1994) p.5; term boundaries from Arlington County (2021),,Black,Hjerpe (2021) p.6,"stated directly: “After 1930, it would be more than half a century before William T. Newman was elected, breaking the all-white pattern of county governance in 1988.”",man,Keena workbook,
+James B. Hunter III,2,at large,1993,1,1996,12,Novack (1994) p.4; term boundaries from Arlington County (2021),,White,Keena workbook,,man,Keena workbook,
+"Benjamin H. Winslow, Jr",1,at large,1993,4,1995,12,Novack (1994) p.6; term boundaries from Arlington County (2021),"Elected in a special election in April 1993 to fill the unexpired term of William T. Newman, Jr., who had been appointed a Circuit Judge.",White,Keena workbook,,man,Keena workbook,
+Ellen Bozman,6,at large,1994,1,1997,12,Novack (1994) p.2; term boundaries from Arlington County (2021),,White,Keena workbook,,woman,Novack (1994) p.2,inferred by Claude from name
+Mary Margaret Whipple,4,at large,1995,1,1996,1,Arlington County (2021) p.79,Left the seat before the end of the term; filled by special election in Jan 1996.,White,Keena workbook,,woman,Novack (1994) p.6,inferred by Claude from name
+Albert C. Eisenberg,4,at large,1996,1,1999,4,Arlington County (2021) p.81,Left the seat before the end of the term; filled by special election in Apr 1999.,White,Keena workbook,,man,Keena workbook,
+Christopher E. Zimmerman,1,at large,1996,1,1998,12,Arlington County (2021) p.82,Elected in a special election in Jan 1996 to fill an unexpired term.,White,Keena workbook,,man,Keena workbook,
+Paul F. Ferguson,1,at large,1996,1,1999,12,Arlington County (2021) p.81,,White,Keena workbook,,man,Keena workbook,
+James B. Hunter III,3,at large,1997,1,1997,11,Arlington County (2021) p.82,Left the seat before the end of the term; filled by special election in Nov 1997.,White,Keena workbook,,man,Keena workbook,
+Barbara A. Favola,1,at large,1997,11,2000,12,Arlington County (2021) p.85,Elected in a special election in Nov 1997 to fill an unexpired term.,White,Keena workbook,,woman,Arlington County (2021) p.85,inferred by Claude from name
+"G.N. “Jay” Fisette, Jr.",1,at large,1998,1,2001,12,Arlington County (2021) p.85,,White,Keena workbook,,man,Keena workbook,
+Christopher E. Zimmerman,2,at large,1999,1,2002,12,Arlington County (2021) p.85,,White,Keena workbook,,man,Keena workbook,
+Michael D. Lane,1,at large,1999,4,1999,12,Arlington County (2021) p.86,Elected in a special election in Apr 1999 to fill an unexpired term.,White,Keena workbook,,man,Keena workbook,
+Charles P. Monroe,1,at large,2000,1,2003,3,Arlington County (2021) p.88,Left the seat before the end of the term; filled by special election in Mar 2003.,Black,Hjerpe (2021) p.7,"one of the four members of color the passage names; it counts three Black men and one Hispanic man without saying which is which: “As of the writing of this piece, 3 black men, one Hispanic man, and no Asian American people have served on the Arlington County Board under the at-large system. It should also be noted that all four board members of color in the at-large era were elected in years where two county board seats were up for election, and only Christian Dorsey in 2015 managed to gain office by winning the most amount of votes, rather than the second amount of votes. Had William T. Neuman, Charles Monroe, or Walter Tejada ran in any other election cycle, they would have lost.”",man,Keena workbook,
+Paul F. Ferguson,2,at large,2000,1,2003,12,Arlington County (2021) p.88,,White,Keena workbook,,man,Keena workbook,
+Barbara A. Favola,2,at large,2001,1,2004,12,Arlington County (2021) p.89,,White,Keena workbook,,woman,Arlington County (2021) p.85,inferred by Claude from name
+"G.N. “Jay” Fisette, Jr.",2,at large,2002,1,2005,12,Arlington County (2021) p.91,,White,Keena workbook,,man,Keena workbook,
+Christopher E. Zimmerman,3,at large,2003,1,2006,12,Arlington County (2021) p.91,,White,Keena workbook,,man,Keena workbook,
+J. Walter Tejada,1,at large,2003,3,2003,12,Arlington County (2021) p.92,Elected in a special election in Mar 2003 to fill an unexpired term.,Hispanic,Hjerpe (2021) p.7,"one of the four members of color the passage names; it counts three Black men and one Hispanic man without saying which is which: “As of the writing of this piece, 3 black men, one Hispanic man, and no Asian American people have served on the Arlington County Board under the at-large system. It should also be noted that all four board members of color in the at-large era were elected in years where two county board seats were up for election, and only Christian Dorsey in 2015 managed to gain office by winning the most amount of votes, rather than the second amount of votes. Had William T. Neuman, Charles Monroe, or Walter Tejada ran in any other election cycle, they would have lost.”",man,Keena workbook,
+J. Walter Tejada,2,at large,2004,1,2007,12,Arlington County (2021) p.94,,Hispanic,Hjerpe (2021) p.7,"one of the four members of color the passage names; it counts three Black men and one Hispanic man without saying which is which: “As of the writing of this piece, 3 black men, one Hispanic man, and no Asian American people have served on the Arlington County Board under the at-large system. It should also be noted that all four board members of color in the at-large era were elected in years where two county board seats were up for election, and only Christian Dorsey in 2015 managed to gain office by winning the most amount of votes, rather than the second amount of votes. Had William T. Neuman, Charles Monroe, or Walter Tejada ran in any other election cycle, they would have lost.”",man,Keena workbook,
+Paul F. Ferguson,3,at large,2004,1,2007,12,Arlington County (2021) p.94,,White,Keena workbook,,man,Keena workbook,
+Barbara A. Favola,3,at large,2005,1,2008,12,Arlington County (2021) p.95,,White,Keena workbook,,woman,Arlington County (2021) p.85,inferred by Claude from name
+"G.N. “Jay” Fisette, Jr.",3,at large,2006,1,2009,12,Arlington County (2021) p.97,,White,Keena workbook,,man,Keena workbook,
+Christopher E. Zimmerman,4,at large,2007,1,2010,12,Arlington County (2021) p.97,,White,Keena workbook,,man,Keena workbook,
+J. Walter Tejada,3,at large,2008,1,2011,12,Arlington County (2021) p.100,,Hispanic,Hjerpe (2021) p.7,"one of the four members of color the passage names; it counts three Black men and one Hispanic man without saying which is which: “As of the writing of this piece, 3 black men, one Hispanic man, and no Asian American people have served on the Arlington County Board under the at-large system. It should also be noted that all four board members of color in the at-large era were elected in years where two county board seats were up for election, and only Christian Dorsey in 2015 managed to gain office by winning the most amount of votes, rather than the second amount of votes. Had William T. Neuman, Charles Monroe, or Walter Tejada ran in any other election cycle, they would have lost.”",man,Keena workbook,
+Mary H. Hynes,1,at large,2008,1,2011,12,Arlington County (2021) p.100,,White,Keena workbook,,woman,Arlington County (2021) p.100,inferred by Claude from name
+Barbara A. Favola,4,at large,2009,1,2012,3,Arlington County (2021) p.101,Left the seat before the end of the term; filled by special election in Mar 2012.,White,Keena workbook,,woman,Arlington County (2021) p.85,inferred by Claude from name
+"G.N. “Jay” Fisette, Jr.",4,at large,2010,1,2013,12,Arlington County (2021) p.103,,White,Keena workbook,,man,Keena workbook,
+Christopher E. Zimmerman,5,at large,2011,1,2014,4,Arlington County (2021) p.103,Left the seat before the end of the term; filled by special election in Apr 2014.,White,Keena workbook,,man,Keena workbook,
+J. Walter Tejada,4,at large,2012,1,2015,12,Arlington County (2021) p.106,,Hispanic,Hjerpe (2021) p.7,"one of the four members of color the passage names; it counts three Black men and one Hispanic man without saying which is which: “As of the writing of this piece, 3 black men, one Hispanic man, and no Asian American people have served on the Arlington County Board under the at-large system. It should also be noted that all four board members of color in the at-large era were elected in years where two county board seats were up for election, and only Christian Dorsey in 2015 managed to gain office by winning the most amount of votes, rather than the second amount of votes. Had William T. Neuman, Charles Monroe, or Walter Tejada ran in any other election cycle, they would have lost.”",man,Keena workbook,
+Mary H. Hynes,2,at large,2012,1,2015,12,Arlington County (2021) p.106,,White,Keena workbook,,woman,Arlington County (2021) p.100,inferred by Claude from name
+Libby T. Garvey,1,at large,2012,3,2012,12,Arlington County (2021) p.106,Elected in a special election in Mar 2012 to fill an unexpired term.,White,Keena workbook,,woman,Arlington County (2021) p.106,inferred by Claude from name
+Libby T. Garvey,2,at large,2013,1,2016,12,Arlington County (2021) p.107,,White,Keena workbook,,woman,Arlington County (2021) p.106,inferred by Claude from name
+"G.N. “Jay” Fisette, Jr.",5,at large,2014,1,2017,12,Arlington County (2021) p.109,,White,Keena workbook,,man,Keena workbook,
+John E. Vihstadt,1,at large,2014,4,2014,12,Arlington County (2021) p.109,Elected in a special election in Apr 2014 to fill an unexpired term.,White,Keena workbook,,man,Keena workbook,
+John E. Vihstadt,2,at large,2015,1,2018,12,Arlington County (2021) p.110,,White,Keena workbook,,man,Keena workbook,
+Christian E. Dorsey,1,at large,2016,1,2019,12,Arlington County (2021) p.112,,Black,Hjerpe (2021) p.7,"one of the four members of color the passage names; it counts three Black men and one Hispanic man without saying which is which: “As of the writing of this piece, 3 black men, one Hispanic man, and no Asian American people have served on the Arlington County Board under the at-large system. It should also be noted that all four board members of color in the at-large era were elected in years where two county board seats were up for election, and only Christian Dorsey in 2015 managed to gain office by winning the most amount of votes, rather than the second amount of votes. Had William T. Neuman, Charles Monroe, or Walter Tejada ran in any other election cycle, they would have lost.”",man,Keena workbook,
+"Kate A. ""Katie"" Cristol",1,at large,2016,1,2019,12,Arlington County (2021) p.112,,White,Keena workbook,,woman,Arlington County (2021) p.112,inferred by Claude from name
+Libby T. Garvey,3,at large,2017,1,2020,12,Arlington County (2021) p.114,,White,Keena workbook,,woman,Arlington County (2021) p.106,inferred by Claude from name
+Erik Gutshall,1,at large,2018,1,2020,7,Arlington County (2021) p.116,Left the seat before the end of the term; filled by special election in Jul 2020.,White,Keena workbook,,man,Keena workbook,
+"Matthew D. ""Matt"" de Ferranti",1,at large,2019,1,2022,12,Arlington County (2021) p.116,,White,Keena workbook,,man,Keena workbook,
+Christian E. Dorsey,2,at large,2020,1,2023,12,Arlington County (2021) p.118,,Black,Hjerpe (2021) p.7,"one of the four members of color the passage names; it counts three Black men and one Hispanic man without saying which is which: “As of the writing of this piece, 3 black men, one Hispanic man, and no Asian American people have served on the Arlington County Board under the at-large system. It should also be noted that all four board members of color in the at-large era were elected in years where two county board seats were up for election, and only Christian Dorsey in 2015 managed to gain office by winning the most amount of votes, rather than the second amount of votes. Had William T. Neuman, Charles Monroe, or Walter Tejada ran in any other election cycle, they would have lost.”",man,Keena workbook,
+"Kate A. ""Katie"" Cristol",2,at large,2020,1,2023,12,Arlington County (2021) p.118,,White,Keena workbook,,woman,Arlington County (2021) p.112,inferred by Claude from name
+Takis P. Karantonis,1,at large,2020,7,2021,12,Arlington County (2021) p.119,Elected in a special election in Jul 2020 to fill an unexpired term.,White,Keena workbook,,man,Keena workbook,
+Libby T. Garvey,4,at large,2021,1,2024,12,Arlington County (2021) p.120,,White,Keena workbook,,woman,Arlington County (2021) p.106,inferred by Claude from name
+Takis P. Karantonis,2,at large,2022,1,2025,12,Arlington County (2021) p.122,,White,Keena workbook,,man,Keena workbook,
+"Matthew D. ""Matt"" de Ferranti",2,at large,2023,1,2026,12,Virginia Department of Elections (2026) contest 156359,,White,Keena workbook,,man,Keena workbook,
+Maureen E. Coffey,1,at large,2024,1,2027,12,Virginia Department of Elections (2026) contest 163432,,White,Keena workbook,,woman,Virginia Department of Elections (2026) contest 163432,inferred by Claude from name
+Susan R. Cunningham,1,at large,2024,1,2027,12,Virginia Department of Elections (2026) contest 163432,,White,Keena workbook,,woman,Virginia Department of Elections (2026) contest 163432,inferred by Claude from name
+"Julius D. ""JD"" Spain, Sr.",1,at large,2025,1,2028,12,Virginia Department of Elections (2026) contest 161309,,Black,Hudson (2026) personal knowledge,"stated directly by Sally Hudson, who knows him",man,Keena workbook,
+Takis P. Karantonis,3,at large,2026,1,2029,12,Virginia Department of Elections (2026) contest 165040,,White,Keena workbook,,man,Keena workbook,

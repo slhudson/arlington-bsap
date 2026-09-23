@@ -20,7 +20,6 @@ from pathlib import Path
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent / "build"))
-import board_demographics  # noqa: E402
 import board_members  # noqa: E402
 import board_roster  # noqa: E402
 import board_seats  # noqa: E402
@@ -143,19 +142,35 @@ def test_prose_in_the_name_column_is_rejected():
 
 def test_an_attributed_name_that_misses_the_roster_is_rejected():
     """The demographics file matches people by exact name. A near-miss
-    ("Bozman" for "Ellen Bozman") would fall silently into the default -
-    the one failure that file exists to prevent - so the build refuses it.
+    ("Bozman" for "Ellen Bozman") would fall silently into the workbook
+    coding or the default - the one failure that file exists to prevent -
+    so the build refuses it.
     """
     def mangle(orig):
         def patched(path, *a, **k):
             d = orig(path, *a, **k)
-            if "name" in d.columns and "basis" in d.columns:      # the attributions file
+            if "basis" in d.columns:                        # the attributions file
                 d.loc[d.name == "Ellen Bozman", "name"] = "Bozman"
             return d
         return patched
-    err = breaks(board_demographics.pd, "read_csv", mangle, build=board_demographics.build)
+    err = breaks(board_members.pd, "read_csv", mangle, build=board_members.build)
     assert err and "not in the roster" in err, f"not caught: {err}"
 
+
+def test_two_sources_disagreeing_on_race_is_a_finding():
+    """Two sources naming a different race for one person is something to
+    stop and look at, not something to pick between silently."""
+    def mangle(orig):
+        def patched(path, *a, **k):
+            d = orig(path, *a, **k)
+            if "basis" in d.columns:
+                extra = d[d.name == "William A. Rowe"].iloc[[0]].copy()
+                extra["race"] = "White"
+                d = pd.concat([d, extra], ignore_index=True)
+            return d
+        return patched
+    err = breaks(board_members.pd, "read_csv", mangle, build=board_members.build)
+    assert err and "disagree" in err, f"not caught: {err}"
 
 if __name__ == "__main__":
     tests = [(n, f) for n, f in sorted(globals().items()) if n.startswith("test_")]

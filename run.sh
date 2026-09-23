@@ -18,7 +18,7 @@ PY=.venv/bin/python
 
 # Stage 1: raw/ -> data/. Every decision about what a number IS happens here.
 # Each step is named for the file it writes: residents.py -> data/residents.csv
-BUILD=(residents board_seats board_members board_roster board_demographics)
+BUILD=(residents board_seats board_members)
 
 # Stage 2: data/ -> figures/. Presentation only; analysis cannot reach raw/.
 # Each step is named for the figure it writes: board_seats.py -> board_seats.pdf/.png

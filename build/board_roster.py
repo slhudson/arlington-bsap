@@ -1,6 +1,7 @@
-"""The roster: one row per person per term served -> data/clean/board_roster.csv
+"""Who held each seat and when, 1870 through 2026, as one row per person per term.
 
-A term, not a person-year: name, district, and when service began and ended.
+A module, not a step: board_members.py takes these terms and attaches race
+and gender. A term, not a person-year: name, district, and when service began and ended.
 Person-years fall out of this; the reverse does not, because a term that starts
 in May or ends in February cannot be recovered from a list of years.
 
@@ -29,7 +30,7 @@ import re
 
 import pandas as pd
 
-from files import RAW, TRANSCRIBED, write
+from files import RAW, TRANSCRIBED
 
 BY_CLAUDE = TRANSCRIBED / "by_claude"
 NOVACK_PUBLISHED = 1994
@@ -491,5 +492,3 @@ def build() -> pd.DataFrame:
     return d[cols].sort_values(["start_year", "start_month", "district", "name"]).reset_index(drop=True)
 
 
-if __name__ == "__main__":
-    write(build(), "board_roster")

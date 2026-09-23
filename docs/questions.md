@@ -233,7 +233,15 @@ why the question is worth asking before the work.
   mulatto, quadroon, octoroon, Chinese, Japanese and civilized Indian.
 
 ### Q13. What rule sets the size of a fractional seat?
-**Owner:** Alex · **Status:** even split accepted for now; time-weighting is the goal
+**Owner:** Alex · **Status:** decided 2026-09-22 — weight by months served; to be built
+
+**Decided (Sally, 2026-09-22): a seat-year is months served ÷ 12.** The
+roster now records every term from 1932 to the month, so the even split is no
+longer needed. Days are not recorded consistently — Novack gives some, the
+election dates give others — so the month is the unit, and **the handover
+month belongs to the incoming member.** 1916–1931 has no terms and stays on
+the delivered seat counts. To be built as `board_seats` computed from
+`board_members`, with the delivered counts kept for comparison.
 
 The seat counts carry fractions — 3.5 white and 0.5 Black in 2003 — and the
 figure note explains when one appears: "Half seats occur when a Board member
