@@ -169,7 +169,7 @@ Appendix 1 also does not appear where `p.8` claims; that page carries narrative
 text and no image. Worth resolving in the same pass.
 
 ### Q18. Where do the prose-only sources live?
-**Owner:** Sally · **Status:** answered for the folder — the sources still need filing
+**Owner:** Sally · **Status:** answered — folder, convention and four sources filed
 
 `data/` holds only what we take numbers out of, so a source read to settle a
 question is cited and not downloaded. Hjerpe, Rose, Anderson (1958), Pratt
