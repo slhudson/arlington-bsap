@@ -1,9 +1,9 @@
 # Sources
 
-What backs each number, and what does not yet. Covers both strands: the census
-population figures, and the race and gender coding of Board members.
-
-This is also the work order for a research assistant — see the end.
+What backs each number in `data/clean/`, by period, and what is still open.
+Every `source` cell there holds a citekey from `paper/sources.bib` or one of
+three placeholders (`UNSOURCED`, `DERIVED`, `ASSUMED`); `code/build/citekeys.py`
+says what each means, and `bash run.sh` counts them on every build.
 
 ---
 
@@ -52,7 +52,7 @@ city total. Its 338 residents in 1890 are already within Arlington district's
 2,013.
 
 Counting it as a fourth district adds those people twice and gives 4,596, the
-figure currently in `data/transcribed/by_human/`. See questions.md for the correction, and for why the
+figure in the delivered workbook. See questions.md for the correction, and for why the
 settlement matters beyond the arithmetic.
 
 ### Checks for any new early figure
@@ -65,41 +65,56 @@ The third is the one that failed.
 
 ---
 
-## Population totals, year by year
+## Population and race, year by year
 
-| Year | Workbook | Status |
-|---|---|---|
-| 1870 | 3,185 | **confirmed** |
-| 1880 | 3,887 | **confirmed**, two independent ways |
-| 1890 | 4,596 | **contradicted** — the tables give 4,258 |
-| 1900 | 6,430 | **confirmed** |
-| 1910 | 10,231 | **confirmed** |
-| 1920 | 16,040 | **confirmed** |
-| 1930 | 26,615 | **confirmed** |
-| 1940 | 57,040 | **confirmed** |
-| 1950 | 135,449 | **confirmed** |
-| 1960 | 163,401 | **confirmed** |
-| 1970 | 174,284 | **confirmed** |
-| 1980 | 152,599 | **confirmed** |
-| 1990 | 170,936 | **confirmed** twice |
-| 2000 | 189,453 | not yet checked |
-| 2010 | 207,627 | not yet checked |
-| 2020 | 238,643 | not yet checked |
+Every total from 1870 to 2020 is taken from a published Census Bureau
+document that is in `data/raw/us_census_bureau/`. The race split is sourced
+only for 1870–1890, derived from the volumes as county minus city. From 1900
+on it is the delivered workbook's figures: for 1900–1980 no source is
+recorded (with Alex, questions.md), and for 1990–2020 the Bureau's own race
+tables are in `data/raw/` but are not used until the Hispanic-definition
+question is settled, since they count Hispanic across races and the
+workbook does not.
 
-Eleven of sixteen totals are traced to a published table. 1900–1990 all come
-from one table in *Population of States and Counties of the United States:
-1790-1990*, and every one matched exactly.
+| Year | Total | Total from | Race from |
+|---|---|---|---|
+| 1870 | 3,185 | `walker1872` | `walker1872` |
+| 1880 | 3,887 | `census1880` | `census1880` |
+| 1890 | 4,258 | `census1890` | `census1890` |
+| 1900 | 6,430 | `forstall1996` | `keena-workbook` |
+| 1910 | 10,231 | `forstall1996` | `keena-workbook` |
+| 1920 | 16,040 | `forstall1996` | `keena-workbook` |
+| 1930 | 26,615 | `forstall1996` | `keena-workbook` |
+| 1940 | 57,040 | `forstall1996` | `keena-workbook` |
+| 1950 | 135,449 | `forstall1996` | `keena-workbook` |
+| 1960 | 163,401 | `forstall1996` | `keena-workbook` |
+| 1970 | 174,284 | `forstall1996` | `keena-workbook` |
+| 1980 | 152,599 | `forstall1996` | `keena-workbook` |
+| 1990 | 170,936 | `forstall1996` | `keena-workbook` |
+| 2000 | 189,453 | `censusapi` | `keena-workbook` |
+| 2010 | 207,627 | `censusapi` | `keena-workbook` |
+| 2020 | 238,643 | `censusapi` | `keena-workbook` |
 
-The per-cell record, with volume, table and page, is
-`data/transcribed/by_human/census_verification.csv`. It is compiled here rather than received
-— the three workbooks beside it stay exactly as delivered, and a discrepancy is
-recorded, never corrected in place.
+`walker1872`, `census1880`, `census1890` are the printed volumes;
+`forstall1996` is *Population of States and Counties of the United States:
+1790-1990*; `censusapi` the Bureau's data files.
 
----
+**Where the built figures differ from the delivered workbook.** Three cells:
+1870 white (workbook 1,075; the volume gives 1,175 — Jefferson district keyed
+as 283 for 383), 1890 total (4,596; 4,258 — Freedman village counted as a
+fourth district when the table prints it inside Arlington district), and 1890
+white (2,195; 2,135 — foreign white female keyed as 365 for 305). 1880 and
+every total from 1900 on match the workbook exactly. The three are with Alex
+to confirm; the build uses the printed figures.
 
-## Race and ethnicity figures
-
-Much less well established than the totals.
+**The categories were never meant to sum.** The census asks race and Hispanic
+origin as two separate questions, so a Hispanic resident appears in both a
+race count and the Hispanic count. For 1990 the cited source shows this
+exactly: white 130,873 + Black 17,940 + American Indian 537 + Asian/PI 11,560
++ Other race 10,026 = 170,936, with Hispanic (23,089) cutting across all five.
+The workbook mixes the two systems — non-Hispanic white alongside all-race
+Black and Asian totals — which is the 1970 and 1990 overshoot. Whether to
+recode Hispanic as an ethnicity across races is with Alex (questions.md).
 
 | Years | Categories the census reports |
 |---|---|
@@ -107,59 +122,22 @@ Much less well established than the totals.
 | 1950–1960 | White, Black, AAPI |
 | 1970–2020 | White, Black, AAPI, Hispanic/Latino |
 
-The gaps are a feature of the source rather than of this dataset, which is why
-questions.md matters.
-
-**The categories were never meant to sum.** The census asks race and Hispanic
-origin as two separate questions, so a Hispanic resident appears in both a race
-count and the Hispanic count. For 1990 the cited source shows this exactly:
-white 130,873 + Black 17,940 + American Indian 537 + Asian/PI 11,560 + Other
-race 10,026 = 170,936, with Hispanic (23,089) cutting across all five.
-
-The workbook mixes the two systems — non-Hispanic white alongside all-race
-Black and Asian totals, with American Indian and Other race dropped. That
-accounts for the 1990 overshoot of 381 to the person. See questions.md.
-
-**1870, 1880 and 1890 are now fully derived from the volumes.** Each year's
-county figure comes from subtracting the city, with both the total and the race
-split read off published tables:
-
-| Year | | Workbook | From the sources | |
-|---|---|---|---|---|
-| 1870 | total | 3,185 | 3,185 | confirmed |
-| | white | 1,075 | **1,175** | differs by 100 |
-| | black | 2,010 | 2,010 | confirmed |
-| 1880 | total | 3,887 | 3,887 | confirmed |
-| | white | 1,693 | 1,693 | confirmed |
-| | black | 2,194 | 2,194 | confirmed |
-| 1890 | total | 4,596 | **4,258** | differs by 338 |
-| | white | 2,195 | **2,135** | differs by 60 |
-| | black | 2,123 | 2,123 | confirmed |
-
-1880 is confirmed in full. In the derived figures, white plus black accounts for
-each year's total exactly — no residual in any of the three. The
-"Other/multiracial/unreported" band the charts currently show for these years
-(3.1% in 1870, 6.0% in 1890) is an artefact of the discrepancies, not a
-category of residents.
-
-The 338 in 1890 is the Freedman village double count. The 100 in 1870 and the
-60 in 1890 are keying differences with no pattern between them.
-
 ---
 
 ## What backs the Board data
 
-The two delivered workbooks — `board_seats.csv`, 156 years of seat counts, and
-`board_members.csv`, 497 person-years with race and gender on every row — do
-not carry a source column, and the material they were compiled from (news
-coverage, the Arlington Historical Society, obituaries) is not in the
-repository. The roster and demographics below were built so that a source
-stands behind each row; the workbooks are what they are checked against.
+Two delivered workbooks — seat counts by year, 1871–2026, and a member
+database, 1932–2026 — carry no source column, and the material they were
+compiled from is not in the repository. The roster, the race and gender
+attributions, and the seat-years below were built so that a source stands
+behind each row; the workbooks fill what nothing else covers (1916–1931
+seats; race and gender from 1932 where no source speaks) and are otherwise
+what the built files are checked against.
 
 ### A roster built from sources
 
-`data/clean/board_roster.csv` holds one row per person per term: name,
-term number, district, and when service began and ended. 221 terms, 1870 through 2026
+`data/clean/board_members.csv` holds one row per person per term: name,
+term number, district, and when service began and ended. 217 terms, 1870 through 2026
 (the next election is November 2026), from three sources in sequence: O'Leary's electoral
 history to 1915, Novack's roster from 1932 to 1994, and election results
 after that - the county's candidate history to 2021, the state's elections
@@ -229,9 +207,8 @@ years where the delivered file's half-and-half split and the months disagree.
 
 ### Compared with the delivered roster
 
-Alex's roster (`board_members.csv`, read from the workbook as delivered) and
-the built one overlap from 1932 to 1994, and **agree on membership in 60 of 63
-years** — two files assembled independently, one from an unrecorded source,
+The delivered member database and the built roster overlap from 1932 to
+1994, and **agree on membership in 60 of 63 years** — two files assembled independently, one from an unrecorded source,
 reaching the same answer for sixty years.
 
 The three exceptions:
@@ -252,48 +229,15 @@ The three exceptions:
 DeLashmutt and Lloyd from 1940, after their November 1939 wins — and there
 the build follows Novack.
 
-### What the two files can say about each other
-
-Sourcing them needs archival work, but they overlap from 1932 and can be
-checked against each other. That has now been done.
-
-**The seat counts are internally coherent everywhere.** Across all 153 reported
-years, the four race categories sum to the number of seats, men plus women sum
-to the number of seats, and the two totals agree. Three seats through 1930,
-five from 1932, fractions included. No drift.
-
-**The delivered roster reproduces the seat counts in 82 of 95 overlapping years.** All 13
-exceptions are years in which more people served than there were seats, which
-is what the fractional seats encode. So the two files agree wherever nothing
-complicated happened.
-
-**One duplicate.** Alfred Frisbie has three rows for 1952. The coding agrees
-across them, so nothing is miscoded, but a tally built from the roster would
-count him three times. 1952 was a chaotic year: three members removed on 17
-September, four appointed the next day, and four more elected in November.
-
-**The delivered fractions are half-and-half.** The delivered roster records
-`appointed`, `resigned`, `died` and `removed` as yes/no flags, with the actual
-dates only in free-text notes — "Removed 9/17/52", "until death on Jan 11". So
-the halves in the seat counts cannot be checked against service dates without
-parsing prose. Nor is the convention obviously proportional: in 2003 Charles
-Monroe died on 11 January and the year is still split half and half.
-
-Turning those note dates into real date columns would make every fraction
-checkable. Twenty-nine of the thirty-two flagged rows already carry a date;
-three do not, and are a question for Alex.
-The rule itself is in questions.md.
-
-All three checks that could be made structural now run in `code/build/` and were
-verified by breaking them deliberately.
-
 ## Race and gender of Board members
 
-The roster says who served and when. Race and gender are recorded separately,
-in `data/transcribed/by_claude/board_demographics.csv`: one row per member
-for whom a source says something, with the source's own words. A member not in
-that file is treated as a white man. That default is a claim, and the table
-below says what stands behind it in each period.
+Race and gender come, in order, from `data/transcribed/by_claude/board_demographics.csv`
+— one row per claim a source makes about a member, in the source's own words
+with a citation — then from the delivered member database for 1932 on, and
+otherwise from a default: a white man. Each cell of `board_members.csv` says
+which. Where an attribution and the workbook both speak, they agree everywhere.
+The default is a claim, and the table below says what stands behind it in each
+period.
 
 | Period | Race | Gender |
 |---|---|---|
@@ -430,19 +374,18 @@ because numbers are taken from them; the notes are cited here.
 Roughly in order of value. The first items are mechanical and need no
 judgement, so they are the easiest to hand over.
 
-1. **Verify 2000, 2010 and 2020 totals.** The only unchecked totals left.
-2. **Trace the race splits for 1870, 1880 and 1890.** The tables found so far
+1. **Trace the race splits for 1870, 1880 and 1890.** The tables found so far
    cover the county including the city; a county-only split may not exist in
    published form, in which case record how it must be derived.
-3. **Establish where the scanned volumes came from** — a citation per file.
-4. **Establish what supports the 1931–1986 default.** Start with the
+2. **Establish where the scanned volumes came from** — a citation per file.
+3. **Establish what supports the 1931–1986 default.** Start with the
    Historical Society's reply. The judgement-heavy one.
-5. **Verify the five Reconstruction-era members** against the 1870 and 1880
+4. **Verify the five Reconstruction-era members** against the 1870 and 1880
    manuscript census, following Hjerpe's method.
-6. **Find a published statement for each gender row** in
+5. **Find a published statement for each gender row** in
    `data/transcribed/by_claude/board_demographics.csv` — an obituary, a
    profile — to replace "inferred by Claude from name".
-7. **Check the roster's name forms from 1907**, where O'Leary gives surnames
+6. **Check the roster's name forms from 1907**, where O'Leary gives surnames
    only (see questions.md).
 
 Record each source as you go — the point is that every coded cell can be
