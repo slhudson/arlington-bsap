@@ -55,7 +55,7 @@ def lines(ax, x, series):
         ax.plot(x, values, color=color, marker="o", zorder=3, label=label)
 
 
-def label_line(ax, x, y, text, color, ha="left"):
+def label_line(ax, x, y, text, color, ha="left", va="center"):
     """Name a line where it runs, on one line of text, inside the axes.
 
     Urban puts line labels at the far right, just outside the plot. That needs
@@ -67,23 +67,30 @@ def label_line(ax, x, y, text, color, ha="left"):
     One line, not two. A label wrapped over two or three lines is read rather
     than glanced at, which is the opposite of what direct labelling is for.
     """
-    ax.text(x, y, text, color=color, ha=ha, va="center",
+    ax.text(x, y, text, color=color, ha=ha, va=va, linespacing=1.25,
             fontsize=plt.rcParams["font.size"])
 
 
-def end_label(ax, x, y, text, color, gap=0.012):
-    """Name a line immediately beside the point it describes, at that height.
+def end_label(ax, x, y, text, color, where="left", gap=0.012):
+    """Name a line at the point it describes, on whichever side has room.
 
-    A direct label has to sit near its own mark; placed anywhere else it is a
-    caption the reader has to match to a line, which is what a legend already
-    is. Level with the final point and just to its right is the least ambiguous
-    position available, and wrapping the name above the value keeps it short
-    enough that the room it needs does not visibly stretch the axis.
+    Never to the right of the last point: that needs headroom the axis does not
+    otherwise want, and buying room for a caption by stretching the series is
+    the wrong trade. The space inside the plot is already there.
 
-    Call after years(), which sets the limit this reads.
+    Which side depends on the line, not on a rule. `left` right-aligns the text
+    so it ends at the point, which suits a line with empty space behind it.
+    `above` sits it over the point, still right-aligned so it ends there rather
+    than straddling it, which suits a line running close under where a
+    left-hand label would go. Wrap the name over as many lines as it
+    takes to stay clear.
     """
-    lo, hi = ax.get_xlim()
-    label_line(ax, x + (hi - lo) * gap, y, text, color, ha="left")
+    if where == "above":
+        lo, hi = ax.get_ylim()
+        label_line(ax, x, y + (hi - lo) * gap, text, color, ha="right", va="bottom")
+    else:
+        lo, hi = ax.get_xlim()
+        label_line(ax, x - (hi - lo) * gap, y, text, color, ha="right", va="center")
 
 
 def stacked_bars(ax, x, series, width=7):

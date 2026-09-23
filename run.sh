@@ -21,7 +21,7 @@ PY=.venv/bin/python
 BUILD=(residents board_members board_seats)
 
 # Stage 2: data/ -> figures/. Presentation only; analysis cannot reach raw/.
-# Each step is named for the figure it writes: board_seats.py -> board_seats.pdf/.png
+# Each step is named for the figure it writes: board_race.py -> board_race.pdf/.png
 # Two subjects, residents then board, alphabetical within each. Build order is
 # independent of the order the report uses them in: that belongs to the prose,
 # and a list here that tracked it would go stale with nothing to catch it.

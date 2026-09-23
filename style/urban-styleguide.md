@@ -29,7 +29,7 @@ men)." The gender figure does exactly that, at Sally's direction and before
 either of us had this text.
 
 **Legend size.** The guide puts legend text at 9.5pt against 8.5pt for axis
-labels and ticks. Here both are 8.5: inside these figures a legend entry and a
+labels and ticks. Here both are 8.5, set in `urban.mplstyle` where the size is: inside these figures a legend entry and a
 tick label both name a mark, and the difference read as arbitrary rather than
 as hierarchy. The one size that remains distinct is the `(a)`/`(b)` panel
 label, which has no counterpart in Urban's table — their title is 12pt and

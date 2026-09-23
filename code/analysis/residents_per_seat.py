@@ -33,15 +33,26 @@ for profile in style.PROFILES:
     # Decades collide at this width, so labels every twenty years with an
     # unlabelled tick at each census between. The headroom is for the two end
     # labels, which sit inside the axes beside the points they name.
-    charts.years(ax, 1870, 2020, step=20, headroom=0.16)
+    charts.years(ax, 1870, 2020, step=20)
 
+    # Each label goes where its own line leaves room, not by one rule.
+    #
+    # Population has empty space behind its last point, so the label sits to
+    # its left, right-aligned so the text ends at the point. The gap is wider
+    # than the default because the line climbs steeply into 2020 and would
+    # otherwise cross the value beneath the name.
+    #
+    # Residents per seat has the population line only just above it and its own
+    # line running under where a left-hand label would sit, so that label goes
+    # directly over its point instead.
     last = d.iloc[-1]
-    for value, name, colour in (
-        (last["total"], "total population", style.SERIES_COLORS["population"]),
-        (last["residents_per_seat"], "residents per Board seat",
-         style.SERIES_COLORS["per_seat"]),
-    ):
-        charts.end_label(ax, 2020, value, f"{name}\n{int(round(value)):,}", colour)
+    charts.end_label(ax, 2020, last["total"],
+                     f"total population\n{int(last['total']):,}",
+                     style.SERIES_COLORS["population"], gap=0.035)
+    charts.end_label(ax, 2020, last["residents_per_seat"],
+                     f"residents per Board seat\n"
+                     f"{int(round(last['residents_per_seat'])):,}",
+                     style.SERIES_COLORS["per_seat"], where="above", gap=0.02)
 
     charts.rule(ax)
     paths.save(fig, "residents_per_seat", profile)

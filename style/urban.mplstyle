@@ -8,9 +8,10 @@
 # from Urban, the departure is in style.py with its reason, not hidden in here.
 #
 # Sizes are Urban's PDF figures: axis titles, axis labels and data labels 8.5,
-# legend 9.5, source and notes 8. The guide puts the chart title and subtitle
-# in the document rather than in the image; so does this repository, in the
-# LaTeX caption, so no title size is set.
+# source and notes 8. Their legend is 9.5; here it is 8.5, which is the one
+# departure and is marked where it is set. The guide puts the chart title and
+# subtitle in the document rather than in the image; so does this repository,
+# in the LaTeX caption, so axes.titlesize covers only the (a)/(b) panel label.
 
 # Space above a panel title. The guide gives no spacing numbers - they live in
 # Urban's R theme, not the published guide - so this is judgement: matplotlib's
@@ -26,7 +27,11 @@ axes.labelsize:         8.5
 axes.titlesize:         9.5
 xtick.labelsize:        8.5
 ytick.labelsize:        8.5
-legend.fontsize:        9.5
+# Urban puts legend text a point above axis labels, to build a hierarchy.
+# Here they are equal: a legend entry and a tick label both name a mark and
+# neither outranks the other. This is the one size in the table below that is
+# not Urban's - see style/urban-styleguide.md.
+legend.fontsize:        8.5
 figure.titlesize:       9.5
 
 # Horizontal gridlines only, light grey, thin. Urban gives RGB 217,217,217 and
