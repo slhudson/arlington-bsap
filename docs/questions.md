@@ -130,6 +130,23 @@ The 1889–1986 stretch is coded all-White, roughly 490 person-years, resting on
 that framing. It is the most load-bearing claim in the report and has not been
 independently verified. Detail in `docs/sources.md`.
 
+### Q18. Where do the prose-only sources live?
+**Owner:** Sally · **Status:** open — the Drive folder is not set up yet
+
+`data/` holds only what we take numbers out of, so a source read to settle a
+question is cited and not downloaded. Hjerpe, Rose, Anderson (1958), Pratt
+(1995) and Bestebreurtje are that kind, and the plan is a shared Drive folder
+rather than `data/raw/` — text-only PDFs would eat the Overleaf budget for
+nothing (Q6).
+
+The gap that leaves: every entry in `paper/sources.bib` says where its copy is,
+by URL or by a `data/raw/` path, except these. A reader with the citation would
+have no way to reach the document.
+
+When the folder exists, name it in `docs/sources.md` and add a line to each
+affected entry's `annotation`. Anderson, Pratt and Bestebreurtje have no
+entries yet; they get built from the documents when they land.
+
 ### Q4. Should the roster be extended back to 1871?
 **Owner:** Sally · **Status:** open
 
