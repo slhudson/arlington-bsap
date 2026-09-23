@@ -1,4 +1,4 @@
-"""Census API -> data/raw/us_census_bureau/<year>/*.csv, whole tables, for 2000-2020.
+"""Census -> data/raw/us_census_bureau/<year>/*.csv, whole tables, 1980-2020.
 
 NOT part of `bash run.sh`, deliberately. The build never touches the network:
 anyone who clones this repository produces every figure from committed files,
@@ -29,11 +29,41 @@ without the API documentation.
 For 2000-2020 the Bureau publishes machine-readable data, so there is no page
 to read and no transcription step, and therefore no reading error to make. The
 scanned volumes are transcribed only because nothing else exists for them.
+
+**1980 and 1990 come from the archived Summary Tape Files, not the API.** The
+Census API holds no decennial data before 2000; its 1990-vintage entries are
+the December Current Population Survey. The 1980 and 1990 STF1A files are
+published as fixed-width ASCII, one file per state, at www2.census.gov, and
+need no key.
+
+They are what makes a consistent set of race categories possible back to 1980:
+both carry Hispanic (1980: Spanish) origin crossed with race at county level,
+which is the only way to build groups that do not overlap. 1970 is not in this
+script and should not be added. Hispanic origin in 1970 was asked of a
+5 percent sample rather than the full count, the Bureau's position is that it
+is not comparable with later years, and it has a known defect miscoding people
+in the southern and central states into "Central or South American".
+
+1980's record layout is the Bureau's own published dictionary, saved beside the
+data. 1990's technical documentation is only published as PDF, so its cell
+offsets were derived from the file and then checked: the five race cells and
+the ten Hispanic-origin-by-race cells each sum to the published county total,
+for all 136 Virginia county-level geographies. main() re-runs those checks on
+every fetch and refuses to write if one fails.
+
+**What is saved is an extract, not the file as published.** The two 1990
+segments are 172MB and the 1980 file 30MB, against an Overleaf budget of
+100MB for the whole repository. So these are cut to Virginia county rows and
+the tables named below - the same shape as the API years, which are also one
+row per Virginia county. It is a departure from saving a source untouched, and
+the reason is size alone.
 """
+import io
 import json
 import pathlib
 import urllib.parse
 import urllib.request
+import zipfile
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 RAW = ROOT / "data" / "raw" / "us_census_bureau"
@@ -49,6 +79,128 @@ TABLES = {
     2010: ("dec/sf1", {"P3": "race", "P5": "hispanic_origin_by_race"}),
     2020: ("dec/pl", {"P1": "race", "P2": "hispanic_origin_by_race"}),
 }
+
+
+# --- 1980 and 1990: the archived Summary Tape Files --------------------------
+#
+# Fixed-width ASCII, one file per state, no key. Positions below are 1-based
+# and inclusive of the first character, as the Bureau's dictionaries write them.
+# Every cell is 9 characters.
+#
+# 1980 comes from the published dictionary saved beside the data
+# (1980_stf1_datadict.txt): Table 7 is race, Table 8 Spanish origin, Table 9
+# the race of persons of Spanish origin. Table 9 is the cross-tab.
+#
+# 1990's documentation is PDF only, so its offsets were read off the file and
+# are checked on every run - see this module's docstring.
+
+ARCHIVE = {
+    1980: {
+        "url": "https://www2.census.gov/census_1980/stf1a/stf1axva.zip",
+        "dictionary": "https://www2.census.gov/census_1980/1980_stf1_datadict.txt",
+        "member": "STF1AXVA.TXT",
+        # SUMRYLVL 11 is the whole county; state at 34, county FIPS at 40, name at 145.
+        "county": lambda r: r[9:11] == "11" and r[33:35] == "51",
+        "fips": lambda r: r[39:42],
+        "name": lambda r: r[144:204].strip(),
+        "tables": {
+            "table7_race": (370, ["white", "black", "american_indian", "eskimo", "aleut",
+                                  "japanese", "chinese", "filipino", "korean", "asian_indian",
+                                  "vietnamese", "hawaiian", "guamanian", "samoan", "other"]),
+            "table8_spanish_origin": (505, ["not_spanish_origin", "mexican", "puerto_rican",
+                                            "cuban", "other_spanish"]),
+            "table9_race_of_spanish_origin": (550, ["total", "white", "black",
+                                                    "american_indian_eskimo_aleut_asian_pacific_islander",
+                                                    "other"]),
+        },
+        # Each table's cells must account for the same population.
+        "ties": [("table7_race", None), ("table8_spanish_origin", None)],
+    },
+    1990: {
+        "url": "https://www2.census.gov/census_1990/STF1A_ASCII/90STF1A-VA.ZIP",
+        "dictionary": None,
+        "member": "STF1AxVA-F01",
+        # Summary level 050 is the county; 0001 is the whole county rather than
+        # one of its geographic components. County FIPS at 72.
+        "county": lambda r: r[10:13] == "050" and r[24:28] == "0001",
+        "fips": lambda r: r[71:74],
+        # AREANAME runs to the "A!" that begins the area-measurement fields.
+        "name": lambda r: r[191:257].strip(),
+        "tables": {
+            "race": (382, ["white", "black", "american_indian_eskimo_aleut",
+                           "asian_pacific_islander", "other"]),
+            "hispanic_origin_by_race": (706, [
+                "not_hispanic_white", "not_hispanic_black",
+                "not_hispanic_american_indian_eskimo_aleut",
+                "not_hispanic_asian_pacific_islander", "not_hispanic_other",
+                "hispanic_white", "hispanic_black",
+                "hispanic_american_indian_eskimo_aleut",
+                "hispanic_asian_pacific_islander", "hispanic_other"]),
+        },
+        "total_at": 355,
+        "ties": [("race", 355), ("hispanic_origin_by_race", 355)],
+    },
+}
+CELL = 9
+
+
+def cells(record, begin, n):
+    """n consecutive 9-character counts starting at a 1-based position."""
+    out = []
+    for i in range(n):
+        start = begin - 1 + i * CELL
+        out.append(int(record[start:start + CELL]))
+    return out
+
+
+def download(url):
+    with urllib.request.urlopen(url, timeout=600) as r:
+        return r.read()
+
+
+def archive_year(year, spec):
+    """Write one CSV per table for every Virginia county-level geography."""
+    out_dir = RAW / str(year)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    print(f"  {year}: downloading {spec['url'].rsplit('/', 1)[-1]}")
+    with zipfile.ZipFile(io.BytesIO(download(spec["url"]))) as z:
+        text = z.read(spec["member"]).decode("latin-1")
+
+    records = [r for r in text.splitlines() if spec["county"](r)]
+    assert records, f"{year}: no county records matched"
+    fips = [spec["fips"](r) for r in records]
+    assert len(set(fips)) == len(fips), f"{year}: duplicate county FIPS"
+    records.sort(key=spec["name"])
+
+    # Every table must account for the same population, and where the file
+    # states a total, for that total. A layout that has slipped by one cell
+    # fails here rather than becoming a figure.
+    for table, total_at in spec["ties"]:
+        begin, names = spec["tables"][table]
+        for r in records:
+            got = sum(cells(r, begin, len(names)))
+            want = cells(r, total_at, 1)[0] if total_at else None
+            if want is not None and got != want:
+                raise SystemExit(f"{year} {table}: {spec['name'](r)} sums to {got:,}, "
+                                 f"file states {want:,} - check the layout")
+
+    for table, (begin, names) in spec["tables"].items():
+        out = out_dir / f"stf1a_{table}_virginia_counties.csv"
+        with out.open("w") as fh:
+            fh.write("name,state,county," + ",".join(names) + "\n")
+            for r in records:
+                vals = cells(r, begin, len(names))
+                fh.write(f'"{spec["name"](r)}",51,{spec["fips"](r)},'
+                         + ",".join(str(v) for v in vals) + "\n")
+        arl = next(r for r in records if spec["fips"](r) == COUNTY)
+        print(f"  {out.relative_to(ROOT)}  {len(records)} counties, {len(names)} cells"
+              f"  (Arlington sums to {sum(cells(arl, begin, len(names))):,})")
+
+    if spec["dictionary"]:
+        dic = out_dir / spec["dictionary"].rsplit("/", 1)[-1]
+        dic.write_bytes(download(spec["dictionary"]))
+        print(f"  {dic.relative_to(ROOT)}  the Bureau's published record layout")
 
 
 def api_key():
@@ -89,6 +241,9 @@ def labels(year, dataset):
 
 
 def main():
+    for year, spec in ARCHIVE.items():
+        archive_year(year, spec)
+
     key = api_key()
     for year, (dataset, tables) in TABLES.items():
         out_dir = RAW / str(year)
