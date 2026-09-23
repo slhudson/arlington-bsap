@@ -91,10 +91,12 @@ gives the reason.
 
 ## Labels
 
-- **Sentence case for all text inside a figure** — Urban's rule: the first
-  letter and proper names capitalised, everything else lowercase. Axis labels
-  and panel titles are lowercase; group names keep their capitals because they
-  are names; `Other or multiracial` does not.
+- **Legend entries are title case**: `Black`, `Hispanic or Latino`, `Other or
+  Multiracial`. Urban asks for sentence case throughout a figure; a legend is
+  a list of names rather than a sentence, and a lowercase entry beside the
+  others reads as a slip. This one is settled — do not revisit it.
+- **Axis labels and panel titles are lowercase**: `residents`, `census year`,
+  `(a) number of residents`.
 - **Black and White are both capitalised**, as proper names. APA and AMA capitalise
   both; Urban capitalises Black and leaves white lowercase, which in a legend
   beside `Hispanic or Latino` reads as a typo rather than as a position. Prose

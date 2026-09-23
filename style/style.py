@@ -120,9 +120,10 @@ GROUP_ORDER = ["black", "hisp", "aapi", "white"]
 # accurate one for the combination. "Hispanic or Latino" is the Bureau's wording
 # from 2000; 1980 says "Spanish origin".
 #
-# Text inside a figure is sentence case, which is Urban's rule: first letter
-# and proper names capitalised, everything else lowercase. Group names are
-# proper names and keep their capitals; "Other or multiracial" does not.
+# Legend entries are title case. Urban asks for sentence case throughout a
+# figure; a legend is a list of names rather than a sentence, and a lowercase
+# entry sitting beside Black and Hispanic or Latino reads as a slip. Axis
+# labels and panel titles are lowercase, where sentence case is right.
 #
 # Both Black and White are capitalised. APA and AMA capitalise both; Urban
 # capitalises Black and leaves white lowercase, which in a legend beside
@@ -148,7 +149,7 @@ CENSUS_LABELS = {
     "hispanic": "Hispanic or Latino",
     "nh_aapi": "Asian & Pacific Islander",
     "nh_white": "White",
-    "nh_other": "Other or multiracial",
+    "nh_other": "Other or Multiracial",
 }
 
 GENDER_ORDER = ["women", "men"]
@@ -160,7 +161,7 @@ GENDER_LABELS = {"women": "Women", "men": "Men"}
 # Indian and Alaska Native, some other race, and two or more races, all
 # counted; in 2020 two or more races is 12,196 of its 13,945. Sentence case,
 # which is Urban's rule for all text inside a figure.
-OTHER_LABEL = "Other or multiracial"
+OTHER_LABEL = "Other or Multiracial"
 
 
 # --- output profiles --------------------------------------------------------

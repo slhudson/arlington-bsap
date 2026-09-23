@@ -28,6 +28,13 @@ that reinforce gender or racial stereotypes (e.g., pink for women and blue for
 men)." The gender figure does exactly that, at Sally's direction and before
 either of us had this text.
 
-**Capitalisation inside figures.** The guide says: "Use sentence-style
+**Capitalisation in legends.** The guide says: "Use sentence-style
 capitalization for all text within the figure, including axis titles, data
-labels, and legends." Our group labels are capitalised as names.
+labels, and legends." Our legend entries are title case, because a legend is a
+list of names rather than a sentence. Axis labels and panel titles do follow
+the rule.
+
+**A beige for the largest category.** The guide says to avoid colours
+associated with skin tones. The sand carrying White is a beige, kept
+deliberately: the largest category works as a backdrop the others read
+against.

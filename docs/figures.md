@@ -46,8 +46,7 @@ claimed more importance for it than it has. It belongs in the caption, and the
 labels read the same either side of 1980, so they do not mislead. Only 1970
 overshoots the county total; 1990, which used to, is exact.
 
-**The residual sits inside the stack, below White.** Other, multiracial or
-unreported is another kind of not-White; drawn above the sand it split the
+**The residual sits inside the stack, below White.** Other or Multiracial is another kind of not-White; drawn above the sand it split the
 non-White population in two and understated how much the county has
 diversified. In 2020 the non-White block is 98,990 of 238,643, about 42 per
 cent, which the old order gave a reader no way to measure.
