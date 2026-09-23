@@ -120,6 +120,10 @@ GROUP_ORDER = ["black", "hisp", "aapi", "white"]
 # accurate one for the combination. "Hispanic or Latino" is the Bureau's wording
 # from 2000; 1980 says "Spanish origin".
 #
+# Text inside a figure is sentence case, which is Urban's rule: first letter
+# and proper names capitalised, everything else lowercase. Group names are
+# proper names and keep their capitals; "Other or multiracial" does not.
+#
 # Both Black and White are capitalised. APA and AMA capitalise both; Urban
 # capitalises Black and leaves white lowercase, which in a legend beside
 # "Hispanic or Latino" reads as a typo rather than as a position.
@@ -144,14 +148,19 @@ CENSUS_LABELS = {
     "hispanic": "Hispanic or Latino",
     "nh_aapi": "Asian & Pacific Islander",
     "nh_white": "White",
-    "nh_other": "Other or Multiracial",
+    "nh_other": "Other or multiracial",
 }
 
 GENDER_ORDER = ["women", "men"]
 GENDER_LABELS = {"women": "Women", "men": "Men"}
 
-# The residual band on the old basis: everything the four categories miss.
-OTHER_LABEL = "Other, Multiracial or Unreported"
+# The residual band. Not "unreported": nothing in it is. Before 1980 it is
+# people in race categories the source did not break out, and it is tiny - 0 to
+# 202 people, never above 0.12 per cent of the county. From 1980 it is American
+# Indian and Alaska Native, some other race, and two or more races, all
+# counted; in 2020 two or more races is 12,196 of its 13,945. Sentence case,
+# which is Urban's rule for all text inside a figure.
+OTHER_LABEL = "Other or multiracial"
 
 
 # --- output profiles --------------------------------------------------------

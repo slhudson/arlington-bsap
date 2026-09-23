@@ -38,7 +38,6 @@ paths.build_stage_on_path()
 from assumptions import not_reported_as_zero, rescale_to_100   # noqa: E402
 
 CENSUS_FROM = 1980
-HATCH = "////"
 
 for profile in style.PROFILES:
     style.apply(profile)
@@ -64,7 +63,7 @@ for profile in style.PROFILES:
     def bands(frame, resid):
         out = {style.GROUP_LABELS[g]: (frame[g].to_numpy(), style.RACE_COLORS[g])
                for g in ("black", "hisp", "aapi")}
-        out[style.OTHER_LABEL] = (np.asarray(resid), style.RESIDUAL_COLOR, HATCH)
+        out[style.OTHER_LABEL] = (np.asarray(resid), style.RESIDUAL_COLOR)
         out[style.GROUP_LABELS["white"]] = (frame["white"].to_numpy(),
                                             style.RACE_COLORS["white"])
         return out
@@ -83,7 +82,7 @@ for profile in style.PROFILES:
 
     entries = {style.GROUP_LABELS[g]: style.RACE_COLORS[g]
                for g in ("black", "hisp", "aapi")}
-    entries[style.OTHER_LABEL] = (style.RESIDUAL_COLOR, HATCH)
+    entries[style.OTHER_LABEL] = style.RESIDUAL_COLOR
     entries[style.GROUP_LABELS["white"]] = style.RACE_COLORS["white"]
     charts.legend(fig, entries, ncol=3)
 

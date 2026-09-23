@@ -77,6 +77,12 @@ gives the reason.
 
 - The palette is Okabe-Ito, in `style.py`, assigned per subject. Do not
   introduce a colour that is not in it.
+- **No textures.** A single hatched band among flat ones reads as emphasis,
+  and the band that gets hatched is usually a residual — the last thing that
+  should be emphasised. Distinguish with colour.
+- **Name a residual for what is in it.** Check the data before writing the
+  label. `Other, multiracial or unreported` was wrong: nothing in that band
+  is unreported.
 - Nothing shares a colour with anything a reader meets beside it. Asian/Pacific
   Islander is blue rather than reddish purple because the reddish purple
   carries women on the gender chart.
@@ -85,9 +91,11 @@ gives the reason.
 
 ## Labels
 
-- Axis labels and panel titles are lowercase. Group names are capitalised:
-  they are names, not descriptions.
-- **Black and White are both capitalised in figures.** APA and AMA capitalise
+- **Sentence case for all text inside a figure** — Urban's rule: the first
+  letter and proper names capitalised, everything else lowercase. Axis labels
+  and panel titles are lowercase; group names keep their capitals because they
+  are names; `Other or multiracial` does not.
+- **Black and White are both capitalised**, as proper names. APA and AMA capitalise
   both; Urban capitalises Black and leaves white lowercase, which in a legend
   beside `Hispanic or Latino` reads as a typo rather than as a position. Prose
   may differ; the figures do not.

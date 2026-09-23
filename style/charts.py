@@ -78,26 +78,23 @@ def end_labels(ax, x, series, gap=0.015):
 
 def stacked_bars(ax, x, series, width=7):
     """Stacked bars. series is an ordered {label: (values, colour)} from the
-    axis upward, or {label: (values, colour, hatch)} for a band that should
-    also be marked - a residual, which is a mixed category rather than a
-    counted one.
+    axis upward.
 
-    Every band is a member of the stack, including the residual. It is not
-    drawn last and on top: where a residual is a kind of one of the other
-    groups, sitting it above them splits that population in two and makes it
-    read as smaller than it is.
+    Every band is a member of the stack, including a residual. A residual is
+    not drawn last and on top: where it is a kind of one of the other groups,
+    sitting it above them splits that population in two and makes it read as
+    smaller than it is.
+
+    No band is textured. A single hatched band among flat ones reads as
+    emphasis, and a residual is the last thing that should be emphasised.
 
     Urban sets bar width at about twice the gap between bars; with decade
     spacing that is a width of 6.7 years, which is what the default gives.
     """
     bottom = np.zeros(len(x))
-    for label, spec in series.items():
-        values, color = spec[0], spec[1]
-        hatch = spec[2] if len(spec) > 2 else None
+    for label, (values, color) in series.items():
         v = np.asarray(values, dtype=float)
-        ax.bar(x, v, bottom=bottom, width=width, color=color, label=label,
-               hatch=hatch, edgecolor="white" if hatch else None,
-               linewidth=0.4 if hatch else 0.0)
+        ax.bar(x, v, bottom=bottom, width=width, color=color, label=label)
         bottom = bottom + v
 
 
@@ -151,9 +148,7 @@ def legend(fig, entries, ncol=None):
     line of text rather than by glancing at a key, which is the opposite of
     what a legend is for.
     """
-    handles = [Patch(facecolor=c[0], hatch=c[1], edgecolor="white", linewidth=0.4)
-               if isinstance(c, tuple) else Patch(facecolor=c, label=l)
-               for l, c in entries.items()]
+    handles = [Patch(facecolor=c) for c in entries.values()]
     fig.legend(handles=handles, labels=list(entries), loc="outside lower center",
                ncol=ncol or len(entries))
 
