@@ -16,9 +16,33 @@ county's election records, a published roster of Board members, and the
 project's own workbooks — and every number in them can be traced back to the
 page it came from.
 
+## Two ways to work with it
+
+The repository can be read from a Claude chat, or worked in directly with
+Claude Code. They are not exclusive, and the first is far less to set up.
+
+**A chat is enough if you mainly want to read and discuss.** A Claude Project
+can sync the repository from GitHub, which puts the data, the documentation
+and the code where you can ask questions of them: what a figure is built
+from, what backs a particular number, what is still open and who owns it.
+Nothing to install. The sync is one-directional — you can read everything and
+change nothing, so any correction still has to be made in the repository.
+
+Sync only the parts meant to be read: `code/`, `docs/`, `paper/`,
+`data/clean/` and `data/contents.md`. Leave out `data/raw/`, which is 70 MB
+of scanned census volumes, and `data/transcribed/by_ocr/`, which is OCR kept
+only to find which page a table is on — it misreads digits by design, and a
+chat that retrieved it would quote wrong numbers as if they were data.
+Setting the sync up needs a GitHub personal access token with read access to
+the repository.
+
+**Claude Code is what you want if you will change something.** Editing a
+figure, correcting a number, adding a source, rebuilding the outputs: those
+write to the repository and push back, and that needs the tools below.
+
 ## The tools
 
-Four things, each doing one job:
+For working in the repository directly. Four things, each doing one job:
 
 - **Git and GitHub** keep the repository. It is private, on GitHub, and
   everyone works from their own copy on their own machine, pushing changes
@@ -66,6 +90,8 @@ writes which file — while `CLAUDE.md` holds the working rules.
 
 ## What a working setup looks like
 
+For the Claude Code path:
+
 1. **An invitation to the GitHub repository and to the Overleaf project.**
    Both are private, so someone already on them has to send the invitations
    — the repository's owner, or any collaborator with access. Cloning fails
@@ -87,6 +113,12 @@ writes which file — while `CLAUDE.md` holds the working rules.
    push when done, so the paper and the repository stay the same thing.
 
 ## How to help
+
+First work out which of the two paths they need — ask what they expect to
+do with the repository. Reading, asking questions and discussing methods is
+the chat path, and the whole job is scoping the sync as described above.
+Changing a figure or a number is the Claude Code path, and the rest of this
+note applies.
 
 Any of these tools may be new to the person you're working with, or all of
 them may already be in place; ask rather than assume, in either direction.
