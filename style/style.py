@@ -144,14 +144,14 @@ CENSUS_LABELS = {
     "hispanic": "Hispanic or Latino",
     "nh_aapi": "Asian & Pacific Islander",
     "nh_white": "White",
-    "nh_other": "Other or multiracial",
+    "nh_other": "Other or Multiracial",
 }
 
 GENDER_ORDER = ["women", "men"]
 GENDER_LABELS = {"women": "Women", "men": "Men"}
 
 # The residual band on the old basis: everything the four categories miss.
-OTHER_LABEL = "Other, multiracial or unreported"
+OTHER_LABEL = "Other, Multiracial or Unreported"
 
 
 # --- output profiles --------------------------------------------------------

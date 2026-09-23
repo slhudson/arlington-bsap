@@ -135,7 +135,7 @@ def stacked_steps(ax, years, series, spans):
         cum = top
 
 
-def legend(fig, entries):
+def legend(fig, entries, ncol=None):
     """One legend for the whole figure, below it, one row.
 
     entries is an ordered {label: colour}, in stacking order, which is the
@@ -145,15 +145,20 @@ def legend(fig, entries):
 
     Below rather than Urban's across-the-top: several of these figures carry a
     note above the plot, and the two compete for the same band.
+
+    ncol wraps it onto more than one row. One row is the default and the
+    preference, but five long category names in a row are read by scanning a
+    line of text rather than by glancing at a key, which is the opposite of
+    what a legend is for.
     """
     handles = [Patch(facecolor=c[0], hatch=c[1], edgecolor="white", linewidth=0.4)
                if isinstance(c, tuple) else Patch(facecolor=c, label=l)
                for l, c in entries.items()]
     fig.legend(handles=handles, labels=list(entries), loc="outside lower center",
-               ncol=len(entries))
+               ncol=ncol or len(entries))
 
 
-def rule(ax, year=style.EXPANSION_YEAR, note=style.EXPANSION_NOTE):
+def rule(ax, year=style.EXPANSION_YEAR, note=style.EXPANSION_NOTE, inside_y=None):
     """A dated vertical rule, with its note above the plot rather than in it.
 
     The note is an annotation attached to a mark, not a source note, so it
@@ -162,9 +167,22 @@ def rule(ax, year=style.EXPANSION_YEAR, note=style.EXPANSION_NOTE):
     solid band, and the text stops being legible. So it goes above the top of
     the frame, and the rule is extended up to meet it.
 
-    Drawn once per figure, not once per panel.
+    The note is drawn once per figure even when the rule is drawn on every
+    panel: the line is the mark, the note explains it, and explaining it twice
+    in one figure is noise.
+
+    inside_y places the note within the axes at that fraction of their height,
+    for a figure whose band above the frame is already taken by a panel title.
+    Pass a fraction that lands in white space, not on the data.
     """
     ax.axvline(year, zorder=5, **style.EXPANSION_LINE)
+    if note is None:
+        return
+    if inside_y is not None:
+        ax.text(year, inside_y, " " + note, transform=ax.get_xaxis_transform(),
+                ha="left", va="center", zorder=6,
+                fontsize=plt.rcParams["font.size"])
+        return
     ax.plot([year, year], [1.0, 1.045], transform=ax.get_xaxis_transform(),
             clip_on=False, zorder=5, **style.EXPANSION_LINE)
     ax.text(year, 1.06, note, transform=ax.get_xaxis_transform(),

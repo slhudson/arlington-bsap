@@ -1,98 +1,93 @@
 # The figures
 
-Where each figure came from, and why it takes the form it does. The five
-figures were developed in an exploratory working session in September 2026,
-alongside several alternatives that were tried and set aside. That session was
-a first pass, and its reasoning is recorded here so the choices are visible and
-can be revisited deliberately.
+Where each figure came from and why it takes the form it does. Four build.
 
-A transcript of the session exists and is held by Sally. It is not in the repo.
-Anything from it that bears on the work is written up here, in `docs/sources.md` or
-in `docs/questions.md`.
+The visual conventions are not described here — they are in `style/`, which is
+where they are enforced. This file covers what each figure *shows* and the
+decisions behind that. `style/urban-styleguide.md` covers what the style layer
+follows and where it departs.
 
-## The five
-
-### `residents_by_race`
-Stacked bars, raw census counts, linear scale, on a 4 x 8 inch canvas — twice
-as high as wide.
-
-The proportions are deliberate. Arlington had under 27,000 residents until
-1940 and about 239,000 by 2020, so on a linear axis the early decades are
-almost invisible. The 1:2 canvas roughly doubles their height, and each year's
-total is printed above its bar so the early figures remain readable. No 1932
-line on this figure.
-
-Counts are plotted as reported, so the 1970 and 1990 bars sit slightly above
-the county total — see `questions.md`.
-
-### `residents_by_race_log`
-Log-scale line chart, one line per group plus a dashed total.
-
-This exists because the log scale shows something the stacked version cannot:
-Black residents outnumbered White residents in 1870 and 1880, the two were
-close in 1890, and White residents pulled ahead by 1900. Lines begin the year
-each category is first reported rather than at zero. There is no "Other"
-band, since the total line already accounts for the remainder.
-
-A log axis shows proportional change, not absolute change — worth a caption
-note wherever it appears.
-
-### `residents_by_race_share`
-Stacked bars, each group's share of residents, 0–100%.
-
-Every bar reaches 100%, so the early decades read as clearly as the later ones.
-The 1970 and 1990 columns are rescaled to sum to 100%, and Hispanic before 1970
-and AAPI before 1950 are plotted as 0%. Both are open — see `questions.md`.
+## The four
 
 ### `residents_per_seat`
-Log-scale lines: actual residents per seat against the cube-root-law benchmark,
-with the gap between them shaded.
+Two series on one linear axis, 1870–2020: total population, and residents per
+Board seat. Both are counts of people, so the vertical distance between them
+means the same thing everywhere on the page. Each line is labelled at its own
+right-hand end with its final value; no legend.
 
-The benchmark is population divided by the cube root of population — the
-residents per seat that would obtain if the Board's size followed the cube-root
-law. The log axis is necessary because the benchmark is roughly a tenth of the
-actual figure. This figure keeps the 1932 line and annotation.
+It carried a cube-root-law benchmark and no longer does. The law is
+descriptive, not normative — Taagepera observed that assemblies sit near the
+cube root of population, he did not argue they should — and its reference class
+was national parliaments, which Arlington is not in. As drawn it implied a
+62-member Board. Whether any comparison belongs in the report is open; peer
+jurisdictions would be the right reference class for one.
 
-### `board_seats`
-Two panels sharing an x-axis: (a) race/ethnicity, (b) gender, both as seat
-counts on a 0–5 scale rather than shares.
+A second y-axis was considered and rejected. The Board held three seats before
+1932 and five after, so no single right-hand scale is correct for the whole
+series, and choosing one decides which era looks like the exception.
 
-Seat counts rather than percentages make the 1932 expansion legible — the stack
-tops out at 3 before 1932 and 5 after. Both panels carry the 1932 line and
-annotation. Half-height segments are genuine: they occur when a member left
-mid-year and was replaced, and the figure carries a note saying so.
+### `residents_by_race`
+Two panels side by side: (a) counts, (b) shares, 1870–2020.
 
-AAPI appears in the legend with no visible area, because no AAPI member has
-served in any year. That is a finding rather than a gap in the data.
+Side by side rather than stacked because the counts panel has to be taller than
+it is wide for the decades before 1940 to have any height — Arlington had under
+27,000 residents until 1940 and 238,643 by 2020.
 
-## Colors
+**Two bases, one series, with the join marked.** From 1980 the bands are the
+five census groups that partition the county exactly: race crossed with
+Hispanic origin, so nobody is counted twice. Before 1980 they are the delivered
+race categories, because the Bureau did not ask Hispanic origin of everyone
+until 1980 and 1970's sample question is not comparable. A dashed rule marks
+1980 and the caption says what changes there.
 
-The palette is shared across figures so a group keeps its color everywhere:
-Black `#E69F00`, Hispanic/Latino `#009E73`, AAPI `#CC79A7`, White `#D9D3C4`,
-Other `#E6E6E6` with a `#8C8C8C` edge and hatching. Gender uses coral `#E8A598`
-for women and slate `#A9BBCB` for men.
+The alternative was two figures, one per basis. One series a reader can follow
+was judged better than two they have to reconcile, given the categories carry
+the same names and colours on both sides of the rule; what changes is whether
+they overlap. Only 1970 now overshoots the county total — 1990, which used to,
+is exact on the census basis.
 
-White and the gender pair were both revised during the working session toward
-softer tones. The current values are chosen to stay distinguishable for
-colorblind readers and in grayscale. They live in `style/style.py` and are imported by every
-figure, so a palette change is a single edit.
+**The residual sits inside the stack, below White.** Other, multiracial or
+unreported is another kind of not-White; drawn above the sand it split the
+non-White population in two and understated how much the county has
+diversified. In 2020 the non-White block is 98,990 of 238,643, about 42 per
+cent, which the old order gave a reader no way to measure.
 
-## Where the code is
+### `board_gender`
+Board seats by gender, 1870–2026, as counts on a 0–5 scale rather than shares,
+so the 1932 expansion is legible: the stack tops out at 3 before it and 5
+after.
 
-One script per figure in `code/analysis/`, named for the figure it writes, reading
-only `data/clean/`. The two contested treatments — the 1970/1990 overlap and
-whether not-reported reads as zero — are in `code/build/assumptions.py`, called by
-name in each figure that takes a position, so it is greppable which figure
-takes which. The code/build/analysis split itself is explained once, in
-`CLAUDE.md`.
+Both bands are drawn. Men are not redundant with women — they are the
+denominator, and without them two seats of five and two of three look the same.
 
-## Set aside
+### `board_race`
+The same size, scale and treatment as `board_gender`, so the two read as a
+pair.
 
-Earlier versions were produced and not carried forward:
+A category holding no seat in any year gets no band and no legend entry. An
+empty swatch reads as a sliver too small to see rather than as zero; that no
+Asian American or Pacific Islander member has served is a finding, and a
+finding is a sentence in the prose. The test is on the data rather than the
+category name, so a future member restores the band with no edit.
 
-- a combined figure with census, Board race and Board gender in three panels,
-  in both percentage and raw-count forms
-- a broken-axis version of the residents chart, with the y-axis split at 40,000
-- an unbroken linear variant kept alongside it
+## Gaps and half seats
 
-These are not in `raw/`. Whether any should be revived is in `questions.md`.
+1931 is missing in the source and appears as a gap rather than a zero, on both
+seat figures. Half-height segments are genuine: a member left mid-year and was
+replaced. 1870 shows two seats rather than three because the roster opens in
+May, and 1873 shows two and a half because Washington district sat vacant from
+June to November — see `docs/questions.md`.
+
+## Retired
+
+- `board_seats`, split into `board_race` and `board_gender`.
+- `residents_by_race_share`, folded into `residents_by_race` as its second panel.
+- `residents_by_race_log`, a log-scale line chart. Its finding — that Black
+  residents outnumbered White residents in 1870 and 1880 — is in the prose, and
+  no section had a place for the figure.
+- A combined three-panel version with census, Board race and Board gender; a
+  broken-axis variant of the residents chart with the y-axis split at 40,000;
+  and an unbroken linear variant. None are in `data/raw/`. Whether any should
+  be revived is in `docs/questions.md`.
+
+All are recoverable from git history.
