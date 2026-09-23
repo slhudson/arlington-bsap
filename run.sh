@@ -17,7 +17,7 @@ PY=.venv/bin/python
 [ -x "$PY" ] || { echo "no venv: python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl"; exit 1; }
 
 # Stage 1: raw/ -> data/. Every decision about what a number IS happens here.
-# Each step is named for the file it writes: residents.py -> data/residents.csv
+# Each step is named for the file it writes: residents.py -> data/clean/residents.csv
 BUILD=(residents board_members board_seats)
 
 # Stage 2: data/ -> figures/. Presentation only; analysis cannot reach raw/.
