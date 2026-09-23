@@ -14,6 +14,10 @@ surrounding conversation.
 
 Sourcing questions for the descriptive coding live in `docs/sources.md` instead.
 
+Numbers are the order questions were raised, not their order here, and a
+number is never reused: Q10 was folded into Q11 and its number retired. Newer
+questions are unnumbered. Nothing in the code refers to a number.
+
 ---
 
 ## Deferred — settle before the report, not before the pipeline

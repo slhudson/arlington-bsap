@@ -1,4 +1,4 @@
-"""Census scans -> data/extracted/by_ocr/*.txt, one text file per volume.
+"""Census scans -> data/transcribed/by_ocr/*.txt, one text file per volume.
 
 Seven of the nine scanned volumes have no text layer, so nothing in them can
 be searched or cited without this. Running it makes all 521 pages greppable,

@@ -4,40 +4,40 @@ Historical and descriptive-representation analysis for Arlington County's Board
 Structure and Performance study. National Civic League (prime), with Sally
 Hudson (Ranked Choice Virginia) and Alex Keena (VCU).
 
-## How this fits together
+**Start with `CLAUDE.md`.** It holds the working rules and explains the one
+idea everything else follows: `build/` decides what a number *is*, `analysis/`
+decides how it is *shown*, and the second cannot reach around the first.
+
+## The pipeline
 
 ```
-data/raw/        published sources (census volumes)
-data/transcribed/by_human/     hand-keyed workbooks
-data/transcribed/  OCR - for people to search, never read by code
-    |
-    |   build/       decides what each number IS
-    v
-data/clean/      residents.csv, board_seats.csv, board_members.csv
-    |
-    |   analysis/    decides how a number is SHOWN
-    v
-figures/     pdf/ for the paper, png/ for slides and email
-    |
-    |   \includegraphics, via \graphicspath
-    v
-paper/       arlington-bsap.tex - the prose
-    |
-    |   git push  ->  GitHub  ->  pull in Overleaf
-    v
-             compiled PDF
+fetch/       -> data/raw/          published sources, saved as published
+transcribe/  -> data/transcribed/  read off the scans; by_human/ is hand-keyed
+build/       -> data/clean/        every decision about what a number is
+analysis/    -> figures/           how a number is shown; pdf/ and png/
+paper/                             the prose, synced with Overleaf
 ```
 
-A number appears once, in a spreadsheet under `raw/`, and everything downstream
-derives from it. Figure data is never retyped.
+`bash run.sh` runs the tests, then `build/`, then `analysis/`. The first two
+folders run on demand and their output is committed, so anyone can rebuild
+without a network connection, an API key, or a Mac.
 
-The split between the two stages is the important part. **`build/` is where
-judgment goes** — what a blank means, whether census categories overlap, which
-of two conflicting totals is right. **`analysis/` is deterministic given the
-data** — it chooses how to show a number but cannot change one. That is
-enforced rather than left to habit: `analysis/files.py` has no path to anything above
-`data/clean/`. What is in which data folder is set by how the numbers got
-there — see `data/contents.md`.
+| Script | Writes | Explained in |
+|---|---|---|
+| `fetch/census.py` | `data/raw/census/<year>/*.csv` | `data/contents.md` |
+| `fetch/elections.py` | `data/raw/virginia/county_board_2021-2026.csv` | `data/contents.md` |
+| `transcribe/census.py` | `data/transcribed/by_ocr/*.txt` | `data/contents.md` |
+| `transcribe/board_1870_1920.py` | `data/transcribed/by_claude/county/board_1870-1920.csv` | `data/contents.md` |
+| `transcribe/candidate_history.py` | `data/transcribed/by_claude/county/candidate_history_1920-present.csv` | `data/contents.md` |
+| `transcribe/novack_terms.py` | `data/transcribed/by_claude/arlington_historical_magazine/novack_terms_1930-1994.csv` | `data/contents.md` |
+| `build/residents.py` | `data/clean/residents.csv` | `docs/sources.md` — population |
+| `build/board_roster.py` | `data/clean/board_roster.csv` | `docs/sources.md` — the roster |
+| `build/board_demographics.py` | `data/clean/board_demographics.csv` | `docs/sources.md` — race and gender |
+| `build/board_seats.py`, `build/board_members.py` | `data/clean/board_seats.csv`, `board_members.csv` | `data/contents.md` — the delivered workbooks |
+| `analysis/<figure>.py` | `figures/pdf/<figure>.pdf`, `figures/png/<figure>.png` | `docs/figures.md` |
+
+Five figures build. Two are in the paper so far, `residents_by_race_share` and
+`board_seats`; the rest are built and waiting on the outline.
 
 ## Rebuilding
 
@@ -46,39 +46,35 @@ python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl
 bash run.sh
 ```
 
-`bash run.sh residents_per` rebuilds only matching figures.
-
-Files are named after what they produce: `build/residents.py` writes
-`data/residents.csv`, `analysis/board_seats.py` writes `board_seats.pdf` and
-`board_seats.png`. `run.sh` enforces that, and warns about figures no step
-produces.
-
-Use `bash run.sh` rather than `./run.sh`. Overleaf does not preserve Unix file
-permissions, so any push from Overleaf strips the executable bit and
-`./run.sh` then fails with "permission denied".
+`bash run.sh residents_per` rebuilds only matching figures. Invoke through
+`bash`, not `./run.sh` — `run.sh` says why at the top. `transcribe/` and
+`fetch/` need `pymupdf` as well, and the OCR needs a Mac; neither is needed to
+rebuild.
 
 ## Writing
 
 Prose is written in Overleaf, in the project linked to this repository.
-Overleaf syncs the whole repo, so the scans and scripts are visible there; only
-`paper/arlington-bsap.tex` and `figures/pdf/` matter for compiling.
+Overleaf syncs the whole repo; only `paper/arlington-bsap.tex` and
+`figures/pdf/` matter for compiling.
 
 **Pull from GitHub before a writing session, push when you finish.** In
-Overleaf the control is the **Integrations** tab in the narrow icon rail down
-the left side of the editor, then GitHub — not under the Menu.
+Overleaf the control is the **Integrations** tab in the icon rail down the
+left side of the editor, then GitHub — not under the Menu.
 
 To change a figure, edit its script in `analysis/` and re-run. Never paste plot
-data into a `.tex` file; that creates a second copy of the numbers that will
+data into a `.tex` file; that makes a second copy of the numbers that will
 silently go stale.
 
 ## Where things are written down
 
 | File | What it holds |
 |---|---|
-| `CLAUDE.md` | Working rules, the build/analysis split, known data issues |
-| `docs/questions.md` | Open methods questions, each with an owner |
-| `docs/sources.md` | What backs every number — geography, census, Board coding; RA work order |
+| `CLAUDE.md` | Working rules; the build/analysis split; naming |
+| `data/contents.md` | Every data folder and file: where it came from, what reads it |
+| `docs/sources.md` | What backs every number — geography, census, the roster, race and gender |
+| `docs/questions.md` | Open methods questions, each with an owner; answered in place |
 | `docs/figures.md` | Why each figure takes the form it does |
+| `docs/setup.md` | Getting a machine set up to build; written for a collaborator joining |
 
 Open questions are logged as they arise and answered in place, so the reasoning
 survives alongside the fix.

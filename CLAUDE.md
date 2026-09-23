@@ -135,8 +135,9 @@ bash run.sh               # build, then every figure
 bash run.sh residents_per # build, then only matching figures
 ```
 
-Invoke through `bash`, not `./run.sh`. Overleaf does not preserve Unix file
-permissions, so a push from Overleaf strips the executable bit.
+Invoke through `bash`, not `./run.sh` — the reason is at the top of `run.sh`.
+`fetch/` and `transcribe/` also need `pymupdf`; the OCR needs a Mac. Neither
+is required to rebuild.
 
 ## Open questions
 

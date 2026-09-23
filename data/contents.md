@@ -157,9 +157,8 @@ list of extracted values hides it. Files are named
 `<volume>_p<printed page>_table<n>_<state>_<subject>.csv`, so the filename is
 the citation. Each row carries the printed indentation as a `level` column: 0
 is the table's own total, 1 its parts, 2 a detail of the line above. Sums take
-level 1 only. Freedman village is printed at level 2 inside Arlington district,
-so it cannot be added as a fourth district — the error that produced 4,596 is
-unrepresentable rather than merely warned against. No arithmetic lives in
+level 1 only, which is what keeps a sub-line from being added as if it were a
+district (the Freedman village case, in `docs/sources.md`). No arithmetic lives in
 these files; the subtraction that isolates the Board's territory before 1900
 happens in `build/residents.py`.
 
@@ -231,7 +230,8 @@ cleaning decision shows up as a reviewable diff — you can see which numbers
 moved and by how much.
 
 `residents.csv` — census population by year, with a `source` column naming
-the document behind each row.
+the document behind each row, the Board's seat count (`at_large`) and the
+residents-per-seat and cube-root columns the figures plot.
 
 `board_roster.csv` — one row per person per term, 1870 through 2026:
 name, term number, district, start and end to the month, source, and a note
@@ -241,4 +241,5 @@ only where something irregular happened. Nothing covers 1916–1931.
 each with its own basis and source, "default" where no source said anything.
 
 `board_seats.csv` · `board_members.csv` — Alex's two Board workbooks, read as
-delivered, for comparison against the roster.
+delivered. `board_members` is his person-year roster; `board_roster` above is
+the one built here from sources. They are compared, never merged.

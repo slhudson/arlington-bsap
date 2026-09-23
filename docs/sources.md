@@ -149,16 +149,12 @@ The 338 in 1890 is the Freedman village double count. The 100 in 1870 and the
 
 ## What backs the Board data
 
-Nothing is recorded, for either file.
-
-`board_seats.csv` covers 156 years of seat counts with no source noted.
-`board_members.csv` covers 497 person-years with race and gender coded on every
-row and no source column. The `notes` column holds appointments and
-resignations for 276 rows, which is not sourcing.
-
-Unlike the census, there is no primary material behind these anywhere in the
-repository — they rest on news coverage, the Arlington Historical Society and
-obituaries.
+The two delivered workbooks — `board_seats.csv`, 156 years of seat counts, and
+`board_members.csv`, 497 person-years with race and gender on every row — do
+not carry a source column, and the material they were compiled from (news
+coverage, the Arlington Historical Society, obituaries) is not in the
+repository. The roster and demographics below were built so that a source
+stands behind each row; the workbooks are what they are checked against.
 
 ### A roster built from sources
 
@@ -215,22 +211,12 @@ One is documented in this period: the Washington district seat was vacant from
 the May 1873 election until Samuel Titus was appointed that December. Titus has
 a term; the vacancy is recorded here.
 
-### Superseded: the person-year version
+### Compared with the delivered roster
 
-`data/clean/board_roster.csv` is who served and when, assembled from sources
-rather than delivered: 511 person-years, 1870-1994, every row citing the
-document it came from. O'Leary covers 1870-1915 by magisterial district,
-Novack covers 1930-1994 by term of service.
-
-Two gaps are left empty rather than assumed. **1916-1929**: O'Leary stops at
-1915 and the county's candidate history has a single 1927 election before it,
-which names only Jefferson and Washington districts. **1995-2026**: Novack
-stops at 1994, and after that only election results exist, which record who
-ran rather than who served.
-
-**Where it overlaps the delivered roster, 1932-1994, the two agree on
-membership in 60 of 63 years.** Two files assembled independently, one from an
-unrecorded source, reaching the same answer for sixty years.
+Alex's roster (`board_members.csv`, read from the workbook as delivered) and
+the built one overlap from 1932 to 1994, and **agree on membership in 60 of 63
+years** — two files assembled independently, one from an unrecorded source,
+reaching the same answer for sixty years.
 
 The three exceptions:
 
@@ -255,7 +241,7 @@ years, the four race categories sum to the number of seats, men plus women sum
 to the number of seats, and the two totals agree. Three seats through 1930,
 five from 1932, fractions included. No drift.
 
-**The roster reproduces the seat counts in 82 of 95 overlapping years.** All 13
+**The delivered roster reproduces the seat counts in 82 of 95 overlapping years.** All 13
 exceptions are years in which more people served than there were seats, which
 is what the fractional seats encode. So the two files agree wherever nothing
 complicated happened.
@@ -265,7 +251,7 @@ across them, so nothing is miscoded, but a tally built from the roster would
 count him three times. 1952 was a chaotic year: three members removed on 17
 September, four appointed the next day, and four more elected in November.
 
-**The fractional seats cannot currently be reconstructed.** The roster records
+**The fractional seats cannot currently be reconstructed.** The delivered roster records
 `appointed`, `resigned`, `died` and `removed` as yes/no flags, with the actual
 dates only in free-text notes — "Removed 9/17/52", "until death on Jan 11". So
 the halves in the seat counts cannot be checked against service dates without

@@ -79,11 +79,12 @@ figure, so a palette change is a single edit.
 
 ## Where the code is
 
-Each figure is one script in `analysis/`, reading only from `data/`. The
-cleaning that produces `data/` is in `build/residents.py`. The two contested
-treatments — the 1970/1990 overlap and whether not-reported reads as zero —
-are in `build/assumptions.py`, called explicitly by the figures that use them,
-so it is greppable which figure takes which position.
+One script per figure in `analysis/`, named for the figure it writes, reading
+only `data/clean/`. The two contested treatments — the 1970/1990 overlap and
+whether not-reported reads as zero — are in `build/assumptions.py`, called by
+name in each figure that takes a position, so it is greppable which figure
+takes which. The build/analysis split itself is explained once, in
+`CLAUDE.md`.
 
 ## Set aside
 

@@ -17,35 +17,40 @@ operating system I'm on before giving any commands.
 
 ## What the project is
 
-Arlington County's Board Structure and Performance study. I built five figures
-in matplotlib from three spreadsheets. Those figures aren't finished — I'll
-keep editing them — which is why I need this working locally rather than just
+Arlington County's Board Structure and Performance study. Five figures in
+matplotlib, built from census volumes, the county's election records and a
+historical roster of the County Board. The figures aren't finished — I'll keep
+editing them — which is why I need this working locally rather than just
 reading the output.
 
 ## What changed
 
-The scripts, the spreadsheets and the paper now live in one private GitHub
-repository, `slhudson/arlington-bsap`. The figures rebuild from the
-spreadsheets with a single command instead of being regenerated and
-re-uploaded by hand. The repository is connected to Overleaf, so the paper
-pulls the figures the pipeline produces.
+The scripts, the source documents and the paper now live in one private GitHub
+repository, `slhudson/arlington-bsap`. The figures rebuild from the committed
+sources with a single command instead of being regenerated and re-uploaded by
+hand. The repository is connected to Overleaf, so the paper pulls the figures
+the pipeline produces.
 
 ## How the repository is organised
 
-    raw/        the original spreadsheets and census scans, read-only
-    build/      turns raw/ into clean CSVs in data/
-    data/       the clean data every figure reads
-    analysis/   one script per figure, reading only from data/
-    figures/    pdf/ for the paper, png/ for slides
-    paper/      the LaTeX source, synced with Overleaf
-    docs/       open questions, sources, figure rationale
-    run.sh      rebuilds everything
+    fetch/        downloads a published source into data/raw/ (run on demand)
+    transcribe/   reads scans into data/transcribed/ (run on demand)
+    build/        turns data/raw/ and data/transcribed/ into data/clean/
+    analysis/     one script per figure, reading only from data/clean/
+    data/         raw/ (as published), transcribed/ (read off the scans,
+                  or hand-keyed under by_human/), clean/ (built)
+    figures/      pdf/ for the paper, png/ for slides
+    paper/        the LaTeX source, synced with Overleaf
+    docs/         open questions, sources, figure rationale
+    run.sh        rebuilds everything from the committed files
 
-Two rules worth knowing before I touch anything. `raw/` is never edited — it's
-a frozen snapshot. And decisions that change what a number *is* belong in
-`build/`, while `analysis/` only decides how a number is shown; the analysis
-scripts have no path to `raw/` at all, so that separation is enforced rather
-than just agreed.
+Two rules worth knowing before I touch anything. `data/raw/` and
+`data/transcribed/by_human/` are never edited — they're the sources as
+received. And decisions that change what a number *is* belong in `build/`,
+while `analysis/` only decides how a number is shown; the analysis scripts
+have no path to anything above `data/clean/`, so that separation is enforced
+rather than just agreed. The README has a table of which script writes which
+file.
 
 ## What I need to end up with
 

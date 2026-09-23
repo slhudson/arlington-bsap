@@ -10,7 +10,7 @@ The `source` column names the document each row's figures come from.
 sat inside the county, so no published table gives the territory the Board
 governed - it has to be derived by subtracting the city. That happens in
 early_years() below, from the tables transcribed under
-data/extracted/by_claude/, and it replaces the delivered workbook for those
+data/transcribed/by_claude/, and it replaces the delivered workbook for those
 three years. See docs/questions.md.
 
 **1900-1990 totals come from the published Census county series**, transcribed
