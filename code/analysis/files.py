@@ -32,8 +32,17 @@ def save(fig, stem):
     By convention the stem matches the script's own filename, so
     code/analysis/residents_by_race.py produces residents_by_race.pdf and .png.
     run.sh checks that after every build.
+
+    **The same numbers must produce the same bytes.** Both backends stamp the
+    time of the run into the file, so without this every rebuild rewrote all
+    five figures and git reported five changed binaries whether or not a single
+    value had moved. figures/ is committed precisely so that a change shows up
+    as a reviewable diff, and that only works if an unchanged figure is
+    genuinely unchanged. Setting the date to None drops the field; the PNG
+    equivalent is its own key, and neither backend accepts the other's.
     """
-    for kind, kwargs in (("pdf", {}), ("png", {"dpi": 200})):
+    for kind, kwargs in (("pdf", {"metadata": {"CreationDate": None}}),
+                         ("png", {"dpi": 200, "metadata": {"Software": None}})):
         d = FIGURES / kind
         d.mkdir(parents=True, exist_ok=True)
         fig.savefig(d / f"{stem}.{kind}", bbox_inches="tight", **kwargs)
