@@ -82,7 +82,7 @@ SAND = "#D9D3C4"          # the mass: White residents
 # white paper. A line chart uses a darker taupe of the same hue, so White is
 # recognisably the same category in both without being unreadable in one.
 SAND_LINE = "#A3997F"
-GREY = "#8C8C8C"          # the residual: other or multiracial
+GREY = "#8C8C8C"          # the residual: Other or Multiracial
 
 # Colours are assigned per subject rather than through numbered slots. A slot
 # called "blue" that holds orange is how this got confusing once already.
@@ -137,8 +137,14 @@ GROUP_ORDER = ["black", "hisp", "aapi", "white"]
 # from 2000; 1980 says "Spanish origin".
 #
 # Legend entries capitalise proper nouns and nothing else. Racial and ethnic
-# identifiers are proper nouns and keep their capitals; "women", "men" and
-# "multiracial" are not, under anyone's convention, and do not. Urban asks for sentence case
+# identifiers are proper nouns and keep their capitals; "women" and "men" are
+# not, under anyone's convention, and do not.
+#
+# "Multiracial" keeps its capital. It was lowercased once alongside women and
+# men, which was the wrong company: it is a racial identifier and belongs with
+# Black, White and Hispanic or Latino, not with a demographic descriptor. A
+# lowercase entry sitting among the four it is the residual of would read as a
+# lesser category rather than a smaller one. Urban asks for sentence case
 # throughout a figure, which this follows in substance - the departure is only
 # that a lowercase "white" beside "Black" would read as a slip rather than as a
 # position, so both are capitalised. Axis labels and panel titles are
@@ -156,7 +162,7 @@ GROUP_LABELS = {
 
 # The census basis, 1980 on: five groups that partition the county. Same
 # colours, so a reader moving between the two bases is not relearning them.
-# Other or multiracial sits with the other groups, below White, not above it.
+# Other or Multiracial sits with the other groups, below White, not above it.
 # It is a kind of not-White; stacking it on top splits that population in two
 # and makes the county read as less diverse than it is.
 CENSUS_ORDER = ["nh_black", "hispanic", "nh_aapi", "nh_other", "nh_white"]
@@ -168,7 +174,7 @@ CENSUS_LABELS = {
     "hispanic": "Hispanic or Latino",
     "nh_aapi": "Asian & Pacific Islander",
     "nh_white": "White",
-    "nh_other": "Other or multiracial",
+    "nh_other": "Other or Multiracial",
 }
 
 GENDER_ORDER = ["women", "men"]
@@ -180,7 +186,7 @@ GENDER_LABELS = {"women": "women", "men": "men"}
 # Indian and Alaska Native, some other race, and two or more races, all
 # counted; in 2020 two or more races is 12,196 of its 13,945. Sentence case,
 # which is Urban's rule for all text inside a figure.
-OTHER_LABEL = "Other or multiracial"
+OTHER_LABEL = "Other or Multiracial"
 
 
 # --- output profiles --------------------------------------------------------

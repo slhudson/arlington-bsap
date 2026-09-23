@@ -137,8 +137,12 @@ too, in the LaTeX caption.
 
 - **Legend entries capitalise proper nouns and nothing else.** Racial and
   ethnic identifiers are proper nouns: `Black`, `White`, `Hispanic or Latino`,
-  `Asian & Pacific Islander`. `women` and `men` are not, under anyone's
-  convention, and stay lowercase.
+  `Asian & Pacific Islander`, `Other or Multiracial`. `women` and `men` are
+  not, under anyone's convention, and stay lowercase.
+- **`Multiracial` is capitalised.** It was lowercased once alongside `women`
+  and `men`, which was the wrong company: it is a racial identifier and belongs
+  with the four it is the residual of, not with a demographic descriptor.
+  Settled — do not revisit.
 - **Black and White are both capitalised.** Urban capitalises Black and leaves
   white lowercase; here both are capitalised, because a lowercase `white`
   beside `Black` reads as a slip rather than as a position. Settled — do not

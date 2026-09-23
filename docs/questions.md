@@ -41,7 +41,7 @@ crossed together, for every census from 1980, and `code/build/residents.py`
 builds five groups that partition the county exactly:
 
     Hispanic or Latino of any race, and among those who are not Hispanic:
-    White, Black, Asian and Pacific Islander, Other or multiracial
+    White, Black, Asian and Pacific Islander, Other or Multiracial
 
 They tie to the person in all five censuses, and the build refuses to write if
 they ever stop doing so. The guard earned itself immediately: it caught a
