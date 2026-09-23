@@ -293,10 +293,13 @@ citekey a footnote in the report will. `bash run.sh` refuses to build if a cell
 names an entry that is not there, so a number that cannot be traced to a
 document stops the build rather than reaching a figure.
 
-Three entries are marked provisional in their annotations, because the excerpt
-we hold carries no front matter: the 1880 and 1890 volumes, whose identity is
-inferred from the filename, and working paper POP-TWPS0076. That is the open
-question below, now visible in the bibliography as well as in prose.
+One entry is still marked provisional in its annotation. The 1880 and 1890
+volumes were settled on 23 September 2026: `code/fetch/census_volumes.py`
+proved the held chunks are the Bureau's own by checksum and saved each volume's
+title page into `data/raw/`, so both entries are now read off a page rather
+than inferred from a filename. Working paper POP-TWPS0076 could not be settled
+— the Bureau publishes it as one table per state with no front matter at all.
+See Q23.
 
 Two details were corrected against the documents while the entries were built.
 **O'Leary's electoral history is dated March 2010** in its own text; the 2012
@@ -307,6 +310,17 @@ county's compilation is titled **Arlington County Election Results**;
 The sources below are consulted to settle a question rather than to take
 numbers from. They are cited here rather than saved into `data/`, which holds
 only material we take numbers out of.
+
+**Their copies live in `documents/` in the project's Drive folder**, named for
+a person reading the folder rather than for a machine: author, then year, then
+the title as the document prints it — `Pratt 1995 - Arlington's At-Large
+Electoral System.pdf`. That is deliberately not the citekey. A citekey is a
+handle for LaTeX and for the `source` columns, where short matters; a filename
+answers "what is this?" at a glance. Each entry in `paper/sources.bib` carries
+a "Filed in Drive as" line, which is where the two are tied together and where
+you check that a cited source is actually filed. Hjerpe's is a PDF snapshot
+rather than the live Google Doc, which belongs to someone outside the project
+and can change or be withdrawn; cite the snapshot.
 
 **City of Alexandria.** *A History of the Boundaries of the City of Alexandria,
 Virginia: 1749-2024.*
@@ -320,6 +334,24 @@ Alexandria in 1915." *Arlington Historical Magazine*, 1964.
 `arlhist.org/wp-content/uploads/2017/02/1964-4-Annex.pdf`
 — Gives the size and effective date of the 1915 annexation: 866 acres from
 Arlington County, effective 1 April 1915. Used for questions.md.
+
+**Anderson, Robert Nelson.** "Arlington Adopts the County Manager Form of
+Government." *Arlington Historical Magazine*, 1958, 52–67.
+— A first-hand account of the 1930 referendum and the 1931 election, written by
+a founder of the Historical Society. The hinge of this report, described by
+someone close to it.
+
+**Bestebreurtje, Lindsey.** *'Built by the People Themselves': African American
+Community Development in Arlington, Virginia, from the Civil War through Civil
+Rights.*
+— Entry incomplete: the publisher and year still need reading off the title
+page. Not yet in hand.
+
+**Pratt, Sherman W.** "Arlington's At-Large Electoral System: A Study of Its
+History, Strengths, and Weaknesses." *Arlington Historical Magazine*, October
+1995, 19–35.
+— Heard Vollin's testimony and holds his own tape recordings of him. The source
+for both Vollin citations.
 
 **Hjerpe, Grace.** *A History of Representation on the Arlington County Board,
 1870-Present.* Updated 15 July 2021. Google Doc, shared with Sally.

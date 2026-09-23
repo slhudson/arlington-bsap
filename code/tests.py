@@ -219,6 +219,37 @@ def test_a_placeholder_is_allowed_and_counted():
 
 # --- the documentation names real files ---------------------------------------
 
+def test_a_source_we_cannot_fully_cite_is_logged_as_a_question():
+    """An entry whose annotation admits it is provisional must be named in
+    docs/questions.md.
+
+    A source we cannot fully cite is a debt, and the failure is silent: the
+    bibliography prints a clean-looking line, the figure that rests on it
+    builds, and the one place the shortfall was written down is an annotation
+    biblatex never renders. POP-TWPS0076 is the live case - the Bureau
+    publishes it as one table per state with no front matter, so its title is
+    read off a table header and its date off a file path.
+
+    This makes the debt impossible to hold quietly: mark an entry provisional
+    and the build demands a question with an owner, which is where the decision
+    about how the report says so will live.
+    """
+    import re
+    root = Path(__file__).resolve().parents[1]
+    bib = (root / "paper" / "sources.bib").read_text()
+    questions = (root / "docs" / "questions.md").read_text()
+
+    unlogged = []
+    for entry in re.findall(r"^@\w+\{([^,\s]+)\s*,(.*?)^\}", bib, re.M | re.S):
+        key, body = entry
+        if re.search(r"PROVISIONAL|INCOMPLETE", body) and key not in questions:
+            unlogged.append(key)
+    assert not unlogged, (
+        f"{', '.join(unlogged)}: the annotation says the entry is provisional, "
+        f"but docs/questions.md never names it. Log it as a question with an "
+        f"owner, or finish the entry and drop the word.")
+
+
 def test_docs_name_only_paths_that_exist():
     """Every path a document names in backticks must exist.
 

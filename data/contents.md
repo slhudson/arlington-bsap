@@ -34,9 +34,17 @@ gathered by Alex Keena in September 2026 while correcting the 1870–1890 county
 population figures. Received 2026-09-22. Nothing here should ever change; the
 checksums are so that a change would be noticed.
 
-Where exactly they came from is not recorded. The filenames match how the
-Census Bureau chunks its scanned volumes, but that is an inference — see
-`docs/questions.md`.
+**Where they came from is now established.** The filenames match how the Census
+Bureau chunks its scanned volumes, and `code/fetch/census_volumes.py` checks
+that byte for byte rather than taking the names on trust: it fetches the
+Bureau's copy of a held chunk from each volume and compares checksums. Both
+matched on 23 September 2026, and the script refuses to go on if one ever does
+not. The 1870 volume still rests on its own title page, which its first chunk
+happens to carry.
+
+The same script saves each volume's **first chunk**, which holds the title page
+and the letter of transmittal. Those are what `paper/sources.bib` is built from,
+so a citation rests on a page in the repository rather than on a filename.
 
 | File | Pages | Text layer | SHA-256 (first 16) |
 |---|---|---|---|
@@ -49,6 +57,8 @@ Census Bureau chunks its scanned volumes, but that is an inference — see
 | `1890a_v1-12.pdf` | 24 | no | `782da690cdf3ca40` |
 | `1890a_v1-13.pdf` | 93 | no | `fb1d9e704366cbf4` |
 | `1890a_v1-14.pdf` | 73 | no | `42c36586ed15d9f0` |
+| `1880_v1-01.pdf` | 9 | yes, poor OCR | `58f0cadb9d44fff9` |
+| `1890a_v1-01.pdf` | 7 | no | `0f79bb0363c8e67b` |
 
 Seven of the nine have no text layer at all.
 

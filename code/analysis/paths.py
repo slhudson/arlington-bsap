@@ -47,11 +47,14 @@ def save(fig, stem, profile=None):
         kind = spec["format"]
         d = FIGURES / kind
         d.mkdir(parents=True, exist_ok=True)
-        # No creation timestamp. matplotlib stamps one into a PDF by default,
-        # so an unchanged figure is a changed file: every run rewrites all of
-        # them, git records the churn, and run.sh's report of what a run
-        # changed would name every figure every time.
-        meta = {"CreationDate": None} if kind == "pdf" else {}
+        # The same numbers must produce the same bytes. Both backends stamp
+        # the time of the run into the file, so without this an unchanged
+        # figure is a changed file: every rebuild rewrites all of them and git
+        # reports changed binaries whether or not a value has moved. figures/
+        # is committed precisely so a change shows up as a reviewable diff,
+        # and that only works if an unchanged figure is genuinely unchanged.
+        # The two backends take different keys and neither accepts the other's.
+        meta = {"CreationDate": None} if kind == "pdf" else {"Software": None}
         fig.savefig(d / f"{stem}.{kind}", dpi=spec["dpi"], metadata=meta)
 
 

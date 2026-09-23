@@ -179,8 +179,139 @@ The 1889–1986 stretch is coded all-White, roughly 490 person-years, resting on
 that framing. It is the most load-bearing claim in the report and has not been
 independently verified. Detail in `docs/sources.md`.
 
+### Q22. What stands behind the workbook's race and gender coding?
+**Owner:** Alex · **Status:** drafted for the next batch to Alex — held until the questions we can settle ourselves are settled
+
+Where a published source names a member — Hjerpe's five, Newman, Monroe,
+Dorsey, Tejada, Spain, the women in Novack's roster — the repository records
+the source and its words. Every other member takes the coding from Alex's
+member workbook, which carries no source column: 70 of 119 people, 136 of 217
+person-terms for race and 113 for gender. Those rows read `keena-workbook`.
+
+The plan is to carry that forward as an assumption rather than a citation and
+to say so in the report: for these members the coding is Alex's reading, and no
+published source has been found that speaks to them. What is being asked is a
+confirmation, and whether he was working from something — obituaries, news
+coverage, Historical Society material — that could be cited instead.
+
+**Keep it separate from the default.** Before 1932, where no source speaks at
+all, the build records a white man: 126 person-terms, reading `assumed`. "Alex
+read something we cannot see" and "nobody has looked" are different problems,
+and only the second is a finding about the historical record. The draft for the
+Data Cleaning doc keeps them as two paragraphs for that reason.
+
+### Q23. POP-TWPS0076 has no front matter to find
+**Owner:** Sally · **Status:** open — `censusbureau1990twps76` stays provisional, and the report must say so in a footnote
+
+The other two provisional entries were settled by fetching their volumes' title
+pages. This one cannot be. The Bureau publishes the paper at
+`working-papers/2005/demo/pop-twps0076/` as one PDF per state and nothing else —
+no cover, no abstract, no combined document; checked 23 September 2026, and the
+2005 path is the one the workbook itself cites. What is held is `vatab.pdf`,
+the Virginia table.
+
+So its title is read from the table header, and its number and date come from
+the path and the workbook rather than from the document. The entry says so.
+Anyone who finds the paper itself — a library copy, or a Bureau index that
+still lists it — can close this by reading its title page.
+
+**This has to reach the reader.** The 1990 race and Hispanic-origin figures
+rest on it, and a bibliography line looks as solid as any other. The report
+should carry a footnote saying what is held is the Virginia table alone, and
+that the paper's title and number are taken from the table header and the file
+path. That is the outstanding item here; `code/tests.py` refuses to pass while
+a provisional entry is unlogged, so this question cannot quietly disappear.
+
+### Q21. Hjerpe frames the five Black members as an open question
+**Owner:** Claude · **Status:** answered — the row is relabelled, 23 Sept 2026
+
+The sentence naming the five — Rowe, Syphax, Pinn, Pendleton, Allen — sits on
+the title page of Hjerpe's paper under the heading **"Lingering Inquiries"**,
+her own list of things she is asking readers for help with. It reads "census
+records which *seemed to indicate*", and the paragraph goes on to say she has
+found little on four of the five.
+
+`board_demographics.csv` records the basis for that row as "stated directly",
+which is stronger than the source is. The three appendix rows are unaffected —
+they rest on the reproduced census images, not on this sentence.
+
+**Answered, and the finding is narrower than it first looked.** No member's
+coding depends on that sentence. Pinn, Pendleton and Allen each have their own
+row resting on a reproduced 1880 census image; Rowe and Allen have narrative
+statements elsewhere in the paper; and Syphax has a second row from O'Leary,
+who writes that his photograph shows he was African American. **Syphax is Black
+on O'Leary's evidence**, not on this.
+
+The row is kept rather than dropped, with its basis now reading "named in the
+author's own list of open questions". The file is one row per claim rather than
+one per person, so keeping it is what records that two sources speak to Syphax
+— and that sentence is the only place in the data where the five are named as a
+*group*, which is what `docs/sources.md` leans on. Deleting it would lose that.
+
+What is still open is the report's wording: whether it describes the five as
+identified or as proposed. That belongs with Q3 and Q17.
+
+### Q20. Vollin is two cases, and Pratt gives both citations
+**Owner:** Claude · **Status:** answered — both entered, both dated
+
+The Drive folder already held Pratt (1995) under the title "Arlington's
+Electoral History", which is O'Leary's subject rather than his. Its footnotes
+settle what the handoff listed as an open question:
+
+- **Federal.** *George Vollin, Jr., et al. v. Mills E. Godwin, et al.*, U.S.
+  District Court, Eastern District of Virginia, Alexandria Division, Civil
+  Action No. 173-74-A. Vollin testified in 1974. Eight plaintiffs, named in
+  Pratt's note 16.
+- **Virginia Supreme Court.** *Vollin v. Arlington County Electoral Board*,
+  216 Va. 674. Pratt's note 3 prints it "Yollin", which is the scan misreading
+  a V. **The year is not stated in the article** and should not be inferred
+  from the volume number without checking a reporter.
+
+So they are two proceedings, not one, and the report should not merge them.
+Both are now in `paper/sources.bib` as `vollin1974` and
+`vollinelectoralboard`.
+
+**A trap found while entering them.** biblatex-chicago in notes mode silently
+drops `@jurisdiction`, `@legal` and `@legislation`: the document compiles with
+no warning and the entry simply is not in the bibliography. It was caught by
+compiling the file and reading the output. Cases are therefore entered as
+`@misc` with the court, reporter and docket in `note`, which prints. Anyone
+adding a case later should compile and look rather than trust the entry type.
+
+**The Virginia case is dated.** *Vollin v. Arlington County Electoral Board*,
+216 Va. 674, 222 S.E.2d 793, decided 5 March 1976, Record No. 741174, opinion
+by Harrison, J. Reading the opinion also confirms Pratt's account that these
+are two different actions: the Virginia case is a petition by more than two
+hundred voters under Code § 15.1-694 to put district-versus-at-large election
+to a vote, denied because the county had already adopted the County Manager
+Plan. The federal suit is the constitutional challenge.
+
+**One loose thread.** The respondent is named Cornelia B. Rose. `rose1964`, the
+annexation article, is bylined "C. B. Rose, Jr." The initials fit and both are
+Arlington figures of the period, but nothing read so far says they are the same
+person, so the bibliography notes the possibility and asserts nothing.
+
+### Q19. Hjerpe's page numbers are the PDF's, not the document's
+**Owner:** Claude · **Status:** answered — corrected 23 Sept 2026
+
+Hjerpe's document carries its own page numbers, and they run one behind the
+PDF's: the page printed "8" is the ninth sheet. The thirteen locators in
+`data/transcribed/by_claude/board_demographics.csv` follow the PDF — Appendix 2
+is cited `p.9`, and the page it sits on is printed 8.
+
+Chicago cites the page the document prints, so the locators are each one too
+high. Before changing them, confirm against the filed snapshot rather than the
+live Google Doc, whose pagination can differ again — which is the reason for
+snapshotting in the first place.
+
+**Corrected.** Every locator was checked against the filed snapshot by finding
+its quoted sentence, not by assuming a uniform shift — the offset turned out to
+be a consistent one. Eleven rows moved. The sentence naming the five Black
+members is on the first sheet, which carries no number at all, so it is cited
+as `title page`; reading it also raised Q21.
+
 ### Q18. Where do the prose-only sources live?
-**Owner:** Sally · **Status:** open — the Drive folder is not set up yet
+**Owner:** Sally · **Status:** answered — folder, convention and five sources filed
 
 `data/` holds only what we take numbers out of, so a source read to settle a
 question is cited and not downloaded. Hjerpe, Rose, Anderson (1958), Pratt
@@ -192,9 +323,16 @@ The gap that leaves: every entry in `paper/sources.bib` says where its copy is,
 by URL or by a `data/raw/` path, except these. A reader with the citation would
 have no way to reach the document.
 
-When the folder exists, name it in `docs/sources.md` and add a line to each
-affected entry's `annotation`. Anderson, Pratt and Bestebreurtje have no
-entries yet; they get built from the documents when they land.
+**Answered.** The folder is `documents/` inside the project's Drive folder, and
+a file in it is named author, year, title — `Pratt 1995 - Arlington's At-Large
+Electoral System.pdf`. Not the citekey: a citekey is a handle for LaTeX and the
+`source` columns, a filename tells a person what they are looking at. The
+"Filed in Drive as" line in each `paper/sources.bib` entry ties the two
+together, and is where you check that a cited source is filed.
+
+Rose, Hjerpe, Pratt, Anderson and the ACCF resolution are filed and entered.
+Bestebreurtje is entered from the author's own site but not in hand, so its
+publisher and year are still missing.
 
 ### Q4. Should the roster be extended back to 1871?
 **Owner:** Sally · **Status:** open
@@ -331,8 +469,14 @@ why the question is worth asking before the work.
 
 **Still genuinely open, not a correction:**
 
-- Where the scanned volumes came from — a citation per file. The filenames
-  match how the Census Bureau chunks its scans, but that is an inference.
+- ~~Where the scanned volumes came from — a citation per file.~~ **Answered
+  23 September 2026.** `code/fetch/census_volumes.py` fetches the Bureau's own
+  copy of a held chunk from each volume and compares checksums; both the 1880
+  and 1890 files matched byte for byte, so the filenames are confirmed rather
+  than assumed, and the script refuses to go on if one ever stops matching. It
+  also saves each volume's first chunk, which carries the title page, so the
+  bibliography is built from a page in the repository. The 1870 volume already
+  carried its own title page.
 - Whether those volumes break out race categories beyond White and Black. The
   1890 volumes include a table classifying the colored population as Negro,
   mulatto, quadroon, octoroon, Chinese, Japanese and civilized Indian.

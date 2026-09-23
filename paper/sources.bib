@@ -10,6 +10,15 @@
 % `note` rather than carrying a plausible guess. docs/sources.md holds the
 % prose about what each source can and cannot support.
 %
+% A source we cite but take no numbers from is not downloaded into data/raw/;
+% its copy goes in the project's Drive folder. A citekey is a handle for LaTeX
+% and for the source columns, where short matters; a filename is for a person
+% scanning a folder, so it is written out - "Pratt 1995 - Arlington's At-Large
+% Electoral System.pdf", author first, year apart from the name. The two are
+% tied together by the "Filed in Drive as" line in each annotation below, which
+% is where you check that a cited source is actually filed. docs/sources.md has
+% the folder.
+%
 % `annotation` holds what we know about the document as evidence - what is
 % missing from the copy we hold, what its compiler warns about. biblatex does
 % not print it, so it stays in the repository for whoever works on the sources
@@ -90,21 +99,36 @@
 }
 
 @book{census1880,
-  author      = {{U.S. Census Bureau}},
-  title       = {Tenth Census of the United States, 1880},
+  author      = {{U.S. Department of the Interior, Census Office}},
+  title       = {Statistics of the Population of the United States at the Tenth
+                 Census (June 1, 1880)},
+  publisher   = {Government Printing Office},
+  location    = {Washington, DC},
   date        = {1880},
-  annotation  = {PROVISIONAL. The excerpt held carries interior pages only, so
-                 the volume cannot be identified from the document itself; the
-                 title above is inferred from the filename. See
-                 docs/questions.md, ``where the scanned volumes came from''},
+  annotation  = {Read off the title page, now held as 1880_v1-01.pdf. Francis
+                 A. Walker, Superintendent (resigned 3 November 1881), and
+                 Chas. W. Seaton, Superintendent (appointed 4 November 1881).
+                 **The imprint year is obscured** on this copy by a Bureau of
+                 the Census library stamp; the title page names an Act of
+                 Congress of 7 August 1882, so printing is no earlier than
+                 that, and the date field above is the census year rather than
+                 the imprint. The held chunks are the Bureau's own, proven byte
+                 for byte by code/fetch/census_volumes.py},
 }
 
 @book{census1890,
-  author      = {{U.S. Census Bureau}},
-  title       = {Eleventh Census of the United States, 1890},
-  date        = {1890},
-  annotation  = {PROVISIONAL, on the same footing as census1880: interior pages
-                 only, volume inferred from the filename},
+  author      = {{U.S. Department of the Interior, Census Office}},
+  title       = {Report on Population of the United States at the Eleventh
+                 Census: 1890},
+  subtitle    = {Part I},
+  publisher   = {Government Printing Office},
+  location    = {Washington, DC},
+  date        = {1895},
+  annotation  = {Read off the title page, now held as 1890a_v1-01.pdf. Robert
+                 P. Porter, Superintendent, and Carroll D. Wright, Commissioner
+                 of Labor in charge; letter of transmittal dated 22 October
+                 1894; imprint 1895. The held chunks are the Bureau's own,
+                 proven byte for byte by code/fetch/census_volumes.py},
 }
 
 @report{censusbureau1990twps76,
@@ -115,10 +139,14 @@
   number      = {POP-TWPS0076},
   institution = {U.S. Bureau of the Census},
   date        = {1990},
-  annotation  = {PROVISIONAL. The excerpt held is the Virginia table only and
-                 carries no front matter; title read from the table header,
-                 number and date from the filename and the workbook that cites
-                 it},
+  annotation  = {STILL PROVISIONAL, and now for a known reason. The Bureau
+                 publishes this paper at working-papers/2005/demo/pop-twps0076/
+                 as one PDF per state and nothing else - there is no front
+                 matter to fetch, checked 23 September 2026. What is held is
+                 the Virginia table, vatab.pdf, which is the URL the workbook
+                 itself cites. Title read from the table header; the number and
+                 date come from the path and the workbook, not from the
+                 document},
 }
 
 @online{censusapi,
@@ -142,7 +170,11 @@
                  Doc. Names the five Black members of the Reconstruction-era
                  board, reproduces the 1880 manuscript census records that
                  identify them, and tabulates every Board member by district
-                 from 1871 to 1888},
+                 from 1871 to 1888. The document is owned by someone outside
+                 the project and can change or be withdrawn, so a PDF snapshot
+                 is filed in Drive as "Hjerpe 2021 - A History of
+                 Representation on the Arlington County Board.pdf"; cite the
+                 snapshot, not the live document},
 }
 
 @misc{census1880schedule,
@@ -156,14 +188,138 @@
 
 % ------------------------------------------- consulted to settle a question
 
+% Two proceedings, not one. Both are cited by \cite{pratt1995}, who heard the
+% testimony; neither opinion has been read here, which is what the annotations
+% admit to.
+%
+% Entered as @misc deliberately. biblatex-chicago in notes mode silently drops
+% @jurisdiction, @legal and @legislation - they compile without a warning and
+% simply do not appear in the bibliography, which was checked by compiling
+% them. A case therefore goes in as @misc with the court, reporter and docket
+% in `note`, which prints, and that is where a reader needs them anyway.
+
+@misc{vollin1974,
+  title       = {George Vollin, Jr., et al. v. Mills E. Godwin, et al.},
+  note        = {U.S. District Court, Eastern District of Virginia, Alexandria
+                 Division, Civil Action No. 173-74-A},
+  date        = {1974},
+  annotation  = {A civil rights suit to have Arlington's at-large voting system
+                 declared unconstitutional. Vollin testified in 1974; the eight
+                 plaintiffs are named in pratt1995 note 16. Court, division and
+                 docket number as pratt1995 notes 5 and 15 print them. The
+                 filing date, the outcome and the opinion have not been read
+                 here, and no year but the testimony's is recorded},
+}
+
+@misc{vollinelectoralboard,
+  title       = {George Vollin, Jr., et al. v. Arlington County Electoral Board
+                 and Cornelia B. Rose},
+  note        = {216 Va. 674, 222 S.E.2d 793 (Supreme Court of Virginia, 1976)},
+  date        = {1976-03-05},
+  annotation  = {Decided 5 March 1976, Record No. 741174, opinion by Harrison,
+                 J.; read from the reported opinion. Pratt cites it at 216 Va.
+                 674 and his scan prints it "Yollin", a misread V. **A
+                 different action from vollin1974**: more than two hundred
+                 Arlington voters petitioned under Code s 15.1-694 to put the
+                 question of district rather than at-large election to the
+                 voters, and the petition was denied because the county had
+                 already adopted the County Manager Plan. The report should not
+                 merge the two. Note the respondent Cornelia B. Rose - see the
+                 annotation to rose1964},
+}
+
+@article{anderson1958,
+  author      = {Anderson, Robert Nelson},
+  title       = {Arlington Adopts the County Manager Form of Government},
+  journaltitle = {Arlington Historical Magazine},
+  date        = {1958},
+  pages       = {52--67},
+  annotation  = {Byline, title and printed pages 52-67 read off the article.
+                 Volume and issue are not printed on the pages held, as with
+                 novack1994 and pratt1995 in the same magazine. The Historical
+                 Society gives the author as Robert Nelson Anderson, Jr., a
+                 founder of the Society and its president 1958-1959; the
+                 article itself prints no "Jr.". A first-hand account of the
+                 1930 referendum and the 1931 election, which is the hinge of
+                 this report. Filed in Drive as "Anderson 1958 - Arlington
+                 Adopts the County Manager Form of Government.pdf"},
+}
+
+@book{bestebreurtje2024,
+  author      = {Bestebreurtje, Lindsey},
+  title       = {Built by the People Themselves},
+  subtitle    = {African American Community Development in Arlington, Virginia,
+                 from the Civil War through Civil Rights},
+  publisher   = {University of South Carolina Press},
+  location    = {Columbia, SC},
+  date        = {2024-11-07},
+  pagetotal   = {298},
+  isbn        = {978-1-64336-498-8},
+  annotation  = {Read from the publisher's own catalogue page rather than from
+                 the book, which is not in hand: paperback 978-1-64336-498-8,
+                 hardcover 978-1-64336-497-1, published 7 November 2024. The
+                 author's site and the Arlington Historical Society render the
+                 title with the first phrase in quotation marks; the publisher
+                 does not, and the publisher's rendering is used here. Worth
+                 confirming against the title page if the book is acquired.
+                 Bestebreurtje holds a PhD in History from George Mason and is
+                 a curatorial assistant at the Smithsonian's National Museum of
+                 African American History and Culture},
+}
+
 @article{rose1964,
-  author      = {Rose, C. B.},
+  author      = {Rose, Jr., C. B.},
   title       = {Annexation of a Portion of Arlington County by the City of
                  Alexandria in 1915},
   journaltitle = {Arlington Historical Magazine},
   date        = {1964},
+  pages       = {22--36},
   url         = {https://arlhist.org/wp-content/uploads/2017/02/1964-4-Annex.pdf},
-  urldate     = {2026-09-22},
+  urldate     = {2026-09-23},
+  annotation  = {Byline reads "C. B. Rose, Jr."; printed pages 22-36, read off
+                 the article itself. Volume and issue are not printed on the
+                 pages held. Filed in Drive as "Rose 1964 - Annexation of a Portion of
+                 Arlington County by the City of Alexandria.pdf".
+                 **Possibly the same person as the respondent Cornelia B. Rose
+                 in vollinelectoralboard**, who was on the Arlington County
+                 Electoral Board in the 1970s. The initials fit and both are
+                 Arlington figures, but nothing read so far states it. Not
+                 asserted anywhere in the data},
+}
+
+@article{pratt1995,
+  author      = {Pratt, Sherman W.},
+  title       = {Arlington's At-Large Electoral System: A Study of Its History,
+                 Strengths, and Weaknesses},
+  journaltitle = {Arlington Historical Magazine},
+  date        = {1995-10},
+  pages       = {19--35},
+  annotation  = {Byline, title, month and printed pages 19-35 read off the
+                 article. Volume and issue are not printed on the pages held,
+                 as with novack1994 in the same magazine. Pratt heard Vollin's
+                 testimony and holds tape recordings of his own interviews with
+                 him; the article is the source for both Vollin citations.
+                 Filed in Drive as "Pratt 1995 - Arlington's At-Large
+                 Electoral System.pdf" - it was already in the folder under
+                 the title "Arlington's Electoral History", which is
+                 O'Leary's subject, not this},
+}
+
+@report{accf2022,
+  author      = {{Arlington County Civic Federation, Task Force in Governance
+                 and Election Reform}},
+  title       = {Resolution on Recommendations},
+  institution = {Arlington County Civic Federation},
+  date        = {2022-06-08},
+  annotation  = {The task force is TiGER, established 2020 to reexamine the
+                 county's governing bodies. Six conclusions and recommendations
+                 on electoral and structural reform; conclusion 3 is that the
+                 elected bodies do not adequately reflect the county's
+                 diversity. **The document itself carries no date** - 8 June
+                 2022 comes from the Word title stored in the file,
+                 "TiGER FINAL Resolution on Recommendations-06.08.22", and the
+                 PDF's creation time, which agree. Filed in Drive as "Arlington County Civic
+                 Federation 2022 - TiGER Resolution on Recommendations.pdf"},
 }
 
 @report{alexandria2024,
