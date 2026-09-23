@@ -33,18 +33,18 @@ Side by side rather than stacked because the counts panel has to be taller than
 it is wide for the decades before 1940 to have any height — Arlington had under
 27,000 residents until 1940 and 238,643 by 2020.
 
-**Two bases, one series, with the join marked.** From 1980 the bands are the
-five census groups that partition the county exactly: race crossed with
+**Two bases, one series, and nothing drawn to mark it.** From 1980 the bands
+are the five census groups that partition the county exactly: race crossed with
 Hispanic origin, so nobody is counted twice. Before 1980 they are the delivered
 race categories, because the Bureau did not ask Hispanic origin of everyone
-until 1980 and 1970's sample question is not comparable. A dashed rule marks
-1980 and the caption says what changes there.
+until 1980 and 1970's sample question is not comparable.
 
-The alternative was two figures, one per basis. One series a reader can follow
-was judged better than two they have to reconcile, given the categories carry
-the same names and colours on both sides of the rule; what changes is whether
-they overlap. Only 1970 now overshoots the county total — 1990, which used to,
-is exact on the census basis.
+A rule at 1980 was drawn and removed. The change is real but does not alter
+what the figure says — Arlington had 1,387 Hispanic residents in 1970, under
+one per cent of the county, and none on the Board — so a line across the figure
+claimed more importance for it than it has. It belongs in the caption, and the
+labels read the same either side of 1980, so they do not mislead. Only 1970
+overshoots the county total; 1990, which used to, is exact.
 
 **The residual sits inside the stack, below White.** Other, multiracial or
 unreported is another kind of not-White; drawn above the sand it split the

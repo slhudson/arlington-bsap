@@ -5,19 +5,21 @@ Side by side rather than stacked because the counts panel needs to be taller
 than it is wide for the decades before 1940 to have any height - Arlington had
 under 27,000 residents until 1940 and 238,643 by 2020.
 
-**Two bases, one series, and the join is marked.** From 1980 the bands are the
-five census groups that partition the county exactly: race crossed with
+**Two bases, one series, and nothing drawn to mark it.** From 1980 the bands
+are the five census groups that partition the county exactly: race crossed with
 Hispanic origin, so nobody is counted twice. Before 1980 they are the delivered
 race categories, because the Census did not ask Hispanic origin of everyone
 until 1980 and 1970's sample question is not comparable - see Q1 in
 docs/questions.md.
 
-The alternative was two figures, one per basis. This is one series a reader can
-follow, with a rule at 1980 and a caption saying what changes there. The
-categories carry the same names and colours on both sides of it; what changes
-is whether they overlap.
+A rule at 1980 was drawn and then removed. The change is real but small enough
+that it does not affect what the figure says: Arlington had 1,387 Hispanic
+residents in 1970, under one per cent of the county, and none on the Board. A
+line across the figure claimed more visual importance for it than it has. It
+belongs in the caption, which carries it, and the labels are the same either
+side of 1980 so they do not mislead.
 
-One consequence worth knowing: only 1970 now overshoots the county total. 1990,
+One consequence worth knowing: only 1970 overshoots the county total. 1990,
 which used to, is exact on the census basis.
 
 Stacking order, axis upward: the three counted groups, then the residual, then
@@ -78,14 +80,6 @@ for profile in style.PROFILES:
     charts.shares(b)
     charts.years(b, 1870, 2020, rotate=True)
     b.set_title("(b) share of residents")
-
-    # The basis changes in both panels, so the rule is drawn in both. The note
-    # is written once, inside the left panel: the band above the frame is taken
-    # by the panel titles, and 0.90 lands in white space above the 1980-2010
-    # bars, which top out well below it.
-    charts.rule(a, year=CENSUS_FROM - 5, note="census categories from 1980",
-                inside_y=0.90)
-    charts.rule(b, year=CENSUS_FROM - 5, note=None)
 
     entries = {style.GROUP_LABELS[g]: style.RACE_COLORS[g]
                for g in ("black", "hisp", "aapi")}
