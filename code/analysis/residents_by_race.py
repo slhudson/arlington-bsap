@@ -35,30 +35,33 @@ import paths
 import style
 
 paths.build_stage_on_path()
-from assumptions import not_reported_as_zero, rescale_to_100   # noqa: E402
+from assumptions import rescale_to_100   # noqa: E402
 
 CENSUS_FROM = 1980
 
 for profile in style.PROFILES:
     style.apply(profile)
 
-    c = not_reported_as_zero(pd.read_csv(paths.RESIDENTS))     # not-reported read as zero
+    c = pd.read_csv(paths.RESIDENTS)
     old = style.GROUP_ORDER                                    # black, hisp, aapi, white
     new = ["nh_black", "hispanic", "nh_aapi", "nh_white"]
 
     # One frame with four bands plus a residual, whichever basis a year is on.
     counts = pd.DataFrame(index=c.index, columns=old, dtype=float)
     on_census = c["year"] >= CENSUS_FROM
-    for a, b in zip(old, new):
-        counts[a] = np.where(on_census, c[b], c[a])
-    residual = np.where(on_census, c["nh_other"],
-                        (c["total"] - c[old].sum(axis=1)).clip(lower=0))
+    for g_old, g_new in zip(old, new):
+        # No fillna: a blank stays blank, so a line begins the year the Census
+        # first reported that group rather than running along zero before it.
+        counts[g_old] = np.where(on_census, c[g_new], c[g_old])
+    residual = pd.Series(np.where(on_census, c["nh_other"],
+                                  (c["total"] - c[old].sum(axis=1)).clip(lower=0)),
+                         index=c.index)
 
     shares = counts.div(c["total"], axis=0) * 100
-    residual_share = (100 - shares.sum(axis=1)).clip(lower=0)   # before rescaling
+    residual_share = (100 - shares.fillna(0).sum(axis=1)).clip(lower=0)
     # Rescaling only ever applies to the pre-1980 years; from 1980 the groups
     # already sum to the county and rescale_to_100 leaves them alone.
-    shares = rescale_to_100(shares)
+    shares = rescale_to_100(shares.fillna(0))
 
     def bands(frame, resid):
         out = {style.GROUP_LABELS[g]: (frame[g].to_numpy(), style.RACE_COLORS[g])
@@ -70,10 +73,17 @@ for profile in style.PROFILES:
 
     fig, (a, b) = charts.panels(style.PANELS, profile)
 
-    charts.stacked_bars(a, c["year"], bands(counts, residual))
-    charts.counts(a, 250000, 50000)
-    charts.years(a, 1870, 2020, rotate=True)
-    a.set_title("(a) number of residents")
+    # (a) Unstacked lines, White excluded. Stacked bars cannot show when a
+    # group starts being counted - a band of height zero and a band that has
+    # not started are the same picture - and a line simply begins. Nothing is
+    # stacked, so the axis reaches the largest single series, not the county.
+    lines = {style.GROUP_LABELS[g]: (counts[g], style.RACE_COLORS[g])
+             for g in ("black", "hisp", "aapi")}
+    lines[style.OTHER_LABEL] = (residual.replace(0, np.nan), style.RESIDUAL_COLOR)
+    charts.lines(a, c["year"], lines)
+    charts.counts(a, 40000, 5000)
+    charts.years(a, 1870, 2020, step=20)
+    a.set_title("(a) residents other than White")
 
     charts.stacked_bars(b, c["year"], bands(shares, residual_share))
     charts.shares(b)

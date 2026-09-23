@@ -35,15 +35,17 @@ for profile in style.PROFILES:
     # the space between the two lines rather than past the end of the data.
     charts.years(ax, 1870, 2020, step=20)
 
-    # Each label sits in the empty band between the series: above the per-seat
-    # line and below the population line, from 1958 where both are far apart.
+    # Each label sits just left of the 2020 point it describes, at that
+    # point's own height. Anywhere else and it is a caption the reader has to
+    # match to a line, which is what a legend already is.
     last = d.iloc[-1]
-    charts.label_line(ax, 1958, 128000,
-                      f"total population: {int(last['total']):,}",
-                      style.SERIES_COLORS["population"])
-    charts.label_line(ax, 1958, 72000,
-                      f"residents per Board seat: {int(round(last['residents_per_seat'])):,}",
-                      style.SERIES_COLORS["per_seat"])
+    charts.end_label(ax, 2020, last["total"],
+                     f"2020 population: {int(last['total']):,}",
+                     style.SERIES_COLORS["population"])
+    charts.end_label(ax, 2020, last["residents_per_seat"],
+                     f"2020 residents per Board seat: "
+                     f"{int(round(last['residents_per_seat'])):,}",
+                     style.SERIES_COLORS["per_seat"])
 
     charts.rule(ax)
     paths.save(fig, "residents_per_seat", profile)

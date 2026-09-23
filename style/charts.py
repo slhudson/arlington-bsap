@@ -55,7 +55,7 @@ def lines(ax, x, series):
         ax.plot(x, values, color=color, marker="o", zorder=3, label=label)
 
 
-def label_line(ax, x, y, text, color):
+def label_line(ax, x, y, text, color, ha="left"):
     """Name a line where it runs, on one line of text, inside the axes.
 
     Urban puts line labels at the far right, just outside the plot. That needs
@@ -67,8 +67,18 @@ def label_line(ax, x, y, text, color):
     One line, not two. A label wrapped over two or three lines is read rather
     than glanced at, which is the opposite of what direct labelling is for.
     """
-    ax.text(x, y, text, color=color, ha="left", va="center",
+    ax.text(x, y, text, color=color, ha=ha, va="center",
             fontsize=plt.rcParams["font.size"])
+
+
+def end_label(ax, x, y, text, color, gap=0.012):
+    """Name a line just to the left of the point it describes.
+
+    A direct label has to sit near its own mark. Placed anywhere else it is a
+    caption the reader has to match up, which is what a legend already is.
+    """
+    lo, hi = ax.get_xlim()
+    label_line(ax, x - (hi - lo) * gap, y, text, color, ha="right")
 
 
 def stacked_bars(ax, x, series, width=7):
@@ -194,7 +204,10 @@ def years(ax, first, last, step=10, rotate=False, label="census year",
     """
     span = last - first
     ax.set_xlim(first - span * 0.03, last + span * (0.03 + headroom))
-    major = list(range(first, last + 1, step))
+    # Anchored on the last year, not the first. With a twenty-year step from
+    # 1870 the labels stop at 2010 and the most recent census - the one a
+    # reader looks for - goes unnamed.
+    major = sorted(range(last, first - 1, -step))
     ax.set_xticks(major)
     if minor and minor < step:
         ax.xaxis.set_minor_locator(
@@ -206,12 +219,20 @@ def years(ax, first, last, step=10, rotate=False, label="census year",
         ax.set_xlabel(label)
 
 
-def counts(ax, top, step, label="residents"):
-    """A count axis ending on a round tick rather than just clear of the data."""
+def counts(ax, top, step, label="residents", minor=None):
+    """A count axis ending on a round tick rather than just clear of the data.
+
+    `minor` adds an unlabelled gridline between the labelled ones, for reading
+    a value off a line chart more closely than the labels allow.
+    """
     ax.set_ylim(0, top)
     ax.yaxis.set_major_locator(MultipleLocator(step))
     ax.yaxis.set_major_formatter(THOUSANDS)
     ax.set_ylabel(label)
+    if minor:
+        ax.yaxis.set_minor_locator(MultipleLocator(minor))
+        ax.grid(axis="y", which="minor", color=plt.rcParams["grid.color"],
+                linewidth=plt.rcParams["grid.linewidth"] * 0.7, alpha=0.6)
 
 
 def shares(ax, label="share of residents"):

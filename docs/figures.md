@@ -39,9 +39,22 @@ series, and choosing one decides which era looks like the exception.
 ### `residents_by_race`
 Two panels side by side: (a) counts, (b) shares, 1870–2020.
 
-Side by side rather than stacked because the counts panel has to be taller than
-it is wide for the decades before 1940 to have any height — Arlington had under
-27,000 residents until 1940 and 238,643 by 2020.
+**Panel (a) is unstacked lines and excludes White.** Stacked bars cannot show
+when a group starts being counted: a band of height zero and a band that has
+not started are the same picture. A line simply begins — Asian & Pacific
+Islander in 1950, Hispanic or Latino in 1970, Other or Multiracial in 1980.
+That is what Q2 asked for and what the retired log figure used to do.
+
+White is excluded because it costs the other four most of the axis: it peaks at
+161,329 and none of the others passes 37,362. Panel (b) carries it, so the
+figure as a whole still shows White. What panel (a) no longer shows is White's
+absolute decline — 161,329 in 1970 to 114,489 in 2000, against a county that
+lost 21,685 residents in the 1970s alone. That belongs in the prose.
+
+Three things the lines say that the stacked version could not: Hispanic or
+Latino passes Black in 1990, Asian & Pacific Islander passes Black in 2010, and
+Black is close to flat from 1970 — 10,076 to 20,330 over fifty years — while
+the county's population other than White more than quadrupled.
 
 **Two bases, one series, and nothing drawn to mark it.** From 1980 the bands
 are the five census groups that partition the county exactly: race crossed with
