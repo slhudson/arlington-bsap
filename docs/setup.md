@@ -80,6 +80,11 @@ writes which file — while `CLAUDE.md` holds the working rules.
    print the tests, a build step, five figures, and a line about
    `figures/pdf` and `figures/png`. That is the test that everything works.
    Invoke it through `bash`, not `./run.sh`; `run.sh` says why at the top.
+6. **Access to the Overleaf project.** The owner shares it. In Overleaf, the
+   GitHub link is under the **Integrations** tab in the icon rail down the
+   left of the editor, not under the Menu; pull from GitHub before a writing
+   session and push when done, so the paper and the repository stay the same
+   thing.
 
 ## How to help
 
@@ -88,7 +93,8 @@ them may already be in place; ask rather than assume, in either direction.
 Where something is new, the setup is part of the job: installing Git and
 signing in to GitHub, installing Claude Code and signing in to it, creating
 the Python environment (which happens inside Claude Code once it is
-running), cloning the repository, and then getting oriented in it.
+running), cloning the repository, connecting to the Overleaf project, and
+then getting oriented in it.
 
 Ask what operating system they're on, then go one step at a time: say what
 to type, what they should see if it worked, and what to do if they see
