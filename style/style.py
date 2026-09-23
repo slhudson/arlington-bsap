@@ -115,8 +115,13 @@ GENDER_COLORS = {
     "women": OKABE_ITO["reddish_purple"],
     "men":   SAND,
 }
-# The growth figure: two counts of people, no categories.
-SERIES_COLORS = {"population": "#5C5859", "per_seat": OKABE_ITO["blue"]}
+# The growth figure: two counts of people, no categories. It took Okabe-Ito's
+# blue until that blue became Asian and Pacific Islander on the race charts, and
+# the growth figure comes first in the report - so a reader would have met the
+# colour as a series before meeting it as a category. Vermilion is not used
+# categorically anywhere, and nothing here needs a hue to be identified: both
+# lines are labelled where they run.
+SERIES_COLORS = {"population": "#5C5859", "per_seat": OKABE_ITO["vermilion"]}
 
 RESIDUAL_COLOR = GREY
 
