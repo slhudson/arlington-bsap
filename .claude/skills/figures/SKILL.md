@@ -47,7 +47,9 @@ gives the reason.
   plain: `(a) number of residents`.
 - An explanatory note that belongs to a mark, such as the 1932 rule, appears
   once per figure, and goes **above the top of the frame**, not inside the
-  plot. Inside, it sits on whatever the chart has drawn there - on a filled
+  plot. Once per *figure*, not once per section: the same note on three
+  figures is not repetition to remove — a reader arriving at the third one
+  needs to reorient just as much as at the first. Inside, it sits on whatever the chart has drawn there - on a filled
   seat chart that is a solid band, and the text stops being legible. Notes
   that belong to the document - sources, caveats, definitions - go in the
   caption, not the image.
@@ -90,7 +92,10 @@ too, in the LaTeX caption.
 
 ## Legend
 
-- One legend for the whole figure, not one per panel.
+- **No legend at all where the lines can be labelled directly.** A legend is
+  a lookup table the reader has to hold in their head; getting rid of one is a
+  gain, not an inconsistency to correct. The growth figure has none.
+- One legend for the whole figure, not one per panel, where one is needed.
 - One row, in stacking order, below the figure and outside the axes. Urban
   stretches legends across the top; here they go below, because several
   figures carry a note above the plot and the two compete for that band.
@@ -125,10 +130,14 @@ too, in the LaTeX caption.
 
 ## Labels
 
-- **Legend entries are title case**: `Black`, `Hispanic or Latino`, `Other or
-  Multiracial`. Urban asks for sentence case throughout a figure; a legend is
-  a list of names rather than a sentence, and a lowercase entry beside the
-  others reads as a slip. This one is settled — do not revisit it.
+- **Legend entries capitalise proper nouns and nothing else.** Racial and
+  ethnic identifiers are proper nouns: `Black`, `White`, `Hispanic or Latino`,
+  `Asian & Pacific Islander`. `women` and `men` are not, under anyone's
+  convention, and stay lowercase.
+- **Black and White are both capitalised.** Urban capitalises Black and leaves
+  white lowercase; here both are capitalised, because a lowercase `white`
+  beside `Black` reads as a slip rather than as a position. Settled — do not
+  revisit.
 - **Axis labels and panel titles are lowercase**: `residents`, `census year`,
   `(a) number of residents`.
 - **Black and White are both capitalised**, as proper names. APA and AMA capitalise
