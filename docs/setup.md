@@ -92,7 +92,7 @@ writes which file — while `CLAUDE.md` holds the working rules.
        python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl
 
 5. **A successful build.** `bash run.sh` from the repository folder should
-   print the tests, a build step, five figures, and a line about
+   print the tests, a build step, four figures, and a line about
    `figures/pdf` and `figures/png`. That is the test that everything works.
    Invoke it through `bash`, not `./run.sh`; `run.sh` says why at the top.
 6. **The Overleaf project open and synced.** In Overleaf, the GitHub link

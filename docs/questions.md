@@ -152,14 +152,18 @@ other says nobody counted. As drawn, the stacked charts show a flat zero line
 for a century, which asserts the first when the record only supports the
 second.
 
-Recommendation when this is taken up: follow the log chart, which starts each
-line the year the category is first reported, and add a caption note giving
-those years.
+Recommendation when this is taken up: start each category the year it is first
+reported rather than at zero, and add a caption note giving those years. The
+retired log figure did this, and it is the treatment to copy.
 
 **In code:** `not_reported_as_zero()` in `code/build/assumptions.py`, applied by
-both panels of `code/analysis/residents_by_race.py`.
-`code/analysis/residents_by_race_log.py` applies nothing, so its lines begin when
-each category is first reported.
+both panels of `code/analysis/residents_by_race.py`. No figure now applies
+nothing, because the one that did has been retired.
+
+**Narrowed by the census basis.** From 1980 the question does not arise: the
+`nh_` columns partition the county and Hispanic/Latino is a reported category,
+not a blank. What is left is 1870-1970, where Hispanic really is unreported
+before 1970 and AAPI before 1950.
 
 ---
 
