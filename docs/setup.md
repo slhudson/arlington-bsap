@@ -1,35 +1,30 @@
 # Setup
 
-Paste this whole file into a new Claude conversation. It tells Claude what you
-are setting up and how to help. Written for Alex; it works for anyone joining
-the project.
-
-If you're reading this as an email attachment, that's expected — the repository
-is private, so the first copy has to arrive outside it.
+For a collaborator joining the repository. Paste everything below the line
+into a new Claude conversation; it tells Claude what the project is and how to
+help get a machine set up to build it. If you're reading this as an email
+attachment, that's expected — the repository is private, so the first copy
+has to arrive outside it.
 
 ---
 
-I'm working on a research project with a collaborator who has moved our shared
-files into a GitHub repository. I need to get set up so I can edit the figure
-code on my own machine. Please walk me through it one step at a time, waiting
-for me to confirm each step worked before moving to the next. Ask me what
-operating system I'm on before giving any commands.
+You are helping a collaborator set up their machine to work on a shared
+research repository. Please read this whole note first, then ask them what
+operating system they're on and go one step at a time — say what to type,
+what they should see if it worked, and what to do if they see something else.
+Wait for them to confirm each step before the next. They may already have
+some of this in place; ask rather than assume, in either direction.
 
-## What the project is
+## The project
 
-Arlington County's Board Structure and Performance study. Five figures in
-matplotlib, built from census volumes, the county's election records and a
-historical roster of the County Board. The figures aren't finished — I'll keep
-editing them — which is why I need this working locally rather than just
-reading the output.
-
-## What changed
-
-The scripts, the source documents and the paper now live in one private GitHub
-repository, `slhudson/arlington-bsap`. The figures rebuild from the committed
-sources with a single command instead of being regenerated and re-uploaded by
-hand. The repository is connected to Overleaf, so the paper pulls the figures
-the pipeline produces.
+Arlington County's Board Structure and Performance study: a historical and
+descriptive-representation analysis of the County Board, 1870 to the present.
+Two authors. The collaborator being set up did the original data collection —
+the census figures, the Board seat counts, the member database, and the first
+versions of the figures — which is the foundation everything in the
+repository is built on. The repository is the shared, reproducible form of
+that work: the sources committed, the figures rebuilt from them with one
+command, and the paper in Overleaf pulling the figures the pipeline produces.
 
 ## How the repository is organised
 
@@ -44,43 +39,37 @@ the pipeline produces.
     docs/         open questions, sources, figure rationale
     run.sh        rebuilds everything from the committed files
 
-Two rules worth knowing before I touch anything. `data/raw/` and
-`data/transcribed/by_human/` are never edited — they're the sources as
-received. And decisions that change what a number *is* belong in `build/`,
-while `analysis/` only decides how a number is shown; the analysis scripts
-have no path to anything above `data/clean/`, so that separation is enforced
-rather than just agreed. The README has a table of which script writes which
-file.
+`README.md` is the front door and has a table of which script writes which
+file. `CLAUDE.md` holds the working rules; the one that matters most is that
+`build/` decides what a number *is* and `analysis/` only decides how it is
+shown — the analysis scripts have no path to anything above `data/clean/`,
+so that separation is enforced rather than agreed. `data/raw/` and
+`data/transcribed/by_human/` are the sources as received and are never
+edited; the original workbooks are there unchanged.
 
-## What I need to end up with
+## What a working setup looks like
 
-1. **A GitHub account.** I may already have one. I need to send my username to
-   my collaborator so she can add me to the private repository — cloning will
-   fail until she has, so this is the first thing to sort out.
+1. **A GitHub account**, with the username sent to the repository's owner so
+   she can add them to the private repository — cloning fails until she has,
+   so this is the first thing to sort out.
 2. **Git installed**, and signed in to GitHub.
-3. **Claude Code installed and working.** This is Claude running in my terminal
-   rather than the browser, so it can edit the files directly instead of me
-   downloading and re-uploading attachments. It needs a paid Claude plan.
+3. **Claude Code installed and working** — Claude in the terminal, so it can
+   edit files in the repository directly. It needs a paid Claude plan.
 4. **Python with pandas, matplotlib and openpyxl**, in a virtual environment
-   inside the repository folder. The project expects it at `.venv`.
-5. **A successful build.** Running `bash run.sh` from the repository should
-   print a build step, then five figures, then a line about `figures/pdf` and
-   `figures/png`. That's the test that everything works.
+   at `.venv` inside the repository folder:
 
-## How I'd like you to help
+       python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl
 
-Go one step at a time. Tell me what to type, what I should see if it worked,
-and what to do if I see something else. Don't assume I know git — explain what
-a command does before I run it, briefly.
+5. **A successful build.** `bash run.sh` from the repository folder should
+   print the tests, a build step, five figures, and a line about
+   `figures/pdf` and `figures/png`. That is the test that everything works.
+   (Invoke through `bash`, not `./run.sh`; `run.sh` says why at the top.)
 
-If a step needs something only my collaborator can do, say so plainly and tell
-me what to send her, rather than trying to work around it.
+If a step needs something only the repository's owner can do, say so plainly
+and say what to send her, rather than working around it.
 
-Once `bash run.sh` works, stop there. From that point I'll switch to Claude
-Code inside the repository folder, and ask it to help me with the figures.
-
-## The first thing I'll want to do afterwards
-
-Change something small in a figure and rebuild, to see the loop work end to
-end. `analysis/` has one script per figure, each named for the figure it
-produces. `analysis/style.py` holds the colours and fonts they all share.
+Once `bash run.sh` works, stop there. From that point the natural next move
+is to open Claude Code inside the repository folder and change something
+small in a figure — `analysis/` has one script per figure, named for the
+figure it produces, and `analysis/style.py` holds the colours and fonts they
+share — then rebuild, to see the loop work end to end.
