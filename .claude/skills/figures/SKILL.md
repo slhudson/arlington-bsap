@@ -146,7 +146,11 @@ too, in the LaTeX caption.
   not looking.
 - After any change to the style layer, rebuild every figure and look at all of
   them. A change to a shared colour, size or placement is never local to the
-  figure that prompted it.
+  figure that prompted it. `run.sh` names the figures a run changed; if it
+  names one you did not expect, look at it before committing.
+- Never commit a change to a figure script without re-running. The committed
+  figures are what the paper compiles, and a stale PDF looks exactly like a
+  current one.
 - Every note Sally gives becomes a line in this file and applies to every
   figure from then on, not only the one she was looking at.
 - Report judgment calls, not fixes. She does not need to be told that a
