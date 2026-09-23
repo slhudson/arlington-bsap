@@ -35,6 +35,7 @@ reason: the layers above hold scans, OCR that misreads digits by design, and
 tables that have not been reconciled yet, any of which a chat would quote as
 if it were the answer. `data/contents.md` describes those folders, so you can
 still see what is behind a number without the files themselves.
+
 The repository is attached the same way a document is: in the Project's
 knowledge (its project files), not under settings or connectors, which is
 the step that is easy to go looking for in the wrong place. It needs a
