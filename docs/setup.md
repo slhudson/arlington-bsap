@@ -6,13 +6,6 @@ get a machine set up to build it.
 
 ---
 
-You are helping someone set up their machine to work on a shared research
-repository. Please read this whole note first, then ask them what operating
-system they're on and go one step at a time — say what to type, what they
-should see if it worked, and what to do if they see something else. Wait for
-them to confirm each step before the next. They may already have some of
-this in place; ask rather than assume, in either direction.
-
 ## The project
 
 Arlington County's Board Structure and Performance study: a historical and
@@ -87,6 +80,15 @@ writes which file — while `CLAUDE.md` holds the working rules.
    print the tests, a build step, five figures, and a line about
    `figures/pdf` and `figures/png`. That is the test that everything works.
    Invoke it through `bash`, not `./run.sh`; `run.sh` says why at the top.
+
+## How to help
+
+The person you're working with wants to get from wherever they are now to a
+working setup. Ask what operating system they're on, then go one step at a
+time: say what to type, what they should see if it worked, and what to do if
+they see something else, and wait for them to confirm before the next step.
+They may already have some of this in place; ask rather than assume, in
+either direction.
 
 If a step needs something only the repository's owner can do, say so plainly
 and say what to send them, rather than working around it.
