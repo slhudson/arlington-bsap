@@ -198,6 +198,25 @@ name the record it came from or come out.
 Society's officials list if it carries counts as well as names, and the
 Alexandria Gazette, which reported Arlington election results at the time.
 
+### Q28. What form does the county-facing version take?
+**Owner:** Sally · **Status:** open — next step after the internal memo
+
+The figures memo is internal: it asks Alex questions and records what changed
+and why. A version goes to County Board staff after that, and it is a different
+document with a different job - it presents findings rather than soliciting
+corrections, and the internal questions do not belong in it at all.
+
+**Likely slides rather than a PDF.** A memo is read alone; slides are presented,
+which is what a staff briefing is. The repository is already set up for it: the
+`screen` profile in `style/style.py` renders every figure at 10 inches wide with
+the type scaled up and saved as PNG, which exists for exactly this and has not
+been used yet. `figures/png/` is already built on every run.
+
+**To settle:** slides or memo; which of the four figures appear; and what
+replaces the internal and external question sections, since the external
+questions are asks *of* the county and become the point of the meeting rather
+than a section of the document.
+
 ### Q25. Bestebreurtje is cited as two different documents
 **Owner:** Sally + Alex · **Status:** open — blocks two claims
 
