@@ -255,7 +255,7 @@ members is on the first sheet, which carries no number at all, so it is cited
 as `title page`; reading it also raised Q21.
 
 ### Q18. Where do the prose-only sources live?
-**Owner:** Sally · **Status:** answered — folder, convention and four sources filed
+**Owner:** Sally · **Status:** answered — folder, convention and five sources filed
 
 `data/` holds only what we take numbers out of, so a source read to settle a
 question is cited and not downloaded. Hjerpe, Rose, Anderson (1958), Pratt
@@ -274,8 +274,9 @@ Electoral System.pdf`. Not the citekey: a citekey is a handle for LaTeX and the
 "Filed in Drive as" line in each `paper/sources.bib` entry ties the two
 together, and is where you check that a cited source is filed.
 
-Rose, Hjerpe, Pratt and the ACCF resolution are filed and entered. Anderson and
-Bestebreurtje are not — neither is in the folder or the repository.
+Rose, Hjerpe, Pratt, Anderson and the ACCF resolution are filed and entered.
+Bestebreurtje is entered from the author's own site but not in hand, so its
+publisher and year are still missing.
 
 ### Q4. Should the roster be extended back to 1871?
 **Owner:** Sally · **Status:** open
