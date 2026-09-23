@@ -204,7 +204,7 @@ roster would let both files derive from one source.
 ### Q5. Which figures go to the County, and with what caveats?
 **Owner:** Sally + Nick · **Status:** open
 
-Five exist. The caveats need to be consistent across whichever ship.
+Four exist. The caveats need to be consistent across whichever ship.
 
 ---
 

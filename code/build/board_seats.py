@@ -20,9 +20,16 @@ coded Hispanic carries no separate race, so `white` here means white and not
 Hispanic, which is what `nh_white` means there. The two are comparable; the
 delivered census columns are not comparable to either.
 
-What the Board file cannot do is the reverse split. There is no Hispanic-origin
-question behind a roster, so a Hispanic member's race is not recorded and
-cannot be recovered. That is a limit of the source, not a decision here.
+So the two files already line up, and the figures drawn from them can be read
+against each other directly. J. Walter Tejada, the one Hispanic member, sits in
+the Hispanic band for 2003-2015, exactly as a Hispanic resident sits in the
+Hispanic band of residents_by_race; `white` on this side means white and not
+Hispanic, as `nh_white` does on that side.
+
+That a member's race is not recorded alongside their ethnicity costs nothing
+here: the census basis does not use it either. It puts every Hispanic resident
+in one band whatever their race, which is the same thing one code per person
+achieves.
 
 The workbook's own years are also read for comparison and checked for
 internal coherence - the race categories and the genders must each sum to
