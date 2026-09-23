@@ -132,7 +132,10 @@ GROUP_LABELS = {
 
 # The census basis, 1980 on: five groups that partition the county. Same
 # colours, so a reader moving between the two bases is not relearning them.
-CENSUS_ORDER = ["nh_black", "hispanic", "nh_aapi", "nh_white", "nh_other"]
+# Other or multiracial sits with the other groups, below White, not above it.
+# It is a kind of not-White; stacking it on top splits that population in two
+# and makes the county read as less diverse than it is.
+CENSUS_ORDER = ["nh_black", "hispanic", "nh_aapi", "nh_other", "nh_white"]
 # On this basis every group except Hispanic or Latino is non-Hispanic, so a
 # legend that says so five times repeats itself; the caption says it once, as
 # "groups other than Hispanic or Latino are non-Hispanic".
@@ -198,7 +201,8 @@ def apply(profile=DEFAULT_PROFILE):
 
     scale = spec["scale"]
     for key in ("font.size", "axes.labelsize", "axes.titlesize", "xtick.labelsize",
-                "ytick.labelsize", "legend.fontsize", "figure.titlesize"):
+                "ytick.labelsize", "legend.fontsize", "figure.titlesize",
+                "axes.titlepad", "axes.labelpad"):
         mpl.rcParams[key] = mpl.rcParams[key] * scale
     mpl.rcParams["savefig.dpi"] = spec["dpi"]
     return spec

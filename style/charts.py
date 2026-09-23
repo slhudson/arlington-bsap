@@ -76,21 +76,29 @@ def end_labels(ax, x, series, gap=0.015):
                 fontsize=plt.rcParams["font.size"])
 
 
-def stacked_bars(ax, x, series, width=7, residual=None):
-    """Stacked bars. series is an ordered {label: (values, colour)}.
+def stacked_bars(ax, x, series, width=7):
+    """Stacked bars. series is an ordered {label: (values, colour)} from the
+    axis upward, or {label: (values, colour, hatch)} for a band that should
+    also be marked - a residual, which is a mixed category rather than a
+    counted one.
+
+    Every band is a member of the stack, including the residual. It is not
+    drawn last and on top: where a residual is a kind of one of the other
+    groups, sitting it above them splits that population in two and makes it
+    read as smaller than it is.
 
     Urban sets bar width at about twice the gap between bars; with decade
     spacing that is a width of 6.7 years, which is what the default gives.
     """
     bottom = np.zeros(len(x))
-    for label, (values, color) in series.items():
+    for label, spec in series.items():
+        values, color = spec[0], spec[1]
+        hatch = spec[2] if len(spec) > 2 else None
         v = np.asarray(values, dtype=float)
-        ax.bar(x, v, bottom=bottom, width=width, color=color, label=label)
+        ax.bar(x, v, bottom=bottom, width=width, color=color, label=label,
+               hatch=hatch, edgecolor="white" if hatch else None,
+               linewidth=0.4 if hatch else 0.0)
         bottom = bottom + v
-    if residual is not None:
-        label, values, color, edge = residual
-        ax.bar(x, values, bottom=bottom, width=width, color=color,
-               edgecolor=edge, linewidth=0.4, hatch="////", label=label)
 
 
 def runs(reported):
@@ -138,7 +146,9 @@ def legend(fig, entries):
     Below rather than Urban's across-the-top: several of these figures carry a
     note above the plot, and the two compete for the same band.
     """
-    handles = [Patch(facecolor=c, label=l) for l, c in entries.items()]
+    handles = [Patch(facecolor=c[0], hatch=c[1], edgecolor="white", linewidth=0.4)
+               if isinstance(c, tuple) else Patch(facecolor=c, label=l)
+               for l, c in entries.items()]
     fig.legend(handles=handles, labels=list(entries), loc="outside lower center",
                ncol=len(entries))
 

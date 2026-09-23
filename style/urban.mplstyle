@@ -12,6 +12,13 @@
 # in the document rather than in the image; so does this repository, in the
 # LaTeX caption, so no title size is set.
 
+# Space above a panel title. The guide gives no spacing numbers - they live in
+# Urban's R theme, not the published guide - so this is judgement: matplotlib's
+# default 6pt puts a title on top of the tallest bar. style.apply() scales it
+# with the type.
+axes.titlepad:          12.0
+axes.labelpad:          6.0
+
 font.family:            sans-serif
 font.sans-serif:        Lato, DejaVu Sans
 font.size:              8.5
@@ -66,10 +73,10 @@ patch.linewidth:        0.0
 # rather than by hand-tuned padding, which is what makes a bottom margin come
 # out cramped.
 figure.constrained_layout.use:      True
-figure.constrained_layout.h_pad:    0.06
-figure.constrained_layout.w_pad:    0.06
-figure.constrained_layout.hspace:   0.04
-figure.constrained_layout.wspace:   0.04
+figure.constrained_layout.h_pad:    0.10
+figure.constrained_layout.w_pad:    0.10
+figure.constrained_layout.hspace:   0.06
+figure.constrained_layout.wspace:   0.08
 
 # Urban's full-width PDF figure is 6.25in. The profiles in style.py set width
 # and dpi; this is the fallback.
