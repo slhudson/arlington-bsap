@@ -43,8 +43,8 @@ has nothing to reach with. Note that `analysis` scripts *append* `code/build/` t
 ## Naming
 
 **A file is named after what it produces.** `code/build/residents.py` writes
-`data/clean/residents.csv`. `code/analysis/board_seats.py` writes
-`figures/pdf/board_seats.pdf` and `figures/png/board_seats.png`. No `make_`
+`data/clean/residents.csv`. `code/analysis/board_race.py` writes
+`figures/pdf/board_race.pdf` and `figures/png/board_race.png`. No `make_`
 prefixes, no `_chart` suffixes: the directory says what the stage does, the
 filename says which thing. `run.sh` checks this after every figure, and warns
 about figures in `figures/` that no step produces.
