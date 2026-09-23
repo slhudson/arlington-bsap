@@ -1,0 +1,81 @@
+# Urban Institute static-chart conventions, as matplotlib rcParams.
+#
+#   https://urbaninstitute.github.io/graphics-styleguide/
+#
+# This file is the convention; style.py is the code that loads it and adds what
+# rcParams cannot express (palettes, profiles, the group-to-colour mapping).
+# Nothing here is a judgement made in this project. Where the project departs
+# from Urban, the departure is in style.py with its reason, not hidden in here.
+#
+# Sizes are Urban's PDF figures: axis titles, axis labels and data labels 8.5,
+# legend 9.5, source and notes 8. The guide puts the chart title and subtitle
+# in the document rather than in the image; so does this repository, in the
+# LaTeX caption, so no title size is set.
+
+font.family:            sans-serif
+font.sans-serif:        Lato, DejaVu Sans
+font.size:              8.5
+axes.labelsize:         8.5
+axes.titlesize:         9.5
+xtick.labelsize:        8.5
+ytick.labelsize:        8.5
+legend.fontsize:        9.5
+figure.titlesize:       9.5
+
+# Horizontal gridlines only, light grey, thin. Urban gives RGB 217,217,217 and
+# a 1pt round dot; a dotted 0.8 reads closer at figure scale than a literal 1pt.
+axes.grid:              True
+axes.grid.axis:         y
+grid.color:             D9D9D9
+grid.linewidth:         0.8
+grid.linestyle:         -
+axes.axisbelow:         True
+
+# No frame around the plot. Urban charts carry a baseline and nothing else.
+axes.spines.top:        False
+axes.spines.right:      False
+axes.spines.left:       False
+axes.spines.bottom:     True
+axes.edgecolor:         000000
+axes.linewidth:         0.8
+
+# Ticks: none on the y-axis, since the gridlines already locate the values.
+xtick.direction:        out
+xtick.major.size:       3
+xtick.major.width:      0.8
+xtick.color:            000000
+ytick.major.size:       0
+ytick.minor.size:       0
+ytick.color:            000000
+
+# Legends sit outside the axes, stretched horizontally, with no box.
+legend.frameon:         False
+legend.handlelength:    1.1
+legend.handleheight:    1.1
+legend.handletextpad:   0.4
+legend.columnspacing:   1.6
+legend.borderaxespad:   0.0
+
+# Lines and bars.
+lines.linewidth:        1.8
+lines.markersize:       4
+lines.solid_capstyle:   round
+patch.linewidth:        0.0
+
+# Constrained layout: panels, legends and labels are placed without overlap
+# rather than by hand-tuned padding, which is what makes a bottom margin come
+# out cramped.
+figure.constrained_layout.use:      True
+figure.constrained_layout.h_pad:    0.06
+figure.constrained_layout.w_pad:    0.06
+figure.constrained_layout.hspace:   0.04
+figure.constrained_layout.wspace:   0.04
+
+# Urban's full-width PDF figure is 6.25in. The profiles in style.py set width
+# and dpi; this is the fallback.
+figure.figsize:         6.25, 3.9
+figure.dpi:             100
+savefig.dpi:            300
+savefig.bbox:           standard
+pdf.fonttype:           42
+svg.fonttype:           none

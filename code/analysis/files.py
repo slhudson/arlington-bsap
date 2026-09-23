@@ -23,24 +23,26 @@ for _f in (RESIDENTS, BOARD_SEATS):
         raise FileNotFoundError(f"{_f} missing - run the build stage first (bash run.sh)")
 
 
-def save(fig, stem):
-    """Save a figure as both formats, PDF and PNG in their own directories.
+def save(fig, stem, profile=None):
+    """Save a figure for one output profile, or for both.
 
-    PDF is what the paper includes - vector, so it stays sharp at any size.
-    PNG is for slides, email and anywhere that cannot take a PDF.
+    The two profiles land in the two directories this repository already has.
+    Print is the memo: PDF, vector, included at natural size. Screen is the
+    deck: PNG, wider, with the type stepped up to match. Same figure code
+    either way - only style.apply() differs.
 
     By convention the stem matches the script's own filename, so
     code/analysis/residents_by_race.py produces residents_by_race.pdf and .png.
     run.sh checks that after every build.
     """
-    import style                      # imported here: this is the only visual choice files.py makes
-    for kind, kwargs in (("pdf", {}), ("png", {"dpi": 200})):
+    import style
+    profiles = [profile] if profile else list(style.PROFILES)
+    for name in profiles:
+        spec = style.PROFILES[name]
+        kind = spec["format"]
         d = FIGURES / kind
         d.mkdir(parents=True, exist_ok=True)
-        # A tight box crops to the legend and the rotated ticks exactly, which
-        # reads as cramped on the page. style.PAD is the margin every figure keeps.
-        fig.savefig(d / f"{stem}.{kind}", bbox_inches="tight",
-                    pad_inches=style.PAD, **kwargs)
+        fig.savefig(d / f"{stem}.{kind}", dpi=spec["dpi"])
 
 
 def build_stage_on_path():

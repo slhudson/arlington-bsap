@@ -1,124 +1,187 @@
-"""Shared visual conventions. Every figure imports these; none redeclares them.
+"""Visual conventions. Every figure imports these; none redeclares them.
 
-A palette or font change is a single edit here, and a category keeps the same
-colour in every figure it appears in.
+The conventions are the Urban Institute's data visualization style guide,
+
+    https://urbaninstitute.github.io/graphics-styleguide/
+
+loaded from urban.mplstyle. This module holds what rcParams cannot express:
+the palette, the two output profiles, and which colour belongs to which group.
+
+**Where this project departs from Urban, the departure is here with its
+reason.** There are three.
+
+*The palette is desaturated.* Urban's categorical colours are pitched for the
+web and read hot on a printed page beside body text. The hues and their
+ordering are Urban's; the saturation is not. LEVELS gives three candidates.
+
+*No group holds the lead colour.* Urban's hierarchy runs blue first, then
+yellow and magenta, with grey for residuals. Applied straight down a stack
+about racial representation that hands one group the primary colour, which is
+a claim rather than a convention. So the neutral goes to the largest group -
+in every one of these charts White is the background mass - and the saturated
+hues go to the groups the section examines. Gender follows the same logic:
+men are the mass and take the neutral.
+
+*Sources and notes.* Urban puts them below the figure in the document. So does
+this repository, in the LaTeX caption. The one exception is an annotation
+attached to a mark, such as the 1932 rule, which stays in the panel.
 """
+import colorsys
+import pathlib
+
 import matplotlib as mpl
+import matplotlib.style
+from matplotlib import font_manager
 
-# Race/ethnicity. Order is the stacking order used by the bar and area charts.
-BLACK = "#E69F00"
-HISP = "#009E73"
-AAPI = "#CC79A7"
-WHITE = "#D9D3C4"
+HERE = pathlib.Path(__file__).resolve().parent
+MPLSTYLE = HERE / "urban.mplstyle"
+FONTS = HERE / "fonts"
 
-GROUPS = ["black", "hisp", "aapi", "white"]
-GROUP_COLORS = [BLACK, HISP, AAPI, WHITE]
-GROUP_LABELS = ["Black", "Hispanic/Latino", "Asian American/Pacific Islander", "White"]
+# --- Urban's palette, as published ------------------------------------------
+# Categorical, in the guide's own order of preference.
+URBAN = {
+    "blue":    "#1696D2",
+    "yellow":  "#FDBF11",
+    "magenta": "#EC008B",
+    "green":   "#55B748",
+    "grey":    "#D2D2D2",
+    "black":   "#000000",
+    "red":     "#DB2B27",
+}
+# A darker neutral for a second residual band, from Urban's grey ramp.
+URBAN_SPACE_GREY = "#5C5859"
 
-# The pale sand above is close to invisible as a 1.6pt line on white paper, so
-# line charts use a darker taupe for the same category.
-WHITE_LINE = "#A3997F"
-TOTAL_LINE = "#555555"
 
-# Residual category: multiracial, other, or unreported.
-OTHER = "#E6E6E6"
-OTHER_EDGE = "#8C8C8C"
+def _mute(hexcolor, amount):
+    """Pull a colour toward neutral, keeping its hue and lightness.
 
-# Gender. Far apart in hue, so they stay distinct in greyscale and for
-# colourblind readers.
-WOMEN = "#E8A598"
-MEN = "#A9BBCB"
+    Saturation only. Shifting lightness as well would change which bands read
+    as heavier, which is a different decision from taking the heat out.
+    """
+    r, g, b = mpl.colors.to_rgb(hexcolor)
+    h, l, s = colorsys.rgb_to_hls(r, g, b)
+    return mpl.colors.to_hex(colorsys.hls_to_rgb(h, l, s * (1 - amount)))
 
-# Residents-per-seat figure.
-ACTUAL = "#3B4A5A"
-BENCHMARK = "#C9794A"
-GAP = "#EFE6DC"
 
-GRID = "#DDDDDD"
+# Three candidates to choose between. Each is the whole palette at one
+# saturation; the hues and their order never change.
+LEVELS = {"soft": 0.25, "muted": 0.45, "quiet": 0.65}
+PALETTES = {name: {k: _mute(v, amount) if k not in ("grey", "black") else v
+                   for k, v in URBAN.items()}
+            for name, amount in LEVELS.items()}
+DEFAULT_LEVEL = "muted"
 
-# Type scale, points. Two sizes.
-#
-# TEXT is everything that labels a point or a mark: tick labels, axis labels,
-# legend entries, annotations. On these figures none of those outranks another,
-# and sizing them differently is a matplotlib habit rather than a distinction a
-# reader uses.
-#
-# TITLE is the one real exception: a panel title names a whole region rather
-# than a point, and in a two-panel figure it has to read as belonging to the
-# panel rather than to the axis.
-#
-# Type scale, points. Taken from the Urban Institute data visualization style
-# guide's figures for PDF products, which is a published convention for policy
-# research rather than a judgement made here:
-#
-#   urbaninstitute.github.io/graphics-styleguide/
-#   axis titles 8.5 | axis labels 8.5 | data labels 8.5 | legend 9.5 | notes 8
-#
-# Journal guidance brackets the same range: ACS sets a floor of 8pt, Elsevier
-# 7pt, Cell 6-8pt, Nature 5-7pt. Nothing published puts figure text at 10.
-#
-# One departure, and the reason for it. Urban's sizes assume Lato or Arial.
-# These figures are set in Computer Modern to match the paper's body text, and
-# CM has a smaller x-height and thinner strokes, so it reads smaller at the
-# same size. PANEL is Urban's legend size rather than a new one.
-#
-# Urban puts the title and subtitle in the document rather than in the chart.
-# So does this repository: the caption in paper/arlington-bsap.tex carries it,
-# and no figure draws a headline. PANEL is only for the (a)/(b) labels that
-# name a panel within a figure.
-#
-# A script that passes fontsize= is how a set of figures ends up with six.
-NOTE = 8                 # annotations and notes
-TEXT = 8.5               # axis titles, tick labels, data labels
-PANEL = 9.5              # legend text, and the (a)/(b) panel labels
+# --- which colour belongs to which group ------------------------------------
+# Stacking order, axis upward. The neutral goes to the largest group; see the
+# module docstring for why that is a departure from Urban's hierarchy.
+GROUP_ORDER = ["black", "hisp", "aapi", "white"]
+GROUP_HUES = {"black": "blue", "hisp": "yellow", "aapi": "magenta", "white": "grey"}
+GROUP_LABELS = {
+    "black": "Black",
+    "hisp": "Hispanic/Latino",
+    "aapi": "Asian/Pacific Islander",
+    "white": "White",
+}
 
-# Figure dimensions, inches. Width is LaTeX text width throughout.
-WIDE = (6.5, 4.6)        # single panel
-TALL = (4.0, 8.0)        # 1:2, so the early decades have visible height
-TWO_PANEL = (6.5, 6.4)   # two panels stacked
-SIDE_BY_SIDE = (6.5, 5.0)  # two panels left and right
-SEATS = (6.5, 3.8)       # the 0-5 seat charts, a matched pair
-PER_SEAT = (6.5, 4.4)
+# The census basis, 1980 on: five groups that partition the county. Same hues,
+# so a reader moving between the two bases is not also relearning the colours.
+CENSUS_ORDER = ["nh_black", "hispanic", "nh_aapi", "nh_white", "nh_other"]
+CENSUS_HUES = {"nh_black": "blue", "hispanic": "yellow", "nh_aapi": "magenta",
+               "nh_white": "grey", "nh_other": "spacegrey"}
+# On this basis every group except Hispanic/Latino is non-Hispanic, so a legend
+# that says so five times is repeating itself. The qualifier goes in the
+# caption once: "groups other than Hispanic/Latino are non-Hispanic". Five long
+# labels also cannot fit one row at Urban's 6.25in width, and one row is the
+# rule.
+CENSUS_LABELS = {
+    "nh_black": "Black",
+    "hispanic": "Hispanic/Latino",
+    "nh_aapi": "Asian/Pacific Islander",
+    "nh_white": "White",
+    "nh_other": "Other or multiracial",
+}
 
-# Space left around a saved figure, inches. Legends and rotated tick labels sit
-# outside the axes, and a tight box crops to them exactly, which reads as
-# cramped on the page.
-PAD = 0.2
+GENDER_ORDER = ["women", "men"]
+GENDER_HUES = {"women": "blue", "men": "grey"}
+GENDER_LABELS = {"women": "Women", "men": "Men"}
+
+# The residual band on the old basis: everything the four categories miss.
+OTHER_LABEL = "Other, multiracial or unreported"
+
+# Two series that are both counts of people, on the growth figure.
+SERIES_HUES = {"population": "spacegrey", "per_seat": "blue"}
+
+# --- output profiles --------------------------------------------------------
+# Same figure code, two destinations. Width and text size differ; nothing else.
+PROFILES = {
+    # Urban's full-width PDF figure. Goes into the memo at natural size.
+    "print": {"width": 6.25, "scale": 1.0, "dpi": 300, "format": "pdf"},
+    # The deck, read on a laptop. Wider, and every size stepped up with it so
+    # the type holds the same proportion to the frame.
+    "screen": {"width": 10.0, "scale": 1.45, "dpi": 200, "format": "png"},
+}
+DEFAULT_PROFILE = "print"
 
 # 1932: the Board expands from three to five seats and magisterial districts
 # are replaced by at-large elections. Drawn identically wherever it appears.
 EXPANSION_YEAR = 1932
-# Two namings, because the rule is doing different work in different figures.
-# On a 0-5 seat axis the expansion is the thing the axis shows, so the numbers
-# are worth stating. Elsewhere it is context, and four words are enough. That
-# the districts were replaced by at-large elections is carried by the prose in
-# both cases, not repeated on every chart that draws the rule.
+# Two namings. On a 0-5 seat axis the expansion is what the axis shows, so the
+# numbers are worth stating; elsewhere it is context. That the districts became
+# at-large is carried by the prose in both cases.
 EXPANSION_NOTE = "1932 Board expansion"
 EXPANSION_NOTE_SEATS = "1932: Board expands from 3 to 5 seats"
-EXPANSION_LINE = dict(color="black", lw=1.1, ls=(0, (4, 2)))
-
-HALF_SEAT_NOTE = ("Note: Half seats occur when a Board member resigned or died "
-                  "before the end of the year\nand was subsequently replaced.")
+EXPANSION_LINE = dict(color="#000000", lw=1.0, ls=(0, (4, 2)))
 
 
-def apply(legend_fontsize=None):
-    """Set the rcParams every figure shares.
+def _register_fonts():
+    """Make the bundled Lato findable without installing anything.
 
-    Computer Modern matches Overleaf's default body text, so figure labels sit
-    in the same typeface as the surrounding prose. pdf.fonttype 42 embeds
-    TrueType rather than Type 3, keeping text selectable in the compiled PDF.
+    Urban's typeface, and its type scale assumes it. The files are bundled
+    under the OFL so a clone builds identical figures with no font install -
+    the same standard the build holds for data.
     """
-    mpl.rcParams.update({
-        "font.family": "serif", "font.serif": ["cmr10"], "mathtext.fontset": "cm",
-        "axes.formatter.use_mathtext": True, "axes.unicode_minus": False,
-        "font.size": TEXT, "axes.labelsize": TEXT, "axes.titlesize": PANEL,
-        "xtick.labelsize": TEXT, "ytick.labelsize": TEXT,
-        "legend.fontsize": legend_fontsize or PANEL,
-        "pdf.fonttype": 42,
-    })
+    for ttf in sorted(FONTS.glob("*.ttf")):
+        font_manager.fontManager.addfont(str(ttf))
+
+
+def palette(level=DEFAULT_LEVEL):
+    p = dict(PALETTES[level])
+    p["spacegrey"] = URBAN_SPACE_GREY
+    return p
+
+
+def colors(order, hues, level=DEFAULT_LEVEL):
+    """Colours for a group order, in stacking order."""
+    p = palette(level)
+    return [p[hues[g]] for g in order]
+
+
+def apply(profile=DEFAULT_PROFILE):
+    """Load Urban's rcParams, then this profile's width and type scale.
+
+    Returns the profile, because figure code needs its width and format.
+    """
+    if profile not in PROFILES:
+        raise KeyError(f"unknown profile {profile!r}; have {sorted(PROFILES)}")
+    _register_fonts()
+    mpl.style.use(str(MPLSTYLE))
+    spec = PROFILES[profile]
+
+    scale = spec["scale"]
+    for key in ("font.size", "axes.labelsize", "axes.titlesize", "xtick.labelsize",
+                "ytick.labelsize", "legend.fontsize", "figure.titlesize"):
+        mpl.rcParams[key] = mpl.rcParams[key] * scale
+    mpl.rcParams["savefig.dpi"] = spec["dpi"]
+    return spec
+
+
+def figsize(height_ratio=0.62, profile=DEFAULT_PROFILE):
+    """Figure size for this profile at a given height-to-width ratio."""
+    w = PROFILES[profile]["width"]
+    return (w, w * height_ratio)
 
 
 def despine(ax):
-    """Drop the top and right spines, as every figure here does."""
-    for s in ("top", "right"):
+    """Kept for figures that need it explicitly; the style already does it."""
+    for s in ("top", "right", "left"):
         ax.spines[s].set_visible(False)
