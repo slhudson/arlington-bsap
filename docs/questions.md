@@ -130,8 +130,24 @@ The 1889–1986 stretch is coded all-White, roughly 490 person-years, resting on
 that framing. It is the most load-bearing claim in the report and has not been
 independently verified. Detail in `docs/sources.md`.
 
+### Q19. Hjerpe's page numbers are the PDF's, not the document's
+**Owner:** Claude · **Status:** open — found 23 Sept 2026, not yet corrected
+
+Hjerpe's document carries its own page numbers, and they run one behind the
+PDF's: the page printed "8" is the ninth sheet. The thirteen locators in
+`data/transcribed/by_claude/board_demographics.csv` follow the PDF — Appendix 2
+is cited `p.9`, and the page it sits on is printed 8.
+
+Chicago cites the page the document prints, so the locators are each one too
+high. Before changing them, confirm against the filed snapshot rather than the
+live Google Doc, whose pagination can differ again — which is the reason for
+snapshotting in the first place.
+
+Appendix 1 also does not appear where `p.8` claims; that page carries narrative
+text and no image. Worth resolving in the same pass.
+
 ### Q18. Where do the prose-only sources live?
-**Owner:** Sally · **Status:** open — the Drive folder is not set up yet
+**Owner:** Sally · **Status:** answered for the folder — the sources still need filing
 
 `data/` holds only what we take numbers out of, so a source read to settle a
 question is cited and not downloaded. Hjerpe, Rose, Anderson (1958), Pratt
@@ -143,9 +159,15 @@ The gap that leaves: every entry in `paper/sources.bib` says where its copy is,
 by URL or by a `data/raw/` path, except these. A reader with the citation would
 have no way to reach the document.
 
-When the folder exists, name it in `docs/sources.md` and add a line to each
-affected entry's `annotation`. Anderson, Pratt and Bestebreurtje have no
-entries yet; they get built from the documents when they land.
+**Answered.** The folder is `documents/` inside the project's Drive folder, and
+a file in it is named for its citekey plus a subject word —
+`rose1964_annexation.pdf`. A file in Drive, a footnote in the report and a cell
+in `data/clean/` then all carry the same string, so whether every cited source
+is actually filed is checkable rather than assumed.
+
+Rose and Hjerpe are prepared under that convention. Anderson, Pratt and
+Bestebreurtje have no entries yet; they get built from the documents when they
+land.
 
 ### Q4. Should the roster be extended back to 1871?
 **Owner:** Sally · **Status:** open

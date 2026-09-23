@@ -300,6 +300,13 @@ The sources below are consulted to settle a question rather than to take
 numbers from. They are cited here rather than saved into `data/`, which holds
 only material we take numbers out of.
 
+**Their copies live in `documents/` in the project's Drive folder**, named for
+the citekey plus a subject word: `rose1964_annexation.pdf`. Same string in
+Drive, in a footnote and in a `source` cell, so "is every cited source actually
+filed?" is a question you can answer by looking. Hjerpe's is a PDF snapshot
+rather than the live Google Doc, which belongs to someone outside the project
+and can change or be withdrawn; cite the snapshot.
+
 **City of Alexandria.** *A History of the Boundaries of the City of Alexandria,
 Virginia: 1749-2024.*
 `alexandriava.gov/sites/default/files/2024-06/History of the Boundaries of Alexandria 1749-2024.pdf`

@@ -10,6 +10,13 @@
 % `note` rather than carrying a plausible guess. docs/sources.md holds the
 % prose about what each source can and cannot support.
 %
+% A source we cite but take no numbers from is not downloaded into data/raw/;
+% its copy goes in the project's Drive folder, named for its citekey plus a
+% subject word - rose1964_annexation.pdf. So a file in Drive, a footnote in the
+% report and a cell in data/clean/ all carry the same string, and whether every
+% cited source is actually filed is something you can check. docs/sources.md
+% has the folder.
+%
 % `annotation` holds what we know about the document as evidence - what is
 % missing from the copy we hold, what its compiler warns about. biblatex does
 % not print it, so it stays in the repository for whoever works on the sources
@@ -142,7 +149,10 @@
                  Doc. Names the five Black members of the Reconstruction-era
                  board, reproduces the 1880 manuscript census records that
                  identify them, and tabulates every Board member by district
-                 from 1871 to 1888},
+                 from 1871 to 1888. The document is owned by someone outside
+                 the project and can change or be withdrawn, so a PDF snapshot
+                 is filed in Drive as hjerpe2021_representation.pdf; cite the
+                 snapshot, not the live document},
 }
 
 @misc{census1880schedule,
@@ -157,13 +167,17 @@
 % ------------------------------------------- consulted to settle a question
 
 @article{rose1964,
-  author      = {Rose, C. B.},
+  author      = {Rose, Jr., C. B.},
   title       = {Annexation of a Portion of Arlington County by the City of
                  Alexandria in 1915},
   journaltitle = {Arlington Historical Magazine},
   date        = {1964},
+  pages       = {22--36},
   url         = {https://arlhist.org/wp-content/uploads/2017/02/1964-4-Annex.pdf},
-  urldate     = {2026-09-22},
+  urldate     = {2026-09-23},
+  annotation  = {Byline reads "C. B. Rose, Jr."; printed pages 22-36, read off
+                 the article itself. Volume and issue are not printed on the
+                 pages held. Filed in Drive as rose1964_annexation.pdf},
 }
 
 @report{alexandria2024,
