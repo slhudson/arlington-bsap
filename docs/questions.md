@@ -182,14 +182,14 @@ by URL or by a `data/raw/` path, except these. A reader with the citation would
 have no way to reach the document.
 
 **Answered.** The folder is `documents/` inside the project's Drive folder, and
-a file in it is named for its citekey plus a subject word —
-`rose1964_annexation.pdf`. A file in Drive, a footnote in the report and a cell
-in `data/clean/` then all carry the same string, so whether every cited source
-is actually filed is checkable rather than assumed.
+a file in it is named author, year, title — `Pratt 1995 - Arlington's At-Large
+Electoral System.pdf`. Not the citekey: a citekey is a handle for LaTeX and the
+`source` columns, a filename tells a person what they are looking at. The
+"Filed in Drive as" line in each `paper/sources.bib` entry ties the two
+together, and is where you check that a cited source is filed.
 
-Rose and Hjerpe are prepared under that convention. Anderson, Pratt and
-Bestebreurtje have no entries yet; they get built from the documents when they
-land.
+Rose, Hjerpe, Pratt and the ACCF resolution are filed and entered. Anderson and
+Bestebreurtje are not — neither is in the folder or the repository.
 
 ### Q4. Should the roster be extended back to 1871?
 **Owner:** Sally · **Status:** open

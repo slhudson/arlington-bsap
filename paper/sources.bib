@@ -11,11 +11,13 @@
 % prose about what each source can and cannot support.
 %
 % A source we cite but take no numbers from is not downloaded into data/raw/;
-% its copy goes in the project's Drive folder, named for its citekey plus a
-% subject word - rose1964_annexation.pdf. So a file in Drive, a footnote in the
-% report and a cell in data/clean/ all carry the same string, and whether every
-% cited source is actually filed is something you can check. docs/sources.md
-% has the folder.
+% its copy goes in the project's Drive folder. A citekey is a handle for LaTeX
+% and for the source columns, where short matters; a filename is for a person
+% scanning a folder, so it is written out - "Pratt 1995 - Arlington's At-Large
+% Electoral System.pdf", author first, year apart from the name. The two are
+% tied together by the "Filed in Drive as" line in each annotation below, which
+% is where you check that a cited source is actually filed. docs/sources.md has
+% the folder.
 %
 % `annotation` holds what we know about the document as evidence - what is
 % missing from the copy we hold, what its compiler warns about. biblatex does
@@ -151,7 +153,8 @@
                  identify them, and tabulates every Board member by district
                  from 1871 to 1888. The document is owned by someone outside
                  the project and can change or be withdrawn, so a PDF snapshot
-                 is filed in Drive as hjerpe2021_representation.pdf; cite the
+                 is filed in Drive as "Hjerpe 2021 - A History of
+                 Representation on the Arlington County Board.pdf"; cite the
                  snapshot, not the live document},
 }
 
@@ -177,7 +180,8 @@
   urldate     = {2026-09-23},
   annotation  = {Byline reads "C. B. Rose, Jr."; printed pages 22-36, read off
                  the article itself. Volume and issue are not printed on the
-                 pages held. Filed in Drive as rose1964_annexation.pdf},
+                 pages held. Filed in Drive as "Rose 1964 - Annexation of a Portion of
+                 Arlington County by the City of Alexandria.pdf"},
 }
 
 @article{pratt1995,
@@ -192,9 +196,10 @@
                  as with novack1994 in the same magazine. Pratt heard Vollin's
                  testimony and holds tape recordings of his own interviews with
                  him; the article is the source for both Vollin citations.
-                 Filed in Drive as pratt1995_at_large.pdf - it was already in
-                 the folder under the title "Arlington's Electoral History",
-                 which is O'Leary's subject, not this},
+                 Filed in Drive as "Pratt 1995 - Arlington's At-Large
+                 Electoral System.pdf" - it was already in the folder under
+                 the title "Arlington's Electoral History", which is
+                 O'Leary's subject, not this},
 }
 
 @report{accf2022,
@@ -210,8 +215,8 @@
                  diversity. **The document itself carries no date** - 8 June
                  2022 comes from the Word title stored in the file,
                  "TiGER FINAL Resolution on Recommendations-06.08.22", and the
-                 PDF's creation time, which agree. Filed in Drive as
-                 accf2022_tiger_resolution.pdf},
+                 PDF's creation time, which agree. Filed in Drive as "Arlington County Civic
+                 Federation 2022 - TiGER Resolution on Recommendations.pdf"},
 }
 
 @report{alexandria2024,

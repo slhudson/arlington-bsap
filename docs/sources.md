@@ -301,9 +301,13 @@ numbers from. They are cited here rather than saved into `data/`, which holds
 only material we take numbers out of.
 
 **Their copies live in `documents/` in the project's Drive folder**, named for
-the citekey plus a subject word: `rose1964_annexation.pdf`. Same string in
-Drive, in a footnote and in a `source` cell, so "is every cited source actually
-filed?" is a question you can answer by looking. Hjerpe's is a PDF snapshot
+a person reading the folder rather than for a machine: author, then year, then
+the title as the document prints it — `Pratt 1995 - Arlington's At-Large
+Electoral System.pdf`. That is deliberately not the citekey. A citekey is a
+handle for LaTeX and for the `source` columns, where short matters; a filename
+answers "what is this?" at a glance. Each entry in `paper/sources.bib` carries
+a "Filed in Drive as" line, which is where the two are tied together and where
+you check that a cited source is actually filed. Hjerpe's is a PDF snapshot
 rather than the live Google Doc, which belongs to someone outside the project
 and can change or be withdrawn; cite the snapshot.
 
