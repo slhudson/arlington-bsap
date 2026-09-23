@@ -19,12 +19,11 @@ some of this in place; ask rather than assume, in either direction.
 
 Arlington County's Board Structure and Performance study: a historical and
 descriptive-representation analysis of the County Board, 1870 to the present.
-Two authors. The collaborator being set up did the original data collection —
-the census figures, the Board seat counts, the member database, and the first
-versions of the figures — which is the foundation everything in the
-repository is built on. The repository is the shared, reproducible form of
-that work: the sources committed, the figures rebuilt from them with one
-command, and the paper in Overleaf pulling the figures the pipeline produces.
+Two authors. The collaborator being set up assembled the original data —
+census figures, Board seat counts, a member database — and the first
+versions of the figures. The repository holds that work and the sources
+behind it, rebuilds the figures from them with one command, and feeds them
+to the paper in Overleaf.
 
 ## How the repository is organised
 
