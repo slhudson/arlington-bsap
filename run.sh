@@ -22,8 +22,8 @@ BUILD=(residents board_members board_seats)
 
 # Stage 2: data/ -> figures/. Presentation only; analysis cannot reach raw/.
 # Each step is named for the figure it writes: board_seats.py -> board_seats.pdf/.png
-FIGURES=(residents_by_race residents_by_race_share residents_by_race_log
-         residents_per_seat board_seats)
+FIGURES=(residents_by_race residents_by_race_log residents_per_seat
+         board_seats)
 
 # The guards live in code/build/. These prove the guards still fire, so editing
 # build/ cannot quietly disable one. Under a second; run first so a broken

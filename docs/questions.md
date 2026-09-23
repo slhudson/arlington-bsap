@@ -34,9 +34,9 @@ In both years the four race categories sum to more than the reported total —
 about 4,800 people in 1970 (2.8%) and 400 in 1990 (0.2%).
 
 The figures currently disagree with each other:
-- `residents_by_race_share.py` rescales both years so the bars total 100%
-- `residents_by_race.py` plots the counts as reported and notes the
-  discrepancy in a comment
+Both treatments now sit in one figure, `residents_by_race`, as its two panels:
+- panel (b), shares, rescales both years so the bars total 100%
+- panel (a), counts, plots them as reported, so those bars sit above the total
 
 Both are defensible; they cannot both appear in the same report. Whatever is
 decided belongs in `code/build/` so every figure inherits it.
@@ -54,8 +54,8 @@ use the Census's non-Hispanic race categories so the four really are mutually
 exclusive.
 
 **In code:** `rescale_to_100()` in `code/build/assumptions.py`, applied by
-`code/analysis/residents_by_race_share.py`. `code/analysis/residents_by_race.py` applies
-nothing and plots as reported.
+panel (b) of `code/analysis/residents_by_race.py`. Panel (a) of the same script
+applies nothing and plots as reported.
 
 **Resolved for 1990, from the source the workbook itself cites.** The Census
 working paper at `census.gov/library/working-papers/2005/demo/pop-twps0076/vatab.pdf`
@@ -115,7 +115,7 @@ line the year the category is first reported, and add a caption note giving
 those years.
 
 **In code:** `not_reported_as_zero()` in `code/build/assumptions.py`, applied by
-`code/analysis/residents_by_race.py` and `code/analysis/residents_by_race_share.py`.
+both panels of `code/analysis/residents_by_race.py`.
 `code/analysis/residents_by_race_log.py` applies nothing, so its lines begin when
 each category is first reported.
 
