@@ -28,6 +28,14 @@ that reinforce gender or racial stereotypes (e.g., pink for women and blue for
 men)." The gender figure does exactly that, at Sally's direction and before
 either of us had this text.
 
+**Legend size.** The guide puts legend text at 9.5pt against 8.5pt for axis
+labels and ticks. Here both are 8.5: inside these figures a legend entry and a
+tick label both name a mark, and the difference read as arbitrary rather than
+as hierarchy. The one size that remains distinct is the `(a)`/`(b)` panel
+label, which has no counterpart in Urban's table — their title is 12pt and
+sits in the Word document beside the image, which is where this repository
+puts it too, in the LaTeX caption.
+
 **Capitalisation in legends.** The guide says: "Use sentence-style
 capitalization for all text within the figure, including axis titles, data
 labels, and legends." Our legend entries are title case, because a legend is a

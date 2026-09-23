@@ -52,6 +52,21 @@ gives the reason.
   that belong to the document - sources, caveats, definitions - go in the
   caption, not the image.
 
+## Type
+
+Two sizes, both in `style.py`. Never write a number into a figure script.
+
+- `TEXT` (8.5) is everything that labels a mark: tick labels, axis labels,
+  legend entries.
+- `PANEL` (9.5) is only the `(a)`/`(b)` label naming a panel.
+- `NOTE` (8) is an annotation attached to a mark, such as the 1932 rule.
+
+Urban puts legend text a point larger than axis labels. Here they are the same:
+a legend entry and a tick label both name a mark, and neither outranks the
+other. Urban's title size has no counterpart at all — theirs is 12pt and sits
+in the Word document beside the image, which is where this repository puts it
+too, in the LaTeX caption.
+
 ## Size
 
 - Every figure is the same width — the profile's width. Never set one in a
@@ -69,6 +84,9 @@ gives the reason.
 - No y-axis label that repeats the panel title.
 - Tick density has to be legible at the profile's width. Decades collide at
   6.25in; use 20-year steps or rotate.
+- Where the labelled interval is wider than the data's interval, add unlabelled
+  minor ticks at the data's interval, so a reader can find 1890 or 1910 on an
+  axis that only names every twentieth year. `charts.years()` does this.
 
 ## Legend
 

@@ -50,6 +50,8 @@ axes.linewidth:         0.8
 xtick.direction:        out
 xtick.major.size:       3
 xtick.major.width:      0.8
+xtick.minor.size:       2.2
+xtick.minor.width:      0.8
 xtick.color:            000000
 ytick.major.size:       0
 ytick.minor.size:       0

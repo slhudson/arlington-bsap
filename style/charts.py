@@ -21,7 +21,8 @@ in the panel, and rule() draws it.
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.patches import Patch
-from matplotlib.ticker import FuncFormatter, MultipleLocator, PercentFormatter
+from matplotlib.ticker import (FixedLocator, FuncFormatter, MultipleLocator,
+                               PercentFormatter)
 
 import style
 
@@ -186,12 +187,24 @@ def rule(ax, year=style.EXPANSION_YEAR, note=style.EXPANSION_NOTE, inside_y=None
 
 
 def years(ax, first, last, step=10, rotate=False, label="census year",
-          headroom=0.0):
-    """A year axis. headroom is extra span past `last`, as a fraction, for
-    anything drawn at the right-hand end - end labels, mainly."""
+          headroom=0.0, minor=10):
+    """A year axis.
+
+    `step` is the labelled interval. `minor` adds an unlabelled tick at every
+    census in between, so a reader can locate 1890 or 1910 on an axis that only
+    names every twentieth year. Skipped where the labelled interval is already
+    the census interval, which would only double the ticks.
+
+    `headroom` is extra span past `last`, as a fraction, for anything drawn at
+    the right-hand end - end labels, mainly.
+    """
     span = last - first
     ax.set_xlim(first - span * 0.03, last + span * (0.03 + headroom))
-    ax.set_xticks(range(first, last + 1, step))
+    major = list(range(first, last + 1, step))
+    ax.set_xticks(major)
+    if minor and minor < step:
+        ax.xaxis.set_minor_locator(
+            FixedLocator([y for y in range(first, last + 1, minor) if y not in major]))
     if rotate:
         ax.tick_params(axis="x", labelrotation=90)
         ax.set_xlabel("")
