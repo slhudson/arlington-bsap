@@ -21,7 +21,7 @@ import re
 
 import pymupdf
 
-from paths import RAW, TRANSCRIBED
+from files import RAW, TRANSCRIBED
 
 SOURCE = RAW / "arlington_county" / "candidate_history_1920-present.pdf"
 OUT = TRANSCRIBED / "by_claude" / "arlington_county" / "candidate_history_1920-present.csv"
@@ -99,6 +99,14 @@ def read():
                 office = f"{office} {row['office']}"
             elif row["office"]:
                 office = row["office"]
+            # On page 64 the office "County Board" is printed far enough to
+            # the right to land in the candidate column, with nothing in
+            # votes, so Milliken's 1980 win read as a House race. An office
+            # name in the candidate column with no vote count is the office
+            # for the rows that follow, not a candidate.
+            if row["candidate"] == "County Board" and not row["votes"]:
+                office = row["candidate"]
+                continue
             if not row["candidate"]:
                 continue
 

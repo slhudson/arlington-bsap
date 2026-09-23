@@ -28,7 +28,7 @@ import Quartz
 import Vision
 from Foundation import NSData
 
-from paths import RAW, TRANSCRIBED
+from files import RAW, TRANSCRIBED
 
 SCANS = RAW / "us_census_bureau"
 OUT = TRANSCRIBED / "by_ocr" / "us_census_bureau"

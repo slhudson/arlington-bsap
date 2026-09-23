@@ -30,7 +30,7 @@ import re
 
 import pymupdf
 
-from paths import RAW, TRANSCRIBED
+from files import RAW, TRANSCRIBED
 
 SOURCE = RAW / "arlington_county" / "electoral_history_1870-1920.pdf"
 OUT = TRANSCRIBED / "by_claude" / "arlington_county" / "board_1870-1920.csv"
