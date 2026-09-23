@@ -52,6 +52,17 @@ gives the reason.
   that belong to the document - sources, caveats, definitions - go in the
   caption, not the image.
 
+## Size
+
+- Every figure is the same width — the profile's width. Never set one in a
+  figure script.
+- Heights are named in `style.py`: `SEATS`, `SERIES`, `PANELS`. Use one of
+  them. A new ratio typed into a figure script is how a set of figures stops
+  looking like a set.
+- A two-panel figure gives each panel about half the width, so its bars read
+  narrower than a single-panel chart's even though the frame is identical.
+  That is the cost of panelling, not a bug to fix by widening the figure.
+
 ## Axes
 
 - The y-axis ends on a round tick, not just clear of the data.

@@ -68,7 +68,7 @@ for profile in style.PROFILES:
                                             style.RACE_COLORS["white"])
         return out
 
-    fig, (a, b) = charts.panels(0.80, profile)
+    fig, (a, b) = charts.panels(style.PANELS, profile)
 
     charts.stacked_bars(a, c["year"], bands(counts, residual))
     charts.counts(a, 250000, 50000)

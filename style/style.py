@@ -182,6 +182,18 @@ PROFILES = {
 }
 DEFAULT_PROFILE = "print"
 
+# Figure heights, as a fraction of the profile's width. Named here rather than
+# passed per script: three ad-hoc numbers in three files is how a set of
+# figures stops looking like a set.
+#
+# Every figure is the same width. What differs is height, and how many panels
+# share that width - a two-panel figure gives each panel about half, which is
+# why its bars read narrower than a single-panel chart's even though the frame
+# is identical.
+SEATS = 0.52       # the 0-5 seat charts: a short frame, five gridlines
+SERIES = 0.62      # a single panel of lines over time
+PANELS = 0.80      # two panels side by side, each needing height to compensate
+
 # 1932: the Board expands from three to five seats and magisterial districts
 # are replaced by at-large elections. Drawn identically wherever it appears.
 EXPANSION_YEAR = 1932

@@ -28,13 +28,13 @@ import style
 THOUSANDS = FuncFormatter(lambda v, _: f"{int(v):,}")
 
 
-def figure(ratio=0.62, profile=style.DEFAULT_PROFILE):
-    """One panel at this profile's width."""
+def figure(ratio=style.SERIES, profile=style.DEFAULT_PROFILE):
+    """One panel at this profile's width. Heights come from style, not here."""
     fig, ax = plt.subplots(figsize=style.figsize(ratio, profile))
     return fig, ax
 
 
-def panels(ratio=0.80, profile=style.DEFAULT_PROFILE):
+def panels(ratio=style.PANELS, profile=style.DEFAULT_PROFILE):
     """Two panels side by side, sharing nothing but the figure.
 
     Side by side rather than stacked because a composition panel needs to be

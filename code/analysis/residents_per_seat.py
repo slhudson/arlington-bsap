@@ -24,7 +24,7 @@ for profile in style.PROFILES:
         "residents per\nBoard seat": (d["residents_per_seat"], style.SERIES_COLORS["per_seat"]),
     }
 
-    fig, ax = charts.figure(0.62, profile)
+    fig, ax = charts.figure(style.SERIES, profile)
     charts.lines(ax, d["year"], series)
     charts.counts(ax, 250000, 50000)
     # Decades collide at this width; headroom is for the end labels, which sit

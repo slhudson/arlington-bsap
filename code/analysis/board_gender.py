@@ -24,7 +24,7 @@ for profile in style.PROFILES:
     series = {style.GENDER_LABELS[g]: (d[g].fillna(0).to_numpy(), style.GENDER_COLORS[g])
               for g in style.GENDER_ORDER}
 
-    fig, ax = charts.figure(0.52, profile)
+    fig, ax = charts.figure(style.SEATS, profile)
     charts.stacked_steps(ax, d["year"].to_numpy(), series, spans)
     charts.seats(ax)
     charts.years(ax, 1880, 2020, step=20, label="year")
