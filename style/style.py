@@ -111,23 +111,35 @@ RESIDUAL_COLOR = GREY
 
 # Stacking order, axis upward.
 GROUP_ORDER = ["black", "hisp", "aapi", "white"]
+
+# The Bureau's own wording, and no slashes. The ampersand is for width: the
+# legend is one row. "Asian and Pacific Islander" is what the 1980 dictionary
+# calls this category; from 2000 the Bureau splits it into
+# "Asian" and "Native Hawaiian and Other Pacific Islander", and this series
+# combines them to stay consistent back to 1980, so the older name is the
+# accurate one for the combination. "Hispanic or Latino" is the Bureau's wording
+# from 2000; 1980 says "Spanish origin".
+#
+# Both Black and White are capitalised. APA and AMA capitalise both; Urban
+# capitalises Black and leaves white lowercase, which in a legend beside
+# "Hispanic or Latino" reads as a typo rather than as a position.
 GROUP_LABELS = {
     "black": "Black",
-    "hisp": "Hispanic/Latino",
-    "aapi": "Asian/Pacific Islander",
+    "hisp": "Hispanic or Latino",
+    "aapi": "Asian & Pacific Islander",
     "white": "White",
 }
 
 # The census basis, 1980 on: five groups that partition the county. Same
 # colours, so a reader moving between the two bases is not relearning them.
 CENSUS_ORDER = ["nh_black", "hispanic", "nh_aapi", "nh_white", "nh_other"]
-# On this basis every group except Hispanic/Latino is non-Hispanic, so a legend
-# that says so five times repeats itself; the caption says it once. Five long
-# labels also cannot fit one row at Urban's width, and one row is the rule.
+# On this basis every group except Hispanic or Latino is non-Hispanic, so a
+# legend that says so five times repeats itself; the caption says it once, as
+# "groups other than Hispanic or Latino are non-Hispanic".
 CENSUS_LABELS = {
     "nh_black": "Black",
-    "hispanic": "Hispanic/Latino",
-    "nh_aapi": "Asian/Pacific Islander",
+    "hispanic": "Hispanic or Latino",
+    "nh_aapi": "Asian & Pacific Islander",
     "nh_white": "White",
     "nh_other": "Other or multiracial",
 }

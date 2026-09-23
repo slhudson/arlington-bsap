@@ -85,10 +85,20 @@ gives the reason.
 
 ## Labels
 
-- Capitalisation is consistent across every label in a figure, including the
-  shared group labels in `style.py`.
-- Axis labels and panel titles are lowercase. Group names keep their own
-  capitalisation as proper nouns.
+- Axis labels and panel titles are lowercase. Group names are capitalised:
+  they are names, not descriptions.
+- **Black and White are both capitalised in figures.** APA and AMA capitalise
+  both; Urban capitalises Black and leaves white lowercase, which in a legend
+  beside `Hispanic or Latino` reads as a typo rather than as a position. Prose
+  may differ; the figures do not.
+- **No slashes in category names.** Use the Bureau's own wording: `Hispanic or
+  Latino`, `Asian & Pacific Islander`. The ampersand is for width, since the
+  legend is one row.
+- **State a qualifier once, in the caption, not in every key entry.** On the
+  census basis every group except Hispanic or Latino is non-Hispanic; the
+  legend says `Black`, `White` and so on, and the caption says "groups other
+  than Hispanic or Latino are non-Hispanic". Repeating it five times in the
+  legend is the thing to avoid.
 
 ## Process
 
