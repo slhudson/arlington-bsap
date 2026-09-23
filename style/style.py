@@ -100,9 +100,16 @@ CENSUS_COLORS = {
     "nh_white": SAND,
     "nh_other": GREY,
 }
+# Pink against the sand, not against blue. Urban's guide says: "Urban tries not
+# to use color palettes that reinforce gender or racial stereotypes (e.g., pink
+# for women and blue for men)." Pink and blue was tried and is the example the
+# guide names. Half the pairing goes: men take the same near-neutral the
+# largest group takes everywhere else in this report, so the figure reads the
+# way the race figures do - the mass is the backdrop, the subject carries the
+# colour - rather than as a gendered pair.
 GENDER_COLORS = {
     "women": OKABE_ITO["reddish_purple"],
-    "men":   OKABE_ITO["sky_blue"],
+    "men":   SAND,
 }
 # The growth figure: two counts of people, no categories.
 SERIES_COLORS = {"population": "#5C5859", "per_seat": OKABE_ITO["blue"]}
