@@ -255,6 +255,17 @@ def figsize(height_ratio=0.62, profile=DEFAULT_PROFILE):
     return (w, w * height_ratio)
 
 
+# Every figure's plotting area begins at the same fraction of the canvas, so a
+# reader stacking two of them in a document sees their frames line up. Left to
+# itself, constrained layout sizes each axes to its own tick labels: "0" to "5"
+# on a seat chart needs far less room than "250,000" on a population one, and
+# the two figures then start in different places despite being the same width.
+# The value is the widest any current figure needs, with a little room; align()
+# raises if a figure ever needs more rather than silently clipping its labels.
+PLOT_LEFT = 0.135
+PLOT_RIGHT = 0.984
+
+
 def despine(ax):
     """Kept for figures that need it explicitly; the style already does it."""
     for s in ("top", "right", "left"):

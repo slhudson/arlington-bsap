@@ -40,7 +40,9 @@ def save(fig, stem, profile=None):
     code/analysis/residents_by_race.py produces residents_by_race.pdf and .png.
     run.sh checks that after every build.
     """
+    import charts
     import style
+    charts.align(fig)
     profiles = [profile] if profile else list(style.PROFILES)
     for name in profiles:
         spec = style.PROFILES[name]

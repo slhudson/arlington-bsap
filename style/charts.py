@@ -177,6 +177,37 @@ def stacked_steps(ax, years, series, spans):
         cum = top
 
 
+def align(fig):
+    """Put this figure's plotting area where every other figure's starts.
+
+    Constrained layout fits the axes to whatever the tick labels need, which is
+    right for one figure and wrong for a set: two figures of identical width
+    begin in different places, and stacked in a document their frames do not
+    line up. This maps the axes onto the fixed span style.PLOT_LEFT to
+    PLOT_RIGHT, preserving the gap between panels, and freezes the layout so
+    nothing moves them back.
+
+    Called by paths.save(), so a figure script never has to remember it.
+    """
+    fig.canvas.draw()
+    fig.set_layout_engine("none")
+    boxes = [(ax, ax.get_position()) for ax in fig.axes]
+    if not boxes:
+        return
+    lo = min(b.x0 for _, b in boxes)
+    hi = max(b.x1 for _, b in boxes)
+    if lo > style.PLOT_LEFT + 1e-9:
+        raise AssertionError(
+            f"this figure's labels need a left margin of {lo:.4f}, more than "
+            f"the {style.PLOT_LEFT} every figure shares - widen "
+            f"style.PLOT_LEFT and rebuild the set, or shorten the labels. "
+            f"Forcing it would clip them.")
+    scale = (style.PLOT_RIGHT - style.PLOT_LEFT) / (hi - lo)
+    for ax, b in boxes:
+        x0 = style.PLOT_LEFT + (b.x0 - lo) * scale
+        ax.set_position([x0, b.y0, b.width * scale, b.height])
+
+
 def legend(fig, entries, ncol=None):
     """One legend for the whole figure, below it, one row.
 
