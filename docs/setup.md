@@ -33,8 +33,10 @@ Sync only the parts meant to be read: `code/`, `docs/`, `paper/`,
 of scanned census volumes, and `data/transcribed/by_ocr/`, which is OCR kept
 only to find which page a table is on — it misreads digits by design, and a
 chat that retrieved it would quote wrong numbers as if they were data.
-Setting the sync up needs a GitHub personal access token with read access to
-the repository.
+The repository is attached the same way a document is: in the Project's
+knowledge (its project files), not under settings or connectors, which is
+the step that is easy to go looking for in the wrong place. It needs a
+GitHub personal access token with read access to the repository.
 
 **Claude Code is what you want if you will change something.** Editing a
 figure, correcting a number, adding a source, rebuilding the outputs: those
