@@ -118,10 +118,56 @@ GENDER_COLORS = {
 # The growth figure: two counts of people, no categories. It took Okabe-Ito's
 # blue until that blue became Asian and Pacific Islander on the race charts, and
 # the growth figure comes first in the report - so a reader would have met the
-# colour as a series before meeting it as a category. Vermilion is not used
-# categorically anywhere, and nothing here needs a hue to be identified: both
-# lines are labelled where they run.
+# colour as a series before meeting it as a category. Nothing here needs a hue
+# to be identified: both lines are labelled where they run. Vermilion also
+# carries Republican on the party chart, which is the one reuse in the set;
+# it costs nothing here because the line is named where it runs, not by its
+# colour.
 SERIES_COLORS = {"population": "#5C5859", "per_seat": OKABE_ITO["vermilion"]}
+
+# Party. The two partisan hues are the ones readers bring with them, at
+# Okabe-Ito's values: sky blue for Democratic and vermilion for Republican.
+# Neither is Okabe-Ito's blue, which is Asian and Pacific Islander on the race
+# charts. Yellow for ABC, the nonpartisan coalition allied with the Democrats,
+# sits between the two on the stack. The near-neutral rule applied elsewhere -
+# the largest group takes sand - is set aside here deliberately: partisan
+# colours are a convention readers already hold, and a sand band labelled
+# Democratic would be read against it. Independents take the same grey as the
+# residual census band; "not recorded" takes a lighter grey still, so that an
+# absence of evidence never reads as a category.
+UNRECORDED = "#DDDDDD"
+PARTY_COLORS = {
+    "dem":        OKABE_ITO["sky_blue"],
+    "abc":        OKABE_ITO["yellow"],
+    "rep":        OKABE_ITO["vermilion"],
+    "ind":        GREY,
+    "unrecorded": UNRECORDED,
+}
+# Stacking order, axis upward. The two parties take the two edges of the
+# frame: Democrats grow up from the axis, Republicans hang down from the
+# five-seat line, and ABC, the unknown and the independents sit between them.
+# Each category then keeps one place on the page for the whole run, and a
+# majority reads as the block that crosses the middle. Sorting each year by
+# size was tried and put the Democratic band on the floor in one decade and
+# on the ceiling in the next.
+PARTY_ORDER = ["dem", "abc", "unrecorded", "ind", "rep"]
+# "ABC" rather than the full name: the legend is one row. The caption expands
+# it. "independent" and "not recorded" are not proper nouns and stay lowercase.
+PARTY_LABELS = {
+    "dem": "Democratic",
+    "abc": "ABC",
+    "rep": "Republican",
+    "ind": "independent",
+    "unrecorded": "not recorded",
+}
+
+# The voters' side of the same comparison: the presidential vote in three
+# bands, the same colours, so a reader moving between the two figures is not
+# relearning them. "other" is every other candidate, and takes the
+# independents' grey.
+VOTERS_ORDER = ["dem", "other", "rep"]
+VOTERS_COLORS = {"dem": PARTY_COLORS["dem"], "other": GREY, "rep": PARTY_COLORS["rep"]}
+VOTERS_LABELS = {"dem": "Democratic", "other": "other", "rep": "Republican"}
 
 RESIDUAL_COLOR = GREY
 

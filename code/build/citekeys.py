@@ -85,10 +85,12 @@ def key_of(cell):
     """The citekey a source cell cites, ignoring any locator after it.
 
     Cells read "oleary2010 p.6" or "vaelections contest 163432": the key comes
-    first, the page or contest id after it. A blank cell cites nothing.
+    first, the page or contest id after it. Two sources for one claim are
+    joined with "; ", so a key with no locator can arrive as "mccaffrey2009;"
+    and the separator is dropped. A blank cell cites nothing.
     """
     cell = (cell or "").strip()
-    return cell.split()[0] if cell else ""
+    return cell.split()[0].rstrip(";") if cell else ""
 
 
 def check(cells, where):

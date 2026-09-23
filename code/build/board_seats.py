@@ -58,6 +58,15 @@ from paths import BOARD_SEATS_XLSX, CLEAN, numeric, write
 COLUMNS = ["year", "white", "black", "hisp", "aapi", "men", "women"]
 RACE = {"White": "white", "Black": "black", "Hispanic": "hisp", "Asian": "aapi"}
 GENDER = {"man": "men", "woman": "women"}
+# Party is a third split of the same seats, from 1932 only: before the County
+# Manager plan no source names one, and the columns are empty rather than
+# zero, so a figure shows a gap and not a Board with no parties. A member
+# whose party no source records is counted in `unrecorded`, so the five still
+# account for every seat. Q29 in docs/questions.md.
+PARTY = {"Democratic": "dem", "Republican": "rep", "ABC": "abc",
+         "independent": "ind", "": "unrecorded"}
+PARTY_COLUMNS = ["dem", "abc", "rep", "ind", "unrecorded"]
+PARTY_FROM = 1932
 WORKBOOK_YEARS = range(1916, 1932)
 LAST_YEAR = 2026          # current terms run to 2029; the file stops at the present
 
@@ -115,7 +124,8 @@ def months_held(members: pd.DataFrame) -> pd.DataFrame:
             lo, hi = max(t.start, year * 12), min(t.stop, year * 12 + 12)
             if hi > lo:
                 rows.append({"year": year, "months": hi - lo,
-                             "race": RACE[t.race], "gender": GENDER[t.gender]})
+                             "race": RACE[t.race], "gender": GENDER[t.gender],
+                             "party": PARTY[t.party if isinstance(t.party, str) else ""]})
     return pd.DataFrame(rows)
 
 
@@ -124,7 +134,15 @@ def build() -> pd.DataFrame:
     held = months_held(members)
     by_race = held.pivot_table(index="year", columns="race", values="months", aggfunc="sum", fill_value=0) / 12
     by_gender = held.pivot_table(index="year", columns="gender", values="months", aggfunc="sum", fill_value=0) / 12
-    built = by_race.join(by_gender).reindex(columns=COLUMNS[1:], fill_value=0.0).reset_index()
+    by_party = held.pivot_table(index="year", columns="party", values="months", aggfunc="sum", fill_value=0) / 12
+    # Each split keeps only its own columns before they are joined, so a
+    # value that belongs to no category drops out here and is caught below
+    # as seats unaccounted for, rather than surfacing as a column collision.
+    built = pd.concat([by_race.reindex(columns=list(RACE.values())),
+                       by_gender.reindex(columns=list(GENDER.values())),
+                       by_party.reindex(columns=PARTY_COLUMNS)], axis=1)
+    built = built.reindex(columns=COLUMNS[1:] + PARTY_COLUMNS).fillna(0.0).reset_index()
+    built.loc[built.year < PARTY_FROM, PARTY_COLUMNS] = float("nan")
     built = built[built.year <= LAST_YEAR]
     built["source"] = citekeys.DERIVED
 
@@ -133,6 +151,7 @@ def build() -> pd.DataFrame:
     fill["source"] = citekeys.KEENA
 
     d = pd.concat([built[~built.year.isin(WORKBOOK_YEARS)], fill]).sort_values("year").reset_index(drop=True)
+    d = d[COLUMNS + PARTY_COLUMNS + ["source"]]
 
     # The Board's first year is short because the Board was, not because a seat
     # was empty: it came into existence at the May 1870 election. Scale that year
@@ -170,6 +189,16 @@ def build() -> pd.DataFrame:
     assert off.empty, (
         "race and gender do not account for the same seats in "
         f"{list(off.astype(int))}")
+    # Party is the third split, and from 1932 it must account for the same
+    # seats too. A term whose party fell into no column - a value PARTY does
+    # not map - would otherwise thin one figure and leave its pair intact.
+    by_party = d[PARTY_COLUMNS].sum(axis=1)
+    off = d.loc[(d.year >= PARTY_FROM) & ((by_race - by_party).abs() > 1e-9), "year"]
+    assert off.empty, (
+        "party does not account for the same seats as race in "
+        f"{list(off.astype(int))}")
+    blank = d.loc[(d.year < PARTY_FROM) & d[PARTY_COLUMNS].notna().any(axis=1), "year"]
+    assert blank.empty, f"party is recorded before {PARTY_FROM} in {list(blank.astype(int))}"
     return d
 
 

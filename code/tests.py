@@ -195,6 +195,57 @@ def test_two_sources_disagreeing_on_race_is_a_finding():
     err = breaks(board_members.pd, "read_csv", mangle, build=board_members.build)
     assert err and "disagree" in err, f"not caught: {err}"
 
+def test_party_must_account_for_the_same_seats():
+    """The third split of the same seats. A term whose party maps to no
+    column would thin board_party while board_race stayed whole, and nothing
+    else would say so. The mangle gives one 1975 term a party the seat
+    table has no column for, leaving race and gender untouched.
+    """
+    def mangle(orig):
+        def patched(members):
+            d = orig(members)
+            d = d.copy()
+            first = d.index[d.year == 1975][0]
+            d.loc[first, "party"] = "whig"
+            return d
+        return patched
+    err = breaks(board_seats, "months_held", mangle)
+    assert err and "party does not account" in err, f"not caught: {err}"
+
+
+def test_an_unknown_party_label_stops_the_build():
+    """The county prints a party in parentheses after a winner's name, and the
+    build maps each label it knows to what it records. A label it has never
+    seen - a misread, or a group nobody has looked up - must not fall quietly
+    into "independent" or into "not recorded"; it is a decision for a person.
+    """
+    def mangle(orig):
+        def patched():
+            labels = orig()
+            labels[("bozman", 1993)]["labels"] = {"X"}
+            return labels
+        return patched
+    err = breaks(board_members, "county_labels", mangle, build=board_members.build)
+    assert err and "label (X)" in err, f"not caught: {err}"
+
+
+def test_reporting_cannot_overrule_a_party_the_county_prints():
+    """Reporting fills in where the county prints "(I)" or nothing. Where the
+    county names a party, a source saying otherwise is a finding to look at,
+    not a value to take."""
+    def mangle(orig):
+        def patched(path, *a, **k):
+            d = orig(path, *a, **k)
+            if "quote" in d.columns and "party" in d.columns:     # the party attributions
+                extra = d.iloc[[0]].copy()
+                extra["name"], extra["start_year"], extra["party"] = "Mary Margaret Whipple", 1983, "Republican"
+                d = pd.concat([d, extra], ignore_index=True)
+            return d
+        return patched
+    err = breaks(board_members.pd, "read_csv", mangle, build=board_members.build)
+    assert err and "county lists (D)" in err, f"not caught: {err}"
+
+
 def test_a_citekey_with_no_bibliography_entry_is_rejected():
     """A source cell naming an entry that does not exist in sources.bib is a
     number in the report that cannot be traced to a document. That is exactly
