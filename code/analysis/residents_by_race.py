@@ -96,7 +96,7 @@ for profile in style.PROFILES:
 
     charts.stacked_bars(b, c["year"], bands(shares, residual_share))
     charts.shares(b)
-    charts.years(b, 1870, 2020, rotate=True)
+    charts.years(b, 1870, 2020, step=20)
     b.set_title("(b) share of residents")
 
     entries = {style.GROUP_LABELS[g]: style.RACE_COLORS[g]

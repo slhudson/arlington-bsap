@@ -85,7 +85,12 @@ too, in the LaTeX caption.
 - The y-axis ends on a round tick, not just clear of the data.
 - No y-axis label that repeats the panel title.
 - Tick density has to be legible at the profile's width. Decades collide at
-  6.25in; use 20-year steps or rotate.
+  6.25in, so name every twentieth year and let the minor ticks mark the rest.
+  Prefer that to rotating the labels: rotated text is slower to read and it
+  makes a panel look unlike its neighbour.
+- **Both panels of a figure label their axes the same way.** A bar panel does
+  not need a label under every bar to be readable — the minor ticks locate the
+  unlabelled ones.
 - Where the labelled interval is wider than the data's interval, add unlabelled
   minor ticks at the data's interval, so a reader can find 1890 or 1910 on an
   axis that only names every twentieth year. `charts.years()` does this.
