@@ -77,6 +77,28 @@ def test_race_split_must_account_for_its_total():
 
 # --- guards on the Board files ----------------------------------------------
 
+def test_race_and_gender_must_account_for_the_same_seats():
+    """Two independent splits of the same seats have to agree.
+
+    board_race and board_gender are drawn from the same rows and are meant to
+    be read side by side, so a term counted in one split and not the other
+    moves one figure without moving its pair - and nothing else would surface
+    it. The mangle below takes a term out of the gender split only, by giving
+    it a gender the seat table has no column for, leaving the race split
+    untouched so the seats-versus-seats guards stay quiet.
+    """
+    def mangle(orig):
+        def patched(members):
+            d = orig(members)
+            d = d.copy()
+            first = d.index[d.year == 1975][0]
+            d.loc[first, "gender"] = "unrecorded"
+            return d
+        return patched
+    err = breaks(board_seats, "months_held", mangle)
+    assert err and "same seats" in err, f"not caught: {err}"
+
+
 def test_race_categories_must_sum_to_the_seat_count():
     def mangle(orig):
         def patched(*a, **k):

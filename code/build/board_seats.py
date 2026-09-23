@@ -13,6 +13,17 @@ three members whose end O'Leary never records are counted through 1915 only.
 From 1916 to 1931 no terms are known, and the rows come from Alex Keena's
 seat-count workbook as delivered. The `source` column says which.
 
+**The Board's race coding is one code per person, so it is already a set of
+categories that do not overlap** - the property the census columns in
+residents.csv had to be rebuilt to get (Q1 in docs/questions.md). A member
+coded Hispanic carries no separate race, so `white` here means white and not
+Hispanic, which is what `nh_white` means there. The two are comparable; the
+delivered census columns are not comparable to either.
+
+What the Board file cannot do is the reverse split. There is no Hispanic-origin
+question behind a roster, so a Hispanic member's race is not recorded and
+cannot be recovered. That is a limit of the source, not a decision here.
+
 The workbook's own years are also read for comparison and checked for
 internal coherence - the race categories and the genders must each sum to
 the seat count, three seats through 1930 and five from 1932 - but from 1932
@@ -116,6 +127,19 @@ def build() -> pd.DataFrame:
     # May election to December. 1990: Milliken resigned in February and the
     # special election was in May.
     assert list(short) == [1870, 1873, 1990], f"seats fall short in {list(short)}; expected only 1870, 1873, 1990"
+
+    # Race and gender split the same seats two independent ways, so they must
+    # account for the same total in every year. The workbook years were already
+    # checked this way inside workbook(); this covers the roster-derived years
+    # too, which is where a term wrongly attributed in one split and not the
+    # other would otherwise pass through silently and move one figure without
+    # moving its pair.
+    by_race = d[["white", "black", "hisp", "aapi"]].sum(axis=1)
+    by_gender = d[["men", "women"]].sum(axis=1)
+    off = d.loc[(by_race - by_gender).abs() > 1e-9, "year"]
+    assert off.empty, (
+        "race and gender do not account for the same seats in "
+        f"{list(off.astype(int))}")
     return d
 
 
