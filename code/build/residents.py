@@ -33,6 +33,26 @@ after it is Alex's workbook, whose own source is not recorded. One column
 saying `forstall1996` beside race figures that document never supplied would
 be a false citation - so what is left to do stays visible in the data.
 
+**1980-2020 also carry a set of categories that do not overlap.** Race and
+Hispanic origin are two census questions, not one, so a person answers both and
+lands in two of the four delivered columns at once - which is why they sum to
+more than the county in 1970 and 1990 (Q1 in docs/questions.md). The `nh_`
+columns are built from the crossed table instead, and partition the county
+exactly:
+
+    hispanic + nh_white + nh_black + nh_aapi + nh_other == total
+
+They begin in 1980 because that is the first census to ask Hispanic origin of
+everyone rather than of a 5 percent sample; 1970's is not comparable and no
+`nh_` value is written for it. Before 1980 the columns are blank, and `white`
+means white, with no Hispanic question standing behind it.
+
+The delivered `white`, `black`, `hisp` and `aapi` columns are kept as received.
+They are not all the same kind of number: in 1980 and 1990 `white` is already
+non-Hispanic white while `black` is the race total including Hispanic Black. A
+column whose meaning changes partway along is the thing the `nh_` set exists to
+replace, so it is left visible rather than quietly corrected.
+
 Values are otherwise written as reported. The contested treatments are not
 applied here; see docs/questions.md.
 """
@@ -140,6 +160,87 @@ def early_years() -> pd.DataFrame:
 COLUMNS = ["year", "total", "white", "black", "hisp", "aapi", "board_seats",
            "at_large", "residents_per_seat", "cube_root_p", "cube_root_resident_ratio"]
 
+# Categories that do not overlap, 1980 on. Written in stacking order.
+CENSUS_BASIS = ["hispanic", "nh_white", "nh_black", "nh_aapi", "nh_other"]
+
+
+def stf1a(year, table):
+    """A row of one archived Summary Tape File extract, for Arlington."""
+    path = RAW / "us_census_bureau" / str(year) / f"stf1a_{table}_virginia_counties.csv"
+    d = pd.read_csv(path)
+    row = d[d.name.str.strip().str.upper().str.startswith("ARLINGTON COUNTY")]
+    if len(row) != 1:
+        raise AssertionError(f"{path.name}: expected one Arlington row, found {len(row)}")
+    return row.iloc[0]
+
+
+def census_basis() -> dict:
+    """Five groups that partition the county, one row per census from 1980.
+
+    Each census names its cells differently and 1980 words it as Spanish
+    origin, so the arithmetic is written out per year rather than driven from a
+    table of variable codes. Reading it should not require the code books.
+    """
+    out = {}
+
+    # 1980: Table 7 is race for everyone, Table 9 the race of persons of
+    # Spanish origin. Non-Hispanic is the first minus the second.
+    r7, r9 = stf1a(1980, "table7_race"), stf1a(1980, "table9_race_of_spanish_origin")
+    asian = ["japanese", "chinese", "filipino", "korean", "asian_indian",
+             "vietnamese", "hawaiian", "guamanian", "samoan"]
+    native = ["american_indian", "eskimo", "aleut"]
+    out[1980] = {
+        "hispanic": r9["total"],
+        "nh_white": r7["white"] - r9["white"],
+        "nh_black": r7["black"] - r9["black"],
+        # 1980 does not split American Indian from Asian among Spanish-origin
+        # persons, so the two are subtracted together and the remainder is
+        # carried in nh_aapi rather than split on an assumption.
+        "nh_aapi": sum(r7[c] for c in asian + native)
+                   - r9["american_indian_eskimo_aleut_asian_pacific_islander"],
+        "nh_other": r7["other"] - r9["other"],
+    }
+
+    # 1990: the crossed table gives non-Hispanic directly.
+    r = stf1a(1990, "hispanic_origin_by_race")
+    hispanic = sum(r[c] for c in r.index if c.startswith("hispanic_"))
+    out[1990] = {
+        "hispanic": hispanic,
+        "nh_white": r["not_hispanic_white"],
+        "nh_black": r["not_hispanic_black"],
+        "nh_aapi": r["not_hispanic_asian_pacific_islander"],
+        "nh_other": r["not_hispanic_other"] + r["not_hispanic_american_indian_eskimo_aleut"],
+    }
+
+    # 2000-2020, from the API files. Variable numbers differ by census and
+    # 2020 nests the races a level deeper, so each is named from the file's own
+    # data dictionary rather than assumed to follow the previous one.
+    #     hisp   Hispanic or Latino, all races
+    #     w b a  non-Hispanic White, Black, Asian alone
+    #     nh     non-Hispanic Native Hawaiian and other Pacific Islander alone
+    #     ai o   non-Hispanic American Indian and Alaska Native, some other race
+    #     two    non-Hispanic two or more races
+    for year, table, keys in (
+        (2000, "P008", {"hisp": "P008010", "w": "P008003", "b": "P008004",
+                        "ai": "P008005", "a": "P008006", "nh": "P008007",
+                        "o": "P008008", "two": "P008009"}),
+        (2010, "P5", {"hisp": "P005010", "w": "P005003", "b": "P005004",
+                      "ai": "P005005", "a": "P005006", "nh": "P005007",
+                      "o": "P005008", "two": "P005009"}),
+        (2020, "P2", {"hisp": "P2_002N", "w": "P2_005N", "b": "P2_006N",
+                      "ai": "P2_007N", "a": "P2_008N", "nh": "P2_009N",
+                      "o": "P2_010N", "two": "P2_011N"}),
+    ):
+        row = arlington(year, table)
+        out[year] = {
+            "hispanic": int(row[keys["hisp"]]),
+            "nh_white": int(row[keys["w"]]),
+            "nh_black": int(row[keys["b"]]),
+            "nh_aapi": int(row[keys["a"]]) + int(row[keys["nh"]]),
+            "nh_other": int(row[keys["ai"]]) + int(row[keys["o"]]) + int(row[keys["two"]]),
+        }
+    return out
+
 
 def build() -> pd.DataFrame:
     d = pd.read_excel(RESIDENTS_XLSX).rename(columns={
@@ -207,6 +308,27 @@ def build() -> pd.DataFrame:
     # the volumes before 1900, and taken from the workbook after it.
     d["race_source"] = [TOTAL_SOURCE[y] if y < 1900 else citekeys.KEENA
                         for y in d["year"]]
+
+    # The categories that do not overlap, 1980 on. The guard is the point of
+    # the exercise: if these five do not account for the county exactly, they
+    # are not a partition and must not be drawn as one.
+    for col in CENSUS_BASIS:
+        d[col] = pd.NA
+    basis = census_basis()
+    for year, groups in basis.items():
+        m = d["year"] == year
+        total = int(d.loc[m, "total"].iloc[0])
+        got = sum(int(v) for v in groups.values())
+        if got != total:
+            raise AssertionError(
+                f"{year}: the census categories sum to {got:,} but the county "
+                f"total is {total:,}; they are not a partition")
+        for col, value in groups.items():
+            d.loc[m, col] = int(value)
+    d["census_basis_source"] = [
+        {1980: citekeys.CENSUS_1980_STF1A, 1990: citekeys.CENSUS_1990_STF1A}.get(
+            y, citekeys.CENSUS_DATA_FILE) if y in basis else ""
+        for y in d["year"]]
 
     d["residents_per_seat"] = d["total"] / d["board_seats"]
     d["cube_root_p"] = d["total"] ** (1 / 3)

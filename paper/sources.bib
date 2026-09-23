@@ -16,9 +16,8 @@
 % scanning a folder, so it is written out - "Pratt 1995 - Arlington's At-Large
 % Electoral System.pdf", author first, year apart from the name. The two are
 % tied together by the "Filed in Drive as" line in each annotation below, which
-% is where you check that a cited source is actually filed. The folder is
-% https://drive.google.com/drive/folders/10SGuURB-ldC1AzM3ClsdL_tAiWeFIZB4
-% and docs/sources.md says what it holds.
+% is where you check that a cited source is actually filed. docs/sources.md has
+% the folder.
 %
 % `annotation` holds what we know about the document as evidence - what is
 % missing from the copy we hold, what its compiler warns about. biblatex does
@@ -341,4 +340,32 @@
   annotation  = {Personal knowledge, recorded by one of the authors. Not a
                  document; cited so that the basis of the coding is on the
                  record rather than silently absent},
+}
+
+@online{census1980stf1a,
+  author      = {{U.S. Bureau of the Census}},
+  title       = {Census of Population and Housing, 1980: Summary Tape File 1A,
+                 Virginia},
+  url         = {https://www2.census.gov/census_1980/stf1a/stf1axva.zip},
+  urldate     = {2026-09-23},
+  annotation  = {Fixed-width ASCII, one file per state, 100-percent counts.
+                 Table 7 race, Table 8 Spanish origin, Table 9 race of persons
+                 of Spanish origin. Record layout is the Bureau's own
+                 dictionary, saved alongside the extract in data/raw/. Fetched
+                 by code/fetch/census.py, which saves Virginia county rows
+                 only: the published file is 30MB},
+}
+
+@online{census1990stf1a,
+  author      = {{U.S. Bureau of the Census}},
+  title       = {Census of Population and Housing, 1990: Summary Tape File 1A,
+                 Virginia},
+  url         = {https://www2.census.gov/census_1990/STF1A_ASCII/90STF1A-VA.ZIP},
+  urldate     = {2026-09-23},
+  annotation  = {Fixed-width ASCII, 100-percent counts, summary level 050 for
+                 counties. Title and date read from the file header and the
+                 archive path; the technical documentation is published only as
+                 PDF, so cell offsets were derived from the file and are checked
+                 against the totals it states on every fetch. Virginia county
+                 rows only: the published segments are 172MB},
 }

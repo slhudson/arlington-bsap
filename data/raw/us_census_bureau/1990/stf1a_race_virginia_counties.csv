@@ -1,0 +1,137 @@
+name,state,county,white,black,american_indian_eskimo_aleut,asian_pacific_islander,other
+"Accomack County",51,001,20499,10938,40,71,155
+"Albemarle County",51,003,59264,6824,75,1643,234
+"Alexandria city",51,510,76789,24339,333,4632,5090
+"Alleghany County",51,005,12792,329,13,40,2
+"Amelia County",51,007,5933,2822,14,13,5
+"Amherst County",51,009,22576,5758,128,74,42
+"Appomattox County",51,011,9459,2816,14,6,3
+"Arlington County",51,013,130873,17940,537,11560,10026
+"Augusta County",51,015,52434,2006,48,132,57
+"Bath County",51,017,4533,251,2,8,5
+"Bedford County",51,019,41856,3612,60,114,14
+"Bedford city",51,515,4691,1338,7,33,4
+"Bland County",51,021,6257,230,3,8,16
+"Botetourt County",51,023,23745,1121,15,75,36
+"Bristol city",51,520,17240,1063,13,91,19
+"Brunswick County",51,025,6605,9349,9,12,12
+"Buchanan County",51,027,31107,63,26,47,90
+"Buckingham County",51,029,7564,5259,17,27,6
+"Buena Vista city",51,530,6093,282,5,21,5
+"Campbell County",51,031,40418,6876,44,168,66
+"Caroline County",51,033,11686,7244,203,49,35
+"Carroll County",51,035,26380,109,24,26,55
+"Charles City County",51,036,1800,3969,489,11,13
+"Charlotte County",51,037,7392,4263,18,4,11
+"Charlottesville city",51,540,30684,8561,39,935,122
+"Chesapeake city",51,550,107399,41662,444,1899,572
+"Chesterfield County",51,041,177067,27196,487,3738,786
+"Clarke County",51,043,10984,1054,14,30,19
+"Clifton Forge city",51,560,3967,695,2,8,7
+"Colonial Heights city",51,570,15502,129,33,354,46
+"Covington city",51,580,5953,969,6,51,12
+"Craig County",51,045,4354,8,5,4,1
+"Culpeper County",51,047,22569,4783,87,292,60
+"Cumberland County",51,049,4765,3027,8,13,12
+"Danville city",51,590,33247,19431,72,262,44
+"Dickenson County",51,051,17519,68,13,14,6
+"Dinwiddie County",51,053,13348,7471,33,60,48
+"Emporia city",51,595,2849,2420,11,24,2
+"Essex County",51,057,5329,3270,46,40,4
+"Fairfax County",51,059,665399,63325,2038,69338,18484
+"Fairfax city",51,600,16830,966,43,1409,374
+"Falls Church city",51,610,8533,298,42,456,249
+"Fauquier County",51,061,42657,5462,113,291,218
+"Floyd County",51,063,11664,292,16,21,12
+"Fluvanna County",51,065,9522,2846,21,18,22
+"Franklin County",51,067,35142,4231,41,71,64
+"Franklin city",51,620,3637,4199,6,20,2
+"Frederick County",51,069,44536,832,68,218,69
+"Fredericksburg city",51,630,14468,4115,27,205,212
+"Galax city",51,640,6219,387,8,15,41
+"Giles County",51,071,16044,284,8,24,6
+"Gloucester County",51,073,26448,3354,70,195,64
+"Goochland County",51,075,9895,4210,16,33,9
+"Grayson County",51,077,15729,486,13,18,32
+"Greene County",51,079,9579,664,13,27,14
+"Greensville County",51,081,3900,4916,13,23,1
+"Halifax County",51,083,17504,11393,79,23,34
+"Hampton city",51,650,78149,51981,392,2339,932
+"Hanover County",51,085,56440,6405,143,269,49
+"Harrisonburg city",51,660,27968,2018,37,469,215
+"Henrico County",51,087,168453,43827,626,4364,611
+"Henry County",51,089,43529,13155,63,110,85
+"Highland County",51,091,2630,3,0,2,0
+"Hopewell city",51,670,16687,5910,64,307,133
+"Isle of Wight County",51,093,16975,7925,51,69,33
+"James City County",51,095,27804,6460,69,452,74
+"King George County",51,099,10597,2734,37,119,40
+"King William County",51,101,7351,3310,217,25,10
+"King and Queen County",51,097,3573,2633,65,10,8
+"Lancaster County",51,103,7567,3289,6,12,22
+"Lee County",51,105,24346,91,26,21,12
+"Lexington city",51,678,6027,811,22,89,10
+"Loudoun County",51,107,77095,6168,177,2101,588
+"Louisa County",51,109,14970,5233,65,37,20
+"Lunenburg County",51,111,7081,4292,11,24,11
+"Lynchburg city",51,680,47853,17445,105,501,145
+"Madison County",51,113,10182,1697,29,22,19
+"Manassas Park city",51,685,5941,490,7,169,127
+"Manassas city",51,683,23332,2889,90,867,779
+"Martinsville city",51,690,10134,5954,21,32,21
+"Mathews County",51,115,7140,1175,11,15,7
+"Mecklenburg County",51,117,17926,11226,20,49,20
+"Middlesex County",51,119,6503,2131,6,9,4
+"Montgomery County",51,121,67983,2841,64,2821,204
+"Nelson County",51,125,10246,2406,15,26,85
+"New Kent County",51,127,8078,2151,136,34,46
+"Newport News city",51,700,106418,57077,579,3969,2002
+"Norfolk city",51,710,148228,102012,1165,6815,3009
+"Northampton County",51,131,6882,6035,16,16,112
+"Northumberland County",51,133,7388,3098,9,19,10
+"Norton city",51,720,3923,269,13,35,7
+"Nottoway County",51,135,8740,6155,35,45,18
+"Orange County",51,137,18233,3079,31,48,30
+"Page County",51,139,21141,442,24,68,15
+"Patrick County",51,141,16128,1263,14,19,49
+"Petersburg city",51,730,10194,27688,83,289,132
+"Pittsylvania County",51,143,40570,14919,45,63,58
+"Poquoson city",51,735,10728,84,24,161,8
+"Portsmouth city",51,740,53212,49180,303,827,385
+"Powhatan County",51,145,11954,3290,32,26,26
+"Prince Edward County",51,147,10923,6265,29,77,26
+"Prince George County",51,149,18268,7972,100,592,462
+"Prince William County",51,153,179709,25078,718,6569,3612
+"Pulaski County",51,155,32353,2004,42,78,19
+"Radford city",51,750,14643,957,16,272,52
+"Rappahannock County",51,157,6095,491,10,14,12
+"Richmond County",51,159,5027,2194,8,23,21
+"Richmond city",51,760,88028,112122,463,1787,656
+"Roanoke County",51,161,76520,2021,74,645,72
+"Roanoke city",51,770,71907,23395,165,717,213
+"Rockbridge County",51,163,17678,574,34,48,16
+"Rockingham County",51,165,56160,869,49,139,265
+"Russell County",51,167,28310,315,14,15,13
+"Salem city",51,775,22473,1065,27,165,26
+"Scott County",51,169,23030,143,17,4,10
+"Shenandoah County",51,171,31069,359,30,100,78
+"Smyth County",51,173,31596,660,34,68,12
+"South Boston city",51,780,4376,2569,11,34,7
+"Southampton County",51,175,9634,7868,15,17,16
+"Spotsylvania County",51,177,50220,6178,197,607,201
+"Stafford County",51,179,55546,4304,233,746,407
+"Staunton city",51,790,21181,3081,38,102,59
+"Suffolk city",51,800,28511,23245,112,200,73
+"Surry County",51,181,2722,3411,10,2,0
+"Sussex County",51,183,4253,5955,11,16,13
+"Tazewell County",51,185,44454,1196,49,245,16
+"Virginia Beach city",51,810,316408,54671,1384,17025,3581
+"Warren County",51,187,24646,1292,45,72,87
+"Washington County",51,191,45081,682,29,72,23
+"Waynesboro city",51,820,16681,1749,34,44,41
+"Westmoreland County",51,193,10257,5104,31,67,21
+"Williamsburg city",51,830,9368,1754,25,335,48
+"Winchester city",51,840,19453,2199,26,209,60
+"Wise County",51,195,38674,713,36,128,22
+"Wythe County",51,197,24471,880,34,73,8
+"York County",51,199,34487,6613,112,988,222

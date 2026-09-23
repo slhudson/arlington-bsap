@@ -172,6 +172,27 @@ district (the Freedman village case, in `docs/sources.md`). No arithmetic lives 
 these files; the subtraction that isolates the Board's territory before 1900
 happens in `code/build/residents.py`.
 
+**Machine-readable census years** (`us_census_bureau/1980/` through `2020/`) —
+not transcribed, because the Bureau publishes them. 2000, 2010 and 2020 come
+from the Census API; 1980 and 1990 from the archived Summary Tape Files, which
+the API does not carry. All are one row per Virginia county-level geography,
+the same shape for every year, so Arlington is a row and its neighbours are
+visible beside it.
+
+Two tables per year: race, and race crossed with Hispanic origin (Spanish
+origin, in 1980's wording). The cross-tab is the point. Race and Hispanic
+origin are separate census questions, so the categories only stop overlapping
+once they are crossed — see Q1 in `docs/questions.md`.
+
+1980 keeps the Bureau's published record layout beside the data
+(`data/raw/us_census_bureau/1980/1980_stf1_datadict.txt`). 1990's is published
+only as PDF, so `code/fetch/census.py` derives the cell offsets and checks them
+on every run against the totals the file itself states.
+
+These are extracts rather than the files as published: the 1990 segments are
+172MB and 1980's 30MB, against an Overleaf budget of 100MB for the whole
+repository. Size is the only reason.
+
 **`arlington_county/board_1870-1920.csv`** — O'Leary's election listings, one row per
 district per election, read from the rotated pages by
 `code/transcribe/board_1870_1920.py`. The entry is kept as printed, prose about
@@ -253,8 +274,15 @@ cleaning decision shows up as a reviewable diff — you can see which numbers
 moved and by how much.
 
 `residents.csv` — census population by year, with `total_source` and
-`race_source` columns naming the document behind each, the Board's seat count (`at_large`) and the
-residents-per-seat and cube-root columns the figures plot.
+`race_source` columns naming the document behind each, the Board's seat count
+(`at_large`) and the residents-per-seat and cube-root columns the figures plot.
+
+From 1980 it also carries five columns that partition the county exactly —
+`hispanic`, `nh_white`, `nh_black`, `nh_aapi`, `nh_other` — built from race
+crossed with Hispanic origin so nobody is counted in two of them. The delivered
+`white`, `black`, `hisp` and `aapi` columns are kept as received and can
+overlap; the figures still draw those. Which basis the report should use is
+Q1 in `docs/questions.md`.
 
 `board_members.csv` — one row per person per term, 1870 through 2026: name,
 term number, district, start and end to the month, source, a note only where
