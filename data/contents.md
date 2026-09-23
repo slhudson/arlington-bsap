@@ -4,7 +4,7 @@ Four layers, sorted by how the numbers were produced. Which folder something
 belongs in depends on that, not on what it is about.
 
 Inside `raw/`, folders are named for **who published the material** —
-`census`, `county`, `virginia`, `arlington_historical_magazine` — not for its
+`us_census_bureau`, `arlington_county`, `va_dept_of_elections`, `arlington_historical_magazine` — not for its
 subject. Two documents from the same publisher sit together even if they cover
 different things. `transcribed/by_claude/` mirrors those folder names.
 
@@ -27,7 +27,7 @@ a page, and never supplies a number.
 
 ---
 
-## raw/census/
+## raw/us_census_bureau/
 
 Extracts from the published 1870, 1880 and 1890 decennial census volumes,
 gathered by Alex Keena in September 2026 while correcting the 1870–1890 county
@@ -77,7 +77,7 @@ checked against neighbouring counties. Each census gets a data dictionary
 beside its tables, so the variable codes are readable without the API
 documentation.
 
-## raw/county/
+## raw/arlington_county/
 
 Two election documents from Arlington County's voting and elections site. The
 folder is named for where they were published, not for who wrote them —
@@ -116,7 +116,7 @@ and resignations appear only where a compiler noted them in passing. Neither
 carries race or gender. The genuinely primary material sits behind them —
 newspaper returns and Electoral Board minutes — and has not been consulted.
 
-## raw/virginia/
+## raw/va_dept_of_elections/
 
 **`county_board_2021-2026.csv`** — every County Board contest from 2021 on,
 from the Virginia Department of Elections' historical database, saved as the
@@ -149,7 +149,7 @@ embedded in the 1880 files renders 13,659 as `lB, 659`.
 Claude's reading of a page: better than OCR, wrong in different ways, and
 confirmed by nobody. Every file cites the page it was read from.
 
-**Census tables** (`1870/`, `1880/`, `1890/`, `1990/`) — one file per printed
+**Census tables** (`us_census_bureau/<year>/`) — one file per printed
 table, laid out as the table is laid out rather than reshaped into whatever a
 script wanted. Transcribing the whole table means it can be checked against
 the page as a whole — a missing row or a misaligned column shows up, where a
@@ -162,12 +162,12 @@ district (the Freedman village case, in `docs/sources.md`). No arithmetic lives 
 these files; the subtraction that isolates the Board's territory before 1900
 happens in `build/residents.py`.
 
-**`county/board_1870-1920.csv`** — O'Leary's election listings, one row per
+**`arlington_county/board_1870-1920.csv`** — O'Leary's election listings, one row per
 district per election, read from the rotated pages by
 `transcribe/board_1870_1920.py`. The entry is kept as printed, prose about
 replacements included; `build/board_roster.py` parses it.
 
-**`county/candidate_history_1920-present.csv`** — the county's whole candidate
+**`arlington_county/candidate_history_1920-present.csv`** — the county's whole candidate
 table, every office, read by `transcribe/candidate_history.py`, with the kind
 of election ("Democratic Primary", "General Election", "Special Election")
 carried from the date column onto every row.
@@ -178,10 +178,11 @@ read by `transcribe/novack_terms.py`.
 
 **`board_demographics.csv`** — what a source says about a named Board
 member's race or gender, one row per claim: the category, the basis, the
-citation, and the sentence in the source's own words. A member absent from
-this file is a white man by default; `build/board_demographics.py` writes
-that default out for every person, and `docs/sources.md` says what stands
-behind it in each period. The women are here on Claude's reading of their
+citation, and the sentence in the source's own words. It sits above the
+publisher folders because it draws on several. A member absent from it takes
+Alex's workbook coding from 1932, and is a white man by default before that;
+`build/board_members.py` writes which of the three applies on every row, and
+`docs/sources.md` says what stands behind the default in each period. The women are here on Claude's reading of their
 given names, and the rows say so. Grace Hjerpe's paper and O'Leary's prose
 are cited rather than filed in `raw/`: they are read for a handful of claims,
 not transcribed table by table.
@@ -233,13 +234,11 @@ moved and by how much.
 the document behind each row, the Board's seat count (`at_large`) and the
 residents-per-seat and cube-root columns the figures plot.
 
-`board_roster.csv` — one row per person per term, 1870 through 2026:
-name, term number, district, start and end to the month, source, and a note
-only where something irregular happened. Nothing covers 1916–1931.
+`board_members.csv` — one row per person per term, 1870 through 2026: name,
+term number, district, start and end to the month, source, a note only where
+something irregular happened; then race and gender, each with its own source
+and note — a cited attribution, "Keena workbook", or "default". Nothing
+covers 1916–1931.
 
-`board_demographics.csv` — one row per person in the roster: race and gender,
-each with its own basis and source, "default" where no source said anything.
-
-`board_seats.csv` · `board_members.csv` — Alex's two Board workbooks, read as
-delivered. `board_members` is his person-year roster; `board_roster` above is
-the one built here from sources. They are compared, never merged.
+`board_seats.csv` — Alex's seat counts by race and gender, 1871–2026, read
+from the workbook as delivered. The only file covering 1916–1931.

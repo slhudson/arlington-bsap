@@ -1,4 +1,4 @@
-"""Census scans -> data/transcribed/by_ocr/*.txt, one text file per volume.
+"""Census scans -> data/transcribed/by_ocr/us_census_bureau/<year>/*.txt, one text file per volume.
 
 Seven of the nine scanned volumes have no text layer, so nothing in them can
 be searched or cited without this. Running it makes all 521 pages greppable,
@@ -30,8 +30,8 @@ from Foundation import NSData
 
 from files import RAW, TRANSCRIBED
 
-SCANS = RAW / "census"
-OUT = TRANSCRIBED / "by_ocr"
+SCANS = RAW / "us_census_bureau"
+OUT = TRANSCRIBED / "by_ocr" / "us_census_bureau"
 DPI = 300
 
 

@@ -1,4 +1,4 @@
-"""O'Leary's electoral history -> transcribed/by_claude/county/board_1870-1920.csv
+"""O'Leary's electoral history -> transcribed/by_claude/arlington_county/board_1870-1920.csv
 
 The Board of Supervisors entries from *The Electoral History of That Part of
 Alexandria County Now Known as Arlington County, 1870-1920*, by Frank O'Leary.
@@ -32,8 +32,8 @@ import pymupdf
 
 from files import RAW, TRANSCRIBED
 
-SOURCE = RAW / "county" / "electoral_history_1870-1920.pdf"
-OUT = TRANSCRIBED / "by_claude" / "county" / "board_1870-1920.csv"
+SOURCE = RAW / "arlington_county" / "electoral_history_1870-1920.pdf"
+OUT = TRANSCRIBED / "by_claude" / "arlington_county" / "board_1870-1920.csv"
 
 DISTRICTS = ("Arlington", "Jefferson", "Washington")
 

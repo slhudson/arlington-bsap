@@ -14,11 +14,11 @@ data/transcribed/by_claude/, and it replaces the delivered workbook for those
 three years. See docs/questions.md.
 
 **1900-1990 totals come from the published Census county series**, transcribed
-from data/raw/census/. They were checked against the workbook first and matched
+from data/raw/us_census_bureau/. They were checked against the workbook first and matched
 every year.
 
 **2000-2020 totals come from the Bureau's own data files**, fetched by
-fetch/census.py into data/raw/census/. No transcription step, so no
+fetch/census.py into data/raw/us_census_bureau/. No transcription step, so no
 reading error to make.
 
 **The workbook still supplies** the race and ethnicity figures for 1900-2020
@@ -60,7 +60,7 @@ def arlington(year, table):
     differ by census and a name like "race" also matches
     "hispanic_origin_by_race".
     """
-    hits = sorted((RAW / "census" / str(year)).glob(f"censusapi_*_{table}_*_virginia_counties.csv"))
+    hits = sorted((RAW / "us_census_bureau" / str(year)).glob(f"censusapi_*_{table}_*_virginia_counties.csv"))
     if len(hits) != 1:
         raise FileNotFoundError(f"expected one {table} file for {year}, found {len(hits)}")
     d = pd.read_csv(hits[0])
@@ -80,13 +80,13 @@ def early_years() -> pd.DataFrame:
     fourth district. That error is unrepresentable here rather than warned
     against; it is what produced 4,596 where the districts give 4,258.
     """
-    t5_1890 = table("by_claude/1890/1890a_v1-11_p346_table5_virginia_alexandria.csv")
-    t2_1870 = table("by_claude/1870/1870a-04_p69_table2_virginia_alexandria.csv").set_index("section")
-    t3_1870 = table("by_claude/1870/1870a-09_p278_table3_virginia_alexandria.csv")
-    t5_1880 = table("by_claude/1880/1880_v1-13_p412_table5_virginia_alexandria.csv")
-    t6_1880 = table("by_claude/1880/1880_v1-13_p425_table6_virginia_alexandria.csv")
-    t22 = table("by_claude/1890/1890a_v1-14_p520_table22_virginia_alexandria.csv").iloc[0]
-    t23 = table("by_claude/1890/1890a_v1-14_p556_table23_virginia_alexandria.csv").iloc[0]
+    t5_1890 = table("by_claude/us_census_bureau/1890/1890a_v1-11_p346_table5_virginia_alexandria.csv")
+    t2_1870 = table("by_claude/us_census_bureau/1870/1870a-04_p69_table2_virginia_alexandria.csv").set_index("section")
+    t3_1870 = table("by_claude/us_census_bureau/1870/1870a-09_p278_table3_virginia_alexandria.csv")
+    t5_1880 = table("by_claude/us_census_bureau/1880/1880_v1-13_p412_table5_virginia_alexandria.csv")
+    t6_1880 = table("by_claude/us_census_bureau/1880/1880_v1-13_p425_table6_virginia_alexandria.csv")
+    t22 = table("by_claude/us_census_bureau/1890/1890a_v1-14_p520_table22_virginia_alexandria.csv").iloc[0]
+    t23 = table("by_claude/us_census_bureau/1890/1890a_v1-14_p556_table23_virginia_alexandria.csv").iloc[0]
 
     rows = {}
     for year, col in ((1890, "pop_1890"), (1880, "pop_1880")):
@@ -159,7 +159,7 @@ def build() -> pd.DataFrame:
     # from the workbook. They were checked against it and matched every year,
     # so there is no reason to go on reading them second-hand.
     d["source"] = d["year"].map(TOTAL_SOURCE)
-    series = table("by_claude/censusgov_pop1790-1990_p177_counties_virginia_arlington.csv").iloc[0]
+    series = table("by_claude/us_census_bureau/censusgov_pop1790-1990_p177_counties_virginia_arlington.csv").iloc[0]
     for year in range(1900, 2000, 10):
         m = d["year"] == year
         published = series[f"y{year}"]

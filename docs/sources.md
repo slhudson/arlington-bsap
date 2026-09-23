@@ -297,7 +297,7 @@ where is that wrong? The lists are short enough to check by eye, and the
 
 ## The census scans
 
-Nine PDFs, 521 pages, in `data/raw/census/`, from the published 1870, 1880 and
+Nine PDFs, 521 pages, in `data/raw/us_census_bureau/`, from the published 1870, 1880 and
 1890 volumes. Seven have no text layer. `data/transcribed/by_ocr/` holds OCR of
 all of them.
 
@@ -344,17 +344,17 @@ Its footnotes point at two primary sources we had not found:
 
 **O'Leary, Frank.** *The Electoral History of That Part of Alexandria County
 Now Known as Arlington County, 1870-1920.* Version 2. Arlington County
-Treasurer. Now in `data/raw/county/`.
+Treasurer. Now in `data/raw/arlington_county/`.
 
 **Arlington County Office of Voter Registration and Elections.** *Candidate
 History, 1920-Present.* Last updated 18 November 2021. Now in
-`data/raw/county/`. The county has since taken it down; its results page
+`data/raw/arlington_county/`. The county has since taken it down; its results page
 points to the state.
 
 **Virginia Department of Elections.** *Historical Elections Database.*
 `historical.elections.virginia.gov`. Every County Board contest from 2021 on,
 by precinct and vote channel, saved as the database's own CSV in
-`data/raw/virginia/` by `fetch/elections.py`. Cited by contest id,
+`data/raw/va_dept_of_elections/` by `fetch/elections.py`. Cited by contest id,
 which is the database's own key for a race.
 
 — Between them these cover Board elections for the whole period. **Both are
@@ -383,7 +383,7 @@ States: 1790-1990.* Virginia notes, printed p.185.
 — Establishes that Alexandria city became independent of the county in 1900 for
 census purposes and that the county was renamed Arlington in 1920; and that
 county figures reflect boundaries as reported at each census rather than a
-constant area. The Virginia pages are excerpted into `data/raw/census/`
+constant area. The Virginia pages are excerpted into `data/raw/us_census_bureau/`
 because numbers are taken from them; the notes are cited here.
 
 ## For a research assistant

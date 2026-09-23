@@ -1,4 +1,4 @@
-"""Virginia elections database -> data/raw/virginia/county_board_2021-2026.csv
+"""Virginia elections database -> data/raw/va_dept_of_elections/county_board_2021-2026.csv
 
 NOT part of `bash run.sh`, deliberately. The build never touches the network:
 see fetch/census.py for why.
@@ -26,7 +26,7 @@ import urllib.parse
 import urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-OUT = ROOT / "data" / "raw" / "virginia" / "county_board_2021-2026.csv"
+OUT = ROOT / "data" / "raw" / "va_dept_of_elections" / "county_board_2021-2026.csv"
 
 ENDPOINT = "https://va2.elstats.civera.com/api/download_search.csv"
 COUNTY_BOARD_MEMBER = 546            # the database's id for the office

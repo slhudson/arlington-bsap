@@ -1,4 +1,4 @@
-"""Arlington County election PDFs -> data/transcribed/by_claude/county/*.csv
+"""Arlington County election PDFs -> data/transcribed/by_claude/arlington_county/*.csv
 
 NOT part of `bash run.sh`. Like census.py beside it, this runs on demand and its
 output committed, so the build reads only committed files.
@@ -23,8 +23,8 @@ import pymupdf
 
 from files import RAW, TRANSCRIBED
 
-SOURCE = RAW / "county" / "candidate_history_1920-present.pdf"
-OUT = TRANSCRIBED / "by_claude" / "county" / "candidate_history_1920-present.csv"
+SOURCE = RAW / "arlington_county" / "candidate_history_1920-present.pdf"
+OUT = TRANSCRIBED / "by_claude" / "arlington_county" / "candidate_history_1920-present.csv"
 
 # Column boundaries in PDF points, read off the printed header.
 COLUMNS = [("year", 40, 90), ("date", 90, 215), ("office", 215, 385),

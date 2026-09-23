@@ -24,16 +24,15 @@ without a network connection, an API key, or a Mac.
 
 | Script | Writes | Explained in |
 |---|---|---|
-| `fetch/census.py` | `data/raw/census/<year>/*.csv` | `data/contents.md` |
-| `fetch/elections.py` | `data/raw/virginia/county_board_2021-2026.csv` | `data/contents.md` |
-| `transcribe/census.py` | `data/transcribed/by_ocr/*.txt` | `data/contents.md` |
-| `transcribe/board_1870_1920.py` | `data/transcribed/by_claude/county/board_1870-1920.csv` | `data/contents.md` |
-| `transcribe/candidate_history.py` | `data/transcribed/by_claude/county/candidate_history_1920-present.csv` | `data/contents.md` |
+| `fetch/census.py` | `data/raw/us_census_bureau/<year>/*.csv` | `data/contents.md` |
+| `fetch/elections.py` | `data/raw/va_dept_of_elections/county_board_2021-2026.csv` | `data/contents.md` |
+| `transcribe/census.py` | `data/transcribed/by_ocr/us_census_bureau/<year>/*.txt` | `data/contents.md` |
+| `transcribe/board_1870_1920.py` | `data/transcribed/by_claude/arlington_county/board_1870-1920.csv` | `data/contents.md` |
+| `transcribe/candidate_history.py` | `data/transcribed/by_claude/arlington_county/candidate_history_1920-present.csv` | `data/contents.md` |
 | `transcribe/novack_terms.py` | `data/transcribed/by_claude/arlington_historical_magazine/novack_terms_1930-1994.csv` | `data/contents.md` |
 | `build/residents.py` | `data/clean/residents.csv` | `docs/sources.md` — population |
-| `build/board_roster.py` | `data/clean/board_roster.csv` | `docs/sources.md` — the roster |
-| `build/board_demographics.py` | `data/clean/board_demographics.csv` | `docs/sources.md` — race and gender |
-| `build/board_seats.py`, `build/board_members.py` | `data/clean/board_seats.csv`, `board_members.csv` | `data/contents.md` — the delivered workbooks |
+| `build/board_members.py` | `data/clean/board_members.csv` | `docs/sources.md` — the roster, race and gender |
+| `build/board_seats.py` | `data/clean/board_seats.csv` | `data/contents.md` — the delivered seat counts |
 | `analysis/<figure>.py` | `figures/pdf/<figure>.pdf`, `figures/png/<figure>.png` | `docs/figures.md` |
 
 Five figures build. Two are in the paper so far, `residents_by_race_share` and

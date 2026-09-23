@@ -80,7 +80,7 @@ def succession(entry, start_year, start_month):
 
 def oleary_terms():
     """Who held each magisterial district, from the election listings."""
-    d = pd.read_csv(BY_CLAUDE / "county" / "board_1870-1920.csv")
+    d = pd.read_csv(BY_CLAUDE / "arlington_county" / "board_1870-1920.csv")
     elections = sorted(d.year.unique())
     for i, year in enumerate(elections):
         nxt = elections[i + 1] if i + 1 < len(elections) else None
@@ -166,7 +166,7 @@ def board_elections():
     Only November general elections: a primary does not start a term, and a
     special election fills one already under way.
     """
-    c = pd.read_csv(BY_CLAUDE / "county" / "candidate_history_1920-present.csv")
+    c = pd.read_csv(BY_CLAUDE / "arlington_county" / "candidate_history_1920-present.csv")
     c = c[c.office.str.contains("County Board", na=False)].dropna(subset=["year"])
     c = c[c.election_date.str.startswith("November", na=False)
           & ~c.election_kind.str.contains("Primary", na=False)]
@@ -315,7 +315,7 @@ def county_contests():
     (write-ins included, since the annotation can sit on any row) are read
     together.
     """
-    c = pd.read_csv(BY_CLAUDE / "county" / "candidate_history_1920-present.csv")
+    c = pd.read_csv(BY_CLAUDE / "arlington_county" / "candidate_history_1920-present.csv")
     c = c[c.office.str.contains("County Board", na=False)].dropna(subset=["year"]).copy()
     c["year"] = c.year.astype(int)
     c["votes"] = pd.to_numeric(c.votes.astype(str).str.replace(",", ""), errors="coerce")
@@ -348,7 +348,7 @@ def state_contests():
     them, which differs from the county's ("Matthew David De Ferranti" for
     "Matthew D. \"Matt\" de Ferranti"), so a person is matched by surname.
     """
-    c = pd.read_csv(RAW / "virginia" / "county_board_2021-2026.csv")
+    c = pd.read_csv(RAW / "va_dept_of_elections" / "county_board_2021-2026.csv")
     c = c[c.candidate_name.str.match(r"^(?!Total|Write|Under|Over)")]
     c["date"] = pd.to_datetime(c.election_date)
     general = c[c.election_type.str.startswith("General")]

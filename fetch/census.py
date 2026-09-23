@@ -1,4 +1,4 @@
-"""Census API -> data/raw/census/<year>/*.csv, whole tables, for 2000-2020.
+"""Census API -> data/raw/us_census_bureau/<year>/*.csv, whole tables, for 2000-2020.
 
 NOT part of `bash run.sh`, deliberately. The build never touches the network:
 anyone who clones this repository produces every figure from committed files,
@@ -36,7 +36,7 @@ import urllib.parse
 import urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-RAW = ROOT / "data" / "raw" / "census"
+RAW = ROOT / "data" / "raw" / "us_census_bureau"
 STATE, COUNTY = "51", "013"   # Virginia, Arlington County
 
 # Which tables to fetch for each census. RACE gives the race partition; the
