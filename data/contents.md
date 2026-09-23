@@ -264,8 +264,20 @@ cleaning decision shows up as a reviewable diff — you can see which numbers
 moved and by how much.
 
 `residents.csv` — census population by year, with `total_source` and
-`race_source` columns naming the document behind each, the Board's seat count (`at_large`) and the
-residents-per-seat and cube-root columns the figures plot.
+`race_source` columns naming the document behind each, the Board's seat count
+(`at_large`) and the residents-per-seat column the growth figure plots.
+
+From 1980 it also carries five columns that partition the county exactly —
+`hispanic`, `nh_white`, `nh_black`, `nh_aapi`, `nh_other` — built from race
+crossed with Hispanic origin so nobody is counted in two of them. They are what
+`residents_by_race` draws from 1980 on; the delivered `white`, `black`, `hisp`
+and `aapi` columns are kept as received and can overlap. See Q1 in
+`docs/questions.md`.
+
+The `cube_root_p` and `cube_root_resident_ratio` columns are built and no
+figure uses them. `residents_per_seat` carried a cube-root-law benchmark and no
+longer does; whether any comparison belongs in the report is open, so the
+columns stay until that is settled rather than being removed and rebuilt.
 
 `board_members.csv` — one row per person per term, 1870 through 2026: name,
 term number, district, start and end to the month, source, a note only where
