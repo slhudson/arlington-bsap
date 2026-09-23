@@ -47,11 +47,22 @@ not started are the same picture. A line simply begins — Asian & Pacific
 Islander in 1950, Hispanic or Latino in 1970, Other or Multiracial in 1980.
 That is what Q2 asked for and what the retired log figure used to do.
 
-White is excluded because it costs the other four most of the axis: it peaks at
-161,329 and none of the others passes 37,362. Panel (b) carries it, so the
-figure as a whole still shows White. What panel (a) no longer shows is White's
-absolute decline — 161,329 in 1970 to 114,489 in 2000, against a county that
-lost 21,685 residents in the 1970s alone. That belongs in the prose.
+**White is plotted until it leaves the axis, and an arrow marks where.** The
+axis stops at 50,000 because none of the other four passes 37,362; White
+reaches 161,329 by 1970. Plotting its full range would put the other four in
+the bottom quarter, and dropping it entirely loses the years when the groups
+were comparable. So it is drawn, the axis clips it in the late 1930s, and
+`charts.off_scale` puts an arrow where it exits — interpolated from the data,
+not written in.
+
+No text at the arrow. The legend has already named the colour and an arrow
+needs no words; where the line goes is the caption's business.
+
+That keeps the finding the retired log chart existed for: White is 1,175 in
+1870 against Black at 2,010, and Black outnumbered White until about 1890.
+
+White is a shade darker as a line (`style.SAND_LINE`) than as bars — the sand
+is tuned as a filled area and is close to invisible as a stroke.
 
 Three things the lines say that the stacked version could not: Hispanic or
 Latino passes Black in 1990, Asian & Pacific Islander passes Black in 2010, and

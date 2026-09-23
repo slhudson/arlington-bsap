@@ -78,6 +78,10 @@ OKABE_ITO = {
 # saturated lead colour on a chart about representation, so the largest group
 # takes the neutral and the residual band takes the darker one.
 SAND = "#D9D3C4"          # the mass: White residents
+# The sand is tuned as a filled area and is close to invisible as a stroke on
+# white paper. A line chart uses a darker taupe of the same hue, so White is
+# recognisably the same category in both without being unreadable in one.
+SAND_LINE = "#A3997F"
 GREY = "#8C8C8C"          # the residual: other or multiracial
 
 # Colours are assigned per subject rather than through numbered slots. A slot

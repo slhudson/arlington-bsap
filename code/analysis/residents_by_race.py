@@ -38,6 +38,7 @@ paths.build_stage_on_path()
 from assumptions import rescale_to_100   # noqa: E402
 
 CENSUS_FROM = 1980
+TOP = 50000          # White leaves the axis in the late 1930s; see off_scale
 
 for profile in style.PROFILES:
     style.apply(profile)
@@ -80,10 +81,18 @@ for profile in style.PROFILES:
     lines = {style.GROUP_LABELS[g]: (counts[g], style.RACE_COLORS[g])
              for g in ("black", "hisp", "aapi")}
     lines[style.OTHER_LABEL] = (residual.replace(0, np.nan), style.RESIDUAL_COLOR)
+    # White last, so it draws over the others, and in the darker stroke.
+    lines[style.GROUP_LABELS["white"]] = (counts["white"], style.SAND_LINE)
     charts.lines(a, c["year"], lines)
-    charts.counts(a, 40000, 5000)
+    charts.counts(a, TOP, 5000)
     charts.years(a, 1870, 2020, step=20)
-    a.set_title("(a) residents other than White")
+    # White is on scale until the late 1930s and then far off it. The axis
+    # clips it and an arrow marks where it goes, which keeps the years when
+    # the groups were comparable - Black outnumbered White until about 1890 -
+    # without giving three quarters of the axis to a series that ends at
+    # 161,329.
+    charts.off_scale(a, c["year"], counts["white"], style.SAND_LINE, TOP)
+    a.set_title("(a) residents")
 
     charts.stacked_bars(b, c["year"], bands(shares, residual_share))
     charts.shares(b)

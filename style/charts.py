@@ -108,6 +108,32 @@ def stacked_bars(ax, x, series, width=7):
         bottom = bottom + v
 
 
+def off_scale(ax, series_x, series_y, color, top):
+    """Mark where a series leaves the top of the axis.
+
+    For a series that is on scale for part of its range and far off it for the
+    rest: plot it, let the axis clip it, and put an arrow where it exits so the
+    exit is a statement rather than a line that stops for no reason. Where it
+    goes is the caption's business - an arrow needs no words, and the legend
+    has already named the colour.
+
+    Returns the year it crosses, interpolated between the two censuses either
+    side, so nothing is written in by hand.
+    """
+    x = np.asarray(series_x, dtype=float)
+    y = np.asarray(series_y, dtype=float)
+    i = int(np.argmax(y > top))
+    if i == 0:
+        return None
+    frac = (top - y[i - 1]) / (y[i] - y[i - 1])
+    at = x[i - 1] + frac * (x[i] - x[i - 1])
+    span = ax.get_ylim()[1]
+    ax.annotate("", xy=(at, top), xytext=(at - 5, top - span * 0.18),
+                arrowprops=dict(arrowstyle="-|>,head_width=0.38,head_length=0.7",
+                                color=color, lw=2.4, shrinkA=0, shrinkB=0))
+    return at
+
+
 def runs(reported):
     """Index ranges of consecutive reported years, as (first, last) inclusive.
 
