@@ -182,6 +182,40 @@ remains is 1870–1970.
 **In code:** `not_reported_as_zero()` in `code/build/assumptions.py`, applied by
 both panels of `code/analysis/residents_by_race.py`.
 
+### Q25. Bestebreurtje is cited as two different documents
+**Owner:** Sally + Alex · **Status:** open — blocks two claims
+
+`sources.bib` holds `bestebreurtje2024` as the book: *Built by the People
+Themselves*, University of South Carolina Press, 7 November 2024, 298 pages. The
+figures work cites "Bestebreurtje, *Built by the People Themselves* (GMU
+dissertation), p. 215" for the 1930 candidacies of Mary Harris, Edward Morton
+and C.H. Mosley.
+
+The book grew out of the dissertation, but they are two documents and do not
+share pagination, so p. 215 points at one of them and we do not know which.
+Neither is in hand: the bib entry was built from the publisher's catalogue page,
+which its own annotation says.
+
+**Two claims rest on this.** The 1930 candidacies, and the displacement question
+in the race section — Bestebreurtje is the source named there for whether the
+falling Black share reflects neighbourhood clearance that county totals cannot
+see.
+
+**To settle:** find which document carries p. 215, add a separate entry for the
+dissertation if that is the one, and get hold of whichever is cited. Until then
+neither claim should go into prose.
+
+### Q26. Retrocession is dated 1846 or 1847 depending on the source
+**Owner:** Sally · **Status:** open — small, but pick one
+
+Congress passed the retrocession act in July 1846; Virginia formally accepted in
+March 1847. Both dates appear in the literature and both are defensible. The
+figures memo currently says 1847.
+
+The report should use one throughout, and say which event it is dating. Nothing
+in `data/` turns on it — no figure begins before 1870 — so this is a prose
+consistency question rather than a data one.
+
 ### Q24. The Historical Society's roster dates terms a year earlier
 **Owner:** Claude · **Status:** answered 23 Sept 2026 — no discrepancy; two
 conventions
