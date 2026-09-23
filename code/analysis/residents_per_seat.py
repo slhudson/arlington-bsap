@@ -23,7 +23,7 @@ for profile in style.PROFILES:
     d = pd.read_csv(paths.RESIDENTS)[["year", "total", "residents_per_seat"]].dropna()
     series = {
         "total population": (d["total"], style.SERIES_COLORS["population"]),
-        "residents per Board member": (d["residents_per_seat"],
+        "residents per Board seat": (d["residents_per_seat"],
                                        style.SERIES_COLORS["per_seat"]),
     }
 
@@ -42,7 +42,7 @@ for profile in style.PROFILES:
                       f"total population: {int(last['total']):,}",
                       style.SERIES_COLORS["population"])
     charts.label_line(ax, 1958, 72000,
-                      f"residents per Board member: {int(round(last['residents_per_seat'])):,}",
+                      f"residents per Board seat: {int(round(last['residents_per_seat'])):,}",
                       style.SERIES_COLORS["per_seat"])
 
     charts.rule(ax)
