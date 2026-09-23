@@ -28,11 +28,13 @@ from, what backs a particular number, what is still open and who owns it.
 Nothing to install. The sync is one-directional — you can read everything and
 change nothing, so any correction still has to be made in the repository.
 
-Sync only the parts meant to be read: `code/`, `docs/`, `paper/`,
-`data/clean/` and `data/contents.md`. Leave out `data/raw/`, which is 70 MB
-of scanned census volumes, and `data/transcribed/by_ocr/`, which is OCR kept
-only to find which page a table is on — it misreads digits by design, and a
-chat that retrieved it would quote wrong numbers as if they were data.
+Sync `code/`, `docs/`, `paper/`, `data/clean/` and `data/contents.md`, and
+leave out `data/raw/` and `data/transcribed/`. That is the same rule the
+figures follow — they read only `data/clean/` — and it matters for the same
+reason: the layers above hold scans, OCR that misreads digits by design, and
+tables that have not been reconciled yet, any of which a chat would quote as
+if it were the answer. `data/contents.md` describes those folders, so you can
+still see what is behind a number without the files themselves.
 The repository is attached the same way a document is: in the Project's
 knowledge (its project files), not under settings or connectors, which is
 the step that is easy to go looking for in the wrong place. It needs a
