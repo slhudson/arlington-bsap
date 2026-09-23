@@ -21,7 +21,7 @@ A file in `raw/` is its own citation: the volume is the evidence. A file in
 said, so every row needs a citation back to the page. That difference is the
 whole of the sourcing problem, and `docs/sources.md` tracks it.
 
-`transcribed/by_ocr/` is absent from `code/build/files.py` and `code/analysis/files.py`
+`transcribed/by_ocr/` is absent from `code/build/paths.py` and `code/analysis/paths.py`
 by design. OCR misreads digits, so it is a finding aid: it locates a table and
 a page, and never supplies a number.
 

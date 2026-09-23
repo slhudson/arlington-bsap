@@ -1,6 +1,6 @@
-"""Where real filenames are assigned to the short names the code uses.
+"""Where real paths are assigned to the short names this stage uses.
 
-The analysis-stage counterpart to code/build/files.py. It maps data/ and figures/;
+The analysis-stage counterpart to code/build/paths.py. It maps data/ and figures/;
 it defines no route to raw/. A figure script asking for a source workbook gets
 an ImportError, so the wall between deciding what a number IS and deciding how
 it is SHOWN is a thing that is not there, rather than a rule to remember.
@@ -9,7 +9,7 @@ If a figure seems to need something raw/ has and data/ does not, the fix is a
 change to code/build/, not an import added here.
 
 The visual conventions are not here either. They live in style/, outside code/,
-which has no files.py and therefore no route to data/ - so a colour or a chart
+which has no paths.py and therefore no route to data/ - so a colour or a chart
 helper cannot quietly start depending on a column. run.sh puts that folder on
 the path; `import style` and `import charts` resolve to it.
 """
@@ -51,9 +51,9 @@ def save(fig, stem, profile=None):
 
 
 def build_stage_on_path():
-    """Let a figure import code/build/open_questions.py.
+    """Let a figure import code/build/assumptions.py.
 
-    Appends rather than inserts, because code/build/ also has a files.py: putting it
+    Appends rather than inserts, because code/build/ also has a paths.py: putting it
     first would shadow this module and hand analysis a route to raw/.
     """
     import sys

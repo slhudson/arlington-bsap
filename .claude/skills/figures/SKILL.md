@@ -11,10 +11,10 @@ set inside a figure script.
     style/style.py             Urban's conventions, the palette, the profiles
     style/urban.mplstyle       the rcParams, cited to the guide
     style/charts.py            the chart types, with legend and note placement
-    code/analysis/files.py     where things are read and written
+    code/analysis/paths.py     where things are read and written
     code/analysis/<figure>.py  which numbers a figure shows
 
-`style/` has no `files.py` and therefore no route to `data/`. If something
+`style/` has no `paths.py` and therefore no route to `data/`. If something
 visual needs a column, that is a sign the figure script should pass it in.
 
 A figure script reads `data/clean/`, calls `charts.*`, and calls

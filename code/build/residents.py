@@ -59,7 +59,7 @@ applied here; see docs/questions.md.
 import pandas as pd
 
 import citekeys
-from files import RAW, RESIDENTS_XLSX, TRANSCRIBED, numeric, write
+from paths import RAW, RESIDENTS_XLSX, TRANSCRIBED, numeric, write
 
 # Which document each year's population total comes from. Named here rather
 # than decided by a rule, so it can be read off rather than inferred, and so a

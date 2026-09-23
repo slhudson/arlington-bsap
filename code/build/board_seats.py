@@ -22,7 +22,7 @@ roster has months.
 import pandas as pd
 
 import citekeys
-from files import BOARD_SEATS_XLSX, CLEAN, numeric, write
+from paths import BOARD_SEATS_XLSX, CLEAN, numeric, write
 
 COLUMNS = ["year", "white", "black", "hisp", "aapi", "men", "women"]
 RACE = {"White": "white", "Black": "black", "Hispanic": "hisp", "Asian": "aapi"}

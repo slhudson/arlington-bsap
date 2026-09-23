@@ -1,4 +1,4 @@
-"""Where real filenames are assigned to the short names the code uses.
+"""Where real paths are assigned to the short names this stage uses.
 
 data/ has four layers, sorted by how the numbers were produced:
 
@@ -25,7 +25,7 @@ It also fails fast: a missing input raises here, with the path, before any work
 starts, rather than surfacing as a confusing error from inside pandas.
 
 This is the only module in the repository that knows where raw/ is.
-code/analysis/files.py does the same job for data/ and figures/, and deliberately
+code/analysis/paths.py does the same job for data/ and figures/, and deliberately
 defines no route to raw/ - so a figure script asking for a source workbook gets
 an ImportError. The wall between the stages is a thing that is not there,
 rather than a rule someone has to remember.

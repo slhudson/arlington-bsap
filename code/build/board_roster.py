@@ -31,7 +31,7 @@ import re
 import pandas as pd
 
 import citekeys
-from files import RAW, TRANSCRIBED
+from paths import RAW, TRANSCRIBED
 
 BY_CLAUDE = TRANSCRIBED / "by_claude"
 NOVACK_PUBLISHED = 1994

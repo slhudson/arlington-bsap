@@ -19,16 +19,16 @@ import numpy as np
 import pandas as pd
 
 import charts
-import files
+import paths
 import style
 
-files.build_stage_on_path()
+paths.build_stage_on_path()
 from assumptions import not_reported_as_zero, rescale_to_100   # noqa: E402
 
 for profile in style.PROFILES:
     style.apply(profile)
 
-    c = not_reported_as_zero(pd.read_csv(files.RESIDENTS))     # not-reported read as zero
+    c = not_reported_as_zero(pd.read_csv(paths.RESIDENTS))     # not-reported read as zero
     order = style.GROUP_ORDER
     other = (c["total"] - c[order].sum(axis=1)).clip(lower=0)
 
@@ -60,4 +60,4 @@ for profile in style.PROFILES:
     entries[style.OTHER_LABEL] = style.RESIDUAL_COLOR
     charts.legend(fig, entries)
 
-    files.save(fig, "residents_by_race", profile)
+    paths.save(fig, "residents_by_race", profile)

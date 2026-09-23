@@ -12,13 +12,13 @@ preference over a legend where the lines allow it.
 import pandas as pd
 
 import charts
-import files
+import paths
 import style
 
 for profile in style.PROFILES:
     style.apply(profile)
 
-    d = pd.read_csv(files.RESIDENTS)[["year", "total", "residents_per_seat"]].dropna()
+    d = pd.read_csv(paths.RESIDENTS)[["year", "total", "residents_per_seat"]].dropna()
     series = {
         "total population": (d["total"], style.SERIES_COLORS["population"]),
         "residents per\nBoard seat": (d["residents_per_seat"], style.SERIES_COLORS["per_seat"]),
@@ -32,4 +32,4 @@ for profile in style.PROFILES:
     charts.years(ax, 1870, 2020, step=20, headroom=0.30)
     charts.end_labels(ax, d["year"], series)
     charts.rule(ax)
-    files.save(fig, "residents_per_seat", profile)
+    paths.save(fig, "residents_per_seat", profile)

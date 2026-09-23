@@ -15,13 +15,13 @@ Half-height segments are genuine: a member left mid-year and was replaced.
 import pandas as pd
 
 import charts
-import files
+import paths
 import style
 
 for profile in style.PROFILES:
     style.apply(profile)
 
-    d = pd.read_csv(files.BOARD_SEATS)
+    d = pd.read_csv(paths.BOARD_SEATS)
     spans = charts.runs(d["white"].notna().to_numpy())
     held = [g for g in style.GROUP_ORDER if d[g].fillna(0).sum() > 0]
     assert held, "no seat is attributed to any race category - check the build"
@@ -35,4 +35,4 @@ for profile in style.PROFILES:
     ax.set_xlim(1866, 2027)
     charts.rule(ax, note=style.EXPANSION_NOTE_SEATS)
     charts.legend(fig, {style.GROUP_LABELS[g]: style.RACE_COLORS[g] for g in held})
-    files.save(fig, "board_race", profile)
+    paths.save(fig, "board_race", profile)

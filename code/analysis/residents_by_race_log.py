@@ -16,13 +16,13 @@ import pandas as pd
 from matplotlib.ticker import FixedLocator, NullLocator
 
 import charts
-import files
+import paths
 import style
 
 for profile in style.PROFILES:
     style.apply(profile)
 
-    c = pd.read_csv(files.RESIDENTS)
+    c = pd.read_csv(paths.RESIDENTS)
     series = {"total population": (c["total"], style.RESIDUAL_COLOR)}
     for g in style.GROUP_ORDER:
         series[style.GROUP_LABELS[g]] = (c[g], style.RACE_COLORS[g])
@@ -46,4 +46,4 @@ for profile in style.PROFILES:
     ax.lines[0].set_linestyle((0, (1, 1.6)))
     charts.legend(fig, {k: v[1] for k, v in series.items()})
 
-    files.save(fig, "residents_by_race_log", profile)
+    paths.save(fig, "residents_by_race_log", profile)

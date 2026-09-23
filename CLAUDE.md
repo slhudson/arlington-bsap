@@ -34,11 +34,11 @@ Dividing counts into shares, choosing a log axis, deciding which years to show.
 Presentation choices are still subjective, but they cannot change a value. If
 they would only disagree about how to *show* it, it belongs in `code/analysis/`.
 
-This is enforced structurally, not by convention: `code/analysis/files.py` has no
+This is enforced structurally, not by convention: `code/analysis/paths.py` has no
 path to `data/raw/`, `data/transcribed/by_human/` or `data/transcribed/`. A figure script that wants to reach around the cleaning step
 has nothing to reach with. Note that `analysis` scripts *append* `code/build/` to
-`sys.path` rather than inserting it, so `code/build/files.py` cannot shadow
-`code/analysis/files.py` and quietly restore that route.
+`sys.path` rather than inserting it, so `code/build/paths.py` cannot shadow
+`code/analysis/paths.py` and quietly restore that route.
 
 ## Naming
 
@@ -57,9 +57,11 @@ in `docs/`.** `code/build/assumptions.py` holds the mechanism of the two open
 questions; the reasoning is in `docs/questions.md`. Code files carry a pointer,
 not an argument.
 
-**`files.py` is where real filenames are assigned to the short names the code
-uses.** Fix the mapping once and every script follows. There is one per stage,
-and that is deliberate — see above.
+**`paths.py` is where real paths are assigned to the short names a stage
+uses.** Fix the mapping once and every script in that stage follows. There is
+one per stage, and that is deliberate — see above. They cannot be merged:
+`code/build/paths.py` maps `data/raw/` and `code/analysis/paths.py` does not,
+and that absence is the wall.
 
 ## The rules that matter
 
@@ -90,7 +92,7 @@ fonts, chart types and figure dimensions are imported, never redeclared, so a
 palette change is one edit. `code/analysis/` holds the substance: which numbers
 a figure shows and over what range.
 
-The split is structural, like the one above it. `style/` has no `files.py`,
+The split is structural, like the one above it. `style/` has no `paths.py`,
 so nothing in it has a route to `data/` at all — a chart helper that wanted to
 reach a column has nothing to reach with. `run.sh` puts that folder on the path
 for the analysis stage, so a figure script reads `import style` and

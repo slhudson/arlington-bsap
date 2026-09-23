@@ -13,13 +13,13 @@ Half-height segments are genuine: a member left mid-year and was replaced.
 import pandas as pd
 
 import charts
-import files
+import paths
 import style
 
 for profile in style.PROFILES:
     style.apply(profile)
 
-    d = pd.read_csv(files.BOARD_SEATS)
+    d = pd.read_csv(paths.BOARD_SEATS)
     spans = charts.runs(d["women"].notna().to_numpy())
     series = {style.GENDER_LABELS[g]: (d[g].fillna(0).to_numpy(), style.GENDER_COLORS[g])
               for g in style.GENDER_ORDER}
@@ -32,4 +32,4 @@ for profile in style.PROFILES:
     charts.rule(ax, note=style.EXPANSION_NOTE_SEATS)
     charts.legend(fig, {style.GENDER_LABELS[g]: style.GENDER_COLORS[g]
                         for g in style.GENDER_ORDER})
-    files.save(fig, "board_gender", profile)
+    paths.save(fig, "board_gender", profile)

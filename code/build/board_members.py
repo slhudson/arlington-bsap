@@ -21,7 +21,7 @@ import pandas as pd
 
 import board_roster
 import citekeys
-from files import BOARD_MEMBERS_XLSX, TRANSCRIBED, write
+from paths import BOARD_MEMBERS_XLSX, TRANSCRIBED, write
 
 BY_CLAUDE = TRANSCRIBED / "by_claude"
 

@@ -41,7 +41,7 @@ time. docs/sources.md says what stands behind them meanwhile.
 import pathlib
 import re
 
-# Its own path rather than files.py's, so that files.py can import this module
+# Its own path rather than paths.py's, so that paths.py can import this module
 # without the two importing each other. This one knows about paper/, not data/.
 BIB = pathlib.Path(__file__).resolve().parents[2] / "paper" / "sources.bib"
 
