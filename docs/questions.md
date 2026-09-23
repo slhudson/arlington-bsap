@@ -130,8 +130,25 @@ The 1889–1986 stretch is coded all-White, roughly 490 person-years, resting on
 that framing. It is the most load-bearing claim in the report and has not been
 independently verified. Detail in `docs/sources.md`.
 
+### Q21. Hjerpe frames the five Black members as an open question
+**Owner:** Claude · **Status:** open — the coding may overstate its source
+
+The sentence naming the five — Rowe, Syphax, Pinn, Pendleton, Allen — sits on
+the title page of Hjerpe's paper under the heading **"Lingering Inquiries"**,
+her own list of things she is asking readers for help with. It reads "census
+records which *seemed to indicate*", and the paragraph goes on to say she has
+found little on four of the five.
+
+`board_demographics.csv` records the basis for that row as "stated directly",
+which is stronger than the source is. The three appendix rows are unaffected —
+they rest on the reproduced census images, not on this sentence.
+
+Worth deciding whether the basis should read something like "named in the
+author's own open questions", and whether the report should describe the five
+as identified or as proposed. This bears on Q3 and Q17.
+
 ### Q20. Vollin is two cases, and Pratt gives both citations
-**Owner:** Claude · **Status:** answerable now — entries not yet written
+**Owner:** Claude · **Status:** answered — both entered; the Virginia year is still missing
 
 The Drive folder already held Pratt (1995) under the title "Arlington's
 Electoral History", which is O'Leary's subject rather than his. Its footnotes
@@ -147,13 +164,20 @@ settle what the handoff listed as an open question:
   from the volume number without checking a reporter.
 
 So they are two proceedings, not one, and the report should not merge them.
-What is left: confirm the Virginia case's year, decide how a court case is
-entered in `paper/sources.bib` — biblatex-chicago has `@jurisdiction` — and
-whether Pratt, who heard the testimony and holds his own tapes of Vollin, is
-cited alongside as where we read it.
+Both are now in `paper/sources.bib` as `vollin1974` and
+`vollinelectoralboard`.
+
+**A trap found while entering them.** biblatex-chicago in notes mode silently
+drops `@jurisdiction`, `@legal` and `@legislation`: the document compiles with
+no warning and the entry simply is not in the bibliography. It was caught by
+compiling the file and reading the output. Cases are therefore entered as
+`@misc` with the court, reporter and docket in `note`, which prints. Anyone
+adding a case later should compile and look rather than trust the entry type.
+
+Still open: the Virginia case's year, which the article does not give.
 
 ### Q19. Hjerpe's page numbers are the PDF's, not the document's
-**Owner:** Claude · **Status:** open — found 23 Sept 2026, not yet corrected
+**Owner:** Claude · **Status:** answered — corrected 23 Sept 2026
 
 Hjerpe's document carries its own page numbers, and they run one behind the
 PDF's: the page printed "8" is the ninth sheet. The thirteen locators in
@@ -165,8 +189,11 @@ high. Before changing them, confirm against the filed snapshot rather than the
 live Google Doc, whose pagination can differ again — which is the reason for
 snapshotting in the first place.
 
-Appendix 1 also does not appear where `p.8` claims; that page carries narrative
-text and no image. Worth resolving in the same pass.
+**Corrected.** Every locator was checked against the filed snapshot by finding
+its quoted sentence, not by assuming a uniform shift — the offset turned out to
+be a consistent one. Eleven rows moved. The sentence naming the five Black
+members is on the first sheet, which carries no number at all, so it is cited
+as `title page`; reading it also raised Q21.
 
 ### Q18. Where do the prose-only sources live?
 **Owner:** Sally · **Status:** answered — folder, convention and four sources filed

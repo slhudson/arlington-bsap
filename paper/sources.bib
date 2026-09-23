@@ -169,6 +169,39 @@
 
 % ------------------------------------------- consulted to settle a question
 
+% Two proceedings, not one. Both are cited by \cite{pratt1995}, who heard the
+% testimony; neither opinion has been read here, which is what the annotations
+% admit to.
+%
+% Entered as @misc deliberately. biblatex-chicago in notes mode silently drops
+% @jurisdiction, @legal and @legislation - they compile without a warning and
+% simply do not appear in the bibliography, which was checked by compiling
+% them. A case therefore goes in as @misc with the court, reporter and docket
+% in `note`, which prints, and that is where a reader needs them anyway.
+
+@misc{vollin1974,
+  title       = {George Vollin, Jr., et al. v. Mills E. Godwin, et al.},
+  note        = {U.S. District Court, Eastern District of Virginia, Alexandria
+                 Division, Civil Action No. 173-74-A},
+  date        = {1974},
+  annotation  = {A civil rights suit to have Arlington's at-large voting system
+                 declared unconstitutional. Vollin testified in 1974; the eight
+                 plaintiffs are named in pratt1995 note 16. Court, division and
+                 docket number as pratt1995 notes 5 and 15 print them. The
+                 filing date, the outcome and the opinion have not been read
+                 here, and no year but the testimony's is recorded},
+}
+
+@misc{vollinelectoralboard,
+  title       = {Vollin v. Arlington County Electoral Board},
+  note        = {Supreme Court of Virginia, 216 Va. 674},
+  annotation  = {Cited at 216 Va. 674 in pratt1995 note 3, where the scan
+                 prints it "Yollin" - a misread V. **No year**: the article
+                 does not give one, and it must not be inferred from the volume
+                 number without checking a reporter. Distinct from vollin1974,
+                 the federal suit; the report should not merge them},
+}
+
 @article{rose1964,
   author      = {Rose, Jr., C. B.},
   title       = {Annexation of a Portion of Arlington County by the City of
