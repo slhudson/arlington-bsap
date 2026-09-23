@@ -7,6 +7,11 @@ it is SHOWN is a thing that is not there, rather than a rule to remember.
 
 If a figure seems to need something raw/ has and data/ does not, the fix is a
 change to code/build/, not an import added here.
+
+The visual conventions are not here either. They live in style/, outside code/,
+which has no files.py and therefore no route to data/ - so a colour or a chart
+helper cannot quietly start depending on a column. run.sh puts that folder on
+the path; `import style` and `import charts` resolve to it.
 """
 from pathlib import Path
 

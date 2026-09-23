@@ -5,13 +5,17 @@ description: Build or change a figure in this repository. Use whenever a chart, 
 
 # Figures
 
-Every figure is built through the style layer in `code/analysis/`. Nothing
-visual is set inside a figure script.
+Every figure is built through the style layer in `style/`. Nothing visual is
+set inside a figure script.
 
-    style.py        Urban's conventions, the palette, the two output profiles
-    urban.mplstyle  the rcParams, cited to the guide
-    charts.py       the four chart types, with legend and note placement built in
-    files.py        where things are written
+    style/style.py             Urban's conventions, the palette, the profiles
+    style/urban.mplstyle       the rcParams, cited to the guide
+    style/charts.py            the chart types, with legend and note placement
+    code/analysis/files.py     where things are read and written
+    code/analysis/<figure>.py  which numbers a figure shows
+
+`style/` has no `files.py` and therefore no route to `data/`. If something
+visual needs a column, that is a sign the figure script should pass it in.
 
 A figure script reads `data/clean/`, calls `charts.*`, and calls
 `files.save()`. If it needs a colour, a size, a font, a margin or a legend

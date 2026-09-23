@@ -85,8 +85,23 @@ opposite, and we follow it elsewhere. These are small CSVs, and committing them
 means a cleaning decision shows up as a reviewable diff — you can see exactly
 which numbers moved and by how much. That matters while those are open.
 
-**Visual conventions live in `code/analysis/style.py`.** Colors, fonts and figure
-dimensions are imported, never redeclared, so a palette change is one edit.
+**Visual conventions live in `style/`, not in `code/analysis/`.** Colors,
+fonts, chart types and figure dimensions are imported, never redeclared, so a
+palette change is one edit. `code/analysis/` holds the substance: which numbers
+a figure shows and over what range.
+
+The split is structural, like the one above it. `style/` has no `files.py`,
+so nothing in it has a route to `data/` at all — a chart helper that wanted to
+reach a column has nothing to reach with. `run.sh` puts that folder on the path
+for the analysis stage, so a figure script reads `import style` and
+`import charts` and nothing else.
+
+The conventions themselves are the Urban Institute's data visualization style
+guide, loaded from `style/urban.mplstyle` and cited there. Where this project
+departs from Urban, the departure is in `style/style.py` with its reason.
+
+`style/` sits outside `code/` because most of it cannot be executed: a typeface
+and a table of rcParams. `code/` is for things you can run.
 
 **`run.sh` never touches the network.** Fetching a source is `code/fetch/`, run on
 demand, which saves into `data/raw/` and commits the file. The build then

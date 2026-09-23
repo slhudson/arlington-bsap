@@ -39,6 +39,13 @@ for s in "${BUILD[@]}"; do
   (cd code/build && ../../"$PY" "$s.py")
 done
 
+# style/ holds the visual conventions; code/analysis/ holds the substance. It
+# sits outside code/ because most of what is in it cannot be executed - a
+# typeface and a table of rcParams - and code/ is for things you can run.
+# Putting it on the path here means a figure script reads `import style` and
+# nothing else.
+export PYTHONPATH="$PWD/style"
+
 echo "analysis"
 selected=("${FIGURES[@]}")
 if [ $# -gt 0 ]; then

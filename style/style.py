@@ -1,5 +1,15 @@
 """Visual conventions. Every figure imports these; none redeclares them.
 
+This folder holds how a number is *shown*, separately from code/analysis/,
+which holds the substance. It sits outside code/ because most of it cannot be
+executed - a typeface, and a table of rcParams - and code/ is for things you
+can run.
+
+The separation is structural rather than a habit: there is no files.py here, so
+nothing in style/ has a route to data/ at all. A chart helper that wanted to
+reach a column has nothing to reach with - the same wall code/analysis/ already
+has against data/raw/.
+
 The conventions are the Urban Institute's data visualization style guide,
 
     https://urbaninstitute.github.io/graphics-styleguide/

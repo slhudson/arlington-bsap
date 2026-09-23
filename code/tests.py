@@ -212,7 +212,7 @@ def test_docs_name_only_paths_that_exist():
     """
     import re
     root = Path(__file__).resolve().parents[1]
-    tops = ("code/", "data/", "docs/", "figures/", "paper/")
+    tops = ("code/", "data/", "docs/", "figures/", "paper/", "style/")
     docs = [*root.glob("*.md"), *root.glob("docs/*.md"), root / "data" / "contents.md"]
     missing = []
     for doc in docs:

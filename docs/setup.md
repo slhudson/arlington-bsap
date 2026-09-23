@@ -140,5 +140,5 @@ Once `bash run.sh` works, the setup is done. For orientation, a good first
 thing to do is to open Claude Code inside the repository folder and ask it
 to walk through `README.md` and `CLAUDE.md`; then change something small in
 one figure — `code/analysis/` has one script per figure, named for the figure it
-produces, and `code/analysis/style.py` holds the colours and fonts they share —
+produces, and `style/` holds the colours, fonts and chart types they share —
 and rebuild, to see the loop work end to end.

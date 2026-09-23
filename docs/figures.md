@@ -74,7 +74,7 @@ for women and slate `#A9BBCB` for men.
 
 White and the gender pair were both revised during the working session toward
 softer tones. The current values are chosen to stay distinguishable for
-colorblind readers and in grayscale. They live in `code/analysis/style.py` and are imported by every
+colorblind readers and in grayscale. They live in `style/style.py` and are imported by every
 figure, so a palette change is a single edit.
 
 ## Where the code is
