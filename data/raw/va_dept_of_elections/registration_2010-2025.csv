@@ -1,0 +1,17 @@
+year,report,as_of,precincts,active,inactive,all,file
+2010,2010/10,2010-11-05,51,132583,13118,145701,https://www.elections.virginia.gov/media/registration-statistics/2010/10/Registrant_Counts_By_Locality.xls
+2011,2011/10,2011-11-05,52,135595,15398,150993,https://www.elections.virginia.gov/media/registration-statistics/2011/10/Registrant_Counts_By_Locality.xls
+2012,2012/10,2012-11-01,52,139740,29028,168768,https://www.elections.virginia.gov/media/registration-statistics/2012/10/Registrant_Counts_By_Locality.xls
+2013,2013/10,,52,136410,23366,159776,https://www.elections.virginia.gov/media/registration-statistics/2013/10/Registrant_Count_By_Locality.csv
+2014,2014/10,,52,141085,20775,161860,https://www.elections.virginia.gov/media/registration-statistics/2014/10/Registrant_Count_By_Locality.csv
+2015,2015/10,,52,134772,16501,151273,https://www.elections.virginia.gov/media/registration-statistics/2015/10/Registrant_Count_By_Locality.csv
+2016,2016/10,,52,148032,21181,169213,https://www.elections.virginia.gov/media/registration-statistics/2016/10/Registrant_Count_By_Locality.csv
+2017,2017/10,,54,145880,17378,163258,https://www.elections.virginia.gov/media/registration-statistics/2017/10/Registrant_Count_By_Locality.csv
+2018,2018/10,,54,150820,19763,170583,https://www.elections.virginia.gov/media/registration-statistics/2018/10/Registrant_Count_By_Locality.csv
+2019,2019/10,,54,152092,14149,166241,https://www.elections.virginia.gov/media/registration-statistics/2019/10/Registrant_Count_By_Locality.csv
+2020,2020/10,2020-11-01,54,166415,12013,178428,https://www.elections.virginia.gov/media/registration-statistics/2020/10/Daily_Registrant_Count_By_Locality_2020_11_01_054008.csv
+2021,2021/10,2021-11-01,54,154781,14866,169647,https://www.elections.virginia.gov/media/registration-statistics/2021/10/reg-stats-oct-2021-csv/Daily_Registrant_Count_By_Locality_2021_11_01_054522.csv
+2022,2022/10,2022-11-01,54,157160,18318,175478,https://www.elections.virginia.gov/media/registration-statistics/2022/10/oct-2022-csvs/Daily_Registrant_Count_By_Locality_2022_11_01_053048.csv
+2023,2023/10,2023-11-01,54,153805,21992,175797,https://www.elections.virginia.gov/media/registration-statistics/2023/10/oct-csvs/Daily_Registrant_Count_By_Locality_2023_11_01_054839.csv
+2024,2024/10,2024-11-01,54,164865,22226,187091,https://www.elections.virginia.gov/media/registration-statistics/2024/10/csv/Daily_Registrant_Count_By_Locality_2024_11_01_054233.csv
+2025,2025/10,2025-11-01,54,167699,13833,181532,https://www.elections.virginia.gov/media/registration-statistics/2025/10/csv/Daily_Registrant_Count_By_Locality_2025_11_01_053246.csv

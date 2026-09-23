@@ -25,6 +25,10 @@ import board_roster  # noqa: E402
 import board_seats  # noqa: E402
 import citekeys  # noqa: E402
 import residents  # noqa: E402
+import turnout  # noqa: E402
+
+sys.path.insert(0, str(Path(__file__).resolve().parent / "fetch"))
+import registration  # noqa: E402
 
 
 def breaks(module, attr, mangle, build=None):
@@ -266,6 +270,62 @@ def test_a_placeholder_is_allowed_and_counted():
         [citekeys.ASSUMED, citekeys.ASSUMED, citekeys.UNSOURCED], "x.csv")
     assert counts[citekeys.ASSUMED] == 2, counts
     assert counts[citekeys.UNSOURCED] == 1, counts
+
+
+# --- guards on the turnout series ---------------------------------------------
+
+def test_more_board_voters_than_registered_voters_is_rejected():
+    """A Board contest's votes read as voters, in a two-seat year, or a
+    total read as a per-candidate figure, would put the Board line above
+    the registered line - and the figure would draw it. The mangle makes
+    2020's registration smaller than its Board vote."""
+    def mangle(orig):
+        def patched():
+            r = orig()
+            r.loc[r.year == 2020, "registered"] = 100000
+            return r
+        return patched
+    err = breaks(turnout, "registration", mangle)
+    assert err and "registered" in err and "2020" in err, f"not caught: {err}"
+
+
+def test_more_board_voters_than_presidential_voters_is_rejected():
+    """The same guard against the presidential vote, which reaches back to
+    1932 where registration does not. The mangle doubles 1972's Board
+    vote, as counting a two-seat year's votes as one seat's would."""
+    def mangle(orig):
+        def patched(roster):
+            b = orig(roster)
+            b.loc[b.year == 1972, "board_votes"] *= 2
+            return b
+        return patched
+    err = breaks(turnout, "board_county", mangle)
+    assert err and "presidential" in err and "1972" in err, f"not caught: {err}"
+
+
+def test_registration_refuses_a_locality_total_that_is_not_its_precincts():
+    """The state's registration CSV names its columns backwards: the ones
+    called ...Locality hold the whole state's totals, and the ones called
+    ...PrecinctLocality hold the locality's. Reading the wrong one gives
+    Arlington five million registered voters, and nothing downstream would
+    object - the Board's voters are comfortably below it. The fetch checks
+    the total it takes against the sum of Arlington's own precinct rows.
+    """
+    head = ("Locality,PrecinctCode,PrecinctName,ActiveVoters,InactiveVoters,AllVoters,"
+            "TotalPrecinctsInLocality,TotalActiveVotersPrecinctLocality,"
+            "TotalInActiveVotersPrecinctLocality,TotalAllVotersPrecinctLocality,"
+            "TotalActiveVotersLocality,TotalInActiveVotersLocality,TotalAllVotersLocality\n")
+    good = head + ("Locality: 013 ARLINGTON COUNTY,0001,001 - A,100,10,110,2,250,25,275,5000,500,5500\n"
+                   "Locality: 013 ARLINGTON COUNTY,0002,002 - B,150,15,165,2,250,25,275,5000,500,5500\n")
+    row = registration.from_csv(good.encode(), "x.csv")
+    assert row["all"] == 275, row
+    bad = good.replace(",250,25,275,", ",5000,500,5500,")
+    try:
+        registration.from_csv(bad.encode(), "x.csv")
+        err = None
+    except SystemExit as e:
+        err = str(e)
+    assert err and "sum of Arlington's precincts" in err, f"not caught: {err}"
 
 
 # --- the documentation names real files ---------------------------------------

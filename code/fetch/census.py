@@ -74,10 +74,17 @@ STATE, COUNTY = "51", "013"   # Virginia, Arlington County
 # any consistent set of categories has to be built from - see docs/questions.md.
 # Group names differ by census even where the variables do not: 2000 uses
 # P003, 2010 the same table as P3, 2020 as P1. Named here rather than derived.
+#
+# The third table is the same race partition for the population 18 years and
+# over, which is the voting-age population: the denominator turnout is put
+# over when registration is not known. Its first cell is the total.
 TABLES = {
-    2000: ("dec/sf1", {"P003": "race", "P008": "hispanic_origin_by_race"}),
-    2010: ("dec/sf1", {"P3": "race", "P5": "hispanic_origin_by_race"}),
-    2020: ("dec/pl", {"P1": "race", "P2": "hispanic_origin_by_race"}),
+    2000: ("dec/sf1", {"P003": "race", "P008": "hispanic_origin_by_race",
+                       "P005": "race_18_and_over"}),
+    2010: ("dec/sf1", {"P3": "race", "P5": "hispanic_origin_by_race",
+                       "P10": "race_18_and_over"}),
+    2020: ("dec/pl", {"P1": "race", "P2": "hispanic_origin_by_race",
+                      "P3": "race_18_and_over"}),
 }
 
 
@@ -93,6 +100,15 @@ TABLES = {
 #
 # 1990's documentation is PDF only, so its offsets were read off the file and
 # are checked on every run - see this module's docstring.
+
+# The age groups as the two files cut them, in the Bureau's order.
+AGES_1980 = ["under_1", "1_2", "3_4", "5", "6", "7_9", "10_13", "14", "15", "16", "17",
+             "18", "19", "20", "21", "22_24", "25_29", "30_34", "35_44", "45_54",
+             "55_59", "60_61", "62_64", "65_74", "75_84", "85_over"]
+AGES_1990 = ["under_1", "1_2", "3_4", "5", "6", "7_9", "10_11", "12_13", "14", "15", "16",
+             "17", "18", "19", "20", "21", "22_24", "25_29", "30_34", "35_39", "40_44",
+             "45_49", "50_54", "55_59", "60_61", "62_64", "65_69", "70_74", "75_79",
+             "80_84", "85_over"]
 
 ARCHIVE = {
     1980: {
@@ -112,9 +128,18 @@ ARCHIVE = {
             "table9_race_of_spanish_origin": (550, ["total", "white", "black",
                                                     "american_indian_eskimo_aleut_asian_pacific_islander",
                                                     "other"]),
+            # Table 10 is "sex by age": 26 age groups for everyone, then the
+            # same 26 for women - the dictionary's two strata are Total and
+            # Female, and men are the difference. Saved as its two halves.
+            # The voting-age population is everyone from "18 years" on, the
+            # last fifteen cells of the first half, summed in
+            # code/build/turnout.py.
+            "table10_age": (595, AGES_1980),
+            "table10_female_by_age": (829, AGES_1980),
         },
         # Each table's cells must account for the same population.
-        "ties": [("table7_race", None), ("table8_spanish_origin", None)],
+        "ties": [("table7_race", None), ("table8_spanish_origin", None),
+                 ("table10_age", None)],
     },
     1990: {
         "url": "https://www2.census.gov/census_1990/STF1A_ASCII/90STF1A-VA.ZIP",
@@ -129,6 +154,12 @@ ARCHIVE = {
         "tables": {
             "race": (382, ["white", "black", "american_indian_eskimo_aleut",
                            "asian_pacific_islander", "other"]),
+            # P11, age in 31 groups. Located the way the race tables were: the
+            # one run of 31 cells in Arlington's record that sums to the county
+            # total, whose first cells (1,878 under one year, 4,178 aged one and
+            # two) are the shape of an age distribution. Voting age is the 19
+            # cells from "18" on.
+            "age": (796, AGES_1990),
             "hispanic_origin_by_race": (706, [
                 "not_hispanic_white", "not_hispanic_black",
                 "not_hispanic_american_indian_eskimo_aleut",
@@ -138,7 +169,7 @@ ARCHIVE = {
                 "hispanic_asian_pacific_islander", "hispanic_other"]),
         },
         "total_at": 355,
-        "ties": [("race", 355), ("hispanic_origin_by_race", 355)],
+        "ties": [("race", 355), ("hispanic_origin_by_race", 355), ("age", 355)],
     },
 }
 CELL = 9
@@ -226,9 +257,12 @@ def is_value(code, table):
     """True for a data column of this table, false for annotation columns."""
     if code.endswith(("ERR", "EA", "MA", "_NA")):
         return False
+    # 2010's codes pad the table number to three digits: table P3 is P003001
+    # and P10 is P010001.
+    padded = "P" + table[1:].zfill(3) if table[1:].isdigit() else table
     return (code.startswith(table + "_")
             or (code.startswith(table) and code[len(table):].isdigit())
-            or (table in ("P3", "P5") and code.startswith("P00" + table[1:])))
+            or (code.startswith(padded) and code[len(padded):].isdigit()))
 
 
 def first_value(head, table):
@@ -240,12 +274,22 @@ def labels(year, dataset):
     return get(f"https://api.census.gov/data/{year}/{dataset}/variables.json")["variables"]
 
 
-def main():
+def main(years=None):
+    """Everything, or only the censuses named on the command line:
+
+        .venv/bin/python code/fetch/census.py 2000 2010 2020
+
+    names the API years alone, which spares the 200 MB archive downloads
+    when a table is added for the machine-readable censuses.
+    """
     for year, spec in ARCHIVE.items():
-        archive_year(year, spec)
+        if not years or year in years:
+            archive_year(year, spec)
 
     key = api_key()
     for year, (dataset, tables) in TABLES.items():
+        if years and year not in years:
+            continue
         out_dir = RAW / str(year)
         out_dir.mkdir(parents=True, exist_ok=True)
         meta = labels(year, dataset)
@@ -285,4 +329,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    main({int(a) for a in sys.argv[1:]})

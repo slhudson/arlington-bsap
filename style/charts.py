@@ -45,14 +45,18 @@ def panels(ratio=style.PANELS, profile=style.DEFAULT_PROFILE):
     return fig, axes
 
 
-def lines(ax, x, series):
+def lines(ax, x, series, marker=True):
     """One line per series. series is an ordered {label: (values, colour)}.
+
+    A marker on every point, unless the series is annual: ninety dots on a
+    line are noise, and a point is worth marking when the points are the
+    observations - one per census, one per presidential election.
 
     Labels are not drawn here: see end_labels(), which has to run after the
     axis limits are set.
     """
     for label, (values, color) in series.items():
-        ax.plot(x, values, color=color, marker="o", zorder=3, label=label)
+        ax.plot(x, values, color=color, marker="o" if marker else None, zorder=3, label=label)
 
 
 def label_line(ax, x, y, text, color, ha="left", va="center"):
@@ -82,12 +86,16 @@ def end_label(ax, x, y, text, color, where="left", gap=0.012):
     so it ends at the point, which suits a line with empty space behind it.
     `above` sits it over the point, still right-aligned so it ends there rather
     than straddling it, which suits a line running close under where a
-    left-hand label would go. Wrap the name over as many lines as it
+    left-hand label would go. `below` is the same under the point, for a line
+    that arrives at its last point from above. Wrap the name over as many lines as it
     takes to stay clear.
     """
     if where == "above":
         lo, hi = ax.get_ylim()
         label_line(ax, x, y + (hi - lo) * gap, text, color, ha="right", va="bottom")
+    elif where == "below":
+        lo, hi = ax.get_ylim()
+        label_line(ax, x, y - (hi - lo) * gap, text, color, ha="right", va="top")
     else:
         lo, hi = ax.get_xlim()
         label_line(ax, x - (hi - lo) * gap, y, text, color, ha="right", va="center")

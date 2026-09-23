@@ -124,6 +124,38 @@ GENDER_COLORS = {
 # it costs nothing here because the line is named where it runs, not by its
 # colour.
 SERIES_COLORS = {"population": "#5C5859", "per_seat": OKABE_ITO["vermilion"]}
+# The turnout figure: three counts of people, no categories, every line
+# named where it runs. The same two colours as the growth figure, in the
+# same roles - vermilion for the series the figure is about, the Board's
+# voters, and the dark grey for the count it is measured against, the
+# presidential vote. Registered voters are the backdrop the other two sit
+# under, and take the taupe that White takes as a line: the neutral for the
+# mass, as everywhere else in the set.
+TURNOUT_COLORS = {
+    "board": OKABE_ITO["vermilion"],
+    "president": "#5C5859",
+    "registered": SAND_LINE,
+}
+# The Board's voters split by what else was on the ballot: four lines, one
+# per year of the cycle, from the top of the ticket down. Vermilion stays
+# with the presidential-year Board vote, the series the counts figure was
+# about; the other three take hues in falling order of turnout, orange,
+# bluish green and black. Each is a category elsewhere in the set (Black,
+# Hispanic or Latino) and none reads as one here: the lines are named in
+# the legend and never share a page with a race chart.
+CYCLE_ORDER = ["president", "governor", "midterm", "delegates"]
+CYCLE_COLORS = {
+    "president": OKABE_ITO["vermilion"],
+    "governor":  OKABE_ITO["orange"],
+    "midterm":   OKABE_ITO["bluish_green"],
+    "delegates": OKABE_ITO["black"],
+}
+CYCLE_LABELS = {
+    "president": "presidential year",
+    "governor":  "governor's year",
+    "midterm":   "midterm year",
+    "delegates": "House of Delegates year",
+}
 
 # Party. The two partisan hues are the ones readers bring with them, at
 # Okabe-Ito's values: sky blue for Democratic and vermilion for Republican.

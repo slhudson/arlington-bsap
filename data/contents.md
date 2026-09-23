@@ -148,6 +148,16 @@ own, unaltered — one per candidate at the locality level, the state's
 canvassed total — and carry the database's party name on every row. 1924 is
 where the database's Arlington rows for this office begin.
 
+**`registration_2010-2025.csv`** — Arlington's registered voters at each
+November election, one row per year, saved by `code/fetch/registration.py`
+from the Department's monthly registration statistics: the state's own
+locality total (active, inactive and all) from the report dated in the
+first days of November, with the report's URL and, where the file states
+it, the date the count is as of. A compilation of sixteen locality totals
+rather than sixteen whole-state files, for size; the figures are the
+files' own. The reports begin in January 2010 and nothing earlier is
+online.
+
 ## raw/arlington_historical_magazine/
 
 **`novack_six_decades_of_arlington_leadership_1994.pdf`** — Norman S. Novack,
@@ -192,8 +202,11 @@ the API does not carry. All are one row per Virginia county-level geography,
 the same shape for every year, so Arlington is a row and its neighbours are
 visible beside it.
 
-Two tables per year: race, and race crossed with Hispanic origin (Spanish
-origin, in 1980's wording). The cross-tab is the point. Race and Hispanic
+Three tables per year: race; race crossed with Hispanic origin (Spanish
+origin, in 1980's wording); and, for the voting-age population, race for
+those 18 and over from 2000, and the age distribution in 1980 (table 10,
+saved as its two halves, everyone and women) and 1990 (P11), whose cells
+from "18" on are summed by `code/build/turnout.py`. The cross-tab is the point. Race and Hispanic
 origin are separate census questions, so the categories only stop overlapping
 once they are crossed — see Q1 in `docs/questions.md`.
 
@@ -318,6 +331,15 @@ for the Democratic and Republican nominees, for everyone else, and the
 total, with a `complete` flag the figure honours and a source per row —
 O'Leary through 1920, the state database from 1924. Voters, not residents:
 the file is named for what it counts.
+
+`turnout.csv` — who votes for the County Board, one row per year with any
+measure, 1872–2025: the year's place in the four-year ballot cycle
+(president, governor, midterm, delegates), votes cast in the November Board
+contests and the seats they filled, the people that represents (votes per seat), registered
+voters from 2010, the population 18 and over at each census from 1980 and
+a straight-line estimate between censuses, and the presidential vote. A
+`_complete` flag for the four years the county's tallies do not cover, and
+a source column per measure. Q31 in `docs/questions.md`.
 
 `board_members.csv` — one row per person per term, 1870 through 2026: name,
 term number, district, start and end to the month, source, a note only where

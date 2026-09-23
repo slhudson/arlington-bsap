@@ -344,24 +344,107 @@ prints "?" for 1896's Washington district and total, and writes that the
   belong with turnout (Q31) rather than with party, and are not drawn.
 
 ### Q31. Who votes in County Board elections?
-**Owner:** Sally · **Status:** open — a separate strand, not started
+**Owner:** Sally · **Status:** open — a first series and figure are built, from 1931; the denominators are the open part
 
-Every figure so far is about who wins Board seats; none is about who votes
-for them. The Board is on the ballot every November, alone in three years
-out of four, and the electorate that decides it is a fraction of a
-presidential-year turnout. The milestones that changed who could or did
-vote are the county's election law: May to November elections in 1904,
-with the poll tax and literacy test of the same constitution; women in
-1920; the at-large Board of 1932 with one seat a year from 1940; the end of
-the poll tax in 1966; the vote at 18 in 1971; no-excuse absentee voting in
-2020.
+`data/clean/turnout.csv` and `turnout` (two panels) hold, per year: votes
+cast in the November County Board contests and the seats they filled; the
+people that represents (votes per seat: exact for one seat, a lower bound
+for two or more); registered voters from 2010; the population 18 and over
+at each census from 1980, carried between censuses on a straight line; and
+the presidential vote every fourth year from 1872, which is voters.csv's.
+Each measure has its own source column.
 
-To be built as its own series (votes cast for the Board, registered voters,
-voting-age population, presidential-year turnout beside it) and its own
-figure, in a separate session. The state database's search endpoint accepts
-a `voterStats` flag that nobody has tried; the state's registration
-statistics and the county's own turnout pages are the other places to look.
-A self-contained prompt for that session was written on 23 September 2026.
+**What the state does and does not have.** The historical database's
+`voterStats` flag was tried on 23 September 2026 and changes nothing: the
+download endpoint returns the same 10,629 County Board rows with it on or
+off, and the site's GraphQL endpoint refuses introspection. Its contest
+rows carry `Total Votes Cast`, which is the sum of the candidates' votes,
+and `Total Ballots Cast` only for 2025. So the database gives votes, not
+voters, and no registration. Registration comes from the Department's
+monthly registration statistics, which are online from January 2010 and no
+earlier (`code/fetch/registration.py`, one locality total per year from the
+report dated in the first days of November). The Department also posts
+turnout files by precinct for every election from 2007 at
+apps.elections.virginia.gov, but they were not used: 2008's lacks the
+central absentee precinct (76,263 ballots against 109,852 presidential
+votes), and in several years a precinct's row is repeated once per district
+it sits in. Read with care they would give ballots cast per election, which
+is the one number this series lacks. The county's own site points to the
+state and publishes no turnout history.
+
+**What the county's history gives.** Votes for every November Board contest
+1931–2021, complete except 1931 (the page says others ran who are not
+listed), 1942 and 1949 (no counts at all) and 1947 (Frisbie has no count
+and the totals are from 8 of 11 precincts). Those four are gaps in the
+figure. O'Leary reports a count for the district-era Board in two elections
+only, 1907 (756 voters across three districts) and 1915 (876); every other
+Board election 1870–1911 is "(No returns.)". Both are in the table and not
+drawn.
+
+**Seats are counted from the roster, not read off the page.** The county
+prints "Vote for 2" on some two-seat contests and nothing on others, so the
+build counts the terms in `board_members.csv` that began the following
+January, or that November for a same-day special election, appointments and
+off-month specials excluded. That makes 1931, 1935 and 1939 five-seat
+elections (the whole Board, before terms were staggered), 1943 and 1960
+two, 1947 three, 1952 four (three same-day specials beside the regular
+seat) and 1997 two. The heading alone would have read every one of those as
+a single seat.
+
+**What the figure shows.** The Board's vote is drawn as four series, by
+what else the November ballot carried (a `cycle` column: president,
+governor, midterm, delegates), because drawn as one line it is a sawtooth
+whose teeth are the ballot and not the Board. In a presidential year about
+nine in ten of the county's presidential voters also vote for the Board
+(0.84–0.98 in every presidential year since 1940 but 1960, 1980 and 1996,
+which are multi-seat years and so understated). As a share of the county's
+adults, the presidential-year Board vote rose from about a third in 1980 to
+57 per cent in 2024; the House of Delegates years, when the Board tops the
+ballot, from a fifth to 30 per cent in 2023, and understated because those
+are the two-seat years; the midterm and governor's years sat at a third for
+decades and have converged on the presidential-year level since 2017
+(2018: 51 per cent; 2021 and 2025: 43 and 47). The presidential vote itself
+went from about half of adults in the 1980s to two thirds from 2008.
+Registration reached 85 per cent of adults in 2020. A snapshot for the
+prose: in November 2024, 196,563 adults (the 2020 count), 164,865 active
+registered voters, 128,362 who voted for President and 113,209 for the
+County Board.
+
+**Milestones**, for the prose and not the figure. 1870, the Board is
+created, elected in May by district. 1904, local elections move from May to
+November under the 1902 constitution, whose poll tax and literacy test
+shrank the electorate until the 1960s (cite the Arlington Historical
+Society's "County Officials in Arlington 1870–1960" for the date; not yet
+in `paper/sources.bib`). 1920, women vote: O'Leary's presidential returns
+go from 804 in 1916 to 1,831 in 1920. 1932, the at-large Board of five,
+staggered from 1940 so that the Board is on every November ballot. 1966,
+the poll tax falls (Harper v. Virginia Board of Elections). 1971, the vote
+at 18. 2020, no-excuse absentee and early voting.
+
+**Open:**
+
+- **Adults before 1980.** The 1930–1970 censuses printed the county's
+  population 21 and over (18 and over from 1970) in the state volumes;
+  none is in `data/raw/`. With them the share panel would reach 1931, and
+  the 1971 change of age would need a note. Owner: RA, from the printed
+  volumes at census.gov.
+- **Adults after 2020** are the 2020 count carried forward, which overstates
+  the 2021–25 shares a little. The Bureau's annual estimates would replace
+  it, at the cost of a second source for one column. Owner: Sally.
+- **Registration before 2010** exists in the State Board of Elections'
+  printed annual reports and nowhere online found. Owner: archive.
+- **Ballots cast, not votes per seat.** The two-seat years (every fourth
+  year since 1951, the odd year before a presidential one) sit below their
+  true voters by up to half. The state's turnout files could supply ballots
+  for 2009–2022 if their repeated rows are understood; before that only the
+  Electoral Board's own canvass would. Owner: Sally.
+- **"Eligible" is not one series.** Citizenship by county exists only in
+  the ACS from 2005; before 1966 the poll tax and before 1920 sex decided
+  eligibility. Adults is the denominator that can be held constant, with
+  the milestones as the caveat.
+- **Whether the county-facing version wants the shares panel alone.** Panel
+  (a) is the sourced baseline and shows the electorate growing tenfold;
+  panel (b) is the question. Q28.
 
 ### Q25. Bestebreurtje is cited as two different documents
 **Owner:** Sally + Alex · **Status:** open — blocks two claims
