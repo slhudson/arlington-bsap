@@ -22,8 +22,11 @@ BUILD=(residents board_members board_seats)
 
 # Stage 2: data/ -> figures/. Presentation only; analysis cannot reach raw/.
 # Each step is named for the figure it writes: board_seats.py -> board_seats.pdf/.png
+# Two subjects, residents then board, alphabetical within each. Build order is
+# independent of the order the report uses them in: that belongs to the prose,
+# and a list here that tracked it would go stale with nothing to catch it.
 FIGURES=(residents_by_race residents_by_race_log residents_per_seat
-         board_race)
+         board_gender board_race)
 
 # The guards live in code/build/. These prove the guards still fire, so editing
 # build/ cannot quietly disable one. Under a second; run first so a broken
