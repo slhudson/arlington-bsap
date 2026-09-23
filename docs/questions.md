@@ -28,7 +28,57 @@ must be answered before the report ships, but answering them does not move that
 along, so they wait.
 
 ### Q1. How should 1970 and 1990 race categories be reconciled?
-**Owner:** Alex · **Status:** queued for the next batch to Alex — not blocking
+**Owner:** Sally · **Status:** answered 23 Sept 2026 — rebuilt from the crossed
+census tables for 1980–2020; 1970 and earlier remain
+
+**The answer is consistent categories, not a correction to the old ones.** The
+overlap was never an error to rescale away: race and Hispanic origin are two
+census questions, so a person answers both and is counted in two of the four
+columns at once.
+
+`code/fetch/census.py` now pulls the table where the Bureau reports both answers
+crossed together, for every census from 1980, and `code/build/residents.py`
+builds five groups that partition the county exactly:
+
+    Hispanic or Latino of any race, and among those who are not Hispanic:
+    White, Black, Asian and Pacific Islander, Other or multiracial
+
+They tie to the person in all five censuses, and the build refuses to write if
+they ever stop doing so. The guard earned itself immediately: it caught a
+variable mapping that summed to 308,370 against a county of 189,453.
+
+**Two things the crossed tables settled while being read.**
+
+The 1990 arithmetic below is right to the person. Non-Hispanic Black, American
+Indian, Asian and Other sum to 29,119 against the workbook's 29,500 — a
+difference of 381, which is exactly the 1990 overshoot.
+
+The delivered columns are not all the same kind of number. `white` is
+non-Hispanic white in every year from 1980. `black` is the race total including
+Hispanic Black in 1980, 1990 and 2000, and non-Hispanic Black from 2010, so that
+column changes meaning partway along. The delivered columns are kept as
+received; the `nh_` set is what should be used.
+
+**1980 is where it starts, and 1970 cannot join it.** Hispanic origin that year
+was asked of a 5 percent sample rather than the full count, the Bureau's own
+position is that 1970 is not comparable with later years, and it miscoded people
+in the southern and central states into "Central or South American". Before 1970
+the question does not exist and `white` means white.
+
+**Where the data came from.** The Census API holds no decennial data before
+2000. 1980 and 1990 come from the archived Summary Tape Files at
+www2.census.gov, which are fixed-width ASCII and need no key. 1980's record
+layout is the Bureau's own published dictionary, saved beside the data; 1990's
+is published only as PDF, so the cell offsets are derived from the file and
+checked on every fetch against the totals the file itself states, for all 136
+Virginia county geographies.
+
+**Still open:** 1900–1970, where race has no traced source at all (Q12), and
+how the figures should show the join between the two bases.
+
+---
+
+*Original entry, kept for the reasoning:*
 
 In both years the four race categories sum to more than the reported total —
 about 4,800 people in 1970 (2.8%) and 400 in 1990 (0.2%).
@@ -300,6 +350,33 @@ Five exist. The caveats need to be consistent across whichever ship.
 
 ---
 
+### Does the falling Black share read as displacement?
+**Owner:** Sally · **Status:** open — for whoever writes the race section
+
+`residents_by_race_share` shows the Black share of Arlington falling from 63 per
+cent in 1870 to 8.5 per cent in 2020. On its own that invites a displacement
+reading, and at county level it would be wrong.
+
+The counts are what refute it. Black residents went from 2,010 to 20,330, a
+tenfold increase, while the county went from 3,185 to 238,643, seventy-five-fold.
+No census records a substantial fall: the only decreases are 2,645 to 2,507
+across the 1910s and a flat stretch from 1990 to 2010. The share falls because
+everything else grew faster, not because people left.
+
+**Two things that should be said with it.**
+
+*County totals cannot rule out displacement.* They aggregate over exactly the
+geography where it happens. Arlington's Black population was concentrated in a
+few neighbourhoods, and a community can be destroyed while the county count
+rises. Nothing in `data/` speaks to this. Bestebreurtje is cited under the
+prose-only sources in `docs/sources.md` and is where to look.
+
+*The 1870 baseline is a Reconstruction figure.* 63 per cent reflects Freedman
+village, the settlement of formerly enslaved people on the Arlington estate,
+which is Q9 and still open. It is a moment rather than a stable starting point.
+
+---
+
 ### Q7. Should any of the set-aside figures be revived?
 **Owner:** Sally + Alex · **Status:** open, low priority
 
@@ -347,8 +424,12 @@ is the control case — the method agrees when nothing slips. And the corrected
 figures leave no "Other/multiracial/unreported" residents in 1870 or 1890,
 where the workbook leaves 100 and 278 unexplained.
 
-### Q12. Where did the 1900-1980 race figures come from?
-**Owner:** Alex · **Status:** open — no source traced
+### Q12. Where did the 1900-1970 race figures come from?
+**Owner:** Alex · **Status:** open — no source traced; 1980 onward now has one
+
+1980 through 2020 are now built from census tables (Q1), so this is the
+remaining stretch: seven censuses whose race counts are typed numbers in the
+workbook with no source recorded.
 
 Every population total is now traced to a published source. The race and
 ethnicity figures are not, for nine censuses.
@@ -510,32 +591,40 @@ first County Board contest is 1931. The roster has nothing for these years.
 Alex's seat counts do cover them, so he had some way of knowing who served;
 that source is the question.
 
-### Q15. Vacancies are invisible in the data
-**Owner:** Sally + Alex · **Status:** open — affects residents-per-seat
+### Q15. Vacancies in the seat counts
+**Owner:** Sally + Alex · **Status:** partly answered 23 Sept 2026 — vacancies
+are now representable and two are recorded; how many others exist is open, and
+`residents_per_seat` still divides by seats that exist
 
-The seat counts always sum to exactly three or five. A seat that sat empty
-cannot be represented, so every year looks fully staffed.
+**What has changed.** This entry used to read "the seat counts always sum to
+exactly three or five" and "1990 still records five filled seats". Neither has
+been true since seat-years were time-weighted (Q13). `board_seats.csv` now
+records 1873 at two and a half seats — Washington district vacant from June to
+November — and 1990 at four and five sixths, after John Milliken resigned in
+February and James Hunter III was elected in a May special election. The build
+asserts those are the only two years falling short.
 
-At least one year was not. John Milliken resigned in February 1990 and James
-Hunter III was elected in a special election in May 1990 to fill the unexpired
-term. For roughly three months the Board had four members, and 1990 still
-records five filled seats.
+1870 is deliberately not among them. The Board came into existence at the May
+1870 election, so that year is measured against the eight months the Board
+existed rather than the calendar year — see `docs/sources.md`. Measured against
+twelve it read two seats, and a chart of that says the Board grew from two seats
+to three, which it did not.
 
-**Why it matters beyond bookkeeping.** `residents_per_seat` divides population
-by the number of seats — three through 1930, five after. If seats sat empty,
-each serving member represented more people than that figure shows, which is
-the opposite direction from the story the figure tells.
+**What is still open, and it is the substance of the question.**
 
-**It is also an argument for time-weighting.** Under an even split Milliken and
-Hunter take half a seat each and the vacancy vanishes. Weighted by service they
-account for about ten months between them, and the remaining two months are
-genuinely unfilled — 1990 would then total less than five seats, which is what
-happened.
+*How many other gaps there are.* Two are recorded because two are sourced. The
+figure is only as complete as the roster's dates. *Six Decades of Arlington
+Leadership* lists terms of service to the month for every member through 1994,
+so gaps in that period are findable; after 1994 they are not yet sourced. Until
+that sweep is done, "two vacancies since 1870" is a statement about the roster,
+not about the Board.
 
-**Not yet known:** how many such gaps there are. *Six Decades of Arlington
-Leadership* (see sources.md) lists terms of service to the month for every
-member through 1994, so the gaps are findable for that period. After 1994 they
-are not yet sourced.
+*`residents_per_seat` divides by the seats that exist, not the seats filled.*
+`residents.csv` carries `board_seats` as three through 1930 and five after, and
+the figure divides population by that. Where a seat sat empty, each serving
+member represented more people than the figure shows. Dividing by the filled
+count instead would fix it, and would make that figure depend on the roster,
+which it currently does not. A trade to weigh, not an oversight.
 
 ### Q14. Three missing service dates
 **Owner:** Alex · **Status:** open — small
