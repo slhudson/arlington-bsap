@@ -17,31 +17,59 @@ this in place; ask rather than assume, in either direction.
 
 Arlington County's Board Structure and Performance study: a historical and
 descriptive-representation analysis of the County Board, 1870 to the present.
-The repository holds the sources — census volumes, the county's election
-records, a published roster of Board members, and the project's own data
-workbooks — rebuilds the figures from them with one command, and feeds them
-to the paper in Overleaf.
+The work product is a paper with figures. The figures are drawn from data
+that the repository assembles from primary sources — census volumes, the
+county's election records, a published roster of Board members, and the
+project's own workbooks — and every number in them can be traced back to the
+page it came from.
 
-## How the repository is organised
+## The tools
 
-    fetch/        downloads a published source into data/raw/ (run on demand)
-    transcribe/   reads scans into data/transcribed/ (run on demand)
-    build/        turns data/raw/ and data/transcribed/ into data/clean/
-    analysis/     one script per figure, reading only from data/clean/
-    data/         raw/ (as published), transcribed/ (read off the scans,
-                  or hand-keyed under by_human/), clean/ (built)
-    figures/      pdf/ for the paper, png/ for slides
-    paper/        the LaTeX source, synced with Overleaf
-    docs/         open questions, sources, figure rationale
-    run.sh        rebuilds everything from the committed files
+Four things, each doing one job:
 
-`README.md` is the front door and has a table of which script writes which
-file. `CLAUDE.md` holds the working rules; the one that matters most is that
-`build/` decides what a number *is* and `analysis/` only decides how it is
-shown — the analysis scripts have no path to anything above `data/clean/`,
-so that separation is enforced rather than agreed. `data/raw/` and
+- **Git and GitHub** keep the repository. It is private, on GitHub, and
+  everyone works from their own copy on their own machine, pushing changes
+  back when they are done.
+- **Python** does the computing. The scripts need three packages — pandas,
+  matplotlib and openpyxl — which live in a virtual environment inside the
+  repository folder so nothing has to be installed system-wide.
+- **Claude Code** is Claude in the terminal. It can read and edit the files
+  in the repository directly, run the build, and explain what it finds. It
+  needs a paid Claude plan.
+- **Overleaf** is where the paper is written. It is linked to the GitHub
+  repository, so the figures the scripts produce appear in the paper without
+  being uploaded by hand.
+
+## The repository
+
+Everything is built by one command, `bash run.sh`, from files that are
+committed in the repository. Data flows downward through four folders of
+code, each writing one folder of data:
+
+- `fetch/` downloads a published source and saves it, unchanged, into
+  `data/raw/`. It is run only when a new source is needed; the downloaded
+  file is committed, so nobody else needs to fetch it again.
+- `transcribe/` reads the scanned documents in `data/raw/` into tables in
+  `data/transcribed/`. Also run only when something new needs reading, and
+  its output is committed. (`data/transcribed/by_human/` holds tables that
+  were typed in by a person rather than read by a program.)
+- `build/` turns the raw and transcribed files into the clean tables in
+  `data/clean/`. This is where every decision about what a number *is* gets
+  made — what a blank means, which of two conflicting figures to trust.
+- `analysis/` draws the figures from `data/clean/` into `figures/`. One
+  script per figure. These scripts decide how a number is shown, and they
+  cannot see anything above `data/clean/`, so a figure can never quietly
+  change a value.
+
+`run.sh` runs the last two every time; the first two only run when someone
+asks for them. Alongside those: `paper/` holds the LaTeX source that Overleaf
+syncs, and `docs/` holds the open questions, the record of what backs every
+number, and the reasoning behind each figure.
+
+Two rules to know before touching anything. `data/raw/` and
 `data/transcribed/by_human/` are the sources as received and are never
-edited; the original workbooks are there unchanged.
+edited. And `README.md` is the front door — it has a table of which script
+writes which file — while `CLAUDE.md` holds the working rules.
 
 ## What a working setup looks like
 
@@ -49,8 +77,7 @@ edited; the original workbooks are there unchanged.
    they can be added to the private repository — cloning fails until then,
    so this is the first thing to sort out.
 2. **Git installed**, and signed in to GitHub.
-3. **Claude Code installed and working** — Claude in the terminal, so it can
-   edit files in the repository directly. It needs a paid Claude plan.
+3. **Claude Code installed and working.**
 4. **Python with pandas, matplotlib and openpyxl**, in a virtual environment
    at `.venv` inside the repository folder:
 
@@ -59,13 +86,13 @@ edited; the original workbooks are there unchanged.
 5. **A successful build.** `bash run.sh` from the repository folder should
    print the tests, a build step, five figures, and a line about
    `figures/pdf` and `figures/png`. That is the test that everything works.
-   (Invoke through `bash`, not `./run.sh`; `run.sh` says why at the top.)
+   Invoke it through `bash`, not `./run.sh`; `run.sh` says why at the top.
 
 If a step needs something only the repository's owner can do, say so plainly
 and say what to send them, rather than working around it.
 
-Once `bash run.sh` works, stop there. From that point the natural next move
-is to open Claude Code inside the repository folder and change something
-small in a figure — `analysis/` has one script per figure, named for the
-figure it produces, and `analysis/style.py` holds the colours and fonts they
-share — then rebuild, to see the loop work end to end.
+Once `bash run.sh` works, stop there. A good first thing to try afterwards is
+to open Claude Code inside the repository folder, change something small in
+one figure — `analysis/` has one script per figure, named for the figure it
+produces, and `analysis/style.py` holds the colours and fonts they share —
+and rebuild, to see the loop work end to end.
