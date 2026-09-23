@@ -2,7 +2,7 @@
 
 For anyone joining the repository. Paste everything below the line into a
 new Claude conversation; it tells Claude what the project is and how to help
-get a machine set up to build it.
+get set up.
 
 ---
 
@@ -16,38 +16,9 @@ county's election records, a published roster of Board members, and the
 project's own workbooks — and every number in them can be traced back to the
 page it came from.
 
-## Two ways to work with it
-
-The repository can be read from a Claude chat, or worked in directly with
-Claude Code. They are not exclusive, and the first is far less to set up.
-
-**A chat gives you read access.** A Claude Project can sync the repository
-from GitHub, and can then answer anything the repository can answer: what a
-figure is built from, which source backs a particular number, where a figure
-differs from the workbook and why, what is still open and who owns it. The
-sync is one-directional, so it can tell you where a number came from but
-cannot change it. Nothing to install.
-
-Sync `code/`, `docs/`, `paper/`, `data/clean/` and `data/contents.md`, and
-leave out `data/raw/` and `data/transcribed/`. That is the same rule the
-figures follow — they read only `data/clean/` — and it matters for the same
-reason: the layers above hold scans, OCR that misreads digits by design, and
-tables that have not been reconciled yet, any of which a chat would quote as
-if it were the answer. `data/contents.md` describes those folders, so you can
-still see what is behind a number without the files themselves.
-
-The repository is attached the same way a document is: in the Project's
-knowledge (its project files), not under settings or connectors, which is
-the step that is easy to go looking for in the wrong place. It needs a
-GitHub personal access token with read access to the repository.
-
-**Claude Code gives you write access.** Correcting a number, editing a
-figure, adding a source, rebuilding the outputs, pushing any of it back to
-GitHub. That needs the tools below.
-
 ## The tools
 
-For working in the repository directly. Four things, each doing one job:
+Four things, each doing one job:
 
 - **Git and GitHub** keep the repository. It is private, on GitHub, and
   everyone works from their own copy on their own machine, pushing changes
@@ -55,9 +26,12 @@ For working in the repository directly. Four things, each doing one job:
 - **Python** does the computing. The scripts need three packages — pandas,
   matplotlib and openpyxl — which live in a virtual environment inside the
   repository folder so nothing has to be installed system-wide.
-- **Claude Code** is Claude in the terminal. It can read and edit the files
-  in the repository directly, run the build, and explain what it finds. It
-  needs a paid Claude plan; the $20-a-month one is enough.
+- **Claude** works with the repository two ways. **Claude Code** is Claude in
+  the terminal: it reads and edits the files directly, runs the build, and
+  pushes changes back. A **Claude Project** can instead sync the repository
+  from GitHub and answer questions about it — where a number came from, what
+  is still open — without being able to change anything. Either needs a paid
+  Claude plan; the $20-a-month one is enough.
 - **Overleaf** is where the paper is written. It is linked to the GitHub
   repository, so the figures the scripts produce appear in the paper without
   being uploaded by hand.
@@ -95,12 +69,21 @@ writes which file — while `CLAUDE.md` holds the working rules.
 
 ## What a working setup looks like
 
-For the Claude Code path:
+1. **Access to the GitHub repository and the Overleaf project.** Both are
+   private, so someone already on them has to send the invitations — the
+   repository's owner, or any collaborator with access. Nothing else can
+   start until the GitHub one is accepted.
 
-1. **An invitation to the GitHub repository and to the Overleaf project.**
-   Both are private, so someone already on them has to send the invitations
-   — the repository's owner, or any collaborator with access. Cloning fails
-   until the GitHub one is accepted, so this is the first thing to sort out.
+   *To read the data and the documentation without changing them, that plus
+   a Claude Project is the whole setup.* Attach the repository in the
+   Project's knowledge, with its files rather than under settings or
+   connectors, using a GitHub personal access token with read access. Sync
+   `code/`, `docs/`, `paper/`, `data/clean/` and `data/contents.md`, and
+   leave out `data/raw/` and `data/transcribed/` — the figures read only
+   `data/clean/` for the same reason, that the layers above hold scans and
+   OCR that misreads digits by design. The steps below are for changing
+   things.
+
 2. **Git installed**, and signed in to GitHub.
 3. **Claude Code installed and working.**
 4. **Python with pandas, matplotlib and openpyxl**, in a virtual environment
@@ -119,11 +102,6 @@ For the Claude Code path:
 
 ## How to help
 
-First work out which of the two paths they need: ask whether they expect to
-change anything in the repository. If not, the chat path is enough and the
-whole job is scoping the sync as described above. If they do, the rest of
-this note applies.
-
 Any of these tools may be new to the person you're working with, or all of
 them may already be in place; ask rather than assume, in either direction.
 Where something is new, the setup is part of the job: installing Git and
@@ -132,18 +110,19 @@ the Python environment (which happens inside Claude Code once it is
 running), cloning the repository, connecting to the Overleaf project, and
 then getting oriented in it.
 
-Start by asking whether they already have invitations to the GitHub
-repository and the Overleaf project. If not, nothing else can proceed: tell
-them to ask someone who is already on both — the repository's owner or any
-existing collaborator — and say exactly what to ask for (an invitation to
-the `slhudson/arlington-bsap` repository on GitHub, and to the
-`arlington-bsap` project on Overleaf, both to the email address they'll use).
+Start with the invitations, since nothing works without them. If they do not
+have both, say exactly what to ask for and whom to ask — an invitation to
+the `slhudson/arlington-bsap` repository on GitHub and to the
+`arlington-bsap` project on Overleaf, both to the email address they will
+use, from the repository's owner or any existing collaborator.
 
-Then ask what operating system they're on, and go one step at a time: say what
-to type, what they should see if it worked, and what to do if they see
-something else, and wait for them to confirm before the next step. If a step
-needs something only the repository's owner can do, say so plainly and say
-what to send them, rather than working around it.
+Then ask whether they expect to change anything in the repository. If not,
+stop after the Claude Project in step 1; there is no reason to install
+anything. If they do, ask what operating system they are on and go one step
+at a time: say what to type, what they should see if it worked, and what to
+do if they see something else, and wait for them to confirm before the next
+step. If a step needs something only the repository's owner can do, say so
+plainly and say what to send them, rather than working around it.
 
 Once `bash run.sh` works, the setup is done. For orientation, a good first
 thing to do is to open Claude Code inside the repository folder and ask it
