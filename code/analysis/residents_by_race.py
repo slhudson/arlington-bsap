@@ -92,7 +92,7 @@ for profile in style.PROFILES:
     # without giving three quarters of the axis to a series that ends at
     # 161,329.
     charts.off_scale(a, c["year"], counts["white"], style.SAND_LINE, TOP)
-    a.set_title("(a) residents")
+    a.set_title("(a) number of residents")
 
     charts.stacked_bars(b, c["year"], bands(shares, residual_share))
     charts.shares(b)

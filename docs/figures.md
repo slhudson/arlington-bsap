@@ -52,11 +52,13 @@ axis stops at 50,000 because none of the other four passes 37,362; White
 reaches 161,329 by 1970. Plotting its full range would put the other four in
 the bottom quarter, and dropping it entirely loses the years when the groups
 were comparable. So it is drawn, the axis clips it in the late 1930s, and
-`charts.off_scale` puts an arrow where it exits — interpolated from the data,
+`charts.off_scale` puts a triangle where it exits — interpolated from the data,
 not written in.
 
-No text at the arrow. The legend has already named the colour and an arrow
-needs no words; where the line goes is the caption's business.
+A triangle, not an arrow with a shaft. A shaft is a second stroke at its own
+angle and reads as another series; a marker sits on the line's own last point
+and adds nothing to argue with. No text either: the legend has already named
+the colour, and where the line goes is the caption's business.
 
 That keeps the finding the retired log chart existed for: White is 1,175 in
 1870 against Black at 2,010, and Black outnumbered White until about 1890.
