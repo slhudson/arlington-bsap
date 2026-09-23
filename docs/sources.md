@@ -113,8 +113,9 @@ race count and the Hispanic count. For 1990 the cited source shows this
 exactly: white 130,873 + Black 17,940 + American Indian 537 + Asian/PI 11,560
 + Other race 10,026 = 170,936, with Hispanic (23,089) cutting across all five.
 The workbook mixes the two systems — non-Hispanic white alongside all-race
-Black and Asian totals — which is the 1970 and 1990 overshoot. Whether to
-recode Hispanic as an ethnicity across races is with Alex (questions.md).
+Black and Asian totals — which is the 1970 and 1990 overshoot. From 1980 the
+crossed table replaces those figures, so only 1970 still overshoots; see Q1 in
+questions.md.
 
 | Years | Categories the census reports |
 |---|---|
@@ -207,7 +208,10 @@ chart of that says the Board grew from two seats to three, which it did not.
 
 The seats held can never exceed the seats that exist, and fall short only in
 1873 (a recorded vacancy) and 1990 (a February resignation, a May special
-election); anything else stops the build.
+election); anything else stops the build. Race and gender are two independent
+splits of the same seats and must account for the same total in every year,
+which `code/tests.py` checks by taking a term out of one split and asserting the
+build refuses.
 
 Against the delivered counts, 138 years overlap: 120 identical, 128 within
 half a seat. The rest are the three Reconstruction terms in Q17 and handover
@@ -311,7 +315,8 @@ The sources below are consulted to settle a question rather than to take
 numbers from. They are cited here rather than saved into `data/`, which holds
 only material we take numbers out of.
 
-**Their copies live in `documents/` in the project's Drive folder**, named for
+**Their copies live in the project's Drive folder**, in `sources/documents`
+— <https://drive.google.com/drive/folders/10SGuURB-ldC1AzM3ClsdL_tAiWeFIZB4> — named for
 a person reading the folder rather than for a machine: author, then year, then
 the title as the document prints it — `Pratt 1995 - Arlington's At-Large
 Electoral System.pdf`. That is deliberately not the citekey. A citekey is a

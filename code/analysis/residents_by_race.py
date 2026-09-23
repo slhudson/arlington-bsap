@@ -6,11 +6,12 @@ than it is wide for the decades before 1940 to have any height - Arlington had
 under 27,000 residents until 1940 and 238,643 by 2020.
 
 **Two bases, one series, and nothing drawn to mark it.** From 1980 the bands
-are the five census groups that partition the county exactly: race crossed with
-Hispanic origin, so nobody is counted twice. Before 1980 they are the delivered
-race categories, because the Census did not ask Hispanic origin of everyone
-until 1980 and 1970's sample question is not comparable - see Q1 in
-docs/questions.md.
+are census groups that partition the county exactly: race crossed with Hispanic
+origin, so nobody is counted twice. Before 1980 they are the delivered race
+categories, because the Census did not ask Hispanic origin of everyone until
+1980 and 1970's sample question is not comparable - see Q1 in
+docs/questions.md. The switch happens in code/build/residents.py, so this
+script reads four columns and never asks which basis a year is on.
 
 A rule at 1980 was drawn and then removed. The change is real but small enough
 that it does not affect what the figure says: Arlington had 1,387 Hispanic
@@ -37,26 +38,23 @@ import style
 paths.build_stage_on_path()
 from assumptions import rescale_to_100   # noqa: E402
 
-CENSUS_FROM = 1980
 TOP = 50000          # White leaves the axis in the late 1930s; see off_scale
 
 for profile in style.PROFILES:
     style.apply(profile)
 
     c = pd.read_csv(paths.RESIDENTS)
-    old = style.GROUP_ORDER                                    # black, hisp, aapi, white
-    new = ["nh_black", "hispanic", "nh_aapi", "nh_white"]
+    groups = style.GROUP_ORDER                                 # black, hisp, aapi, white
 
-    # One frame with four bands plus a residual, whichever basis a year is on.
-    counts = pd.DataFrame(index=c.index, columns=old, dtype=float)
-    on_census = c["year"] >= CENSUS_FROM
-    for g_old, g_new in zip(old, new):
-        # No fillna: a blank stays blank, so a line begins the year the Census
-        # first reported that group rather than running along zero before it.
-        counts[g_old] = np.where(on_census, c[g_new], c[g_old])
-    residual = pd.Series(np.where(on_census, c["nh_other"],
-                                  (c["total"] - c[old].sum(axis=1)).clip(lower=0)),
-                         index=c.index)
+    # The four columns already carry the basis each year is on - crossed census
+    # categories from 1980, the workbook's before that - so nothing is selected
+    # here. No fillna either: a blank stays blank, so a line begins the year the
+    # Census first reported that group rather than running along zero before it.
+    counts = c[groups].astype(float)
+    # From 1980 the four account for the county exactly, so this is the census's
+    # own non-Hispanic other and multiracial count. Before, it is the remainder
+    # the workbook leaves.
+    residual = (c["total"] - c[groups].sum(axis=1)).clip(lower=0)
 
     shares = counts.div(c["total"], axis=0) * 100
     residual_share = (100 - shares.fillna(0).sum(axis=1)).clip(lower=0)

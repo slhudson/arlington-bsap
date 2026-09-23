@@ -28,45 +28,55 @@ must be answered before the report ships, but answering them does not move that
 along, so they wait.
 
 ### Q1. How should 1970 and 1990 race categories be reconciled?
-**Owner:** Sally · **Status:** answered 23 Sept 2026 — the categories are rebuilt from the crossed census tables for 1980–2020; what remains is 1970 and earlier
+**Owner:** Sally · **Status:** answered 23 Sept 2026 — rebuilt from the crossed
+census tables for 1980–2020; 1970 and earlier remain
 
 **The answer is consistent categories, not a correction to the old ones.** The
-overlap was never an error to be rescaled away: race and Hispanic origin are
-two census questions, so a person answers both and is counted in two of the
-four delivered columns at once.
+overlap was never an error to rescale away: race and Hispanic origin are two
+census questions, so a person answers both and is counted in two of the four
+columns at once.
 
-`code/fetch/census.py` now fetches the crossed table — race by Hispanic origin
-— for every census from 1980, and `code/build/residents.py` builds five groups
-that partition the county exactly:
+`code/fetch/census.py` now pulls the table where the Bureau reports both answers
+crossed together, for every census from 1980, and `code/build/residents.py`
+builds five groups that partition the county exactly:
 
-    hispanic + nh_white + nh_black + nh_aapi + nh_other == total
+    Hispanic or Latino of any race, and among those who are not Hispanic:
+    White, Black, Asian and Pacific Islander, Other or multiracial
 
-It ties to the person in all five years, and the build refuses to write if it
-ever stops doing so.
+They tie to the person in all five censuses, and the build refuses to write if
+they ever stop doing so. The guard earned itself immediately: it caught a
+variable mapping that summed to 308,370 against a county of 189,453.
 
 **Two things the crossed tables settled while being read.**
 
-The 1990 arithmetic in this entry was right. Non-Hispanic Black, American
+The 1990 arithmetic below is right to the person. Non-Hispanic Black, American
 Indian, Asian and Other sum to 29,119 against the workbook's 29,500 — a
-difference of 381, exactly the overshoot.
+difference of 381, which is exactly the 1990 overshoot.
 
-The delivered columns are not one kind of number. `white` is non-Hispanic
-white in every year from 1980. `black` is the race total including Hispanic
-Black in 1980, 1990 and 2000, and non-Hispanic Black from 2010 — so the column
-changes meaning partway along. The delivered columns are kept as received
-rather than quietly patched, because a column that changes definition mid-series
-is precisely what the new set exists to replace.
+The delivered columns are not all the same kind of number. `white` is
+non-Hispanic white in every year from 1980. `black` is the race total including
+Hispanic Black in 1980, 1990 and 2000, and non-Hispanic Black from 2010, so that
+column changes meaning partway along. That is why the crossed figures replace
+them from 1980 rather than sitting beside them: one column, one meaning, with
+`race_source` naming which source each year's figures came from.
 
-**1970 cannot join them and should not be made to look as if it has.** Hispanic
-origin that year was asked of a 5 percent sample rather than the full count,
-the Bureau's own position is that it is not comparable with later years, and it
-miscoded people in the southern and central states into "Central or South
-American". Before 1970 the question does not exist at all, and `white` means
-white.
+**1980 is where it starts, and 1970 cannot join it.** Hispanic origin that year
+was asked of a 5 percent sample rather than the full count, the Bureau's own
+position is that 1970 is not comparable with later years, and it miscoded people
+in the southern and central states into "Central or South American". Before 1970
+the question does not exist and `white` means white.
 
-**Still open:** what to do with 1900–1970, which have no traced source for race
-at all beyond the workbook, and how the figures should show the join between
-the two bases. Neither blocks the 1980–2020 series.
+**Where the data came from.** The Census API holds no decennial data before
+2000. 1980 and 1990 come from the archived Summary Tape Files at
+www2.census.gov, which are fixed-width ASCII and need no key. 1980's record
+layout is the Bureau's own published dictionary, saved beside the data; 1990's
+is published only as PDF, so the cell offsets are derived from the file and
+checked on every fetch against the totals the file itself states, for all 136
+Virginia county geographies.
+
+**Still open:** 1900–1970, where race has no traced source at all (Q12), and
+how the figures should show the join — 1870–1970 on the workbook's categories,
+1980–2020 on the census's.
 
 ---
 
@@ -462,8 +472,12 @@ is the control case — the method agrees when nothing slips. And the corrected
 figures leave no "Other/multiracial/unreported" residents in 1870 or 1890,
 where the workbook leaves 100 and 278 unexplained.
 
-### Q12. Where did the 1900-1980 race figures come from?
-**Owner:** Alex · **Status:** open — no source traced
+### Q12. Where did the 1900-1970 race figures come from?
+**Owner:** Alex · **Status:** open — no source traced; 1980 onward now has one
+
+1980 through 2020 are now built from census tables (Q1), so this is the
+remaining stretch: seven censuses whose race counts are typed numbers in the
+workbook with no source recorded.
 
 Every population total is now traced to a published source. The race and
 ethnicity figures are not, for nine censuses.
@@ -626,9 +640,9 @@ Alex's seat counts do cover them, so he had some way of knowing who served;
 that source is the question.
 
 ### Q15. Vacancies in the seat counts
-**Owner:** Sally + Alex · **Status:** partly answered 22 Sept 2026 — vacancies
-are now representable and two are recorded; how many others there are is open,
-and `residents_per_seat` still divides by seats that exist
+**Owner:** Sally + Alex · **Status:** partly answered 23 Sept 2026 — vacancies
+are now representable and two are recorded; how many others exist is open, and
+`residents_per_seat` still divides by seats that exist
 
 **What has changed.** This entry used to read "the seat counts always sum to
 exactly three or five" and "1990 still records five filled seats". Neither has
@@ -641,7 +655,9 @@ falling short.
 
 1870 is deliberately not among them. The Board came into existence at the May
 1870 election, so that year is measured against the eight months the Board
-existed rather than the calendar year — see `docs/sources.md`.
+existed rather than the calendar year — see `docs/sources.md`. Measured against
+twelve it read two seats, and a chart of that says the Board grew from two
+seats to three, which it did not.
 
 **What is still open, and it is the substance of the question.**
 

@@ -277,11 +277,10 @@ moved and by how much.
 `race_source` columns naming the document behind each, the Board's seat count
 (`at_large`) and the residents-per-seat column the growth figure plots.
 
-From 1980 it also carries five columns that partition the county exactly —
-`hispanic`, `nh_white`, `nh_black`, `nh_aapi`, `nh_other` — built from race
-crossed with Hispanic origin so nobody is counted in two of them. They are what
-`residents_by_race` draws from 1980 on; the delivered `white`, `black`, `hisp`
-and `aapi` columns are kept as received and can overlap. See Q1 in
+From 1980 the four race columns come from the census table that crosses race
+with Hispanic origin, so `hisp` is Hispanic of any race and the other three are
+non-Hispanic, and nobody is counted twice. Through 1970 they are the workbook's
+figures, which overlap. `race_source` says which, year by year. See Q1 in
 `docs/questions.md`.
 
 The `cube_root_p` and `cube_root_resident_ratio` columns are built and no
