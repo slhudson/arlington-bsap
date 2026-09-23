@@ -70,7 +70,10 @@ def palette_sheet(level):
         ax.set_xticks([]); ax.set_yticks([]); ax.grid(False)
         for s in ax.spines.values():
             s.set_visible(False)
-    fig.suptitle(f"palette: {level}  (saturation reduced {int(style.LEVELS[level]*100)}%)")
+    amount = style.LEVELS[level]
+    caption = ("the palette these figures already used (Okabe-Ito)"
+               if amount is None else f"saturation reduced {int(amount * 100)}%")
+    fig.suptitle(f"palette: {level}  ({caption})")
     OUT.mkdir(parents=True, exist_ok=True)
     fig.savefig(OUT / f"palette_{level}.png", dpi=200)
     plt.close(fig)

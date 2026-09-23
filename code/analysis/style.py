@@ -10,9 +10,11 @@ the palette, the two output profiles, and which colour belongs to which group.
 **Where this project departs from Urban, the departure is here with its
 reason.** There are three.
 
-*The palette is desaturated.* Urban's categorical colours are pitched for the
-web and read hot on a printed page beside body text. The hues and their
-ordering are Urban's; the saturation is not. LEVELS gives three candidates.
+*The palette is Okabe-Ito, not Urban's.* Urban's categorical colours are
+designed for the web, not for colour vision deficiency. Okabe and Ito's set is
+built for exactly that, and holds four separable hues under simulated
+deuteranopia where Urban's does not. Urban's colours stay in the gallery as
+candidates so the choice remains reviewable.
 
 *No group holds the lead colour.* Urban's hierarchy runs blue first, then
 yellow and magenta, with grey for residuals. Applied straight down a stack
@@ -69,7 +71,41 @@ LEVELS = {"soft": 0.25, "muted": 0.45, "quiet": 0.65}
 PALETTES = {name: {k: _mute(v, amount) if k not in ("grey", "black") else v
                    for k, v in URBAN.items()}
             for name, amount in LEVELS.items()}
-DEFAULT_LEVEL = "muted"
+
+# **The palette in use.** Okabe and Ito's Color Universal Design set, which is
+# built so that no two hues collapse into one another under colour vision
+# deficiency - what Urban's categorical colours, chosen for the web, are not
+# designed for. Checked against Urban's in figures/gallery/: Okabe-Ito holds
+# four separable hues under simulated deuteranopia where Urban's magenta goes
+# olive. It gives up some tonal spread in greyscale, which costs nothing unless
+# the memo is printed in black and white.
+#
+#   Masataka Okabe and Kei Ito, "Color Universal Design (CUD): How to make
+#   figures and presentations that are friendly to colorblind people".
+#   The eight are #E69F00 orange, #56B4E9 sky blue, #009E73 bluish green,
+#   #F0E442 yellow, #0072B2 blue, #D55E00 vermilion, #CC79A7 reddish purple,
+#   #000000 black.
+#
+# Two values here are not from the set and were chosen for this report: the
+# sand that carries White, and the grey that carries the residual band. Both
+# are near-neutrals, which is the point - no group holds a saturated lead
+# colour on a chart about representation.
+#
+# The keys keep Urban's hue names so the rest of the layer is unchanged by the
+# choice; they name a slot in the stacking order, not a hue.
+PALETTES["okabe_ito"] = {
+    "blue": "#E69F00",       # orange - first group in the stack
+    "yellow": "#009E73",     # bluish green
+    "magenta": "#CC79A7",    # reddish purple
+    "green": "#56B4E9",      # sky blue; no figure uses it yet
+    "grey": "#D9D3C4",       # not Okabe-Ito: the near-neutral for the mass
+    "black": "#000000",
+}
+LEVELS["okabe_ito"] = None
+
+# Urban's own colours are kept as candidates so the choice stays reviewable in
+# the gallery, not so a figure can quietly use one.
+DEFAULT_LEVEL = "okabe_ito"
 
 # --- which colour belongs to which group ------------------------------------
 # Stacking order, axis upward. The neutral goes to the largest group; see the
@@ -146,7 +182,9 @@ def _register_fonts():
 
 def palette(level=DEFAULT_LEVEL):
     p = dict(PALETTES[level])
-    p["spacegrey"] = URBAN_SPACE_GREY
+    p.setdefault("spacegrey", URBAN_SPACE_GREY)
+    if level == "okabe_ito":
+        p["spacegrey"] = "#8C8C8C"
     return p
 
 
