@@ -130,6 +130,27 @@ The 1889–1986 stretch is coded all-White, roughly 490 person-years, resting on
 that framing. It is the most load-bearing claim in the report and has not been
 independently verified. Detail in `docs/sources.md`.
 
+### Q22. What stands behind the workbook's race and gender coding?
+**Owner:** Alex · **Status:** drafted for the next batch to Alex — held until the questions we can settle ourselves are settled
+
+Where a published source names a member — Hjerpe's five, Newman, Monroe,
+Dorsey, Tejada, Spain, the women in Novack's roster — the repository records
+the source and its words. Every other member takes the coding from Alex's
+member workbook, which carries no source column: 70 of 119 people, 136 of 217
+person-terms for race and 113 for gender. Those rows read `keena-workbook`.
+
+The plan is to carry that forward as an assumption rather than a citation and
+to say so in the report: for these members the coding is Alex's reading, and no
+published source has been found that speaks to them. What is being asked is a
+confirmation, and whether he was working from something — obituaries, news
+coverage, Historical Society material — that could be cited instead.
+
+**Keep it separate from the default.** Before 1932, where no source speaks at
+all, the build records a white man: 126 person-terms, reading `assumed`. "Alex
+read something we cannot see" and "nobody has looked" are different problems,
+and only the second is a finding about the historical record. The draft for the
+Data Cleaning doc keeps them as two paragraphs for that reason.
+
 ### Q21. Hjerpe frames the five Black members as an open question
 **Owner:** Claude · **Status:** open — the coding may overstate its source
 
