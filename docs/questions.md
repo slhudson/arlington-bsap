@@ -182,6 +182,41 @@ remains is 1870–1970.
 **In code:** `not_reported_as_zero()` in `code/build/assumptions.py`, applied by
 both panels of `code/analysis/residents_by_race.py`.
 
+### Q24. The Historical Society's roster dates terms a year earlier
+**Owner:** Claude · **Status:** answered 23 Sept 2026 — no discrepancy; two
+conventions
+
+The Arlington Historical Society's roster gives Newman 1987, Monroe 1999,
+Dorsey 2015 and Spain 2024. `board_members.csv` seats all four a year later.
+The difference is the convention, not the record: each won the November general
+election of the earlier year and took office that January.
+
+| Member | AHS | Built roster | Election |
+|---|---|---|---|
+| William T. Newman, Jr | 1987 | 1988 | 3 November 1987 |
+| Charles P. Monroe | 1999 | 2000 | 2 November 1999 |
+| Christian E. Dorsey | 2015 | 2016 | 3 November 2015 |
+| Julius D. "JD" Spain, Sr. | 2024 | 2025 | 5 November 2024 |
+
+This is the same distinction settled for Fisher in 1963 and recorded in
+`docs/sources.md`: Novack dated his span from the election, the county's
+candidate history showed he sat from the following January, and the build reads
+a span that way wherever its first year is one the person won the November
+election without having stood the year before.
+
+Tejada is the control. He won a *special* election in March 2003 and the roster
+seats him in 2003, because a special election seats its winner in the year it is
+held. So the offset is not applied blindly to everyone.
+
+**A finding that came out of the check.** Monroe first stood in the April 1999
+special election for Eisenberg's unexpired seat and lost to Michael D. Lane by
+169 votes, 9,530 to 9,361; he won the two-seat general that November. Hjerpe
+argues that the at-large era's members of color all won in cycles where two
+seats were up and would have lost in any other. Monroe is the case where that
+can be seen directly: the same candidate, the same year, losing the one-seat
+contest and winning the two-seat one seven months later. Relevant to Q3 and to
+whatever the report says about the at-large system.
+
 ### Q3. What supports "first Black member since Reconstruction"?
 **Owner:** archive · **Status:** open — held until the internal discrepancies are reconciled with Alex; then the demographics list goes to the Arlington Historical Society as two short tabs (Black members, women) with the default stated
 
