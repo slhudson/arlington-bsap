@@ -241,13 +241,17 @@ changes between elections. Three sources, in order:
    A cited claim that contradicts a party the county prints stops the build.
 
 **The rule for reporting:** the party or coalition whose candidate the source
-says the member was. A self-declared independent whom a party endorsed stays
-independent — Dugan in 1946, Vihstadt in 2014 — with the endorsement in the
-note. ABC's endorsement counts as ABC's banner, because endorsing was what
-ABC did; where a source names both ABC and a party, the party (Fisher, 1967).
+says the member was, and a party's open endorsement makes someone its
+candidate whatever label they ran under. Settled by Sally on 23 September
+2026: an independent openly endorsed by the Republicans is functionally a
+Republican, so Dugan in 1946 and Vihstadt in 2014 are coded Republican, with
+"ran as an independent" in the note. A source saying only that someone
+*leaned* a party's way (Tillema, 1952) is not an endorsement and stays
+independent. ABC's endorsement counts as ABC; where a source names both ABC
+and a party, the party (Fisher, 1967).
 
-**What it yields, 1932–2026.** 146 terms: 76 Democratic, 15 Republican, 15
-ABC, 15 independent, 25 not recorded. The built table reproduces three
+**What it yields, 1932–2026.** 146 terms: 76 Democratic, 18 Republican, 15
+ABC, 12 independent, 25 not recorded. The built table reproduces three
 compositions reported independently — three Republicans in 1970 and again in
 1979, three independents in 1952 — none of which was used to build it.
 
@@ -289,9 +293,6 @@ exists.
 - **Ricks (1968–71) and Brunner (1984–87)** stay independent on the county's
   label. The Washington Post's 1983 preview reportedly calls Brunner a
   Republican; the archive is paywalled and was not read.
-- **Vihstadt** is coded independent with formal Republican backing, per the
-  rule. Sally sat with the Board this covers; `hudson2026` exists for exactly
-  this kind of correction.
 - **ABC as its own band.** It could be folded into Democratic, as the coalition
   it was. Kept separate because the county itself recorded it and an
   ABC-majority Board from 1957 to 1966 is a finding.
