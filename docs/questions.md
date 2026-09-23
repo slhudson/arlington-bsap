@@ -152,7 +152,7 @@ and only the second is a finding about the historical record. The draft for the
 Data Cleaning doc keeps them as two paragraphs for that reason.
 
 ### Q21. Hjerpe frames the five Black members as an open question
-**Owner:** Claude · **Status:** open — the coding may overstate its source
+**Owner:** Claude · **Status:** answered — the row is relabelled, 23 Sept 2026
 
 The sentence naming the five — Rowe, Syphax, Pinn, Pendleton, Allen — sits on
 the title page of Hjerpe's paper under the heading **"Lingering Inquiries"**,
@@ -164,9 +164,21 @@ found little on four of the five.
 which is stronger than the source is. The three appendix rows are unaffected —
 they rest on the reproduced census images, not on this sentence.
 
-Worth deciding whether the basis should read something like "named in the
-author's own open questions", and whether the report should describe the five
-as identified or as proposed. This bears on Q3 and Q17.
+**Answered, and the finding is narrower than it first looked.** No member's
+coding depends on that sentence. Pinn, Pendleton and Allen each have their own
+row resting on a reproduced 1880 census image; Rowe and Allen have narrative
+statements elsewhere in the paper; and Syphax has a second row from O'Leary,
+who writes that his photograph shows he was African American. **Syphax is Black
+on O'Leary's evidence**, not on this.
+
+The row is kept rather than dropped, with its basis now reading "named in the
+author's own list of open questions". The file is one row per claim rather than
+one per person, so keeping it is what records that two sources speak to Syphax
+— and that sentence is the only place in the data where the five are named as a
+*group*, which is what `docs/sources.md` leans on. Deleting it would lose that.
+
+What is still open is the report's wording: whether it describes the five as
+identified or as proposed. That belongs with Q3 and Q17.
 
 ### Q20. Vollin is two cases, and Pratt gives both citations
 **Owner:** Claude · **Status:** answered — both entered; the Virginia year is still missing
