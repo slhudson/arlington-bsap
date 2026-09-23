@@ -39,7 +39,7 @@ without a network connection, an API key, or a Mac.
 | `code/build/board_seats.py` | `data/clean/board_seats.csv` | `docs/sources.md` — seat-years |
 | `code/analysis/<figure>.py` | `figures/pdf/<figure>.pdf`, `figures/png/<figure>.png` | `docs/figures.md` |
 
-Six figures build. Two are in the paper so far, `residents_by_race` and
+Seven figures build. Two are in the paper so far, `residents_by_race` and
 `board_race`; the rest are built and waiting on the outline.
 
 ## Rebuilding

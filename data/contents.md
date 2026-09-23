@@ -313,11 +313,15 @@ figure uses them. `residents_per_seat` carried a cube-root-law benchmark and no
 longer does; whether any comparison belongs in the report is open, so the
 columns stay until that is settled rather than being removed and rebuilt.
 
-`voters.csv` — Arlington's presidential vote by election, 1872–2024: votes
-for the Democratic and Republican nominees, for everyone else, and the
-total, with a `complete` flag the figure honours and a source per row —
-O'Leary through 1920, the state database from 1924. Voters, not residents:
-the file is named for what it counts.
+`voters.csv` — Arlington's vote by party, one row per election and
+`office`: for President every fourth year 1872–2024, and for County Board
+every year from 1939 and in 1931 and 1935. Votes for Democratic,
+Republican, ABC and other candidates, for candidates given no label, and
+the total, with a `complete` flag the figures honour and a source per row —
+O'Leary and the county's candidate history where they reach, the state
+database after. A Board candidate is counted under the label the county
+printed, not the party later attached to the winner in `board_members.csv`.
+Voters, not residents: the file is named for what it counts.
 
 `board_members.csv` — one row per person per term, 1870 through 2026: name,
 term number, district, start and end to the month, source, a note only where

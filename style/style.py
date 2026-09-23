@@ -168,6 +168,12 @@ PARTY_LABELS = {
 VOTERS_ORDER = ["dem", "other", "rep"]
 VOTERS_COLORS = {"dem": PARTY_COLORS["dem"], "other": GREY, "rep": PARTY_COLORS["rep"]}
 VOTERS_LABELS = {"dem": "Democratic", "other": "other", "rep": "Republican"}
+# The County Board vote has the seat chart's bands, in the seat chart's order,
+# with "other" standing where "independent" stands there: it holds the
+# independents and every small group the county ever labelled.
+BOARD_VOTE_ORDER = ["dem", "abc", "unrecorded", "other", "rep"]
+BOARD_VOTE_COLORS = {**PARTY_COLORS, "other": GREY}
+BOARD_VOTE_LABELS = {**PARTY_LABELS, "other": "other"}
 
 RESIDUAL_COLOR = GREY
 

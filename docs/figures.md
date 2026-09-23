@@ -1,13 +1,13 @@
 # The figures
 
-Where each figure came from and why it takes the form it does. Six build.
+Where each figure came from and why it takes the form it does. Seven build.
 
 The visual conventions are not described here — they are in `style/`, which is
 where they are enforced. This file covers what each figure *shows* and the
 decisions behind that. `style/urban-styleguide.md` covers what the style layer
 follows and where it departs.
 
-## The six
+## The seven
 
 ### `residents_per_seat`
 Two series on one linear axis, 1870–2020: total population, and residents per
@@ -107,21 +107,47 @@ Asian American or Pacific Islander member has served is a finding, and a
 finding is a sentence in the prose. The test is on the data rather than the
 category name, so a future member restores the band with no edit.
 
-### `voters_by_party`
-The voters' side of `board_party`: Arlington's presidential vote in three
-bands, Democratic from the axis, other in the middle, Republican from the
-top, in the same colours, every four years from 1872. Stacked bars rather
-than steps because an election is a point in time; a step would claim the
-share held for four years.
+### `voters_president`
+Arlington's vote for President in three bands, Democratic from the axis,
+other in the middle, Republican from the top, in `board_party`'s colours,
+every four years from 1872. Stacked bars rather than steps because an
+election is a point in time; a step would claim the share held for four
+years.
 
 **Voters, not residents.** Virginia has no party registration, so the
 presidential vote is the proxy, and it counts the people who voted, in an
 electorate narrowed before 1966 by the poll tax and the 1902 constitution.
-The axis says "share of voters" for that reason. Q30 in `docs/questions.md`.
+Q30 in `docs/questions.md`.
 
 **Three bars are missing by decision**: 1896, 1904 and 1908, whose returns
 are incomplete on O'Leary's page. The build keeps the rows and marks them;
 the figure leaves a gap, which says so where a short bar would not.
+
+**"President" in the name and the axis, not "POTUS".** The acronym is how
+the distinction was first put; the word is what a reader of the report
+meets, and it sorts beside `voters_board` the same way.
+
+### `voters_board`
+The same axis and colours for the vote for County Board, every year from
+1939 and in 1931 and 1935. A separate figure rather than a second panel
+because these are not the same voters as the presidential ones, and a
+shared frame would say they were; the pair reads like `board_race` and
+`board_gender`.
+
+**A candidate is counted under the label the county printed**, not under
+the party reporting later attached to the winners in `board_party`. The
+1967-83 stretch is therefore mostly grey here and Republican there, on
+purpose: this figure is about the choice on the ballot, that one about who
+sat. "not recorded" is a candidate the county gave no label, which is most
+of the first two Boards and every non-Democrat since 2023, where the state
+file carries no party at all.
+
+**A step area, because it is annual**, with a gap for the years the build
+marks incomplete: a winner with no vote count, which is 1942 and 1949.
+
+**Shares are of votes cast.** In a two-seat year each ballot carries two,
+which distorts a party's share only where it ran fewer candidates than
+seats. Q30 lists those years; none moves a band by much.
 
 ### `board_party`
 The same frame, scale and 1932 rule as the other two seat charts, so the three

@@ -18,14 +18,14 @@ PY=.venv/bin/python
 
 # Stage 1: raw/ -> data/. Every decision about what a number IS happens here.
 # Each step is named for the file it writes: residents.py -> data/clean/residents.csv
-BUILD=(residents voters board_members board_seats)
+BUILD=(residents board_members board_seats voters)
 
 # Stage 2: data/ -> figures/. Presentation only; analysis cannot reach raw/.
 # Each step is named for the figure it writes: board_race.py -> board_race.pdf/.png
 # Three subjects - residents, voters, then board - alphabetical within each. Build order is
 # independent of the order the report uses them in: that belongs to the prose,
 # and a list here that tracked it would go stale with nothing to catch it.
-FIGURES=(residents_by_race residents_per_seat voters_by_party board_gender board_party board_race)
+FIGURES=(residents_by_race residents_per_seat voters_board voters_president board_gender board_party board_race)
 
 # The guards live in code/build/. These prove the guards still fire, so editing
 # build/ cannot quietly disable one. Under a second; run first so a broken

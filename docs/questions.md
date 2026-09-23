@@ -343,6 +343,22 @@ prints "?" for 1896's Washington district and total, and writes that the
   poll tax that came with the same constitution, belong on the figure. They
   belong with turnout (Q31) rather than with party, and are not drawn.
 
+**The County Board vote, `voters_board`, added the same day.** Sally's point:
+the presidential electorate and the November one that chooses the Board are
+not the same, so they are two figures, not one. The Board vote counts each
+candidate under the label the county printed, not the party later attached
+to the winner - so votes for Grotos in 1975 are "other" here while her seat
+is Republican in `board_party`. That is deliberate: one figure is the choice
+on the ballot, the other who sat. Two seats are elected in every fourth year
+from 1951, and a ballot then carries two votes, so shares are of votes cast;
+that distorts a party's share only where it ran fewer candidates than seats,
+which the county's record shows in 1951 (one independent), 1959 (one
+Democrat, one Republican against two ABC) and 2003 (one Republican). From
+2023 the state file carries no party on the general at all, so a Democratic
+primary winner is Democratic and every other candidate is "not recorded";
+Clement, Fierro and Cambridge are in that band, and a source for their
+labels would move them. 1942 and 1949 are gaps: a winner with no count.
+
 ### Q31. Who votes in County Board elections?
 **Owner:** Sally · **Status:** open — a separate strand, not started
 

@@ -302,9 +302,15 @@ refuses a party label it has not been told what to record.
 
 ## Voters
 
-`data/clean/voters.csv` is Arlington's presidential vote by party, the proxy
-for residents' partisanship in a state with no party registration (Q30 in
-questions.md). 1872–1920 from O'Leary's compilation of the Alexandria
+`data/clean/voters.csv` is Arlington's vote by party for two offices (Q30 in
+questions.md). **For County Board**, 1931–2021 is the county's candidate
+history, every general and special contest in a year summed, each candidate
+under the label the county prints; 2022 on is the state database, which
+names a party on the 2022 general and none after, so from 2023 a Democratic
+primary winner is Democratic and everyone else is unrecorded. A year is
+incomplete where a member the roster seats by election has no vote count.
+**For President**, the presidential vote is the proxy for residents'
+partisanship in a state with no party registration. 1872–1920 from O'Leary's compilation of the Alexandria
 Gazette, transcribed verbatim and parsed in `code/build/voters.py`, which
 marks 1896, 1904 and 1908 incomplete on his own word and the page's. 1924–2024
 from the state database's locality rows, which carry party on every
