@@ -66,9 +66,10 @@ writes which file — while `CLAUDE.md` holds the working rules.
 
 ## What a working setup looks like
 
-1. **A GitHub account**, with the username sent to the repository's owner so
-   they can be added to the private repository — cloning fails until then,
-   so this is the first thing to sort out.
+1. **An invitation to the GitHub repository and to the Overleaf project.**
+   Both are private, so someone already on them has to send the invitations
+   — the repository's owner, or any collaborator with access. Cloning fails
+   until the GitHub one is accepted, so this is the first thing to sort out.
 2. **Git installed**, and signed in to GitHub.
 3. **Claude Code installed and working.**
 4. **Python with pandas, matplotlib and openpyxl**, in a virtual environment
@@ -80,11 +81,10 @@ writes which file — while `CLAUDE.md` holds the working rules.
    print the tests, a build step, five figures, and a line about
    `figures/pdf` and `figures/png`. That is the test that everything works.
    Invoke it through `bash`, not `./run.sh`; `run.sh` says why at the top.
-6. **Access to the Overleaf project.** The owner shares it. In Overleaf, the
-   GitHub link is under the **Integrations** tab in the icon rail down the
-   left of the editor, not under the Menu; pull from GitHub before a writing
-   session and push when done, so the paper and the repository stay the same
-   thing.
+6. **The Overleaf project open and synced.** In Overleaf, the GitHub link
+   is under the **Integrations** tab in the icon rail down the left of the
+   editor, not under the Menu; pull from GitHub before a writing session and
+   push when done, so the paper and the repository stay the same thing.
 
 ## How to help
 
@@ -96,7 +96,14 @@ the Python environment (which happens inside Claude Code once it is
 running), cloning the repository, connecting to the Overleaf project, and
 then getting oriented in it.
 
-Ask what operating system they're on, then go one step at a time: say what
+Start by asking whether they already have invitations to the GitHub
+repository and the Overleaf project. If not, nothing else can proceed: tell
+them to ask someone who is already on both — the repository's owner or any
+existing collaborator — and say exactly what to ask for (an invitation to
+the `slhudson/arlington-bsap` repository on GitHub, and to the
+`arlington-bsap` project on Overleaf, both to the email address they'll use).
+
+Then ask what operating system they're on, and go one step at a time: say what
 to type, what they should see if it worked, and what to do if they see
 something else, and wait for them to confirm before the next step. If a step
 needs something only the repository's owner can do, say so plainly and say
