@@ -1,13 +1,13 @@
 # The figures
 
-Where each figure came from and why it takes the form it does. Seven build.
+Where each figure came from and why it takes the form it does. Eight build.
 
 The visual conventions are not described here — they are in `style/`, which is
 where they are enforced. This file covers what each figure *shows* and the
 decisions behind that. `style/urban-styleguide.md` covers what the style layer
 follows and where it departs.
 
-## The seven
+## The eight
 
 ### `residents_per_seat`
 Two series on one linear axis, 1870–2020: total population, and residents per
@@ -148,6 +148,46 @@ marks incomplete: a winner with no vote count, which is 1942 and 1949.
 **Shares are of votes cast.** In a two-seat year each ballot carries two,
 which distorts a party's share only where it ran fewer candidates than
 seats. Q30 lists those years; none moves a band by much.
+
+### `turnout`
+Who votes for the County Board, 1931–2025, in two panels: (a) people, (b)
+the same lines as shares of the county's adults from 1980. The Board's
+voters are four series, not one: the year's place in the four-year cycle,
+by what else the November ballot carried — the President, the governor,
+Congress alone, or the House of Delegates alone. The presidential vote
+itself is the grey reference. Q31 in `docs/questions.md`.
+
+**Four lines, because the sawtooth was the ballot.** Drawn as one annual
+line the Board's vote is a sawtooth with a four-year period, and the teeth
+are what else was on the ballot, not anything about the Board. Split by
+cycle, each line is every fourth year, the four levels are legible, and so
+is the trend in each: presidential-year Board voters rose from a third of
+adults in 1980 to well over half, House of Delegates years from a fifth to
+a third, and the midterm and governor's years have converged on the
+presidential level since 2017.
+
+**Votes per seat, not votes.** A Board ballot carries one vote per seat
+filled, so the contest's total is people only when one seat was filled;
+where two or more were, the line is the total divided by the seats, a lower
+bound. Since 1951 every two-seat year has been a House of Delegates year,
+so the understatement lives in that one line, and the caption says so.
+Ballots cast would be the right number and no source holds it.
+
+**Counts and shares both.** The counts are the sourced baseline and show the
+electorate growing tenfold, which shares would hide; the shares answer the
+question, and depend on a denominator the build only has from 1980, carried
+between censuses on a straight line. Panel (b) starts where its denominator
+does rather than sharing (a)'s axis half empty.
+
+**Gaps are decisions.** 1931 (others ran who are not listed), 1942 and
+1949 (no counts) and 1947 (8 of 11 precincts) are breaks. 1931, 1935 and
+1939 elected the whole Board at once, all House of Delegates years, so that
+line starts in 1935 with nothing between.
+
+**Named by a legend, not beside each line.** Five lines in two panels would
+be named ten times. Vermilion stays with the presidential-year Board vote;
+the other three cycles take orange, bluish green and black in falling order
+of turnout. Registered voters are in the table from 2010 and not drawn.
 
 ### `board_party`
 The same frame, scale and 1932 rule as the other two seat charts, so the three

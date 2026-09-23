@@ -322,6 +322,29 @@ nominee's, named in the build, since O'Leary prints it for 1912 only.
 
 ---
 
+## Turnout
+
+`data/clean/turnout.csv` puts four measures side by side (Q31 in
+questions.md). Votes for the County Board are the county's candidate
+history 1931–2021 and the state database from 2022, summed over every
+November Board contest in the year, write-ins included; the seats they
+filled are counted from the roster, so that 1931–39 (the whole Board),
+1943, 1947, 1952, 1960 and 1997 are not read as single-seat contests. The
+two district-era counts O'Leary reports, 1907 and 1915, are from his pages
+25 and 27. Registered voters are the Department of Elections' monthly
+locality report for October of each year from 2010 (`varegistration`),
+which is dated in the first days of November; the active list is
+`registered` and the inactive list is added in `registered_all`. The
+population 18 and over is the census: the 1980 and 1990 Summary Tape Files'
+age tables and the API's tables for 2000–2020, all four checked against the
+county total on every fetch. The presidential vote is `voters.csv`'s and
+is marked `derived`.
+
+Four Board years are marked incomplete on the county's own page and are not
+drawn: 1931, 1942, 1947 and 1949.
+
+---
+
 ## The census scans
 
 Nine PDFs, 521 pages, in `data/raw/us_census_bureau/`, from the published 1870, 1880 and
