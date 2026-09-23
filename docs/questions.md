@@ -130,6 +130,28 @@ The 1889–1986 stretch is coded all-White, roughly 490 person-years, resting on
 that framing. It is the most load-bearing claim in the report and has not been
 independently verified. Detail in `docs/sources.md`.
 
+### Q20. Vollin is two cases, and Pratt gives both citations
+**Owner:** Claude · **Status:** answerable now — entries not yet written
+
+The Drive folder already held Pratt (1995) under the title "Arlington's
+Electoral History", which is O'Leary's subject rather than his. Its footnotes
+settle what the handoff listed as an open question:
+
+- **Federal.** *George Vollin, Jr., et al. v. Mills E. Godwin, et al.*, U.S.
+  District Court, Eastern District of Virginia, Alexandria Division, Civil
+  Action No. 173-74-A. Vollin testified in 1974. Eight plaintiffs, named in
+  Pratt's note 16.
+- **Virginia Supreme Court.** *Vollin v. Arlington County Electoral Board*,
+  216 Va. 674. Pratt's note 3 prints it "Yollin", which is the scan misreading
+  a V. **The year is not stated in the article** and should not be inferred
+  from the volume number without checking a reporter.
+
+So they are two proceedings, not one, and the report should not merge them.
+What is left: confirm the Virginia case's year, decide how a court case is
+entered in `paper/sources.bib` — biblatex-chicago has `@jurisdiction` — and
+whether Pratt, who heard the testimony and holds his own tapes of Vollin, is
+cited alongside as where we read it.
+
 ### Q19. Hjerpe's page numbers are the PDF's, not the document's
 **Owner:** Claude · **Status:** open — found 23 Sept 2026, not yet corrected
 
