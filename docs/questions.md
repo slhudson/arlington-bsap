@@ -451,32 +451,41 @@ first County Board contest is 1931. The roster has nothing for these years.
 Alex's seat counts do cover them, so he had some way of knowing who served;
 that source is the question.
 
-### Q15. Vacancies are invisible in the data
-**Owner:** Sally + Alex · **Status:** open — affects residents-per-seat
+### Q15. Vacancies in the seat counts
+**Owner:** Sally + Alex · **Status:** partly answered 22 Sept 2026 — vacancies
+are now representable and two are recorded; how many others there are is open,
+and `residents_per_seat` still divides by seats that exist
 
-The seat counts always sum to exactly three or five. A seat that sat empty
-cannot be represented, so every year looks fully staffed.
+**What has changed.** This entry used to read "the seat counts always sum to
+exactly three or five" and "1990 still records five filled seats". Neither has
+been true since seat-years were time-weighted (Q13). `board_seats.csv` now
+records 1873 at two and a half seats — Washington district vacant from June to
+November — and 1990 at four and five sixths, after John Milliken resigned in
+February and James Hunter III was elected in a May special election. Both show
+on the board figures, and the build asserts that those are the only two years
+falling short.
 
-At least one year was not. John Milliken resigned in February 1990 and James
-Hunter III was elected in a special election in May 1990 to fill the unexpired
-term. For roughly three months the Board had four members, and 1990 still
-records five filled seats.
+1870 is deliberately not among them. The Board came into existence at the May
+1870 election, so that year is measured against the eight months the Board
+existed rather than the calendar year — see `docs/sources.md`.
 
-**Why it matters beyond bookkeeping.** `residents_per_seat` divides population
-by the number of seats — three through 1930, five after. If seats sat empty,
-each serving member represented more people than that figure shows, which is
-the opposite direction from the story the figure tells.
+**What is still open, and it is the substance of the question.**
 
-**It is also an argument for time-weighting.** Under an even split Milliken and
-Hunter take half a seat each and the vacancy vanishes. Weighted by service they
-account for about ten months between them, and the remaining two months are
-genuinely unfilled — 1990 would then total less than five seats, which is what
-happened.
+*How many other gaps there are.* Two are recorded because two are sourced. The
+figure is only as complete as the roster's dates. *Six Decades of Arlington
+Leadership* lists terms of service to the month for every member through 1994,
+so gaps in that period are findable; after 1994 they are not yet sourced. Until
+that sweep is done, "two vacancies since 1870" is a statement about the roster,
+not about the Board.
 
-**Not yet known:** how many such gaps there are. *Six Decades of Arlington
-Leadership* (see sources.md) lists terms of service to the month for every
-member through 1994, so the gaps are findable for that period. After 1994 they
-are not yet sourced.
+*`residents_per_seat` divides by the seats that exist, not the seats filled.*
+`residents.csv` carries `board_seats` as three through 1930 and five after, and
+the figure divides population by that. Where a seat sat empty, each serving
+member represented more people than the figure shows — the opposite direction
+from the story it tells. Dividing by the filled count from `board_seats.csv`
+instead would fix it, and would make the growth figure depend on the roster,
+which it currently does not. That is a real coupling to weigh, not an
+oversight to correct quietly.
 
 ### Q14. Three missing service dates
 **Owner:** Alex · **Status:** open — small
