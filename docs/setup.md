@@ -28,7 +28,7 @@ Four things, each doing one job:
   repository folder so nothing has to be installed system-wide.
 - **Claude Code** is Claude in the terminal. It can read and edit the files
   in the repository directly, run the build, and explain what it finds. It
-  needs a paid Claude plan.
+  needs a paid Claude plan; the $20-a-month one is enough.
 - **Overleaf** is where the paper is written. It is linked to the GitHub
   repository, so the figures the scripts produce appear in the paper without
   being uploaded by hand.
