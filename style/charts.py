@@ -55,26 +55,20 @@ def lines(ax, x, series):
         ax.plot(x, values, color=color, marker="o", zorder=3, label=label)
 
 
-def end_labels(ax, x, series, gap=0.015):
-    """Name each line at its own right-hand end, with its final value.
+def label_line(ax, x, y, text, color):
+    """Name a line where it runs, on one line of text, inside the axes.
 
-    Urban prefers this to a legend where the lines allow it: "directly label
-    the data series ... at the far right of the graph, slightly outside the
-    graph space, but left-aligned."
+    Urban puts line labels at the far right, just outside the plot. That needs
+    headroom past the last data point, and a label long enough to be readable
+    needs enough of it to visibly stretch the axis - which distorts the series
+    to buy room for its own caption. Putting the label in the space the chart
+    already has costs nothing.
 
-    Drawn in data coordinates inside the axes, not as an annotation offset
-    beyond them. Constrained layout reserves room for things it knows about -
-    ticks, labels, titles - and an annotation hanging outside the axes is not
-    one of them, so it silently runs off the page. Call this after the x limit
-    is set, and leave room in that limit.
+    One line, not two. A label wrapped over two or three lines is read rather
+    than glanced at, which is the opposite of what direct labelling is for.
     """
-    lo, hi = ax.get_xlim()
-    at = float(np.asarray(x)[-1]) + (hi - lo) * gap
-    for label, (values, color) in series.items():
-        last = float(np.asarray(values)[-1])
-        ax.text(at, last, f"{label}\n{int(round(last)):,}", color=color,
-                ha="left", va="center", linespacing=1.3,
-                fontsize=plt.rcParams["font.size"])
+    ax.text(x, y, text, color=color, ha="left", va="center",
+            fontsize=plt.rcParams["font.size"])
 
 
 def stacked_bars(ax, x, series, width=7):

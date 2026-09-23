@@ -11,9 +11,17 @@ follows and where it departs.
 
 ### `residents_per_seat`
 Two series on one linear axis, 1870–2020: total population, and residents per
-Board seat. Both are counts of people, so the vertical distance between them
-means the same thing everywhere on the page. Each line is labelled at its own
-right-hand end with its final value; no legend.
+Board member. Both are counts of people, so the vertical distance between them
+means the same thing everywhere on the page.
+
+Each line is named where it runs, on one line, with its final value — not at
+the far right outside the plot, which is Urban's placement. A label long enough
+to be readable needs enough headroom past 2020 to visibly stretch the axis,
+which distorts the series to make room for its own caption. The band between
+the two lines is empty from 1950 on and costs nothing.
+
+The denominator is seats that exist, three through 1930 and five after, not
+members actually serving. The two differ in 1873 and 1990 — see Q15.
 
 It carried a cube-root-law benchmark and no longer does. The law is
 descriptive, not normative — Taagepera observed that assemblies sit near the
