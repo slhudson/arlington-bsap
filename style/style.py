@@ -78,7 +78,7 @@ OKABE_ITO = {
 # saturated lead colour on a chart about representation, so the largest group
 # takes the neutral and the residual band takes the darker one.
 SAND = "#D9D3C4"          # the mass: White residents
-GREY = "#8C8C8C"          # the residual: other, multiracial or unreported
+GREY = "#8C8C8C"          # the residual: other or multiracial
 
 # Colours are assigned per subject rather than through numbered slots. A slot
 # called "blue" that holds orange is how this got confusing once already.
