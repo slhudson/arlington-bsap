@@ -182,6 +182,22 @@ remains is 1870–1970.
 **In code:** `not_reported_as_zero()` in `code/build/assumptions.py`, applied by
 both panels of `code/analysis/residents_by_race.py`.
 
+### Q27. The 1938 referendum margin has no source
+**Owner:** Sally + Alex · **Status:** open
+
+The 1938 referendum that introduced staggered terms is recorded as carrying
+1,539 to 1,487 - a margin of 52 votes. The referendum itself is named in the
+NCL proposal, and the Arlington Historical Society's "County Officials in
+Arlington 1870-1960" is cited for the change. Neither is cited for the count.
+
+A vote total is the kind of number a reader assumes came from a record, and a
+52-vote margin is exactly the detail a report would lean on. It should either
+name the record it came from or come out.
+
+**Where to look:** the county's own canvass returns for 1938, the Historical
+Society's officials list if it carries counts as well as names, and the
+Alexandria Gazette, which reported Arlington election results at the time.
+
 ### Q25. Bestebreurtje is cited as two different documents
 **Owner:** Sally + Alex · **Status:** open — blocks two claims
 
