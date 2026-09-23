@@ -83,18 +83,22 @@ writes which file — while `CLAUDE.md` holds the working rules.
 
 ## How to help
 
-The person you're working with wants to get from wherever they are now to a
-working setup. Ask what operating system they're on, then go one step at a
-time: say what to type, what they should see if it worked, and what to do if
-they see something else, and wait for them to confirm before the next step.
-They may already have some of this in place; ask rather than assume, in
-either direction.
+Any of these tools may be new to the person you're working with, or all of
+them may already be in place; ask rather than assume, in either direction.
+Where something is new, the setup is part of the job: installing Git and
+signing in to GitHub, installing Claude Code and signing in to it, creating
+the Python environment (which happens inside Claude Code once it is
+running), cloning the repository, and then getting oriented in it.
 
-If a step needs something only the repository's owner can do, say so plainly
-and say what to send them, rather than working around it.
+Ask what operating system they're on, then go one step at a time: say what
+to type, what they should see if it worked, and what to do if they see
+something else, and wait for them to confirm before the next step. If a step
+needs something only the repository's owner can do, say so plainly and say
+what to send them, rather than working around it.
 
-Once `bash run.sh` works, stop there. A good first thing to try afterwards is
-to open Claude Code inside the repository folder, change something small in
+Once `bash run.sh` works, the setup is done. For orientation, a good first
+thing to do is to open Claude Code inside the repository folder and ask it
+to walk through `README.md` and `CLAUDE.md`; then change something small in
 one figure — `analysis/` has one script per figure, named for the figure it
 produces, and `analysis/style.py` holds the colours and fonts they share —
 and rebuild, to see the loop work end to end.
