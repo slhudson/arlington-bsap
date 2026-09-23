@@ -388,6 +388,33 @@ Three things to settle before any of it is built:
 If it goes ahead it is a new figure and a new source under `data/`, not a
 change to `residents_per_seat`.
 
+### Does the falling Black share read as displacement?
+**Owner:** Sally · **Status:** open — for whoever writes the race section
+
+Panel (b) of `residents_by_race` shows the Black share of Arlington falling
+from 63 per cent in 1870 to 8.5 per cent in 2020. On its own that invites a
+displacement reading, and at county level it would be wrong.
+
+Panel (a) is why the levels are drawn. Black residents went from 2,010 to
+20,330, a tenfold increase, while the county went from 3,185 to 238,643,
+seventy-five-fold. No census records a substantial fall: the only decreases are
+2,645 to 2,507 across the 1910s and a flat stretch from 1990 to 2010. The share
+falls because everything else grew faster, not because people left.
+
+**Two things that should be said with it.**
+
+*County totals cannot rule out displacement.* They aggregate over exactly the
+geography where it happens. Arlington's Black population was concentrated in a
+few neighbourhoods, and a community can be destroyed while the county count
+rises. Nothing in `data/` speaks to this. Bestebreurtje is cited under the
+prose-only sources in `docs/sources.md` and is where to look.
+
+*The 1870 baseline is a Reconstruction figure.* 63 per cent reflects Freedman
+village, the settlement of formerly enslaved people on the Arlington estate,
+which is Q9 and still open. It is a moment rather than a stable starting point,
+and a sentence that reads "the Black share has fallen from 63 per cent" without
+saying so is doing work the number cannot support.
+
 ### Q7. Should any of the set-aside figures be revived?
 **Owner:** Sally + Alex · **Status:** open, low priority
 
