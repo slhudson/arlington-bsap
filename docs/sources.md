@@ -196,10 +196,18 @@ held by each race and by each gender, in seat-years, so a member who sat for
 four months of a year counts 4/12. From 1932 (and for 1870–1915) it is
 computed from `board_members.csv`; the handover month belongs to the incoming
 member (Q13). 1916–1931 has no terms and stays on the delivered counts, and a
-`source` column says which. The seats held can never exceed the seats that
-exist, and fall short only in 1870 (the Board began in May), 1873 (a recorded
-vacancy) and 1990 (a February resignation, a May special election); anything
-else stops the build.
+`source` column says which.
+
+The denominator is the months the Board existed that year, which is twelve for
+every year but its first. Arlington's Board came into existence at the May 1870
+election, so 1870 is scaled by the eight months it existed rather than by the
+calendar year: it reads three seats filled, because they were, for as long as
+there was a Board to fill them. Divided by twelve it would read two, and a
+chart of that says the Board grew from two seats to three, which it did not.
+
+The seats held can never exceed the seats that exist, and fall short only in
+1873 (a recorded vacancy) and 1990 (a February resignation, a May special
+election); anything else stops the build.
 
 Against the delivered counts, 138 years overlap: 120 identical, 128 within
 half a seat. The rest are the three Reconstruction terms in Q17 and handover

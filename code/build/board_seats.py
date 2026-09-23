@@ -3,6 +3,19 @@
 One row per year, 1870-2026, in seat-years: a member who held a seat for the
 whole year counts 1, for four months 4/12.
 
+**The denominator is the months the Board existed that year, not the calendar
+year.** For every year but its first those are the same. Virginia's 1869
+constitution created county boards of supervisors and Arlington's first
+election was in May 1870, so the Board existed for eight months of 1870 and the
+roster's first terms all begin then. Divided by twelve, 1870 would read 2.0 -
+a chart of it shows the stack starting at two and rising to three, which says
+the Board grew, and it did not. Divided by the eight months it existed, 1870
+reads 3.0: the Board's seats were filled the whole time it was a Board.
+
+This does not hide a vacancy. 1873 and 1990 are years the Board existed for all
+twelve months and sat a seat short for part of them, and both still fall below
+the full complement.
+
 From 1870 to 1915 and from 1932 on, the rows are computed from
 board_members.csv, whose terms run to the month. A term's months are its
 start month through its end month, except that a month in which a successor
@@ -120,6 +133,16 @@ def build() -> pd.DataFrame:
     fill["source"] = citekeys.KEENA
 
     d = pd.concat([built[~built.year.isin(WORKBOOK_YEARS)], fill]).sort_values("year").reset_index(drop=True)
+
+    # The Board's first year is short because the Board was, not because a seat
+    # was empty: it came into existence at the May 1870 election. Scale that year
+    # by the months it existed, taken from the roster rather than written in, so
+    # the figure is a measure of seats filled while there was a Board to fill.
+    first_month = int(members.loc[members.start_year == d.year.min(), "start_month"].min())
+    months_existing = 13 - first_month
+    if months_existing < 12:
+        m = d.year == d.year.min()
+        d.loc[m, COLUMNS[1:]] = d.loc[m, COLUMNS[1:]] * 12 / months_existing
     years = list(d.year)
     assert years == list(range(1870, LAST_YEAR + 1)), f"years are not 1870-2026 without gaps: {years[:3]}..{years[-3:]}"
 
@@ -130,10 +153,10 @@ def build() -> pd.DataFrame:
     over = d.loc[total - seats > 1e-9, "year"]
     assert over.empty, f"more seat-years than seats in {list(over)}"
     short = d.loc[(seats - total > 1e-9) & (d.source == citekeys.DERIVED), "year"]
-    # 1870: the Board began in May. 1873: Washington district vacant from the
-    # May election to December. 1990: Milliken resigned in February and the
-    # special election was in May.
-    assert list(short) == [1870, 1873, 1990], f"seats fall short in {list(short)}; expected only 1870, 1873, 1990"
+    # 1873: Washington district vacant from the May election to December. 1990:
+    # Milliken resigned in February and the special election was in May. 1870 is
+    # not here: it is scaled by the months the Board existed, above.
+    assert list(short) == [1873, 1990], f"seats fall short in {list(short)}; expected only 1873, 1990"
 
     # Race and gender split the same seats two independent ways, so they must
     # account for the same total in every year. The workbook years were already

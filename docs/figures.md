@@ -73,9 +73,18 @@ category name, so a future member restores the band with no edit.
 
 1931 is missing in the source and appears as a gap rather than a zero, on both
 seat figures. Half-height segments are genuine: a member left mid-year and was
-replaced. 1870 shows two seats rather than three because the roster opens in
-May, and 1873 shows two and a half because Washington district sat vacant from
-June to November — see `docs/questions.md`.
+replaced.
+
+Two years sit below the full Board, and both are real. 1873 shows two and a
+half seats because Washington district was vacant from June to November, and
+1990 shows a seat short between a February resignation and a May special
+election.
+
+1870 does not, though it once did. The Board came into existence at the May
+1870 election, so only eight months of that year exist; measured against the
+calendar year it read two seats, and the chart then said the Board grew from
+two to three. It is now measured against the months the Board existed, which
+is what every other year is measured against too — see `docs/sources.md`.
 
 ## Retired
 
