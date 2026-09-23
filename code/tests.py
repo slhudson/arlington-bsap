@@ -225,6 +225,34 @@ def test_docs_name_only_paths_that_exist():
     assert not missing, "documentation names paths that do not exist:\n  " + "\n  ".join(missing)
 
 
+def test_docs_agree_with_run_sh():
+    """What the docs say about the build must match what run.sh does.
+
+    run.sh is the one place that knows the install command and the list of
+    figures. setup.md, README.md and CLAUDE.md each repeat one or both for a
+    reader who has not opened it, and that is where a changed dependency or
+    a sixth figure goes unmentioned. So: every `pip install` line in the
+    docs is the same as run.sh's, and every "N figures" is run.sh's count.
+    """
+    import re
+    root = Path(__file__).resolve().parents[1]
+    run = (root / "run.sh").read_text()
+    install = re.search(r"pip install ([a-z0-9 ]+)", run).group(1).split()
+    figures = re.search(r"FIGURES=\(([^)]*)\)", run, re.S).group(1).split()
+    words = {3: "three", 4: "four", 5: "five", 6: "six", 7: "seven", 8: "eight"}
+    problems = []
+    for doc in [root / "README.md", root / "CLAUDE.md", root / "docs" / "setup.md"]:
+        text = doc.read_text()
+        for m in re.finditer(r"pip install ([a-z0-9 ]+)", text):
+            if m.group(1).split() != install:
+                problems.append(f"{doc.name}: install line says {m.group(1).split()}, run.sh says {install}")
+        for m in re.finditer(r"\b(\w+) figures\b", text):
+            n = m.group(1).lower()
+            if n in words.values() and n != words[len(figures)]:
+                problems.append(f"{doc.name}: says '{n} figures', run.sh builds {len(figures)}")
+    assert not problems, "docs disagree with run.sh:\n  " + "\n  ".join(problems)
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in sorted(globals().items()) if n.startswith("test_")]
     failed = 0
