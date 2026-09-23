@@ -102,27 +102,39 @@ writes which file — while `CLAUDE.md` holds the working rules.
 
 ## How to help
 
-Any of these tools may be new to the person you're working with, or all of
-them may already be in place; ask rather than assume, in either direction.
-Where something is new, the setup is part of the job: installing Git and
-signing in to GitHub, installing Claude Code and signing in to it, creating
-the Python environment (which happens inside Claude Code once it is
-running), cloning the repository, connecting to the Overleaf project, and
-then getting oriented in it.
+**Start by working out what they want to do, because that decides what needs
+setting up.** Ask it that way round rather than asking which tool they want.
 
-Start with the invitations, since nothing works without them. If they do not
-have both, say exactly what to ask for and whom to ask — an invitation to
-the `slhudson/arlington-bsap` repository on GitHub and to the
+If they mean to read — check where a figure's numbers came from, see which
+questions are still open, follow how a total was derived, talk through the
+methods — then a Claude Project synced from GitHub is the whole setup, and
+nothing has to be installed. Stop after step 1.
+
+If they mean to change anything — correct a number, edit a figure, add a
+source, rebuild the outputs — that is Claude Code, and the rest of the steps
+apply.
+
+The two are not exclusive and the first is far cheaper, so someone who is
+not sure can start with the Project and add Claude Code when they first hit
+something they want to change.
+
+Either way the invitations come first, since nothing works without them. If
+they do not have both, say exactly what to ask for and whom to ask — an
+invitation to the `slhudson/arlington-bsap` repository on GitHub and to the
 `arlington-bsap` project on Overleaf, both to the email address they will
 use, from the repository's owner or any existing collaborator.
 
-Then ask whether they expect to change anything in the repository. If not,
-stop after the Claude Project in step 1; there is no reason to install
-anything. If they do, ask what operating system they are on and go one step
-at a time: say what to type, what they should see if it worked, and what to
-do if they see something else, and wait for them to confirm before the next
-step. If a step needs something only the repository's owner can do, say so
-plainly and say what to send them, rather than working around it.
+For the Claude Code path, any of the tools may be new or may already be in
+place; ask rather than assume, in either direction. Where something is new,
+the setup is part of the job: installing Git and signing in to GitHub,
+installing Claude Code and signing in to it, creating the Python environment
+(which happens inside Claude Code once it is running), cloning the
+repository, and connecting to the Overleaf project. Ask what operating
+system they are on and go one step at a time: say what to type, what they
+should see if it worked, and what to do if they see something else, and wait
+for them to confirm before the next step. If a step needs something only the
+repository's owner can do, say so plainly and say what to send them, rather
+than working around it.
 
 Once `bash run.sh` works, the setup is done. For orientation, a good first
 thing to do is to open Claude Code inside the repository folder and ask it
