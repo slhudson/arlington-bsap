@@ -49,8 +49,8 @@ prefixes, no `_chart` suffixes: the directory says what the stage does, the
 filename says which thing. `run.sh` checks this after every figure, and warns
 about figures in `figures/` that no step produces.
 
-**Two subjects: `residents` and `board`.** Everything is Arlington, so nothing
-is prefixed `arlington_`.
+**Three subjects: `residents`, `voters` and `board`.** Everything is Arlington,
+so nothing is prefixed `arlington_`.
 
 **If you can run it, it lives with the code. If you can only read it, it lives
 in `docs/`.** `code/build/assumptions.py` holds the mechanism of the two open

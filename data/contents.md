@@ -128,12 +128,25 @@ newspaper returns and Electoral Board minutes — and has not been consulted.
 
 ## raw/va_dept_of_elections/
 
-**`county_board_2021-2026.csv`** — every County Board contest from 2021 on,
-from the Virginia Department of Elections' historical database, saved as the
-database's own CSV by `code/fetch/elections.py`: one row per candidate per precinct
-per vote channel, primaries included, with the kind of election and the number
-of seats in their own columns. It starts at 2021 so that one election overlaps
-the county's candidate history, and the build checks that the two agree there.
+**`county_board_2000-2026.csv`** — every County Board contest the Virginia
+Department of Elections' historical database holds, saved as the database's
+own CSV by `code/fetch/elections.py`: one row per candidate per precinct per
+vote channel, primaries included, with the kind of election, the number of
+seats and the candidate's party in their own columns. It starts at 2000
+because the database does: its Arlington contests before then are federal,
+statewide and General Assembly races only. The 2000–2003 County Board rows
+carry no party and, from 2002, no votes; party is recorded from 2007. The
+roster uses it from 2022, after checking that it and the county's candidate
+history name the same 2021 winner; the party coding uses it from 2007 as a
+second source, checked against the county's labels.
+
+**`president_1924-2024.csv`** — Arlington's presidential vote, every general
+election from 1924, saved by `code/fetch/president.py`. An extract rather than
+the file as published, for size alone: the database returns the whole state
+for this office, 470,000 rows and 75 MB. The rows kept are the database's
+own, unaltered — one per candidate at the locality level, the state's
+canvassed total — and carry the database's party name on every row. 1924 is
+where the database's Arlington rows for this office begin.
 
 ## raw/arlington_historical_magazine/
 
@@ -198,6 +211,12 @@ district per election, read from the rotated pages by
 `code/transcribe/board_1870_1920.py`. The entry is kept as printed, prose about
 replacements included; `code/build/board_roster.py` parses it.
 
+**`arlington_county/president_1872-1920.csv`** — O'Leary's presidential
+returns, one line per candidate as printed, read from the rotated pages by
+`code/transcribe/president_1872_1920.py` with the same page reader as the
+Board listings; `code/build/voters.py` parses them and says which years it
+treats as incomplete.
+
 **`arlington_county/candidate_history_1920-present.csv`** — the county's whole candidate
 table, every office, read by `code/transcribe/candidate_history.py`, with the kind
 of election ("Democratic Primary", "General Election", "Special Election")
@@ -206,6 +225,12 @@ carried from the date column onto every row.
 **`arlington_historical_magazine/novack_terms_1930-1994.csv`** — Novack's
 roster, one row per person, term string and parenthetical notes as printed,
 read by `code/transcribe/novack_terms.py`.
+
+**`board_party.csv`** — what a source says about whose candidate a named
+Board member was at one election, one row per claim, keyed on the name and
+the term's start year: the party, the basis, the citation, and the sentence
+in the source's own words. Read only where the county's candidate history
+prints `(I)` or no label; the rule is Q29 in `docs/questions.md`.
 
 **`board_demographics.csv`** — what a source says about a named Board
 member's race or gender, one row per claim: the category, the basis, the
@@ -288,13 +313,22 @@ figure uses them. `residents_per_seat` carried a cube-root-law benchmark and no
 longer does; whether any comparison belongs in the report is open, so the
 columns stay until that is settled rather than being removed and rebuilt.
 
+`voters.csv` — Arlington's presidential vote by election, 1872–2024: votes
+for the Democratic and Republican nominees, for everyone else, and the
+total, with a `complete` flag the figure honours and a source per row —
+O'Leary through 1920, the state database from 1924. Voters, not residents:
+the file is named for what it counts.
+
 `board_members.csv` — one row per person per term, 1870 through 2026: name,
 term number, district, start and end to the month, source, a note only where
 something irregular happened; then race and gender, each with its own source
-and note — a cited attribution, "Keena workbook", or "default". Nothing
+and note — a cited attribution, "Keena workbook", or "default"; then party,
+from 1932, with its source and note — the county's label, the state's record,
+or a cited attribution — and `unsourced` where none speaks. Nothing
 covers 1916–1931.
 
-`board_seats.csv` — seats held per year by race and by gender, 1870–2026,
+`board_seats.csv` — seats held per year by race, by gender and, from 1932,
+by party (`dem`, `abc`, `rep`, `ind`, `unrecorded`; empty before), 1870–2026,
 in seat-years (months served ÷ 12), computed from `board_members.csv`;
 1916–1931 from Alex's seat-count workbook, the only thing that covers those
 years. A `source` column says which.

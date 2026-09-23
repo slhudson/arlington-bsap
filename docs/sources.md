@@ -270,6 +270,50 @@ default stated plainly: every other member has been treated as a white man;
 where is that wrong? The lists are short enough to check by eye, and the
 1931–1986 stretch is where an answer would matter most.
 
+## Party of Board members
+
+Party has never been printed on the County Board ballot (the county's own
+candidate history, p.1), so a member's party is whose candidate they were,
+coded per term. Q29 in questions.md has the rule; this is what stands behind
+each period.
+
+| Period | Source | What it gives |
+|---|---|---|
+| 1932–1950 | County candidate history, where it prints a label | 9 of 32 terms. The rest are `unsourced` except where McCaffrey (2026a) names the 1949–52 independents and the 1952 appointees. |
+| 1951–1966 | County candidate history | Every winner but Blevins (1956) and the two `(Convention)` nominees of 1955. `(ABC)` appears from 1957. |
+| 1967–1983 | County prints `(I)` on most winners; reporting names the party | Fisher, Munsey, Purdy and Wholey as Democrats; Bozman as ABC's candidate; Grotos, Frankland and Detwiler as Republicans. Ricks stays `(I)`. |
+| 1984–2006 | County candidate history | Every winner labelled. Bozman `(I)` through 1989, `(D)` in 1993. |
+| 2007–2021 | County and state, checked against each other | Agree on every winner. |
+| 2022– | State database | Party on the 2022 general; from 2023, the Democratic primary win. |
+
+Reporting is `data/transcribed/by_claude/board_party.csv`: 26 rows, each a
+sentence in the source's own words with its citation, keyed on the name and
+the term's start year. The sources are pieces by Scott McCaffrey for the Sun
+Gazette and ARLnow (2009–2026), the Library of Virginia's biography of Joseph
+Fisher, Joseph Wholey's obituary and an ARLnow report of the 2020 special
+election, all in `paper/sources.bib` and none yet filed in Drive.
+
+`board_seats.csv` carries the split as `dem`, `abc`, `rep`, `ind` and
+`unrecorded`, seat-years from 1932, empty before. From 1932 the five must
+account for the same seats as the race and gender splits, and the build
+refuses a party label it has not been told what to record.
+
+---
+
+## Voters
+
+`data/clean/voters.csv` is Arlington's presidential vote by party, the proxy
+for residents' partisanship in a state with no party registration (Q30 in
+questions.md). 1872–1920 from O'Leary's compilation of the Alexandria
+Gazette, transcribed verbatim and parsed in `code/build/voters.py`, which
+marks 1896, 1904 and 1908 incomplete on his own word and the page's. 1924–2024
+from the state database's locality rows, which carry party on every
+candidate. The county's own candidate history prints the same returns from
+1920 and is read as a check: it agrees with the state within five per cent
+in every year but 1980, where the county's Carter figure is 25,003 against
+the state's 26,502 and the state's canvass is kept. Party before 1924 is the
+nominee's, named in the build, since O'Leary prints it for 1912 only.
+
 ---
 
 ## The census scans

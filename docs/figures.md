@@ -1,13 +1,13 @@
 # The figures
 
-Where each figure came from and why it takes the form it does. Four build.
+Where each figure came from and why it takes the form it does. Six build.
 
 The visual conventions are not described here — they are in `style/`, which is
 where they are enforced. This file covers what each figure *shows* and the
 decisions behind that. `style/urban-styleguide.md` covers what the style layer
 follows and where it departs.
 
-## The four
+## The six
 
 ### `residents_per_seat`
 Two series on one linear axis, 1870–2020: total population, and residents per
@@ -107,10 +107,64 @@ Asian American or Pacific Islander member has served is a finding, and a
 finding is a sentence in the prose. The test is on the data rather than the
 category name, so a future member restores the band with no edit.
 
+### `voters_by_party`
+The voters' side of `board_party`: Arlington's presidential vote in three
+bands, Democratic from the axis, other in the middle, Republican from the
+top, in the same colours, every four years from 1872. Stacked bars rather
+than steps because an election is a point in time; a step would claim the
+share held for four years.
+
+**Voters, not residents.** Virginia has no party registration, so the
+presidential vote is the proxy, and it counts the people who voted, in an
+electorate narrowed before 1966 by the poll tax and the 1902 constitution.
+The axis says "share of voters" for that reason. Q30 in `docs/questions.md`.
+
+**Three bars are missing by decision**: 1896, 1904 and 1908, whose returns
+are incomplete on O'Leary's page. The build keeps the rows and marks them;
+the figure leaves a gap, which says so where a short bar would not.
+
+### `board_party`
+The same frame, scale and 1932 rule as the other two seat charts, so the three
+read as a set. It begins at 1932 with a gap before it: no source names a
+party for the magisterial-district Board, and a gap says so where a band of
+"not recorded" would say the question had been asked.
+
+**Party is whose candidate a member was**, because it has never been on the
+ballot. The county's own record gives it for most winners; reporting fills
+the 1967–83 stretch the county marks "(I)", which is what turns that stretch
+from a wall of independents into a Republican majority. Q29 in
+`docs/questions.md` has the rule and the residue.
+
+**The two parties take the two edges of the frame.** Democrats grow up from
+the axis, Republicans hang down from the five-seat line, and ABC, "not
+recorded" and independent sit between them. Every category keeps one place
+for the whole run, and a majority reads as the block that crosses the middle.
+Sorting each year by size was rendered and rejected: it puts the majority on
+the floor, which reads quickly, but the Democratic band then hops between
+floor and ceiling through the 1940s and 1950s, splitting one party's history
+across two places on the page.
+
+**"Not recorded" is a band, not a gap**, because the seats existed and were
+held; what is missing is the label. It is most of the first two Boards and
+much of the 1940s. Its colour is a lighter grey than independent, so an
+absence of evidence never reads as a category.
+
+**ABC has its own band.** Arlingtonians for a Better County was a nonpartisan
+coalition allied with the Democrats, and could be folded in; it is kept
+because the county recorded it as a label and a Board with an ABC majority
+from 1957 to 1966 is a finding.
+
+**Partisan colours are the ones readers bring**, at Okabe-Ito values: sky blue
+and vermilion. This sets aside the rule that the largest group takes the
+near-neutral, deliberately — a sand band labelled Democratic would be read
+against the convention rather than as neutral. Vermilion also draws the
+per-seat line on the growth figure; that line is named where it runs, so the
+hue carries no meaning there and the reuse costs nothing.
+
 ## Gaps and half seats
 
-1931 is missing in the source and appears as a gap rather than a zero, on both
-seat figures. Half-height segments are genuine: a member left mid-year and was
+1931 is missing in the source and appears as a gap rather than a zero, on all
+three seat figures. Half-height segments are genuine: a member left mid-year and was
 replaced.
 
 Two years sit below the full Board, and both are real. 1873 shows two and a

@@ -217,6 +217,151 @@ replaces the internal and external question sections, since the external
 questions are asks *of* the county and become the point of the meeting rather
 than a section of the document.
 
+### Q29. What does "party" mean for a Board whose ballot has never carried one?
+**Owner:** Sally · **Status:** open — a first coding is built; the rule and its gaps are for review
+
+Party has never been printed on the County Board ballot. The county's own
+candidate history says so on its first page: party affiliation "did not
+appear on the ballot until 2001, and then only for federal and state offices."
+So there is no official record of a member's party, only of whose candidate
+they were, and that is what is coded.
+
+**Where the coding comes from.** `board_members.csv` carries `party`,
+`party_source` and `party_note` per term, not per person, because a label
+changes between elections. Three sources, in order:
+
+1. The county's candidate history, which prints a label in parentheses after
+   a name from 1931 — `(D)`, `(R)`, `(ABC)`, `(I)` — though not on every
+   winner, and rarely before 1950.
+2. The state's elections database, which records party from 2007 and is the
+   only source from 2022. Where its general-election row carries no party
+   (2023 on), a win in that year's Democratic primary stands in.
+3. Reporting, in `data/transcribed/by_claude/board_party.csv`, one quoted and
+   cited claim per row, used only where the county prints `(I)` or nothing.
+   A cited claim that contradicts a party the county prints stops the build.
+
+**The rule for reporting:** the party or coalition whose candidate the source
+says the member was. A self-declared independent whom a party endorsed stays
+independent — Dugan in 1946, Vihstadt in 2014 — with the endorsement in the
+note. ABC's endorsement counts as ABC's banner, because endorsing was what
+ABC did; where a source names both ABC and a party, the party (Fisher, 1967).
+
+**What it yields, 1932–2026.** 146 terms: 76 Democratic, 15 Republican, 15
+ABC, 15 independent, 25 not recorded. The built table reproduces three
+compositions reported independently — three Republicans in 1970 and again in
+1979, three independents in 1952 — none of which was used to build it.
+
+**Not attempted before 1932.** O'Leary's own summary of the magisterial era is
+that "with few exceptions, party affiliation has to be inferred." The
+Reconstruction-era Black members were almost certainly Republicans or
+Readjusters — the Gazette's "radical Republicans" was applied to Syphax — but
+nothing names a party per person, and the Historical Society's officials
+list carries none. The figure starts at 1932 with a gap before it.
+
+It is not unrecoverable, only unrecorded in anything held. Local elections of
+the period were run on party tickets, and the Alexandria Gazette - O'Leary's
+own source, free on the Library of Virginia's Virginia Chronicle - printed
+them. An RA with O'Leary's dates could read each May election's coverage and
+key a ticket per winner into `board_party.csv`, the same way the 1967-83
+terms were filled from reporting; 1916-31, where the roster itself is
+missing, would need the Gazette and the Washington Star for names as well.
+Election by election, not a dataset, and "inferred" in O'Leary's sense where
+the paper names a ticket rather than a person's party. Owner: RA, when one
+exists.
+
+**Open:**
+
+- **23 terms have no label anywhere**, 1932–1960 almost entirely: the first
+  two Boards (1932–39), DeLashmutt 1942–45, Campbell 1943–46, Lloyd 1945–47,
+  Chew and Cannon 1948–51, Frisbie 1947–52, Blevins 1957–60, and four
+  appointees. The county's compilation labels parties inconsistently before
+  1950. Where to look: the Northern Virginia Sun and Arlington Daily on
+  Virginia Chronicle, which McCaffrey's 2026 pieces draw on; and Franklin
+  Felt's 1961 dissertation on ABC (Michigan State, 24.7 MB scan at
+  d.lib.msu.edu/etd/39978), which should settle every ABC endorsement of the
+  1950s.
+- **`(Convention)`** on Kaul and Krupsaw in 1955: nominated by a convention the
+  source does not name. They are `(ABC)` in 1959. Not recorded until someone
+  says whose convention.
+- **`(IM)`** on Buchholz in 1954 is coded independent. If it is the Arlington
+  Independent Movement, the conservative counterpart to ABC that McCaffrey
+  describes, it is a group like ABC and may deserve its own note or band.
+- **Ricks (1968–71) and Brunner (1984–87)** stay independent on the county's
+  label. The Washington Post's 1983 preview reportedly calls Brunner a
+  Republican; the archive is paywalled and was not read.
+- **Vihstadt** is coded independent with formal Republican backing, per the
+  rule. Sally sat with the Board this covers; `hudson2026` exists for exactly
+  this kind of correction.
+- **ABC as its own band.** It could be folded into Democratic, as the coalition
+  it was. Kept separate because the county itself recorded it and an
+  ABC-majority Board from 1957 to 1966 is a finding.
+- **The ten reporting sources are web pages** cited from the page held on
+  23 September 2026 and not yet filed in Drive.
+
+### Q30. What measures residents' partisanship, and what does it leave out?
+**Owner:** Sally · **Status:** open — a first series and figure are built
+
+Virginia has no party registration, so nothing counts residents by party.
+The presidential vote is the standard proxy and the one measure that comes as
+a dataset, so `voters_by_party` shows Arlington's presidential vote in three
+bands every four years from 1872, in the colours of `board_party`, to be read
+against it.
+
+**Where it comes from.** 1924–2024 is the state database's locality total
+for Arlington, an extract saved by `code/fetch/president.py` (the whole-state
+file is 75 MB). 1872–1920 is O'Leary's compilation of the Alexandria
+Gazette, transcribed verbatim by `code/transcribe/president_1872_1920.py`.
+The county's own candidate history prints the returns from 1920 and is read
+as a check; it agrees with the state within five per cent in every year but
+1980. The state database itself begins at 1924 for Arlington: its 1789–1923
+presidential rows are for other localities or none.
+
+**What it leaves out, by construction.** It counts voters, not residents.
+Before 1966 the electorate was the one the 1902 constitution allowed - poll
+tax and literacy test - and before 1920 it was men. The comparison the two
+figures invite is therefore Board against *the people who were allowed to
+vote*, which is the sharp form of the participation question; the at-large
+question is its milder form. The axis label and the file name say "voters"
+so that no caption has to.
+
+**Three elections are kept but not drawn**: 1896, 1904 and 1908. O'Leary
+prints "?" for 1896's Washington district and total, and writes that the
+1904 and 1908 returns "appear incomplete"; 1904 sums to 256 votes against
+826 in 1900. `voters.csv` carries them with `complete` false.
+
+**Open:**
+
+- Party before 1924 is the nominee's, named in `code/build/voters.py`, since
+  O'Leary prints party for 1912 only. Uncontroversial, but it is a table in
+  the build rather than a source.
+- Whether to show the two-party share alone. The "other" band is small
+  except in 1912, 1968, 1980 and 1992, and a two-line figure of the
+  Democratic and Republican shares, labelled where they run, may read more
+  easily than three stacked bands. Not tried.
+- Whether the 1904 move of local elections from May to November, and the
+  poll tax that came with the same constitution, belong on the figure. They
+  belong with turnout (Q31) rather than with party, and are not drawn.
+
+### Q31. Who votes in County Board elections?
+**Owner:** Sally · **Status:** open — a separate strand, not started
+
+Every figure so far is about who wins Board seats; none is about who votes
+for them. The Board is on the ballot every November, alone in three years
+out of four, and the electorate that decides it is a fraction of a
+presidential-year turnout. The milestones that changed who could or did
+vote are the county's election law: May to November elections in 1904,
+with the poll tax and literacy test of the same constitution; women in
+1920; the at-large Board of 1932 with one seat a year from 1940; the end of
+the poll tax in 1966; the vote at 18 in 1971; no-excuse absentee voting in
+2020.
+
+To be built as its own series (votes cast for the Board, registered voters,
+voting-age population, presidential-year turnout beside it) and its own
+figure, in a separate session. The state database's search endpoint accepts
+a `voterStats` flag that nobody has tried; the state's registration
+statistics and the county's own turnout pages are the other places to look.
+A self-contained prompt for that session was written on 23 September 2026.
+
 ### Q25. Bestebreurtje is cited as two different documents
 **Owner:** Sally + Alex · **Status:** open — blocks two claims
 
