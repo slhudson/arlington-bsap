@@ -303,7 +303,8 @@ The sources below are consulted to settle a question rather than to take
 numbers from. They are cited here rather than saved into `data/`, which holds
 only material we take numbers out of.
 
-**Their copies live in `documents/` in the project's Drive folder**, named for
+**Their copies live in the project's Drive folder**, in `sources/documents`
+— <https://drive.google.com/drive/folders/10SGuURB-ldC1AzM3ClsdL_tAiWeFIZB4> — named for
 a person reading the folder rather than for a machine: author, then year, then
 the title as the document prints it — `Pratt 1995 - Arlington's At-Large
 Electoral System.pdf`. That is deliberately not the citekey. A citekey is a
