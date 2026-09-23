@@ -195,6 +195,36 @@ def test_a_placeholder_is_allowed_and_counted():
     assert counts[citekeys.UNSOURCED] == 1, counts
 
 
+# --- the documentation names real files ---------------------------------------
+
+def test_docs_name_only_paths_that_exist():
+    """Every path a document names in backticks must exist.
+
+    This is how documentation rots: a file is renamed or retired and the
+    prose that pointed at it keeps pointing. One day's work left the docs
+    naming a retired CSV, a folder that had been renamed twice, and a
+    layout that no longer existed. A path in backticks is a claim that the
+    thing is there; this checks the claim on every build.
+
+    Only paths under the repository's top-level folders are checked, so a
+    backticked column name or a shell command is left alone. Globs and
+    placeholders (`*`, `<year>`) are skipped.
+    """
+    import re
+    root = Path(__file__).resolve().parents[1]
+    tops = ("code/", "data/", "docs/", "figures/", "paper/")
+    docs = [*root.glob("*.md"), *root.glob("docs/*.md"), root / "data" / "contents.md"]
+    missing = []
+    for doc in docs:
+        for m in re.finditer(r"`([^`\n]+)`", doc.read_text()):
+            token = m.group(1).strip().rstrip("/")
+            if not token.startswith(tops) or any(c in token for c in "*<>{}"):
+                continue
+            if not (root / token).exists():
+                missing.append(f"{doc.relative_to(root)}: `{token}`")
+    assert not missing, "documentation names paths that do not exist:\n  " + "\n  ".join(missing)
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in sorted(globals().items()) if n.startswith("test_")]
     failed = 0
