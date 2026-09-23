@@ -152,7 +152,7 @@ and only the second is a finding about the historical record. The draft for the
 Data Cleaning doc keeps them as two paragraphs for that reason.
 
 ### Q23. POP-TWPS0076 has no front matter to find
-**Owner:** Claude · **Status:** closed as far as it can go — the entry stays provisional
+**Owner:** Sally · **Status:** open — `censusbureau1990twps76` stays provisional, and the report must say so in a footnote
 
 The other two provisional entries were settled by fetching their volumes' title
 pages. This one cannot be. The Bureau publishes the paper at
@@ -165,6 +165,13 @@ So its title is read from the table header, and its number and date come from
 the path and the workbook rather than from the document. The entry says so.
 Anyone who finds the paper itself — a library copy, or a Bureau index that
 still lists it — can close this by reading its title page.
+
+**This has to reach the reader.** The 1990 race and Hispanic-origin figures
+rest on it, and a bibliography line looks as solid as any other. The report
+should carry a footnote saying what is held is the Virginia table alone, and
+that the paper's title and number are taken from the table header and the file
+path. That is the outstanding item here; `code/tests.py` refuses to pass while
+a provisional entry is unlogged, so this question cannot quietly disappear.
 
 ### Q21. Hjerpe frames the five Black members as an open question
 **Owner:** Claude · **Status:** answered — the row is relabelled, 23 Sept 2026
