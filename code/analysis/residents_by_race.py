@@ -1,8 +1,9 @@
 """Residents by race/ethnicity, census counts, stacked bars, 1870-2020.
 
 Tall format (twice as high as wide) so the early decades have visible height.
-Counts are plotted as reported, so the 1970 and 1990 bars sit slightly above
-the county total. See docs/questions.md.
+Counts are plotted as reported, so the 1970 bar sits slightly above the county
+total - it is the last year on the workbook's overlapping categories. See
+docs/questions.md.
 """
 import numpy as np
 import pandas as pd

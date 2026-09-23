@@ -113,8 +113,9 @@ race count and the Hispanic count. For 1990 the cited source shows this
 exactly: white 130,873 + Black 17,940 + American Indian 537 + Asian/PI 11,560
 + Other race 10,026 = 170,936, with Hispanic (23,089) cutting across all five.
 The workbook mixes the two systems — non-Hispanic white alongside all-race
-Black and Asian totals — which is the 1970 and 1990 overshoot. Whether to
-recode Hispanic as an ethnicity across races is with Alex (questions.md).
+Black and Asian totals — which is the 1970 and 1990 overshoot. From 1980 the
+crossed table replaces those figures, so only 1970 still overshoots; see Q1 in
+questions.md.
 
 | Years | Categories the census reports |
 |---|---|

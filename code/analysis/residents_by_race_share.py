@@ -1,8 +1,8 @@
 """Residents by race/ethnicity, share of residents, stacked bars, 1870-2020.
 
-The 1970 and 1990 columns are rescaled to sum to 100%. This figure and
-residents_by_race.py therefore treat the same overlap differently - see
-docs/questions.md.
+The 1970 column is rescaled to sum to 100%; from 1980 the categories do not
+overlap and nothing is rescaled. This figure and residents_by_race.py therefore
+treat that one year's overlap differently - see docs/questions.md.
 """
 import numpy as np
 import pandas as pd
@@ -22,7 +22,7 @@ c = pd.read_csv(files.RESIDENTS)
 c = not_reported_as_zero(c)                        # not-reported read as zero
 shares = c[style.GROUPS].div(c["total"], axis=0) * 100
 other = (100 - shares.sum(axis=1)).clip(lower=0)   # computed before rescaling
-shares = rescale_to_100(shares)                    # the 1970/1990 overlap
+shares = rescale_to_100(shares)                    # the 1970 overlap
 
 fig, ax = plt.subplots(figsize=style.WIDE)
 bottom = np.zeros(len(c))

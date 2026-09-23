@@ -33,25 +33,27 @@ after it is Alex's workbook, whose own source is not recorded. One column
 saying `forstall1996` beside race figures that document never supplied would
 be a false citation - so what is left to do stays visible in the data.
 
-**1980-2020 also carry a set of categories that do not overlap.** Race and
+**From 1980 the race columns come from the crossed census table.** Race and
 Hispanic origin are two census questions, not one, so a person answers both and
-lands in two of the four delivered columns at once - which is why they sum to
-more than the county in 1970 and 1990 (Q1 in docs/questions.md). The `nh_`
-columns are built from the crossed table instead, and partition the county
-exactly:
+lands in two of the four columns at once - which is why the workbook's figures
+sum to more than the county in 1970 and 1990 (Q1 in docs/questions.md). The
+Bureau also publishes the two answers crossed, and those categories partition
+the county exactly:
 
-    hispanic + nh_white + nh_black + nh_aapi + nh_other == total
+    hisp + white + black + aapi + the remainder == total
 
-They begin in 1980 because that is the first census to ask Hispanic origin of
-everyone rather than of a 5 percent sample; 1970's is not comparable and no
-`nh_` value is written for it. Before 1980 the columns are blank, and `white`
-means white, with no Hispanic question standing behind it.
+where `hisp` is Hispanic of any race and the other three are non-Hispanic. The
+remainder - non-Hispanic other and multiracial - is not a column: it is what a
+figure has left after subtracting these four from the total, which is how the
+figures already draw it.
 
-The delivered `white`, `black`, `hisp` and `aapi` columns are kept as received.
-They are not all the same kind of number: in 1980 and 1990 `white` is already
-non-Hispanic white while `black` is the race total including Hispanic Black. A
-column whose meaning changes partway along is the thing the `nh_` set exists to
-replace, so it is left visible rather than quietly corrected.
+1980 is the first census to ask Hispanic origin of everyone rather than of a 5
+percent sample. 1970's is not comparable and is left on the workbook's figures;
+before 1970 the question does not exist and `white` means white.
+
+`race_source` says which of the two each year's figures came from, so a row
+carries its own provenance rather than the reader having to know where the
+switch falls.
 
 Values are otherwise written as reported. The contested treatments are not
 applied here; see docs/questions.md.
@@ -161,7 +163,10 @@ COLUMNS = ["year", "total", "white", "black", "hisp", "aapi", "board_seats",
            "at_large", "residents_per_seat", "cube_root_p", "cube_root_resident_ratio"]
 
 # Categories that do not overlap, 1980 on. Written in stacking order.
-CENSUS_BASIS = ["hispanic", "nh_white", "nh_black", "nh_aapi", "nh_other"]
+# The crossed census groups, and which delivered column each one replaces.
+# "nh_other" has no column: it is the remainder, and the figures compute it.
+CENSUS_BASIS = {"hisp": "hispanic", "white": "nh_white",
+                "black": "nh_black", "aapi": "nh_aapi"}
 
 
 def stf1a(year, table):
@@ -309,11 +314,11 @@ def build() -> pd.DataFrame:
     d["race_source"] = [TOTAL_SOURCE[y] if y < 1900 else citekeys.KEENA
                         for y in d["year"]]
 
-    # The categories that do not overlap, 1980 on. The guard is the point of
-    # the exercise: if these five do not account for the county exactly, they
-    # are not a partition and must not be drawn as one.
-    for col in CENSUS_BASIS:
-        d[col] = pd.NA
+    # From 1980, the crossed census table replaces the workbook's four columns.
+    # The guard is the point of the exercise: if the five groups do not account
+    # for the county exactly, they are not a partition and must not be drawn as
+    # one. Only four are written - the fifth is the remainder a figure is left
+    # with, and writing it as well would be the same number twice.
     basis = census_basis()
     for year, groups in basis.items():
         m = d["year"] == year
@@ -323,12 +328,11 @@ def build() -> pd.DataFrame:
             raise AssertionError(
                 f"{year}: the census categories sum to {got:,} but the county "
                 f"total is {total:,}; they are not a partition")
-        for col, value in groups.items():
-            d.loc[m, col] = int(value)
-    d["census_basis_source"] = [
-        {1980: citekeys.CENSUS_1980_STF1A, 1990: citekeys.CENSUS_1990_STF1A}.get(
-            y, citekeys.CENSUS_DATA_FILE) if y in basis else ""
-        for y in d["year"]]
+        for col, key in CENSUS_BASIS.items():
+            d.loc[m, col] = int(groups[key])
+        d.loc[m, "race_source"] = (
+            {1980: citekeys.CENSUS_1980_STF1A,
+             1990: citekeys.CENSUS_1990_STF1A}.get(year, citekeys.CENSUS_DATA_FILE))
 
     d["residents_per_seat"] = d["total"] / d["board_seats"]
     d["cube_root_p"] = d["total"] ** (1 / 3)

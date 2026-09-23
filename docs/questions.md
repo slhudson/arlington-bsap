@@ -56,8 +56,9 @@ difference of 381, which is exactly the 1990 overshoot.
 The delivered columns are not all the same kind of number. `white` is
 non-Hispanic white in every year from 1980. `black` is the race total including
 Hispanic Black in 1980, 1990 and 2000, and non-Hispanic Black from 2010, so that
-column changes meaning partway along. The delivered columns are kept as
-received; the `nh_` set is what should be used.
+column changes meaning partway along. That is why the crossed figures replace
+them from 1980 rather than sitting beside them: one column, one meaning, with
+`race_source` naming which source each year's figures came from.
 
 **1980 is where it starts, and 1970 cannot join it.** Hispanic origin that year
 was asked of a 5 percent sample rather than the full count, the Bureau's own
@@ -74,7 +75,8 @@ checked on every fetch against the totals the file itself states, for all 136
 Virginia county geographies.
 
 **Still open:** 1900–1970, where race has no traced source at all (Q12), and
-how the figures should show the join between the two bases.
+how the figures should show the join — 1870–1970 on the workbook's categories,
+1980–2020 on the census's.
 
 ---
 
