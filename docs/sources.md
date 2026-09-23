@@ -327,6 +327,24 @@ Alexandria in 1915." *Arlington Historical Magazine*, 1964.
 — Gives the size and effective date of the 1915 annexation: 866 acres from
 Arlington County, effective 1 April 1915. Used for questions.md.
 
+**Anderson, Robert Nelson.** "Arlington Adopts the County Manager Form of
+Government." *Arlington Historical Magazine*, 1958, 52–67.
+— A first-hand account of the 1930 referendum and the 1931 election, written by
+a founder of the Historical Society. The hinge of this report, described by
+someone close to it.
+
+**Bestebreurtje, Lindsey.** *'Built by the People Themselves': African American
+Community Development in Arlington, Virginia, from the Civil War through Civil
+Rights.*
+— Entry incomplete: the publisher and year still need reading off the title
+page. Not yet in hand.
+
+**Pratt, Sherman W.** "Arlington's At-Large Electoral System: A Study of Its
+History, Strengths, and Weaknesses." *Arlington Historical Magazine*, October
+1995, 19–35.
+— Heard Vollin's testimony and holds his own tape recordings of him. The source
+for both Vollin citations.
+
 **Hjerpe, Grace.** *A History of Representation on the Arlington County Board,
 1870-Present.* Updated 15 July 2021. Google Doc, shared with Sally.
 — The paper the handoff refers to. Names all five Black members of the

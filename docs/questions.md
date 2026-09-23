@@ -196,7 +196,7 @@ What is still open is the report's wording: whether it describes the five as
 identified or as proposed. That belongs with Q3 and Q17.
 
 ### Q20. Vollin is two cases, and Pratt gives both citations
-**Owner:** Claude · **Status:** answered — both entered; the Virginia year is still missing
+**Owner:** Claude · **Status:** answered — both entered, both dated
 
 The Drive folder already held Pratt (1995) under the title "Arlington's
 Electoral History", which is O'Leary's subject rather than his. Its footnotes
@@ -222,7 +222,18 @@ compiling the file and reading the output. Cases are therefore entered as
 `@misc` with the court, reporter and docket in `note`, which prints. Anyone
 adding a case later should compile and look rather than trust the entry type.
 
-Still open: the Virginia case's year, which the article does not give.
+**The Virginia case is dated.** *Vollin v. Arlington County Electoral Board*,
+216 Va. 674, 222 S.E.2d 793, decided 5 March 1976, Record No. 741174, opinion
+by Harrison, J. Reading the opinion also confirms Pratt's account that these
+are two different actions: the Virginia case is a petition by more than two
+hundred voters under Code § 15.1-694 to put district-versus-at-large election
+to a vote, denied because the county had already adopted the County Manager
+Plan. The federal suit is the constitutional challenge.
+
+**One loose thread.** The respondent is named Cornelia B. Rose. `rose1964`, the
+annexation article, is bylined "C. B. Rose, Jr." The initials fit and both are
+Arlington figures of the period, but nothing read so far says they are the same
+person, so the bibliography notes the possibility and asserts nothing.
 
 ### Q19. Hjerpe's page numbers are the PDF's, not the document's
 **Owner:** Claude · **Status:** answered — corrected 23 Sept 2026
