@@ -208,6 +208,45 @@ Four exist. The caveats need to be consistent across whichever ship.
 
 ---
 
+### Should the report compare Arlington to other localities?
+**Owner:** Sally · **Status:** open — not started, and not part of the figure
+restructuring
+
+Separate work, logged so it is not mistaken for a change to an existing figure.
+
+`residents_per_seat` used to plot residents per seat against a cube-root-law
+benchmark, and no longer does: the law is a stylised fact about national
+parliaments rather than guidance, and Arlington is not in that reference class.
+If a comparison belongs in the report at all, peer jurisdictions are the right
+one — how Arlington's residents per member compares to localities of its size.
+
+**A source already exists for part of it.** The 2023 Richmond City Charter
+Review Commission final report, Appendix D, lists all 38 Virginia independent
+cities with approximate 2021 population and council composition; Appendix E
+adds 19 southeastern cities of 180,000–300,000 with council size and form of
+government. Three Virginia localities sit at Arlington's size — Norfolk
+235,000 with 8, Richmond 227,000 with 9, Chesapeake 251,000 with 9 — against
+Arlington's 238,643 with 5.
+
+What it does not have is counties. Arlington is not mentioned in it, and
+neither is any county board of supervisors, so Fairfax, Henrico, Chesterfield,
+Loudoun and Prince William would need keying by hand.
+
+Three things to settle before any of it is built:
+
+- **Which peer class.** Arlington is a county that behaves like a city:
+  urbanised, at-large elections, a county manager. Richmond and Norfolk may be
+  more informative comparisons than rural Virginia counties. That should be
+  decided rather than defaulted into.
+- **The counts are not consistently defined** in that appendix. Some entries
+  read "9 Council members … 1 Mayor elected at large" and others "5 Council
+  members … 1 of which serves as Mayor". Each needs reading, not parsing.
+- **Population there is rounded to the thousand and secondary.** Take the
+  governing-body size from the report and the population from the Census.
+
+If it goes ahead it is a new figure and a new source under `data/`, not a
+change to `residents_per_seat`.
+
 ### Q7. Should any of the set-aside figures be revived?
 **Owner:** Sally + Alex · **Status:** open, low priority
 
