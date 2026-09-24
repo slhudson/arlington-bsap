@@ -6,6 +6,20 @@ does, and why. Present tense; how a decision was reached is in the git
 history. The placeholders in the `source` columns are explained in
 `docs/sources.md`, and what is still open is in `docs/questions.csv`.
 
+
+## What rests on an assumption
+
+- The 1900–1970 race figures cite a paper whose title and number are read off
+  its table and file path (`twps0076-citation`).
+- `residents_per_seat` divides by the seats that exist, not the seats filled
+  (`seats-that-exist`).
+- Retrocession is dated 1846 or 1847 depending on the source; the report has
+  to pick one (`retrocession-date`).
+- Whether the report compares Arlington to peer localities at all
+  (`peer-localities`).
+
+Each is a row in `docs/questions.csv`, with an owner and what would settle it.
+
 ---
 
 ## What "Arlington County" means here
@@ -229,19 +243,3 @@ both the 1880 and 1890 files matched byte for byte on 23 September 2026, and
 the script refuses to go on if one ever stops matching. It also saves each
 volume's first chunk, which carries the title page, so the bibliography is
 built from a page in the repository.
-
-
----
-
-## What rests on an assumption
-
-- The 1900–1970 race figures cite a paper whose title and number are read off
-  its table and file path (`twps0076-citation`).
-- `residents_per_seat` divides by the seats that exist, not the seats filled
-  (`seats-that-exist`).
-- Retrocession is dated 1846 or 1847 depending on the source; the report has
-  to pick one (`retrocession-date`).
-- Whether the report compares Arlington to peer localities at all
-  (`peer-localities`).
-
-Each is a row in `docs/questions.csv`, with an owner and what would settle it.

@@ -6,6 +6,22 @@ does, and why. Present tense; how a decision was reached is in the git
 history. The placeholders in the `source` columns are explained in
 `docs/sources.md`, and what is still open is in `docs/questions.csv`.
 
+
+## What rests on an assumption
+
+- The 1938 referendum margin has two counts and the canvass has not been
+  found (`referendum-1938-margin`).
+- The non-Democratic County Board candidates since 2023 carry no party
+  (`voters-2023-labels`).
+- The presidential figure stacks three bands, and the pre-1924 nominees are a
+  table in the build (`president-figure-form`).
+- Turnout's denominators: adults before 1980 (`adults-before-1980`), adults
+  after 2020 carried forward (`adults-after-2020`), registration before 2010
+  (`registration-before-2010`), and votes per seat standing in for ballots
+  cast (`ballots-cast`).
+
+Each is a row in `docs/questions.csv`, with an owner and what would settle it.
+
 ---
 
 ## Voters
@@ -159,21 +175,3 @@ constitution, whose poll tax and literacy test shrank the electorate until the
 the Board is on every November ballot. 1966, the poll tax falls (*Harper v.
 Virginia Board of Elections*). 1971, the vote at 18. 2020, no-excuse absentee
 and early voting.
-
-
----
-
-## What rests on an assumption
-
-- The 1938 referendum margin has two counts and the canvass has not been
-  found (`referendum-1938-margin`).
-- The non-Democratic County Board candidates since 2023 carry no party
-  (`voters-2023-labels`).
-- The presidential figure stacks three bands, and the pre-1924 nominees are a
-  table in the build (`president-figure-form`).
-- Turnout's denominators: adults before 1980 (`adults-before-1980`), adults
-  after 2020 carried forward (`adults-after-2020`), registration before 2010
-  (`registration-before-2010`), and votes per seat standing in for ballots
-  cast (`ballots-cast`).
-
-Each is a row in `docs/questions.csv`, with an owner and what would settle it.

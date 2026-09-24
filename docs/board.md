@@ -7,6 +7,28 @@ was reached is in the git history. The placeholders in the `source` columns
 are explained in `docs/sources.md`, and what is still open is in
 `docs/questions.csv`.
 
+
+## What rests on an assumption
+
+- 1889–1986 is coded all-White on the "first since Reconstruction" framing,
+  and the five Reconstruction-era members rest on Hjerpe's census linking
+  (`default-1931-1986`).
+- Gender is read from names for most of the roster (`gender-from-names`).
+- 1912–1931 has no roster; the 1923 and 1927 names are not entered
+  (`roster-1912-1931`).
+- The November 1903 winners are seated in January on sec. 112 without the
+  Schedule having been read (`schedule-1902`).
+- From 1907 O'Leary's surnames are not joined to earlier full names
+  (`surnames-from-1907`).
+- 23 terms from 1932 carry no party, three labels are unresolved, and no
+  party is attempted before 1932 (`party-unlabelled`, `party-before-1932`).
+- The 1930 candidacies of Harris, Morton and Mosley rest on a page nobody has
+  read (`bestebreurtje-p215`).
+- Ten pieces of reporting cited for party are not yet filed in Drive
+  (`reporting-unfiled`).
+
+Each is a row in `docs/questions.csv`, with an owner and what would settle it.
+
 ---
 
 ### The roster
@@ -295,27 +317,3 @@ sentence, the citation.
 `unrecorded`, seat-years from 1932, empty before. "Not recorded" is a band
 rather than a gap because the seats existed and were held; what is missing is
 the label.
-
-
----
-
-## What rests on an assumption
-
-- 1889–1986 is coded all-White on the "first since Reconstruction" framing,
-  and the five Reconstruction-era members rest on Hjerpe's census linking
-  (`default-1931-1986`).
-- Gender is read from names for most of the roster (`gender-from-names`).
-- 1912–1931 has no roster; the 1923 and 1927 names are not entered
-  (`roster-1912-1931`).
-- The November 1903 winners are seated in January on sec. 112 without the
-  Schedule having been read (`schedule-1902`).
-- From 1907 O'Leary's surnames are not joined to earlier full names
-  (`surnames-from-1907`).
-- 23 terms from 1932 carry no party, three labels are unresolved, and no
-  party is attempted before 1932 (`party-unlabelled`, `party-before-1932`).
-- The 1930 candidacies of Harris, Morton and Mosley rest on a page nobody has
-  read (`bestebreurtje-p215`).
-- Ten pieces of reporting cited for party are not yet filed in Drive
-  (`reporting-unfiled`).
-
-Each is a row in `docs/questions.csv`, with an owner and what would settle it.

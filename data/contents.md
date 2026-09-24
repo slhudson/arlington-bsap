@@ -298,11 +298,6 @@ assumption look like a source.
 They are in the git history and on their author's own machine, so deleting
 them loses nothing but the implication that the build still depends on them.
 
-`census_verification.csv` sat here too and was never the same kind of file: it
-was compiled here and written to as the work went along, which is neither
-"keyed in by a person" nor "as received". It is now
-`docs/census_verification.csv`.
-
 ## clean/
 
 **Every source column holds a citekey from `paper/sources.bib`**, so a cell in
