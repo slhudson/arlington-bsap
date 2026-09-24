@@ -35,9 +35,6 @@ import charts
 import paths
 import style
 
-paths.build_stage_on_path()
-from assumptions import rescale_to_100   # noqa: E402
-
 TOP = 50000          # White leaves the axis in the late 1930s; see off_scale
 
 for profile in style.PROFILES:
@@ -47,20 +44,23 @@ for profile in style.PROFILES:
     groups = style.GROUP_ORDER                                 # black, hisp, aapi, white
 
     # The four columns already carry the basis each year is on - crossed census
-    # categories from 1980, the workbook's before that - so nothing is selected
-    # here. No fillna either: a blank stays blank, so a line begins the year the
-    # Census first reported that group rather than running along zero before it.
+    # categories from 1980, POP-TWPS0076 from 1900, the volumes before that -
+    # so nothing is selected here. No fillna either: a blank stays blank, so a
+    # line begins the year the Census first reported that group rather than
+    # running along zero before it.
     counts = c[groups].astype(float)
-    # From 1980 the four account for the county exactly, so this is the census's
-    # own non-Hispanic other and multiracial count. Before, it is the remainder
-    # the workbook leaves.
+    # The four never exceed the county in any year: the build refuses to write
+    # a row whose race columns do not account for its published total, in
+    # every stretch and by its own source's arithmetic. So this is a genuine
+    # remainder - American Indian and other race before 1980, the census's own
+    # non-Hispanic other and multiracial count from 1980 - and not a residue
+    # of two category systems being mixed, which is what it was until the
+    # 1970 columns were found transposed.
     residual = (c["total"] - c[groups].sum(axis=1)).clip(lower=0)
 
     shares = counts.div(c["total"], axis=0) * 100
     residual_share = (100 - shares.fillna(0).sum(axis=1)).clip(lower=0)
-    # Rescaling only ever applies to the pre-1980 years; from 1980 the groups
-    # already sum to the county and rescale_to_100 leaves them alone.
-    shares = rescale_to_100(shares.fillna(0))
+    shares = shares.fillna(0)
 
     def bands(frame, resid):
         out = {style.GROUP_LABELS[g]: (frame[g].to_numpy(), style.RACE_COLORS[g])

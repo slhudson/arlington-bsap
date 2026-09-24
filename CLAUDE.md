@@ -53,9 +53,8 @@ about figures in `figures/` that no step produces.
 so nothing is prefixed `arlington_`.
 
 **If you can run it, it lives with the code. If you can only read it, it lives
-in `docs/`.** `code/build/assumptions.py` holds the mechanism of the two open
-questions; the reasoning is in `docs/questions.md`. Code files carry a pointer,
-not an argument.
+in `docs/`.** The reasoning behind a decision is in `docs/questions.md`; the
+code carries a pointer to it, not an argument.
 
 **`paths.py` is where real paths are assigned to the short names a stage
 uses.** Fix the mapping once and every script in that stage follows. There is
@@ -171,13 +170,18 @@ moment they arise, with an owner — not carried in your head or in chat. When
 one is answered, write the answer into the file, not just the fix into the
 code.
 
-Two are currently unresolved and deliberately **not** settled in `code/build/`: the
-1970/1990 category overlap, and whether not-reported reads as zero. Both are
-in docs/questions.md.
-Both live in `code/build/assumptions.py`, applied by name in each figure, so the
-current disagreement between figures is greppable rather than buried. When they
-are settled, the assumption moves into the relevant build step and the function
+**An open question that changes a value gets a named function**, in a module
+of its own under `code/build/`, applied by name in each figure - so which
+figure takes which position is greppable rather than buried. When the question
+is settled the assumption moves into the relevant build step and the function
 is deleted.
+
+There are none in force. The two that were - the 1970/1990 category overlap
+and whether not-reported reads as zero - are settled, and `assumptions.py`
+went with them. The overlap turned out not to be an overlap: 1970's Hispanic
+and Asian/Pacific Islander columns were transposed in the delivered workbook,
+and the categories partition the county once they are read off the source.
+Both are written up in `docs/questions.md`.
 
 ## Register
 

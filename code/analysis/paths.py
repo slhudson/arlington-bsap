@@ -61,12 +61,3 @@ def save(fig, stem, profile=None):
         meta = {"CreationDate": None} if kind == "pdf" else {"Software": None}
         fig.savefig(d / f"{stem}.{kind}", dpi=spec["dpi"], metadata=meta)
 
-
-def build_stage_on_path():
-    """Let a figure import code/build/assumptions.py.
-
-    Appends rather than inserts, because code/build/ also has a paths.py: putting it
-    first would shadow this module and hand analysis a route to raw/.
-    """
-    import sys
-    sys.path.append(str(ROOT / "code" / "build"))

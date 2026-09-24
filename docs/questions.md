@@ -105,9 +105,18 @@ Common alternatives: drop it from the stack and show it as a separate line, or
 use the Census's non-Hispanic race categories so the four really are mutually
 exclusive.
 
-**In code:** `rescale_to_100()` in `code/build/assumptions.py`, applied by
-panel (b) of `code/analysis/residents_by_race.py`. Panel (a) of the same script
-applies nothing and plots as reported.
+**In code: nothing, now.** `rescale_to_100()` rescaled panel (b)'s shares
+wherever they summed past 100 per cent. No year does any more - the last was
+1970, and that turned out to be the transposed columns rather than an overlap
+(Q12) - so the function had nothing left to act on. It is deleted, with the
+assumptions module it lived in and the `sys.path` hook in
+`code/analysis/paths.py` that existed to reach it. Both panels now plot as
+reported.
+
+An overshoot cannot reach `data/clean/residents.csv` in the first place:
+every stretch is guarded where it is built - 1870-1890 in `early_years()`,
+1900-1970 in `twps0076()`, 1980-2020 in the partition check on the crossed
+groups - so a figure would fail loudly rather than be quietly rescaled.
 
 **Resolved for 1990, from the source the workbook itself cites.** The Census
 working paper at `census.gov/library/working-papers/2005/demo/pop-twps0076/vatab.pdf`
@@ -179,8 +188,11 @@ barely.
 the county and Hispanic or Latino is a reported category, not a blank. What
 remains is 1870–1970.
 
-**In code:** `not_reported_as_zero()` in `code/build/assumptions.py`, applied by
-both panels of `code/analysis/residents_by_race.py`.
+**In code: nothing, and for a while nothing was.** `not_reported_as_zero()`
+was never imported by the figure, which called `.fillna(0)` inline instead -
+so this entry described a wiring that did not exist. The function is deleted
+with `assumptions.py`; the `.fillna(0)` in `residents_by_race.py` is where
+the assumption actually lives, and it is stated in the caption.
 
 ### The 1902 constitution's Schedule has not been read
 **Owner:** Sally (or an RA) · **Status:** open — small; one term's start month
