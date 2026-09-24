@@ -12,9 +12,11 @@ when the County Manager plan replaced districts with countywide election.
 
 Months are given where a source gives them and left empty otherwise. Under the
 magisterial system elections were held in May and the board took office then,
-so those terms run May to May. Under the County Manager plan members took
-office on 1 January, so those run January to December unless a source says
-otherwise.
+so those terms run May to May. From the November 1903 election the 1902
+constitution moved county and district elections to November and seated their
+winners on 1 January following, so those terms run January to January - see
+seated() below. Under the County Manager plan members took office on 1 January
+too, so those run January to December unless a source says otherwise.
 
 **A vacant seat is not a row.** Nobody served, so there is no person and no
 term. Vacancies are recorded in docs/sources.md instead.
@@ -49,6 +51,23 @@ CANDIDATE_VOTES = re.compile(r"([A-Z][A-Za-z.'’\- ]*?)\s+([\d,]+)(?=\s|$)")
 def month_of(text):
     m = MONTH_RE.search(text or "")
     return MONTHS[m.group(1).title()] if m else ""
+
+
+def seated(year, election_date):
+    """When an election's winners take office: (year, month).
+
+    Under the magisterial system elections were held in May and the board took
+    office then. The 1902 constitution moved county and district elections to
+    November and seated their winners on 1 January following, so from the
+    November 1903 election a term begins in the January after the vote, not at
+    the vote. Applying the vote's own month would date every term from 1904 on
+    two months early and shift each handover's seat-years with it.
+
+    The Schedule's treatment of the first election held under that
+    constitution has not been read - see docs/questions.md.
+    """
+    month = month_of(election_date)
+    return (year + 1, 1) if month == 11 else (year, month)
 
 
 # "Replaced by H. Dwight Smith in Dec." / "Samuel Titus appointed in Dec."
@@ -105,19 +124,21 @@ def oleary_terms():
             # Where there is no next listed election, the end of service is
             # not recorded - O'Leary's listings simply stop. That is not the
             # same as still serving, and is marked so.
-            term_end_year = int(nxt) if nxt else ""
-            term_end_month = (month_of(d[d.year == nxt].election_date.iloc[0])
-                              if nxt else "")
+            if nxt is None:
+                term_end_year, term_end_month = "", ""
+            else:
+                term_end_year, term_end_month = seated(
+                    int(nxt), d[d.year == nxt].election_date.iloc[0])
             end_unrecorded = nxt is None
-            start_month = month_of(r.election_date)
+            start_year, start_month = seated(int(year), r.election_date)
 
             # Each handover ends the sitting member's term and begins the
             # successor's. A vacancy produces no row - nobody served - but the
             # person appointed into it does.
-            handovers = list(succession(entry, int(year), start_month))
+            handovers = list(succession(entry, start_year, start_month))
             vacant = name.lower().startswith("vacant") or not name
 
-            holders = [] if vacant else [(name, int(year), start_month)]
+            holders = [] if vacant else [(name, start_year, start_month)]
             holders += handovers
 
             for i, (who, y0, m0) in enumerate(holders):

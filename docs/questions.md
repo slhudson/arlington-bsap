@@ -182,6 +182,33 @@ remains is 1870–1970.
 **In code:** `not_reported_as_zero()` in `code/build/assumptions.py`, applied by
 both panels of `code/analysis/residents_by_race.py`.
 
+### The 1902 constitution's Schedule has not been read
+**Owner:** Sally (or an RA) · **Status:** open — small; one term's start month
+
+Va. Const. 1902 sec. 112 is what dates the district-era terms from 1904:
+county and district officers are elected on the Tuesday after the first Monday
+in November and "enter upon the duties of their offices on the first day of
+January next succeeding their election", for a term of four years. Applied in
+`seated()` in `code/build/board_roster.py`.
+
+**What is not read.** A constitution's Schedule carries the transitional
+provisions, including how the first election held under it is treated. The
+first November election for Arlington's board was 1903, so the Schedule is
+what would say whether those three — Darbey's successors Douglas, Rust and
+Febrey — were seated in November 1903 or on 1 January 1904. The build seats
+them in January, on the reading that sec. 112 is the operative rule and a
+transitional exception has to be shown rather than assumed. Decided by Sally,
+24 September 2026.
+
+**Why it is small.** It moves one handover by two months, in a stretch where
+every member is coded a white man, so no figure changes. It would matter if
+the coding for those years ever became finer.
+
+**Where to read it.** The copy held (`vaconstitution1902`) is a hosted PDF
+that stops at sec. 136 and has no Schedule; the Library of Virginia has a scan
+at rosetta.virginiamemory.com, behind a viewer. A printed copy would settle it
+in a minute.
+
 ### Q27. The 1938 referendum margin has no source
 **Owner:** Sally + Alex · **Status:** open
 
@@ -199,12 +226,22 @@ Society's officials list if it carries counts as well as names, and the
 Alexandria Gazette, which reported Arlington election results at the time.
 
 ### Q28. What form does the county-facing version take?
-**Owner:** Sally · **Status:** open — next step after the internal memo
+**Owner:** Sally · **Status:** open — the occasion and contents are set
+(24 Sept 2026); the form is not
 
 The figures memo is internal: it asks Alex questions and records what changed
 and why. A version goes to County Board staff after that, and it is a different
 document with a different job - it presents findings rather than soliciting
 corrections, and the internal questions do not belong in it at all.
+
+**Settled (Sally, 24 September 2026).** It is a package for a meeting with
+County staff **next week**, and it carries two things:
+
+1. **A progress update** — the figures and the timeline.
+2. **The asks**, which are the point of the meeting rather than a closing
+   section. The demographics verification (Q3) travels here rather than going
+   out on its own: the lists are short and land better beside the figures that
+   give them context.
 
 **Likely slides rather than a PDF.** A memo is read alone; slides are presented,
 which is what a staff briefing is. The repository is already set up for it: the
@@ -212,10 +249,10 @@ which is what a staff briefing is. The repository is already set up for it: the
 the type scaled up and saved as PNG, which exists for exactly this and has not
 been used yet. `figures/png/` is already built on every run.
 
-**To settle:** slides or memo; which of the four figures appear; and what
-replaces the internal and external question sections, since the external
-questions are asks *of* the county and become the point of the meeting rather
-than a section of the document.
+**Still to settle:** slides or memo, which depends on whether the package is
+presented or read ahead; and which figures appear — there are now eight, not
+the four this entry was written against, and eight is more than a staff meeting
+can absorb. That selection is Q5.
 
 ### Q29. What does "party" mean for a Board whose ballot has never carried one?
 **Owner:** Sally · **Status:** open — a first coding is built; the rule and its gaps are for review
@@ -532,11 +569,50 @@ contest and winning the two-seat one seven months later. Relevant to Q3 and to
 whatever the report says about the at-large system.
 
 ### Q3. What supports "first Black member since Reconstruction"?
-**Owner:** archive · **Status:** open — held until the internal discrepancies are reconciled with Alex; then the demographics list goes to the Arlington Historical Society as two short tabs (Black members, women) with the default stated
+**Owner:** archive · **Status:** open — the hold is lifted; the route is County
+staff, who may pass it to the Arlington Historical Society
 
 The 1889–1986 stretch is coded all-White, roughly 490 person-years, resting on
 that framing. It is the most load-bearing claim in the report and has not been
 independently verified. Detail in `docs/sources.md`.
+
+**The hold is lifted, 24 September 2026.** This question was held until the
+internal discrepancies were reconciled with Alex, so that nothing went out
+carrying a contradiction we already knew about. Q8 and Q17 are now answered,
+which was the condition.
+
+**The route (Sally, 24 September 2026): County staff, for independent
+verification, potentially by the Arlington Historical Society.** Earlier the
+plan named the Society directly. Going through staff is the better order — the
+County is the study's client, the Society is a volunteer body, and an ask that
+arrives from the County carries standing that one arriving from us does not.
+
+**What goes out.** Two short lists from `board_members.csv`, the whole of what
+any source says about race and gender:
+
+- **Ten members recorded as other than White**, all from Hjerpe (2021) except
+  Spain: Rowe, Syphax, Pinn, Pendleton and Allen in the district era; Newman,
+  Monroe, Dorsey and Spain as Black members of the at-large Board, and Tejada
+  as its first Latino member.
+- **Twelve women**, from Novack (1994) and the county's candidate history:
+  Magruder, Cannon, Buchholz, Bozman, Grotos, Whipple, Favola, Hynes, Garvey,
+  Cristol, Coffey and Cunningham.
+
+Everyone else — 109 of 119 people — is recorded as a white man because no
+source speaks to them, not because one says so. **The ask is the default, not
+the lists**: every other member has been treated as a white man; where is that
+wrong? The lists are short enough to check by eye, and 1931–1986 is where an
+answer would matter most.
+
+**Two weaknesses to state rather than let them be discovered.** Gender is read
+from names and honorifics for most of the roster, which is an inference and is
+labelled as one in the file. And the five district-era identifications are
+Hjerpe's reading of 1880 manuscript census records; nobody on our side has
+checked that linking (Q17).
+
+**Where it goes (Sally, 24 September 2026): inside the county-facing package**
+for next week's staff meeting, as one of the asks rather than as a request of
+its own. Q28.
 
 ### Q22. What stands behind the workbook's race and gender coding?
 **Owner:** Alex · **Status:** drafted for the next batch to Alex — held until the questions we can settle ourselves are settled
@@ -702,9 +778,14 @@ the most substantive findings — have no person-level backing. Extending the
 roster would let both files derive from one source.
 
 ### Q5. Which figures go to the County, and with what caveats?
-**Owner:** Sally + Nick · **Status:** open
+**Owner:** Sally + Nick · **Status:** open — now due, for next week's meeting
 
-Four exist. The caveats need to be consistent across whichever ship.
+Eight exist, not the four this entry was written against: `residents_by_race`,
+`residents_per_seat`, `board_race`, `board_gender`, `board_party`,
+`voters_board`, `voters_president` and `turnout`. The caveats need to be
+consistent across whichever ship, and several carry open questions that a
+caption has to state — the 1970 categories, the vote-per-seat denominator in
+two-seat years, and party before 1932.
 
 ---
 
@@ -782,12 +863,28 @@ three-panel version with census, Board race and Board gender, in percentage and
 raw-count forms, and a broken-axis variant of the residents chart. They are not
 in `raw/`. Listed in `docs/figures.md`.
 
-### Q8. Three transcription corrections to confirm
-**Owner:** Alex · **Status:** open — already applied in the build
+### Q8. Three transcription corrections
+**Owner:** Alex · **Status:** answered 24 Sept 2026 — all three confirmed; the
+build had already applied them
 
 Each is a keying-level difference, not a methods disagreement. Alex used the
 right tables and the right principle; his workbook formulas show the working,
 and they are what identified each cause.
+
+**Confirmed (Alex, 24 September 2026), all three.** He agrees the 1870 white
+figure was mis-keyed, that Freedman village should not have been counted as a
+fourth district and that this is what produced the 1890 overcount, and that
+the 1890 foreign-white-female figure is almost certainly a `0` reading as a
+`6` on a low-quality scan.
+
+That last one is worth keeping rather than folding into "keying error". It
+makes the cause the scan and not the hand, so any other figure read off the
+same 1890 pages carries the same risk, and a digit that ties arithmetically
+is better evidence than a second look at the glyph.
+
+Nothing in the build changes: it has used the printed figures since 22
+September. What changes is that the three cells now rest on a confirmation
+instead of on an open question.
 
 | # | Cell | Workbook | Sources give | Cause |
 |---|---|---|---|---|
@@ -924,7 +1021,9 @@ roster. The coding agrees across all three, so nothing is miscoded, but any
 tally built from the roster counts him three times.
 
 ### Q17. The Reconstruction-era Black member counts disagree
-**Owner:** Alex, with Sally · **Status:** open — affects the report's central finding
+**Owner:** Alex, with Sally · **Status:** answered 24 Sept 2026 — the
+discrepancy is an aggregation error in the delivered counts, not a source
+disagreement; Hjerpe's own identifications remain unverified (Q3)
 
 O'Leary's electoral history names every Board member by district from 1870.
 Cross-referencing those names against the five men Hjerpe identifies as Black —
@@ -954,6 +1053,27 @@ report's most substantive finding rests on. The delivered data has no
 person-level backing before 1932, so until now there was nothing to check the
 Reconstruction-era counts against at all.
 
+**Answered (Alex, 24 September 2026).** His counts are a replication of
+Hjerpe, not an independent record: he worked from her report, which cites
+O'Leary, and he has not validated either. So the two columns above were never
+two sources. They are one source and a transcription of it, and where they
+differ the difference was introduced on the way from her names to his
+year-level counts. Alex defers to the roster.
+
+Nothing in the build changes. `board_seats.csv` has been computed from
+`board_members.csv` for 1870–1915 since the roster was built; the delivered
+counts are carried alongside for comparison and are not read. What this
+settles is which of the two to believe where they differ, and why.
+
+**What it does not settle, and the distinction matters.** That the five men
+were Black still rests entirely on Hjerpe's reading of 1880 manuscript census
+records. Agreeing that she is the best source available is not the same as
+having checked her. The census linking is still the research-assistant task
+in `docs/sources.md`, and the 1889–1986 all-White stretch still rests on the
+"first since Reconstruction" framing rather than on evidence — Q3. Closing
+this question removes a contradiction inside our own files; it does not add
+support to the finding.
+
 ### Q16. Fetch and transcribe the Arlington election records
 **Owner:** Sally (or an RA) · **Status:** done for both documents
 
@@ -980,13 +1100,68 @@ What it will not settle: race and gender coding, which these records do not
 carry.
 
 ### Who served from 1916 to 1931?
-**Owner:** Alex · **Status:** open
+**Owner:** Alex · **Status:** answered 24 Sept 2026 — nothing stood behind the
+counts; and five of the names turn out to be in a document already held
 
 O'Leary's listings stop at the 1915 election and Novack begins with the County
 Manager plan in 1932. The county's candidate history starts at 1920 but its
 first County Board contest is 1931. The roster has nothing for these years.
 Alex's seat counts do cover them, so he had some way of knowing who served;
 that source is the question.
+
+**Answered (Alex, 24 September 2026): there was no source.** The counts are an
+assumption — three white men — and he says so directly. For race he offers two
+supports: the obituaries describing Newman (1987) as the first Black member
+since Reconstruction, which implies nobody in this period was; and the county's
+demographics, which make any other coding unlikely. For gender he does not
+claim the assumption is safe, which is the right call.
+
+**This is what the build already does, and already says.** Those years read
+`keena-workbook` in `board_seats.csv`, and the build's standing default for a
+member no source speaks to is a white man, recorded as `assumed`. So nothing
+moves. What changes is that the workbook is now known to be an assumption
+rather than a compilation, which is a different kind of gap — Q22's
+distinction between "Alex read something we cannot see" and "nobody has
+looked". This is the second.
+
+**The sentence above about the candidate history is wrong, and the correction
+matters.** Its first contest *labelled* "County Board" is 1931, but the board
+races before that are printed under the district headings, which is why they
+were missed. They are already in
+`data/transcribed/by_claude/arlington_county/candidate_history_1920-present.csv`:
+
+| Election | District | Candidate | Votes |
+|---|---|---|---|
+| 6 Nov 1923 | Arlington | W. J. Ingram (inc.) | not printed |
+| 6 Nov 1923 | Jefferson | Edward Duncan | not printed |
+| 6 Nov 1923 | Washington | E.C. Thornburke (inc.) | not printed |
+| 8 Nov 1927 | Jefferson ("Supervisor") | Edward Duncan | 790 |
+| 8 Nov 1927 | Washington ("Supervisor") | E.C. Thornburke | 484 |
+
+1923 is a complete Board, all three districts, from a county-published source.
+1927 prints two of the three, which is what Alex observed independently.
+
+**Duncan is very likely continuous from the 1890s.** O'Leary has a Duncan
+holding Jefferson in 1895, 1897 and 1901 as "William Duncan", in 1907 as
+"E. Duncan" and in 1915 as "Duncan" — O'Leary gives surnames only from 1907,
+which is its own open question. If they are one man, Jefferson district had the
+same member for more than thirty years and the 1916–1931 gap is only two seats
+wide, not three.
+
+Ingram and Thornburke appear in no source held. Both are marked "(inc.)" in
+1923, so they were already serving — elected at one of the unrecorded elections
+after 1915, where O'Leary has Wibirt in Arlington and Walker in Washington. The
+Alexandria Gazette and the Washington Star are where to look, the same errand
+as the pre-1932 party coding.
+
+**Gender for these five still rests on names**, which is the roster's weakest
+attribution everywhere and is labelled as such. Duncan is named in full in the
+1923 listing; Ingram and Thornburke are initials.
+
+**Still open: whether to extend the roster into these years.** Adding 1923 and
+1927 would replace an assumption with a source for part of the stretch, but a
+partial roster would make the seat-count derivation read the unfilled years as
+vacancies, which is a stronger claim than the record supports. Owner: Sally.
 
 ### Q15. Vacancies in the seat counts
 **Owner:** Sally + Alex · **Status:** partly answered 23 Sept 2026 — vacancies
@@ -1154,10 +1329,23 @@ Zipping the scans was measured and rejected: they are already-compressed page
 images, so zip recovers 1-3% (67MB -> 65MB) while making them unbrowsable on
 GitHub and Overleaf and undiffable in git.
 
-### 1890 county population is 4,596
-**Settled:** 2026-09-22, from the scanned 1890 volumes in `raw/`. An earlier
-working estimate of 4,258 — derived by subtracting a secondary-source city
-figure from a combined total — is superseded.
+### 1890 county population is 4,258
+**Settled:** 2026-09-22 at 4,596, from the scanned 1890 volumes in `raw/`;
+**corrected to 4,258** on re-reading the table, and confirmed by Alex on
+24 September 2026.
+
+The entry is kept because the number moved twice and the reasons differ. A
+first working estimate of 4,258 came from subtracting a secondary-source city
+figure from a combined total, which was superseded by reading the volumes. The
+volumes then gave 4,596 only by counting Freedman village as a fourth
+district: Table 5 prints it as an indented sub-line of "Arlington district,
+*including* Freedman village", so its 338 residents are already inside that
+district's 2,013. The three districts alone give 4,258, which is also county
+18,597 minus city 14,339.
+
+So the figure returned to its first value on different and better evidence.
+`code/tests.py` reintroduces the double count and asserts the build refuses.
+See Q8.
 
 ### Figure formatting is not fixed
 **Settled:** 2026-09-22 (Sally). The rebuilt figures differ from the

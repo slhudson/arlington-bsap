@@ -21,7 +21,9 @@ board_members.csv, whose terms run to the month. A term's months are its
 start month through its end month, except that a month in which a successor
 begins belongs to the successor - decided on Q13 in docs/questions.md,
 because days are not recorded consistently and the month is the unit. The
-three members whose end O'Leary never records are counted through 1915 only.
+three members whose end O'Leary never records won in November 1915 and were
+seated in January 1916, which is inside the workbook years, so they contribute
+no seat-years at all; 1915 is held by the members elected in 1907.
 
 From 1916 to 1931 no terms are known, and the rows come from Alex Keena's
 seat-count workbook as delivered. The `source` column says which.

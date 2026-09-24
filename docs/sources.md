@@ -103,9 +103,10 @@ workbook does not.
 1870 white (workbook 1,075; the volume gives 1,175 — Jefferson district keyed
 as 283 for 383), 1890 total (4,596; 4,258 — Freedman village counted as a
 fourth district when the table prints it inside Arlington district), and 1890
-white (2,195; 2,135 — foreign white female keyed as 365 for 305). 1880 and
-every total from 1900 on match the workbook exactly. The three are with Alex
-to confirm; the build uses the printed figures.
+white (2,195; 2,135 — foreign white female read as 365 for 305, a scan glyph
+rather than a keying slip). 1880 and every total from 1900 on match the
+workbook exactly. All three were confirmed by Alex on 24 September 2026 (Q8);
+the build uses the printed figures.
 
 **The categories were never meant to sum.** The census asks race and Hispanic
 origin as two separate questions, so a Hispanic resident appears in both a
@@ -167,6 +168,27 @@ members at large, six only in a month a special election changed hands.
 The county and state sources both hold the 2021 election, and the build
 insists they name the same winner there before using the second.
 
+**When a term begins depends on the constitution in force.** Under the
+magisterial system elections were held in May and the board took office then,
+so those terms run May to May. The 1902 constitution moved county and district
+elections to November and seated their winners on 1 January following (sec.
+112, `vaconstitution1902`), so from the November 1903 election a term runs
+January to January. The County Manager plan seats members on 1 January too, so
+the convention is unbroken from 1904 on.
+
+That is the same distinction settled for Fisher in 1963 and for the Historical
+Society's roster in Q24 — a win in November, a seat taken the following
+January — applied to the district era, where it had not been. It moves each
+handover from 1904 to 1916 by two months and changes no figure, since every
+member of those boards is coded a white man. One consequence is worth knowing:
+the three elected in November 1915 were seated in January 1916, which is inside
+the years the seat counts take from the workbook, so they hold no seat-years at
+all and 1915 belongs entirely to the members elected in 1907.
+
+The Schedule of the 1902 constitution has not been read, so whether the
+November 1903 winners fell under sec. 112 or under a transitional provision is
+unconfirmed. Logged in questions.md.
+
 A term is the natural unit — person-years fall out of it, while the reverse
 does not, because a term starting in May or ending in February cannot be
 recovered from a list of years.
@@ -214,8 +236,10 @@ which `code/tests.py` checks by taking a term out of one split and asserting the
 build refuses.
 
 Against the delivered counts, 138 years overlap: 120 identical, 128 within
-half a seat. The rest are the three Reconstruction terms in Q17 and handover
-years where the delivered file's half-and-half split and the months disagree.
+half a seat. The rest are the three Reconstruction terms in Q17 — where the
+delivered counts mis-aggregate Hjerpe's names and the roster is preferred —
+and handover years where the delivered file's half-and-half split and the
+months disagree.
 
 ### Compared with the delivered roster
 
