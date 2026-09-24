@@ -130,18 +130,28 @@ if [ -n "$missing" ]; then
   echo "  to read them: .venv/bin/python code/fetch/census_volumes.py"
 fi
 
-# Overleaf syncs the WHOLE repo and recommends staying under 100MB. We chose a
-# single repo on that basis, so the choice needs a tripwire rather than a note
-# someone has to remember. See CLAUDE.md.
+# Overleaf syncs the WHOLE repo, and its two limits are on the files it
+# syncs, not on git history: it recommends staying under 100MB in all, and it
+# stops syncing altogether if the editable (text) files exceed 7MB. We chose
+# a single repo on that basis, so each limit needs a tripwire rather than a
+# note someone has to remember. See CLAUDE.md.
 #
-# This check must never be able to fail the build, so it tolerates tracked
-# files missing from disk and falls back to 0 rather than aborting.
-kb=0
+# These checks must never be able to fail the build, so they tolerate tracked
+# files missing from disk and fall back to 0 rather than aborting.
+kb=0; text_kb=0
 while IFS= read -r -d '' f; do
-  [ -f "$f" ] && kb=$(( kb + $(stat -f%z "$f") / 1024 ))
+  [ -f "$f" ] || continue
+  size=$(( $(stat -f%z "$f") / 1024 ))
+  kb=$(( kb + size ))
+  case "$f" in *.pdf|*.png|*.ttf) ;; *) text_kb=$(( text_kb + size ));; esac
 done < <(git ls-files -z 2>/dev/null) || true
 if [ "$kb" -ge 81920 ]; then
   echo
   echo "WARNING: tracked files total $((kb/1024))MB, approaching Overleaf's 100MB ceiling."
   echo "         Time to revisit the one-repo decision - see CLAUDE.md."
+fi
+if [ "$text_kb" -ge 6144 ]; then
+  echo
+  echo "WARNING: editable files total $((text_kb/1024))MB; Overleaf stops syncing at 7MB."
+  echo "         The large text files are data/raw CSVs and the OCR - see CLAUDE.md."
 fi

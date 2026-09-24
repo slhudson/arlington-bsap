@@ -207,12 +207,14 @@ is deleted. None is in force.
 
 **One repository, with `paper/` inside it.** Overleaf syncs a whole
 repository and cannot be scoped to `paper/` and `figures/`, so it carries the
-census scans too, against a recommended ceiling of 100MB. One repository was
-chosen because pushing figures across a repository boundary would undercut
-the case that this setup is simpler than emailing files. `run.sh` warns at
-80MB, so revisiting does not depend on anyone remembering; the options then
-are splitting `paper/` out, or downsampling the scans and keeping the
-originals in Drive. Zipping the scans was measured and recovers 1-3%.
+data too. Its limits are on the files it syncs, not on git history: a
+recommended 100MB in all, and a hard 7MB on editable (text) files, past
+which GitHub sync stops working. One repository was chosen because pushing
+figures across a repository boundary would undercut the case that this setup
+is simpler than emailing files. `run.sh` warns at 80MB and at 6MB of text, so
+revisiting does not depend on anyone remembering. The scans the build never
+reads are already fetched on demand rather than committed; if the text cap
+trips, the candidates are the state's 2MB election CSV and the OCR files.
 
 **Each session works in its own worktree** (`git worktree list`). Two
 sessions sharing one checkout once produced committed figures built against
