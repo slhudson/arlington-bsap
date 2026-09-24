@@ -105,9 +105,18 @@ Common alternatives: drop it from the stack and show it as a separate line, or
 use the Census's non-Hispanic race categories so the four really are mutually
 exclusive.
 
-**In code:** `rescale_to_100()` in `code/build/assumptions.py`, applied by
-panel (b) of `code/analysis/residents_by_race.py`. Panel (a) of the same script
-applies nothing and plots as reported.
+**In code: nothing, now.** `rescale_to_100()` rescaled panel (b)'s shares
+wherever they summed past 100 per cent. No year does any more - the last was
+1970, and that turned out to be the transposed columns rather than an overlap
+(Q12) - so the function had nothing left to act on. It is deleted, with the
+assumptions module it lived in and the `sys.path` hook in
+`code/analysis/paths.py` that existed to reach it. Both panels now plot as
+reported.
+
+An overshoot cannot reach `data/clean/residents.csv` in the first place:
+every stretch is guarded where it is built - 1870-1890 in `early_years()`,
+1900-1970 in `twps0076()`, 1980-2020 in the partition check on the crossed
+groups - so a figure would fail loudly rather than be quietly rescaled.
 
 **Resolved for 1990, from the source the workbook itself cites.** The Census
 working paper at `census.gov/library/working-papers/2005/demo/pop-twps0076/vatab.pdf`
@@ -166,7 +175,7 @@ distinguishes them, so for these figures it is a caption matter.
 
 **And the quantity is small.** Each group was tiny the first year it was
 counted — Asian and Pacific Islander 57 residents in 1950, 0.04 per cent of
-the county; Hispanic or Latino 1,387 in 1970, 0.8 per cent — and the real
+the county — and the real
 growth comes well after each question appears, Hispanic reaching 23,089 by
 1990. Whatever the zeros hide is unlikely to be much.
 
@@ -179,8 +188,11 @@ barely.
 the county and Hispanic or Latino is a reported category, not a blank. What
 remains is 1870–1970.
 
-**In code:** `not_reported_as_zero()` in `code/build/assumptions.py`, applied by
-both panels of `code/analysis/residents_by_race.py`.
+**In code: nothing, and for a while nothing was.** `not_reported_as_zero()`
+was never imported by the figure, which called `.fillna(0)` inline instead -
+so this entry described a wiring that did not exist. The function is deleted
+with `assumptions.py`; the `.fillna(0)` in `residents_by_race.py` is where
+the assumption actually lives, and it is stated in the caption.
 
 ### The 1902 constitution's Schedule has not been read
 **Owner:** Sally (or an RA) · **Status:** open — small; one term's start month
@@ -209,21 +221,82 @@ that stops at sec. 136 and has no Schedule; the Library of Virginia has a scan
 at rosetta.virginiamemory.com, behind a viewer. A printed copy would settle it
 in a minute.
 
-### Q27. The 1938 referendum margin has no source
-**Owner:** Sally + Alex · **Status:** open
+### Q27. The 1938 referendum margin: two sources, two counts
+**Owner:** Sally · **Status:** open — the count is sourced, and a second
+source disagrees with it
 
-The 1938 referendum that introduced staggered terms is recorded as carrying
-1,539 to 1,487 - a margin of 52 votes. The referendum itself is named in the
-NCL proposal, and the Arlington Historical Society's "County Officials in
-Arlington 1870-1960" is cited for the change. Neither is cited for the count.
+**The premise of this question was wrong.** It read "no source is cited for
+the count". The count is in the county's own candidate history, transcribed in
+this repository all along:
 
-A vote total is the kind of number a reader assumes came from a record, and a
-52-vote margin is exactly the detail a report would lean on. It should either
-name the record it came from or come out.
+    1938 | November 8 | Staggered Terms Referendum | For:     | 1,539
+    1938 | November 8 | Staggered Terms Referendum | Against: | 1,487
 
-**Where to look:** the county's own canvass returns for 1938, the Historical
-Society's officials list if it carries counts as well as names, and the
-Alexandria Gazette, which reported Arlington election results at the time.
+`arlingtonelections2021` p.11. Nobody had looked at the transcription before
+calling the figure unsourced.
+
+**And now a second source says something else.** The *Sun* (Arlington) for
+11 November 1938, page 1 - three days after the vote - reports the referendum
+under the headline "Referendum Wins By 61 Votes; Board Will Be 'Staggered'",
+and prints the returns for all eleven precincts:
+
+| | For | Against |
+|---|---|---|
+| Arlington | 174 | 272 |
+| Ballston | 163 | 133 |
+| Carne | 188 | 83 |
+| Cherrydale | 157 | 133 |
+| Clarendon No. 1 | 107 | 181 |
+| Clarendon No. 2 | 190 | 175 |
+| East Falls Church | 136 | 48 |
+| Glen Carlyn | 47 | 38 |
+| Lyon Park | 129 | 137 |
+| Rosslyn | 150 | 107 |
+| Virginia Highlands | 99 | 172 |
+| **Totals** | **1,540** | **1,479** |
+
+Both columns tie to their totals exactly, so this is not a keying slip.
+
+| Source | For | Against | Total | Margin |
+|---|---|---|---|---|
+| County candidate history | 1,539 | 1,487 | 3,026 | 52 |
+| Sun, 11 Nov 1938 | 1,540 | 1,479 | 3,019 | 61 |
+
+**The likeliest reconciliation, and it is not yet evidence.** The Sun says of
+its own figures, in terms, "These figures are unofficial." The county's
+compilation draws on Electoral Board records, so 1,539 to 1,487 is plausibly
+the certified canvass and the Sun's is the count as known three days out. That
+would be an ordinary canvass correction - 8 votes on one side, 1 on the other.
+It has not been shown.
+
+**Where to look next: the Electoral Board's own canvass.** The *Sun* for
+18 November 1938, page 4, was the obvious candidate and has been read
+(`sun1938womenvoters`). It does not settle it. The "confusion" there is about
+the ballot, not the tally: the Organised Women Voters of Arlington County went
+on record that the wording was "inadequate" and asked Arlington's delegate and
+state senator to require full information on future ballots. No corrected
+return is reported.
+
+**What the report should say meanwhile.** If it uses a margin at all, it
+should use the county's and say so, since that is the record rather than a
+newspaper's early count - and it should not describe the result as carrying by
+52 votes without naming the source, because a contemporaneous newspaper with
+full precinct returns says 61.
+
+**Worth keeping from the same page, for the prose.** The article explains what
+the referendum actually did: from the 1939 election the two candidates with the
+highest votes take four-year terms, the third highest three years, the fourth
+two and the fifth one, after which one member stands each year except every
+fourth year when two do. The ballot asked only "Shall the members of the County
+Board be elected and vacancies on the Board filled as provided in Sec. 2773-F1
+of the Code of Virginia?", wording set by the enabling bill of Arlington's
+delegate William D. Medley, and the Commonwealth's Attorney's office fielded
+calls from voters asking what it meant. Four of eleven precincts voted against.
+The Arlington County Woman's Democratic Club opposed the change, on the view
+that staggering would make it "virtually impossible for a woman to be elected
+to the board" - which is directly relevant to the gender section, and is a
+claim made in 1938 about the system this study is assessing.
+
 
 ### Q28. What form does the county-facing version take?
 **Owner:** Sally · **Status:** open — the occasion and contents are set
@@ -546,9 +619,26 @@ in the race section — Bestebreurtje is the source named there for whether the
 falling Black share reflects neighbourhood clearance that county totals cannot
 see.
 
-**To settle:** find which document carries p. 215, add a separate entry for the
-dissertation if that is the one, and get hold of whichever is cited. Until then
-neither claim should go into prose.
+**The dissertation is identified and entered, 24 September 2026.** Lindsey
+Bestebreurtje, *Built By the People Themselves: African American Community
+Development in Arlington, Virginia, From the Civil War Through Civil Rights*,
+PhD dissertation, George Mason University, 2017; defended 27 March 2017.
+`bestebreurtje2017` in `paper/sources.bib`, built from the dissertation's own
+title page.
+
+**There are three artefacts with this title, not two.** The 2017 dissertation,
+the 2024 University of South Carolina Press book, and a digital exhibit at
+lindseybestebreurtje.org whose own About page calls it "a piece of the book".
+Any future citation should say which.
+
+**What is still open is narrow.** Nobody has checked whether p. 215 carries
+the 1930 candidacies of Harris, Morton and Mosley, because the full text could
+not be retrieved: the egress policy refuses mars.gmu.edu, and the repository
+has migrated to digitalcollections.gmu.edu, where the old bitstream URL 404s
+and the item did not surface in a search. The file is
+`Bestebreurtje_gmu_0883E_11369.pdf` under handle `1920/11125`, which should be
+enough for a librarian or for whoever finds its new address. Until someone
+reads the page, neither claim should go into prose.
 
 ### Q26. Retrocession is dated 1846 or 1847 depending on the source
 **Owner:** Sally · **Status:** open — small, but pick one
@@ -638,12 +728,31 @@ labelled as one in the file. And the five district-era identifications are
 Hjerpe's reading of 1880 manuscript census records; nobody on our side has
 checked that linking (Q17).
 
+**Q22 does not gate this.** The workbook adds no name to the published
+sources, so the lists are the same whatever stands behind its coding.
+
 **Where it goes (Sally, 24 September 2026): inside the county-facing package**
 for next week's staff meeting, as one of the asks rather than as a request of
 its own. Q28.
 
 ### Q22. What stands behind the workbook's race and gender coding?
-**Owner:** Alex · **Status:** drafted for the next batch to Alex — held until the questions we can settle ourselves are settled
+**Owner:** Alex · **Status:** closed 24 Sept 2026 — not asked, and the
+workbooks are out of the build
+
+**Closed without asking him** (Sally, 24 September 2026). The workbook coded
+nobody non-White and no woman whom a published source does not already name -
+zero cases in 217 terms - so it was a second application of the same default
+from the same sources. It added no fact, and recording it as a source of its
+own overstated what stood behind 136 race terms and 113 gender terms.
+
+Those terms now fall through to the build's own default and read `assumed`.
+No value moved. The three delivered workbooks are no longer read by anything
+and have been removed from the repository; `keena-workbook` is gone from
+`code/build/citekeys.py` with them.
+
+The verification this question used to gate never depended on the answer:
+Alex's list of women and ours are the same list, so the names going to County
+staff and the Historical Society are the same either way. That is Q3.
 
 Where a published source names a member — Hjerpe's five, Newman, Monroe,
 Dorsey, Tejada, Spain, the women in Novack's roster — the repository records
@@ -656,6 +765,28 @@ to say so in the report: for these members the coding is Alex's reading, and no
 published source has been found that speaks to them. What is being asked is a
 confirmation, and whether he was working from something — obituaries, news
 coverage, Historical Society material — that could be cited instead.
+
+**The workbook adds nothing to the published sources, and that is checkable.**
+It never codes anyone non-White or a woman where no published source does:
+zero cases in 217 terms. Every non-default value in `board_members.csv` traces
+to Hjerpe, Novack, the county's candidate history or the state database. So
+the coding is consistent with a default - a white man unless a source says
+otherwise - which is what Alex says he did for 1916-1931.
+
+**Which means the action this question used to gate does not depend on the
+answer** (Sally, 24 September 2026). His list of women and ours are the same
+list, so the names going to County staff and the Arlington Historical Society
+are the same either way, and so is the ask. That verification is Q3 and it
+proceeds.
+
+**What is left is the label.** 136 race terms and 113 gender terms read
+`keena-workbook`, which means a claim whose evidence one person can still
+name. If the coding is the default, they are not that. Race would read
+`assumed`; gender is likelier a reading of names, which the file already
+records as a note on the sourced rows rather than as an absence, and should
+not collapse into `assumed`. One line in the next mail to Alex settles it:
+for the members from 1932 on, was it the same default, and was gender read
+off names?
 
 **Keep it separate from the default.** Before 1932, where no source speaks at
 all, the build records a white man: 126 person-terms, reading `assumed`. "Alex
@@ -947,7 +1078,60 @@ figures leave no "Other/multiracial/unreported" residents in 1870 or 1890,
 where the workbook leaves 100 and 278 unexplained.
 
 ### Q12. Where did the 1900-1970 race figures come from?
-**Owner:** Alex · **Status:** open — no source traced; 1980 onward now has one
+**Owner:** Alex · **Status:** answered 24 Sept 2026 — POP-TWPS0076, the source
+the workbook already cites for 1990; built from it, and no race figure in
+residents.csv now comes from the workbook
+
+**Answered (Alex, 24 September 2026).** He named
+`census.gov/library/working-papers/2005/demo/pop-twps0076/vatab.pdf`, which is
+the document already held as `pop-twps0076_virginia_1990.pdf` and already
+cited for 1990. Its Table 47 prints Arlington at **every census from 1900**,
+not only 1990, with a footnote saying the county is shown separately from 1900
+when Alexandria city was first reported as independent of it. Nobody had read
+past the 1990 line.
+
+**What it settles, and two errors it turns up.** Every year 1900-1970 now ties
+to its printed total exactly, which the workbook's figures did not.
+
+- **1900 Black is 2,467, not 2,437.** The workbook is thirty short, leaving
+  the year at 6,400 against a county of 6,430. A fourth transcription error of
+  the same kind as Q8's three.
+- **1970's two columns are transposed, and that is the whole of the 1970
+  overshoot.** The workbook records Hispanic 1,387 and AAPI 6,315. In the
+  source, 1,387 is the Asian/Pacific Islander **full count** and 6,315 is
+  Hispanic from the **15 percent sample** - a sample estimate standing in a
+  stack of full counts. Corrected, 1970 partitions to the person: white
+  161,329 + Black 10,076 + American Indian 271 + Asian/PI 1,387 + other race
+  1,221 = 174,284. The 4,823 overshoot this question and Q1 both treated as a
+  Hispanic-overlap artifact was never one.
+
+**American Indian and other race were dropped, in every year.** That is why
+the figures' "other" band reads near zero before 1980. It no longer does: the
+build writes white, Black and AAPI and leaves the rest as the remainder, the
+same shape the 1980-2020 groups already use. The remainder is now 1,492 in
+1970, 202 in 1960, 95 in 1950.
+
+**Two years do not give everything.**
+
+*1940* prints American Indian and Asian/Pacific Islander as a single merged
+cell - 10 people spanning both columns - so neither can be read alone. `aapi`
+is empty for 1940 and those ten reach the remainder. Read off the rendered
+page rather than the text layer, which places a merged cell in whichever
+column it happens to overlap.
+
+*Hispanic origin is (NA) at full count for every year before 1980.* 1970 has
+it only as a sample - 6,315 on the 15 percent, 4,890 on the 5 percent.
+**Decided (Sally, 24 September 2026): the Hispanic series begins in 1980**,
+the first census to ask the question of everyone. The transcription carries
+the sample rows so the decision can be revisited against them; the build does
+not read them.
+
+**Where it is.** `data/transcribed/by_claude/us_census_bureau/censusgov_pop-twps0076_p1_virginia_arlington.csv`,
+every printed row of the Arlington block including the sample lines, with the
+merged cell in its own column. The build asserts each full-count row's race
+columns account for its printed total before using it.
+
+*Original entry:*
 
 1980 through 2020 are now built from census tables (Q1), so this is the
 remaining stretch: seven censuses whose race counts are typed numbers in the
@@ -1129,7 +1313,8 @@ carry.
 
 ### Who served from 1916 to 1931?
 **Owner:** Alex · **Status:** answered 24 Sept 2026 — nothing stood behind the
-counts; and five of the names turn out to be in a document already held
+counts; five of the names turn out to be in a document already held; and the
+stretch is four years longer than it looked
 
 O'Leary's listings stop at the 1915 election and Novack begins with the County
 Manager plan in 1932. The county's candidate history starts at 1920 but its
@@ -1186,10 +1371,23 @@ as the pre-1932 party coding.
 attribution everywhere and is labelled as such. Duncan is named in full in the
 1923 listing; Ingram and Thornburke are initials.
 
-**Still open: whether to extend the roster into these years.** Adding 1923 and
-1927 would replace an assumption with a source for part of the stretch, but a
-partial roster would make the seat-count derivation read the unfilled years as
-vacancies, which is a stronger claim than the record supports. Owner: Sally.
+**The stretch is 1912-1931, not 1916-1931** (Sally, 24 September 2026). O'Leary
+does not list the November 1911 election, so the men elected in 1907 have a
+term that closes in January 1912 and nobody is named after them. The roster
+used to run them through to the next listed election in 1915; it no longer
+does. The seat counts for 1912-1915 now come from the workbook, like the years
+after them. No value changes - both give three white men - but four more years
+are now marked as an assumption rather than a record.
+
+**Still open: whether to put the 1923 and 1927 names in the roster.** The
+principle is fidelity to what the sources say, which argues for entering them:
+five names the county published, sitting only in the transcription. The
+obstacle is that `board_seats` derives its counts from the roster, and a
+roster covering 1923 and 1927 but not the years around them would read the
+rest as unfilled seats. The two files can be decoupled - the roster names who
+is named, the counts keep taking 1912-1931 from the workbook - which is
+already how the 1915 winners are carried, named in the roster and holding no
+seat-years. Owner: Sally.
 
 ### Q15. Vacancies in the seat counts
 **Owner:** Sally + Alex · **Status:** partly answered 23 Sept 2026 — vacancies
@@ -1213,12 +1411,18 @@ seats to three, which it did not.
 
 **What is still open, and it is the substance of the question.**
 
-*How many other gaps there are.* Two are recorded because two are sourced. The
-figure is only as complete as the roster's dates. *Six Decades of Arlington
-Leadership* lists terms of service to the month for every member through 1994,
-so gaps in that period are findable; after 1994 they are not yet sourced. Until
-that sweep is done, "two vacancies since 1870" is a statement about the roster,
-not about the Board.
+*How many other gaps there are.* **Swept, 24 September 2026: there are no
+others.** Counting the months each term covers against the seats that existed
+gives exactly two shortfalls in the whole period a roster covers - 1873, the
+Washington district seat from June to November, and 1990, March and April
+between Milliken's resignation and Hunter's special election. 1870-1911 comes
+from O'Leary, 1932-1994 from Novack's terms of service to the month, and
+1995-2026 is already asserted month by month by `check_five_seats`. The only
+stretch not swept is 1912-1931, where there is no roster at all and the rows
+are an assumption.
+
+So "two vacancies since 1870" is now a statement about the Board and not only
+about the roster, for every period where anyone has recorded who served.
 
 *`residents_per_seat` divides by the seats that exist, not the seats filled.*
 `residents.csv` carries `board_seats` as three through 1930 and five after, and
@@ -1321,7 +1525,24 @@ chat about the 1870-1890 city problem. Worth him reading it and saying whether
 it matches what he intended.
 
 ### Q9. How should Freedman village be treated, and described?
-**Owner:** Sally + Alex · **Status:** open
+**Owner:** whoever writes the race section · **Status:** closed as a data
+question, 24 Sept 2026 — it is a prose decision, and the substance sits with
+the displacement entry above
+
+The arithmetic is settled: the settlement is an indented sub-line inside
+Arlington district, counting it as a fourth district is what produced 4,596,
+and the counts tie without it. The population figures the figures need,
+overall and by race, are complete.
+
+What is left is how much the prose says about it, and that is not a cleaning
+question. The place it bears on is the 1870 baseline: the 63 per cent Black
+share reflects a settlement the federal government created and then
+dismantled, so a sentence reading "the Black share has fallen from 63 per
+cent" without saying so is doing work the number cannot support. That is
+already written up under *Does the falling Black share read as displacement?*
+and belongs there rather than here.
+
+*Original entry:*
 
 Freedman village was a settlement of formerly enslaved people on the Arlington
 estate. The census returns it separately in 1890, at 338 residents, and does

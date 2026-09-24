@@ -12,9 +12,9 @@ Arlington County's Board Structure and Performance study: a historical and
 descriptive-representation analysis of the County Board, 1870 to the present.
 The work product is a paper with figures. The figures are drawn from data
 that the repository assembles from primary sources — census volumes, the
-county's election records, a published roster of Board members, and the
-project's own workbooks — and every number in them can be traced back to the
-page it came from.
+county's election records, a published roster of Board members — and every
+number in them either traces back to the page it came from or says plainly
+that it is an assumption.
 
 ## The tools
 
@@ -47,8 +47,7 @@ code, each writing one folder of data:
   file is committed, so nobody else needs to fetch it again.
 - `code/transcribe/` reads the scanned documents in `data/raw/` into tables in
   `data/transcribed/`. Also run only when something new needs reading, and
-  its output is committed. (`data/transcribed/by_human/` holds tables that
-  were typed in by a person rather than read by a program.)
+  its output is committed.
 - `code/build/` turns the raw and transcribed files into the clean tables in
   `data/clean/`. This is where every decision about what a number *is* gets
   made — what a blank means, which of two conflicting figures to trust.
@@ -62,9 +61,10 @@ asks for them. Alongside those: `paper/` holds the LaTeX source that Overleaf
 syncs, and `docs/` holds the open questions, the record of what backs every
 number, and the reasoning behind each figure.
 
-Two rules to know before touching anything. `data/raw/` and
-`data/transcribed/by_human/` are the sources as received and are never
-edited. And `README.md` is the front door — it has a table of which script
+Two rules to know before touching anything. `data/raw/` holds the sources as
+published and is never edited — a defect in one is corrected in
+`code/build/`, where the correction is visible. And `README.md` is the front
+door — it has a table of which script
 writes which file — while `CLAUDE.md` holds the working rules.
 
 ## What a working setup looks like

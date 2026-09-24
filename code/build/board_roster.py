@@ -38,6 +38,11 @@ from paths import RAW, TRANSCRIBED
 BY_CLAUDE = TRANSCRIBED / "by_claude"
 NOVACK_PUBLISHED = 1994
 
+# Va. Const. 1902 sec. 112: county and district officers hold office for four
+# years. Applied from the November 1903 election; before it, terms ran from one
+# May election to the next and the listings are continuous.
+TERM_YEARS = 4
+
 MONTHS = {m: i for i, m in enumerate(
     ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], start=1)}
@@ -121,16 +126,34 @@ def oleary_terms():
                 name = re.split(r"\s*[(–]|\s+elected\b", entry, maxsplit=1)[0].strip(" -,")
                 note = entry[len(name):].strip(" -–")
 
-            # Where there is no next listed election, the end of service is
-            # not recorded - O'Leary's listings simply stop. That is not the
-            # same as still serving, and is marked so.
-            if nxt is None:
-                term_end_year, term_end_month = "", ""
-            else:
-                term_end_year, term_end_month = seated(
-                    int(nxt), d[d.year == nxt].election_date.iloc[0])
-            end_unrecorded = nxt is None
             start_year, start_month = seated(int(year), r.election_date)
+
+            # What a win entitled someone to, not how long the listings are
+            # silent. Under the 1902 constitution the term is four years
+            # (sec. 112), so a November win ends four years on whether or not
+            # O'Leary lists the election that followed - he lists the board
+            # in 1907 and 1915 and not in 1911, and running the 1907 term to
+            # 1915 would put three named men in a seat for eight years on a
+            # source that speaks to four. Where the next listed election comes
+            # first, it wins: that is a seat changing hands early.
+            nxt_seated = (seated(int(nxt), d[d.year == nxt].election_date.iloc[0])
+                          if nxt is not None else None)
+            november = month_of(r.election_date) == 11
+            statutory_end = end_unrecorded = False
+            if november:
+                ends = [(start_year + TERM_YEARS, start_month)]
+                if nxt_seated:
+                    ends.append(nxt_seated)
+                term_end_year, term_end_month = min(ends)
+                # Only where the statute is doing the work. Where the next
+                # listed election seats a successor on the same date, the
+                # departure is sourced and needs no note.
+                statutory_end = nxt_seated is None or ends[0] < nxt_seated
+            elif nxt_seated:
+                term_end_year, term_end_month = nxt_seated
+            else:
+                term_end_year, term_end_month = "", ""
+                end_unrecorded = True
 
             # Each handover ends the sitting member's term and begins the
             # successor's. A vacancy produces no row - nobody served - but the
@@ -160,6 +183,9 @@ def oleary_terms():
                 if end_unrecorded and i == len(holders) - 1:
                     parts.append("End of service not recorded; O'Leary's "
                                  "listings stop at 1915.")
+                elif statutory_end and i == len(holders) - 1:
+                    parts.append("Term ends by statute (Va. Const. 1902 "
+                                 "sec. 112); no source records the departure.")
                 base = " ".join(parts)
                 yield {"name": who, "district": r.district,
                        "start_year": y0, "start_month": m0,

@@ -1,6 +1,6 @@
 # Contents of data/
 
-Four layers, sorted by how the numbers were produced. Which folder something
+Three layers, sorted by how the numbers were produced. Which folder something
 belongs in depends on that, not on what it is about.
 
 Inside `raw/`, folders are named for **who published the material** —
@@ -13,7 +13,6 @@ different things. `transcribed/by_claude/` mirrors those folder names.
 | `raw/` | published, as it exists in the world | `code/fetch/`, or saved by hand | `code/transcribe/`, `code/build/` |
 | `transcribed/by_ocr/` | an OCR engine read the scan | `code/transcribe/` | people |
 | `transcribed/by_claude/` | Claude read a rendered page or text layer | `code/transcribe/`, or Claude directly | `code/build/` |
-| `transcribed/by_human/` | keyed in by a person | — | `code/build/` |
 | `clean/` | computed from the layers above | `code/build/` | `code/analysis/` |
 
 A file in `raw/` is its own citation: the volume is the evidence. A file in
@@ -75,8 +74,17 @@ would have taken the repository past the 80 MB warning for 229 pages nobody
 needs.
 
 **`pop-twps0076_virginia_1990.pdf`** — Census working paper POP-TWPS0076,
-Virginia table, giving Arlington's 1990 population by race and Hispanic origin.
-One of the two URLs cited inside the delivered workbook.
+Virginia table. One of the two URLs cited inside the delivered workbook. Its
+Table 47 gives Arlington by race at **every census from 1900**, not only 1990;
+the filename is from when only the 1990 line had been read. Transcribed whole
+to `transcribed/by_claude/us_census_bureau/censusgov_pop-twps0076_p1_virginia_arlington.csv`,
+which is where residents.csv takes 1900-1970 from.
+
+Read carefully: some rows print American Indian and Asian/Pacific Islander as
+one merged cell spanning both columns - Arlington's 1940 and the 1970 15
+percent sample - and a text-layer extraction drops that value into whichever
+column it overlaps. "-" in the table is zero, which the rows that tie without
+it prove; "(X)" and "(NA)" are written as empty in the transcription.
 
 **Data files, 2000–2020.** For 2000, 2010 and 2020 the Bureau publishes
 machine-readable data, so there is no page to read and no transcription step —
@@ -256,41 +264,44 @@ given names, and the rows say so. Grace Hjerpe's paper and O'Leary's prose
 are cited rather than filed in `raw/`: they are read for a handful of claims,
 not transcribed table by table.
 
+## raw/arlington_sun/
+
+**`sun_1938-11-11_p1.pdf`** — the front page of the *Sun* (Arlington) for
+11 November 1938, vol. III no. 49, as digitised by the Library of Virginia's
+Virginia Chronicle. SHA-256 begins `1e955e238e45baac`.
+
+It carries "Referendum Wins By 61 Votes; Board Will Be 'Staggered'", the
+report of the 8 November referendum that put the County Board on staggered
+terms, with the returns for all eleven precincts and their totals. It is here
+rather than cited in `docs/sources.md` because a number is taken out of it -
+the count disagrees with the county's own candidate history, and Q27 in
+questions.md is that disagreement.
+
+The paper is the *Sun*, not the Alexandria Gazette: Virginia Chronicle has 21
+items on this referendum in the Sun across 1938 and none in the Gazette. The
+folder is named for the publisher, like the others.
+
 ## transcribed/by_human/
 
-**The three workbooks are under glass.** They are exactly as Alex Keena
-delivered them on 2026-09-22 and are never edited here. A discrepancy is
-recorded, not corrected.
+**Gone, 24 September 2026.** The folder held three workbooks delivered by Alex
+Keena on 2026-09-22 - census figures by year, Board seat counts by race and
+gender, and a member database - and for a while they were what several columns
+were built from.
 
-`census_verification.csv` is the exception: it is compiled in this repository
-rather than received, and holds the running record of which workbook figures
-have been traced to a source table. See `docs/sources.md`.
+Nothing reads them now. Every figure they fed takes a published source or a
+stated assumption instead: the census race figures from POP-TWPS0076 and the
+crossed census tables, the seat counts from the roster, and the years no
+source covers from an assumption written in `code/build/` and labelled
+`assumed`. A spreadsheet standing in for an assumption only made the
+assumption look like a source.
 
-**`arlington county demographic data.xlsx`** — 16 census years, 1870–2020:
-population totals, race and ethnicity counts, Board seats, and derived
-residents-per-seat and cube-root columns. Two source URLs sit in rows below the
-data, with no record of which years each covers. The 1870–1890 rows were
-corrected in September 2026, after the original figures were found to include
-the City of Alexandria, which the Board did not govern.
+They are in the git history and on their author's own machine, so deleting
+them loses nothing but the implication that the build still depends on them.
 
-**`arlington board - descriptive representation (1870-2026).xlsx`** — 156 years
-of Board seat counts by race/ethnicity and gender, 1871–2026. No sources
-recorded. The header `aapi_m embers` contains a space, corrected in
-`code/build/board_seats.py` rather than here.
-
-**`arlington county board member database (1932-2026).xlsx`** — 497
-person-years, 1932–2026, one row per member per year, race and gender coded on
-every row. No source column.
-
-| File | SHA-256 (first 16) |
-|---|---|
-| `arlington board - descriptive representation (1870-2026).xlsx` | `b5de85deed3414fc` |
-| `arlington county board member database (1932-2026).xlsx` | `66b511fddac149df` |
-| `arlington county demographic data.xlsx` | `fcf4d9bdb4779ae1` |
-
-These are what the project is grounding, not building on. The roster and
-demographics in `clean/` are built from the sources above without reading
-them; `docs/sources.md` records where the two agree and where they do not.
+`census_verification.csv` sat here too and was never the same kind of file: it
+was compiled here and written to as the work went along, which is neither
+"keyed in by a person" nor "as received". It is now
+`docs/census_verification.csv`.
 
 ## clean/
 

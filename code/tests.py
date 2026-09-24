@@ -103,30 +103,16 @@ def test_race_and_gender_must_account_for_the_same_seats():
     assert err and "same seats" in err, f"not caught: {err}"
 
 
-def test_race_categories_must_sum_to_the_seat_count():
-    def mangle(orig):
-        def patched(*a, **k):
-            d = orig(*a, **k)
-            if any("aapi" in str(c) for c in d.columns):
-                d = d.copy()
-                d.loc[d.year == 1975, "white_members"] = 4
-            return d
-        return patched
-    err = breaks(pd, "read_excel", mangle, build=board_seats.build)
-    assert err and "1975" in err, f"not caught: {err}"
-
-
-def test_a_new_duplicate_person_year_is_rejected():
-    """Frisbie 1952 is known and allowed; anything else should stop the build."""
-    def mangle(orig):
-        def patched(*a, **k):
-            d = orig(*a, **k)
-            if "Last_name" in d.columns or "last_name" in d.columns:
-                d = pd.concat([d, d.iloc[[0]]], ignore_index=True)
-            return d
-        return patched
-    err = breaks(pd, "read_excel", mangle, build=board_members.build)
-    assert err and "duplicate" in err, f"not caught: {err}"
+# Two tests stood here and are gone with what they tested: that a new
+# duplicate person-year in the member workbook stopped the build, and that the
+# seat-count workbook's race columns summed to the seat count. Both guarded
+# the delivered workbooks, which the build no longer reads (24 September
+# 2026). A guard is worth a test while something can quietly disable it; these
+# guarded an input, and the input is gone.
+#
+# What they protected is still covered for the data that remains:
+# test_race_and_gender_must_account_for_the_same_seats checks the same
+# arithmetic on the rows the build computes.
 
 
 def test_a_wrong_term_length_is_rejected():

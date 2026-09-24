@@ -68,32 +68,30 @@ The third is the one that failed.
 ## Population and race, year by year
 
 Every total from 1870 to 2020 is taken from a published Census Bureau
-document that is in `data/raw/us_census_bureau/`. The race split is sourced
-only for 1870–1890, derived from the volumes as county minus city. From 1900
-on it is the delivered workbook's figures: for 1900–1980 no source is
-recorded (with Alex, questions.md), and for 1990–2020 the Bureau's own race
-tables are in `data/raw/` but are not used until the Hispanic-definition
-question is settled, since they count Hispanic across races and the
-workbook does not.
+document that is in `data/raw/us_census_bureau/`, and so now is every race
+figure. 1870–1890 are derived from the volumes as county minus city;
+1900–1970 come from POP-TWPS0076 Table 47, which prints Arlington by race at
+every census from 1900; 1980–2020 come from the crossed census tables. The
+delivered workbook no longer supplies a race figure for any year.
 
 | Year | Total | Total from | Race from |
 |---|---|---|---|
 | 1870 | 3,185 | `walker1872` | `walker1872` |
 | 1880 | 3,887 | `census1880` | `census1880` |
 | 1890 | 4,258 | `census1890` | `census1890` |
-| 1900 | 6,430 | `forstall1996` | `keena-workbook` |
-| 1910 | 10,231 | `forstall1996` | `keena-workbook` |
-| 1920 | 16,040 | `forstall1996` | `keena-workbook` |
-| 1930 | 26,615 | `forstall1996` | `keena-workbook` |
-| 1940 | 57,040 | `forstall1996` | `keena-workbook` |
-| 1950 | 135,449 | `forstall1996` | `keena-workbook` |
-| 1960 | 163,401 | `forstall1996` | `keena-workbook` |
-| 1970 | 174,284 | `forstall1996` | `keena-workbook` |
-| 1980 | 152,599 | `forstall1996` | `keena-workbook` |
-| 1990 | 170,936 | `forstall1996` | `keena-workbook` |
-| 2000 | 189,453 | `censusapi` | `keena-workbook` |
-| 2010 | 207,627 | `censusapi` | `keena-workbook` |
-| 2020 | 238,643 | `censusapi` | `keena-workbook` |
+| 1900 | 6,430 | `forstall1996` | `censusbureau1990twps76` |
+| 1910 | 10,231 | `forstall1996` | `censusbureau1990twps76` |
+| 1920 | 16,040 | `forstall1996` | `censusbureau1990twps76` |
+| 1930 | 26,615 | `forstall1996` | `censusbureau1990twps76` |
+| 1940 | 57,040 | `forstall1996` | `censusbureau1990twps76` |
+| 1950 | 135,449 | `forstall1996` | `censusbureau1990twps76` |
+| 1960 | 163,401 | `forstall1996` | `censusbureau1990twps76` |
+| 1970 | 174,284 | `forstall1996` | `censusbureau1990twps76` |
+| 1980 | 152,599 | `forstall1996` | `census1980stf1a` |
+| 1990 | 170,936 | `forstall1996` | `census1990stf1a` |
+| 2000 | 189,453 | `censusapi` | `censusapi` |
+| 2010 | 207,627 | `censusapi` | `censusapi` |
+| 2020 | 238,643 | `censusapi` | `censusapi` |
 
 `walker1872`, `census1880`, `census1890` are the printed volumes;
 `forstall1996` is *Population of States and Counties of the United States:
@@ -122,7 +120,8 @@ questions.md.
 |---|---|
 | 1870–1940 | White, Black |
 | 1950–1960 | White, Black, AAPI |
-| 1970–2020 | White, Black, AAPI, Hispanic/Latino |
+| 1970 | White, Black, AAPI; Hispanic/Latino on a sample only |
+| 1980–2020 | White, Black, AAPI, Hispanic/Latino |
 
 ---
 
@@ -143,7 +142,8 @@ term number, district, and when service began and ended. 217 terms, 1870 through
 (the next election is November 2026), from three sources in sequence: O'Leary's electoral
 history to 1915, Novack's roster from 1932 to 1994, and election results
 after that - the county's candidate history to 2021, the state's elections
-database from 2022. Nothing covers 1916-1931.
+database from 2022. Nothing covers 1912-1931 except the two elections named
+below.
 
 `term_number` counts within a person, so someone appointed to a vacancy who
 then won twice has three rows numbered 1, 2, 3. William A. Rowe has eight,
@@ -183,7 +183,7 @@ handover from 1904 to 1916 by two months and changes no figure, since every
 member of those boards is coded a white man. One consequence is worth knowing:
 the three elected in November 1915 were seated in January 1916, which is inside
 the years the seat counts take from the workbook, so they hold no seat-years at
-all and 1915 belongs entirely to the members elected in 1907.
+all.
 
 The Schedule of the 1902 constitution has not been read, so whether the
 November 1903 winners fell under sec. 112 or under a transitional provision is
@@ -194,6 +194,30 @@ does not, because a term starting in May or ending in February cannot be
 recovered from a list of years.
 
 A vacant seat is not a row: nobody served, so there is no person and no term.
+
+**A term ends when the term ends, not when the listings resume.** Sec. 112
+makes it four years, so a November win closes four years on. O'Leary lists the
+board in 1907 and in 1915 and not in 1911, and reading the 1907 winners
+through to 1915 would put three named men in a seat for eight years on a
+source that speaks to four. Their terms therefore close in January 1912, and
+nothing names who held those seats next. The note on such a row says the end
+is the statute's and not a recorded departure; where the next listed election
+seats a successor on the same date, the departure is sourced and carries no
+note.
+
+**So the roster stops naming people in 1912, not 1916.** From January 1912 the
+seat counts come from the delivered workbook rather than from the roster, and
+the `source` column says so. The values do not change - workbook and roster
+both give three white men - but four years move from being a record of who
+served to being an assumption that somebody did. That is the honest boundary:
+1912-1931 is the stretch no source covers.
+
+**Two elections inside it are recorded**, in the county's candidate history
+rather than in O'Leary, and printed under the district headings rather than
+under "County Board": November 1923 (Ingram in Arlington, Duncan in Jefferson,
+Thornburke in Washington) and November 1927 (Duncan and Thornburke; the
+Arlington contest is not printed). They are not in the roster - see
+questions.md.
 
 **Mid-term handovers are terms like any other.** O'Leary records them as prose
 beside the elected member — "Replaced by H. Dwight Smith in Dec.; replaced by
@@ -287,6 +311,20 @@ history — states anyone's race or gender. Race comes from Hjerpe and from
 whatever the Historical Society can add. Gender comes from names and
 honorifics, which is a weaker attribution than a statement and is labelled as
 such in the file.
+
+**Two contemporaneous claims about women and Board structure**, from the
+*Sun*'s coverage of the November 1938 staggered-terms referendum. The
+Arlington County Woman's Democratic Club opposed the change, holding that a
+staggered system would make it "virtually impossible for a woman to be elected
+to the board" (`sun1938referendum`). A week later the Organised Women Voters
+of Arlington County objected to the ballot's wording and asked the General
+Assembly to require fuller information in future (`sun1938womenvoters`).
+
+These are arguments about representational consequences, made in 1938 by the
+people affected, about the system this study assesses. Florence E. Cannon is
+elected parliamentarian of the Organised Women Voters in the second notice and
+sits on the Board from 1948 to 1951, which is the only place in anything held
+where a woman on this roster appears before her own election.
 
 **What is being asked of the Arlington Historical Society.** The attributions
 file, presented as two short lists — Black members and women — with the

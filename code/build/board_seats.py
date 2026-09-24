@@ -16,17 +16,24 @@ This does not hide a vacancy. 1873 and 1990 are years the Board existed for all
 twelve months and sat a seat short for part of them, and both still fall below
 the full complement.
 
-From 1870 to 1915 and from 1932 on, the rows are computed from
+From 1870 to 1911 and from 1932 on, the rows are computed from
 board_members.csv, whose terms run to the month. A term's months are its
 start month through its end month, except that a month in which a successor
 begins belongs to the successor - decided on Q13 in docs/questions.md,
 because days are not recorded consistently and the month is the unit. The
-three members whose end O'Leary never records won in November 1915 and were
-seated in January 1916, which is inside the workbook years, so they contribute
-no seat-years at all; 1915 is held by the members elected in 1907.
+members elected in November 1915 were seated in January 1916, inside the
+workbook years, so they contribute no seat-years at all.
 
-From 1916 to 1931 no terms are known, and the rows come from Alex Keena's
-seat-count workbook as delivered. The `source` column says which.
+From 1912 to 1931 no terms are known. The rows come from Alex Keena's
+seat-count workbook as delivered, and read `assumed`: he confirmed there was
+no source behind them, so they record an assumption that three seats were
+filled by white men rather than a compilation of who served.
+
+The stretch begins in 1912 and not 1916 because O'Leary does not list the
+November 1911 election. The three men elected in 1907 held a four-year term
+that ended in January 1912, and nothing names who won the seat after them.
+Running their names to the next listed election, 1915, would have covered
+those four years with an inference rather than a source.
 
 **The Board's race coding is one code per person, so it is already a set of
 categories that do not overlap** - the property the census columns in
@@ -46,16 +53,16 @@ here: the census basis does not use it either. It puts every Hispanic resident
 in one band whatever their race, which is the same thing one code per person
 achieves.
 
-The workbook's own years are also read for comparison and checked for
-internal coherence - the race categories and the genders must each sum to
-the seat count, three seats through 1930 and five from 1932 - but from 1932
-its counts are not used: it splits a shared year half and half where the
-roster has months.
+The delivered seat-count workbook used to be read alongside this, for the
+1912-1931 fill and for comparison. It is not read any more, and is not in the
+repository: it recorded the same assumption this file now states, and from
+1932 its counts split a shared year half and half where the roster has
+months.
 """
 import pandas as pd
 
 import citekeys
-from paths import BOARD_SEATS_XLSX, CLEAN, numeric, write
+from paths import CLEAN, write
 
 COLUMNS = ["year", "white", "black", "hisp", "aapi", "men", "women"]
 RACE = {"White": "white", "Black": "black", "Hispanic": "hisp", "Asian": "aapi"}
@@ -69,39 +76,13 @@ PARTY = {"Democratic": "dem", "Republican": "rep", "ABC": "abc",
          "independent": "ind", "": "unrecorded"}
 PARTY_COLUMNS = ["dem", "abc", "rep", "ind", "unrecorded"]
 PARTY_FROM = 1932
-WORKBOOK_YEARS = range(1916, 1932)
+# The years with no roster: stated rather than computed, below.
+WORKBOOK_YEARS = range(1912, 1932)
+# Three magisterial districts with one supervisor each, five members at large
+# from the County Manager plan. residents.py states the same two numbers.
+SEATS_DISTRICT = 3.0
+SEATS_AT_LARGE = 5.0
 LAST_YEAR = 2026          # current terms run to 2029; the file stops at the present
-
-
-def workbook() -> pd.DataFrame:
-    """Alex's seat counts, one row per year, as delivered, with its checks."""
-    b = pd.read_excel(BOARD_SEATS_XLSX)
-
-    # The source header reads "aapi_m embers", with a space. by_human/ is
-    # read-only, so the spacing is corrected here. Stripping spaces from every
-    # header also lets columns be read by name rather than position, so a
-    # reordered source column cannot silently swap two categories.
-    b.columns = [c.replace(" ", "") for c in b.columns]
-    b = b.rename(columns={"white_members": "white", "black_members": "black",
-                          "hisp_latino_members": "hisp", "aapi_members": "aapi"})
-    b = numeric(b[COLUMNS], COLUMNS)
-
-    missing = b.loc[b["white"].isna(), "year"].tolist()
-    assert missing == [1883, 1884, 1931], f"unexpected missing years: {missing}"
-
-    # The Board is split two independent ways - by race and by gender - and
-    # both must account for the same seats. Fractions are genuine, so compare
-    # as floats.
-    reported = b.dropna(subset=["white"]).copy()
-    reported["seats"] = reported["year"].apply(lambda y: 3 if y < 1932 else 5)
-    by_race = reported[["white", "black", "hisp", "aapi"]].sum(axis=1)
-    by_gender = reported[["men", "women"]].sum(axis=1)
-    for label, totals in (("race categories", by_race), ("men + women", by_gender)):
-        off = reported.loc[(totals - reported["seats"]).abs() > 1e-9, "year"]
-        assert off.empty, f"{label} do not sum to the seat count in {list(off.astype(int))}"
-    off = reported.loc[(by_race - by_gender).abs() > 1e-9, "year"]
-    assert off.empty, f"race and gender totals disagree in {list(off.astype(int))}"
-    return b
 
 
 def months_held(members: pd.DataFrame) -> pd.DataFrame:
@@ -148,9 +129,22 @@ def build() -> pd.DataFrame:
     built = built[built.year <= LAST_YEAR]
     built["source"] = citekeys.DERIVED
 
-    delivered = workbook()
-    fill = delivered[delivered.year.isin(WORKBOOK_YEARS)].copy()
-    fill["source"] = citekeys.KEENA
+    # 1912-1931: no terms are known, so the rows are stated here rather than
+    # computed. Three seats, all filled, all held by white men. That is an
+    # assumption and reads as one; the seat count is structural (three
+    # magisterial districts) but the occupancy and the coding are not. The
+    # numbers used to be read from Alex Keena's seat-count workbook, which
+    # said the same thing - he confirmed on 24 September 2026 that nothing
+    # stood behind them - so reading them from a spreadsheet only made an
+    # assumption look like a source. docs/questions.md.
+    fill = pd.DataFrame({"year": list(WORKBOOK_YEARS)})
+    fill["white"] = SEATS_DISTRICT
+    fill["men"] = SEATS_DISTRICT
+    for c in ("black", "hisp", "aapi", "women"):
+        fill[c] = 0.0
+    for c in PARTY_COLUMNS:
+        fill[c] = float("nan")
+    fill["source"] = citekeys.ASSUMED
 
     d = pd.concat([built[~built.year.isin(WORKBOOK_YEARS)], fill]).sort_values("year").reset_index(drop=True)
     d = d[COLUMNS + PARTY_COLUMNS + ["source"]]
@@ -169,7 +163,8 @@ def build() -> pd.DataFrame:
 
     # The seats held never exceed the seats that exist, and fall short only
     # where the roster records a vacancy or the year the Board began.
-    seats = d.year.apply(lambda y: 3 if y < 1932 else 5)
+    seats = d.year.apply(
+        lambda y: SEATS_DISTRICT if y < PARTY_FROM else SEATS_AT_LARGE)
     total = d[["white", "black", "hisp", "aapi"]].sum(axis=1)
     over = d.loc[total - seats > 1e-9, "year"]
     assert over.empty, f"more seat-years than seats in {list(over)}"
@@ -180,11 +175,9 @@ def build() -> pd.DataFrame:
     assert list(short) == [1873, 1990], f"seats fall short in {list(short)}; expected only 1873, 1990"
 
     # Race and gender split the same seats two independent ways, so they must
-    # account for the same total in every year. The workbook years were already
-    # checked this way inside workbook(); this covers the roster-derived years
-    # too, which is where a term wrongly attributed in one split and not the
-    # other would otherwise pass through silently and move one figure without
-    # moving its pair.
+    # account for the same total in every year. That is where a term wrongly
+    # attributed in one split and not the other would otherwise pass through
+    # silently and move one figure without moving its pair.
     by_race = d[["white", "black", "hisp", "aapi"]].sum(axis=1)
     by_gender = d[["men", "women"]].sum(axis=1)
     off = d.loc[(by_race - by_gender).abs() > 1e-9, "year"]

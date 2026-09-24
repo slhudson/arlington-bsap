@@ -6,7 +6,6 @@ data/ has four layers, sorted by how the numbers were produced:
     transcribed/  someone read a source and wrote the numbers down:
                     by_ocr/     an OCR engine
                     by_claude/  a vision model reading a page image
-                    by_human/   a person
     clean/        computed by code/build/, and the only layer code/analysis/ reads
 
 Nothing reads by_ocr/. OCR misreads digits, so it locates a table and never
@@ -26,7 +25,7 @@ starts, rather than surfacing as a confusing error from inside pandas.
 
 This is the only module in the repository that knows where raw/ is.
 code/analysis/paths.py does the same job for data/ and figures/, and deliberately
-defines no route to raw/ - so a figure script asking for a source workbook gets
+defines no route to raw/ - so a figure script asking for a source table gets
 an ImportError. The wall between the stages is a thing that is not there,
 rather than a rule someone has to remember.
 """
@@ -39,18 +38,9 @@ import citekeys
 ROOT = Path(__file__).resolve().parents[2]
 DATA = ROOT / "data"
 RAW = DATA / "raw"          # published sources, self-citing
-TRANSCRIBED = DATA / "transcribed"   # by_ocr / by_claude / by_human
+TRANSCRIBED = DATA / "transcribed"   # by_ocr / by_claude
 CLEAN = DATA / "clean"      # built here, read by code/analysis/
 
-
-# The three workbooks, named exactly as received (spaces and all).
-RESIDENTS_XLSX = TRANSCRIBED / "by_human" / "arlington county demographic data.xlsx"
-BOARD_SEATS_XLSX = TRANSCRIBED / "by_human" / "arlington board - descriptive representation (1870-2026).xlsx"
-BOARD_MEMBERS_XLSX = TRANSCRIBED / "by_human" / "arlington county board member database (1932-2026).xlsx"
-
-for _f in (RESIDENTS_XLSX, BOARD_SEATS_XLSX, BOARD_MEMBERS_XLSX):
-    if not _f.exists():
-        raise FileNotFoundError(f"missing frozen input: {_f}")
 
 
 def write(frame, stem):

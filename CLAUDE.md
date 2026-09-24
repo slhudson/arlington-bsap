@@ -10,7 +10,7 @@ repo; prose is written in Overleaf, which syncs the repository.
   |  code/fetch/        <- on demand: the network, output committed
 data/raw/        published sources - a file here is its own citation
   |  code/transcribe/   <- on demand: OCR and reading, output committed
-data/transcribed/  by_ocr/ and by_claude/ read off raw/; by_human/ hand-keyed
+data/transcribed/  by_ocr/ and by_claude/ read off raw/
   |  code/build/        <- every subjective decision about what a number IS
 data/clean/      built output
   |  code/analysis/     <- presentation only; cannot see anything above clean/
@@ -35,7 +35,7 @@ Presentation choices are still subjective, but they cannot change a value. If
 they would only disagree about how to *show* it, it belongs in `code/analysis/`.
 
 This is enforced structurally, not by convention: `code/analysis/paths.py` has no
-path to `data/raw/`, `data/transcribed/by_human/` or `data/transcribed/`. A figure script that wants to reach around the cleaning step
+path to `data/raw/` or `data/transcribed/`. A figure script that wants to reach around the cleaning step
 has nothing to reach with. Note that `analysis` scripts *append* `code/build/` to
 `sys.path` rather than inserting it, so `code/build/paths.py` cannot shadow
 `code/analysis/paths.py` and quietly restore that route.
@@ -53,9 +53,8 @@ about figures in `figures/` that no step produces.
 so nothing is prefixed `arlington_`.
 
 **If you can run it, it lives with the code. If you can only read it, it lives
-in `docs/`.** `code/build/assumptions.py` holds the mechanism of the two open
-questions; the reasoning is in `docs/questions.md`. Code files carry a pointer,
-not an argument.
+in `docs/`.** The reasoning behind a decision is in `docs/questions.md`; the
+code carries a pointer to it, not an argument.
 
 **`paths.py` is where real paths are assigned to the short names a stage
 uses.** Fix the mapping once and every script in that stage follows. There is
@@ -65,15 +64,15 @@ and that absence is the wall.
 
 ## The rules that matter
 
-**`data/raw/` and `data/transcribed/by_human/` are read-only.** They are the files as
-received. Never edit, rename, clean or "fix" anything inside them — including
-the spacing in the `aapi_m embers` header, which is corrected in
-`code/build/board_seats.py`.
+**`data/raw/` is read-only.** It is the files as published. Never edit,
+rename, clean or "fix" anything inside it. A defect in a source is corrected
+in `code/build/`, where the correction is visible and reviewable, never in the
+file.
 
 **Nothing reads `data/transcribed/`.** OCR misreads digits, so a number leaves
 that folder the way it would without it: a person reads the scan and keys it
-into `data/transcribed/by_human/`, with a citation. The OCR shortens the search; it does not
-do the reading.
+into `data/transcribed/by_claude/`, with a citation. The OCR shortens the
+search; it does not do the reading.
 
 **Everything is built by `bash run.sh`.** One entry point, no exceptions. If a
 figure cannot be produced by running that from a clean checkout, it is not
@@ -131,8 +130,8 @@ The test is whether a figure derives from it.
 for the prose and the data, so a footnote in the report and a cell in a table
 name the same document. Entries are built from the document in hand, never from
 memory; what is missing from the copy we hold goes in `annotation`, which
-biblatex does not print. Four values are not citekeys - `keena-workbook`,
-`assumed`, `derived`, `unsourced` - and `code/build/citekeys.py` says what each one
+biblatex does not print. Three values are not citekeys - `assumed`,
+`derived`, `unsourced` - and `code/build/citekeys.py` says what each one
 admits to. Anything else stops the build.
 
 **Guards that prevent silent wrongness get a test.** `code/tests.py` reintroduces
@@ -171,13 +170,18 @@ moment they arise, with an owner — not carried in your head or in chat. When
 one is answered, write the answer into the file, not just the fix into the
 code.
 
-Two are currently unresolved and deliberately **not** settled in `code/build/`: the
-1970/1990 category overlap, and whether not-reported reads as zero. Both are
-in docs/questions.md.
-Both live in `code/build/assumptions.py`, applied by name in each figure, so the
-current disagreement between figures is greppable rather than buried. When they
-are settled, the assumption moves into the relevant build step and the function
+**An open question that changes a value gets a named function**, in a module
+of its own under `code/build/`, applied by name in each figure - so which
+figure takes which position is greppable rather than buried. When the question
+is settled the assumption moves into the relevant build step and the function
 is deleted.
+
+There are none in force. The two that were - the 1970/1990 category overlap
+and whether not-reported reads as zero - are settled, and `assumptions.py`
+went with them. The overlap turned out not to be an overlap: 1970's Hispanic
+and Asian/Pacific Islander columns were transposed in the delivered workbook,
+and the categories partition the county once they are read off the source.
+Both are written up in `docs/questions.md`.
 
 ## Register
 

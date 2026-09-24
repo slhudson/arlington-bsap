@@ -1,7 +1,7 @@
 """Where real paths are assigned to the short names this stage uses.
 
 The analysis-stage counterpart to code/build/paths.py. It maps data/ and figures/;
-it defines no route to raw/. A figure script asking for a source workbook gets
+it defines no route to raw/. A figure script asking for a source table gets
 an ImportError, so the wall between deciding what a number IS and deciding how
 it is SHOWN is a thing that is not there, rather than a rule to remember.
 
@@ -61,12 +61,3 @@ def save(fig, stem, profile=None):
         meta = {"CreationDate": None} if kind == "pdf" else {"Software": None}
         fig.savefig(d / f"{stem}.{kind}", dpi=spec["dpi"], metadata=meta)
 
-
-def build_stage_on_path():
-    """Let a figure import code/build/assumptions.py.
-
-    Appends rather than inserts, because code/build/ also has a paths.py: putting it
-    first would shadow this module and hand analysis a route to raw/.
-    """
-    import sys
-    sys.path.append(str(ROOT / "code" / "build"))
