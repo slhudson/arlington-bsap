@@ -499,42 +499,33 @@ at 18. 2020, no-excuse absentee and early voting.
   (a) is the sourced baseline and shows the electorate growing tenfold;
   panel (b) is the question. Q28.
 
-### Q29. Committed figures do not reproduce in a fresh checkout
-**Owner:** Claude · **Status:** open — found 24 Sept 2026
+### Q29. Figures committed from a shared checkout did not match their sources
+**Owner:** Claude · **Status:** answered 24 Sept 2026 — the build is
+reproducible; the commit was contaminated
 
-`figures/` is committed so that a change to a figure shows up as a reviewable
-diff. That only works if building from the same sources gives the same bytes,
-and it currently does not.
+Raised as "committed figures do not reproduce", which was the wrong diagnosis.
 
-**What was measured.** A fresh worktree at the same commit, with its own venv:
-matplotlib 3.11.2 and Python 3.14.6 in both, the same bundled Lato, no source
-difference. All sixteen figure files came out different from the committed ones.
-Rebuilding is stable *within* a checkout - byte-identical across runs - and
-differs *between* checkouts. One figure compared pixel by pixel: same
-dimensions, 2.2 per cent of pixels differing, spread across the whole plot
-rather than in any one element. That is a small global shift, not a data change,
-and the figures are visually identical.
+**What reproducibility actually does.** The same sources built from a fresh
+virtualenv in a different directory give byte-identical figures - tested by
+copying the worktree to /tmp, building there, and comparing: zero difference
+across every pixel. `charts.fit()` places figures by measuring rendered ink,
+which sounded environment-sensitive, and is not.
 
-**The likely mechanism.** `charts.fit()` places every figure by measuring the
-rendered ink and iterating, so anything that moves text metrics by a fraction of
-a pixel moves the layout, and the layout moves everything. Before `fit()` the
-placement came from constrained layout, which is font-sensitive too but was not
-feeding its own measurements back in.
+**What had happened instead.** `main` and this branch hold identical `code/`,
+`style/`, `data/clean/` and `run.sh`, and sixteen different figure files. The
+figures on `main` were rendered in the main checkout while a second session's
+uncommitted edits were in the tree, so they were built against data that was
+not committed beside them. Rebuilding on a clean tree changes all sixteen.
 
-**Not yet established:** what actually differs between two checkouts on one
-machine with the same versions. The matplotlib font cache is the obvious
-suspect and has not been confirmed.
+**The lesson is about the checkout, not the code.** Two sessions sharing one
+working tree means a build can see files that are not in any commit, and
+`figures/` is committed precisely so a diff means something. Each session now
+has its own worktree - see `git worktree list` - which makes this impossible
+rather than merely unlikely.
 
-**Why it matters, and how much.** Nothing in any figure is wrong. What is lost
-is the reason `figures/` is in the repository: `run.sh` reports which figures a
-run changed, and that report is noise if every run changes all of them on a
-different machine. It also means two people cannot tell a real change from an
-environment difference by looking at a diff.
-
-**Options if it cannot be fixed cheaply:** round the solved sizes to a coarse
-grid so small metric differences do not propagate; or stop committing
-`figures/` and accept that a figure change is reviewed by looking at the figure.
-The first keeps the property, the second admits it was never quite true.
+**What fixes the repository:** the figures built clean on this branch replace
+the ones on `main`. Nothing about any figure was wrong; they were a build of a
+state that never existed as a commit.
 
 ### Q25. Bestebreurtje is cited as two different documents
 **Owner:** Sally + Alex · **Status:** open — blocks two claims
