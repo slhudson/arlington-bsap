@@ -269,11 +269,13 @@ the certified canvass and the Sun's is the count as known three days out. That
 would be an ordinary canvass correction - 8 votes on one side, 1 on the other.
 It has not been shown.
 
-**Where to look next.** The *Sun* for 18 November 1938, page 4, which the same
-search turned up: "Due to confusion in the recent election for providing
-'staggered' terms for the members of the County Board, because ...". A
-corrected or certified return is exactly what appears a week later. After that,
-the Electoral Board's own canvass.
+**Where to look next: the Electoral Board's own canvass.** The *Sun* for
+18 November 1938, page 4, was the obvious candidate and has been read
+(`sun1938womenvoters`). It does not settle it. The "confusion" there is about
+the ballot, not the tally: the Organised Women Voters of Arlington County went
+on record that the wording was "inadequate" and asked Arlington's delegate and
+state senator to require full information on future ballots. No corrected
+return is reported.
 
 **What the report should say meanwhile.** If it uses a margin at all, it
 should use the county's and say so, since that is the record rather than a

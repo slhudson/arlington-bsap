@@ -312,6 +312,20 @@ whatever the Historical Society can add. Gender comes from names and
 honorifics, which is a weaker attribution than a statement and is labelled as
 such in the file.
 
+**Two contemporaneous claims about women and Board structure**, from the
+*Sun*'s coverage of the November 1938 staggered-terms referendum. The
+Arlington County Woman's Democratic Club opposed the change, holding that a
+staggered system would make it "virtually impossible for a woman to be elected
+to the board" (`sun1938referendum`). A week later the Organised Women Voters
+of Arlington County objected to the ballot's wording and asked the General
+Assembly to require fuller information in future (`sun1938womenvoters`).
+
+These are arguments about representational consequences, made in 1938 by the
+people affected, about the system this study assesses. Florence E. Cannon is
+elected parliamentarian of the Organised Women Voters in the second notice and
+sits on the Board from 1948 to 1951, which is the only place in anything held
+where a woman on this roster appears before her own election.
+
 **What is being asked of the Arlington Historical Society.** The attributions
 file, presented as two short lists — Black members and women — with the
 default stated plainly: every other member has been treated as a white man;
