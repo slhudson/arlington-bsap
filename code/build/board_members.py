@@ -42,34 +42,21 @@ nothing: a cited claim that a member the county calls a Democrat was a
 Republican is a finding, and the build stops on it. A member none of the
 three covers is `unsourced`; before 1932 no party is attempted at all.
 """
-import re
-
 import pandas as pd
 
 import board_roster
 import citekeys
-from paths import RAW, TRANSCRIBED, write
+import elections
+from board_roster import AT_LARGE_FROM
+from elections import PARTIES
+from paths import TRANSCRIBED, write
 
 BY_CLAUDE = TRANSCRIBED / "by_claude"
-PARTY_FROM = 1932    # the County Manager plan; no source names a party before it
 
-# The labels the county prints after a winner's name, and what each records.
-# Anything not here stops the build: a new label is a decision, not a default.
-PARTY_LABELS = {
-    "D": "Democratic",
-    "R": "Republican", "Rep.": "Republican",
-    "ABC": "ABC",                      # Arlingtonians for a Better County
-    "I": "independent", "Non-Part.": "independent", "NP": "independent",
-    "IM": "independent",               # 1954, presumably Arlington Independent Movement
-    # Kaul and Krupsaw, 1955: nominated by a convention the source does not
-    # name. Not a party, so nothing is recorded; the note keeps the label.
-    "Convention": "",
-}
+# The labels the county prints after a name, and what each records, are
+# elections.LABELS. The state's party names differ and are mapped here.
 STATE_PARTIES = {"Democratic": "Democratic", "Republican": "Republican",
                  "Independent": "independent", "Green": "independent"}
-PARTIES = {"Democratic", "Republican", "ABC", "independent"}
-NOT_A_LABEL = {"won", "inc.", "holdover", "not on ballot"}
-LABEL = re.compile(r"\(([^()]*)\)")
 
 
 def county_labels() -> dict:
@@ -79,15 +66,10 @@ def county_labels() -> dict:
     A person's rows in one year may repeat the label (a primary listing and
     the general) or print it on only one of them; a blank is not a label.
     """
-    c = pd.read_csv(BY_CLAUDE / "arlington_county" / "candidate_history_1920-present.csv",
-                    dtype=str).fillna("")
-    c = c[c.office.str.contains("County Board") & c.year.str.match(r"^\d{4}$")]
     out = {}
-    for _, r in c.iterrows():
-        labels = {l.strip() for l in LABEL.findall(r.candidate)} - NOT_A_LABEL
-        entry = out.setdefault((board_roster.surname(r.candidate), int(r.year)),
-                               {"labels": set(), "pages": set()})
-        entry["labels"] |= labels
+    for _, r in elections.county_history().iterrows():
+        entry = out.setdefault((r.surname, int(r.year)), {"labels": set(), "pages": set()})
+        entry["labels"] |= elections.labels_on(r.candidate)
         entry["pages"].add(int(r.page))
     return out
 
@@ -100,16 +82,13 @@ def state_parties() -> dict:
     2000-2003, and 2023 on - a win in that year's Democratic primary is the
     record instead, and the entry says so.
     """
-    c = pd.read_csv(RAW / "va_dept_of_elections" / "county_board_2000-2026.csv",
-                    low_memory=False)
-    c = c[c.candidate_name.str.match(r"^(?!Total|Write|Under|Over)")].copy()
-    c["year"] = pd.to_datetime(c.election_date).dt.year
-    won = c[c.is_winner].groupby(["year", "contest_id", "candidate_name"]).agg(
+    c = elections.state_results()
+    won = c[c.person & c.is_winner].groupby(["year", "contest_id", "candidate_name"]).agg(
         party=("candidate_party_name", "first"), kind=("election_type", "first"),
         primary=("primary_party", "first")).reset_index()
     out = {}
     for _, w in won.sort_values("kind").iterrows():     # "General" sorts before "Primary"
-        key = (board_roster.surname(w.candidate_name), int(w.year))
+        key = (elections.surname(w.candidate_name), int(w.year))
         if w.kind.startswith("Primary"):
             if key not in out and w.primary == "Democratic":
                 out[key] = {"party": "Democratic", "contest": int(w.contest_id),
@@ -151,16 +130,19 @@ def party_of(t, labels, state, att):
     See the module docstring for the order and for which disagreements stop
     the build.
     """
-    key = (board_roster.surname(t["name"]), election_year(t))
+    key = (elections.surname(t["name"]), election_year(t))
     county = labels.get(key, {"labels": set(), "pages": set()})
     printed = sorted(county["labels"])
     if len(printed) > 1:
         raise ValueError(f"{t['name']} {key[1]}: the county prints more than one label: {printed}")
     label = printed[0] if printed else None
-    if label is not None and label not in PARTY_LABELS:
+    # A label only losers have carried is not a party a winner can be given
+    # by default: what "(Ind. Dem.)" records for a member is a decision.
+    if label is not None and elections.LABELS.get(label, "other") == "other":
         raise ValueError(f"{t['name']} {key[1]}: party label ({label}) is not one this build "
-                         f"knows. Add it to PARTY_LABELS with what it records, or fix the reading.")
-    county_party = PARTY_LABELS[label] if label else ""
+                         f"knows for a winner. Add it to elections.LABELS with what it "
+                         f"records, or fix the reading.")
+    county_party = elections.LABELS[label] if label else ""
     county_cite = f"{citekeys.ARLINGTON_ELECTIONS} p.{min(county['pages'])}" if county["pages"] else ""
     listed = f"county lists ({label})" if label else ""
     s = state.get(key)
@@ -222,7 +204,7 @@ def build() -> pd.DataFrame:
     rows = []
     for _, t in d.iterrows():
         row = dict(t)
-        if t.start_year >= PARTY_FROM:
+        if t.start_year >= AT_LARGE_FROM:
             row["party"], row["party_source"], row["party_note"] = party_of(t, labels, state, parties)
         else:
             row["party"], row["party_source"], row["party_note"] = "", "", ""

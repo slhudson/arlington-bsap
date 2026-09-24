@@ -62,6 +62,7 @@ months.
 import pandas as pd
 
 import citekeys
+from board_roster import AT_LARGE_FROM, PRESENT, SEATS_AT_LARGE, SEATS_DISTRICT
 from paths import CLEAN, write
 
 COLUMNS = ["year", "white", "black", "hisp", "aapi", "men", "women"]
@@ -75,14 +76,8 @@ GENDER = {"man": "men", "woman": "women"}
 PARTY = {"Democratic": "dem", "Republican": "rep", "ABC": "abc",
          "independent": "ind", "": "unrecorded"}
 PARTY_COLUMNS = ["dem", "abc", "rep", "ind", "unrecorded"]
-PARTY_FROM = 1932
 # The years with no roster: stated rather than computed, below.
-WORKBOOK_YEARS = range(1912, 1932)
-# Three magisterial districts with one supervisor each, five members at large
-# from the County Manager plan. residents.py states the same two numbers.
-SEATS_DISTRICT = 3.0
-SEATS_AT_LARGE = 5.0
-LAST_YEAR = 2026          # current terms run to 2029; the file stops at the present
+WORKBOOK_YEARS = range(1912, AT_LARGE_FROM)
 
 
 def months_held(members: pd.DataFrame) -> pd.DataFrame:
@@ -125,8 +120,8 @@ def build() -> pd.DataFrame:
                        by_gender.reindex(columns=list(GENDER.values())),
                        by_party.reindex(columns=PARTY_COLUMNS)], axis=1)
     built = built.reindex(columns=COLUMNS[1:] + PARTY_COLUMNS).fillna(0.0).reset_index()
-    built.loc[built.year < PARTY_FROM, PARTY_COLUMNS] = float("nan")
-    built = built[built.year <= LAST_YEAR]
+    built.loc[built.year < AT_LARGE_FROM, PARTY_COLUMNS] = float("nan")
+    built = built[built.year <= PRESENT]
     built["source"] = citekeys.DERIVED
 
     # 1912-1931: no terms are known, so the rows are stated here rather than
@@ -159,12 +154,12 @@ def build() -> pd.DataFrame:
         m = d.year == d.year.min()
         d.loc[m, COLUMNS[1:]] = d.loc[m, COLUMNS[1:]] * 12 / months_existing
     years = list(d.year)
-    assert years == list(range(1870, LAST_YEAR + 1)), f"years are not 1870-2026 without gaps: {years[:3]}..{years[-3:]}"
+    assert years == list(range(1870, PRESENT + 1)), f"years are not 1870-2026 without gaps: {years[:3]}..{years[-3:]}"
 
     # The seats held never exceed the seats that exist, and fall short only
     # where the roster records a vacancy or the year the Board began.
     seats = d.year.apply(
-        lambda y: SEATS_DISTRICT if y < PARTY_FROM else SEATS_AT_LARGE)
+        lambda y: SEATS_DISTRICT if y < AT_LARGE_FROM else SEATS_AT_LARGE)
     total = d[["white", "black", "hisp", "aapi"]].sum(axis=1)
     over = d.loc[total - seats > 1e-9, "year"]
     assert over.empty, f"more seat-years than seats in {list(over)}"
@@ -188,12 +183,12 @@ def build() -> pd.DataFrame:
     # seats too. A term whose party fell into no column - a value PARTY does
     # not map - would otherwise thin one figure and leave its pair intact.
     by_party = d[PARTY_COLUMNS].sum(axis=1)
-    off = d.loc[(d.year >= PARTY_FROM) & ((by_race - by_party).abs() > 1e-9), "year"]
+    off = d.loc[(d.year >= AT_LARGE_FROM) & ((by_race - by_party).abs() > 1e-9), "year"]
     assert off.empty, (
         "party does not account for the same seats as race in "
         f"{list(off.astype(int))}")
-    blank = d.loc[(d.year < PARTY_FROM) & d[PARTY_COLUMNS].notna().any(axis=1), "year"]
-    assert blank.empty, f"party is recorded before {PARTY_FROM} in {list(blank.astype(int))}"
+    blank = d.loc[(d.year < AT_LARGE_FROM) & d[PARTY_COLUMNS].notna().any(axis=1), "year"]
+    assert blank.empty, f"party is recorded before {AT_LARGE_FROM} in {list(blank.astype(int))}"
     return d
 
 

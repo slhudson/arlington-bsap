@@ -61,6 +61,7 @@ applied here; see docs/questions.md.
 import pandas as pd
 
 import citekeys
+from board_roster import AT_LARGE_FROM, SEATS_AT_LARGE, SEATS_DISTRICT
 from paths import RAW, TRANSCRIBED, write
 
 # Which document each year's population total comes from. Named here rather
@@ -206,17 +207,8 @@ COLUMNS = ["year", "total", "white", "black", "hisp", "aapi", "board_seats",
 # Every decennial census since the Board existed. 1870 is its first year.
 CENSUSES = range(1870, 2021, 10)
 
-# The Board's size is a fact about its constitution, not a figure anyone
-# counted, so it is stated here rather than read from a spreadsheet. Three
-# magisterial districts with one supervisor each from 1870 (Va. Const. 1902
-# sec. 111 restates it for the period it covers); five members elected
-# countywide from the County Manager plan, adopted at the November 1931
-# referendum and seated in January 1932 (anderson1958). board_seats.py states
-# the same two numbers for the same reason; they are the seats that exist,
-# which is not the same question as the seats filled - see docs/questions.md.
-SEATS_DISTRICT = 3.0
-SEATS_AT_LARGE = 5.0
-AT_LARGE_FROM = 1932
+# The Board's size - three seats, then five from 1932 - is stated once, in
+# board_roster.py, and imported: the seats that exist, not the seats filled.
 
 # Categories that do not overlap, 1980 on. Written in stacking order.
 # The crossed census groups, and which delivered column each one replaces.

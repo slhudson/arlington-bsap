@@ -42,10 +42,27 @@ import re
 import pandas as pd
 
 import citekeys
-from paths import RAW, TRANSCRIBED
+import elections
+from elections import COUNTY_HISTORY_THROUGH, surname
+from paths import TRANSCRIBED
 
 BY_CLAUDE = TRANSCRIBED / "by_claude"
 NOVACK_PUBLISHED = 1994
+PRESENT = 2026            # the roster is checked month by month up to here;
+                          # current terms run to 2029, and board_seats stops here
+
+# The Board's size is a fact about its constitution, not a figure anyone
+# counted, so it is stated here and imported by residents.py and
+# board_seats.py rather than typed into each. Three magisterial districts
+# with one supervisor each from 1870 (Va. Const. 1902 sec. 111 restates it
+# for the period it covers); five members elected countywide from the County
+# Manager plan, adopted at the November 1931 referendum and seated in January
+# 1932 (anderson1958). These are the seats that exist, which is not the same
+# question as the seats filled - see docs/questions.md. No source names a
+# party before the plan either, so it is also where party begins.
+SEATS_DISTRICT = 3.0
+SEATS_AT_LARGE = 5.0
+AT_LARGE_FROM = 1932
 
 # The values seated_by takes. Named so a consumer compares against a constant
 # and a typo is an AttributeError rather than a term that silently matches
@@ -131,9 +148,9 @@ def succession(entry, start_year, start_month):
 def oleary_terms():
     """Who held each magisterial district, from the election listings."""
     d = pd.read_csv(BY_CLAUDE / "arlington_county" / "board_1870-1920.csv")
-    elections = sorted(d.year.unique())
-    for i, year in enumerate(elections):
-        nxt = elections[i + 1] if i + 1 < len(elections) else None
+    listed = sorted(d.year.unique())
+    for i, year in enumerate(listed):
+        nxt = listed[i + 1] if i + 1 < len(listed) else None
         block = d[d.year == year]
         for _, r in block.iterrows():
             entry = str(r.entry)
@@ -146,10 +163,8 @@ def oleary_terms():
             paired = [] if prose else CANDIDATE_VOTES.findall(entry)
             if paired:
                 name = max(paired, key=lambda p: int(p[1].replace(",", "")))[0].strip()
-                note = f"contested; votes as printed: {entry.strip()}"
             else:
                 name = re.split(r"\s*[(–]|\s+elected\b", entry, maxsplit=1)[0].strip(" -,")
-                note = entry[len(name):].strip(" -–")
 
             start_year, start_month = seated(int(year), r.election_date)
 
@@ -218,35 +233,15 @@ def oleary_terms():
                        "source": f"{citekeys.OLEARY} p.{r.page}", "note": base}
 
 
-def surname(name):
-    """The surname, ignoring the qualifiers the sources hang off a name.
-
-    Candidate entries carry party, status and outcome - "*Elizabeth B. Magruder
-    (holdover)", "Elizabeth B. Magruder (won)" - so anything in parentheses,
-    anything after a comma or dash, and honorifics are dropped before the last
-    word is taken. Without this, Magruder's surname reads as "won".
-    """
-    s = re.sub(r"\(.*?\)", " ", str(name))          # (won), (D), (holdover)
-    s = re.split(r"[,\u2013-]", s)[0]                 # ", conservative", " - removed for..."
-    s = re.sub(r"\b(Jr|Sr|II|III|IV|Dr|Mrs|Mr)\b\.?", "", s)
-    s = re.sub(r"[^A-Za-z ]", " ", s).split()
-    return s[-1].lower() if s else ""
-
-
 def board_elections():
     """Regular County Board elections from 1931: year -> surnames who stood.
 
     Only November general elections: a primary does not start a term, and a
     special election fills one already under way.
     """
-    c = pd.read_csv(BY_CLAUDE / "arlington_county" / "candidate_history_1920-present.csv")
-    c = c[c.office.str.contains("County Board", na=False)].dropna(subset=["year"])
-    c = c[c.election_date.str.startswith("November", na=False)
-          & ~c.election_kind.str.contains("Primary", na=False)]
-    out = {}
-    for _, r in c.iterrows():
-        out.setdefault(int(r.year), set()).add(surname(r.candidate))
-    return out
+    c = elections.county_history()
+    c = c[c.november & ~c.primary]
+    return {int(y): set(g.surname) for y, g in c.groupby("year")}
 
 
 def special_candidates():
@@ -261,15 +256,10 @@ def special_candidates():
     so. Who won is not read here: a person whose service Novack shows
     continuing past that November, and who stood in the special, won it.
     """
-    c = pd.read_csv(BY_CLAUDE / "arlington_county" / "candidate_history_1920-present.csv")
-    c = c[c.office.str.contains("County Board", na=False)].dropna(subset=["year"])
-    c = c[c.election_date.str.startswith("November", na=False)
-          & (c.office.str.contains("special|unexp", case=False, na=False)
-             | c.candidate.str.contains("unexp", case=False, na=False))]
-    out = {}
-    for _, r in c.iterrows():
-        out.setdefault(int(r.year), set()).add(surname(r.candidate))
-    return out
+    c = elections.county_history()
+    c = c[c.november & (c.office.str.contains("special|unexp", case=False)
+                        | c.candidate.str.contains("unexp", case=False))]
+    return {int(y): set(g.surname) for y, g in c.groupby("year")}
 
 
 def general_winners():
@@ -385,7 +375,7 @@ def novack_terms():
 
 
 def _novack_spans():
-    elections = board_elections()
+    stood = board_elections()
     winners = general_winners()
     specials = special_candidates()
     d = pd.read_csv(BY_CLAUDE / "arlington_historical_magazine"
@@ -417,7 +407,7 @@ def _novack_spans():
             # this year and is simply being re-elected, so the shift applies
             # only when they did not.
             if (not arrive and last in winners.get(start, set())
-                    and last not in elections.get(start - 1, set())):
+                    and last not in stood.get(start - 1, set())):
                 start += 1
             depart = [e for e in events if e[0] == "depart" and not open_ended
                       and (e[1] == end or (e[1] is None and k == len(parts) - 1))]
@@ -432,7 +422,7 @@ def _novack_spans():
             # term the following January - except the one that brought them
             # in, when they were elected mid-term to an unexpired seat.
             elected_in = arrive and re.search(r"elected", arrive[0][3] or "", re.I) and arrive[0][1] == start
-            cuts = sorted(y + 1 for y, who in elections.items()
+            cuts = sorted(y + 1 for y, who in stood.items()
                           if last in who and start < y + 1 <= span_end
                           and not (elected_in and y == start))
             bounds = [start] + cuts + [span_end + 1]
@@ -465,7 +455,7 @@ def _novack_spans():
                     if last in winners.get(first - 1, set()):
                         open_end_year = first + 3
                     else:
-                        later = [y for y, who in elections.items() if last in who and y >= first]
+                        later = [y for y, who in stood.items() if last in who and y >= first]
                         if not later:
                             raise ValueError(f"{name} was serving when Novack published and "
                                              "never stood again; the term's end cannot be inferred")
@@ -509,8 +499,6 @@ SPECIAL = re.compile(r"special|unexpired", re.I)
 # "(to fill Eisenberg's unexpired term)", "(... following death of Charles Monroe)"
 FILLS = re.compile(r"to fill ([A-Za-z]+)['\u2019]s unexpired term|death of ([A-Za-z. ]+?)\)", re.I)
 PARTY = re.compile(r"\s*\((?:[^)]+)\)\s*$")
-COUNTY_HISTORY_END = 2021  # last election in the county's candidate history
-CHECK_THROUGH = 2026       # the roster is checked month by month up to here
 
 
 def county_contests():
@@ -525,15 +513,11 @@ def county_contests():
     (write-ins included, since the annotation can sit on any row) are read
     together.
     """
-    c = pd.read_csv(BY_CLAUDE / "arlington_county" / "candidate_history_1920-present.csv")
-    c = c[c.office.str.contains("County Board", na=False)].dropna(subset=["year"]).copy()
-    c["year"] = c.year.astype(int)
-    c["votes"] = pd.to_numeric(c.votes.astype(str).str.replace(",", ""), errors="coerce")
+    c = elections.county_history()
     c["base"] = c.office.str.replace(r"\s*\(.*", "", regex=True).str.strip()
     key = ["year", "election_date", "base"]
     qualifiers = c.groupby(key).office.agg(" ".join)
-    general = c[~c.election_kind.str.contains("Primary", na=False)
-                & ~c.candidate.str.contains("write", case=False)]
+    general = c[~c.primary & c.person]
     for k, g in general.groupby(key):
         year, date, base = k
         text = qualifiers[k]
@@ -558,10 +542,8 @@ def state_contests():
     them, which differs from the county's ("Matthew David De Ferranti" for
     "Matthew D. \"Matt\" de Ferranti"), so a person is matched by surname.
     """
-    c = pd.read_csv(RAW / "va_dept_of_elections" / "county_board_2000-2026.csv")
-    c = c[c.candidate_name.str.match(r"^(?!Total|Write|Under|Over)")]
-    c["date"] = pd.to_datetime(c.election_date)
-    general = c[c.election_type.str.startswith("General")]
+    c = elections.state_results()
+    general = c[c.person & c.election_type.str.startswith("General")]
     for (date, contest), g in general.groupby(["date", "contest_id"]):
         by_name = g.groupby("candidate_name").votes.sum().sort_values(ascending=False)
         seats = int(g.number_seats.iloc[0])
@@ -582,10 +564,10 @@ def contests():
     county = list(county_contests())
     state = list(state_contests())
     overlap = [(c["year"], sorted(map(surname, c["winners"]))) for c in county + state
-               if c["year"] == COUNTY_HISTORY_END and not c["special"]]
+               if c["year"] == COUNTY_HISTORY_THROUGH and not c["special"]]
     if len(overlap) != 2 or overlap[0][1] != overlap[1][1]:
-        raise ValueError(f"county and state sources disagree on {COUNTY_HISTORY_END}: {overlap}")
-    return county + [c for c in state if c["year"] > COUNTY_HISTORY_END]
+        raise ValueError(f"county and state sources disagree on {COUNTY_HISTORY_THROUGH}: {overlap}")
+    return county + [c for c in state if c["year"] > COUNTY_HISTORY_THROUGH]
 
 
 def cite(c):
@@ -655,7 +637,7 @@ def election_terms(earlier: pd.DataFrame):
     return d
 
 
-def check_five_seats(d: pd.DataFrame, first=1995, last=CHECK_THROUGH):
+def check_five_seats(d: pd.DataFrame, first=1995, last=PRESENT):
     """Five members at large in every month, apart from a handover month.
 
     A member who leaves mid-term and the one elected to replace them share

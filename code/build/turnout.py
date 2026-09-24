@@ -67,17 +67,16 @@ import pandas as pd
 
 import board_roster
 import citekeys
+import elections
+from elections import COUNTY_HISTORY_THROUGH
 from paths import CLEAN, RAW, TRANSCRIBED, write
 
-COUNTY = TRANSCRIBED / "by_claude" / "arlington_county" / "candidate_history_1920-present.csv"
 OLEARY = TRANSCRIBED / "by_claude" / "arlington_county" / "board_1870-1920.csv"
-STATE = RAW / "va_dept_of_elections" / "county_board_2000-2026.csv"
 REGISTRATION = RAW / "va_dept_of_elections" / "registration_2010-2025.csv"
 CENSUS = RAW / "us_census_bureau"
 ROSTER = CLEAN / "board_members.csv"
 VOTERS = CLEAN / "voters.csv"
 
-COUNTY_THROUGH = 2021          # the county's candidate history ends here
 # The population 18 and over, census by census. From 2000 the Bureau
 # publishes it as a table whose first cell is the total; 1980 and 1990 come
 # from the age distribution, summed from the "18" cell to the end. Each
@@ -98,12 +97,8 @@ VOTING_AGE_SOURCE = {1980: citekeys.CENSUS_1980_STF1A, 1990: citekeys.CENSUS_199
 # the House of Delegates alone. The Board is the top of the ballot only in
 # the last of these.
 CYCLE = {0: "president", 1: "governor", 2: "midterm", 3: "delegates"}
-# A County Board contest's heading, whatever qualifier follows it.
-BOARD = re.compile(r"^(Member, )?County Board\b")
 # What the county prints when a year's total is not the county's vote.
 PARTIAL = re.compile(r"not mentioned|not final|\d+ of \d+ precincts", re.I)
-# A row that names a candidate, as against prose about the contest.
-CANDIDATE = re.compile(r"^[*A-Z]")
 
 
 def seats_filled(roster: pd.DataFrame, year: int) -> int:
@@ -125,12 +120,8 @@ def seats_filled(roster: pd.DataFrame, year: int) -> int:
 
 def board_county(roster) -> pd.DataFrame:
     """1931-2021: every November County Board contest the county lists."""
-    c = pd.read_csv(COUNTY, dtype=str).fillna("")
-    c = c[c.office.str.match(BOARD) & ~c.office.str.contains("Candidates")
-          & c.year.str.match(r"^\d{4}$") & c.election_date.str.startswith("November")
-          & ~c.election_kind.str.contains("Primary")].copy()
-    c["year"] = c.year.astype(int)
-    c["votes"] = pd.to_numeric(c.votes.str.replace(",", ""), errors="coerce")
+    c = elections.county_history()
+    c = c[c.november & ~c.primary]
     rows = []
     for year, g in c.groupby("year"):
         # 1935 and 1939 print the new Board's composition, without counts,
@@ -140,10 +131,10 @@ def board_county(roster) -> pd.DataFrame:
         blocks = g.groupby(["page", "election_date"]).votes.apply(lambda v: v.notna().any())
         if blocks.any():
             g = g[[blocks[k] for k in zip(g.page, g.election_date)]]
-        named = g[g.candidate.str.match(CANDIDATE) & ~g.candidate.str.contains(":")].copy()
+        named = g[~g.prose].copy()         # write-ins are votes cast, and stay
         # 1947 prints the same block twice, on facing pages; a candidate with
         # the same count twice in one year is one candidate.
-        named["key"] = [board_roster.surname(n.lstrip("*W. ")) for n in named.candidate]
+        named["key"] = [elections.surname(n.lstrip("*W. ")) for n in named.candidate]
         named = named.drop_duplicates(["key", "votes"])
         missing = sorted(named[named.votes.isna()].key.unique())
         partial = [t for t in pd.concat([g.candidate, g.office]) if PARTIAL.search(t)]
@@ -160,11 +151,10 @@ def board_county(roster) -> pd.DataFrame:
 
 def board_state() -> pd.DataFrame:
     """2022 on: the state's November general contests, all votes cast."""
-    s = pd.read_csv(STATE, low_memory=False)
-    s["date"] = pd.to_datetime(s.election_date)
+    s = elections.state_results()
     s = s[s.election_type.str.startswith("General") & (s.date.dt.month == 11)
-          & (s.date.dt.year > COUNTY_THROUGH)]
-    votes = s[~s.candidate_name.str.match(r"^(Total|Under|Over)")]
+          & (s.year > COUNTY_HISTORY_THROUGH)]
+    votes = s[s.person | s.writein]       # write-ins are votes cast
     rows = []
     for year, g in votes.groupby(votes.date.dt.year):
         rows.append({"year": int(year), "board_votes": int(g.votes.sum()),

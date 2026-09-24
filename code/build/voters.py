@@ -57,12 +57,13 @@ import pandas as pd
 
 import board_roster
 import citekeys
+import elections
+from elections import COUNTY_HISTORY_THROUGH
 from paths import CLEAN, RAW, TRANSCRIBED, write
 
 BY_CLAUDE = TRANSCRIBED / "by_claude"
 OLEARY = BY_CLAUDE / "arlington_county" / "president_1872-1920.csv"
 STATE = RAW / "va_dept_of_elections" / "president_1924-2024.csv"
-COUNTY = BY_CLAUDE / "arlington_county" / "candidate_history_1920-present.csv"
 
 # The major-party nominees, as O'Leary spells them. Everyone else he lists is
 # "other". A year's entry is (Democratic, Republican).
@@ -129,10 +130,8 @@ def state() -> pd.DataFrame:
 
 def county_check(d: pd.DataFrame):
     """The county's own presidential returns, against the state's."""
-    c = pd.read_csv(COUNTY, dtype=str).fillna("")
-    c = c[c.office.str.startswith("President") & c.candidate.str.contains(r"\((?:D|R)\s?\)$")]
-    c["year"] = c.year.astype(int)
-    c["votes"] = pd.to_numeric(c.votes.str.replace(",", ""), errors="coerce")
+    c = elections.county_history(office=re.compile("^President"))
+    c = c[c.candidate.str.contains(r"\((?:D|R)\s?\)$")].copy()
     c["band"] = c.candidate.str.extract(r"\((D|R)\s?\)$")[0].map({"D": "dem", "R": "rep"})
     county = c.groupby(["year", "band"]).votes.sum().unstack()
     both = d.set_index("year")[["dem", "rep"]].join(county, rsuffix="_county", how="inner")
@@ -143,49 +142,28 @@ def county_check(d: pd.DataFrame):
               f"{TOLERANCE:.0%} in {list(off.index)} (state figures kept)")
 
 
-# The county's labels, as printed after a candidate's name, and the band each
-# counts in. The set here is every label a County Board candidate has carried
-# in the transcription; a new one stops the build.
-BOARD_LABELS = {
-    "D": "dem", "R": "rep", "ABC": "abc",
-    "I": "other", "IM": "other", "AIM": "other", "NP": "other", "Non-Part.": "other",
-    "Non-Partisan": "other", "Ind. Dem.": "other", "Ind. Rep.": "other", "G": "other",
-    "IG": "other", "Va. Reform": "other",
-    "Rep.": "rep",
-    "Convention": "unrecorded",       # nominated by a convention the source does not name
-}
-NOT_A_LABEL = {"won", "inc.", "holdover", "not on ballot"}
-LABEL = re.compile(r"\(([^()]*)\)")
-BOARD_STATE_FROM = 2022             # the county's history ends at 2021, as in board_roster
-BOARD_FILE = RAW / "va_dept_of_elections" / "county_board_2000-2026.csv"
+# What the county's labels record (elections.LABELS) and the band each vote
+# counts in here. The independents and every minor label are one band, and a
+# candidate with no label - or "(Convention)", which names no party - is
+# unrecorded.
+BAND = {"Democratic": "dem", "Republican": "rep", "ABC": "abc",
+        "independent": "other", "other": "other", "": "unrecorded"}
 
 
 def county_board_county() -> pd.DataFrame:
     """1931-2021 from the county's candidate history: every general and
     special County Board contest in a year, summed; primaries left out."""
-    c = pd.read_csv(COUNTY, dtype=str).fillna("")
-    c = c[c.office.str.contains("County Board") & ~c.office.str.contains("Candidates")
-          & c.year.str.match(r"^\d{4}$") & ~c.election_kind.str.contains("Primary")]
-    # A candidate row names a person. Prose rows - "(others not mentioned)",
-    # "[Listing attached]", "Running Before Primary:" - and write-ins are not.
-    c = c[c.candidate.str.match(r"^[*A-Za-z]") & ~c.candidate.str.contains(":")
-          & ~c.candidate.str.contains("write", case=False)].copy()
-    c["votes"] = pd.to_numeric(c.votes.str.replace(",", ""), errors="coerce")
+    c = elections.county_history()
+    c = c[~c.primary & c.person]
     winners = elected_winners()
     rows = []
-    for year, g in c.groupby(c.year.astype(int)):
+    for year, g in c.groupby("year"):
         counts = {"dem": 0, "rep": 0, "abc": 0, "other": 0, "unrecorded": 0}
         for _, r in g.iterrows():
             if pd.isna(r.votes):
                 continue
-            labels = {l.strip() for l in LABEL.findall(r.candidate)} - NOT_A_LABEL
-            if len(labels) > 1:
-                raise ValueError(f"{year}: {r.candidate!r} carries more than one label")
-            label = next(iter(labels), "")
-            if label and label not in BOARD_LABELS:
-                raise ValueError(f"{year}: label ({label}) on {r.candidate!r} is not one this "
-                                 "build knows - add it to BOARD_LABELS")
-            counts[BOARD_LABELS[label] if label else "unrecorded"] += int(r.votes)
+            label = elections.label_of(r.candidate, where=f"{year}: ")
+            counts[BAND[elections.LABELS[label]] if label else "unrecorded"] += int(r.votes)
         # A winner with no vote count means the year's returns are not the
         # county's vote: Campbell unopposed in 1942, DeLashmutt "re-elected"
         # in 1941, nobody counted in 1949. Losers without counts - the 1939
@@ -195,7 +173,7 @@ def county_board_county() -> pd.DataFrame:
         # The county spells a few winners differently from Novack - Kelly for
         # Kelley, Mcgruder for Magruder, Blevens for Blevins - so a surname
         # counts as present when a close spelling has a vote count.
-        counted = set(g[g.votes.notna()].candidate.map(board_roster.surname))
+        counted = set(g[g.votes.notna()].surname)
         missing = sorted(w for w in winners.get(int(year), set())
                          if not difflib.get_close_matches(w, counted, n=1, cutoff=0.8))
         rows.append({"year": int(year), "office": "county board", **counts,
@@ -220,7 +198,7 @@ def elected_winners() -> dict:
                & (m.seated_by == board_roster.ELECTION)]
     out = {}
     for _, t in seated.iterrows():
-        out.setdefault(int(t.start_year) - 1, set()).add(board_roster.surname(t["name"]))
+        out.setdefault(int(t.start_year) - 1, set()).add(elections.surname(t["name"]))
     return out
 
 
@@ -228,19 +206,16 @@ def county_board_state() -> pd.DataFrame:
     """2022 on from the state database. Its general-election rows carry a
     party through 2022 and none after; a candidate who won that year's
     Democratic primary is counted Democratic, and the rest are unrecorded."""
-    s = pd.read_csv(BOARD_FILE, low_memory=False)
-    s = s[~s.candidate_name.str.match(r"^(Total|Write|Under|Over)", na=False)].copy()
-    s["year"] = pd.to_datetime(s.election_date).dt.year
-    s = s[s.year >= BOARD_STATE_FROM]
-    dem_primary = set(zip(s[s.election_type.str.startswith("Primary") & (s.primary_party == "Democratic")
-                             & s.is_winner].year,
-                          s[s.election_type.str.startswith("Primary") & (s.primary_party == "Democratic")
-                            & s.is_winner].candidate_name.map(board_roster.surname)))
+    s = elections.state_results()
+    s = s[s.person & (s.year > COUNTY_HISTORY_THROUGH)]
+    won_primary = s[s.election_type.str.startswith("Primary") & (s.primary_party == "Democratic")
+                    & s.is_winner]
+    dem_primary = set(zip(won_primary.year, won_primary.surname))
     general = s[s.election_type.str.startswith("General")].copy()
     general["band"] = [
-        "dem" if p == "Democratic" or (y, board_roster.surname(n)) in dem_primary
+        "dem" if p == "Democratic" or (y, n) in dem_primary
         else "rep" if p == "Republican" else "other" if isinstance(p, str) else "unrecorded"
-        for p, y, n in zip(general.candidate_party_name, general.year, general.candidate_name)]
+        for p, y, n in zip(general.candidate_party_name, general.year, general.surname)]
     rows = []
     for year, g in general.groupby("year"):
         counts = g.groupby("band").votes.sum().reindex(["dem", "rep", "abc", "other", "unrecorded"], fill_value=0)
