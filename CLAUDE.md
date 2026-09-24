@@ -171,11 +171,14 @@ each number is, what backs it, what is assumed where nothing does, and why,
 in the present tense, ending with a list of what still rests on an
 assumption. `docs/sources.md` holds the bibliography notes and where copies
 live. `docs/questions.csv` is the tracker: one row per open item, with a
-stable slug for an id, its kind (a source to find, or a decision to make),
-an owner, the figure or table it bites, the question in a sentence, and what
-would settle it. A row is something that would change a number, a citation
-or a figure's form once answered; meeting logistics and what to bring to
-whom are not tracked here.
+stable slug for an id, its kind, an owner, the figure or table it bites, the
+question in a sentence, and what would settle it. Three kinds: `source`, a
+document to find or read; `decision`, a choice about how a number is built
+or shown; and `scope`, a proposal for analysis the report does not yet do,
+such as comparing Arlington's Board to peer localities. A row is something
+that would change a number, a citation or a figure's form, or add an
+analysis, once answered; meeting logistics and what to bring to whom are not
+tracked here.
 
 Log a question at the moment it arises, not in your head or in chat: a row
 in the tracker, and a sentence in the subject write-up where it bites. When
