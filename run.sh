@@ -14,7 +14,7 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 PY=.venv/bin/python
-[ -x "$PY" ] || { echo "no venv: python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl"; exit 1; }
+[ -x "$PY" ] || { echo "no venv: python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflakes"; exit 1; }
 
 # Stage 1: raw/ -> data/. Every decision about what a number IS happens here.
 # Each step is named for the file it writes: residents.py -> data/clean/residents.csv
@@ -26,6 +26,13 @@ BUILD=(residents board_members board_seats voters turnout)
 # independent of the order the report uses them in: that belongs to the prose,
 # and a list here that tracked it would go stale with nothing to catch it.
 FIGURES=(residents_by_race residents_per_seat turnout voters_board voters_president board_gender board_party board_race)
+
+# Nothing defined and never used. An import nobody reads or a variable
+# nobody looks at is how a module keeps describing a state it has left;
+# an audit found six in one pass, and this makes the next pass unnecessary.
+echo "lint"
+"$PY" -m pyflakes code style || { echo "  pyflakes: fix the above"; exit 1; }
+echo "  clean"
 
 # The guards live in code/build/. These prove the guards still fire, so editing
 # build/ cannot quietly disable one. Under a second; run first so a broken

@@ -154,7 +154,7 @@ figure it is named for.
 ## Running it
 
 ```bash
-python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl
+python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflakes
 bash run.sh               # build, then every figure
 bash run.sh residents_per # build, then only matching figures
 ```

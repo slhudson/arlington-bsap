@@ -23,8 +23,8 @@ Four things, each doing one job:
 - **Git and GitHub** keep the repository. It is private, on GitHub, and
   everyone works from their own copy on their own machine, pushing changes
   back when they are done.
-- **Python** does the computing. The scripts need three packages — pandas,
-  matplotlib and openpyxl — which live in a virtual environment inside the
+- **Python** does the computing. The scripts need four packages — pandas,
+  matplotlib, openpyxl and pyflakes — which live in a virtual environment inside the
   repository folder so nothing has to be installed system-wide.
 - **Claude** works with the repository two ways. **Claude Code** is Claude in
   the terminal: it reads and edits the files directly, runs the build, and
@@ -86,10 +86,10 @@ writes which file — while `CLAUDE.md` holds the working rules.
 
 2. **Git installed**, and signed in to GitHub.
 3. **Claude Code installed and working.**
-4. **Python with pandas, matplotlib and openpyxl**, in a virtual environment
+4. **Python with pandas, matplotlib, openpyxl and pyflakes**, in a virtual environment
    at `.venv` inside the repository folder:
 
-       python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl
+       python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflakes
 
 5. **A successful build.** `bash run.sh` from the repository folder should
    print the tests, a build step, eight figures, and a line about

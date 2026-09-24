@@ -55,7 +55,7 @@ and waiting on the outline.
 ## Rebuilding
 
 ```bash
-python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl
+python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflakes
 bash run.sh
 ```
 
