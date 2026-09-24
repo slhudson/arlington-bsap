@@ -284,17 +284,27 @@ PROFILES = {
 }
 DEFAULT_PROFILE = "print"
 
-# Figure heights, as a fraction of the profile's width. Named here rather than
-# passed per script: three ad-hoc numbers in three files is how a set of
-# figures stops looking like a set.
+# Every figure's plotting region is this many times as wide as it is tall.
 #
-# Every figure is the same width. What differs is height, and how many panels
-# share that width - a two-panel figure gives each panel about half, which is
-# why its bars read narrower than a single-panel chart's even though the frame
-# is identical.
-SEATS = 0.52       # the 0-5 seat charts: a short frame, five gridlines
-SERIES = 0.62      # a single panel of lines over time
-PANELS = 0.80      # two panels side by side, each needing height to compensate
+# The height is not set here, because it cannot be known here. A figure's height
+# is its plot plus whatever a title, a legend and an axis label need, and that
+# overhead differs per figure - a two-row legend costs more than a one-row one.
+# Fixed heights were tried: three hand-solved numbers that produced plot regions
+# of 2.79, 1.83 and 1.56, and went stale the moment two more figures were added
+# against them. So charts.fit() measures the overhead once the figure is drawn
+# and sets the height from it.
+#
+# Equal canvases are not enough and equal heights are not either. This is the
+# thing a reader actually sees: on a slide, which is a fixed-width frame, a
+# figure with a taller plot fits by height and is letterboxed beside its
+# neighbours.
+PLOT_ASPECT = 2.2
+
+# The gap between the bottom of a figure - its axis label, the lowest ink the
+# plot carries - and the top of its legend, in inches. Set here because the
+# legend has to be re-placed after the plot is sized, and whatever distance it
+# was originally given no longer means anything by then.
+LEGEND_GAP = 0.2
 
 # 1932: the Board expands from three to five seats and magisterial districts
 # are replaced by at-large elections. Drawn identically wherever it appears.
@@ -336,24 +346,35 @@ def apply(profile=DEFAULT_PROFILE):
                 "axes.titlepad", "axes.labelpad"):
         mpl.rcParams[key] = mpl.rcParams[key] * scale
     mpl.rcParams["savefig.dpi"] = spec["dpi"]
+    # Constrained layout's pad is absolute inches and MARGIN is a fraction of
+    # the width, so the same margin is a different number of inches in each
+    # profile. Set here rather than in the .mplstyle, which cannot know the
+    # width. charts.fit() places the left and right edges itself; this is what
+    # gives the top and bottom the same white.
+    pad = MARGIN * spec["width"]
+    mpl.rcParams["figure.constrained_layout.h_pad"] = pad
+    mpl.rcParams["figure.constrained_layout.w_pad"] = pad
     return spec
 
 
-def figsize(height_ratio=0.62, profile=DEFAULT_PROFILE):
-    """Figure size for this profile at a given height-to-width ratio."""
+def figsize(profile=DEFAULT_PROFILE):
+    """A starting size for this profile. charts.fit() sets the real height."""
     w = PROFILES[profile]["width"]
-    return (w, w * height_ratio)
+    return (w, w * 0.62)
 
 
-# Every figure's plotting area begins at the same fraction of the canvas, so a
-# reader stacking two of them in a document sees their frames line up. Left to
-# itself, constrained layout sizes each axes to its own tick labels: "0" to "5"
-# on a seat chart needs far less room than "250,000" on a population one, and
-# the two figures then start in different places despite being the same width.
-# The value is the widest any current figure needs, with a little room; align()
-# raises if a figure ever needs more rather than silently clipping its labels.
-PLOT_LEFT = 0.135
-PLOT_RIGHT = 0.984
+# The white margin at the left of every figure, as a fraction of its width,
+# measured to the first ink rather than to the plot frame. Pinning the frame
+# instead was tried: a seat chart then reserved the width of "250,000", printed
+# "0", and carried the difference as a visible gap between the number and its
+# axis. What a reader sees as the margin is where the ink starts.
+#
+# The same margin is held at both ends, and between them the plot takes
+# whatever the labels leave. See charts.fit() for why that is the term that
+# gives. One number rather than a left and a right: they were set separately
+# once, one measured to ink and the other to the frame, and the figures carried
+# two and a half times more white on the left than on the right.
+MARGIN = 0.037
 
 
 def despine(ax):

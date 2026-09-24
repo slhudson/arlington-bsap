@@ -80,8 +80,10 @@ patch.linewidth:        0.0
 # rather than by hand-tuned padding, which is what makes a bottom margin come
 # out cramped.
 figure.constrained_layout.use:      True
-figure.constrained_layout.h_pad:    0.10
-figure.constrained_layout.w_pad:    0.10
+# h_pad and w_pad are set per profile in style.apply(): the margin is a
+# fraction of the width and this pad is inches, so it differs by profile.
+figure.constrained_layout.h_pad:    0.231
+figure.constrained_layout.w_pad:    0.231
 figure.constrained_layout.hspace:   0.06
 figure.constrained_layout.wspace:   0.08
 

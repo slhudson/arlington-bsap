@@ -70,7 +70,7 @@ for profile in style.PROFILES:
                                             style.RACE_COLORS["white"])
         return out
 
-    fig, (a, b) = charts.panels(style.PANELS, profile)
+    fig, (a, b) = charts.panels(profile)
 
     # (a) Unstacked lines, White excluded. Stacked bars cannot show when a
     # group starts being counted - a band of height zero and a band that has

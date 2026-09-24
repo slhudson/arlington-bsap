@@ -30,7 +30,7 @@ for profile in style.PROFILES:
     series = {style.VOTERS_LABELS[g]: (share[g].to_numpy(), style.VOTERS_COLORS[g])
               for g in style.VOTERS_ORDER}
 
-    fig, ax = charts.figure(style.SERIES, profile)
+    fig, ax = charts.figure(profile)
     charts.stacked_bars(ax, d["year"].to_numpy(), series, width=3)
     charts.shares(ax, label="share of the vote for President")
     charts.years(ax, 1870, 2020, step=20, label="presidential election")

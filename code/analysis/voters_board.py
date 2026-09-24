@@ -35,7 +35,7 @@ for profile in style.PROFILES:
     series = {style.BOARD_VOTE_LABELS[g]: (share[g].fillna(0).to_numpy(), style.BOARD_VOTE_COLORS[g])
               for g in held}
 
-    fig, ax = charts.figure(style.SERIES, profile)
+    fig, ax = charts.figure(profile)
     charts.stacked_steps(ax, d["year"].to_numpy(), series, spans)
     charts.shares(ax, label="share of the vote for County Board")
     charts.years(ax, 1870, 2020, step=20, label="year")

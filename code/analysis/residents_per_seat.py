@@ -27,7 +27,7 @@ for profile in style.PROFILES:
                                        style.SERIES_COLORS["per_seat"]),
     }
 
-    fig, ax = charts.figure(style.SERIES, profile)
+    fig, ax = charts.figure(profile)
     charts.lines(ax, d["year"], series)
     charts.counts(ax, 250000, 50000)
     # Decades collide at this width, so labels every twenty years with an

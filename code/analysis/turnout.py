@@ -51,7 +51,7 @@ for profile in style.PROFILES:
     president["people"] = president.president_votes
     president["share"] = president.people / adults.loc[president.year].to_numpy() * 100
 
-    fig, (a, b) = charts.panels(style.PANELS, profile)
+    fig, (a, b) = charts.panels(profile)
     for ax, col in ((a, "people"), (b, "share")):
         charts.lines(ax, president.year, {"voted for President":
                      (president[col], style.TURNOUT_COLORS["president"])})

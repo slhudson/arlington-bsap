@@ -30,7 +30,7 @@ for profile in style.PROFILES:
     series = {style.PARTY_LABELS[g]: (d[g].fillna(0).to_numpy(), style.PARTY_COLORS[g])
               for g in held}
 
-    fig, ax = charts.figure(style.SEATS, profile)
+    fig, ax = charts.figure(profile)
     charts.stacked_steps(ax, d["year"].to_numpy(), series, spans)
     charts.seats(ax)
     charts.years(ax, 1870, 2020, step=20, label="year")

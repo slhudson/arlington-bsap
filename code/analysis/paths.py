@@ -44,7 +44,7 @@ def save(fig, stem, profile=None):
     """
     import charts
     import style
-    charts.align(fig)
+    charts.fit(fig)
     profiles = [profile] if profile else list(style.PROFILES)
     for name in profiles:
         spec = style.PROFILES[name]
