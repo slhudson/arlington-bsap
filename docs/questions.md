@@ -513,8 +513,11 @@ build counts the terms in `board_members.csv` that began the following
 January, or that November for a same-day special election, appointments and
 off-month specials excluded. That makes 1931, 1935 and 1939 five-seat
 elections (the whole Board, before terms were staggered), 1943 and 1960
-two, 1947 three, 1952 four (three same-day specials beside the regular
-seat) and 1997 two. The heading alone would have read every one of those as
+two (1960 is the regular seat and Wilt, appointed in January, winning the
+special for Krupsaw's unexpired term that November), 1947 two (Frisbie,
+appointed after the election, is listed on the page with no count and
+does not count as a seat it filled), 1952 four (three same-day specials
+beside the regular seat) and 1997 two. The heading alone would have read every one of those as
 a single seat.
 
 **What the figure shows.** The Board's vote is drawn as four series, by

@@ -65,6 +65,7 @@ import re
 
 import pandas as pd
 
+import board_roster
 import citekeys
 from paths import CLEAN, RAW, TRANSCRIBED, write
 
@@ -105,23 +106,17 @@ PARTIAL = re.compile(r"not mentioned|not final|\d+ of \d+ precincts", re.I)
 CANDIDATE = re.compile(r"^[*A-Z]")
 
 
-def surname(name):
-    import board_roster
-    return board_roster.surname(name)
-
-
 def seats_filled(roster: pd.DataFrame, year: int) -> int:
-    """Seats the November election of `year` filled: terms beginning the
-    next January, or that November for a same-day special election.
-    Appointments are not elections and are left out."""
-    note = roster.note.fillna("")
-    # An appointment is not an election, and a special election held in
-    # another month (January 1996) filled its seat then, not in November.
-    elected = roster[~note.str.contains("Appointed")
-                     & ~note.str.match(r"Elected in a special election in (?!Nov)")]
-    began = elected[((elected.start_year == year + 1) & (elected.start_month == 1))
-                    | ((elected.start_year == year) & elected.start_month.isin([11, 12]))]
-    n = len(began)
+    """Seats the November election of `year` filled: terms an election
+    seated the next January, or a special election seated that November.
+    An appointment is not an election, and a special election in another
+    month (January 1996) filled its seat then. The roster's seated_by says
+    which each term is."""
+    regular = ((roster.seated_by == board_roster.ELECTION)
+               & (roster.start_year == year + 1) & (roster.start_month == 1))
+    special = ((roster.seated_by == board_roster.SPECIAL_ELECTION)
+               & (roster.start_year == year) & (roster.start_month == 11))
+    n = int((regular | special).sum())
     if not 1 <= n <= 5:
         raise AssertionError(f"{year}: the roster has {n} terms beginning after the "
                              f"November election; a Board of five cannot fill that many")
@@ -148,7 +143,7 @@ def board_county(roster) -> pd.DataFrame:
         named = g[g.candidate.str.match(CANDIDATE) & ~g.candidate.str.contains(":")].copy()
         # 1947 prints the same block twice, on facing pages; a candidate with
         # the same count twice in one year is one candidate.
-        named["key"] = [surname(n.lstrip("*W. ")) for n in named.candidate]
+        named["key"] = [board_roster.surname(n.lstrip("*W. ")) for n in named.candidate]
         named = named.drop_duplicates(["key", "votes"])
         missing = sorted(named[named.votes.isna()].key.unique())
         partial = [t for t in pd.concat([g.candidate, g.office]) if PARTIAL.search(t)]

@@ -149,6 +149,12 @@ below.
 then won twice has three rows numbered 1, 2, 3. William A. Rowe has eight,
 including his move from Jefferson district to Arlington at term 7.
 
+`seated_by` says how each term began — election, special election,
+appointment, or unrecorded where O'Leary writes only that someone was
+replaced. Three builds select terms by it: which members a November election
+seated, and when a special election handed a seat over. It is a column of
+its own so that rewording a note cannot move those counts.
+
 Novack records a person once with their whole service compressed into a string
 — "1932-1947" for Elizabeth Magruder — so those spans are split at each
 election the person contested, using the county's candidate history. Magruder

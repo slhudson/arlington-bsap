@@ -55,6 +55,7 @@ import re
 
 import pandas as pd
 
+import board_roster
 import citekeys
 from paths import CLEAN, RAW, TRANSCRIBED, write
 
@@ -194,7 +195,7 @@ def county_board_county() -> pd.DataFrame:
         # The county spells a few winners differently from Novack - Kelly for
         # Kelley, Mcgruder for Magruder, Blevens for Blevins - so a surname
         # counts as present when a close spelling has a vote count.
-        counted = set(g[g.votes.notna()].candidate.map(_surname))
+        counted = set(g[g.votes.notna()].candidate.map(board_roster.surname))
         missing = sorted(w for w in winners.get(int(year), set())
                          if not difflib.get_close_matches(w, counted, n=1, cutoff=0.8))
         rows.append({"year": int(year), "office": "county board", **counts,
@@ -202,11 +203,6 @@ def county_board_county() -> pd.DataFrame:
                      "source": f"{citekeys.ARLINGTON_ELECTIONS} p.{g.page.iloc[0]}",
                      "note": f"no vote count for {', '.join(missing)}" if missing else ""})
     return pd.DataFrame(rows)
-
-
-def _surname(candidate):
-    import board_roster
-    return board_roster.surname(candidate)
 
 
 def elected_winners() -> dict:
@@ -217,24 +213,14 @@ def elected_winners() -> dict:
     term begins mid-year and is not an election result.
     """
     m = pd.read_csv(CLEAN / "board_members.csv")
-    m["note"] = m.note.fillna("")
-    # The term before this one, for the same person, if it ended the
-    # previous December: a January term that continues an appointment is
-    # Novack's span split at an election the person stood in but did not
-    # win (Frisbie, 1947), not a win.
-    prev = m.set_index(["name", "term_number"])
-    def continues_appointment(t):
-        if t.term_number == 1:
-            return False
-        p = prev.loc[(t["name"], t.term_number - 1)]
-        return (p.end_year == t.start_year - 1 and p.end_month == 12
-                and p.note.startswith("Appointed"))
+    # A term an election seated, beginning the January after it. The roster
+    # says how each term began, so a January term that continues an
+    # appointment (Frisbie, 1948) is an appointment here too, not a win.
+    seated = m[(m.start_year >= 1932) & (m.start_month == 1)
+               & (m.seated_by == board_roster.ELECTION)]
     out = {}
-    for _, t in m.iterrows():
-        if (t.start_year < 1932 or t.start_month != 1 or t.note.startswith("Appointed")
-                or t.note.startswith("Elected in a special election") or continues_appointment(t)):
-            continue
-        out.setdefault(int(t.start_year) - 1, set()).add(_surname(t["name"]))
+    for _, t in seated.iterrows():
+        out.setdefault(int(t.start_year) - 1, set()).add(board_roster.surname(t["name"]))
     return out
 
 
@@ -249,10 +235,10 @@ def county_board_state() -> pd.DataFrame:
     dem_primary = set(zip(s[s.election_type.str.startswith("Primary") & (s.primary_party == "Democratic")
                              & s.is_winner].year,
                           s[s.election_type.str.startswith("Primary") & (s.primary_party == "Democratic")
-                            & s.is_winner].candidate_name.map(_surname)))
+                            & s.is_winner].candidate_name.map(board_roster.surname)))
     general = s[s.election_type.str.startswith("General")].copy()
     general["band"] = [
-        "dem" if p == "Democratic" or (y, _surname(n)) in dem_primary
+        "dem" if p == "Democratic" or (y, board_roster.surname(n)) in dem_primary
         else "rep" if p == "Republican" else "other" if isinstance(p, str) else "unrecorded"
         for p, y, n in zip(general.candidate_party_name, general.year, general.candidate_name)]
     rows = []

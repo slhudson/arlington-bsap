@@ -140,7 +140,7 @@ def party_attributions() -> pd.DataFrame:
 def election_year(t) -> int:
     """The election that seated a term. A January start follows a November
     election; a special election or an appointment seats its winner at once."""
-    if str(t.note).startswith("Elected in a special election") or t.start_month != 1:
+    if t.seated_by == board_roster.SPECIAL_ELECTION or t.start_month != 1:
         return int(t.start_year)
     return int(t.start_year) - 1
 
@@ -236,7 +236,7 @@ def build() -> pd.DataFrame:
         rows.append(row)
 
     cols = ["name", "term_number", "district", "start_year", "start_month",
-            "end_year", "end_month", "source", "note",
+            "end_year", "end_month", "seated_by", "source", "note",
             "race", "race_source", "race_note", "gender", "gender_source", "gender_note",
             "party", "party_source", "party_note"]
     return pd.DataFrame(rows)[cols]

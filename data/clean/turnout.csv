@@ -25,7 +25,7 @@ year,cycle,board_votes,board_seats,board_voters,board_complete,board_source,boar
 1944,president,13156,1,13156,True,arlingtonelections2021 p.14,,,,,,,,,15499,derived
 1945,governor,5461,1,5461,True,arlingtonelections2021 p.14,,,,,,,,,,
 1946,midterm,10532,1,10532,True,arlingtonelections2021 p.14,,,,,,,,,,
-1947,delegates,13849,3,4616,False,arlingtonelections2021 p.15,no vote count for frisbie,,,,,,,,,
+1947,delegates,13849,2,6924,False,arlingtonelections2021 p.15,no vote count for frisbie,,,,,,,,,
 1948,president,19585,1,19585,True,arlingtonelections2021 p.18,,,,,,,,,20111,derived
 1949,governor,0,1,0,False,arlingtonelections2021 p.18,"no vote count for bechtel, cox, delashmutt",,,,,,,,,
 1950,midterm,16477,1,16477,True,arlingtonelections2021 p.19,,,,,,,,,,

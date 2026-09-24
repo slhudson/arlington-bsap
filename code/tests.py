@@ -136,6 +136,25 @@ def test_a_wrong_term_length_is_rejected():
     assert err and "at large" in err, f"not caught: {err}"
 
 
+def test_a_term_that_does_not_say_how_it_began_is_rejected():
+    """voters.py and turnout.py select terms by seated_by - the ones an
+    election seated, the ones a special election handed over. A value
+    outside the four the roster defines would match no selection and the
+    term would drop out of a count with nothing said, which is the silent
+    kind. The mangle gives one 1997 term the word a note used to carry.
+    """
+    def mangle(orig):
+        def patched(earlier):
+            d = orig(earlier)
+            d = d.copy()
+            d.loc[d.index[(d.district == "at large") & (d.start_year == 1997)][0],
+                  "seated_by"] = "Elected"
+            return d
+        return patched
+    err = breaks(board_roster, "election_terms", mangle, build=board_roster.build)
+    assert err and "seated_by must be one of" in err, f"not caught: {err}"
+
+
 def test_prose_in_the_name_column_is_rejected():
     """O'Leary sometimes writes a sentence where a name goes - "A. D. Torreyson
     elected, but successfully contested by Frederick S. Corbett in Oct." - and
