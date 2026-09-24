@@ -68,32 +68,30 @@ The third is the one that failed.
 ## Population and race, year by year
 
 Every total from 1870 to 2020 is taken from a published Census Bureau
-document that is in `data/raw/us_census_bureau/`. The race split is sourced
-only for 1870–1890, derived from the volumes as county minus city. From 1900
-on it is the delivered workbook's figures: for 1900–1980 no source is
-recorded (with Alex, questions.md), and for 1990–2020 the Bureau's own race
-tables are in `data/raw/` but are not used until the Hispanic-definition
-question is settled, since they count Hispanic across races and the
-workbook does not.
+document that is in `data/raw/us_census_bureau/`, and so now is every race
+figure. 1870–1890 are derived from the volumes as county minus city;
+1900–1970 come from POP-TWPS0076 Table 47, which prints Arlington by race at
+every census from 1900; 1980–2020 come from the crossed census tables. The
+delivered workbook no longer supplies a race figure for any year.
 
 | Year | Total | Total from | Race from |
 |---|---|---|---|
 | 1870 | 3,185 | `walker1872` | `walker1872` |
 | 1880 | 3,887 | `census1880` | `census1880` |
 | 1890 | 4,258 | `census1890` | `census1890` |
-| 1900 | 6,430 | `forstall1996` | `keena-workbook` |
-| 1910 | 10,231 | `forstall1996` | `keena-workbook` |
-| 1920 | 16,040 | `forstall1996` | `keena-workbook` |
-| 1930 | 26,615 | `forstall1996` | `keena-workbook` |
-| 1940 | 57,040 | `forstall1996` | `keena-workbook` |
-| 1950 | 135,449 | `forstall1996` | `keena-workbook` |
-| 1960 | 163,401 | `forstall1996` | `keena-workbook` |
-| 1970 | 174,284 | `forstall1996` | `keena-workbook` |
-| 1980 | 152,599 | `forstall1996` | `keena-workbook` |
-| 1990 | 170,936 | `forstall1996` | `keena-workbook` |
-| 2000 | 189,453 | `censusapi` | `keena-workbook` |
-| 2010 | 207,627 | `censusapi` | `keena-workbook` |
-| 2020 | 238,643 | `censusapi` | `keena-workbook` |
+| 1900 | 6,430 | `forstall1996` | `censusbureau1990twps76` |
+| 1910 | 10,231 | `forstall1996` | `censusbureau1990twps76` |
+| 1920 | 16,040 | `forstall1996` | `censusbureau1990twps76` |
+| 1930 | 26,615 | `forstall1996` | `censusbureau1990twps76` |
+| 1940 | 57,040 | `forstall1996` | `censusbureau1990twps76` |
+| 1950 | 135,449 | `forstall1996` | `censusbureau1990twps76` |
+| 1960 | 163,401 | `forstall1996` | `censusbureau1990twps76` |
+| 1970 | 174,284 | `forstall1996` | `censusbureau1990twps76` |
+| 1980 | 152,599 | `forstall1996` | `census1980stf1a` |
+| 1990 | 170,936 | `forstall1996` | `census1990stf1a` |
+| 2000 | 189,453 | `censusapi` | `censusapi` |
+| 2010 | 207,627 | `censusapi` | `censusapi` |
+| 2020 | 238,643 | `censusapi` | `censusapi` |
 
 `walker1872`, `census1880`, `census1890` are the printed volumes;
 `forstall1996` is *Population of States and Counties of the United States:
@@ -122,7 +120,8 @@ questions.md.
 |---|---|
 | 1870–1940 | White, Black |
 | 1950–1960 | White, Black, AAPI |
-| 1970–2020 | White, Black, AAPI, Hispanic/Latino |
+| 1970 | White, Black, AAPI; Hispanic/Latino on a sample only |
+| 1980–2020 | White, Black, AAPI, Hispanic/Latino |
 
 ---
 

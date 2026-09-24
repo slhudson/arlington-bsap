@@ -166,7 +166,7 @@ distinguishes them, so for these figures it is a caption matter.
 
 **And the quantity is small.** Each group was tiny the first year it was
 counted — Asian and Pacific Islander 57 residents in 1950, 0.04 per cent of
-the county; Hispanic or Latino 1,387 in 1970, 0.8 per cent — and the real
+the county — and the real
 growth comes well after each question appears, Hispanic reaching 23,089 by
 1990. Whatever the zeros hide is unlikely to be much.
 
@@ -919,7 +919,60 @@ figures leave no "Other/multiracial/unreported" residents in 1870 or 1890,
 where the workbook leaves 100 and 278 unexplained.
 
 ### Q12. Where did the 1900-1970 race figures come from?
-**Owner:** Alex · **Status:** open — no source traced; 1980 onward now has one
+**Owner:** Alex · **Status:** answered 24 Sept 2026 — POP-TWPS0076, the source
+the workbook already cites for 1990; built from it, and no race figure in
+residents.csv now comes from the workbook
+
+**Answered (Alex, 24 September 2026).** He named
+`census.gov/library/working-papers/2005/demo/pop-twps0076/vatab.pdf`, which is
+the document already held as `pop-twps0076_virginia_1990.pdf` and already
+cited for 1990. Its Table 47 prints Arlington at **every census from 1900**,
+not only 1990, with a footnote saying the county is shown separately from 1900
+when Alexandria city was first reported as independent of it. Nobody had read
+past the 1990 line.
+
+**What it settles, and two errors it turns up.** Every year 1900-1970 now ties
+to its printed total exactly, which the workbook's figures did not.
+
+- **1900 Black is 2,467, not 2,437.** The workbook is thirty short, leaving
+  the year at 6,400 against a county of 6,430. A fourth transcription error of
+  the same kind as Q8's three.
+- **1970's two columns are transposed, and that is the whole of the 1970
+  overshoot.** The workbook records Hispanic 1,387 and AAPI 6,315. In the
+  source, 1,387 is the Asian/Pacific Islander **full count** and 6,315 is
+  Hispanic from the **15 percent sample** - a sample estimate standing in a
+  stack of full counts. Corrected, 1970 partitions to the person: white
+  161,329 + Black 10,076 + American Indian 271 + Asian/PI 1,387 + other race
+  1,221 = 174,284. The 4,823 overshoot this question and Q1 both treated as a
+  Hispanic-overlap artifact was never one.
+
+**American Indian and other race were dropped, in every year.** That is why
+the figures' "other" band reads near zero before 1980. It no longer does: the
+build writes white, Black and AAPI and leaves the rest as the remainder, the
+same shape the 1980-2020 groups already use. The remainder is now 1,492 in
+1970, 202 in 1960, 95 in 1950.
+
+**Two years do not give everything.**
+
+*1940* prints American Indian and Asian/Pacific Islander as a single merged
+cell - 10 people spanning both columns - so neither can be read alone. `aapi`
+is empty for 1940 and those ten reach the remainder. Read off the rendered
+page rather than the text layer, which places a merged cell in whichever
+column it happens to overlap.
+
+*Hispanic origin is (NA) at full count for every year before 1980.* 1970 has
+it only as a sample - 6,315 on the 15 percent, 4,890 on the 5 percent.
+**Decided (Sally, 24 September 2026): the Hispanic series begins in 1980**,
+the first census to ask the question of everyone. The transcription carries
+the sample rows so the decision can be revisited against them; the build does
+not read them.
+
+**Where it is.** `data/transcribed/by_claude/us_census_bureau/censusgov_pop-twps0076_p1_virginia_arlington.csv`,
+every printed row of the Arlington block including the sample lines, with the
+merged cell in its own column. The build asserts each full-count row's race
+columns account for its printed total before using it.
+
+*Original entry:*
 
 1980 through 2020 are now built from census tables (Q1), so this is the
 remaining stretch: seven censuses whose race counts are typed numbers in the

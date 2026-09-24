@@ -72,6 +72,8 @@ CENSUS_DATA_FILE = "censusapi"
 # The archived Summary Tape Files, which the API does not carry.
 CENSUS_1980_STF1A = "census1980stf1a"
 CENSUS_1990_STF1A = "census1990stf1a"
+# POP-TWPS0076, Table 47: Arlington by race at every census from 1900.
+CENSUS_TWPS0076 = "censusbureau1990twps76"
 HJERPE = "hjerpe2021"
 
 

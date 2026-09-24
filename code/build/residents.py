@@ -85,6 +85,47 @@ def table(path):
     return pd.read_csv(TRANSCRIBED / path)
 
 
+def twps0076() -> dict:
+    """Arlington by race, 1900-1970, from POP-TWPS0076 Table 47.
+
+    White, Black and Asian/Pacific Islander are taken as printed; `other` is
+    not a column here, so American Indian and other race reach the figures as
+    the remainder, the same way the fifth group does from 1980.
+
+    Two years do not give everything:
+
+    **1940** prints American Indian and Asian/Pacific Islander as a single
+    merged cell - 10 people, spanning both columns - so neither can be read on
+    its own. `aapi` is left empty for that year rather than guessed, and those
+    ten reach the remainder instead.
+
+    **Hispanic origin** is (NA) at full count for every year here. 1970 has it
+    only as a sample estimate, 6,315 on the 15 percent sample against 4,890 on
+    the 5 percent, which is a different kind of number from the full counts
+    beside it. The series therefore begins in 1980, the first census to ask
+    the question of everyone - decided by Sally, 24 September 2026. The
+    transcription carries the sample rows so the decision can be revisited
+    against them; this function does not read them.
+    """
+    t = table("by_claude/us_census_bureau/"
+              "censusgov_pop-twps0076_p1_virginia_arlington.csv")
+    t = t[(t.basis == "full count") & (t.year.between(1900, 1970))]
+    out = {}
+    for _, r in t.iterrows():
+        # The race columns must still account for the county exactly. The
+        # merged cell counts towards the total even where it cannot be split.
+        parts = ["white", "black", "american_indian", "asian_pacific_islander",
+                 "american_indian_asian_pacific_islander", "other_race"]
+        got = sum(0 if pd.isna(r[c]) else r[c] for c in parts)
+        assert got == r.total, (
+            f"{int(r.year)}: the race columns give {got:,.0f} against a "
+            f"printed total of {r.total:,.0f}")
+        out[int(r.year)] = {"white": r.white, "black": r.black,
+                            "aapi": r.asian_pacific_islander,
+                            "hisp": float("nan")}
+    return out
+
+
 def arlington(year, table):
     """Arlington's row from a Census data file, which holds every Virginia county.
 
@@ -313,6 +354,16 @@ def build() -> pd.DataFrame:
     # the volumes before 1900, and taken from the workbook after it.
     d["race_source"] = [TOTAL_SOURCE[y] if y < 1900 else citekeys.KEENA
                         for y in d["year"]]
+
+    # 1900-1970 come from POP-TWPS0076, the source the workbook itself cites
+    # for 1990 and which prints Arlington at every census from 1900. It
+    # replaces the workbook for those eight censuses; 1980 on is replaced
+    # again below by the crossed tables.
+    for year, r in twps0076().items():
+        m = d["year"] == year
+        for col in ("white", "black", "aapi", "hisp"):
+            d.loc[m, col] = r[col]
+        d.loc[m, "race_source"] = citekeys.CENSUS_TWPS0076
 
     # From 1980, the crossed census table replaces the workbook's four columns.
     # The guard is the point of the exercise: if the five groups do not account

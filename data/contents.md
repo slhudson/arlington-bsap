@@ -75,8 +75,17 @@ would have taken the repository past the 80 MB warning for 229 pages nobody
 needs.
 
 **`pop-twps0076_virginia_1990.pdf`** — Census working paper POP-TWPS0076,
-Virginia table, giving Arlington's 1990 population by race and Hispanic origin.
-One of the two URLs cited inside the delivered workbook.
+Virginia table. One of the two URLs cited inside the delivered workbook. Its
+Table 47 gives Arlington by race at **every census from 1900**, not only 1990;
+the filename is from when only the 1990 line had been read. Transcribed whole
+to `transcribed/by_claude/us_census_bureau/censusgov_pop-twps0076_p1_virginia_arlington.csv`,
+which is where residents.csv takes 1900-1970 from.
+
+Read carefully: some rows print American Indian and Asian/Pacific Islander as
+one merged cell spanning both columns - Arlington's 1940 and the 1970 15
+percent sample - and a text-layer extraction drops that value into whichever
+column it overlaps. "-" in the table is zero, which the rows that tie without
+it prove; "(X)" and "(NA)" are written as empty in the transcription.
 
 **Data files, 2000–2020.** For 2000, 2010 and 2020 the Bureau publishes
 machine-readable data, so there is no page to read and no transcription step —
