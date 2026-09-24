@@ -36,7 +36,8 @@ checked.
 
 Related: whether the report describes the five Reconstruction-era members as
 identified or as proposed, since Hjerpe lists them under her own open
-inquiries.
+inquiries. Verifying them against the 1870 and 1880 manuscript census,
+following her method, is a task for an RA.
 
 ### Q23. POP-TWPS0076 cannot be fully cited
 **Owner:** Sally
@@ -124,8 +125,16 @@ around them would read the rest as unfilled; the two would have to be
 decoupled, with the roster naming who is named and the counts keeping the
 assumption, which is already how the 1915 winners are carried.
 
+### Gender rests on names for most of the roster
+**Owner:** RA
+
+Gender comes from names and honorifics for every member no source describes,
+and the rows in `data/transcribed/by_claude/board_demographics.csv` say so.
+A published statement per row, an obituary or a profile, would replace
+"inferred by Claude from name" with a citation.
+
 ### From 1907 O'Leary gives surnames only
-**Owner:** Sally
+**Owner:** Sally, then an RA to check the name forms
 
 From the 1907 election O'Leary lists candidates by surname with a vote count
 ("Wibirt 99 Hall 35 McShea 24 Robinson 4") where earlier listings give full
@@ -166,7 +175,16 @@ What remains:
   label. The Washington Post's 1983 preview reportedly calls Brunner a
   Republican; the archive is paywalled and was not read.
 - **Party before 1932**, from the tickets the Alexandria Gazette printed for
-  each May election, which would start the figure in 1870.
+  each May election, using O'Leary's dates, which would start the figure in
+  1870.
+- **The non-Democratic County Board candidates since 2023** carry no party
+  in the state file and show as "not recorded" on `voters_board`. Ballots or
+  press; a few rows.
+- **The ten pieces of reporting** cited for party in `paper/sources.bib` are
+  each annotated "not yet filed" and need filing in Drive.
+
+Each finding is a row in `data/transcribed/by_claude/board_party.csv`: the
+sentence, the citation.
 
 ### Q30. The presidential-vote figure
 **Owner:** Sally

@@ -752,39 +752,3 @@ taken from them.
 November 1938, p.4 (`sun1938womenvoters`), from the Library of Virginia's
 Virginia Chronicle. The first is in `data/raw/arlington_sun/` because a number
 is taken from it (Q27).
-
----
-
-## For a research assistant
-
-Roughly in order of value. The first items are mechanical and need no
-judgement.
-
-1. **Establish what supports the 1931–1986 default.** Start with the reply
-   from County staff and the Historical Society. The judgement-heavy one.
-2. **Verify the five Reconstruction-era members** against the 1870 and 1880
-   manuscript census, following Hjerpe's method.
-3. **Find a published statement for each gender row** in
-   `data/transcribed/by_claude/board_demographics.csv`, an obituary or a
-   profile, to replace "inferred by Claude from name".
-4. **Check the roster's name forms from 1907**, where O'Leary gives surnames
-   only.
-5. **Label the 23 Board terms no source gives a party**, 1932–1960, listed in
-   Q29. One election's newspaper coverage per term: the Northern Virginia Sun
-   and Arlington Daily on Virginia Chronicle, and for the 1950s Franklin
-   Felt's 1961 dissertation on ABC (Michigan State, d.lib.msu.edu/etd/39978).
-   Each finding is a row in `data/transcribed/by_claude/board_party.csv`: the
-   sentence, the citation.
-6. **Label the non-Democratic County Board candidates since 2023**, whom the
-   state file carries with no party. Ballots or press; a few rows.
-7. **Settle the loose party labels in Q29**: whose convention nominated Kaul
-   and Krupsaw in 1955; what "IM" was in 1954; whether Ricks (1967) and
-   Brunner (1983) ran with a party's backing.
-8. **A party per supervisor for 1870–1915**, from the tickets the Alexandria
-   Gazette printed for each May election, using O'Leary's dates. The figure
-   would then begin in 1870 rather than 1932.
-9. **File the reporting cited for party in Drive**: ten web pages in
-   `paper/sources.bib`, each annotated "not yet filed".
-10. **Adults before 1980 and registration before 2010** for the turnout
-    series, from the printed census age tables and the State Board of
-    Elections' printed reports (Q31).
