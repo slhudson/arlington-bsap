@@ -1101,7 +1101,8 @@ carry.
 
 ### Who served from 1916 to 1931?
 **Owner:** Alex · **Status:** answered 24 Sept 2026 — nothing stood behind the
-counts; and five of the names turn out to be in a document already held
+counts; five of the names turn out to be in a document already held; and the
+stretch is four years longer than it looked
 
 O'Leary's listings stop at the 1915 election and Novack begins with the County
 Manager plan in 1932. The county's candidate history starts at 1920 but its
@@ -1158,10 +1159,23 @@ as the pre-1932 party coding.
 attribution everywhere and is labelled as such. Duncan is named in full in the
 1923 listing; Ingram and Thornburke are initials.
 
-**Still open: whether to extend the roster into these years.** Adding 1923 and
-1927 would replace an assumption with a source for part of the stretch, but a
-partial roster would make the seat-count derivation read the unfilled years as
-vacancies, which is a stronger claim than the record supports. Owner: Sally.
+**The stretch is 1912-1931, not 1916-1931** (Sally, 24 September 2026). O'Leary
+does not list the November 1911 election, so the men elected in 1907 have a
+term that closes in January 1912 and nobody is named after them. The roster
+used to run them through to the next listed election in 1915; it no longer
+does. The seat counts for 1912-1915 now come from the workbook, like the years
+after them. No value changes - both give three white men - but four more years
+are now marked as an assumption rather than a record.
+
+**Still open: whether to put the 1923 and 1927 names in the roster.** The
+principle is fidelity to what the sources say, which argues for entering them:
+five names the county published, sitting only in the transcription. The
+obstacle is that `board_seats` derives its counts from the roster, and a
+roster covering 1923 and 1927 but not the years around them would read the
+rest as unfilled seats. The two files can be decoupled - the roster names who
+is named, the counts keep taking 1912-1931 from the workbook - which is
+already how the 1915 winners are carried, named in the roster and holding no
+seat-years. Owner: Sally.
 
 ### Q15. Vacancies in the seat counts
 **Owner:** Sally + Alex · **Status:** partly answered 23 Sept 2026 — vacancies

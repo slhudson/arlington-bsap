@@ -143,7 +143,8 @@ term number, district, and when service began and ended. 217 terms, 1870 through
 (the next election is November 2026), from three sources in sequence: O'Leary's electoral
 history to 1915, Novack's roster from 1932 to 1994, and election results
 after that - the county's candidate history to 2021, the state's elections
-database from 2022. Nothing covers 1916-1931.
+database from 2022. Nothing covers 1912-1931 except the two elections named
+below.
 
 `term_number` counts within a person, so someone appointed to a vacancy who
 then won twice has three rows numbered 1, 2, 3. William A. Rowe has eight,
@@ -183,7 +184,7 @@ handover from 1904 to 1916 by two months and changes no figure, since every
 member of those boards is coded a white man. One consequence is worth knowing:
 the three elected in November 1915 were seated in January 1916, which is inside
 the years the seat counts take from the workbook, so they hold no seat-years at
-all and 1915 belongs entirely to the members elected in 1907.
+all.
 
 The Schedule of the 1902 constitution has not been read, so whether the
 November 1903 winners fell under sec. 112 or under a transitional provision is
@@ -194,6 +195,30 @@ does not, because a term starting in May or ending in February cannot be
 recovered from a list of years.
 
 A vacant seat is not a row: nobody served, so there is no person and no term.
+
+**A term ends when the term ends, not when the listings resume.** Sec. 112
+makes it four years, so a November win closes four years on. O'Leary lists the
+board in 1907 and in 1915 and not in 1911, and reading the 1907 winners
+through to 1915 would put three named men in a seat for eight years on a
+source that speaks to four. Their terms therefore close in January 1912, and
+nothing names who held those seats next. The note on such a row says the end
+is the statute's and not a recorded departure; where the next listed election
+seats a successor on the same date, the departure is sourced and carries no
+note.
+
+**So the roster stops naming people in 1912, not 1916.** From January 1912 the
+seat counts come from the delivered workbook rather than from the roster, and
+the `source` column says so. The values do not change - workbook and roster
+both give three white men - but four years move from being a record of who
+served to being an assumption that somebody did. That is the honest boundary:
+1912-1931 is the stretch no source covers.
+
+**Two elections inside it are recorded**, in the county's candidate history
+rather than in O'Leary, and printed under the district headings rather than
+under "County Board": November 1923 (Ingram in Arlington, Duncan in Jefferson,
+Thornburke in Washington) and November 1927 (Duncan and Thornburke; the
+Arlington contest is not printed). They are not in the roster - see
+questions.md.
 
 **Mid-term handovers are terms like any other.** O'Leary records them as prose
 beside the elected member — "Replaced by H. Dwight Smith in Dec.; replaced by

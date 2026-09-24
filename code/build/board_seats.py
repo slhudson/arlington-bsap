@@ -16,17 +16,24 @@ This does not hide a vacancy. 1873 and 1990 are years the Board existed for all
 twelve months and sat a seat short for part of them, and both still fall below
 the full complement.
 
-From 1870 to 1915 and from 1932 on, the rows are computed from
+From 1870 to 1911 and from 1932 on, the rows are computed from
 board_members.csv, whose terms run to the month. A term's months are its
 start month through its end month, except that a month in which a successor
 begins belongs to the successor - decided on Q13 in docs/questions.md,
 because days are not recorded consistently and the month is the unit. The
-three members whose end O'Leary never records won in November 1915 and were
-seated in January 1916, which is inside the workbook years, so they contribute
-no seat-years at all; 1915 is held by the members elected in 1907.
+members elected in November 1915 were seated in January 1916, inside the
+workbook years, so they contribute no seat-years at all.
 
-From 1916 to 1931 no terms are known, and the rows come from Alex Keena's
-seat-count workbook as delivered. The `source` column says which.
+From 1912 to 1931 no terms are known. The rows come from Alex Keena's
+seat-count workbook as delivered, and read `assumed`: he confirmed there was
+no source behind them, so they record an assumption that three seats were
+filled by white men rather than a compilation of who served.
+
+The stretch begins in 1912 and not 1916 because O'Leary does not list the
+November 1911 election. The three men elected in 1907 held a four-year term
+that ended in January 1912, and nothing names who won the seat after them.
+Running their names to the next listed election, 1915, would have covered
+those four years with an inference rather than a source.
 
 **The Board's race coding is one code per person, so it is already a set of
 categories that do not overlap** - the property the census columns in
@@ -69,7 +76,7 @@ PARTY = {"Democratic": "dem", "Republican": "rep", "ABC": "abc",
          "independent": "ind", "": "unrecorded"}
 PARTY_COLUMNS = ["dem", "abc", "rep", "ind", "unrecorded"]
 PARTY_FROM = 1932
-WORKBOOK_YEARS = range(1916, 1932)
+WORKBOOK_YEARS = range(1912, 1932)
 LAST_YEAR = 2026          # current terms run to 2029; the file stops at the present
 
 
@@ -150,7 +157,13 @@ def build() -> pd.DataFrame:
 
     delivered = workbook()
     fill = delivered[delivered.year.isin(WORKBOOK_YEARS)].copy()
-    fill["source"] = citekeys.KEENA
+    # ASSUMED, not KEENA. The workbook is where these numbers are written
+    # down, but Alex confirmed on 24 September 2026 that nothing stands behind
+    # them: three white men, assumed. KEENA means a claim whose evidence one
+    # person can still name, and that question has been asked and answered, so
+    # these rows are the other kind of gap - the record is silent and a
+    # standing assumption filled it. See docs/questions.md.
+    fill["source"] = citekeys.ASSUMED
 
     d = pd.concat([built[~built.year.isin(WORKBOOK_YEARS)], fill]).sort_values("year").reset_index(drop=True)
     d = d[COLUMNS + PARTY_COLUMNS + ["source"]]
