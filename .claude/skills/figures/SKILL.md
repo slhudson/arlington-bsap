@@ -18,7 +18,7 @@ set inside a figure script.
 visual needs a column, that is a sign the figure script should pass it in.
 
 A figure script reads `data/clean/`, calls `charts.*`, and calls
-`files.save()`. If it needs a colour, a size, a font, a margin or a legend
+`paths.save()`. If it needs a colour, a size, a font, a margin or a legend
 position, that belongs in the style layer, not in the script.
 
 The conventions are the Urban Institute's data visualization style guide,
@@ -56,12 +56,10 @@ gives the reason.
 
 ## Type
 
-Two sizes, both in `style.py`. Never write a number into a figure script.
-
-- `TEXT` (8.5) is everything that labels a mark: tick labels, axis labels,
-  legend entries.
-- `PANEL` (9.5) is only the `(a)`/`(b)` label naming a panel.
-- `NOTE` (8) is an annotation attached to a mark, such as the 1932 rule.
+Every size is a rcParam in `urban.mplstyle`, stepped up together by the
+profile's scale in `style.apply()`. Never write a point size into a figure
+script; a note or label drawn by hand takes `plt.rcParams["font.size"]`, as
+`charts.rule()` does.
 
 Urban puts legend text a point larger than axis labels. Here they are the same:
 a legend entry and a tick label both name a mark, and neither outranks the
@@ -73,9 +71,11 @@ too, in the LaTeX caption.
 
 - Every figure is the same width — the profile's width. Never set one in a
   figure script.
-- Heights are named in `style.py`: `SEATS`, `SERIES`, `PANELS`. Use one of
-  them. A new ratio typed into a figure script is how a set of figures stops
-  looking like a set.
+- Heights are not set anywhere. `charts.fit()` solves each figure's height
+  from `style.PLOT_ASPECT` and the furniture it measures, so every plot has
+  the same shape; `style.py` says why fixed heights were tried and dropped.
+  A ratio typed into a figure script is how a set of figures stops looking
+  like a set.
 - A two-panel figure gives each panel about half the width, so its bars read
   narrower than a single-panel chart's even though the frame is identical.
   That is the cost of panelling, not a bug to fix by widening the figure.
@@ -149,10 +149,6 @@ too, in the LaTeX caption.
   revisit.
 - **Axis labels and panel titles are lowercase**: `residents`, `census year`,
   `(a) number of residents`.
-- **Black and White are both capitalised**, as proper names. APA and AMA capitalise
-  both; Urban capitalises Black and leaves white lowercase, which in a legend
-  beside `Hispanic or Latino` reads as a typo rather than as a position. Prose
-  may differ; the figures do not.
 - **No slashes in category names.** Use the Bureau's own wording: `Hispanic or
   Latino`, `Asian & Pacific Islander`. The ampersand is for width, since the
   legend is one row.

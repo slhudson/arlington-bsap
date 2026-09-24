@@ -38,7 +38,6 @@ for profile in style.PROFILES:
     fig, ax = charts.figure(profile)
     charts.stacked_steps(ax, d["year"].to_numpy(), series, spans)
     charts.shares(ax, label="share of the vote for County Board")
-    charts.years(ax, 1870, 2020, step=20, label="year")
-    ax.set_xlim(1866, 2027)
+    charts.years(ax, 1870, 2020, step=20, label="year", through=2027)
     charts.legend(fig, {style.BOARD_VOTE_LABELS[g]: style.BOARD_VOTE_COLORS[g] for g in held})
     paths.save(fig, "voters_board", profile)

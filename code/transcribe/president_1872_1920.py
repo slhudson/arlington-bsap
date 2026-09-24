@@ -24,7 +24,7 @@ what it does with them.
 import pymupdf
 
 from board_1870_1920 import ELECTION, PAGE_FURNITURE, SOURCE, columns
-from files import RAW, TRANSCRIBED
+from paths import RAW, TRANSCRIBED
 
 OUT = TRANSCRIBED / "by_claude" / "arlington_county" / "president_1872-1920.csv"
 

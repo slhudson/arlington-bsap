@@ -21,7 +21,7 @@ import re
 
 import pymupdf
 
-from files import RAW, TRANSCRIBED
+from paths import RAW, TRANSCRIBED
 
 SOURCE = RAW / "arlington_county" / "candidate_history_1920-present.pdf"
 OUT = TRANSCRIBED / "by_claude" / "arlington_county" / "candidate_history_1920-present.csv"

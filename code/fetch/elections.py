@@ -29,12 +29,13 @@ contest and filtering to Arlington divisions). The County Board rows for
 overlap - the build checks that they agree - and the only one from 2022.
 """
 import json
-import pathlib
 import urllib.parse
 import urllib.request
 
-ROOT = pathlib.Path(__file__).resolve().parents[2]
-OUT = ROOT / "data" / "raw" / "va_dept_of_elections" / "county_board_2000-2026.csv"
+import paths
+
+ROOT = paths.ROOT
+OUT = paths.RAW / "va_dept_of_elections" / "county_board_2000-2026.csv"
 
 ENDPOINT = "https://va2.elstats.civera.com/api/download_search.csv"
 COUNTY_BOARD_MEMBER = 546            # the database's id for the office

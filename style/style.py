@@ -23,8 +23,7 @@ reason.** There are three.
 *The palette is Okabe-Ito, not Urban's.* Urban's categorical colours are
 designed for the web, not for colour vision deficiency. Okabe and Ito's set is
 built for exactly that, and holds four separable hues under simulated
-deuteranopia where Urban's does not. Urban's colours stay in gallery.py as
-candidates so the choice remains reviewable.
+deuteranopia where Urban's does not.
 
 *The legend sits below the figure, not above it.* Urban stretches it across the
 top. Below reads better here, where several figures carry a note above the
@@ -42,7 +41,6 @@ men are the mass and take the neutral.
 this repository, in the LaTeX caption. The one exception is an annotation
 attached to a mark, such as the 1932 rule, which stays in the panel.
 """
-import colorsys
 import pathlib
 
 import matplotlib as mpl
@@ -59,7 +57,7 @@ FONTS = HERE / "fonts"
 # are designed for the web and are not: under simulated deuteranopia Okabe-Ito
 # holds four separable hues where Urban's magenta goes olive. It gives up some
 # tonal spread in greyscale, which costs nothing unless the memo is printed in
-# black and white. Both are drawn in figures/gallery/.
+# black and white.
 #
 #   Masataka Okabe and Kei Ito, "Color Universal Design (CUD): How to make
 #   figures and presentations that are friendly to colorblind people".
@@ -97,13 +95,6 @@ RACE_COLORS = {
     "aapi":  OKABE_ITO["blue"],
     "white": SAND,
 }
-CENSUS_COLORS = {
-    "nh_black": OKABE_ITO["orange"],
-    "hispanic": OKABE_ITO["bluish_green"],
-    "nh_aapi":  OKABE_ITO["blue"],
-    "nh_white": SAND,
-    "nh_other": GREY,
-}
 # Pink against the sand, not against blue. Urban's guide says: "Urban tries not
 # to use color palettes that reinforce gender or racial stereotypes (e.g., pink
 # for women and blue for men)." Pink and blue was tried and is the example the
@@ -124,25 +115,17 @@ GENDER_COLORS = {
 # it costs nothing here because the line is named where it runs, not by its
 # colour.
 SERIES_COLORS = {"population": "#5C5859", "per_seat": OKABE_ITO["vermilion"]}
-# The turnout figure: three counts of people, no categories, every line
-# named where it runs. The same two colours as the growth figure, in the
-# same roles - vermilion for the series the figure is about, the Board's
-# voters, and the dark grey for the count it is measured against, the
-# presidential vote. Registered voters are the backdrop the other two sit
-# under, and take the taupe that White takes as a line: the neutral for the
-# mass, as everywhere else in the set.
-TURNOUT_COLORS = {
-    "board": OKABE_ITO["vermilion"],
-    "president": "#5C5859",
-    "registered": SAND_LINE,
-}
+# The turnout figure. The presidential vote is the reference the Board's
+# voters are read against, and takes the growth figure's dark grey, the
+# count a series is measured against there too.
+TURNOUT_COLORS = {"president": "#5C5859"}
 # The Board's voters split by what else was on the ballot: four lines, one
-# per year of the cycle, from the top of the ticket down. Vermilion stays
-# with the presidential-year Board vote, the series the counts figure was
-# about; the other three take hues in falling order of turnout, orange,
-# bluish green and black. Each is a category elsewhere in the set (Black,
-# Hispanic or Latino) and none reads as one here: the lines are named in
-# the legend and never share a page with a race chart.
+# per year of the cycle, from the top of the ticket down. Vermilion, the
+# growth figure's colour for the series a figure is about, goes to the
+# presidential-year Board vote; the other three take hues in falling order
+# of turnout, orange, bluish green and black. Each is a category elsewhere
+# in the set (Black, Hispanic or Latino) and none reads as one here: the
+# lines are named in the legend and never share a page with a race chart.
 CYCLE_ORDER = ["president", "governor", "midterm", "delegates"]
 CYCLE_COLORS = {
     "president": OKABE_ITO["vermilion"],
@@ -242,23 +225,6 @@ GROUP_LABELS = {
     "hisp": "Hispanic or Latino",
     "aapi": "Asian & Pacific Islander",
     "white": "White",
-}
-
-# The census basis, 1980 on: five groups that partition the county. Same
-# colours, so a reader moving between the two bases is not relearning them.
-# Other or Multiracial sits with the other groups, below White, not above it.
-# It is a kind of not-White; stacking it on top splits that population in two
-# and makes the county read as less diverse than it is.
-CENSUS_ORDER = ["nh_black", "hispanic", "nh_aapi", "nh_other", "nh_white"]
-# On this basis every group except Hispanic or Latino is non-Hispanic, so a
-# legend that says so five times repeats itself; the caption says it once, as
-# "groups other than Hispanic or Latino are non-Hispanic".
-CENSUS_LABELS = {
-    "nh_black": "Black",
-    "hispanic": "Hispanic or Latino",
-    "nh_aapi": "Asian & Pacific Islander",
-    "nh_white": "White",
-    "nh_other": "Other or Multiracial",
 }
 
 GENDER_ORDER = ["women", "men"]
@@ -376,8 +342,3 @@ def figsize(profile=DEFAULT_PROFILE):
 # two and a half times more white on the left than on the right.
 MARGIN = 0.037
 
-
-def despine(ax):
-    """Kept for figures that need it explicitly; the style already does it."""
-    for s in ("top", "right", "left"):
-        ax.spines[s].set_visible(False)

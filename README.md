@@ -28,6 +28,8 @@ without a network connection, an API key, or a Mac.
 | `code/fetch/census.py` | `data/raw/us_census_bureau/<year>/*.csv` | `data/contents.md` |
 | `code/fetch/elections.py` | `data/raw/va_dept_of_elections/county_board_2000-2026.csv` | `data/contents.md` |
 | `code/fetch/president.py` | `data/raw/va_dept_of_elections/president_1924-2024.csv` | `data/contents.md` |
+| `code/fetch/registration.py` | `data/raw/va_dept_of_elections/registration_2010-2025.csv` | `data/contents.md` |
+| `code/fetch/census_volumes.py` | `data/raw/us_census_bureau/<year>/<volume>-01.pdf` | `data/contents.md` |
 | `code/transcribe/census.py` | `data/transcribed/by_ocr/us_census_bureau/<year>/*.txt` | `data/contents.md` |
 | `code/transcribe/board_1870_1920.py` | `data/transcribed/by_claude/arlington_county/board_1870-1920.csv` | `data/contents.md` |
 | `code/transcribe/president_1872_1920.py` | `data/transcribed/by_claude/arlington_county/president_1872-1920.csv` | `data/contents.md` |
@@ -37,10 +39,18 @@ without a network connection, an API key, or a Mac.
 | `code/build/voters.py` | `data/clean/voters.csv` | `docs/sources.md` — voters |
 | `code/build/board_members.py` | `data/clean/board_members.csv` | `docs/sources.md` — the roster, race and gender |
 | `code/build/board_seats.py` | `data/clean/board_seats.csv` | `docs/sources.md` — seat-years |
+| `code/build/turnout.py` | `data/clean/turnout.csv` | `docs/sources.md` — turnout |
 | `code/analysis/<figure>.py` | `figures/pdf/<figure>.pdf`, `figures/png/<figure>.png` | `docs/figures.md` |
 
-Eight figures build. Two are in the paper so far, `residents_by_race` and
-`board_race`; the rest are built and waiting on the outline.
+Three build modules write nothing and are read by the steps above:
+`code/build/board_roster.py` (who held each seat and when),
+`code/build/elections.py` (the county's and the state's election records,
+read once) and `code/build/citekeys.py` (the citekeys `paper/sources.bib`
+defines). Each stage has a `paths.py` that maps its data folders.
+
+Eight figures build. Four are in the paper so far, `residents_per_seat`,
+`residents_by_race`, `board_gender` and `board_race`; the rest are built
+and waiting on the outline.
 
 ## Rebuilding
 

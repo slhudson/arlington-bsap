@@ -21,7 +21,7 @@ import re
 
 import pymupdf
 
-from files import RAW, TRANSCRIBED
+from paths import RAW, TRANSCRIBED
 
 SOURCE = (RAW / "arlington_historical_magazine"
           / "novack_six_decades_of_arlington_leadership_1994.pdf")

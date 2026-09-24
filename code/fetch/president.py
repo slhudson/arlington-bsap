@@ -27,14 +27,15 @@ Party is the database's own `candidate_party_name`, present on every row.
 """
 import io
 import json
-import pathlib
 import urllib.parse
 import urllib.request
 
 import pandas as pd
 
-ROOT = pathlib.Path(__file__).resolve().parents[2]
-OUT = ROOT / "data" / "raw" / "va_dept_of_elections" / "president_1924-2024.csv"
+import paths
+
+ROOT = paths.ROOT
+OUT = paths.RAW / "va_dept_of_elections" / "president_1924-2024.csv"
 
 ENDPOINT = "https://va2.elstats.civera.com/api/download_search.csv"
 PRESIDENT = 1                        # the database's id for the office

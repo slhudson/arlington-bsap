@@ -33,7 +33,6 @@ for profile in style.PROFILES:
     fig, ax = charts.figure(profile)
     charts.stacked_bars(ax, d["year"].to_numpy(), series, width=3)
     charts.shares(ax, label="share of the vote for President")
-    charts.years(ax, 1870, 2020, step=20, label="presidential election")
-    ax.set_xlim(1866, 2027)
+    charts.years(ax, 1870, 2020, step=20, label="presidential election", through=2027)
     charts.legend(fig, {style.VOTERS_LABELS[g]: style.VOTERS_COLORS[g] for g in style.VOTERS_ORDER})
     paths.save(fig, "voters_president", profile)

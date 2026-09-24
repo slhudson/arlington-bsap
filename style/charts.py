@@ -12,8 +12,8 @@ Four types, which is all the report needs:
     stacked_steps() composition over continuous years, with gaps preserved
     panels()        two of any of the above, side by side
 
-Legends follow Urban: stretched horizontally across the top, outside the axes,
-one row, in stacking order. Notes that belong to the document rather than the
+Legends are one row, in stacking order, outside the axes and below them -
+Urban's, except that Urban puts them above; legend() says why not. Notes that belong to the document rather than the
 image - sources, caveats - are not drawn here at all; they go in the LaTeX
 caption. An annotation attached to a mark, such as the 1932 rule, does belong
 in the panel, and rule() draws it.
@@ -353,7 +353,7 @@ def legend(fig, entries, ncol=None):
                ncol=ncol or len(entries))
 
 
-def rule(ax, year=style.EXPANSION_YEAR, note=style.EXPANSION_NOTE, inside_y=None):
+def rule(ax, year=style.EXPANSION_YEAR, note=style.EXPANSION_NOTE):
     """A dated vertical rule, with its note above the plot rather than in it.
 
     The note is an annotation attached to a mark, not a source note, so it
@@ -365,18 +365,9 @@ def rule(ax, year=style.EXPANSION_YEAR, note=style.EXPANSION_NOTE, inside_y=None
     The note is drawn once per figure even when the rule is drawn on every
     panel: the line is the mark, the note explains it, and explaining it twice
     in one figure is noise.
-
-    inside_y places the note within the axes at that fraction of their height,
-    for a figure whose band above the frame is already taken by a panel title.
-    Pass a fraction that lands in white space, not on the data.
     """
     ax.axvline(year, zorder=5, **style.EXPANSION_LINE)
     if note is None:
-        return
-    if inside_y is not None:
-        ax.text(year, inside_y, " " + note, transform=ax.get_xaxis_transform(),
-                ha="left", va="center", zorder=6,
-                fontsize=plt.rcParams["font.size"])
         return
     ax.plot([year, year], [1.0, 1.045], transform=ax.get_xaxis_transform(),
             clip_on=False, zorder=5, **style.EXPANSION_LINE)
@@ -385,20 +376,21 @@ def rule(ax, year=style.EXPANSION_YEAR, note=style.EXPANSION_NOTE, inside_y=None
             fontsize=plt.rcParams["font.size"])
 
 
-def years(ax, first, last, step=10, rotate=False, label="census year",
-          headroom=0.0, minor=10):
+def years(ax, first, last, step=10, label="census year", minor=10, through=None):
     """A year axis.
 
-    `step` is the labelled interval. `minor` adds an unlabelled tick at every
-    census in between, so a reader can locate 1890 or 1910 on an axis that only
-    names every twentieth year. Skipped where the labelled interval is already
-    the census interval, which would only double the ticks.
+    `first` and `last` are the first and last labelled years; `step` is the
+    labelled interval. `minor` adds an unlabelled tick at every census in
+    between, so a reader can locate 1890 or 1910 on an axis that only names
+    every twentieth year. Skipped where the labelled interval is already the
+    census interval, which would only double the ticks.
 
-    `headroom` is extra span past `last`, as a fraction, for anything drawn at
-    the right-hand end - end labels, mainly.
+    `through` is where the axis ends when the data run past the last label:
+    a seat chart names 2020 and runs to the present. Left out, the axis ends
+    a little clear of `last`.
     """
     span = last - first
-    ax.set_xlim(first - span * 0.03, last + span * (0.03 + headroom))
+    ax.set_xlim(first - span * 0.03, through or last + span * 0.03)
     # Anchored on the last year, not the first. With a twenty-year step from
     # 1870 the labels stop at 2010 and the most recent census - the one a
     # reader looks for - goes unnamed.
@@ -407,11 +399,7 @@ def years(ax, first, last, step=10, rotate=False, label="census year",
     if minor and minor < step:
         ax.xaxis.set_minor_locator(
             FixedLocator([y for y in range(first, last + 1, minor) if y not in major]))
-    if rotate:
-        ax.tick_params(axis="x", labelrotation=90)
-        ax.set_xlabel("")
-    else:
-        ax.set_xlabel(label)
+    ax.set_xlabel(label)
 
 
 def counts(ax, top, step, label="residents", minor=None):

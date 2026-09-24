@@ -60,13 +60,14 @@ the reason is size alone.
 """
 import io
 import json
-import pathlib
 import urllib.parse
 import urllib.request
 import zipfile
 
-ROOT = pathlib.Path(__file__).resolve().parents[2]
-RAW = ROOT / "data" / "raw" / "us_census_bureau"
+import paths
+
+ROOT = paths.ROOT
+RAW = paths.RAW / "us_census_bureau"
 STATE, COUNTY = "51", "013"   # Virginia, Arlington County
 
 # Which tables to fetch for each census. RACE gives the race partition; the

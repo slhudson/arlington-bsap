@@ -24,11 +24,12 @@ mean the volume was reorganised, or that the files came from somewhere else
 after all, and either is worth knowing before a citation rests on it.
 """
 import hashlib
-import pathlib
 import urllib.request
 
-ROOT = pathlib.Path(__file__).resolve().parents[2]
-RAW = ROOT / "data" / "raw" / "us_census_bureau"
+import paths
+
+ROOT = paths.ROOT
+RAW = paths.RAW / "us_census_bureau"
 BASE = "https://www2.census.gov/library/publications/decennial"
 
 # year: (directory on census.gov, front-matter chunk, a chunk already held)

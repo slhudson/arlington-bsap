@@ -31,8 +31,6 @@ rather than a rule someone has to remember.
 """
 from pathlib import Path
 
-import pandas as pd
-
 import citekeys
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -57,9 +55,3 @@ def write(frame, stem):
     said = ", ".join(f"{n} {k}" for k, n in counts.items() if n)
     print(f"   [{said}]" if said else "")
 
-
-def numeric(df, cols):
-    """Coerce to numbers, turning "." and blanks into genuinely missing values."""
-    for c in cols:
-        df[c] = pd.to_numeric(df[c], errors="coerce")
-    return df

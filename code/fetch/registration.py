@@ -32,14 +32,15 @@ adds the inactive list, which are registrants the state has failed to reach
 and has not yet removed. Both are kept, and the build says which it uses.
 """
 import io
-import pathlib
 import re
 import urllib.request
 
 import pandas as pd
 
-ROOT = pathlib.Path(__file__).resolve().parents[2]
-OUT = ROOT / "data" / "raw" / "va_dept_of_elections" / "registration_2010-2025.csv"
+import paths
+
+ROOT = paths.ROOT
+OUT = paths.RAW / "va_dept_of_elections" / "registration_2010-2025.csv"
 
 SITE = "https://www.elections.virginia.gov"
 PAGE = SITE + "/resultsreports/registration-statistics/{year}-registration-statistics/"

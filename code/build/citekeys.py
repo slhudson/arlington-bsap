@@ -6,7 +6,7 @@ module is what makes that checkable: it reads the keys out of the .bib and
 offers them to the build as named constants, so a typo fails the run instead of
 shipping a citation that points at nothing.
 
-It is a mechanism module, like assumptions.py - it produces no data layer.
+It is a mechanism module, like elections.py - it produces no data layer.
 
 **Three kinds of value can appear in a source column.**
 
@@ -54,13 +54,10 @@ BIB = pathlib.Path(__file__).resolve().parents[2] / "paper" / "sources.bib"
 UNSOURCED = "unsourced"
 # No claim existed; the build supplied one. A finding about the record.
 ASSUMED = "assumed"
-# Alex Keena's workbooks, which carry no source column. A kind of UNSOURCED
-# specific enough to be worth counting on its own: one person can answer it.
-KEENA = "keena-workbook"
 # Computed from another clean table; the citations live on that table's rows.
 DERIVED = "derived"
 
-PLACEHOLDERS = (UNSOURCED, ASSUMED, KEENA, DERIVED)
+PLACEHOLDERS = (UNSOURCED, ASSUMED, DERIVED)
 
 # Named here rather than spelled out at each use, so a rename is one edit and
 # a typo is an ImportError rather than a dangling citation nobody notices.
@@ -79,7 +76,6 @@ CENSUS_1980_STF1A = "census1980stf1a"
 CENSUS_1990_STF1A = "census1990stf1a"
 # POP-TWPS0076, Table 47: Arlington by race at every census from 1900.
 CENSUS_TWPS0076 = "censusbureau1990twps76"
-HJERPE = "hjerpe2021"
 
 
 def keys():

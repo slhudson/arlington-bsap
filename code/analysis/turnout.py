@@ -68,10 +68,8 @@ for profile in style.PROFILES:
     # Twenty-year labels anchored on 2020, with an unlabelled tick each
     # decade between; both axes run to 2025 for the last Board election.
     # (b) starts where its denominator does, so its frame is not half empty.
-    charts.years(a, 1930, 2020, step=20, label="November election")
-    a.set_xlim(1927, 2028)
-    charts.years(b, 1980, 2020, step=20, label="November election")
-    b.set_xlim(1977, 2028)
+    charts.years(a, 1930, 2020, step=20, label="November election", through=2028)
+    charts.years(b, 1980, 2020, step=20, label="November election", through=2028)
 
     # One legend below both panels, in the order the lines stack: the
     # presidential vote on top, then the Board's voters from the top of the
