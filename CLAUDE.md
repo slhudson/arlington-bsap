@@ -117,6 +117,13 @@ key, no connection. And an API can change its answer, so a live call could move
 a figure between runs with nothing in the repo to explain it; a committed file
 is the same evidence standard as a scanned page.
 
+The one exception is six census scans the build never reads, 50MB that
+would push Overleaf past its ceiling. They are marked `in_git = no` in
+`data/contents.csv` with their URL and checksum; `code/fetch/census_volumes.py`
+fetches them and refuses a byte that differs, and `run.sh` says at the end of
+every build if they are missing. A raw file the build reads is always
+committed.
+
 **Each code folder writes one data layer.** `code/fetch/` writes `data/raw/`,
 `code/transcribe/` writes `data/transcribed/`, `code/build/` writes `data/clean/`,
 `code/analysis/` writes `figures/`. `run.sh` runs the last two every time; the

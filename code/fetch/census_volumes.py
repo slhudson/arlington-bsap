@@ -1,71 +1,69 @@
-"""Census volume front matter -> data/raw/us_census_bureau/<year>/<volume>-01.pdf
+"""Census volume scans -> data/raw/us_census_bureau/<year>/<chunk>.pdf, on demand.
 
-NOT part of `bash run.sh`. Like the rest of code/fetch/, it touches the network
-and its output is committed, so the build stays reproducible without it.
+NOT part of `bash run.sh`. Like the rest of code/fetch/, it touches the
+network. The build never reads a scan - it reads the transcriptions, which
+cite the printed page - so nothing here is needed to build.
 
     .venv/bin/python code/fetch/census_volumes.py
 
-**Why this exists.** The 1880 and 1890 scans in data/raw/ are interior chunks:
-open one and it starts partway into a table of Oregon townships. No cover, no
-title page, nothing saying which volume it is. So the bibliography could not
-say what it was citing, and said so - the entries were marked provisional and
-their titles inferred from the filenames.
+**Why some scans are not committed.** The 1880 and 1890 volumes' interior
+chunks are 50MB of PDF the build never opens, against an Overleaf ceiling of
+100MB for the whole repository. They are the Bureau's own files, published at
+stable URLs and byte-identical to what was held, so `data/contents.csv`
+records each one's URL and checksum and marks it `in_git = no`, and this
+script fetches whichever is missing. A download whose checksum does not match
+the inventory is refused and not written: the file is then not the one the
+transcriptions were read from, and that is worth knowing before anyone cites
+a page of it.
 
-The Bureau chunks each volume the same way and publishes the pieces under those
-same names, first chunk first. This fetches the first chunk, which carries the
-title page and the letter of transmittal, and saves it beside the chunks
-already held.
+The title-page chunks are committed, because `paper/sources.bib` is built
+from them. So are the three 1870 chunks: the Bureau's current copies at
+1870/population/ are chunked differently, so those files cannot be re-fetched
+(`1870-chunks-provenance` in `docs/questions.csv`).
 
-**The filename is not the evidence; the checksum is.** Each chunk already in
-data/raw/ is compared byte for byte against the Bureau's copy at the URL below.
-Matching proves the held files are that volume rather than merely named like
-it. Both matched on 23 September 2026. A mismatch stops the script: it would
-mean the volume was reorganised, or that the files came from somewhere else
-after all, and either is worth knowing before a citation rests on it.
+Every chunk already on disk is checked against the inventory too, so running
+this on a full checkout is a provenance audit that downloads nothing.
 """
+import csv
 import hashlib
 import urllib.request
 
 import paths
 
-ROOT = paths.ROOT
-RAW = paths.RAW / "us_census_bureau"
-BASE = "https://www2.census.gov/library/publications/decennial"
-
-# year: (directory on census.gov, front-matter chunk, a chunk already held)
-VOLUMES = {
-    "1880": ("1880/vol-01-population", "1880_v1-01.pdf", "1880_v1-12.pdf"),
-    "1890": ("1890/volume-1", "1890a_v1-01.pdf", "1890a_v1-11.pdf"),
-}
+INVENTORY = paths.ROOT / "data" / "contents.csv"
 
 
 def fetch(url):
-    with urllib.request.urlopen(url) as r:
+    with urllib.request.urlopen(url, timeout=600) as r:
         return r.read()
 
 
 def digest(b):
-    return hashlib.sha256(b).hexdigest()
+    return hashlib.sha256(b).hexdigest()[:16]
 
 
 def main():
-    for year, (directory, front, witness) in VOLUMES.items():
-        held = RAW / year / witness
-        if not held.exists():
-            raise FileNotFoundError(f"{held} missing - nothing to check the volume against")
-
-        remote = fetch(f"{BASE}/{directory}/{witness}")
-        if digest(remote) != digest(held.read_bytes()):
+    rows = [r for r in csv.DictReader(INVENTORY.open()) if r["layer"] == "raw" and r["url"]]
+    for r in rows:
+        path = paths.ROOT / r["path"]
+        if path.exists():
+            got = digest(path.read_bytes())
+            if got != r["sha256"]:
+                raise AssertionError(
+                    f"{r['path']} does not match the checksum in {INVENTORY.name} "
+                    f"({got} against {r['sha256']}). data/raw/ is never edited; find out what changed.")
+            print(f"  {path.name:<20} on disk, matches the inventory")
+            continue
+        body = fetch(r["url"])
+        got = digest(body)
+        if got != r["sha256"]:
             raise AssertionError(
-                f"{witness} differs from {BASE}/{directory}/{witness}. The held "
-                f"file is not the Bureau's copy of that chunk, so the volume it "
-                f"belongs to is not established. Do not cite it as this volume "
-                f"until that is resolved.")
-        print(f"  {witness:<20} matches the Bureau's copy")
-
-        out = RAW / year / front
-        out.write_bytes(fetch(f"{BASE}/{directory}/{front}"))
-        print(f"  {front:<20} {out.stat().st_size // 1024:>6} KB  <- {directory}")
+                f"{path.name}: the Bureau's copy at {r['url']} has checksum {got}, and the "
+                f"inventory says {r['sha256']}. Not written - it is not the file the "
+                f"transcriptions were read from. Do not cite it until that is resolved.")
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(body)
+        print(f"  {path.name:<20} {len(body) // 1024:>6} KB  fetched and verified  <- {r['url']}")
 
 
 if __name__ == "__main__":

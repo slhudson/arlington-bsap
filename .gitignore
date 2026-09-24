@@ -19,3 +19,12 @@ paper/*.run.xml
 # Per-machine Claude Code settings: site permissions and the like, which
 # belong to whoever is at the keyboard rather than to the project.
 .claude/settings.local.json
+
+# Six census scans the build never reads, 50MB, fetched on demand by
+# code/fetch/census_volumes.py and checked against data/contents.csv.
+data/raw/us_census_bureau/1880/1880_v1-12.pdf
+data/raw/us_census_bureau/1880/1880_v1-13.pdf
+data/raw/us_census_bureau/1890/1890a_v1-11.pdf
+data/raw/us_census_bureau/1890/1890a_v1-12.pdf
+data/raw/us_census_bureau/1890/1890a_v1-13.pdf
+data/raw/us_census_bureau/1890/1890a_v1-14.pdf

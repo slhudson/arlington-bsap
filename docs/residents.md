@@ -230,16 +230,24 @@ How much of this the prose says is an open question.
 
 ## The census scans
 
-Nine PDFs, 521 pages, in `data/raw/us_census_bureau/`, from the published
-1870, 1880 and 1890 volumes. Seven have no text layer;
-`data/transcribed/by_ocr/` holds OCR of all of them. The method is to search
-the OCR to locate a table, then render the page and read it by eye. OCR
-misread digits on the first table checked (17,546 as 17,516, 14,339 as
-14,830), which is why it is never the source of a number.
+Eleven PDFs, 537 pages, from the published 1870, 1880 and 1890 volumes:
+three title-page chunks, on which the bibliography entries rest, and eight
+interior chunks carrying the tables the transcriptions were read from. Seven
+of the eleven have no text layer; `data/transcribed/by_ocr/` holds OCR of the
+nine that were held first. The method is to search the OCR to locate a table,
+then render the page and read it by eye. OCR misread digits on the first
+table checked (17,546 as 17,516, 14,339 as 14,830), which is why it is never
+the source of a number.
 
-The files are the Bureau's own. `code/fetch/census_volumes.py` fetches the
-Bureau's copy of a chunk already held from each volume and compares checksums;
-both the 1880 and 1890 files matched byte for byte on 23 September 2026, and
-the script refuses to go on if one ever stops matching. It also saves each
-volume's first chunk, which carries the title page, so the bibliography is
-built from a page in the repository.
+**Six of the eleven are not committed.** The 1880 and 1890 interior chunks
+are 50MB the build never opens, against Overleaf's 100MB ceiling for the
+whole repository. They are the Bureau's own files at stable URLs, and
+`data/contents.csv` records each one's URL and checksum;
+`code/fetch/census_volumes.py` fetches whichever is missing and refuses a
+download whose checksum differs, so a page cited from one of them is the
+page that was read. `bash run.sh` says at the end of every build if they are
+absent. The three 1870 chunks are committed: the Bureau's current copies at
+1870/population/ are chunked differently (7 and 3 pages against the 36 and
+46 held), so the held files cannot be re-fetched, and where they came from
+rests on the volume's own title page (`1870-chunks-provenance` in
+`docs/questions.csv`).

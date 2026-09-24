@@ -114,6 +114,22 @@ if [ $# -eq 0 ]; then
   done
 fi
 
+# Some scans are not committed: the inventory marks them in_git = no, and
+# code/fetch/census_volumes.py fetches them. The build never reads them, so
+# a checkout without them builds; this says so, so nobody has to know the
+# script exists to find out.
+missing=$("$PY" -c '
+import csv, pathlib
+for r in csv.DictReader(open("data/contents.csv")):
+    if r["in_git"] == "no" and not pathlib.Path(r["path"]).exists():
+        print(r["path"])')
+if [ -n "$missing" ]; then
+  echo
+  echo "not on disk, and not needed to build:"
+  printf '%s\n' "$missing" | sed 's/^/  /'
+  echo "  to read them: .venv/bin/python code/fetch/census_volumes.py"
+fi
+
 # Overleaf syncs the WHOLE repo and recommends staying under 100MB. We chose a
 # single repo on that basis, so the choice needs a tripwire rather than a note
 # someone has to remember. See CLAUDE.md.

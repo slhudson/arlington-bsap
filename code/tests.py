@@ -404,9 +404,10 @@ def test_a_stale_input_table_is_refused():
 def test_every_data_file_is_inventoried():
     """data/contents.csv is the inventory: one row per file under data/,
     and for raw/ the checksum. A file with no row is one nobody has said
-    where it came from; a row with no file is a claim about nothing; a raw
-    file whose checksum has moved has been edited, which data/raw/ never is.
-    All three are silent otherwise.
+    where it came from; a row with no file is a claim about nothing, unless
+    the row says the file is fetched on demand; a raw file whose checksum
+    has moved has been edited, which data/raw/ never is. All three are
+    silent otherwise.
     """
     import csv
     import hashlib
@@ -416,10 +417,10 @@ def test_every_data_file_is_inventoried():
     on_disk = {str(p.relative_to(root)) for p in data.rglob("*")
                if p.is_file() and not p.name.startswith(".") and p.name != "contents.csv"}
     missing = sorted(on_disk - set(rows))
-    gone = sorted(set(rows) - on_disk)
+    gone = sorted(p for p in set(rows) - on_disk if rows[p]["in_git"] == "yes")
     assert not missing, "files under data/ with no row in data/contents.csv:\n  " + "\n  ".join(missing)
     assert not gone, "rows in data/contents.csv for files that do not exist:\n  " + "\n  ".join(gone)
-    moved = [p for p, r in rows.items() if r["layer"] == "raw"
+    moved = [p for p, r in rows.items() if r["layer"] == "raw" and (root / p).exists()
              and hashlib.sha256((root / p).read_bytes()).hexdigest()[:16] != r["sha256"]]
     assert not moved, ("raw files whose checksum does not match data/contents.csv - data/raw/ "
                        "is never edited:\n  " + "\n  ".join(moved))
