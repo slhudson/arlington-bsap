@@ -34,9 +34,9 @@ gives the reason.
 - No title inside the image. The LaTeX caption carries it, which is also
   Urban's rule for PDF products.
 - No value labels on bars.
-- Do not re-raise issues already written down in `docs/questions.md`. The
-  1970/1990 race totals are the standing example: it is a known, documented,
-  owned question and does not need flagging again.
+- Do not re-raise what is already written down: a decision in
+  `docs/methods.md`, or a question in `docs/questions.md` with an owner.
+  The vote-per-seat denominator on `turnout` is the standing example.
 
 ## Layout
 

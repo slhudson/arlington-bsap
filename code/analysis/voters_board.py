@@ -15,7 +15,7 @@ who sat. Candidates the county prints no label for are "not recorded".
 A step area, because it is annual, with each year's value spanning the year.
 Years the build marks incomplete - a winner with no vote count - are gaps.
 Shares are of votes cast: in a two-seat year each ballot carries two, which
-matters only where a party ran a short slate (Q30 in docs/questions.md).
+matters only where a party ran a short slate (docs/methods.md, Voters).
 """
 import pandas as pd
 

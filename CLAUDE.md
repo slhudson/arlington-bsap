@@ -53,7 +53,7 @@ about figures in `figures/` that no step produces.
 so nothing is prefixed `arlington_`.
 
 **If you can run it, it lives with the code. If you can only read it, it lives
-in `docs/`.** The reasoning behind a decision is in `docs/questions.md`; the
+in `docs/`.** The reasoning behind a decision is in `docs/methods.md`; the
 code carries a pointer to it, not an argument.
 
 **`paths.py` is where real paths are assigned to the short names a stage
@@ -123,7 +123,7 @@ either. A script is named for what it produces: `code/fetch/elections.py`,
 
 **`data/` holds what we take numbers out of.** A source consulted only to
 settle a question — a boundary history, a news article, a methods note — is
-cited under Works cited in `docs/sources.md`, not downloaded into `data/raw/`.
+cited under Works cited in `docs/methods.md`, not downloaded into `data/raw/`.
 The test is whether a figure derives from it.
 
 **Every source column holds a citekey from `paper/sources.bib`.** One registry
@@ -163,25 +163,43 @@ Invoke through `bash`, not `./run.sh` — the reason is at the top of `run.sh`.
 `code/fetch/` and `code/transcribe/` also need `pymupdf`; the OCR needs a Mac. Neither
 is required to rebuild.
 
-## Open questions
+## Questions and decisions
 
-Questions that come up while working the files go in `docs/questions.md` at the
-moment they arise, with an owner — not carried in your head or in chat. When
-one is answered, write the answer into the file, not just the fix into the
-code.
+Two documents, with one rule between them. `docs/questions.md` holds what is
+still open, each with an owner, logged at the moment it arises rather than
+carried in your head or in chat. `docs/methods.md` holds what is settled:
+what each number is, what backs it, what is assumed where nothing does, and
+why, in the present tense. When a question is settled, its answer is written
+into `methods.md` in the section it belongs to and the entry in
+`questions.md` is deleted. Neither file records how a decision was reached
+or what was tried on the way; git has that.
 
 **An open question that changes a value gets a named function**, in a module
 of its own under `code/build/`, applied by name in each figure - so which
 figure takes which position is greppable rather than buried. When the question
 is settled the assumption moves into the relevant build step and the function
-is deleted.
+is deleted. None is in force.
 
-There are none in force. The two that were - the 1970/1990 category overlap
-and whether not-reported reads as zero - are settled, and `assumptions.py`
-went with them. The overlap turned out not to be an overlap: 1970's Hispanic
-and Asian/Pacific Islander columns were transposed in the delivered workbook,
-and the categories partition the county once they are read off the source.
-Both are written up in `docs/questions.md`.
+## Repository decisions
+
+**One repository, with `paper/` inside it.** Overleaf syncs a whole
+repository and cannot be scoped to `paper/` and `figures/`, so it carries the
+census scans too, against a recommended ceiling of 100MB. One repository was
+chosen because pushing figures across a repository boundary would undercut
+the case that this setup is simpler than emailing files. `run.sh` warns at
+80MB, so revisiting does not depend on anyone remembering; the options then
+are splitting `paper/` out, or downsampling the scans and keeping the
+originals in Drive. Zipping the scans was measured and recovers 1-3%.
+
+**Each session works in its own worktree** (`git worktree list`). Two
+sessions sharing one checkout once produced committed figures built against
+uncommitted edits, so `figures/` no longer matched `data/clean/` beside it.
+The build itself is reproducible: the same sources in a fresh virtualenv give
+byte-identical figures.
+
+**Figure formatting is not pinned.** Rebuilt figures may differ from earlier
+renders by a few pixels with a newer matplotlib. Regression checks target the
+numbers, not the rendering.
 
 ## Register
 

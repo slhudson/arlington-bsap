@@ -35,11 +35,11 @@ without a network connection, an API key, or a Mac.
 | `code/transcribe/president_1872_1920.py` | `data/transcribed/by_claude/arlington_county/president_1872-1920.csv` | `data/contents.md` |
 | `code/transcribe/candidate_history.py` | `data/transcribed/by_claude/arlington_county/candidate_history_1920-present.csv` | `data/contents.md` |
 | `code/transcribe/novack_terms.py` | `data/transcribed/by_claude/arlington_historical_magazine/novack_terms_1930-1994.csv` | `data/contents.md` |
-| `code/build/residents.py` | `data/clean/residents.csv` | `docs/sources.md` — population |
-| `code/build/voters.py` | `data/clean/voters.csv` | `docs/sources.md` — voters |
-| `code/build/board_members.py` | `data/clean/board_members.csv` | `docs/sources.md` — the roster, race and gender |
-| `code/build/board_seats.py` | `data/clean/board_seats.csv` | `docs/sources.md` — seat-years |
-| `code/build/turnout.py` | `data/clean/turnout.csv` | `docs/sources.md` — turnout |
+| `code/build/residents.py` | `data/clean/residents.csv` | `docs/methods.md` — population |
+| `code/build/voters.py` | `data/clean/voters.csv` | `docs/methods.md` — voters |
+| `code/build/board_members.py` | `data/clean/board_members.csv` | `docs/methods.md` — the roster, race and gender |
+| `code/build/board_seats.py` | `data/clean/board_seats.csv` | `docs/methods.md` — seat-years |
+| `code/build/turnout.py` | `data/clean/turnout.csv` | `docs/methods.md` — turnout |
 | `code/analysis/<figure>.py` | `figures/pdf/<figure>.pdf`, `figures/png/<figure>.png` | `docs/figures.md` |
 
 Three build modules write nothing and are read by the steps above:
@@ -90,8 +90,8 @@ silently go stale.
 |---|---|
 | `CLAUDE.md` | Working rules; the code/build/analysis split; naming |
 | `data/contents.md` | Every data folder and file: where it came from, what reads it |
-| `docs/sources.md` | What backs every number — geography, census, the roster, race and gender |
-| `docs/questions.md` | Open methods questions, each with an owner; answered in place |
+| `docs/methods.md` | What each number is, what backs it, what is assumed, and why; the data-and-methods section in draft |
+| `docs/questions.md` | What is still open, each with an owner; settled entries move to `methods.md` |
 | `docs/figures.md` | Why each figure takes the form it does |
 | `docs/setup.md` | Getting a machine set up to build; written for a collaborator joining |
 | `paper/sources.bib` | Every source, cited by key from both the prose and `data/clean/` |

@@ -11,7 +11,7 @@ sat inside the county, so no published table gives the territory the Board
 governed - it has to be derived by subtracting the city. That happens in
 early_years() below, from the tables transcribed under
 data/transcribed/by_claude/, and it replaces the delivered workbook for those
-three years. See docs/questions.md.
+three years. See docs/methods.md.
 
 **1900-1990 totals come from the published Census county series**, transcribed
 from data/raw/us_census_bureau/. They were checked against the workbook first and matched
@@ -36,7 +36,7 @@ be a false citation - so what is left to do stays visible in the data.
 **From 1980 the race columns come from the crossed census table.** Race and
 Hispanic origin are two census questions, not one, so a person answers both and
 lands in two of the four columns at once - which is why the workbook's figures
-sum to more than the county in 1970 and 1990 (Q1 in docs/questions.md). The
+sum to more than the county in 1970 and 1990 (docs/methods.md). The
 Bureau also publishes the two answers crossed, and those categories partition
 the county exactly:
 
@@ -55,8 +55,8 @@ before 1970 the question does not exist and `white` means white.
 carries its own provenance rather than the reader having to know where the
 switch falls.
 
-Values are otherwise written as reported. The contested treatments are not
-applied here; see docs/questions.md.
+Values are otherwise written as reported; docs/methods.md says what backs
+each year.
 """
 import pandas as pd
 

@@ -41,7 +41,7 @@ them into a single "no source" would hide the weaker of the two.
 
 run.sh prints a count of each on every build, so both numbers are in front of
 whoever is working rather than found by going looking. They should fall over
-time. docs/sources.md says what stands behind them meanwhile.
+time. docs/methods.md says what stands behind them meanwhile.
 """
 import pathlib
 import re

@@ -28,7 +28,7 @@ seated() below. Under the County Manager plan members took office on 1 January
 too, so those run January to December unless a source says otherwise.
 
 **A vacant seat is not a row.** Nobody served, so there is no person and no
-term. Vacancies are recorded in docs/sources.md instead.
+term. Vacancies are recorded in docs/methods.md instead.
 
 Sources:
 
