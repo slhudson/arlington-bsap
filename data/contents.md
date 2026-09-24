@@ -264,6 +264,23 @@ given names, and the rows say so. Grace Hjerpe's paper and O'Leary's prose
 are cited rather than filed in `raw/`: they are read for a handful of claims,
 not transcribed table by table.
 
+## raw/arlington_sun/
+
+**`sun_1938-11-11_p1.pdf`** — the front page of the *Sun* (Arlington) for
+11 November 1938, vol. III no. 49, as digitised by the Library of Virginia's
+Virginia Chronicle. SHA-256 begins `1e955e238e45baac`.
+
+It carries "Referendum Wins By 61 Votes; Board Will Be 'Staggered'", the
+report of the 8 November referendum that put the County Board on staggered
+terms, with the returns for all eleven precincts and their totals. It is here
+rather than cited in `docs/sources.md` because a number is taken out of it -
+the count disagrees with the county's own candidate history, and Q27 in
+questions.md is that disagreement.
+
+The paper is the *Sun*, not the Alexandria Gazette: Virginia Chronicle has 21
+items on this referendum in the Sun across 1938 and none in the Gazette. The
+folder is named for the publisher, like the others.
+
 ## transcribed/by_human/
 
 **Gone, 24 September 2026.** The folder held three workbooks delivered by Alex

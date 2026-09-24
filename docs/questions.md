@@ -221,21 +221,80 @@ that stops at sec. 136 and has no Schedule; the Library of Virginia has a scan
 at rosetta.virginiamemory.com, behind a viewer. A printed copy would settle it
 in a minute.
 
-### Q27. The 1938 referendum margin has no source
-**Owner:** Sally + Alex · **Status:** open
+### Q27. The 1938 referendum margin: two sources, two counts
+**Owner:** Sally · **Status:** open — the count is sourced, and a second
+source disagrees with it
 
-The 1938 referendum that introduced staggered terms is recorded as carrying
-1,539 to 1,487 - a margin of 52 votes. The referendum itself is named in the
-NCL proposal, and the Arlington Historical Society's "County Officials in
-Arlington 1870-1960" is cited for the change. Neither is cited for the count.
+**The premise of this question was wrong.** It read "no source is cited for
+the count". The count is in the county's own candidate history, transcribed in
+this repository all along:
 
-A vote total is the kind of number a reader assumes came from a record, and a
-52-vote margin is exactly the detail a report would lean on. It should either
-name the record it came from or come out.
+    1938 | November 8 | Staggered Terms Referendum | For:     | 1,539
+    1938 | November 8 | Staggered Terms Referendum | Against: | 1,487
 
-**Where to look:** the county's own canvass returns for 1938, the Historical
-Society's officials list if it carries counts as well as names, and the
-Alexandria Gazette, which reported Arlington election results at the time.
+`arlingtonelections2021` p.11. Nobody had looked at the transcription before
+calling the figure unsourced.
+
+**And now a second source says something else.** The *Sun* (Arlington) for
+11 November 1938, page 1 - three days after the vote - reports the referendum
+under the headline "Referendum Wins By 61 Votes; Board Will Be 'Staggered'",
+and prints the returns for all eleven precincts:
+
+| | For | Against |
+|---|---|---|
+| Arlington | 174 | 272 |
+| Ballston | 163 | 133 |
+| Carne | 188 | 83 |
+| Cherrydale | 157 | 133 |
+| Clarendon No. 1 | 107 | 181 |
+| Clarendon No. 2 | 190 | 175 |
+| East Falls Church | 136 | 48 |
+| Glen Carlyn | 47 | 38 |
+| Lyon Park | 129 | 137 |
+| Rosslyn | 150 | 107 |
+| Virginia Highlands | 99 | 172 |
+| **Totals** | **1,540** | **1,479** |
+
+Both columns tie to their totals exactly, so this is not a keying slip.
+
+| Source | For | Against | Total | Margin |
+|---|---|---|---|---|
+| County candidate history | 1,539 | 1,487 | 3,026 | 52 |
+| Sun, 11 Nov 1938 | 1,540 | 1,479 | 3,019 | 61 |
+
+**The likeliest reconciliation, and it is not yet evidence.** The Sun says of
+its own figures, in terms, "These figures are unofficial." The county's
+compilation draws on Electoral Board records, so 1,539 to 1,487 is plausibly
+the certified canvass and the Sun's is the count as known three days out. That
+would be an ordinary canvass correction - 8 votes on one side, 1 on the other.
+It has not been shown.
+
+**Where to look next.** The *Sun* for 18 November 1938, page 4, which the same
+search turned up: "Due to confusion in the recent election for providing
+'staggered' terms for the members of the County Board, because ...". A
+corrected or certified return is exactly what appears a week later. After that,
+the Electoral Board's own canvass.
+
+**What the report should say meanwhile.** If it uses a margin at all, it
+should use the county's and say so, since that is the record rather than a
+newspaper's early count - and it should not describe the result as carrying by
+52 votes without naming the source, because a contemporaneous newspaper with
+full precinct returns says 61.
+
+**Worth keeping from the same page, for the prose.** The article explains what
+the referendum actually did: from the 1939 election the two candidates with the
+highest votes take four-year terms, the third highest three years, the fourth
+two and the fifth one, after which one member stands each year except every
+fourth year when two do. The ballot asked only "Shall the members of the County
+Board be elected and vacancies on the Board filled as provided in Sec. 2773-F1
+of the Code of Virginia?", wording set by the enabling bill of Arlington's
+delegate William D. Medley, and the Commonwealth's Attorney's office fielded
+calls from voters asking what it meant. Four of eleven precincts voted against.
+The Arlington County Woman's Democratic Club opposed the change, on the view
+that staggering would make it "virtually impossible for a woman to be elected
+to the board" - which is directly relevant to the gender section, and is a
+claim made in 1938 about the system this study is assessing.
+
 
 ### Q28. What form does the county-facing version take?
 **Owner:** Sally · **Status:** open — the occasion and contents are set
@@ -530,9 +589,26 @@ in the race section — Bestebreurtje is the source named there for whether the
 falling Black share reflects neighbourhood clearance that county totals cannot
 see.
 
-**To settle:** find which document carries p. 215, add a separate entry for the
-dissertation if that is the one, and get hold of whichever is cited. Until then
-neither claim should go into prose.
+**The dissertation is identified and entered, 24 September 2026.** Lindsey
+Bestebreurtje, *Built By the People Themselves: African American Community
+Development in Arlington, Virginia, From the Civil War Through Civil Rights*,
+PhD dissertation, George Mason University, 2017; defended 27 March 2017.
+`bestebreurtje2017` in `paper/sources.bib`, built from the dissertation's own
+title page.
+
+**There are three artefacts with this title, not two.** The 2017 dissertation,
+the 2024 University of South Carolina Press book, and a digital exhibit at
+lindseybestebreurtje.org whose own About page calls it "a piece of the book".
+Any future citation should say which.
+
+**What is still open is narrow.** Nobody has checked whether p. 215 carries
+the 1930 candidacies of Harris, Morton and Mosley, because the full text could
+not be retrieved: the egress policy refuses mars.gmu.edu, and the repository
+has migrated to digitalcollections.gmu.edu, where the old bitstream URL 404s
+and the item did not surface in a search. The file is
+`Bestebreurtje_gmu_0883E_11369.pdf` under handle `1920/11125`, which should be
+enough for a librarian or for whoever finds its new address. Until someone
+reads the page, neither claim should go into prose.
 
 ### Q26. Retrocession is dated 1846 or 1847 depending on the source
 **Owner:** Sally · **Status:** open — small, but pick one
@@ -1305,12 +1381,18 @@ seats to three, which it did not.
 
 **What is still open, and it is the substance of the question.**
 
-*How many other gaps there are.* Two are recorded because two are sourced. The
-figure is only as complete as the roster's dates. *Six Decades of Arlington
-Leadership* lists terms of service to the month for every member through 1994,
-so gaps in that period are findable; after 1994 they are not yet sourced. Until
-that sweep is done, "two vacancies since 1870" is a statement about the roster,
-not about the Board.
+*How many other gaps there are.* **Swept, 24 September 2026: there are no
+others.** Counting the months each term covers against the seats that existed
+gives exactly two shortfalls in the whole period a roster covers - 1873, the
+Washington district seat from June to November, and 1990, March and April
+between Milliken's resignation and Hunter's special election. 1870-1911 comes
+from O'Leary, 1932-1994 from Novack's terms of service to the month, and
+1995-2026 is already asserted month by month by `check_five_seats`. The only
+stretch not swept is 1912-1931, where there is no roster at all and the rows
+are an assumption.
+
+So "two vacancies since 1870" is now a statement about the Board and not only
+about the roster, for every period where anyone has recorded who served.
 
 *`residents_per_seat` divides by the seats that exist, not the seats filled.*
 `residents.csv` carries `board_seats` as three through 1930 and five after, and
@@ -1413,7 +1495,24 @@ chat about the 1870-1890 city problem. Worth him reading it and saying whether
 it matches what he intended.
 
 ### Q9. How should Freedman village be treated, and described?
-**Owner:** Sally + Alex · **Status:** open
+**Owner:** whoever writes the race section · **Status:** closed as a data
+question, 24 Sept 2026 — it is a prose decision, and the substance sits with
+the displacement entry above
+
+The arithmetic is settled: the settlement is an indented sub-line inside
+Arlington district, counting it as a fourth district is what produced 4,596,
+and the counts tie without it. The population figures the figures need,
+overall and by race, are complete.
+
+What is left is how much the prose says about it, and that is not a cleaning
+question. The place it bears on is the 1870 baseline: the 63 per cent Black
+share reflects a settlement the federal government created and then
+dismantled, so a sentence reading "the Black share has fallen from 63 per
+cent" without saying so is doing work the number cannot support. That is
+already written up under *Does the falling Black share read as displacement?*
+and belongs there rather than here.
+
+*Original entry:*
 
 Freedman village was a settlement of formerly enslaved people on the Arlington
 estate. The census returns it separately in 1890, at 338 residents, and does
