@@ -15,3 +15,7 @@ paper/*.fdb_latexmk
 paper/*.fls
 paper/*.run.xml
 .env
+
+# Per-machine Claude Code settings: site permissions and the like, which
+# belong to whoever is at the keyboard rather than to the project.
+.claude/settings.local.json
