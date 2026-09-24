@@ -21,7 +21,7 @@ board_members.csv, whose terms run to the month. A term's months are its
 start month through its end month, except that a month in which a successor
 begins belongs to the successor - decided by Sally, 22 September 2026,
 because days are not recorded consistently and the month is the unit
-(docs/methods.md). The
+(docs/board.md). The
 members elected in November 1915 were seated in January 1916, inside the
 workbook years, so they contribute no seat-years at all.
 
@@ -38,7 +38,7 @@ those four years with an inference rather than a source.
 
 **The Board's race coding is one code per person, so it is already a set of
 categories that do not overlap** - the property the census columns in
-residents.csv had to be rebuilt to get (docs/methods.md). A member
+residents.csv had to be rebuilt to get (docs/residents.md). A member
 coded Hispanic carries no separate race, so `white` here means white and not
 Hispanic, which is what `nh_white` means there. The two are comparable; the
 delivered census columns are not comparable to either.
@@ -73,7 +73,7 @@ GENDER = {"man": "men", "woman": "women"}
 # Manager plan no source names one, and the columns are empty rather than
 # zero, so a figure shows a gap and not a Board with no parties. A member
 # whose party no source records is counted in `unrecorded`, so the five still
-# account for every seat. docs/methods.md, Party of Board members.
+# account for every seat. docs/board.md, Party of Board members.
 PARTY = {"Democratic": "dem", "Republican": "rep", "ABC": "abc",
          "independent": "ind", "": "unrecorded"}
 PARTY_COLUMNS = ["dem", "abc", "rep", "ind", "unrecorded"]
@@ -132,7 +132,7 @@ def build() -> pd.DataFrame:
     # numbers used to be read from Alex Keena's seat-count workbook, which
     # said the same thing - he confirmed on 24 September 2026 that nothing
     # stood behind them - so reading them from a spreadsheet only made an
-    # assumption look like a source. docs/methods.md.
+    # assumption look like a source. docs/board.md.
     fill = pd.DataFrame({"year": list(WORKBOOK_YEARS)})
     fill["white"] = SEATS_DISTRICT
     fill["men"] = SEATS_DISTRICT

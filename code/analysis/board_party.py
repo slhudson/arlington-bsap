@@ -5,7 +5,7 @@ three read as a set. It begins where the record does: no source names a
 party for the magisterial-district Board, so 1870-1931 is a gap rather than a
 band, exactly as 1931 is on the other two.
 
-What "party" means here is in docs/methods.md. Party has never been
+What "party" means here is in docs/board.md. Party has never been
 printed on the County Board ballot, so a band is whose candidate a member
 was - the county's own record where it gives one, reporting where it does
 not - and "not recorded" is a member for whom neither says.

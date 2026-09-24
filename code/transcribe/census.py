@@ -3,7 +3,7 @@
 Seven of the nine scanned volumes have no text layer, so nothing in them can
 be searched or cited without this. Running it makes all 521 pages greppable,
 which is what documenting the early census figures depends on - see
-docs/methods.md.
+docs/residents.md.
 
 Uses macOS's built-in Vision OCR, so there is nothing to install beyond the
 Python bindings. Language correction is off: these are tables of numbers, and

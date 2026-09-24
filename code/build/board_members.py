@@ -17,7 +17,7 @@ whom a published source does not already name, so it added no fact - it was a
 second application of the same default from the same sources, and recording
 it as though it were evidence overstated what stood behind 136 race terms and
 113 gender terms. Those now fall through to the default and say so. Decided
-by Sally, 24 September 2026; docs/methods.md.
+by Sally, 24 September 2026; docs/board.md.
 
 Every attributed name must match a roster name exactly - a near-miss would
 fall silently into the default - and the build refuses anything else rather
@@ -26,7 +26,7 @@ than guess.
 **Party** is attached the same way, per term rather than per person, because
 a member's label changes between elections (Bozman ran as ABC's candidate
 five times and as a Democrat once). What "party" means when it has never
-been on the ballot is in docs/methods.md. The sources, in order:
+been on the ballot is in docs/board.md. The sources, in order:
 
   1. data/transcribed/by_claude/board_party.csv - reporting, cited and
      quoted, keyed on the name and the term's start year.

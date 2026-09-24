@@ -22,7 +22,7 @@ no count of residents' partisanship at all; the presidential vote is the
 standard proxy and the one measure that arrives as a dataset. It measures
 voters, not residents, and before 1966 an electorate narrowed by the poll
 tax and the 1902 constitution - which is why the file is voters.csv and the
-figure says "share of voters". docs/methods.md, Voters.
+figure says "share of voters". docs/voters.md.
 
 Two sources, joined at 1924:
 

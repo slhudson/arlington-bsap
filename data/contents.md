@@ -18,7 +18,7 @@ different things. `transcribed/by_claude/` mirrors those folder names.
 A file in `raw/` is its own citation: the volume is the evidence. A file in
 `transcribed/` is not — someone or something read a page and typed what it
 said, so every row needs a citation back to the page. That difference is the
-whole of the sourcing problem, and `docs/methods.md` tracks it.
+whole of the sourcing problem, and the write-ups under `docs/` track it.
 
 `transcribed/by_ocr/` is absent from `code/build/paths.py` and `code/analysis/paths.py`
 by design. OCR misreads digits, so it is a finding aid: it locates a table and
@@ -199,7 +199,7 @@ list of extracted values hides it. Files are named
 the citation. Each row carries the printed indentation as a `level` column: 0
 is the table's own total, 1 its parts, 2 a detail of the line above. Sums take
 level 1 only, which is what keeps a sub-line from being added as if it were a
-district (the Freedman village case, in `docs/methods.md`). No arithmetic lives in
+district (the Freedman village case, in `docs/residents.md`). No arithmetic lives in
 these files; the subtraction that isolates the Board's territory before 1900
 happens in `code/build/residents.py`.
 
@@ -216,7 +216,7 @@ those 18 and over from 2000, and the age distribution in 1980 (table 10,
 saved as its two halves, everyone and women) and 1990 (P11), whose cells
 from "18" on are summed by `code/build/turnout.py`. The cross-tab is the point. Race and Hispanic
 origin are separate census questions, so the categories only stop overlapping
-once they are crossed — see `docs/methods.md`.
+once they are crossed — see `docs/residents.md`.
 
 1980 keeps the Bureau's published record layout beside the data
 (`data/raw/us_census_bureau/1980/1980_stf1_datadict.txt`). 1990's is published
@@ -251,7 +251,7 @@ read by `code/transcribe/novack_terms.py`.
 Board member was at one election, one row per claim, keyed on the name and
 the term's start year: the party, the basis, the citation, and the sentence
 in the source's own words. Read only where the county's candidate history
-prints `(I)` or no label; the rule is in `docs/methods.md`.
+prints `(I)` or no label; the rule is in `docs/board.md`.
 
 **`board_demographics.csv`** — what a source says about a named Board
 member's race or gender, one row per claim: the category, the basis, the
@@ -259,7 +259,7 @@ citation, and the sentence in the source's own words. It sits above the
 publisher folders because it draws on several. A member absent from it takes
 Alex's workbook coding from 1932, and is a white man by default before that;
 `code/build/board_members.py` writes which of the three applies on every row, and
-`docs/methods.md` says what stands behind the default in each period. The women are here on Claude's reading of their
+`docs/board.md` says what stands behind the default in each period. The women are here on Claude's reading of their
 given names, and the rows say so. Grace Hjerpe's paper and O'Leary's prose
 are cited rather than filed in `raw/`: they are read for a handful of claims,
 not transcribed table by table.
@@ -273,9 +273,9 @@ Virginia Chronicle. SHA-256 begins `1e955e238e45baac`.
 It carries "Referendum Wins By 61 Votes; Board Will Be 'Staggered'", the
 report of the 8 November referendum that put the County Board on staggered
 terms, with the returns for all eleven precincts and their totals. It is here
-rather than cited in `docs/methods.md` because a number is taken out of it -
-the count disagrees with the county's own candidate history, and Q27 in
-questions.md is that disagreement.
+rather than cited in `docs/sources.md` because a number is taken out of it -
+the count disagrees with the county's own candidate history, which is
+`referendum-1938-margin` in `docs/questions.csv`.
 
 The paper is the *Sun*, not the Alexandria Gazette: Virginia Chronicle has 21
 items on this referendum in the Sun across 1938 and none in the Gazette. The
@@ -330,7 +330,7 @@ From 1980 the four race columns come from the census table that crosses race
 with Hispanic origin, so `hisp` is Hispanic of any race and the other three are
 non-Hispanic, and nobody is counted twice. 1900–1970 are POP-TWPS0076's
 printed counts and 1870–1890 the volumes'. `race_source` says which, year by
-year. See `docs/methods.md`.
+year. See `docs/residents.md`.
 
 The `cube_root_p` and `cube_root_resident_ratio` columns are built and no
 figure uses them. `residents_per_seat` carried a cube-root-law benchmark and no
@@ -354,7 +354,7 @@ contests and the seats they filled, the people that represents (votes per seat),
 voters from 2010, the population 18 and over at each census from 1980 and
 a straight-line estimate between censuses, and the presidential vote. A
 `_complete` flag for the four years the county's tallies do not cover, and
-a source column per measure. `docs/methods.md`, Turnout.
+a source column per measure. `docs/voters.md`, Turnout.
 
 `board_members.csv` — one row per person per term, 1870 through 2026: name,
 term number, district, start and end to the month, source, a note only where

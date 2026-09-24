@@ -117,7 +117,7 @@ years.
 **Voters, not residents.** Virginia has no party registration, so the
 presidential vote is the proxy, and it counts the people who voted, in an
 electorate narrowed before 1966 by the poll tax and the 1902 constitution.
-`docs/methods.md`, Voters.
+`docs/voters.md`.
 
 **Three bars are missing by decision**: 1896, 1904 and 1908, whose returns
 are incomplete on O'Leary's page. The build keeps the rows and marks them;
@@ -155,7 +155,7 @@ the same lines as shares of the county's adults from 1980. The Board's
 voters are four series, not one: the year's place in the four-year cycle,
 by what else the November ballot carried — the President, the governor,
 Congress alone, or the House of Delegates alone. The presidential vote
-itself is the grey reference. `docs/methods.md`, Turnout.
+itself is the grey reference. `docs/voters.md`, Turnout.
 
 **Four lines, because the sawtooth was the ballot.** Drawn as one annual
 line the Board's vote is a sawtooth with a four-year period, and the teeth
@@ -198,8 +198,8 @@ party for the magisterial-district Board, and a gap says so where a band of
 **Party is whose candidate a member was**, because it has never been on the
 ballot. The county's own record gives it for most winners; reporting fills
 the 1967–83 stretch the county marks "(I)", which is what turns that stretch
-from a wall of independents into a Republican majority. `docs/methods.md`
-has the rule and Q29 in `docs/questions.md` the residue.
+from a wall of independents into a Republican majority. `docs/board.md`
+has the rule and what is still unlabelled.
 
 **The two parties take the two edges of the frame.** Democrats grow up from
 the axis, Republicans hang down from the five-seat line, and ABC, "not
@@ -242,7 +242,7 @@ election.
 1870 election, so only eight months of that year exist; measured against the
 calendar year it read two seats, and the chart then said the Board grew from
 two to three. It is now measured against the months the Board existed, which
-is what every other year is measured against too — see `docs/methods.md`.
+is what every other year is measured against too — see `docs/board.md`.
 
 ## Retired
 
@@ -253,7 +253,6 @@ is what every other year is measured against too — see `docs/methods.md`.
   no section had a place for the figure.
 - A combined three-panel version with census, Board race and Board gender; a
   broken-axis variant of the residents chart with the y-axis split at 40,000;
-  and an unbroken linear variant. None are in `data/raw/`. Whether any should
-  be revived is in `docs/questions.md`.
+  and an unbroken linear variant. None are in `data/raw/`.
 
 All are recoverable from git history.

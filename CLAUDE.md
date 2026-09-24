@@ -53,8 +53,8 @@ about figures in `figures/` that no step produces.
 so nothing is prefixed `arlington_`.
 
 **If you can run it, it lives with the code. If you can only read it, it lives
-in `docs/`.** The reasoning behind a decision is in `docs/methods.md`; the
-code carries a pointer to it, not an argument.
+in `docs/`.** The reasoning behind a decision is in the subject's write-up
+under `docs/`; the code carries a pointer to it, not an argument.
 
 **`paths.py` is where real paths are assigned to the short names a stage
 uses.** Fix the mapping once and every script in that stage follows. There is
@@ -123,7 +123,7 @@ either. A script is named for what it produces: `code/fetch/elections.py`,
 
 **`data/` holds what we take numbers out of.** A source consulted only to
 settle a question — a boundary history, a news article, a methods note — is
-cited under Works cited in `docs/methods.md`, not downloaded into `data/raw/`.
+cited under Works cited in `docs/sources.md`, not downloaded into `data/raw/`.
 The test is whether a figure derives from it.
 
 **Every source column holds a citekey from `paper/sources.bib`.** One registry
@@ -165,14 +165,23 @@ is required to rebuild.
 
 ## Questions and decisions
 
-Two documents, with one rule between them. `docs/questions.md` holds what is
-still open, each with an owner, logged at the moment it arises rather than
-carried in your head or in chat. `docs/methods.md` holds what is settled:
-what each number is, what backs it, what is assumed where nothing does, and
-why, in the present tense. When a question is settled, its answer is written
-into `methods.md` in the section it belongs to and the entry in
-`questions.md` is deleted. Neither file records how a decision was reached
-or what was tried on the way; git has that.
+One write-up per subject, and one tracker. `docs/residents.md`,
+`docs/board.md` and `docs/voters.md` hold what is settled about each: what
+each number is, what backs it, what is assumed where nothing does, and why,
+in the present tense, ending with a list of what still rests on an
+assumption. `docs/sources.md` holds the bibliography notes and where copies
+live. `docs/questions.csv` is the tracker: one row per open item, with a
+stable slug for an id, its kind (a source to find, or a decision to make),
+an owner, the figure or table it bites, the question in a sentence, and what
+would settle it. A row is something that would change a number, a citation
+or a figure's form once answered; meeting logistics and what to bring to
+whom are not tracked here.
+
+Log a question at the moment it arises, not in your head or in chat: a row
+in the tracker, and a sentence in the subject write-up where it bites. When
+it is settled, write the answer into the write-up and delete the row. Neither
+records how a decision was reached or what was tried on the way; git has
+that.
 
 **An open question that changes a value gets a named function**, in a module
 of its own under `code/build/`, applied by name in each figure - so which

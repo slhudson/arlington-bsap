@@ -13,7 +13,7 @@ O'Leary's page - and a gap says so where a short bar would not.
 
 "Share of voters" rather than of residents: Virginia has no party
 registration, so the vote is the proxy, and before 1966 the electorate was
-the one the poll tax allowed. docs/methods.md, Voters.
+the one the poll tax allowed. docs/voters.md.
 """
 import pandas as pd
 

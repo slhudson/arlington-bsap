@@ -48,7 +48,7 @@ when it can be read from the archived Summary Tape Files; `voting_age_est`
 carries it into every year between censuses, on a straight line, for the
 figure's share panel. Earlier censuses printed the count of those 21 and
 over, and the 1971 change of the voting age would have to be handled; that
-is left open in Q31 of docs/questions.md.
+is adults-before-1980 in docs/questions.csv.
 
 **The presidential vote is voters.csv's**, the county's total for the office
 in each presidential year, so the two figures agree by construction; its

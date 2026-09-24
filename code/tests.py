@@ -337,12 +337,13 @@ def test_registration_refuses_a_locality_total_that_is_not_its_precincts():
 
 def test_a_source_we_cannot_fully_cite_is_logged_as_a_question():
     """An entry whose annotation admits it is provisional must be named in
-    docs/questions.md.
+    docs/questions.csv.
 
     A source we cannot fully cite is a debt, and the failure is silent: the
     bibliography prints a clean-looking line, the figure that rests on it
     builds, and the one place the shortfall was written down is an annotation
-    biblatex never renders. POP-TWPS0076 is the live case - the Bureau
+    biblatex never renders. The question tracker is docs/questions.csv, and
+    the citekey has to appear in a row of it. POP-TWPS0076 is the live case - the Bureau
     publishes it as one table per state with no front matter, so its title is
     read off a table header and its date off a file path.
 
@@ -353,7 +354,7 @@ def test_a_source_we_cannot_fully_cite_is_logged_as_a_question():
     import re
     root = Path(__file__).resolve().parents[1]
     bib = (root / "paper" / "sources.bib").read_text()
-    questions = (root / "docs" / "questions.md").read_text()
+    questions = (root / "docs" / "questions.csv").read_text()
 
     unlogged = []
     for entry in re.findall(r"^@\w+\{([^,\s]+)\s*,(.*?)^\}", bib, re.M | re.S):
@@ -362,7 +363,7 @@ def test_a_source_we_cannot_fully_cite_is_logged_as_a_question():
             unlogged.append(key)
     assert not unlogged, (
         f"{', '.join(unlogged)}: the annotation says the entry is provisional, "
-        f"but docs/questions.md never names it. Log it as a question with an "
+        f"but docs/questions.csv never names it. Log it as a question with an "
         f"owner, or finish the entry and drop the word.")
 
 

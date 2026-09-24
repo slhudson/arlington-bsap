@@ -28,7 +28,7 @@ seated() below. Under the County Manager plan members took office on 1 January
 too, so those run January to December unless a source says otherwise.
 
 **A vacant seat is not a row.** Nobody served, so there is no person and no
-term. Vacancies are recorded in docs/methods.md instead.
+term. Vacancies are recorded in docs/board.md instead.
 
 Sources:
 
@@ -58,7 +58,7 @@ PRESENT = 2026            # the roster is checked month by month up to here;
 # for the period it covers); five members elected countywide from the County
 # Manager plan, adopted at the November 1931 referendum and seated in January
 # 1932 (anderson1958). These are the seats that exist, which is not the same
-# question as the seats filled - see docs/questions.md. No source names a
+# question as the seats filled - seats-that-exist in docs/questions.csv. No source names a
 # party before the plan either, so it is also where party begins.
 SEATS_DISTRICT = 3.0
 SEATS_AT_LARGE = 5.0
@@ -104,7 +104,7 @@ def seated(year, election_date):
     two months early and shift each handover's seat-years with it.
 
     The Schedule's treatment of the first election held under that
-    constitution has not been read - see docs/questions.md.
+    constitution has not been read - schedule-1902 in docs/questions.csv.
     """
     month = month_of(election_date)
     return (year + 1, 1) if month == 11 else (year, month)

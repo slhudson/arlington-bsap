@@ -10,7 +10,7 @@ are census groups that partition the county exactly: race crossed with Hispanic
 origin, so nobody is counted twice. Before 1980 they are the delivered race
 categories, because the Census did not ask Hispanic origin of everyone until
 1980 and 1970's sample question is not comparable - see
-docs/methods.md. The switch happens in code/build/residents.py, so this
+docs/residents.md. The switch happens in code/build/residents.py, so this
 script reads four columns and never asks which basis a year is on.
 
 A rule at 1980 was drawn and then removed. The change is real but small enough
