@@ -25,22 +25,22 @@ without a network connection, an API key, or a Mac.
 
 | Script | Writes | Explained in |
 |---|---|---|
-| `code/fetch/census.py` | `data/raw/us_census_bureau/<year>/*.csv` | `data/contents.md` |
-| `code/fetch/elections.py` | `data/raw/va_dept_of_elections/county_board_2000-2026.csv` | `data/contents.md` |
-| `code/fetch/president.py` | `data/raw/va_dept_of_elections/president_1924-2024.csv` | `data/contents.md` |
-| `code/fetch/registration.py` | `data/raw/va_dept_of_elections/registration_2010-2025.csv` | `data/contents.md` |
-| `code/fetch/census_volumes.py` | `data/raw/us_census_bureau/<year>/<volume>-01.pdf` | `data/contents.md` |
-| `code/transcribe/census.py` | `data/transcribed/by_ocr/us_census_bureau/<year>/*.txt` | `data/contents.md` |
-| `code/transcribe/board_1870_1920.py` | `data/transcribed/by_claude/arlington_county/board_1870-1920.csv` | `data/contents.md` |
-| `code/transcribe/president_1872_1920.py` | `data/transcribed/by_claude/arlington_county/president_1872-1920.csv` | `data/contents.md` |
-| `code/transcribe/candidate_history.py` | `data/transcribed/by_claude/arlington_county/candidate_history_1920-present.csv` | `data/contents.md` |
-| `code/transcribe/novack_terms.py` | `data/transcribed/by_claude/arlington_historical_magazine/novack_terms_1930-1994.csv` | `data/contents.md` |
+| `code/fetch/census.py` | `data/raw/us_census_bureau/<year>/*.csv` | `data/contents.csv` |
+| `code/fetch/elections.py` | `data/raw/va_dept_of_elections/county_board_2000-2026.csv` | `data/contents.csv` |
+| `code/fetch/president.py` | `data/raw/va_dept_of_elections/president_1924-2024.csv` | `data/contents.csv` |
+| `code/fetch/registration.py` | `data/raw/va_dept_of_elections/registration_2010-2025.csv` | `data/contents.csv` |
+| `code/fetch/census_volumes.py` | `data/raw/us_census_bureau/<year>/<volume>-01.pdf` | `data/contents.csv` |
+| `code/transcribe/census.py` | `data/transcribed/by_ocr/us_census_bureau/<year>/*.txt` | `data/contents.csv` |
+| `code/transcribe/board_1870_1920.py` | `data/transcribed/by_claude/arlington_county/board_1870-1920.csv` | `data/contents.csv` |
+| `code/transcribe/president_1872_1920.py` | `data/transcribed/by_claude/arlington_county/president_1872-1920.csv` | `data/contents.csv` |
+| `code/transcribe/candidate_history.py` | `data/transcribed/by_claude/arlington_county/candidate_history_1920-present.csv` | `data/contents.csv` |
+| `code/transcribe/novack_terms.py` | `data/transcribed/by_claude/arlington_historical_magazine/novack_terms_1930-1994.csv` | `data/contents.csv` |
 | `code/build/residents.py` | `data/clean/residents.csv` | `docs/residents.md` |
 | `code/build/voters.py` | `data/clean/voters.csv` | `docs/voters.md` |
 | `code/build/board_members.py` | `data/clean/board_members.csv` | `docs/board.md` |
 | `code/build/board_seats.py` | `data/clean/board_seats.csv` | `docs/board.md` |
 | `code/build/turnout.py` | `data/clean/turnout.csv` | `docs/voters.md` |
-| `code/analysis/<figure>.py` | `figures/pdf/<figure>.pdf`, `figures/png/<figure>.png` | `docs/figures.md` |
+| `code/analysis/<figure>.py` | `figures/pdf/<figure>.pdf`, `figures/png/<figure>.png` | its own docstring |
 
 Three build modules write nothing and are read by the steps above:
 `code/build/board_roster.py` (who held each seat and when),
@@ -89,11 +89,10 @@ silently go stale.
 | File | What it holds |
 |---|---|
 | `CLAUDE.md` | Working rules; the code/build/analysis split; naming |
-| `data/contents.md` | Every data folder and file: where it came from, what reads it |
+| `data/contents.csv` | Every data folder and file: where it came from, what reads it |
 | `docs/residents.md`, `docs/board.md`, `docs/voters.md` | What each number is, what backs it, what is assumed, and why; one per subject |
 | `docs/sources.md` | The bibliography notes and where copies of the prose-only sources live |
 | `docs/questions.csv` | What is still open: one row per item with an owner, what it bites and what would settle it |
-| `docs/figures.md` | Why each figure takes the form it does |
 | `docs/setup.md` | Getting a machine set up to build; written for a collaborator joining |
 | `paper/sources.bib` | Every source, cited by key from both the prose and `data/clean/` |
 

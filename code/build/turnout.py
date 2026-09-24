@@ -69,13 +69,11 @@ import board_roster
 import citekeys
 import elections
 from elections import COUNTY_HISTORY_THROUGH
-from paths import CLEAN, RAW, TRANSCRIBED, write
+from paths import RAW, TRANSCRIBED, read, write
 
 OLEARY = TRANSCRIBED / "by_claude" / "arlington_county" / "board_1870-1920.csv"
 REGISTRATION = RAW / "va_dept_of_elections" / "registration_2010-2025.csv"
 CENSUS = RAW / "us_census_bureau"
-ROSTER = CLEAN / "board_members.csv"
-VOTERS = CLEAN / "voters.csv"
 
 # The population 18 and over, census by census. From 2000 the Bureau
 # publishes it as a table whose first cell is the total; 1980 and 1990 come
@@ -231,7 +229,7 @@ def between_censuses(d: pd.DataFrame) -> pd.Series:
 
 
 def president() -> pd.DataFrame:
-    v = pd.read_csv(VOTERS)
+    v = read("voters")
     if "office" in v.columns:
         v = v[v.office == "president"]
     v = v[v.complete]
@@ -240,7 +238,7 @@ def president() -> pd.DataFrame:
 
 
 def build() -> pd.DataFrame:
-    roster = pd.read_csv(ROSTER)
+    roster = read("board_members")
     board = pd.concat([board_districts(), board_county(roster), board_state()], ignore_index=True)
     # The whole Board was elected every fourth year until terms were
     # staggered from 1940; from then on a seat is filled every November.

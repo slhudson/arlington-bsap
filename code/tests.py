@@ -21,6 +21,7 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent / "build"))
 import board_members  # noqa: E402
+import paths  # noqa: E402
 import board_roster  # noqa: E402
 import board_seats  # noqa: E402
 import citekeys  # noqa: E402
@@ -370,7 +371,7 @@ def test_docs_name_only_paths_that_exist():
     import re
     root = Path(__file__).resolve().parents[1]
     tops = ("code/", "data/", "docs/", "figures/", "paper/", "style/")
-    docs = [*root.glob("*.md"), *root.glob("docs/*.md"), root / "data" / "contents.md"]
+    docs = [*root.glob("*.md"), *root.glob("docs/*.md")]
     missing = []
     for doc in docs:
         for m in re.finditer(r"`([^`\n]+)`", doc.read_text()):
@@ -380,6 +381,48 @@ def test_docs_name_only_paths_that_exist():
             if not (root / token).exists():
                 missing.append(f"{doc.relative_to(root)}: `{token}`")
     assert not missing, "documentation names paths that do not exist:\n  " + "\n  ".join(missing)
+
+
+def test_a_stale_input_table_is_refused():
+    """board_seats, voters and turnout read tables earlier steps wrote, so
+    the order of BUILD in run.sh is a dependency. paths.read() refuses a
+    table older than the run; this sets the run's start to the future and
+    asserts it does.
+    """
+    import os
+    os.environ["RUN_STARTED"] = str(2e10)
+    try:
+        paths.read("board_members")
+        err = None
+    except AssertionError as e:
+        err = str(e)
+    finally:
+        del os.environ["RUN_STARTED"]
+    assert err and "older than this run" in err, f"not caught: {err}"
+
+
+def test_every_data_file_is_inventoried():
+    """data/contents.csv is the inventory: one row per file under data/,
+    and for raw/ the checksum. A file with no row is one nobody has said
+    where it came from; a row with no file is a claim about nothing; a raw
+    file whose checksum has moved has been edited, which data/raw/ never is.
+    All three are silent otherwise.
+    """
+    import csv
+    import hashlib
+    root = Path(__file__).resolve().parents[1]
+    data = root / "data"
+    rows = {r["path"]: r for r in csv.DictReader((data / "contents.csv").open())}
+    on_disk = {str(p.relative_to(root)) for p in data.rglob("*")
+               if p.is_file() and not p.name.startswith(".") and p.name != "contents.csv"}
+    missing = sorted(on_disk - set(rows))
+    gone = sorted(set(rows) - on_disk)
+    assert not missing, "files under data/ with no row in data/contents.csv:\n  " + "\n  ".join(missing)
+    assert not gone, "rows in data/contents.csv for files that do not exist:\n  " + "\n  ".join(gone)
+    moved = [p for p, r in rows.items() if r["layer"] == "raw"
+             and hashlib.sha256((root / p).read_bytes()).hexdigest()[:16] != r["sha256"]]
+    assert not moved, ("raw files whose checksum does not match data/contents.csv - data/raw/ "
+                       "is never edited:\n  " + "\n  ".join(moved))
 
 
 def test_docs_agree_with_run_sh():

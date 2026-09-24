@@ -55,7 +55,7 @@ import pandas as pd
 
 import citekeys
 from board_roster import AT_LARGE_FROM, PRESENT, SEATS_AT_LARGE, SEATS_DISTRICT
-from paths import CLEAN, write
+from paths import read, write
 
 COLUMNS = ["year", "white", "black", "hisp", "aapi", "men", "women"]
 RACE = {"White": "white", "Black": "black", "Hispanic": "hisp", "Asian": "aapi"}
@@ -100,7 +100,7 @@ def months_held(members: pd.DataFrame) -> pd.DataFrame:
 
 
 def build() -> pd.DataFrame:
-    members = pd.read_csv(CLEAN / "board_members.csv")
+    members = read("board_members")
     held = months_held(members)
     by_race = held.pivot_table(index="year", columns="race", values="months", aggfunc="sum", fill_value=0) / 12
     by_gender = held.pivot_table(index="year", columns="gender", values="months", aggfunc="sum", fill_value=0) / 12

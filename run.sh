@@ -40,6 +40,11 @@ echo "  clean"
 echo "tests"
 "$PY" code/tests.py | sed 's/^/  /'
 
+# Three steps read tables the steps before them wrote. paths.read() refuses a
+# table older than this, so a step listed above its input fails here rather
+# than reading the previous run's file.
+export RUN_STARTED=$(date +%s)
+
 echo "build"
 for s in "${BUILD[@]}"; do
   (cd code/build && ../../"$PY" "$s.py")

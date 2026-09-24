@@ -21,8 +21,12 @@ paper/           prose -> Overleaf -> compiled PDF
 
 The four data layers are sorted by how the numbers were produced — published,
 read by software, keyed in by a person, or computed here. Which folder
-something belongs in depends on that, not on what it is about. See
-`data/contents.md`.
+something belongs in depends on that, not on what it is about. Inside
+`raw/`, folders are named for who published the material, not its subject.
+`data/contents.csv` is the inventory: one row per file, with its layer, what
+produced it, its source, what reads it, and for `raw/` a checksum;
+`code/tests.py` refuses a file with no row and a raw file whose checksum has
+moved.
 
 **Build resolves ambiguity in the sources.** What a blank means, whether
 categories overlap, which of two conflicting totals is right. If two reasonable

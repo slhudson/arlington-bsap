@@ -59,7 +59,7 @@ import board_roster
 import citekeys
 import elections
 from elections import COUNTY_HISTORY_THROUGH
-from paths import CLEAN, RAW, TRANSCRIBED, write
+from paths import RAW, TRANSCRIBED, read, write
 
 BY_CLAUDE = TRANSCRIBED / "by_claude"
 OLEARY = BY_CLAUDE / "arlington_county" / "president_1872-1920.csv"
@@ -190,7 +190,7 @@ def elected_winners() -> dict:
     (run.sh orders it so), the way board_seats.py reads it. An appointee's
     term begins mid-year and is not an election result.
     """
-    m = pd.read_csv(CLEAN / "board_members.csv")
+    m = read("board_members")
     # A term an election seated, beginning the January after it. The roster
     # says how each term began, so a January term that continues an
     # appointment (Frisbie, 1948) is an appointment here too, not a win.

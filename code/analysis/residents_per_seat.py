@@ -10,6 +10,16 @@ Each line is named where it runs, on one line, with its final value. Urban puts
 such a label at the far right just outside the plot; a label long enough to be
 readable needs enough headroom past 2020 to visibly stretch the axis, which
 distorts the series to make room for its own caption.
+
+"Seat", not "member". The denominator is seats that exist - three through
+1931 and five after - not members serving, and the two differ in 1873 and
+1990, when a seat sat vacant (seats-that-exist in docs/questions.csv). "Per
+member" reads better and would claim something the figure does not measure.
+
+A cube-root-law benchmark was drawn and removed. The law is descriptive,
+not normative, and its reference class is national parliaments; as drawn it
+implied a 62-member Board. Peer localities would be the right comparison if
+the report wants one (peer-localities in docs/questions.csv).
 """
 import pandas as pd
 

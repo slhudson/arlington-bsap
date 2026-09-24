@@ -78,7 +78,7 @@ writes which file — while `CLAUDE.md` holds the working rules.
    a Claude Project is the whole setup.* Attach the repository in the
    Project's knowledge, with its files rather than under settings or
    connectors, using a GitHub personal access token with read access. Sync
-   `code/`, `docs/`, `paper/`, `data/clean/` and `data/contents.md`, and
+   `code/`, `docs/`, `paper/`, `data/clean/` and `data/contents.csv`, and
    leave out `data/raw/` and `data/transcribed/` — the figures read only
    `data/clean/` for the same reason, that the layers above hold scans and
    OCR that misreads digits by design. The steps below are for changing

@@ -29,7 +29,10 @@ defines no route to raw/ - so a figure script asking for a source table gets
 an ImportError. The wall between the stages is a thing that is not there,
 rather than a rule someone has to remember.
 """
+import os
 from pathlib import Path
+
+import pandas as pd
 
 import citekeys
 
@@ -39,6 +42,26 @@ RAW = DATA / "raw"          # published sources, self-citing
 TRANSCRIBED = DATA / "transcribed"   # by_ocr / by_claude
 CLEAN = DATA / "clean"      # built here, read by code/analysis/
 
+
+
+def read(stem):
+    """Read a table another build step wrote this run.
+
+    board_seats, voters and turnout read tables the steps before them wrote,
+    so the order of the BUILD list in run.sh is a dependency and nothing else
+    would say so: a step moved above its input would read the previous run's
+    file and carry on. run.sh exports RUN_STARTED, and a table older than
+    that is refused. Run by hand, with no RUN_STARTED, the check is skipped.
+    """
+    path = CLEAN / f"{stem}.csv"
+    if not path.exists():
+        raise FileNotFoundError(f"{path} missing - a step that writes it must run first")
+    started = os.environ.get("RUN_STARTED")
+    if started and path.stat().st_mtime < float(started):
+        raise AssertionError(
+            f"{path.name} is older than this run: the step that writes it has not "
+            f"run yet. Check the order of BUILD in run.sh.")
+    return pd.read_csv(path)
 
 
 def write(frame, stem):
