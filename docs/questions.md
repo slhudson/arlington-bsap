@@ -622,12 +622,31 @@ labelled as one in the file. And the five district-era identifications are
 Hjerpe's reading of 1880 manuscript census records; nobody on our side has
 checked that linking (Q17).
 
+**Q22 does not gate this.** The workbook adds no name to the published
+sources, so the lists are the same whatever stands behind its coding.
+
 **Where it goes (Sally, 24 September 2026): inside the county-facing package**
 for next week's staff meeting, as one of the asks rather than as a request of
 its own. Q28.
 
 ### Q22. What stands behind the workbook's race and gender coding?
-**Owner:** Alex · **Status:** drafted for the next batch to Alex — held until the questions we can settle ourselves are settled
+**Owner:** Alex · **Status:** closed 24 Sept 2026 — not asked, and the
+workbooks are out of the build
+
+**Closed without asking him** (Sally, 24 September 2026). The workbook coded
+nobody non-White and no woman whom a published source does not already name -
+zero cases in 217 terms - so it was a second application of the same default
+from the same sources. It added no fact, and recording it as a source of its
+own overstated what stood behind 136 race terms and 113 gender terms.
+
+Those terms now fall through to the build's own default and read `assumed`.
+No value moved. The three delivered workbooks are no longer read by anything
+and have been removed from the repository; `keena-workbook` is gone from
+`code/build/citekeys.py` with them.
+
+The verification this question used to gate never depended on the answer:
+Alex's list of women and ours are the same list, so the names going to County
+staff and the Historical Society are the same either way. That is Q3.
 
 Where a published source names a member — Hjerpe's five, Newman, Monroe,
 Dorsey, Tejada, Spain, the women in Novack's roster — the repository records
@@ -640,6 +659,28 @@ to say so in the report: for these members the coding is Alex's reading, and no
 published source has been found that speaks to them. What is being asked is a
 confirmation, and whether he was working from something — obituaries, news
 coverage, Historical Society material — that could be cited instead.
+
+**The workbook adds nothing to the published sources, and that is checkable.**
+It never codes anyone non-White or a woman where no published source does:
+zero cases in 217 terms. Every non-default value in `board_members.csv` traces
+to Hjerpe, Novack, the county's candidate history or the state database. So
+the coding is consistent with a default - a white man unless a source says
+otherwise - which is what Alex says he did for 1916-1931.
+
+**Which means the action this question used to gate does not depend on the
+answer** (Sally, 24 September 2026). His list of women and ours are the same
+list, so the names going to County staff and the Arlington Historical Society
+are the same either way, and so is the ask. That verification is Q3 and it
+proceeds.
+
+**What is left is the label.** 136 race terms and 113 gender terms read
+`keena-workbook`, which means a claim whose evidence one person can still
+name. If the coding is the default, they are not that. Race would read
+`assumed`; gender is likelier a reading of names, which the file already
+records as a note on the sourced rows rather than as an absence, and should
+not collapse into `assumed`. One line in the next mail to Alex settles it:
+for the members from 1932 on, was it the same default, and was gender read
+off names?
 
 **Keep it separate from the default.** Before 1932, where no source speaks at
 all, the build records a white man: 126 person-terms, reading `assumed`. "Alex

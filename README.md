@@ -12,7 +12,7 @@ decides how it is *shown*, and the second cannot reach around the first.
 
 ```
 code/fetch/       -> data/raw/          published sources, saved as published
-code/transcribe/  -> data/transcribed/  read off the scans; by_human/ is hand-keyed
+code/transcribe/  -> data/transcribed/  read off the scans
 code/build/       -> data/clean/        every decision about what a number is
 code/analysis/    -> figures/           which numbers a figure shows
 style/                             how they are shown: conventions, palette, font

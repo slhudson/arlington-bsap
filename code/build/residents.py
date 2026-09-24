@@ -61,7 +61,7 @@ applied here; see docs/questions.md.
 import pandas as pd
 
 import citekeys
-from paths import RAW, RESIDENTS_XLSX, TRANSCRIBED, numeric, write
+from paths import RAW, TRANSCRIBED, write
 
 # Which document each year's population total comes from. Named here rather
 # than decided by a rule, so it can be read off rather than inferred, and so a
@@ -203,6 +203,21 @@ def early_years() -> pd.DataFrame:
 COLUMNS = ["year", "total", "white", "black", "hisp", "aapi", "board_seats",
            "at_large", "residents_per_seat", "cube_root_p", "cube_root_resident_ratio"]
 
+# Every decennial census since the Board existed. 1870 is its first year.
+CENSUSES = range(1870, 2021, 10)
+
+# The Board's size is a fact about its constitution, not a figure anyone
+# counted, so it is stated here rather than read from a spreadsheet. Three
+# magisterial districts with one supervisor each from 1870 (Va. Const. 1902
+# sec. 111 restates it for the period it covers); five members elected
+# countywide from the County Manager plan, adopted at the November 1931
+# referendum and seated in January 1932 (anderson1958). board_seats.py states
+# the same two numbers for the same reason; they are the seats that exist,
+# which is not the same question as the seats filled - see docs/questions.md.
+SEATS_DISTRICT = 3.0
+SEATS_AT_LARGE = 5.0
+AT_LARGE_FROM = 1932
+
 # Categories that do not overlap, 1980 on. Written in stacking order.
 # The crossed census groups, and which delivered column each one replaces.
 # "nh_other" has no column: it is the remainder, and the figures compute it.
@@ -289,49 +304,18 @@ def census_basis() -> dict:
 
 
 def build() -> pd.DataFrame:
-    d = pd.read_excel(RESIDENTS_XLSX).rename(columns={
-        "census": "year",
-        "population_total": "total",
-        "white_population": "white",
-        "black_population": "black",
-        "hisp-latino_population": "hisp",
-        "aapi_population": "aapi",
-    })
-    d = numeric(d[COLUMNS], COLUMNS)
+    d = pd.DataFrame({"year": list(CENSUSES)}, dtype=float)
+    for col in COLUMNS[1:]:
+        d[col] = float("nan")
+    d["board_seats"] = [SEATS_DISTRICT if y < AT_LARGE_FROM else SEATS_AT_LARGE
+                        for y in d["year"]]
+    d["at_large"] = [float(y >= AT_LARGE_FROM) for y in d["year"]]
 
-    # The sheet carries source URLs in rows below the data. Those rows have no
-    # year, so filtering on year drops them - rather than slicing a row count,
-    # which would silently truncate if a third URL were added.
-    d = d[d["year"].notna()].reset_index(drop=True)
-
-    # Structural checks: these columns are derived from others in the same
-    # sheet and must still agree. A silent disagreement would propagate into
-    # the residents-per-seat figure.
-    assert (d["residents_per_seat"] - d["total"] / d["board_seats"]).abs().max() < 1e-6, \
-        "residents_per_seat no longer equals population / seats"
-    assert (d["cube_root_resident_ratio"] - d["total"] ** (2 / 3)).abs().max() < 1e-6, \
-        "cube_root_resident_ratio no longer equals population^(2/3)"
-
-    # Take 1900-1990 totals from the published Census county series rather than
-    # from the workbook. They were checked against it and matched every year,
-    # so there is no reason to go on reading them second-hand.
+    # 1900-1990 totals from the published Census county series.
     d["total_source"] = d["year"].map(TOTAL_SOURCE)
     series = table("by_claude/us_census_bureau/censusgov_pop1790-1990_p177_counties_virginia_arlington.csv").iloc[0]
     for year in range(1900, 2000, 10):
-        m = d["year"] == year
-        published = series[f"y{year}"]
-
-        # The published figure is what gets used. The workbook's own value is
-        # still compared against it: a disagreement would mean that row was
-        # keyed from something else, which puts its race figures in doubt too -
-        # and those have no traced source - see docs/questions.md.
-        delivered = d.loc[m, "total"]
-        if not delivered.empty and int(delivered.iloc[0]) != int(published):
-            raise AssertionError(
-                f"{year}: the workbook total is {delivered.iloc[0]:,.0f} but the "
-                f"Census county series gives {published:,.0f}")
-
-        d.loc[m, "total"] = published
+        d.loc[d["year"] == year, "total"] = series[f"y{year}"]
 
     # 2000-2020 come from the Bureau's own data files, fetched by
     # code/fetch/census.py. No transcription step, so no reading error.
@@ -349,11 +333,13 @@ def build() -> pd.DataFrame:
             d.loc[m, col] = r[col]
         d.loc[m, "total_source"] = TOTAL_SOURCE[year]
 
-    # Seat-derived columns must be recomputed for any year whose total moved.
-    # The race and ethnicity figures have their own provenance: derived from
-    # the volumes before 1900, and taken from the workbook after it.
-    d["race_source"] = [TOTAL_SOURCE[y] if y < 1900 else citekeys.KEENA
-                        for y in d["year"]]
+    # The race figures have their own provenance, and it is never the same
+    # document as the total's after 1900: the volumes to 1890, POP-TWPS0076 to
+    # 1970, the crossed census tables from 1980. Every year is assigned one of
+    # those three below, so there is no fallback here to write - a row that
+    # reached the end without a race source would be a bug, and the assert
+    # after them says so rather than letting the workbook stand in.
+    d["race_source"] = [TOTAL_SOURCE[y] if y < 1900 else "" for y in d["year"]]
 
     # 1900-1970 come from POP-TWPS0076, the source the workbook itself cites
     # for 1990 and which prints Arlington at every census from 1900. It
@@ -384,6 +370,10 @@ def build() -> pd.DataFrame:
         d.loc[m, "race_source"] = (
             {1980: citekeys.CENSUS_1980_STF1A,
              1990: citekeys.CENSUS_1990_STF1A}.get(year, citekeys.CENSUS_DATA_FILE))
+
+    assert (d["race_source"] != "").all(), (
+        "no race source for "
+        f"{[int(y) for y in d.loc[d.race_source == '', 'year']]}")
 
     d["residents_per_seat"] = d["total"] / d["board_seats"]
     d["cube_root_p"] = d["total"] ** (1 / 3)

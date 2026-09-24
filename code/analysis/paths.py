@@ -1,7 +1,7 @@
 """Where real paths are assigned to the short names this stage uses.
 
 The analysis-stage counterpart to code/build/paths.py. It maps data/ and figures/;
-it defines no route to raw/. A figure script asking for a source workbook gets
+it defines no route to raw/. A figure script asking for a source table gets
 an ImportError, so the wall between deciding what a number IS and deciding how
 it is SHOWN is a thing that is not there, rather than a rule to remember.
 

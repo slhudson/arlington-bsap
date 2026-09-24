@@ -27,8 +27,13 @@ buys its tidiness by pretending. Each one says something different:
                 out of board_members.csv, so its sources are that file's.
     ASSUMED     no claim ever existed. Nobody said anything, so the build
                 wrote a value in from a standing assumption - a member absent
-                from every source is recorded as a white man. About 280
-                person-years between 1931 and 1986 rest on this.
+                from every source is recorded as a white man, and the years
+                with no roster at all as three seats held by white men.
+
+                There was a fourth placeholder, for the delivered workbooks,
+                and it is gone with them. A value nobody can source, written
+                down by a co-author applying the same default we apply, is
+                ASSUMED; giving it its own label flattered it.
 
 Keeping them apart matters. The first is a gap in our records; the second is a
 gap in the historical record, and one of the findings of the study. Collapsing

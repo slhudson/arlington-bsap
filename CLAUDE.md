@@ -10,7 +10,7 @@ repo; prose is written in Overleaf, which syncs the repository.
   |  code/fetch/        <- on demand: the network, output committed
 data/raw/        published sources - a file here is its own citation
   |  code/transcribe/   <- on demand: OCR and reading, output committed
-data/transcribed/  by_ocr/ and by_claude/ read off raw/; by_human/ hand-keyed
+data/transcribed/  by_ocr/ and by_claude/ read off raw/
   |  code/build/        <- every subjective decision about what a number IS
 data/clean/      built output
   |  code/analysis/     <- presentation only; cannot see anything above clean/
@@ -35,7 +35,7 @@ Presentation choices are still subjective, but they cannot change a value. If
 they would only disagree about how to *show* it, it belongs in `code/analysis/`.
 
 This is enforced structurally, not by convention: `code/analysis/paths.py` has no
-path to `data/raw/`, `data/transcribed/by_human/` or `data/transcribed/`. A figure script that wants to reach around the cleaning step
+path to `data/raw/` or `data/transcribed/`. A figure script that wants to reach around the cleaning step
 has nothing to reach with. Note that `analysis` scripts *append* `code/build/` to
 `sys.path` rather than inserting it, so `code/build/paths.py` cannot shadow
 `code/analysis/paths.py` and quietly restore that route.
@@ -64,15 +64,15 @@ and that absence is the wall.
 
 ## The rules that matter
 
-**`data/raw/` and `data/transcribed/by_human/` are read-only.** They are the files as
-received. Never edit, rename, clean or "fix" anything inside them — including
-the spacing in the `aapi_m embers` header, which is corrected in
-`code/build/board_seats.py`.
+**`data/raw/` is read-only.** It is the files as published. Never edit,
+rename, clean or "fix" anything inside it. A defect in a source is corrected
+in `code/build/`, where the correction is visible and reviewable, never in the
+file.
 
 **Nothing reads `data/transcribed/`.** OCR misreads digits, so a number leaves
 that folder the way it would without it: a person reads the scan and keys it
-into `data/transcribed/by_human/`, with a citation. The OCR shortens the search; it does not
-do the reading.
+into `data/transcribed/by_claude/`, with a citation. The OCR shortens the
+search; it does not do the reading.
 
 **Everything is built by `bash run.sh`.** One entry point, no exceptions. If a
 figure cannot be produced by running that from a clean checkout, it is not
@@ -130,8 +130,8 @@ The test is whether a figure derives from it.
 for the prose and the data, so a footnote in the report and a cell in a table
 name the same document. Entries are built from the document in hand, never from
 memory; what is missing from the copy we hold goes in `annotation`, which
-biblatex does not print. Four values are not citekeys - `keena-workbook`,
-`assumed`, `derived`, `unsourced` - and `code/build/citekeys.py` says what each one
+biblatex does not print. Three values are not citekeys - `assumed`,
+`derived`, `unsourced` - and `code/build/citekeys.py` says what each one
 admits to. Anything else stops the build.
 
 **Guards that prevent silent wrongness get a test.** `code/tests.py` reintroduces
