@@ -318,19 +318,14 @@ cleaning decision shows up as a reviewable diff — you can see which numbers
 moved and by how much.
 
 `residents.csv` — census population by year, with `total_source` and
-`race_source` columns naming the document behind each, the Board's seat count
-(`at_large`) and the residents-per-seat column the growth figure plots.
+`race_source` columns naming the document behind each, the seats the Board
+had (`board_seats`) and the residents-per-seat column the growth figure plots.
 
 From 1980 the four race columns come from the census table that crosses race
 with Hispanic origin, so `hisp` is Hispanic of any race and the other three are
 non-Hispanic, and nobody is counted twice. 1900–1970 are POP-TWPS0076's
 printed counts and 1870–1890 the volumes'. `race_source` says which, year by
 year. See `docs/residents.md`.
-
-The `cube_root_p` and `cube_root_resident_ratio` columns are built and no
-figure uses them. `residents_per_seat` carried a cube-root-law benchmark and no
-longer does; whether any comparison belongs in the report is open, so the
-columns stay until that is settled rather than being removed and rebuilt.
 
 `voters.csv` — Arlington's vote by party, one row per election and
 `office`: for President every fourth year 1872–2024, and for County Board

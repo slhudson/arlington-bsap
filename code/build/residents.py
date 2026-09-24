@@ -1,8 +1,7 @@
 """Census population by year -> data/clean/residents.csv
 
 One row per census year, 1870-2020: population totals, the four race
-categories, Board seats, and the derived residents-per-seat and cube-root
-columns.
+categories, the seats the Board had, and residents per seat.
 
 The `source` column names the document each row's figures come from.
 
@@ -202,7 +201,7 @@ def early_years() -> pd.DataFrame:
     return d
 
 COLUMNS = ["year", "total", "white", "black", "hisp", "aapi", "board_seats",
-           "at_large", "residents_per_seat", "cube_root_p", "cube_root_resident_ratio"]
+           "residents_per_seat"]
 
 # Every decennial census since the Board existed. 1870 is its first year.
 CENSUSES = range(1870, 2021, 10)
@@ -301,7 +300,6 @@ def build() -> pd.DataFrame:
         d[col] = float("nan")
     d["board_seats"] = [SEATS_DISTRICT if y < AT_LARGE_FROM else SEATS_AT_LARGE
                         for y in d["year"]]
-    d["at_large"] = [float(y >= AT_LARGE_FROM) for y in d["year"]]
 
     # 1900-1990 totals from the published Census county series.
     d["total_source"] = d["year"].map(TOTAL_SOURCE)
@@ -368,8 +366,6 @@ def build() -> pd.DataFrame:
         f"{[int(y) for y in d.loc[d.race_source == '', 'year']]}")
 
     d["residents_per_seat"] = d["total"] / d["board_seats"]
-    d["cube_root_p"] = d["total"] ** (1 / 3)
-    d["cube_root_resident_ratio"] = d["total"] ** (2 / 3)
     return d
 
 
