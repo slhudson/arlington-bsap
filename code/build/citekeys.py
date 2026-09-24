@@ -18,10 +18,10 @@ The placeholders are the honest part. This is draft work over an incomplete
 historical record, and a scheme with no way to say "we do not know yet" only
 buys its tidiness by pretending. Each one says something different:
 
-    UNSOURCED   a claim exists and we cannot yet name its evidence - Alex's
-                workbook codes a member's race, but recorded no source, so
-                there is a real assertion here whose basis is a research
-                errand.
+    UNSOURCED   a claim exists and we cannot yet name its evidence - a
+                member sat as somebody's candidate, but the county printed
+                no label and no reporting has been found, so there is a real
+                assertion here whose basis is a research errand.
     DERIVED     the row is computed from another table in data/clean/, whose
                 own rows carry the citations - board_seats.csv counts seats
                 out of board_members.csv, so its sources are that file's.
@@ -29,11 +29,6 @@ buys its tidiness by pretending. Each one says something different:
                 wrote a value in from a standing assumption - a member absent
                 from every source is recorded as a white man, and the years
                 with no roster at all as three seats held by white men.
-
-                There was a fourth placeholder, for the delivered workbooks,
-                and it is gone with them. A value nobody can source, written
-                down by a co-author applying the same default we apply, is
-                ASSUMED; giving it its own label flattered it.
 
 Keeping them apart matters. The first is a gap in our records; the second is a
 gap in the historical record, and one of the findings of the study. Collapsing

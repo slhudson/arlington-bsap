@@ -3,41 +3,33 @@
 One row per census year, 1870-2020: population totals, the four race
 categories, the seats the Board had, and residents per seat.
 
-The `source` column names the document each row's figures come from.
+Two source columns rather than one, because after 1900 the total and the
+race figures never come from the same document. `total_source` names the
+document the year's total came from; `race_source` names where its race and
+ethnicity figures came from. One column saying `forstall1996` beside race
+figures that document never supplied would be a false citation.
 
 **1870-1890 are derived from the census volumes.** Before 1900 Alexandria city
 sat inside the county, so no published table gives the territory the Board
 governed - it has to be derived by subtracting the city. That happens in
 early_years() below, from the tables transcribed under
-data/transcribed/by_claude/, and it replaces the delivered workbook for those
-three years. See docs/residents.md.
+data/transcribed/by_claude/. See docs/residents.md.
 
 **1900-1990 totals come from the published Census county series**, transcribed
-from data/raw/us_census_bureau/. They were checked against the workbook first and matched
-every year.
+from data/raw/us_census_bureau/.
 
 **2000-2020 totals come from the Bureau's own data files**, fetched by
 code/fetch/census.py into data/raw/us_census_bureau/. No transcription step, so no
 reading error to make.
 
-**The workbook still supplies** the race and ethnicity figures for 1900-2020
-and the seat columns. Each of those is a candidate for
-the same treatment: find the published source, transcribe it, and stop reading
-the workbook for it.
-
-Which is why there are two source columns rather than one. `total_source`
-names the document the year's total came from; `race_source` names where its
-race and ethnicity figures came from, which before 1900 is the same volume and
-after it is Alex's workbook, whose own source is not recorded. One column
-saying `forstall1996` beside race figures that document never supplied would
-be a false citation - so what is left to do stays visible in the data.
+**1900-1970 race figures come from POP-TWPS0076**, whose Table 47 prints
+Arlington by race at every census from 1900; see twps0076() below.
 
 **From 1980 the race columns come from the crossed census table.** Race and
-Hispanic origin are two census questions, not one, so a person answers both and
-lands in two of the four columns at once - which is why the workbook's figures
-sum to more than the county in 1970 and 1990 (docs/residents.md). The
-Bureau also publishes the two answers crossed, and those categories partition
-the county exactly:
+Hispanic origin are two census questions, not one, so a person answers both
+and lands in two of the four columns at once, and the four published race
+columns never sum to the county. The Bureau also publishes the two answers
+crossed, and those categories partition the county exactly:
 
     hisp + white + black + aapi + the remainder == total
 
@@ -46,13 +38,13 @@ remainder - non-Hispanic other and multiracial - is not a column: it is what a
 figure has left after subtracting these four from the total, which is how the
 figures already draw it.
 
-1980 is the first census to ask Hispanic origin of everyone rather than of a 5
-percent sample. 1970's is not comparable and is left on the workbook's figures;
-before 1970 the question does not exist and `white` means white.
+1980 is the first census to ask Hispanic origin of everyone rather than of a
+sample. 1970's is not comparable and is left blank; before 1970 the question
+does not exist and `white` means white.
 
-`race_source` says which of the two each year's figures came from, so a row
+`race_source` says which of the three each year's figures came from, so a row
 carries its own provenance rather than the reader having to know where the
-switch falls.
+switches fall.
 
 Values are otherwise written as reported; docs/residents.md says what backs
 each year.
@@ -190,8 +182,8 @@ def early_years() -> pd.DataFrame:
 
     d = pd.DataFrame(rows).T.rename_axis("year").reset_index()
 
-    # A race split must account for its own total. This is the check the
-    # delivered workbook fails for 1870 (by 100) and 1890 (by 278).
+    # A race split must account for its own total. A single mis-keyed digit
+    # fails this by exactly its size, which is how two were found.
     for _, r in d.iterrows():
         gap = r.total - r.white - r.black
         if abs(gap) > 5:
@@ -328,20 +320,18 @@ def build() -> pd.DataFrame:
     # 1970, the crossed census tables from 1980. Every year is assigned one of
     # those three below, so there is no fallback here to write - a row that
     # reached the end without a race source would be a bug, and the assert
-    # after them says so rather than letting the workbook stand in.
+    # after them says so.
     d["race_source"] = [TOTAL_SOURCE[y] if y < 1900 else "" for y in d["year"]]
 
-    # 1900-1970 come from POP-TWPS0076, the source the workbook itself cites
-    # for 1990 and which prints Arlington at every census from 1900. It
-    # replaces the workbook for those eight censuses; 1980 on is replaced
-    # again below by the crossed tables.
+    # 1900-1970 come from POP-TWPS0076, which prints Arlington at every
+    # census from 1900; 1980 on is overwritten below by the crossed tables.
     for year, r in twps0076().items():
         m = d["year"] == year
         for col in ("white", "black", "aapi", "hisp"):
             d.loc[m, col] = r[col]
         d.loc[m, "race_source"] = citekeys.CENSUS_TWPS0076
 
-    # From 1980, the crossed census table replaces the workbook's four columns.
+    # From 1980, the crossed census table supplies the four columns.
     # The guard is the point of the exercise: if the five groups do not account
     # for the county exactly, they are not a partition and must not be drawn as
     # one. Only four are written - the fifth is the remainder a figure is left

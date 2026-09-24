@@ -74,7 +74,7 @@ would have taken the repository past the 80 MB warning for 229 pages nobody
 needs.
 
 **`pop-twps0076_virginia_1990.pdf`** — Census working paper POP-TWPS0076,
-Virginia table. One of the two URLs cited inside the delivered workbook. Its
+Virginia table. Its
 Table 47 gives Arlington by race at **every census from 1900**, not only 1990;
 the filename is from when only the 1990 line had been read. Transcribed whole
 to `transcribed/by_claude/us_census_bureau/censusgov_pop-twps0076_p1_virginia_arlington.csv`,
@@ -256,10 +256,10 @@ prints `(I)` or no label; the rule is in `docs/board.md`.
 **`board_demographics.csv`** — what a source says about a named Board
 member's race or gender, one row per claim: the category, the basis, the
 citation, and the sentence in the source's own words. It sits above the
-publisher folders because it draws on several. A member absent from it takes
-Alex's workbook coding from 1932, and is a white man by default before that;
-`code/build/board_members.py` writes which of the three applies on every row, and
-`docs/board.md` says what stands behind the default in each period. The women are here on Claude's reading of their
+publisher folders because it draws on several. A member absent from it is a
+white man by default; `code/build/board_members.py` writes which of the two
+applies on every row, and `docs/board.md` says what stands behind the default
+in each period. The women are here on Claude's reading of their
 given names, and the rows say so. Grace Hjerpe's paper and O'Leary's prose
 are cited rather than filed in `raw/`: they are read for a handful of claims,
 not transcribed table by table.
@@ -281,34 +281,17 @@ The paper is the *Sun*, not the Alexandria Gazette: Virginia Chronicle has 21
 items on this referendum in the Sun across 1938 and none in the Gazette. The
 folder is named for the publisher, like the others.
 
-## transcribed/by_human/
-
-**Gone, 24 September 2026.** The folder held three workbooks delivered by Alex
-Keena on 2026-09-22 - census figures by year, Board seat counts by race and
-gender, and a member database - and for a while they were what several columns
-were built from.
-
-Nothing reads them now. Every figure they fed takes a published source or a
-stated assumption instead: the census race figures from POP-TWPS0076 and the
-crossed census tables, the seat counts from the roster, and the years no
-source covers from an assumption written in `code/build/` and labelled
-`assumed`. A spreadsheet standing in for an assumption only made the
-assumption look like a source.
-
-They are in the git history and on their author's own machine, so deleting
-them loses nothing but the implication that the build still depends on them.
-
 ## clean/
 
 **Every source column holds a citekey from `paper/sources.bib`**, so a cell in
 a table and a footnote in the report name the same entry. `bash run.sh` refuses
 to write a file whose source column names an entry that is not there.
 
-Four values are not citekeys, and each says something different about what is
-missing. `keena-workbook` - a real claim whose evidence Alex did not record.
+Three values are not citekeys, and each says something different about what
+is missing. `unsourced` - a real claim whose evidence is not yet named.
 `assumed` - no claim existed and the build supplied one. `derived` - computed
-from another table in `clean/`, whose rows carry the citations. `unsourced` -
-the general case of the first. Every build prints how many of each, so the
+from another table in `clean/`, whose rows carry the citations. Every build
+prints how many of each, so the
 numbers are in front of whoever is working; `code/build/citekeys.py` says why they
 are kept apart.
 
@@ -347,15 +330,15 @@ a straight-line estimate between censuses, and the presidential vote. A
 a source column per measure. `docs/voters.md`, Turnout.
 
 `board_members.csv` — one row per person per term, 1870 through 2026: name,
-term number, district, start and end to the month, source, a note only where
-something irregular happened; then race and gender, each with its own source
-and note — a cited attribution, "Keena workbook", or "default"; then party,
-from 1932, with its source and note — the county's label, the state's record,
-or a cited attribution — and `unsourced` where none speaks. Nothing
-covers 1916–1931.
+term number, district, start and end to the month, how the term began
+(`seated_by`), source, a note only where something irregular happened; then
+race and gender, each with its own source and note — a cited attribution, or
+`assumed`; then party, from 1932, with its source and note — the county's
+label, the state's record, or a cited attribution — and `unsourced` where
+none speaks. Nothing covers 1912–1931.
 
 `board_seats.csv` — seats held per year by race, by gender and, from 1932,
 by party (`dem`, `abc`, `rep`, `ind`, `unrecorded`; empty before), 1870–2026,
 in seat-years (months served ÷ 12), computed from `board_members.csv`;
-1916–1931 from Alex's seat-count workbook, the only thing that covers those
-years. A `source` column says which.
+1912–1931 an assumption stated in `code/build/board_seats.py`. A `source`
+column says which.

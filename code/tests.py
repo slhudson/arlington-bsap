@@ -103,18 +103,6 @@ def test_race_and_gender_must_account_for_the_same_seats():
     assert err and "same seats" in err, f"not caught: {err}"
 
 
-# Two tests stood here and are gone with what they tested: that a new
-# duplicate person-year in the member workbook stopped the build, and that the
-# seat-count workbook's race columns summed to the seat count. Both guarded
-# the delivered workbooks, which the build no longer reads (24 September
-# 2026). A guard is worth a test while something can quietly disable it; these
-# guarded an input, and the input is gone.
-#
-# What they protected is still covered for the data that remains:
-# test_race_and_gender_must_account_for_the_same_seats checks the same
-# arithmetic on the rows the build computes.
-
-
 def test_a_wrong_term_length_is_rejected():
     """Stretching one term by a year should throw off the five-seat count.
 
@@ -174,9 +162,8 @@ def test_prose_in_the_name_column_is_rejected():
 
 def test_an_attributed_name_that_misses_the_roster_is_rejected():
     """The demographics file matches people by exact name. A near-miss
-    ("Bozman" for "Ellen Bozman") would fall silently into the workbook
-    coding or the default - the one failure that file exists to prevent -
-    so the build refuses it.
+    ("Bozman" for "Ellen Bozman") would fall silently into the default -
+    the one failure that file exists to prevent - so the build refuses it.
     """
     def mangle(orig):
         def patched(path, *a, **k):

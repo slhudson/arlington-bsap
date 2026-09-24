@@ -23,12 +23,10 @@ begins belongs to the successor - decided by Sally, 22 September 2026,
 because days are not recorded consistently and the month is the unit
 (docs/board.md). The
 members elected in November 1915 were seated in January 1916, inside the
-workbook years, so they contribute no seat-years at all.
+years with no roster, so they contribute no seat-years at all.
 
-From 1912 to 1931 no terms are known. The rows come from Alex Keena's
-seat-count workbook as delivered, and read `assumed`: he confirmed there was
-no source behind them, so they record an assumption that three seats were
-filled by white men rather than a compilation of who served.
+From 1912 to 1931 no terms are known and the rows are an assumption, stated
+below and labelled `assumed`: three seats, filled, held by white men.
 
 The stretch begins in 1912 and not 1916 because O'Leary does not list the
 November 1911 election. The three men elected in 1907 held a four-year term
@@ -38,10 +36,9 @@ those four years with an inference rather than a source.
 
 **The Board's race coding is one code per person, so it is already a set of
 categories that do not overlap** - the property the census columns in
-residents.csv had to be rebuilt to get (docs/residents.md). A member
-coded Hispanic carries no separate race, so `white` here means white and not
-Hispanic, which is what `nh_white` means there. The two are comparable; the
-delivered census columns are not comparable to either.
+residents.csv are built to have (docs/residents.md). A member coded
+Hispanic carries no separate race, so `white` here means white and not
+Hispanic, which is what the census basis means there. The two are comparable.
 
 So the two files already line up, and the figures drawn from them can be read
 against each other directly. J. Walter Tejada, the one Hispanic member, sits in
@@ -53,12 +50,6 @@ That a member's race is not recorded alongside their ethnicity costs nothing
 here: the census basis does not use it either. It puts every Hispanic resident
 in one band whatever their race, which is the same thing one code per person
 achieves.
-
-The delivered seat-count workbook used to be read alongside this, for the
-1912-1931 fill and for comparison. It is not read any more, and is not in the
-repository: it recorded the same assumption this file now states, and from
-1932 its counts split a shared year half and half where the roster has
-months.
 """
 import pandas as pd
 
@@ -78,7 +69,7 @@ PARTY = {"Democratic": "dem", "Republican": "rep", "ABC": "abc",
          "independent": "ind", "": "unrecorded"}
 PARTY_COLUMNS = ["dem", "abc", "rep", "ind", "unrecorded"]
 # The years with no roster: stated rather than computed, below.
-WORKBOOK_YEARS = range(1912, AT_LARGE_FROM)
+NO_ROSTER_YEARS = range(1912, AT_LARGE_FROM)
 
 
 def months_held(members: pd.DataFrame) -> pd.DataFrame:
@@ -128,12 +119,9 @@ def build() -> pd.DataFrame:
     # 1912-1931: no terms are known, so the rows are stated here rather than
     # computed. Three seats, all filled, all held by white men. That is an
     # assumption and reads as one; the seat count is structural (three
-    # magisterial districts) but the occupancy and the coding are not. The
-    # numbers used to be read from Alex Keena's seat-count workbook, which
-    # said the same thing - he confirmed on 24 September 2026 that nothing
-    # stood behind them - so reading them from a spreadsheet only made an
-    # assumption look like a source. docs/board.md.
-    fill = pd.DataFrame({"year": list(WORKBOOK_YEARS)})
+    # magisterial districts) but the occupancy and the coding are not.
+    # docs/board.md.
+    fill = pd.DataFrame({"year": list(NO_ROSTER_YEARS)})
     fill["white"] = SEATS_DISTRICT
     fill["men"] = SEATS_DISTRICT
     for c in ("black", "hisp", "aapi", "women"):
@@ -142,7 +130,7 @@ def build() -> pd.DataFrame:
         fill[c] = float("nan")
     fill["source"] = citekeys.ASSUMED
 
-    d = pd.concat([built[~built.year.isin(WORKBOOK_YEARS)], fill]).sort_values("year").reset_index(drop=True)
+    d = pd.concat([built[~built.year.isin(NO_ROSTER_YEARS)], fill]).sort_values("year").reset_index(drop=True)
     d = d[COLUMNS + PARTY_COLUMNS + ["source"]]
 
     # The Board's first year is short because the Board was, not because a seat

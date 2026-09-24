@@ -3,21 +3,14 @@
 One row per person per term, 1870 through 2026. The terms come from
 board_roster.py (O'Leary, Novack, and election results, in sequence). Race
 and gender are attached here, each with its own source and note, from the
-first of three places that has something to say:
+first of two places that has something to say:
 
   1. data/transcribed/by_claude/board_demographics.csv - a source's own
      words about a named member, with a citation. The note carries the
      basis and the quotation.
   2. Nothing, in which case the source reads citekeys.ASSUMED and the member is
-     taken to be a white man.
-
-There used to be a third place between them: Alex Keena's member workbook,
-for 1932-2026. It is no longer read. It codes nobody non-White and no woman
-whom a published source does not already name, so it added no fact - it was a
-second application of the same default from the same sources, and recording
-it as though it were evidence overstated what stood behind 136 race terms and
-113 gender terms. Those now fall through to the default and say so. Decided
-by Sally, 24 September 2026; docs/board.md.
+     taken to be a white man. docs/board.md says what stands behind that
+     default in each period.
 
 Every attributed name must match a roster name exactly - a near-miss would
 fall silently into the default - and the build refuses anything else rather
