@@ -26,8 +26,10 @@ are explained in `code/build/citekeys.py`, and what is still open is in
   read (`bestebreurtje-p215`).
 - Where members lived is transcribed but not yet coded, and the 1973 Post map
   that places a whole Board at once has not been seen (`mathews1973-map`);
-  15 of the 26 members seated 1964–1999 have no row (`residence-1964-1999`),
-  and two rows postdate the member's service (`residence-after-service`).
+  none of the 35 members first seated 1932–1958 has one
+  (`residence-1932-1962`), 15 of the 26 seated 1964–1999 have none
+  (`residence-1964-1999`), and two rows postdate the member's service
+  (`residence-after-service`).
 
 Each is a row in `docs/questions.csv`, with an owner and what would settle it.
 
