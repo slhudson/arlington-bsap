@@ -71,6 +71,14 @@ AGES = {
     "median":   ("median", DARK),
     "youngest": ("youngest", SAND_LINE),
 }
+# The sitting Board by age band, youngest at the base; the members with no
+# birth year in the no-evidence grey on top.
+AGE_BANDS = {
+    "under40": ("under 40", OKABE_ITO["bluish_green"]),
+    "40to59":  ("40 to 59", SAND),
+    "60plus":  ("60 and over", OKABE_ITO["orange"]),
+    "unknown": ("no birth year", UNRECORDED),
+}
 PRESIDENT = ("voted for President", DARK)
 CYCLE = {
     "president": ("presidential year", OKABE_ITO["vermilion"]),

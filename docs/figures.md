@@ -263,6 +263,12 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
   different situations and a share would say they were the same. With a
   birth year takes the sand, without takes the no-evidence grey, as
   "not recorded" does on the party chart. Years with no roster are gaps.
+- **board_age_bands.** The same sitting Board in three bands of age, under
+  40, 40 to 59 and 60 and over, as a stacked step area on the seat axis so
+  it reads like the gender and race figures; members with no birth year are
+  the no-evidence grey on top, so the coverage shows in the same picture.
+  The cuts are young adult, prime age and nearing retirement, and are the
+  only choice here that changes what the picture says.
 - **board_age.** The ages of the members sitting on 1 July of each year,
   as three lines: the oldest, the median and the youngest. The Board's
   age composition is the question, not the age at which people arrive, so

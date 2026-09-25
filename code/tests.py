@@ -368,7 +368,7 @@ def test_docs_agree_with_run_sh():
     run = (ROOT / "run.sh").read_text()
     install = re.search(r"pip install ([a-z0-9 ]+)", run).group(1).split()
     figures = re.search(r"FIGURES=\(([^)]*)\)", run, re.S).group(1).split()
-    words = {3: "three", 4: "four", 5: "five", 6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten"}
+    words = {3: "three", 4: "four", 5: "five", 6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten", 11: "eleven", 12: "twelve"}
     problems = []
     for doc in [ROOT / "README.md", ROOT / "CLAUDE.md", ROOT / "docs" / "setup.md"]:
         text = doc.read_text()

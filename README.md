@@ -48,7 +48,7 @@ Three build modules write nothing and are read by the steps above:
 read once) and `code/build/citekeys.py` (the citekeys `paper/sources.bib`
 defines). Each stage has a `paths.py` that maps its data folders.
 
-Ten figures build. Four are in the paper so far, `residents_per_seat`,
+Eleven figures build. Four are in the paper so far, `residents_per_seat`,
 `residents_by_race`, `board_gender` and `board_race`; the rest are built
 and waiting on the outline.
 
