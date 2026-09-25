@@ -7,12 +7,14 @@ history. The placeholders in the `source` columns are explained in
 `code/build/citekeys.py`, and what is still open is in `docs/questions.csv`.
 
 
+`residents_per_seat` divides by the seats that exist, not the seats filled, and
+says so in its label, "residents per seat". A vacant seat therefore adds no
+spike: the figure shows the size of the Board, not who sat.
+
 ## What rests on an assumption
 
 - The 1900–1970 race figures cite a paper whose title and number are read off
   its table and file path (`twps0076-citation`).
-- `residents_per_seat` divides by the seats that exist, not the seats filled
-  (`seats-that-exist`).
 - Retrocession is dated 1846 or 1847 depending on the source; the report has
   to pick one (`retrocession-date`).
 - Whether the report compares Arlington to peer localities at all

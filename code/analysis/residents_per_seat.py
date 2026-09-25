@@ -26,7 +26,7 @@ for profile in style.PROFILES:
                      f"2020 population:\n{int(last['total']):,}",
                      style.POPULATION[1], gap=0.035)
     charts.end_label(ax, 2020, last["residents_per_seat"],
-                     f"2020 residents\nper Board seat:\n"
+                     f"2020 residents\nper seat:\n"
                      f"{int(round(last['residents_per_seat'])):,}",
                      style.PER_SEAT[1], where="above", gap=0.02)
 

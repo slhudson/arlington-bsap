@@ -58,7 +58,7 @@ VOTERS = {"dem": PARTY["dem"], "other": ("other", GREY), "rep": PARTY["rep"]}
 BOARD_VOTE = {**{k: PARTY[k] for k in ("dem", "abc", "unrecorded")},
               "other": ("other", GREY), "rep": PARTY["rep"]}
 POPULATION = ("total population", DARK)
-PER_SEAT = ("residents per Board seat", OKABE_ITO["vermilion"])
+PER_SEAT = ("residents per seat", OKABE_ITO["vermilion"])
 # Which sitting members have a birth year: the mass in sand, none in the
 # no-evidence grey.
 AGE_COVERAGE = {

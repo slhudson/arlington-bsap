@@ -234,8 +234,8 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
   held three seats before 1932 and five after, so no single right-hand scale
   is right for the whole series, and picking one decides which era looks
   like the exception. "Seat", not "member": the denominator is seats that
-  exist, and the two differ where a seat sat vacant (`seats-that-exist` in
-  `docs/questions.csv`). A cube-root-law benchmark is not drawn: the law is
+  exist, and the two differ where a seat sat vacant, which the label "residents per
+  seat" says and which keeps a vacancy from drawing a spike. A cube-root-law benchmark is not drawn: the law is
   descriptive, not normative, its reference class is national parliaments,
   and as drawn it implied a 62-member Board (`peer-localities` in
   `docs/questions.csv` is the comparison the report might want instead).
