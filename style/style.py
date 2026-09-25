@@ -86,6 +86,7 @@ RESIDENCE = {
     "street":       ("street name", "#4FA37D"),
     "neighborhood": ("neighborhood", "#9CCFB3"),
     "side":         ("north/south side", "#D3EBDD"),
+    "district":     ("magisterial district", "#EEF7F2"),
     "none":         ("no place found", UNRECORDED),
 }
 PRESIDENT = ("voted for President", DARK)

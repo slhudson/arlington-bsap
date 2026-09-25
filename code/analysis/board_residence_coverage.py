@@ -3,7 +3,7 @@
 
 A stacked step area of the members sitting on 1 July of each year, by the
 most exact place any source gives for them, darkest for a house on a street
-and lightest for a side of the County, with the 1932 rule. Years with no
+and lightest for a magisterial district of Alexandria County, with the 1932 rule. Years with no
 roster are filled from the seat table: the Board had three seats, and nobody
 is known to sit in them, so they count as no place found. A place is counted whenever it is
 dated, so a member whose only place comes from after their service still
@@ -16,7 +16,7 @@ import members
 import paths
 import style
 
-ORDER = ["address", "street", "neighborhood", "side"]
+ORDER = ["address", "street", "neighborhood", "side", "district"]
 
 claims = pd.read_csv(paths.BOARD_RESIDENCE, dtype=str).fillna("")
 exactness = claims.precision.map(ORDER.index)

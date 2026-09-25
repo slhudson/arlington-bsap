@@ -267,7 +267,9 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
   members sitting on 1 July of each year, how exactly a home is known, as a
   stacked step area on the seat axis like the age coverage. One hue, darkest
   green for a street address, then a street name, a neighborhood, a
-  north/south side, and the no-evidence grey for no place found; darker means
+  north/south side, a magisterial district of Alexandria County (the
+  1880–1910 census sheets, which name the district and leave the street
+  column blank), and the no-evidence grey for no place found; darker means
   closer to the address a payroll or filing record would give. A member counts
   at the most exact place any source gives, whenever dated, so it can show a
   member as known from a source written after their service
