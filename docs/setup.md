@@ -155,14 +155,22 @@ the Drive folder, and they change, so check before relying on one.
   `https://www.loc.gov/collections/chronicling-america/?q=Surname+Arlington&dates=1955-09-01/1955-12-31&fa=partof_title:evening+star+%28washington%2C+d.c.%29+1854-1972&fo=json&c=10&at=results,pagination`;
   each result's resource JSON (`&fo=json&at=resource`) names a
   `fulltext_file` (the OCR text) and a `pdf` (the page). It rate-limits
-  after a few dozen requests and then answers every route from the machine,
-  browsers included, with a Cloudflare page for an hour or more. One request
-  every few seconds, one worker.
+  after about 55 fetches (a 503, or a Cloudflare page on every route from
+  the machine, browsers included); a few minutes clears it, and about 220
+  fetches across three pauses is a day's budget. One request every few
+  seconds, one worker.
 - **Virginia Chronicle** (Library of Virginia; the Sun 1935–51, the
-  Northern Virginia Sun 1957–78). Cloudflare's human check blocks curl and
-  the built-in browser; it passes in Sally's own Chrome, after which Claude
-  in Chrome can search (`?a=q&txq=Surname&puq=NVS` with a date range) and
-  read pages.
+  Arlington Daily 1943–48, the Northern Virginia Sun 1957–78). Cloudflare's
+  human check blocks curl and the built-in browser; it passes in Sally's own
+  Chrome, after which Claude in Chrome can search (`?a=q&txq=Surname&puq=NVS`
+  with a date range) and read pages. A page's text needs no login:
+  `?a=d&d=<page id>&f=XML`. The page PDF needs the site's free login, which
+  Sally has and enters on request; it then opens in Chrome's viewer and the
+  download icon saves it as `<page>.pdf`. Addresses sit on the election-week
+  jump page, not where the surname is densest: search the surname, then scan
+  every hit page's text for "lives at", "resides at" or "live at". The OCR
+  misreads house numbers (3111 for 3411); read each number off the page
+  image before writing a row.
 - **Ancestry** (the 1880–1950 censuses with street and house number, race,
   gender, age, occupation). Needs Sally signed in in Chrome. Search by URL:
   `https://www.ancestry.com/search/collections/62308/?name=First_Last&residence=_arlington-arlington-virginia-usa_22922`
@@ -178,6 +186,10 @@ the Drive folder, and they change, so check before relying on one.
 - **washingtonpost.com**: refuses curl and the built-in browser; in Chrome
   the archive pages show two paragraphs once a few have been read. The
   older `wp-dyn` pages (about 2005–2010) read in full.
+- **Claude in Chrome's JavaScript tool** refuses to return any output that
+  contains `?`, `&` or `=`; strip them before returning. A worktree has no
+  `.venv`; a symlink to the primary checkout's works, and pymupdf there
+  renders page clips (`pdftoppm` is not installed).
 - ARLnow, InsideNoVa, Connection Newspapers, Arlington Magazine, the county
   site and legacy.com fetch with curl and a browser user agent, and print to
   PDF with headless Chrome from the saved HTML with its scripts removed.
