@@ -29,7 +29,7 @@ Each is a row in `docs/questions.csv`, with an owner and what would settle it.
 
 ---
 
-### The roster
+## The roster
 
 `data/clean/board_members.csv` holds one row per person per term: name, term
 number, district, when service began and ended (to the month), how the term

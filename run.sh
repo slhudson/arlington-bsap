@@ -35,7 +35,7 @@ echo "lint"
 echo "  clean"
 
 # The guards live in code/build/. These prove the guards still fire, so editing
-# build/ cannot quietly disable one. Under a second; run first so a broken
+# build/ cannot quietly disable one. About five seconds; run first so a broken
 # check is known before anything is written.
 echo "tests"
 "$PY" code/tests.py | sed 's/^/  /'
