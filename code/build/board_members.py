@@ -49,6 +49,11 @@ STATE_PARTIES = {"Democratic": "Democratic", "Republican": "Republican",
 # year has none.
 ATTRIBUTED = {"race": "White", "gender": "man", "birth_year": ""}
 
+# How a gender is known, in board_members.gender_evidence: "record" (a census
+# listing), "press" (a pronoun or honorific a paper uses), both joined with
+# "; ", or this when no source speaks and the default stands.
+NO_EVIDENCE = "none"
+
 # A birth year that puts a member outside this range of ages when first
 # seated is a misreading, not a finding.
 AGE_WHEN_SEATED = (18, 100)
@@ -173,7 +178,11 @@ def attributions() -> pd.DataFrame:
     missing = [f for f in ATTRIBUTED if f not in a.columns]
     if missing:
         raise ValueError(f"board_demographics.csv has no {', '.join(missing)} column")
-    a = pd.concat([a, board_census.claims()], ignore_index=True).fillna("")
+    # Where a gender came from: a row of the claim file is a press reading
+    # (the pronoun or honorific a paper uses), a census claim is a record.
+    census = board_census.claims()
+    a = pd.concat([a.assign(evidence="press"), census.assign(evidence="record")],
+                  ignore_index=True).fillna("")
 
     def fold(rows):
         out = {}
@@ -185,6 +194,8 @@ def attributions() -> pd.DataFrame:
             out[field] = vals[0] if vals else ""
             out[field + "_source"] = "; ".join(has.source)
             out[field + "_note"] = quoted(has.basis, has.quote)
+            if field == "gender":
+                out["gender_evidence"] = "; ".join(sorted(set(has.evidence)))
         return pd.Series(out)
 
     return a.groupby("name").apply(fold, include_groups=False)
@@ -216,15 +227,19 @@ def build() -> pd.DataFrame:
                 (att[field], att[f"{field}_source"], att[f"{field}_note"])
                 if att is not None and att[field]
                 else (default, citekeys.ASSUMED if default else citekeys.UNSOURCED, ""))
+        row["gender_evidence"] = att["gender_evidence"] if att is not None and att["gender"] else NO_EVIDENCE
         rows.append(row)
 
     out = pd.DataFrame(rows)
+    assert ((out.gender_source == citekeys.ASSUMED) == (out.gender_evidence == NO_EVIDENCE)).all(), \
+        "a gender is assumed exactly when no record or press reading backs it"
     out[["held_from", "held_to"]] = held(out)
     check_birth_years(out)
     cols = ["name", "term_number", "district", "start_year", "start_month",
             "end_year", "end_month", "held_from", "held_to", "seated_by", "election_year",
             "source", "note",
             "race", "race_source", "race_note", "gender", "gender_source", "gender_note",
+            "gender_evidence",
             "birth_year", "birth_year_source", "birth_year_note",
             "party", "party_source", "party_note"]
     return out[cols]

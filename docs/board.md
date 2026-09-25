@@ -13,7 +13,11 @@ are explained in `code/build/citekeys.py`, and what is still open is in
 - 1889–1986 is coded all-White on the "first since Reconstruction" framing,
   and the five Reconstruction-era members rest on Hjerpe's census linking
   (`default-1931-1986`).
-- Gender is read from names for most of the roster (`gender-from-names`).
+- Gender rests on the default (man) for 30 members: 25 seated before 1912, the
+  three of 1916–20 (Wibirt, Duncan, Walker), B. M. Smith (1933) and
+  A. Leslie Phillips (1969). The other 89 have a census listing (50) or a
+  pronoun or honorific in the press (42; three have both).
+  `gender_evidence` in `board_members.csv` says which (`gender-from-names`).
 - For 33 members first seated 1932–1966 and 16 first seated 1870–1904,
   race and gender come from 53 census records, each index reading checked
   against the sheet where the row could be found on it; the match
@@ -279,8 +283,11 @@ Race and gender come from `data/transcribed/by_claude/board_demographics.csv`,
 one row per claim a source makes about a member, in the source's own words
 with a citation to the page the document prints, and from the census records
 above; and otherwise from a default,
-a white man, labelled `assumed`. Each cell of `board_members.csv` says which.
-Two sources disagreeing about a person stops the build, and an attributed name
+a white man, labelled `assumed`. Each cell of `board_members.csv` says which, and
+`gender_evidence` says how a gender is known: `record` (a census listing),
+`press` (the pronoun or honorific a paper uses for the member; each such row
+of the claim file quotes the sentence and cites the page), both joined with
+`; `, or `none` where the default stands. Two sources disagreeing about a person stops the build, and an attributed name
 that matches no roster name stops it too, so a near-miss cannot fall silently
 into the default. The default is a claim, and this is what stands behind it in
 each period:
@@ -289,12 +296,13 @@ each period:
 |---|---|---|
 | 1870–1888 | Five Black members named by Hjerpe (2021): Rowe, Syphax, Pinn, Pendleton, Allen. Pinn, Pendleton and Allen each rest on a reproduced 1880 census image; Rowe and Allen on narrative statements in her paper; Syphax on O'Leary, who writes that his photograph shows he was African American. The sentence naming the five as a group sits in her own list of open inquiries, and the file records it as such. O'Leary adds that "a majority of the early office holders" were probably African-American but cannot name them. Nobody on our side has checked the census linking. | Names in O'Leary, but seven members before 1912 appear by initials only (`gender-1870-1912`). |
 | 1889–1930 | One collective sentence: the board "became and remained all white for the duration of this system" (Hjerpe 2021, p.4), sourced to the county's election records. No per-person evidence. | Names in O'Leary; initials only before 1912. No source names a first woman member, so "all men before Magruder (1932)" is assumed. |
-| 1931–1986 | Nothing per-person from any source. The default rests on Newman (1987) being described as the first Black member since Reconstruction. About 280 person-years. **The weakest stretch.** | Names and honorifics in Novack (1994). |
-| 1987–present | Per-person: Newman (1987), Monroe (1999), Dorsey (2015), Spain (2024), and Tejada as the first Latino member (Hjerpe 2021). The Arlington Historical Society keeps a curated entry. | Names in the county candidate history. |
+| 1931–1986 | Nothing per-person from any source. The default rests on Newman (1987) being described as the first Black member since Reconstruction. About 280 person-years. **The weakest stretch.** | Census listing or a press honorific or pronoun for all but B. M. Smith (1933) and A. Leslie Phillips (1969). |
+| 1987–present | Per-person: Newman (1987), Monroe (1999), Dorsey (2015), Spain (2024), and Tejada as the first Latino member (Hjerpe 2021). The Arlington Historical Society keeps a curated entry. | A press pronoun or honorific for every member. |
 
 None of the three roster sources states anyone's race or gender. Race comes
-from Hjerpe and O'Leary; gender comes from names and honorifics, which is a
-weaker attribution than a statement and is labelled as such in the file. The
+from Hjerpe and O'Leary; gender comes from a census listing or from the
+pronoun or honorific a paper uses for the member, and where neither has been
+found the default stands, labelled `assumed`. The
 seat counts for 1870–1888 are therefore Hjerpe's identifications applied to
 O'Leary's roster; Alex Keena's earlier year-level counts were a replication
 of the same source and are not a second one.
