@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[2]
 DATA = ROOT / "data"
 RAW = DATA / "raw"
 TRANSCRIBED = DATA / "transcribed"
+BY_CLAUDE = TRANSCRIBED / "by_claude"
 CLEAN = DATA / "clean"
 
 

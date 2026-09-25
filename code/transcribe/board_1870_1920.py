@@ -17,10 +17,10 @@ import re
 
 import pymupdf
 
-from paths import RAW, TRANSCRIBED
+from paths import BY_CLAUDE, RAW
 
 SOURCE = RAW / "arlington_county" / "electoral_history_1870-1920.pdf"
-OUT = TRANSCRIBED / "by_claude" / "arlington_county" / "board_1870-1920.csv"
+OUT = BY_CLAUDE / "arlington_county" / "board_1870-1920.csv"
 
 DISTRICTS = ("Arlington", "Jefferson", "Washington")
 

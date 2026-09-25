@@ -12,11 +12,11 @@ import re
 
 import pymupdf
 
-from paths import RAW, TRANSCRIBED
+from paths import BY_CLAUDE, RAW
 
 SOURCE = (RAW / "arlington_historical_magazine"
           / "novack_six_decades_of_arlington_leadership_1994.pdf")
-OUT = (TRANSCRIBED / "by_claude" / "arlington_historical_magazine"
+OUT = (BY_CLAUDE / "arlington_historical_magazine"
        / "novack_terms_1930-1994.csv")
 
 # "Elizabeth B. Magruder ........................... 1932-1947"

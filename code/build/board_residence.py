@@ -8,9 +8,9 @@ and no claim is chosen over another; docs/board.md has what is open.
 import pandas as pd
 
 import board_census
-from paths import TRANSCRIBED, write
+from paths import BY_CLAUDE, write
 
-CLAIMS = TRANSCRIBED / "by_claude" / "board_residence.csv"
+CLAIMS = BY_CLAUDE / "board_residence.csv"
 
 
 def build() -> pd.DataFrame:

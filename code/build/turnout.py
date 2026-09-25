@@ -31,9 +31,9 @@ import board_roster
 import citekeys
 import elections
 from elections import COUNTY_HISTORY_THROUGH
-from paths import RAW, TRANSCRIBED, read, write
+from paths import BY_CLAUDE, RAW, read, write
 
-OLEARY = TRANSCRIBED / "by_claude" / "arlington_county" / "board_1870-1920.csv"
+OLEARY = BY_CLAUDE / "arlington_county" / "board_1870-1920.csv"
 REGISTRATION = RAW / "va_dept_of_elections" / "registration_2010-2025.csv"
 CENSUS = RAW / "us_census_bureau"
 

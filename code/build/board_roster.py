@@ -28,9 +28,8 @@ import pandas as pd
 import citekeys
 import elections
 from elections import COUNTY_HISTORY_THROUGH, MONTHS, surname
-from paths import TRANSCRIBED
+from paths import BY_CLAUDE
 
-BY_CLAUDE = TRANSCRIBED / "by_claude"
 NOVACK_PUBLISHED = 1994
 PRESENT = 2026            # checked month by month up to here; board_seats stops here
 

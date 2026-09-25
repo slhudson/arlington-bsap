@@ -23,9 +23,9 @@ import numpy as np
 import pandas as pd
 
 import citekeys
-from paths import RAW, TRANSCRIBED
+from paths import BY_CLAUDE, RAW
 
-COUNTY = TRANSCRIBED / "by_claude" / "arlington_county" / "candidate_history_1920-present.csv"
+COUNTY = BY_CLAUDE / "arlington_county" / "candidate_history_1920-present.csv"
 STATE = RAW / "va_dept_of_elections" / "county_board_2000-2026.csv"
 
 # The last election in the county's candidate history.

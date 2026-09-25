@@ -29,9 +29,8 @@ import board_roster
 import citekeys
 import elections
 from elections import COUNTY_HISTORY_THROUGH
-from paths import RAW, TRANSCRIBED, write
+from paths import BY_CLAUDE, RAW, write
 
-BY_CLAUDE = TRANSCRIBED / "by_claude"
 OLEARY = BY_CLAUDE / "arlington_county" / "president_1872-1920.csv"
 STATE = RAW / "va_dept_of_elections" / "president_1924-2024.csv"
 

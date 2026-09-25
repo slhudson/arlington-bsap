@@ -38,9 +38,7 @@ import citekeys
 import elections
 from board_roster import AT_LARGE_FROM
 from elections import PARTIES
-from paths import TRANSCRIBED, write
-
-BY_CLAUDE = TRANSCRIBED / "by_claude"
+from paths import BY_CLAUDE, write
 
 # The county's labels are elections.LABELS; the state's names are mapped here.
 STATE_PARTIES = {"Democratic": "Democratic", "Republican": "Republican",
