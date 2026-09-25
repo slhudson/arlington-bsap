@@ -141,8 +141,8 @@ downloaded into `data/raw/`.
 The test is whether a figure derives from it.
 
 **The Drive folder is filed by kind, and its index is generated.**
-`code/archive.py` files the documents folder into `legal`, `reports`, `books`,
-`newspapers`, `obituaries` and `census`, the kind being a rule on the
+`code/archive.py` files the documents folder into `legal`, `reports`, `books`, `bios`,
+`campaign websites`, `press`, `obituaries` and `census`, the kind being a rule on the
 bib entry; writes `index.md` at its top from `paper/sources.bib` and
 `data/contents.csv`, so the index cannot drift from either; and builds the
 zip the County receives, the repository at HEAD with the six on-demand

@@ -39,12 +39,21 @@ DOCUMENTS = (Path.home() / "Library/CloudStorage/GoogleDrive-sally@rankedchoicev
              / ".shortcut-targets-by-id/1M4kZqG-XFRNQ9jele3PcD6mfZog7E5_Q/RCVa/research"
              / "Virginia/Arlington/2026 - Form of Government/team/sources/documents")
 
-KINDS = ("legal", "reports", "books", "newspapers", "obituaries", "census")
+KINDS = ("legal", "reports", "books", "bios", "campaign websites", "press",
+         "obituaries", "census")
 UNPLACED = "unplaced"
 
 # Web outlets whose pages are newspapers when read online; see kind().
-PRESS = ("ARLnow", "InsideNoVa", "Sun Gazette", "Arlington Magazine", "Connection",
-         "Washington Post", "Patch")
+PAPERS = ("ARLnow", "InsideNoVa", "Sun Gazette", "Connection", "Washington Post", "Patch")
+
+# Magazines are press, like papers. A historical society's magazine is scholarship: books.
+MAGAZINES = ("Arlington Magazine",)
+
+# Biography pages by publisher, and campaign material by publisher or title.
+BIO_ORG = re.compile(r"County Board Members|Senate of Virginia|Library of Virginia|"
+                     r"Dictionary of Virginia Biography|OutHistory", re.I)
+BIO_TITLE = re.compile(r"Chair, Arlington County Board|\bbiography\b", re.I)
+CAMPAIGN_ORG = re.compile(r"campaign|candidate|Vote Smart", re.I)
 
 # A filed copy is any quoted filename in an entry's annotation: the "Filed in
 # Drive as" name, and for a census record the sheet image beside it.
@@ -65,11 +74,18 @@ def kind(e):
     if re.search(r"\bobituary\b|\bdies\b", e["title"], re.I):
         return "obituaries"
     if e["type"] == "article" and "pages" in e and "location" in e:
-        return "newspapers"                               # a printed page, scanned
+        return "press"                               # a printed page, scanned
+    org = e.get("organization", "")
+    if any(m in org for m in MAGAZINES):
+        return "press"                                    # a magazine's article
     if e["type"] == "article" and "journaltitle" in e and "pages" not in e:
-        return "newspapers"                               # a newspaper's article, read online
-    if any(o in e.get("organization", "") for o in PRESS):
-        return "newspapers"                               # an outlet's page, read online
+        return "press"                               # a newspaper's article, read online
+    if any(o in org for o in PAPERS):
+        return "press"                               # a paper's page, read online
+    if CAMPAIGN_ORG.search(org):
+        return "campaign websites"                                # a candidate's site or questionnaire
+    if BIO_ORG.search(org) or BIO_TITLE.search(e["title"]):
+        return "bios"                                     # a biography page
     if e["type"] in LEGAL_TYPE or LEGAL_TITLE.search(e["title"]):
         return "legal"
     if e["type"] in BOOK_TYPE or (e["type"] == "article" and "journaltitle" in e):
@@ -227,8 +243,10 @@ def index_text(bib, claims, rows, unplaced, commit):
         "",
         "One folder per kind. Which folder a copy belongs in is a rule on its bib entry, "
         "`kind()` in `code/archive.py`: census: an index record and its sheet image; "
-        "newspapers: a page or article, printed or read online; obituaries; legal: constitutions, "
-        "statutes and the like; books: scholarship; reports: everything else.",
+        "press: a newspaper's or magazine's page or article, printed or read online; obituaries; "
+        "bios: biography pages; campaign websites: candidate sites, "
+        "questionnaires and campaign material; legal: constitutions, statutes and the like; "
+        "books: scholarship, including a historical society's magazine; reports: everything else.",
     ]
     for k in KINDS:
         held = sorted((sorted(files)[0], e) for e in bib
