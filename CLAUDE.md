@@ -148,6 +148,12 @@ biblatex does not print. Three values are not citekeys - `assumed`,
 `derived`, `unsourced` - and `code/build/citekeys.py` says what each one
 admits to. Anything else stops the build.
 
+**A row read from a census, a directory or a map states its match.** Those
+records name a person, not a Board member; that the two are the same is a
+decision. The `basis` column says what ties them - the name, the place,
+an occupation or a spouse - and a name alone with nothing else in agreement
+is no row.
+
 **Guards that prevent silent wrongness get a test.** `code/tests.py` reintroduces
 the specific mistake each guard exists to catch and asserts the build refuses,
 so editing `code/build/` cannot quietly disable a check. `bash run.sh` runs it first;

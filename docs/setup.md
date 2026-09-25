@@ -142,3 +142,43 @@ to walk through `README.md` and `CLAUDE.md`; then change something small in
 one figure — `code/analysis/` has one script per figure, named for the figure it
 produces, and `style/` holds the colours, fonts and chart types they share —
 and rebuild, to see the loop work end to end.
+
+## Reaching the archives
+
+What each archive needs from this machine, learned in September 2026. None
+of it is in `run.sh`; these are the on-demand routes behind `data/raw/` and
+the Drive folder, and they change, so check before relying on one.
+
+- **Library of Congress, Chronicling America** (the Washington Evening Star
+  to 1963, which prints candidates' home streets in the week before an
+  election). A JSON API:
+  `https://www.loc.gov/collections/chronicling-america/?q=Surname+Arlington&dates=1955-09-01/1955-12-31&fa=partof_title:evening+star+%28washington%2C+d.c.%29+1854-1972&fo=json&c=10&at=results,pagination`;
+  each result's resource JSON (`&fo=json&at=resource`) names a
+  `fulltext_file` (the OCR text) and a `pdf` (the page). It rate-limits
+  after a few dozen requests and then answers every route from the machine,
+  browsers included, with a Cloudflare page for an hour or more. One request
+  every few seconds, one worker.
+- **Virginia Chronicle** (Library of Virginia; the Sun 1935–51, the
+  Northern Virginia Sun 1957–78). Cloudflare's human check blocks curl and
+  the built-in browser; it passes in Sally's own Chrome, after which Claude
+  in Chrome can search (`?a=q&txq=Surname&puq=NVS` with a date range) and
+  read pages.
+- **Ancestry** (the 1880–1950 censuses with street and house number, race,
+  gender, age, occupation). Needs Sally signed in in Chrome. Search by URL:
+  `https://www.ancestry.com/search/collections/62308/?name=First_Last&residence=_arlington-arlington-virginia-usa_22922`
+  (62308 is 1950, 2442 is 1940, 2441 is 1930). On a record page the
+  record's own sheet is the imageviewer link whose `pid` is the record id;
+  the first imageviewer link can still be the previously viewed sheet for a
+  few seconds. The sheet downloads from the viewer's Save button, "Save to
+  your computer", into `~/Downloads` as `<image id>.jpg`. Hill's Arlington
+  County directories are not in Ancestry's city-directory collection; its
+  Alexandria volumes cover the 1930s and 1940s only.
+- **ProQuest** (the Post 1877–2001, including the 11 November 1973
+  residence map): a UVA or public-library login; neither was available.
+- **washingtonpost.com**: refuses curl and the built-in browser; in Chrome
+  the archive pages show two paragraphs once a few have been read. The
+  older `wp-dyn` pages (about 2005–2010) read in full.
+- ARLnow, InsideNoVa, Connection Newspapers, Arlington Magazine, the county
+  site and legacy.com fetch with curl and a browser user agent, and print to
+  PDF with headless Chrome from the saved HTML with its scripts removed.
+  Dignity Memorial and some funeral homes sit behind Cloudflare.
