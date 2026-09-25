@@ -158,7 +158,11 @@ the Drive folder, and they change, so check before relying on one.
   after about 55 fetches (a 503, or a Cloudflare page on every route from
   the machine, browsers included); a few minutes clears it, and about 220
   fetches across three pauses is a day's budget. One request every few
-  seconds, one worker.
+  seconds, one worker. A whole-term search on one member costs 20–60
+  fetches at 20 results a page, about eight minutes with the pause. The
+  Star's story in the week after the 1931 election names each first-Board
+  member's section, so for those search "Arlington" and the election week,
+  not the name.
 - **Virginia Chronicle** (Library of Virginia; the Sun 1935–51, the
   Arlington Daily 1943–48, the Northern Virginia Sun 1957–78). Cloudflare's
   human check blocks curl and the built-in browser; it passes in Sally's own
@@ -183,11 +187,17 @@ the Drive folder, and they change, so check before relying on one.
 - **Ancestry** (the 1880–1950 censuses with street and house number, race,
   gender, age, occupation). Needs Sally signed in in Chrome. Search by URL:
   `https://www.ancestry.com/search/collections/62308/?name=First_Last&residence=_arlington-arlington-virginia-usa_22922`
-  (62308 is 1950, 2442 is 1940, 2441 is 1930). On a record page the
+  (62308 is 1950, 2442 is 1940, 2441 is 1930). Before 1920 the Arlington
+  residence filter finds nothing: use `residence=_virginia-usa_49` and
+  filter the results table on "Alexandria". On a record page the
   record's own sheet is the imageviewer link whose `pid` is the record id;
   the first imageviewer link can still be the previously viewed sheet for a
   few seconds. The sheet downloads from the viewer's Save button, "Save to
-  your computer", into `~/Downloads` as `<image id>.jpg`. Hill's Arlington
+  your computer", into `~/Downloads` as `<image id>.jpg`, sometimes with
+  no extension for 1880 sheets, so add it. A click that lands off the Save
+  button fails silently: take the button's ref from `find("Save button")`
+  and check `~/Downloads` before moving on. Two tabs in one tab group can
+  run batches at once. Hill's Arlington
   County directories are not in Ancestry's city-directory collection; its
   Alexandria volumes cover the 1930s and 1940s only.
 - **ProQuest** (the Post 1877–2001, including the 11 November 1973
