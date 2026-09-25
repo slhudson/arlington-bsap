@@ -158,6 +158,21 @@ def sha16(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()[:16]
 
 
+CENSUS_COPY = re.compile(r"^(Ancestry|US Census) (\d{4}) - ")
+
+
+def subfolder(k, base):
+    """The folder a copy is filed in. Census copies are split by who made
+    them, Ancestry's printed record or the Census's own sheet image, then by
+    census year; every other kind is one flat folder."""
+    if k != "census":
+        return k
+    m = CENSUS_COPY.match(base)
+    if not m:
+        sys.exit(f'census copy "{base}" does not start "Ancestry YYYY - " or "US Census YYYY - "')
+    return f"census/{m.group(1)}/{m.group(2)}"
+
+
 def folder_files(documents):
     """Every file in the documents folder, as a path relative to it. Dotfiles,
     the index and a zip are not documents."""
@@ -194,7 +209,7 @@ def place(bib, documents):
             else:
                 missing.append((e["key"], name))
                 continue
-            target = f"{kind(e)}/{base}"
+            target = f"{subfolder(kind(e), base)}/{base}"
             if current in claims and claims[current][0] != target:
                 sys.exit(f"\"{current}\" is claimed by {claims[current][1]['key']} as "
                          f"{claims[current][0]} and by {e['key']} as {target}")
@@ -242,7 +257,7 @@ def index_text(bib, claims, rows, unplaced, commit):
         "## Documents",
         "",
         "One folder per kind. Which folder a copy belongs in is a rule on its bib entry, "
-        "`kind()` in `code/archive.py`: census: an index record and its sheet image; "
+        "`kind()` in `code/archive.py`: census: an Ancestry index record and the Census sheet image, in one folder each and then one per census year; "
         "press: a newspaper's or magazine's page or article, printed or read online; obituaries; "
         "bios: biography pages; campaign websites: candidate sites, "
         "questionnaires and campaign material; legal: constitutions, statutes and the like; "
@@ -378,11 +393,12 @@ def main():
     for current, target in moves:
         print(f"  {current}\n    -> {target}")
         if a.apply:
-            (documents / target).parent.mkdir(exist_ok=True)
+            (documents / target).parent.mkdir(parents=True, exist_ok=True)
             shutil.move(documents / current, documents / target)
     for d in sorted({Path(c).parent for c, _ in moves if Path(c).parent != Path(".")}, reverse=True):
         left = [p for p in present if p.startswith(f"{d}/") and p not in dict(moves)]
-        if not left:
+        filled = any(t.startswith(f"{d}/") for _, t in moves)
+        if not left and not filled:
             print(f"{would}remove the empty folder {d}/")
             if a.apply and not any((documents / d).iterdir()):
                 (documents / d).rmdir()
