@@ -25,6 +25,7 @@ import re
 
 import pandas as pd
 
+import board_roster
 import citekeys
 import elections
 from elections import COUNTY_HISTORY_THROUGH
@@ -163,7 +164,8 @@ def build() -> pd.DataFrame:
     board = county_board()
     years = sorted(board.year)
     # Four-year terms for the whole Board in 1931 and 1935; one seat a year from 1939.
-    assert years == [1931, 1935] + list(range(1939, 2026)), f"County Board elections are not 1931, 1935, then every year: {years}"
+    assert years == [1931, 1935] + list(range(1939, board_roster.PRESENT)), \
+        f"County Board elections are not 1931, 1935, then every year to {board_roster.PRESENT - 1}: {years}"
     d = pd.concat([pres, board], ignore_index=True)
     cols = ["year", "office", *BANDS, "total", "complete", "source", "note"]
     d = d[cols].sort_values(["office", "year"], ascending=[False, True]).reset_index(drop=True)

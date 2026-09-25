@@ -6,6 +6,7 @@ Blank years are gaps.
 import pandas as pd
 
 import charts
+import members
 import paths
 import style
 
@@ -19,7 +20,7 @@ for profile in style.PROFILES:
     fig, ax = charts.figure(profile)
     charts.stacked_steps(ax, d["year"].to_numpy(), series, spans)
     charts.seats(ax)
-    charts.years(ax, 1870, 2020, step=20, label="year", through=2027)
+    charts.years(ax, 1870, 2020, step=20, label="year", through=members.LAST + 1)
     charts.rule(ax, note=style.EXPANSION_NOTE_SEATS)
     charts.legend(fig, series)
     paths.save(fig, "board_gender", profile)

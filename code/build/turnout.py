@@ -159,7 +159,7 @@ def build() -> pd.DataFrame:
     # The whole Board was elected every fourth year until terms were
     # staggered from 1940; from then on a seat is filled every November.
     years = list(board[board.year >= 1931].year)
-    assert years == [1931, 1935, 1939] + list(range(1940, 2026)), \
+    assert years == [1931, 1935, 1939] + list(range(1940, board_roster.PRESENT)), \
         f"a November Board contest is missing or extra: {years}"
     board["board_voters"] = (board.board_votes / board.board_seats).round().astype(int)
 

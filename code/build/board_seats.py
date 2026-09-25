@@ -68,7 +68,7 @@ def build() -> pd.DataFrame:
         m = d.year == d.year.min()
         d.loc[m, COLUMNS[1:]] = d.loc[m, COLUMNS[1:]] * 12 / months_existing
     years = list(d.year)
-    assert years == list(range(1870, PRESENT + 1)), f"years are not 1870-2026 without gaps: {years[:3]}..{years[-3:]}"
+    assert years == list(range(1870, PRESENT + 1)), f"years are not 1870-{PRESENT} without gaps: {years[:3]}..{years[-3:]}"
 
     # Seats held never exceed the seats that exist, and fall short only in
     # the two recorded vacancies.
