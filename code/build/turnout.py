@@ -146,9 +146,7 @@ def between_censuses(d: pd.DataFrame) -> pd.Series:
 
 def president() -> pd.DataFrame:
     v = read("voters")
-    if "office" in v.columns:
-        v = v[v.office == "president"]
-    v = v[v.complete]
+    v = v[(v.office == "president") & v.complete]
     return pd.DataFrame({"year": v.year, "president_votes": v.total,
                          "president_source": citekeys.DERIVED})
 
