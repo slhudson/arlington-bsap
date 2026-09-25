@@ -24,8 +24,6 @@ are explained in `code/build/citekeys.py`, and what is still open is in
   party is attempted before 1932 (`party-unlabelled`, `party-before-1932`).
 - The 1930 candidacies of Harris, Morton and Mosley rest on a page nobody has
   read (`bestebreurtje-p215`).
-- Ten pieces of reporting cited for party are not yet filed in Drive
-  (`reporting-unfiled`).
 
 Each is a row in `docs/questions.csv`, with an owner and what would settle it.
 

@@ -355,6 +355,36 @@ def test_a_source_we_cannot_fully_cite_is_logged_as_a_question():
         f"owner, or finish the entry and drop the word.")
 
 
+def test_every_source_with_a_url_is_filed():
+    """A source read from the web is filed in Drive, or held in data/raw/,
+    or its absence is a logged question. "Not yet filed" is not a state.
+
+    A web page moves or disappears, and then a citation names something
+    nobody can open. The failure is silent: the footnote prints, the
+    argument stands on it, and the copy that would settle a dispute was
+    never taken. So every entry with a `url` field must say where its copy
+    is - "Filed in Drive as" in the annotation, or a path under data/raw/ -
+    unless docs/questions.csv names the key, which is how a document not in
+    hand (bestebreurtje2017) is carried. And no annotation may say a source
+    is not filed: filing a web page takes a minute, so the words are a task
+    left undone rather than a fact worth recording.
+    """
+    import re
+    root = Path(__file__).resolve().parents[1]
+    bib = (root / "paper" / "sources.bib").read_text()
+    questions = (root / "docs" / "questions.csv").read_text()
+    problems = []
+    for key, body in re.findall(r"^@\w+\{([^,\s]+)\s*,(.*?)^\}", bib, re.M | re.S):
+        if re.search(r"not\s+(?:yet\s+)?filed", body, re.I):
+            problems.append(f"{key}: says it is not filed - file it in Drive and say so")
+        has_url = re.search(r"^\s*url\s*=", body, re.M)
+        held = "Filed in Drive as" in body or "data/raw/" in body
+        if has_url and not held and key not in questions:
+            problems.append(f"{key}: has a url but names no copy - add 'Filed in Drive as \"...\"' "
+                            f"or the path under data/raw/, or log a question naming the key")
+    assert not problems, "sources with no copy on file:\n  " + "\n  ".join(problems)
+
+
 def test_docs_name_only_paths_that_exist():
     """Every path a document names in backticks must exist.
 

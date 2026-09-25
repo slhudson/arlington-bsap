@@ -28,3 +28,6 @@ data/raw/us_census_bureau/1890/1890a_v1-11.pdf
 data/raw/us_census_bureau/1890/1890a_v1-12.pdf
 data/raw/us_census_bureau/1890/1890a_v1-13.pdf
 data/raw/us_census_bureau/1890/1890a_v1-14.pdf
+
+# Worktrees the desktop app and subagents make for their own sessions.
+.claude/worktrees/
