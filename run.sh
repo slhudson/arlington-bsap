@@ -8,6 +8,12 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
+# A session on a branch belongs in its own worktree (CLAUDE.md); the primary
+# checkout stays on main so two sessions cannot build against each other's edits.
+if [ "$(git rev-parse --git-dir 2>/dev/null)" = ".git" ] && [ "$(git branch --show-current 2>/dev/null)" != "main" ]; then
+  echo "WARNING: this is the primary checkout on branch $(git branch --show-current); work on a branch in a worktree (git worktree add .claude/worktrees/<name> <branch>)"
+fi
+
 PY=.venv/bin/python
 [ -x "$PY" ] || { echo "no venv: python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflakes"; exit 1; }
 

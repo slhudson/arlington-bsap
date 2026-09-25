@@ -225,6 +225,13 @@ revisiting does not depend on anyone remembering. The scans the build never
 reads are already fetched on demand rather than committed; if the text cap
 trips, the candidates are the state's 2MB election CSV and the OCR files.
 
+**A job that depends on another waits for its tracker row, not its branch.**
+A project is finished when its row leaves `docs/questions.csv` on `main`;
+that is what settling a question means here, and it is the only signal a
+second session can check. Branches are invisible until pushed and can be
+renamed, so a gate on "has that branch merged" passes for the wrong reason.
+Push a branch the moment it is created, so that others can see it exists.
+
 **Each session works in its own worktree** (`git worktree list`). Two
 sessions sharing one checkout once produced committed figures built against
 uncommitted edits, so `figures/` no longer matched `data/clean/` beside it.
