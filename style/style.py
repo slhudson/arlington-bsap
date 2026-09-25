@@ -82,10 +82,10 @@ AGE_BANDS = {
 # How exactly the sitting Board's homes are known: one hue, darker the more
 # exactly the place is named, and the no-evidence grey for no place at all.
 RESIDENCE = {
-    "address":      ("house on a street", "#1B6B4A"),
-    "street":       ("street only", "#4FA37D"),
+    "address":      ("street address", "#1B6B4A"),
+    "street":       ("street name", "#4FA37D"),
     "neighborhood": ("neighborhood", "#9CCFB3"),
-    "side":         ("side of the County", "#D3EBDD"),
+    "side":         ("north/south side", "#D3EBDD"),
     "none":         ("no place found", UNRECORDED),
 }
 PRESIDENT = ("voted for President", DARK)

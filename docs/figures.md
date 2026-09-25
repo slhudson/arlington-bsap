@@ -266,8 +266,8 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
 - **board_residence_coverage.** A diagnostic to show the County: of the
   members sitting on 1 July of each year, how exactly a home is known, as a
   stacked step area on the seat axis like the age coverage. One hue, darkest
-  green for a house on a street, then a street only, a neighborhood, a side
-  of the County, and the no-evidence grey for no place found; darker means
+  green for a street address, then a street name, a neighborhood, a
+  north/south side, and the no-evidence grey for no place found; darker means
   closer to the address a payroll or filing record would give. A member counts
   at the most exact place any source gives, whenever dated, so it can show a
   member as known from a source written after their service
