@@ -43,7 +43,7 @@ KINDS = ("legal", "reports", "books", "bios", "campaign websites", "press",
          "obituaries", "census")
 UNPLACED = "unplaced"
 
-# Web outlets whose pages are newspapers when read online; see kind().
+# Web outlets whose pages are press when read online; see kind().
 PAPERS = ("ARLnow", "InsideNoVa", "Sun Gazette", "Connection", "Washington Post", "Patch")
 
 # Magazines are press, like papers. A historical society's magazine is scholarship: books.
