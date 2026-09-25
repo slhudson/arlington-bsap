@@ -9,7 +9,8 @@ download whose checksum does not match the inventory is refused, since it
 is then not the file the transcriptions were read from. Every chunk on
 disk is checked against the inventory too, so on a full checkout this is a
 provenance audit that downloads nothing. The title-page chunks and the
-1870 chunks are committed (1870-chunks-provenance in docs/questions.csv).
+1870 chunks are committed and carry a URL too, so they are checked here
+rather than fetched.
 """
 import csv
 import hashlib

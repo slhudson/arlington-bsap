@@ -50,9 +50,9 @@ are explained in `code/build/citekeys.py`, and what is still open is in
   two of the 37 members first seated 1932–1962 have none
   (`residence-1932-1962`), 10 of the 25 seated 1964–1999 have none
   (`residence-1964-1999`), two rows postdate the member's service
-  (`residence-after-service`), and for Thomas, Tillema and Massey two
-  sources name different places (`thomas-residence`, `tillema-residence`,
-  `massey-residence`).
+  (`residence-after-service`), and for Thomas two sources name different
+  places (`thomas-residence`). Tillema's and Massey's two sources also
+  differ, but which each source says is settled; see "Reading an image".
 
 Each is a row in `docs/questions.csv`, with an owner and what would settle it.
 
@@ -238,7 +238,7 @@ columns:
 | `name`, `source` | the roster name and the record's citekey, `census<year><surname>` |
 | `year` | the census year |
 | `basis` | what ties the record to the member, stated once: the name, the place, and an occupation, a spouse or a house number where one agrees; where the index misreads a name, what it reads |
-| `checked` | what was read against the image: `read against the sheet, which agrees`, `the index only`, or, where the sheet was read line by line, what it gives where the index differs |
+| `checked` | what was read against the image: `read against the sheet, which agrees`, or what the sheet gives where it differs from the index. Every row names the sheet; see "Reading an image" |
 | `gender`, `race`, `age`, `birthplace`, `occupation` | as the index prints them: `Male`, `Mulatto`, `39` |
 | `birth_year` | a birth year the index prints as a date rather than as its `abt` estimate from the age (the 1900 schedule records a month and year); blank otherwise |
 | `place` | the street and house number as read for residence, from the sheet where the sheet was read; blank where no one has read it for that purpose |
@@ -264,6 +264,54 @@ cites a census record out of those two files and into the table, merging
 it with the record's row where there is one, and stops where the two
 disagree. A new record is keyed into the table directly; the script is
 re-run whenever a row citing a census record lands in either claim file.
+
+### Reading an image
+
+**Nothing leaves an image on one reading.** A census record is read against
+its own enumeration sheet before any of its fields is used, and its `checked`
+column says what the sheet gives. Ancestry's index is a finding aid, the same
+standing as the OCR under `data/transcribed/by_ocr/`: it locates the line, it
+does not read it. That is a second reading of every record, not a sample,
+because there are only 53 of them and the cost of a wrong one is silent.
+
+`code/build/board_census.py` enforces the half of that rule a machine can
+check. A row whose `checked` names neither the sheet nor the index stops the
+build, and so does a `place` on a row the sheet was never read against, since
+a street is the field the index gets wrong. `code/tests.py` reintroduces both
+mistakes.
+
+For a page read through OCR — a newspaper claim in
+`board_residence.csv` — the quoted sentence is read off the page image before
+the row is written, and any house number in it is read off the image, never
+off the OCR. Where rows were entered before this rule, the backlog is cleared
+a page at a time, whole pages rather than a sample of rows, since opening the
+page is the cost and the rows on it are then free.
+
+A pass over the rows that predate the rule, on 25 September 2026, read the
+seven census records that had only ever been indexed, and two newspaper pages
+carrying seven of the quoted addresses. It found one wrong value: Detwiler's
+1940 sheet gives his birthplace as **Minnesota** where the index reads
+Wisconsin, and spells the surname Detwiler, as the Board member does, where
+the index reads Detweiler. Birthplace is not a column the build reads, so no
+figure moved. Three smaller disagreements stand unresolved or need no fix:
+the sheet's own number reads 63A or 67A where the index and the filed image's
+name say 62A, and neither reading is firm; the index's street name for
+Buchholz, `1`, is a column number and not a street; and Byrne's sheet gives
+202 N. Highland St., which the *Daily Sun* of 11 September 1952 prints as
+well. The 103 figures keyed from the 1870, 1880 and 1890 volumes and the
+whole of the POP-TWPS0076 Arlington block were re-read against the printed
+pages and every one agreed.
+
+**Tillema and Massey.** Both have a census row and a *Daily Sun* row of 11
+September 1952 that name different streets, and the 1952 page prints exactly
+what the rows quote — the disagreement is between the two sources, not in the
+transcription. Tillema's 1950 sheet reads **N. Harvard St.**, and Arlington
+has a North Harvard Street and no North Howard Street, so the Sun's "1903
+North Howard Street" is its misprint. Massey's sheet reads **23rd Rd**, where
+the Sun prints "4300 North 23rd Street"; North 23rd Road and North 23rd
+Street are both real and both in North Arlington, so this is a different
+house, not a different side. Neither changes what the build does: it carries
+every claim with its source and chooses none.
 
 ## Race, gender and birth year of Board members
 

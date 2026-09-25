@@ -21,6 +21,7 @@ sys.path.insert(0, str(ROOT / "code" / "build"))
 import board_census  # noqa: E402
 import board_members  # noqa: E402
 import paths  # noqa: E402
+import board_residence  # noqa: E402
 import board_roster  # noqa: E402
 import board_seats  # noqa: E402
 import citekeys  # noqa: E402
@@ -222,6 +223,20 @@ def test_a_census_row_that_does_not_name_what_was_checked_is_refused():
                  patch_csv(board_census, lambda d: "checked" in d.columns, unchecked),
                  build=board_members.build)
     assert err and "what was checked" in err, f"not caught: {err}"
+
+
+def test_a_place_read_only_from_the_index_is_refused():
+    """A street taken from Ancestry's index with the sheet never read. The
+    index misreads a street where it reads a race or a sex correctly, so a
+    place it alone carries would put a member on a street that is not his."""
+    def index_only(d):
+        d.loc[d.source == "census1950kaul", "checked"] = "the index only"
+        d.loc[d.source == "census1950kaul", "place"] = "N Nash St, house number 1101"
+        return d
+    err = breaks(board_census.pd, "read_csv",
+                 patch_csv(board_census, lambda d: "checked" in d.columns, index_only),
+                 build=board_residence.build)
+    assert err and "without the sheet read" in err, f"not caught: {err}"
 
 
 def test_a_census_race_with_no_category_is_refused():

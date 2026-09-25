@@ -59,9 +59,17 @@ def claims() -> pd.DataFrame:
 def residences() -> pd.DataFrame:
     """The place per record that has one, in the columns of
     board_residence.csv: the match, then what was checked where the match
-    does not already say it. The quote is the sheet where it was read."""
+    does not already say it. The quote is the sheet where it was read.
+
+    A place is taken only from a record read against its sheet; docs/board.md,
+    "Reading an image", says why the index alone does not carry a street."""
     r = records()
     r = r[r.place != ""]
+    unread = r[~r.checked.str.contains("sheet")]
+    if len(unread):
+        raise ValueError("census places taken from the index without the sheet read:\n"
+                         + "\n".join(f"  {n} {s}: {p!r}" for n, s, p
+                                     in zip(unread.name, unread.source, unread.place)))
     basis = ["; ".join([b] + [c for c in checked.split("; ") if c not in b])
              for b, checked in zip(r.basis, r.checked)]
     return pd.DataFrame({"name": r.name, "year": r.year, "place": r.place, "basis": basis,

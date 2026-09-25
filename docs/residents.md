@@ -13,8 +13,6 @@ spike: the figure shows the size of the Board, not who sat.
 
 ## What rests on an assumption
 
-- The 1900–1970 race figures cite a paper whose title and number are read off
-  its table and file path (`twps0076-citation`).
 - Retrocession is dated 1846 or 1847 depending on the source; the report has
   to pick one (`retrocession-date`).
 - Whether the report compares Arlington to peer localities at all
@@ -160,9 +158,13 @@ is a different kind of number from the full counts beside it. The
 transcription carries the sample rows and the build does not read them.
 
 The Bureau publishes this paper as one PDF per state with no front matter, so
-its title is read from the table header and its number and date from the file
-path. The bibliography entry says so, and the report must carry a footnote to
-that effect (`twps0076-citation` in `docs/questions.csv`).
+the copy held names neither the paper nor its date — only its own table. The
+Bureau's page for the working paper does: *Historical Census Statistics on
+Population Totals by Race, 1790 to 1990, and by Hispanic Origin, 1970 to 1990,
+for Large Cities and Other Urban Places in the United States*, by Campbell
+Gibson and Kay Jung, February 2005, working paper POP-WP076, served under the
+path `pop-twps0076`. The bibliography entry is built from that page and says
+so; what the held PDF itself carries is its `annotation`.
 
 **1980–2020.** Race and Hispanic origin are two census questions, so a
 Hispanic resident appears in both a race count and the Hispanic count, and
@@ -248,8 +250,10 @@ whole repository. They are the Bureau's own files at stable URLs, and
 `code/fetch/census_volumes.py` fetches whichever is missing and refuses a
 download whose checksum differs, so a page cited from one of them is the
 page that was read. `bash run.sh` says at the end of every build if they are
-absent. The three 1870 chunks are committed: the Bureau's current copies at
-1870/population/ are chunked differently (7 and 3 pages against the 36 and
-46 held), so the held files cannot be re-fetched, and where they came from
-rests on the volume's own title page (`1870-chunks-provenance` in
-`docs/questions.csv`).
+absent. The three 1870 chunks are committed, and carry a URL as well. The Bureau's
+current copies at 1870/population/ are chunked differently — 69 chunks there,
+of 7 and 3 pages against the 36 and 46 held — but its legacy tree at
+prod2/decennial/documents/ still serves the older 19-chunk run, and the three
+held files match it byte for byte. `code/fetch/census_volumes.py` therefore
+checks them against that path like any other chunk, and a full checkout is a
+provenance audit that downloads nothing.
