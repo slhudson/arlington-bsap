@@ -222,6 +222,10 @@ trips, the candidates are the state's 2MB election CSV and the OCR files.
 **Each session works in its own worktree** (`git worktree list`). Two
 sessions sharing one checkout once produced committed figures built against
 uncommitted edits, so `figures/` no longer matched `data/clean/` beside it.
+A session hook in `.claude/settings.json` reminds an agent that starts in the
+main checkout to offer a worktree when others may be working, and to check the
+branch name fits the task. It advises; it never blocks, since collaborators
+may be new to Git.
 The build itself is reproducible: the same sources in a fresh virtualenv give
 byte-identical figures.
 

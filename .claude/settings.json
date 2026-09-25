@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ \"$(git rev-parse --git-dir)\" = \"$(git rev-parse --git-common-dir)\" ] && echo \"Note: this session is in the main checkout, not a worktree. If another agent may be working in this repo, offer to work in a worktree on a new branch (EnterWorktree) so edits do not mix; if the user is working alone, carry on. Either way, check that the current branch ($(git branch --show-current)) fits this task before committing, and explain any git step in plain words.\" || true"
+          }
+        ]
+      }
+    ]
+  }
+}
