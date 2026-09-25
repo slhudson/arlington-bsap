@@ -35,6 +35,12 @@ are explained in `code/build/citekeys.py`, and what is still open is in
   party is attempted before 1932 (`party-unlabelled`, `party-before-1932`).
 - The 1930 candidacies of Harris, Morton and Mosley rest on a page nobody has
   read (`bestebreurtje-p215`).
+- Each place carries a precision, from the place's own words by rules in
+  `code/build/board_residence.py`: a house number with a street is an address;
+  a street with no number, a street; a neighborhood, civic association or
+  named community, a neighborhood; and "North Arlington" or the northernmost
+  section, a side. A place no rule reads stops the build. A house number
+  whose street is unread (Ames) counts as a neighborhood.
 - Where members lived is transcribed but not yet coded, and the 1973 Post map
   that places a whole Board at once has not been seen (`mathews1973-map`);
   two of the 37 members first seated 1932–1962 have none

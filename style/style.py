@@ -79,6 +79,15 @@ AGE_BANDS = {
     "60plus":  ("60 and over", OKABE_ITO["orange"]),
     "unknown": ("no birth year", UNRECORDED),
 }
+# How exactly the sitting Board's homes are known: one hue, darker the more
+# exactly the place is named, and the no-evidence grey for no place at all.
+RESIDENCE = {
+    "address":      ("house on a street", "#1B6B4A"),
+    "street":       ("street only", "#4FA37D"),
+    "neighborhood": ("neighborhood", "#9CCFB3"),
+    "side":         ("side of the County", "#D3EBDD"),
+    "none":         ("no place found", UNRECORDED),
+}
 PRESIDENT = ("voted for President", DARK)
 CYCLE = {
     "president": ("presidential year", OKABE_ITO["vermilion"]),

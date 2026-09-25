@@ -12,10 +12,11 @@ FIGURES = ROOT / "figures"
 RESIDENTS = CLEAN / "residents.csv"
 BOARD_MEMBERS = CLEAN / "board_members.csv"
 BOARD_SEATS = CLEAN / "board_seats.csv"
+BOARD_RESIDENCE = CLEAN / "board_residence.csv"
 VOTERS = CLEAN / "voters.csv"
 TURNOUT = CLEAN / "turnout.csv"
 
-for _f in (RESIDENTS, BOARD_MEMBERS, BOARD_SEATS, VOTERS, TURNOUT):
+for _f in (RESIDENTS, BOARD_MEMBERS, BOARD_SEATS, BOARD_RESIDENCE, VOTERS, TURNOUT):
     if not _f.exists():
         raise FileNotFoundError(f"{_f} missing - run the build stage first (bash run.sh)")
 

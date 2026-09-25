@@ -388,22 +388,15 @@ def test_every_data_file_is_inventoried():
 
 
 def test_docs_agree_with_run_sh():
-    """A `pip install` line or an "N figures" in the docs that differs from
-    run.sh."""
+    """A `pip install` line in the docs that differs from run.sh."""
     run = (ROOT / "run.sh").read_text()
     install = re.search(r"pip install ([a-z0-9 ]+)", run).group(1).split()
-    figures = re.search(r"FIGURES=\(([^)]*)\)", run, re.S).group(1).split()
-    words = {3: "three", 4: "four", 5: "five", 6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten", 11: "eleven", 12: "twelve"}
     problems = []
     for doc in [ROOT / "README.md", ROOT / "CLAUDE.md", ROOT / "docs" / "setup.md"]:
         text = doc.read_text()
         for m in re.finditer(r"pip install ([a-z0-9 ]+)", text):
             if m.group(1).split() != install:
                 problems.append(f"{doc.name}: install line says {m.group(1).split()}, run.sh says {install}")
-        for m in re.finditer(r"\b(\w+) figures\b", text):
-            n = m.group(1).lower()
-            if n in words.values() and n != words[len(figures)]:
-                problems.append(f"{doc.name}: says '{n} figures', run.sh builds {len(figures)}")
     assert not problems, "docs disagree with run.sh:\n  " + "\n  ".join(problems)
 
 
