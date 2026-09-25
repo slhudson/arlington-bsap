@@ -29,8 +29,8 @@ are explained in `code/build/citekeys.py`, and what is still open is in
   year, and the sitting-age figure draws a year only when all but at most
   one sitting member has one. The figure is not in the paper yet, and its
   lines start in 1932 on an axis that still runs from 1870.
-- 1912–1931 has no roster; the 1923 and 1927 names are not entered
-  (`roster-1912-1931`).
+- 1912–1931 names five terms and no more; the seats for those years are
+  assumed, not counted from them.
 - The November 1903 winners are seated in January on sec. 112 without the
   Schedule having been read (`schedule-1902`).
 - From 1907 O'Leary's surnames are not joined to earlier full names
@@ -63,7 +63,7 @@ Each is a row in `docs/questions.csv`, with an owner and what would settle it.
 `data/clean/board_members.csv` holds one row per person per term: name, term
 number, district, when service began and ended (to the month), the months the
 term held (`held_from` and `held_to`, counted from year 0, the end exclusive),
-how the term began, and a source per row. 217 terms, 1870 through 2026, from three sources
+how the term began, and a source per row. 222 terms, 1870 through 2026, from three sources
 in sequence: O'Leary's electoral history to 1915, Novack's roster from 1932 to
 1994, and election results after that, the county's candidate history to 2021
 and the state's elections database from 2022. Nothing covers 1912–1931 except
@@ -112,23 +112,27 @@ those seats next. The note on such a row says the end is the statute's; where
 the next listed election seats a successor on the same date the departure is
 sourced and carries no note.
 
-**So the roster stops naming people in 1912, and nothing names anyone until
-1932.** For 1912–1931 no source in hand records who served, and the seat
-counts for those years are an assumption, stated in `code/build/board_seats.py`
-and labelled `assumed`: three seats, filled, held by white men. Two elections
-inside the stretch are printed in the county's candidate history under the
-district headings rather than under "County Board": November 1923 (Ingram in
-Arlington, Duncan in Jefferson, Thornburke in Washington) and November 1927
-(Duncan and Thornburke). Ingram and Thornburke appear in no other source; both are marked
-"(inc.)" in 1923, so they were elected at one of the unrecorded elections
-after 1915, and the Alexandria Gazette and the Washington Star are where to
-look for the rest. Duncan is very likely the Duncan who held Jefferson from
-1895 in O'Leary, which would make the gap two seats wide rather than three.
-They are not in the roster: `board_seats` derives its counts from it, so a
-roster covering 1923 and 1927 but not the years around them would read the
-rest as unfilled, and the two would first have to be decoupled, with the
-roster naming who is named and the counts keeping the assumption, which is
-already how the 1915 winners are carried.
+**So the roster names almost nobody from 1912 to 1931.** No source in hand
+records who served, and the seat counts for those years are an assumption,
+stated in `code/build/board_seats.py` and labelled `assumed`: three seats,
+filled, held by white men. `board_seats` states those years itself and
+replaces whatever the roster holds for them, so a name added to the roster
+moves no seat-year; `code/tests.py` adds a member in 1925 and checks that
+the table for 1912–1931 does not change. Two elections inside the stretch are printed in the county's
+candidate history under the district headings rather than under "County
+Board": November 1923 (Ingram in Arlington, Duncan in Jefferson, Thornburke
+in Washington, each the only name listed) and November 1927 (Duncan and
+Thornburke, each with the highest vote). They are keyed in
+`data/transcribed/by_claude/board_terms.csv`, page 2 and page 4, as five
+terms seated the following January, with no end: the county gives neither a
+start nor an end, so the January start is the build's rule for a November
+winner and each term holds to the end of its first year (1924 and 1928). Ingram and Thornburke appear in no
+other source; both are marked "(inc.)" in 1923, so they were elected at one
+of the unrecorded elections after 1915, and the Alexandria Gazette and the
+Washington Star are where to look for the rest. Duncan is very likely the
+Duncan who held Jefferson from 1895 in O'Leary, which would make the gap two
+seats wide rather than three; the roster does not join him to "E. Duncan"
+(see the surnames row below).
 
 **Mid-term handovers are terms like any other.** O'Leary records them as
 prose beside the elected member ("Replaced by H. Dwight Smith in Dec.;
@@ -186,7 +190,7 @@ swept, since there is no roster to sweep.
 held by each race, each gender and (from 1932) each party, in seat-years, so
 a member who sat for four months of a year counts 4/12. It is computed from
 `board_members.csv` for every year but 1912–1931, which are the assumption
-above. Days are not recorded consistently, Novack giving some and the election
+above whatever the roster holds for them. Days are not recorded consistently, Novack giving some and the election
 dates others, so the month is the unit, and **the handover month belongs to
 the incoming member** (Sally, 22 September 2026). An end no source records
 holds to the end of the term's first year. Both rules are applied once, in

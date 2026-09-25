@@ -122,6 +122,36 @@ def test_a_wrong_term_length_is_rejected():
     assert err and "at large" in err, f"not caught: {err}"
 
 
+def test_the_seat_table_before_1932_does_not_depend_on_the_roster():
+    """A member with a term in the middle of the years no source names.
+    board_seats states those years itself, so adding people to the roster
+    for them (board_terms.csv) must not move a seat-year. If the stated
+    years were read from the roster instead, the surrounding years would
+    read as unfilled and this member would appear in the race, gender
+    and party columns."""
+    stated = list(board_seats.NO_ROSTER_YEARS)
+    assert stated == list(range(1912, board_roster.AT_LARGE_FROM)), f"stated years are {stated[0]}-{stated[-1]}"
+    real = board_seats.build()
+    read = board_seats.read
+
+    def with_a_member(name):
+        members = read(name)
+        if name != "board_members":
+            return members
+        extra = members.iloc[[0]].copy()
+        extra["held_from"], extra["held_to"] = 1925 * 12, 1926 * 12
+        extra["race"], extra["gender"], extra["party"] = "Black", "woman", "Democratic"
+        return pd.concat([members, extra], ignore_index=True)
+
+    board_seats.read = with_a_member
+    try:
+        changed = board_seats.build()
+    finally:
+        board_seats.read = read
+    before, after = (t[t.year.isin(stated)].reset_index(drop=True) for t in (real, changed))
+    pd.testing.assert_frame_equal(before, after)
+
+
 def test_a_term_that_does_not_say_how_it_began_is_rejected():
     """A seated_by value outside the four the roster defines."""
     def mangle(orig):

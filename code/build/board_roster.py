@@ -18,8 +18,10 @@ Sources, in sequence:
   election results 1995-      the county's candidate history to 2021, the
                               state's database from 2022
 
-1912-1931 names nobody: O'Leary's last listed election is 1915, and its
-winners' four-year terms end in January 1912.
+1912-1931 names almost nobody: O'Leary's last listed election is 1915, and
+its winners' four-year terms end in January 1912. The county's candidate
+history prints the district races of November 1923 and 1927, keyed in
+board_terms.csv.
 """
 import re
 
@@ -155,6 +157,20 @@ def oleary_terms():
                        "start_year": y0, "start_month": m0,
                        "end_year": y1, "end_month": m1, "seated_by": how,
                        "source": f"{citekeys.OLEARY} p.{r.page}", "note": " ".join(parts)}
+
+
+def county_history_terms():
+    """Terms keyed by hand from the county's candidate history, for the
+    two 1912-1931 elections it prints under the district headings
+    (board_terms.csv). They add names to the roster; board_seats does not
+    read them, and states the 1912-1931 seats itself. docs/board.md."""
+    d = pd.read_csv(BY_CLAUDE / "board_terms.csv", dtype=str).fillna("")
+    for _, r in d.iterrows():
+        yield {"name": r["name"], "district": r.district,
+               "start_year": int(r.start_year), "start_month": int(r.start_month),
+               "end_year": int(r.end_year) if r.end_year else float("nan"),
+               "end_month": int(r.end_month) if r.end_month else float("nan"),
+               "seated_by": r.seated_by, "source": r.source, "note": r.note}
 
 
 def board_elections():
@@ -501,11 +517,13 @@ def check_seated_by(d: pd.DataFrame):
 
 
 def build() -> pd.DataFrame:
-    d = pd.DataFrame(list(oleary_terms()) + list(novack_terms()))
+    d = pd.DataFrame(list(oleary_terms()) + list(county_history_terms()) + list(novack_terms()))
     d = election_terms(d)
     check_names(d)
     check_seated_by(d)
     check_five_seats(d)
+    # A blank end is missing, not a float: the columns stay whole numbers.
+    d[["end_year", "end_month"]] = d[["end_year", "end_month"]].astype("Int64")
     d = d.sort_values(["name", "start_year", "start_month"]).reset_index(drop=True)
     # Each person's terms numbered from 1, keyed on the full name.
     d["term_number"] = d.groupby(d.name.str.strip()).cumcount() + 1
