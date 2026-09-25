@@ -41,6 +41,7 @@ without a network connection, an API key, or a Mac.
 | `code/build/board_seats.py` | `data/clean/board_seats.csv` | `docs/board.md` |
 | `code/build/turnout.py` | `data/clean/turnout.csv` | `docs/voters.md` |
 | `code/analysis/<figure>.py` | `figures/pdf/<figure>.pdf`, `figures/png/<figure>.png` | its own docstring |
+| `code/archive.py` | `index.md` at the top of the Drive documents folder, and the zip the County receives | `CLAUDE.md` |
 
 Three build modules write nothing and are read by the steps above:
 `code/build/board_roster.py` (who held each seat and when),
@@ -94,7 +95,7 @@ silently go stale.
 | `docs/questions.csv` | What is still open: one row per item with an owner, what it bites and what would settle it |
 | `docs/setup.md` | Getting a machine set up to build; written for a collaborator joining |
 | `paper/sources.bib` | Every source, cited by key from both the prose and `data/clean/`; each entry's `annotation` says what the copy held supports and where it is filed |
-| Drive, `sources/documents` | Copies of the sources no number is taken from: <https://drive.google.com/drive/folders/10SGuURB-ldC1AzM3ClsdL_tAiWeFIZB4> |
+| Drive, `sources/documents` | Copies of the sources no number is taken from, filed by kind, with an `index.md` that `code/archive.py` writes: <https://drive.google.com/drive/folders/10SGuURB-ldC1AzM3ClsdL_tAiWeFIZB4> |
 
 Open questions are logged as they arise and answered in place, so the reasoning
 survives alongside the fix.

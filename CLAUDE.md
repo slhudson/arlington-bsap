@@ -140,6 +140,16 @@ cited in `paper/sources.bib` and filed in the project's Drive folder, not
 downloaded into `data/raw/`.
 The test is whether a figure derives from it.
 
+**The Drive folder is filed by kind, and its index is generated.**
+`code/archive.py` files the documents folder into `legal`, `reports`, `books`,
+`newspapers`, `obituaries` and `census`, the kind being a rule on the
+bib entry; writes `index.md` at its top from `paper/sources.bib` and
+`data/contents.csv`, so the index cannot drift from either; and builds the
+zip the County receives, the repository at HEAD with the six on-demand
+scans and the folder. Without `--apply` it only reports. It refuses to act
+while a name the bib says is filed is not in the folder, and deletes
+nothing: a file no entry names goes to `unplaced/`.
+
 **Every source column holds a citekey from `paper/sources.bib`.** One registry
 for the prose and the data, so a footnote in the report and a cell in a table
 name the same document. Entries are built from the document in hand, never from

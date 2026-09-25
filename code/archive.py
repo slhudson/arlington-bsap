@@ -1,0 +1,414 @@
+"""Assemble the archive the County receives, and its index.
+
+    .venv/bin/python code/archive.py            # dry run: report, move nothing
+    .venv/bin/python code/archive.py --apply    # file the folder, write index.md, build the zip
+
+The archive is the repository at HEAD, the six census scans data/contents.csv
+marks in_git = no, and the Drive documents folder: a copy of every source the
+report cites that no number is taken from. Its index is generated from
+paper/sources.bib and data/contents.csv, never written by hand, so it cannot
+drift from either.
+
+The documents folder is filed by kind, one folder per kind (KINDS), and the
+kind of an entry's copy is a rule on the bib entry, kind() below. A dry run
+reads everything and prints what --apply would do: the layout, every move,
+the files no entry names, the entries with a url and no filed copy. --apply
+moves files within the folder and rewrites the filed name in the entry's
+annotation to match, so the tests that check those names keep passing. It
+deletes nothing: a file no entry names goes to unplaced/. It refuses to run
+if a filed name the bib gives is not in the folder, or a scan is not on disk.
+"""
+import argparse
+import csv
+import hashlib
+import re
+import shutil
+import subprocess
+import sys
+import zipfile
+from datetime import date
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+BIB = ROOT / "paper" / "sources.bib"
+CONTENTS = ROOT / "data" / "contents.csv"
+
+# sources/documents in the project's Drive, as this Mac mounts it. The link is
+# in README.md; on another machine pass --documents.
+DOCUMENTS = (Path.home() / "Library/CloudStorage/GoogleDrive-sally@rankedchoiceva.org"
+             / ".shortcut-targets-by-id/1M4kZqG-XFRNQ9jele3PcD6mfZog7E5_Q/RCVa/research"
+             / "Virginia/Arlington/2026 - Form of Government/team/sources/documents")
+
+KINDS = ("legal", "reports", "books", "newspapers", "obituaries", "census")
+UNPLACED = "unplaced"
+
+# Web outlets whose pages are newspapers when read online; see kind().
+PRESS = ("ARLnow", "InsideNoVa", "Sun Gazette", "Arlington Magazine", "Connection",
+         "Washington Post", "Patch")
+
+# A filed copy is any quoted filename in an entry's annotation: the "Filed in
+# Drive as" name, and for a census record the sheet image beside it.
+FILED = re.compile(r'"([^"]*?\.(?:pdf|jpe?g|png))"', re.S)
+
+
+# Titles and entry types that make a source law rather than a report.
+LEGAL_TITLE = re.compile(r"\b(constitution|code|charter|statutes?|acts?|ordinances?|"
+                         r"referendum|v\.)\b", re.I)
+LEGAL_TYPE = ("legislation", "jurisdiction", "statute", "bill", "legal", "law")
+BOOK_TYPE = ("book", "inbook", "incollection", "thesis", "phdthesis", "mastersthesis")
+
+
+def kind(e):
+    """Which folder an entry's copy is filed in. The first rule that fits."""
+    if "ancestry" in e.get("howpublished", "").lower():
+        return "census"                                   # an index record and its sheet
+    if re.search(r"\bobituary\b|\bdies\b", e["title"], re.I):
+        return "obituaries"
+    if e["type"] == "article" and "pages" in e and "location" in e:
+        return "newspapers"                               # a printed page, scanned
+    if e["type"] == "article" and "journaltitle" in e and "pages" not in e:
+        return "newspapers"                               # a newspaper's article, read online
+    if any(o in e.get("organization", "") for o in PRESS):
+        return "newspapers"                               # an outlet's page, read online
+    if e["type"] in LEGAL_TYPE or LEGAL_TITLE.search(e["title"]):
+        return "legal"
+    if e["type"] in BOOK_TYPE or (e["type"] == "article" and "journaltitle" in e):
+        return "books"                                    # scholarship
+    return "reports"
+
+
+# --- reading ------------------------------------------------------------------
+
+def entries(text):
+    """Every entry in the bib as a dict of its fields, with type, key and the
+    span of the whole entry in the text. Field values keep their braces
+    balanced, so {{Arlington County}} and \\cite{x} read through."""
+    out = []
+    for m in re.finditer(r"^@(\w+)\{([^,\s]+)\s*,", text, re.M):
+        end = re.compile(r"^\}", re.M).search(text, m.end()).end()
+        body = text[m.end():end]
+        if re.search(r"^@\w+\{", body, re.M):
+            sys.exit(f"{m.group(2)}: no closing brace before the next entry")
+        e = {"type": m.group(1).lower(), "key": m.group(2), "body": body}
+        for f in re.finditer(r"^\s*(\w+)\s*=\s*\{", body, re.M):
+            i, depth = f.end(), 1
+            while depth:
+                depth += {"{": 1, "}": -1}.get(body[i], 0)
+                i += 1
+            e[f.group(1).lower()] = body[f.end():i - 1]
+        out.append(e)
+    return out
+
+
+def filed(e):
+    """The filenames an entry says are filed in Drive, whitespace collapsed."""
+    return [" ".join(n.split()) for n in FILED.findall(e.get("annotation", ""))]
+
+
+def plain(s):
+    """A bib value as text: braces off, LaTeX quotes and dashes rendered."""
+    s = " ".join(s.split())
+    s = re.sub(r"\\cite\{([^}]*)\}", r"\1", s)
+    for a, b in (("\\&", "&"), ("---", "\u2014"), ("--", "\u2013"), ("``", '"'),
+                 ("''", '"'), ("`", "'"), ("{", ""), ("}", ""), ("~", " ")):
+        s = s.replace(a, b)
+    return s
+
+
+def cell(s):
+    return plain(s).replace("|", "\\|")
+
+
+def who(e):
+    """The entry's author, or whoever stands in for one."""
+    return cell(e.get("author") or e.get("editor") or e.get("organization") or "")
+
+
+def row(e, last):
+    return f"| {e['key']} | {who(e)} | {cell(e.get('date', 'n.d.'))} | {cell(e['title'])} | {last} |"
+
+
+def raw_rows():
+    return [r for r in csv.DictReader(CONTENTS.open()) if r["layer"] == "raw"]
+
+
+def raw_paths(e, rows):
+    """The data/raw/ files behind an entry: the rows whose source cites its
+    key, the way data/contents.csv writes one, "... (citekey)"."""
+    return [r["path"] for r in rows if f"({e['key']})" in r["source"]]
+
+
+def sha16(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()[:16]
+
+
+def folder_files(documents):
+    """Every file in the documents folder, as a path relative to it. Dotfiles,
+    the index and a zip are not documents."""
+    return sorted(p.relative_to(documents).as_posix() for p in documents.rglob("*")
+                  if p.is_file() and not p.name.startswith(".")
+                  and p.name != "index.md" and p.suffix != ".zip")
+
+
+# --- placing ------------------------------------------------------------------
+
+def place(bib, documents):
+    """Where every filed copy is and where it belongs.
+
+    Returns (claims, missing): claims maps each file's current path in the
+    folder to (target path, entry); missing lists filed names found nowhere in
+    the folder. A name is looked for at the path the bib gives, then by its
+    basename anywhere in the folder, so a file dropped at the top or left in
+    an old subfolder is found and moved rather than reported missing."""
+    present = folder_files(documents)
+    by_name = {}
+    for p in present:
+        by_name.setdefault(Path(p).name, []).append(p)
+    claims, missing = {}, []
+    for e in bib:
+        for name in filed(e):
+            base = Path(name).name
+            if name in present:
+                current = name
+            elif len(by_name.get(base, [])) == 1:
+                current = by_name[base][0]
+            elif len(by_name.get(base, [])) > 1:
+                sys.exit(f"{e['key']}: \"{base}\" is in the folder more than once: "
+                         f"{', '.join(by_name[base])}")
+            else:
+                missing.append((e["key"], name))
+                continue
+            target = f"{kind(e)}/{base}"
+            if current in claims and claims[current][0] != target:
+                sys.exit(f"\"{current}\" is claimed by {claims[current][1]['key']} as "
+                         f"{claims[current][0]} and by {e['key']} as {target}")
+            claims[current] = (target, e)
+    return claims, missing
+
+
+def rewrite_bib(text, bib, claims):
+    """The bib text with every filed name that moved replaced by its new
+    path. Only the quoted name changes; the rest of the file is untouched."""
+    new = {}
+    for e in bib:
+        for name in filed(e):
+            for current, (target, owner) in claims.items():
+                if owner is e and Path(current).name == Path(name).name and name != target:
+                    new[name] = target
+
+    def sub(m):
+        return '"' + new.get(" ".join(m.group(1).split()), m.group(1)) + '"'
+    return FILED.sub(sub, text), len(new)
+
+
+# --- the index ------------------------------------------------------------------
+
+def index_text(bib, claims, rows, unplaced, commit):
+    by_entry = {}
+    for current, (target, e) in claims.items():
+        by_entry.setdefault(e["key"], []).append(target)
+    scans = [r for r in rows if r["in_git"] == "no"]
+    out = [
+        "# Arlington BSaP: sources archive",
+        "",
+        f"Written by `code/archive.py` on {date.today().isoformat()} from commit {commit} of the "
+        "`slhudson/arlington-bsap` repository. Generated: rerun the script rather than edit it.",
+        "",
+        "- `repository/` is the repository at that commit. `bash run.sh` rebuilds every "
+        "figure from it; its `README.md` says how. The scans it fetches on demand rather "
+        f"than commits ({len(scans)} files under `data/raw/us_census_bureau/`) are included "
+        "at their paths.",
+        "- `documents/` holds a copy of every source the report cites that no number is "
+        "taken from, filed by kind. The first column of each table is the entry's key in "
+        "`repository/paper/sources.bib`; the entry's `annotation` says what the copy is "
+        "and when it was taken.",
+        "",
+        "## Documents",
+        "",
+        "One folder per kind. Which folder a copy belongs in is a rule on its bib entry, "
+        "`kind()` in `code/archive.py`: census: an index record and its sheet image; "
+        "newspapers: a page or article, printed or read online; obituaries; legal: constitutions, "
+        "statutes and the like; books: scholarship; reports: everything else.",
+    ]
+    for k in KINDS:
+        held = sorted((sorted(files)[0], e) for e in bib
+                      for key, files in [(e["key"], by_entry.get(e["key"], []))]
+                      if files and files[0].startswith(k + "/"))
+        out += ["", f"### {k} ({len(held)} {'entry' if len(held) == 1 else 'entries'})", ""]
+        if not held:
+            out.append("(none)")
+            continue
+        out += ["| key | author | date | title | file |", "|---|---|---|---|---|"]
+        for _, e in held:
+            out.append(row(e, "<br>".join(f"`{Path(f).name}`" for f in sorted(by_entry[e["key"]]))))
+    out += ["", "## Sources held in the repository", "",
+            "Entries whose copy is under `repository/data/raw/`, because a number is taken "
+            "from it.", "",
+            "| key | author | date | title | in data/raw/ |", "|---|---|---|---|---|"]
+    for e in bib:
+        paths = raw_paths(e, rows)
+        if paths:
+            out.append(row(e, "<br>".join(f"`{p}`" for p in paths)))
+    out += ["", "Every file under `data/raw/`, from `data/contents.csv`: what it is, "
+            "who published it, and the first sixteen hex digits of its SHA-256.", "",
+            "| path | source | sha256 | committed |", "|---|---|---|---|"]
+    for r in rows:
+        out.append(f"| `{r['path']}` | {cell(r['source'])} | `{r['sha256']}` | "
+                   f"{'yes' if r['in_git'] == 'yes' else 'no, fetched on demand; in this archive'} |")
+    out += ["", "## Sources with no copy held", "",
+            "Cited, but neither filed in `documents/` nor held under `data/raw/`; the "
+            "entry's `annotation` says why.", "",
+            "| key | author | date | title | url |", "|---|---|---|---|---|"]
+    for e in bib:
+        if e["key"] not in by_entry and not raw_paths(e, rows):
+            out.append(row(e, plain(e["url"]) if "url" in e else ""))
+    if unplaced:
+        out += ["", f"## {UNPLACED}", "",
+                "Files in the folder that no entry names. Each is either a source not yet "
+                "entered in the bib or a stray; nothing is deleted.", ""]
+        out += [f"- `{Path(p).name}`" for p in unplaced]
+    return "\n".join(out) + "\n"
+
+
+# --- the zip --------------------------------------------------------------------
+
+def build_zip(zip_path, documents, index, scans):
+    prefix = "arlington-bsap/"
+    tmp = zip_path.with_suffix(".zip.part")
+    subprocess.run(["git", "archive", "--format=zip", f"--prefix={prefix}repository/",
+                    "-o", str(tmp), "HEAD"], cwd=ROOT, check=True)
+    with zipfile.ZipFile(tmp, "a", zipfile.ZIP_DEFLATED) as z:
+        for p in scans:
+            z.write(ROOT / p, f"{prefix}repository/{p}")
+        for rel in folder_files(documents):
+            z.write(documents / rel, f"{prefix}documents/{rel}")
+        z.writestr(f"{prefix}documents/index.md", index)
+        z.writestr(f"{prefix}index.md", index)
+    tmp.replace(zip_path)
+
+
+# --- main -----------------------------------------------------------------------
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[1])
+    ap.add_argument("--apply", action="store_true",
+                    help="move files, rewrite the bib, write index.md and build the zip")
+    ap.add_argument("--documents", type=Path, default=DOCUMENTS, help="the Drive documents folder")
+    ap.add_argument("--index", type=Path,
+                    help="where to write index.md (default: the top of the documents folder; "
+                         "a dry run writes it only if this is given)")
+    ap.add_argument("--zip", type=Path, help="the zip to build (default: beside the documents folder)")
+    a = ap.parse_args()
+    documents = a.documents
+    if not documents.is_dir():
+        sys.exit(f"documents folder not found: {documents}")
+    zip_path = a.zip or documents.parent / "arlington-bsap-archive.zip"
+    would = "" if a.apply else "would "
+
+    text = BIB.read_text()
+    bib = entries(text)
+    rows = raw_rows()
+    claims, missing = place(bib, documents)
+    present = folder_files(documents)
+
+    # Everything that stops the run is checked before anything moves. A dry
+    # run reports each blocker and carries on, so the rest can be read, and
+    # ends nonzero.
+    blockers = []
+    if missing:
+        print(f"named in the bib, not in the folder ({len(missing)}):")
+        for key, name in missing:
+            print(f"  {key}: \"{name}\"")
+        blockers.append(f"{len(missing)} filed cop{'y' if len(missing) == 1 else 'ies'} not found: "
+                        "file each in Drive, or correct the annotation")
+    scans = [r["path"] for r in rows if r["in_git"] == "no"]
+    absent = [p for p in scans if not (ROOT / p).exists()]
+    if absent:
+        print(f"scans not on disk ({len(absent)} of {len(scans)}):")
+        for p in absent:
+            print(f"  {p}")
+        blockers.append("scans not on disk: .venv/bin/python code/fetch/census_volumes.py fetches them")
+    moved = [p for p in scans if p not in absent
+             and sha16(ROOT / p) != next(r["sha256"] for r in rows if r["path"] == p)]
+    if moved:
+        print("scans whose checksum does not match data/contents.csv:")
+        for p in moved:
+            print(f"  {p}")
+        blockers.append("a scan's checksum has moved: refetch it")
+    if blockers and a.apply:
+        sys.exit("--apply refused:\n  " + "\n  ".join(blockers))
+
+    print(f"documents: {documents}")
+    print(f"  {len(present)} files; {len(bib)} bib entries, {len(claims)} filed copies")
+    print("layout, by kind:")
+    for k in KINDS:
+        n = sum(1 for t, _ in claims.values() if t.startswith(k + "/"))
+        print(f"  {k:16} {n:3}")
+
+    moves = sorted((c, t) for c, (t, _) in claims.items() if c != t)
+    unplaced = [p for p in present if p not in claims]
+    to_unplace = [p for p in unplaced if not p.startswith(UNPLACED + "/")]
+    for p in to_unplace:
+        target = f"{UNPLACED}/{Path(p).name}"
+        if (documents / target).exists() or target in dict(moves):
+            sys.exit(f"cannot place \"{p}\": {UNPLACED}/ already holds a file of that name")
+        moves.append((p, target))
+
+    print(f"moves ({len(moves)}"
+          + (f", of which {len(to_unplace)} to {UNPLACED}/ because no entry names them" if to_unplace else "")
+          + "):" if moves else "moves: none, every file is where the bib says")
+    for current, target in moves:
+        print(f"  {current}\n    -> {target}")
+        if a.apply:
+            (documents / target).parent.mkdir(exist_ok=True)
+            shutil.move(documents / current, documents / target)
+    for d in sorted({Path(c).parent for c, _ in moves if Path(c).parent != Path(".")}, reverse=True):
+        left = [p for p in present if p.startswith(f"{d}/") and p not in dict(moves)]
+        if not left:
+            print(f"{would}remove the empty folder {d}/")
+            if a.apply and not any((documents / d).iterdir()):
+                (documents / d).rmdir()
+
+    new_text, changed = rewrite_bib(text, bib, claims)
+    if changed:
+        print(f"bib: {would}rewrite {changed} filed names to their new paths")
+        if a.apply:
+            BIB.write_text(new_text)
+
+    no_copy = [e for e in bib if "url" in e and not filed(e) and not raw_paths(e, rows)]
+    print(f"entries with a url and no filed copy ({len(no_copy)}):" if no_copy
+          else "entries with a url and no filed copy: none")
+    for e in no_copy:
+        print(f"  {e['key']}: {plain(e['url'])}")
+
+    commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT,
+                            capture_output=True, text=True, check=True).stdout.strip()
+    dirty = subprocess.run(["git", "status", "--porcelain"], cwd=ROOT,
+                           capture_output=True, text=True, check=True).stdout.strip()
+    unplaced_after = sorted(t for _, t in moves if t.startswith(UNPLACED + "/")) \
+        + [p for p in unplaced if p.startswith(UNPLACED + "/")]
+    index = index_text(bib, claims, rows, unplaced_after, commit)
+    index_path = a.index or documents / "index.md"
+    if a.apply or a.index:
+        index_path.write_text(index)
+        print(f"index: wrote {index_path}")
+    else:
+        print(f"index: would write {index_path} ({len(index.splitlines())} lines)")
+
+    size = sum((ROOT / p).stat().st_size for p in scans if p not in absent) \
+        + sum((documents / p).stat().st_size for p in present)
+    if not a.apply:
+        print(f"zip: would build {zip_path} (documents and scans {size >> 20}MB before the repository)")
+    elif changed or dirty:
+        print("zip: not built - the working tree has uncommitted changes"
+              + (" (the bib was just rewritten)" if changed else "")
+              + "; commit, then rerun --apply")
+    else:
+        build_zip(zip_path, documents, index, scans)
+        print(f"zip: built {zip_path} ({zip_path.stat().st_size >> 20}MB) from commit {commit}")
+    if blockers:
+        sys.exit("--apply will refuse until:\n  " + "\n  ".join(blockers))
+
+
+if __name__ == "__main__":
+    main()
