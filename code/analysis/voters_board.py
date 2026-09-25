@@ -8,6 +8,7 @@ no votes in any year gets no band and no legend entry.
 import pandas as pd
 
 import charts
+import members
 import paths
 import style
 
@@ -25,6 +26,6 @@ for profile in style.PROFILES:
     fig, ax = charts.figure(profile)
     charts.stacked_steps(ax, d["year"].to_numpy(), series, spans)
     charts.shares(ax, label="share of the vote for County Board")
-    charts.years(ax, 1870, 2020, step=20, label="year", through=2027)
+    charts.years(ax, 1870, 2020, step=20, label="year", through=members.LAST + 1)
     charts.legend(fig, series)
     paths.save(fig, "voters_board", profile)

@@ -14,10 +14,10 @@ import re
 
 import pymupdf
 
-from paths import RAW, TRANSCRIBED
+from paths import BY_CLAUDE, RAW
 
 SOURCE = RAW / "arlington_county" / "candidate_history_1920-present.pdf"
-OUT = TRANSCRIBED / "by_claude" / "arlington_county" / "candidate_history_1920-present.csv"
+OUT = BY_CLAUDE / "arlington_county" / "candidate_history_1920-present.csv"
 
 # Column boundaries in PDF points, read off the printed header.
 COLUMNS = [("year", 40, 90), ("date", 90, 215), ("office", 215, 385),

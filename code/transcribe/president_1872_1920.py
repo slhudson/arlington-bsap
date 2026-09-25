@@ -15,9 +15,9 @@ code/build/voters.py's job.
 import pymupdf
 
 from board_1870_1920 import ELECTION, PAGE_FURNITURE, SOURCE, columns
-from paths import RAW, TRANSCRIBED
+from paths import BY_CLAUDE, RAW
 
-OUT = TRANSCRIBED / "by_claude" / "arlington_county" / "president_1872-1920.csv"
+OUT = BY_CLAUDE / "arlington_county" / "president_1872-1920.csv"
 
 OTHER_OFFICES = ("Constable", "Clerk", "Commissioner", "Commonwealth", "Sheriff",
                  "Treasurer", "House of", "Senate", "Governor", "Board of Supervisors",

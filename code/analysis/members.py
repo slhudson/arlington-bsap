@@ -1,26 +1,25 @@
-"""Who sits on the Board in a given year. A module, not a step: the two
-age figures read it so they agree on what "sitting" means.
+"""Who sits on the Board in a given year. A module, not a step: the age
+figures read it so they agree on what "sitting" means.
 
-A member sits in a year if a term holds 1 July of it. A term's end is
-exclusive, in months, as the seat-year table counts it, and the handover
-month belongs to the incoming member; an unrecorded end holds to the end
-of its first year. docs/figures.md says why 1 July.
+A member sits in a year if a term holds 1 July of it, by the months
+board_members.csv says the term held. docs/figures.md says why 1 July.
+
+FIRST and LAST are the years the build covers, read from the seat table,
+which ends in the year the roster was checked to. A figure's year axis
+runs through LAST + 1, so every figure ends where the build does.
 """
 import pandas as pd
 
 import paths
 
-FIRST, LAST = 1870, 2026
+_years = pd.read_csv(paths.BOARD_SEATS).year
+FIRST, LAST = int(_years.min()), int(_years.max())
 
 
 def sitting(members, year):
     """The members holding a seat on 1 July of `year`, one row each."""
-    start = members.start_year * 12 + members.start_month - 1
-    stop = members.end_year.fillna(members.start_year) * 12 + members.end_month.fillna(12)
-    starts = set(start)
-    stop = pd.Series([s - 1 if (s - 1) in starts else s for s in stop], index=members.index)
     july = year * 12 + 6
-    return members[(start <= july) & (july < stop)].drop_duplicates("name")
+    return members[(members.held_from <= july) & (july < members.held_to)].drop_duplicates("name")
 
 
 def by_year(first=FIRST, last=LAST):

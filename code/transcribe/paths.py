@@ -8,3 +8,4 @@ import pathlib
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 RAW = ROOT / "data" / "raw"
 TRANSCRIBED = ROOT / "data" / "transcribed"
+BY_CLAUDE = TRANSCRIBED / "by_claude"

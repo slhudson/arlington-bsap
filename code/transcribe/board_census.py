@@ -16,9 +16,8 @@ import csv
 import re
 from io import StringIO
 
-from paths import TRANSCRIBED
+from paths import BY_CLAUDE
 
-BY_CLAUDE = TRANSCRIBED / "by_claude"
 DEMOGRAPHICS = BY_CLAUDE / "board_demographics.csv"
 RESIDENCE = BY_CLAUDE / "board_residence.csv"
 OUT = BY_CLAUDE / "board_census.csv"

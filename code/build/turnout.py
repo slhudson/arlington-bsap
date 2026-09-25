@@ -31,9 +31,9 @@ import board_roster
 import citekeys
 import elections
 from elections import COUNTY_HISTORY_THROUGH
-from paths import RAW, TRANSCRIBED, read, write
+from paths import BY_CLAUDE, RAW, read, write
 
-OLEARY = TRANSCRIBED / "by_claude" / "arlington_county" / "board_1870-1920.csv"
+OLEARY = BY_CLAUDE / "arlington_county" / "board_1870-1920.csv"
 REGISTRATION = RAW / "va_dept_of_elections" / "registration_2010-2025.csv"
 CENSUS = RAW / "us_census_bureau"
 
@@ -146,9 +146,7 @@ def between_censuses(d: pd.DataFrame) -> pd.Series:
 
 def president() -> pd.DataFrame:
     v = read("voters")
-    if "office" in v.columns:
-        v = v[v.office == "president"]
-    v = v[v.complete]
+    v = v[(v.office == "president") & v.complete]
     return pd.DataFrame({"year": v.year, "president_votes": v.total,
                          "president_source": citekeys.DERIVED})
 
@@ -159,7 +157,7 @@ def build() -> pd.DataFrame:
     # The whole Board was elected every fourth year until terms were
     # staggered from 1940; from then on a seat is filled every November.
     years = list(board[board.year >= 1931].year)
-    assert years == [1931, 1935, 1939] + list(range(1940, 2026)), \
+    assert years == [1931, 1935, 1939] + list(range(1940, board_roster.PRESENT)), \
         f"a November Board contest is missing or extra: {years}"
     board["board_voters"] = (board.board_votes / board.board_seats).round().astype(int)
 

@@ -278,8 +278,9 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
   is whole years from a birth year, so every point is right to within a
   year; most sources give an age at a date, and a birth date would not
   tighten it. 1 July, because a Board seated in January and reshuffled by
-  a November election is the same five people at mid-year, and the
-  handover month goes to the incoming member as the seat table counts it.
+  a November election is the same five people at mid-year; which months a
+  term held is read from `board_members.csv`, so the figure and the seat
+  table cannot disagree on it.
   A year is drawn only when all but at most one of the sitting members
   have a birth year: a median of two of five is not a median. The lines
   start in 1932, where the census listings begin to cover the Board, and

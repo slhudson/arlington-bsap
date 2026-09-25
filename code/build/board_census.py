@@ -7,9 +7,9 @@ docs/board.md, "Census records", has what each column holds and why.
 """
 import pandas as pd
 
-from paths import TRANSCRIBED
+from paths import BY_CLAUDE
 
-CENSUS = TRANSCRIBED / "by_claude" / "board_census.csv"
+CENSUS = BY_CLAUDE / "board_census.csv"
 
 # What the index prints -> the category the build records.
 GENDER = {"Male": "man", "Female": "woman"}

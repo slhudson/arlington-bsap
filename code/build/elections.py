@@ -8,7 +8,10 @@ the callers select from it.
     contest_rows()     one year's county rows reduced to the contest's own
                        lines, and whether they are the county's whole vote
     county_history()   the county's candidate history for one office
-    label_of()         the party label the county prints after a name
+    state_results()    one of the state's files, with its non-candidate
+                       rows marked
+    labels_on()        the party labels the county prints after a name
+    label_of()         the one label a row carries, or ""
     surname()          the surname, as both records are matched on
 
 The county's candidate history (arlingtonelections2021) runs to the 2021
@@ -23,9 +26,9 @@ import numpy as np
 import pandas as pd
 
 import citekeys
-from paths import RAW, TRANSCRIBED
+from paths import BY_CLAUDE, RAW
 
-COUNTY = TRANSCRIBED / "by_claude" / "arlington_county" / "candidate_history_1920-present.csv"
+COUNTY = BY_CLAUDE / "arlington_county" / "candidate_history_1920-present.csv"
 STATE = RAW / "va_dept_of_elections" / "county_board_2000-2026.csv"
 
 # The last election in the county's candidate history.
@@ -213,8 +216,9 @@ def contests() -> pd.DataFrame:
     return pd.concat([c, t], ignore_index=True)
 
 
-def state_results() -> pd.DataFrame:
-    """Every row of the state's County Board file, plus:
+def state_results(path=STATE) -> pd.DataFrame:
+    """Every row of one of the state's files, the County Board's unless
+    another is given, plus:
 
         date       election_date as a date
         year       int
@@ -223,7 +227,7 @@ def state_results() -> pd.DataFrame:
         writein    the write-in line
         surname    surname() of the candidate
     """
-    s = pd.read_csv(STATE, low_memory=False)
+    s = pd.read_csv(path, low_memory=False)
     s["date"] = pd.to_datetime(s.election_date)
     s["year"] = s.date.dt.year
     s["writein"] = s.candidate_name.str.startswith("Write", na=False)

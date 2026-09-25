@@ -25,12 +25,12 @@ import re
 
 import pandas as pd
 
+import board_roster
 import citekeys
 import elections
 from elections import COUNTY_HISTORY_THROUGH
-from paths import RAW, TRANSCRIBED, write
+from paths import BY_CLAUDE, RAW, write
 
-BY_CLAUDE = TRANSCRIBED / "by_claude"
 OLEARY = BY_CLAUDE / "arlington_county" / "president_1872-1920.csv"
 STATE = RAW / "va_dept_of_elections" / "president_1924-2024.csv"
 
@@ -88,9 +88,8 @@ def oleary() -> pd.DataFrame:
 
 
 def state() -> pd.DataFrame:
-    s = pd.read_csv(STATE, low_memory=False)
-    s = s[~s.candidate_name.str.match(r"^(Total|Write|Under|Over)", na=False)].copy()
-    s["year"] = pd.to_datetime(s.election_date).dt.year
+    s = elections.state_results(STATE)
+    s = s[s.person].copy()
     s["band"] = s.candidate_party_name.map({"Democratic": "dem", "Republican": "rep"}).fillna("other")
     g = s.pivot_table(index=["year", "contest_id"], columns="band", values="votes", aggfunc="sum",
                       fill_value=0).reset_index()
@@ -163,7 +162,8 @@ def build() -> pd.DataFrame:
     board = county_board()
     years = sorted(board.year)
     # Four-year terms for the whole Board in 1931 and 1935; one seat a year from 1939.
-    assert years == [1931, 1935] + list(range(1939, 2026)), f"County Board elections are not 1931, 1935, then every year: {years}"
+    assert years == [1931, 1935] + list(range(1939, board_roster.PRESENT)), \
+        f"County Board elections are not 1931, 1935, then every year to {board_roster.PRESENT - 1}: {years}"
     d = pd.concat([pres, board], ignore_index=True)
     cols = ["year", "office", *BANDS, "total", "complete", "source", "note"]
     d = d[cols].sort_values(["office", "year"], ascending=[False, True]).reset_index(drop=True)

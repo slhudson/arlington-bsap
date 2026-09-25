@@ -2,8 +2,12 @@
 
 One row per person per term, from board_roster.py, with race, gender and
 birth year attached per person and party per term, each with its own
-source and note, and the year of the election that seated each elected
-term.
+source and note, the year of the election that seated each elected term,
+and the months the term held: `held_from` and `held_to`, months counted
+from year 0, the end exclusive, with the handover month given to the
+incoming member and an unrecorded end held to the end of its first year.
+Every count of who held a seat when reads those two columns, so the rule
+is applied here and nowhere else. docs/board.md, Seat-years.
 
 Race, gender and birth year: data/transcribed/by_claude/board_demographics.csv,
 a source's own words about a named member with a citation, and the census
@@ -34,9 +38,7 @@ import citekeys
 import elections
 from board_roster import AT_LARGE_FROM
 from elections import PARTIES
-from paths import TRANSCRIBED, write
-
-BY_CLAUDE = TRANSCRIBED / "by_claude"
+from paths import BY_CLAUDE, write
 
 # The county's labels are elections.LABELS; the state's names are mapped here.
 STATE_PARTIES = {"Democratic": "Democratic", "Republican": "Republican",
@@ -149,6 +151,20 @@ def party_of(t, labels, state, att):
     return "", citekeys.UNSOURCED, ""
 
 
+def held(terms: pd.DataFrame) -> pd.DataFrame:
+    """held_from and held_to for every term: months from year 0, the end
+    exclusive. An unrecorded end holds to the end of its first year, and a
+    term ending in the month another term in the same district begins
+    yields that month to the incoming member."""
+    end_year = terms.end_year.fillna(terms.start_year)
+    end_month = terms.end_month.fillna(12)
+    start = terms.start_year * 12 + terms.start_month - 1
+    stop = end_year * 12 + end_month
+    starts = terms.assign(start=start).groupby("district").start.apply(set)
+    stop = [s - 1 if (s - 1) in starts[d] else s for d, s in zip(terms.district, stop)]
+    return pd.DataFrame({"held_from": start.astype(int), "held_to": pd.Series(stop, index=terms.index).astype(int)})
+
+
 def attributions() -> pd.DataFrame:
     """One row per person from the claim file and the census records: race,
     gender and birth year, each with every source and note joined. Two
@@ -203,9 +219,11 @@ def build() -> pd.DataFrame:
         rows.append(row)
 
     out = pd.DataFrame(rows)
+    out[["held_from", "held_to"]] = held(out)
     check_birth_years(out)
     cols = ["name", "term_number", "district", "start_year", "start_month",
-            "end_year", "end_month", "seated_by", "election_year", "source", "note",
+            "end_year", "end_month", "held_from", "held_to", "seated_by", "election_year",
+            "source", "note",
             "race", "race_source", "race_note", "gender", "gender_source", "gender_note",
             "birth_year", "birth_year_source", "birth_year_note",
             "party", "party_source", "party_note"]
