@@ -26,12 +26,13 @@ are explained in `code/build/citekeys.py`, and what is still open is in
   read (`bestebreurtje-p215`).
 - Where members lived is transcribed but not yet coded, and the 1973 Post map
   that places a whole Board at once has not been seen (`mathews1973-map`);
-  eight of the 37 members first seated 1932–1962 have none
+  seven of the 37 members first seated 1932–1962 have none
   (`residence-1932-1962`), and 28 of the rows are census index records whose
   match to the member rests on a name (`census-demographics`), 10 of the 25 seated 1964–1999 have none
   (`residence-1964-1999`), two rows postdate the member's service
-  (`residence-after-service`), and Thomas's two rows may not describe the
-  same place (`thomas-residence`).
+  (`residence-after-service`), and for Thomas, Tillema and Massey two
+  sources name different places (`thomas-residence`, `tillema-residence`,
+  `massey-residence`).
 
 Each is a row in `docs/questions.csv`, with an owner and what would settle it.
 
