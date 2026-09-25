@@ -206,15 +206,57 @@ seats filled. Where a seat sat empty, each serving member represented more
 people than the figure shows. Whether to divide by the filled count instead,
 which would make the growth figure depend on the roster, is open.
 
+## Census records
+
+A census listing names a person, not a Board member, and gives several
+traits at once, so each record matched to a member is one row of
+`data/transcribed/by_claude/board_census.csv`, and the build derives each
+trait from it rather than each trait being keyed separately. 53 records, for
+50 members, from the 1880, 1900, 1910, 1930, 1940 and 1950 schedules. The
+columns:
+
+| Column | Holds |
+|---|---|
+| `name`, `source` | the roster name and the record's citekey, `census<year><surname>` |
+| `year` | the census year |
+| `basis` | what ties the record to the member, stated once: the name, the place, and an occupation, a spouse or a house number where one agrees; where the index misreads a name, what it reads |
+| `checked` | what was read against the image: `read against the sheet, which agrees`, `the index only`, or, where the sheet was read line by line, what it gives where the index differs |
+| `gender`, `race`, `age`, `birthplace`, `occupation` | as the index prints them: `Male`, `Mulatto`, `39` |
+| `birth_year` | a birth year the index prints as a date rather than as its `abt` estimate from the age (the 1900 schedule records a month and year); blank otherwise |
+| `place` | the street and house number as read for residence, from the sheet where the sheet was read; blank where no one has read it for that purpose |
+| `quote` | the index listing verbatim |
+| `sheet` | the sheet's lines verbatim, where they were read |
+
+`code/build/board_census.py` codes the printed values: `Male` a man,
+`Female` a woman, `White` White, and both `Black` and `Mulatto` Black, as
+Hjerpe codes Pinn's 1880 record. A printed value it has no code for stops
+the build, since a dropped claim would fall silently into the default, and
+so does a row whose `checked` names neither the sheet nor the index. The
+birth year is the one the index prints as a date, or else the census year
+less the age, and the note on it says which. The place joins the claims in
+`data/transcribed/by_claude/board_residence.csv` in
+`data/clean/board_residence.csv`, one row per claim, none chosen over
+another and nothing coded.
+
+Only the census record itself goes in this table. What a newspaper, an
+obituary or a secondary source says, Hjerpe's reading of an 1880 record
+included, is a separate claim and stays in `board_demographics.csv` or
+`board_residence.csv`. `code/transcribe/board_census.py` moves any row that
+cites a census record out of those two files and into the table, merging
+it with the record's row where there is one, and stops where the two
+disagree. A new record is keyed into the table directly; the script is
+re-run whenever a row citing a census record lands in either claim file.
+
 ## Race, gender and birth year of Board members
 
-Birth years come from the same file as race and gender, one row per
+Birth years come from the same files as race and gender, one row per
 source, and reach `board_members.csv` as `birth_year` with a source and a
 note; with no source the year is blank and `unsourced`, since no standing
 assumption stands in. A census listing gives an age, and the year is the
-census year less the age, so it is right to within a year; an obituary or
-a profile gives a birth date, or an age on a date, and the row's basis says
-which. For members seated 1960 on the sources are obituaries on legacy.com,
+census year less the age, so it is right to within a year, except where
+the index prints a birth date; an obituary or a profile gives a birth
+date, or an age on a date, and the row's basis says which. For members
+seated 1960 on the sources are obituaries on legacy.com,
 Dignity Memorial and InsideNoVa, candidate profiles in the Connection,
 ARLnow and Patch, a Senate of Virginia member page, and the Post's archive
 where it shows the paragraph that carries the age. The build refuses a year
@@ -225,7 +267,8 @@ subtract without re-deriving that rule.
 
 Race and gender come from `data/transcribed/by_claude/board_demographics.csv`,
 one row per claim a source makes about a member, in the source's own words
-with a citation to the page the document prints; and otherwise from a default,
+with a citation to the page the document prints, and from the census records
+above; and otherwise from a default,
 a white man, labelled `assumed`. Each cell of `board_members.csv` says which.
 Two sources disagreeing about a person stops the build, and an attributed name
 that matches no roster name stops it too, so a near-miss cannot fall silently

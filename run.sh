@@ -19,7 +19,7 @@ PY=.venv/bin/python
 
 # Stage 1: data/raw/ and data/transcribed/ -> data/clean/. Each step is named
 # for the file it writes, and later steps read what earlier ones wrote.
-BUILD=(residents board_members board_seats voters turnout)
+BUILD=(residents board_members board_residence board_seats voters turnout)
 
 # Stage 2: data/clean/ -> figures/. Each step is named for the figure it
 # writes. Three subjects, alphabetical within each.

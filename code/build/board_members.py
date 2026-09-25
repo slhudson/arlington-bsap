@@ -6,8 +6,9 @@ source and note, and the year of the election that seated each elected
 term.
 
 Race, gender and birth year: data/transcribed/by_claude/board_demographics.csv,
-a source's own words about a named member with a citation; otherwise race
-and gender are `assumed`, a white man, and the birth year is blank and
+a source's own words about a named member with a citation, and the census
+records in board_census.csv through board_census.py; otherwise race and
+gender are `assumed`, a white man, and the birth year is blank and
 `unsourced`. An attributed name must match a roster name exactly.
 docs/board.md has the reasoning.
 
@@ -27,6 +28,7 @@ none of the three covers is `unsourced`; before 1932 no party is attempted.
 """
 import pandas as pd
 
+import board_census
 import board_roster
 import citekeys
 import elections
@@ -148,13 +150,14 @@ def party_of(t, labels, state, att):
 
 
 def attributions() -> pd.DataFrame:
-    """One row per person from the sourced file: race, gender and birth year,
-    each with every source and note joined. Two sources disagreeing stops
-    the build."""
+    """One row per person from the claim file and the census records: race,
+    gender and birth year, each with every source and note joined. Two
+    sources disagreeing stops the build."""
     a = pd.read_csv(BY_CLAUDE / "board_demographics.csv", dtype=str).fillna("")
     missing = [f for f in ATTRIBUTED if f not in a.columns]
     if missing:
         raise ValueError(f"board_demographics.csv has no {', '.join(missing)} column")
+    a = pd.concat([a, board_census.claims()], ignore_index=True).fillna("")
 
     def fold(rows):
         out = {}

@@ -18,6 +18,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "code" / "build"))
+import board_census  # noqa: E402
 import board_members  # noqa: E402
 import paths  # noqa: E402
 import board_roster  # noqa: E402
@@ -180,6 +181,30 @@ def test_a_birth_year_after_the_seating_is_rejected():
                  patch_csv(board_members, lambda d: "race" in d.columns, misread),
                  build=board_members.build)
     assert err and "age when first seated" in err, f"not caught: {err}"
+
+
+def test_a_census_row_that_does_not_name_what_was_checked_is_refused():
+    """A census record read off an image that does not say whether the
+    sheet or only the index was read."""
+    def unchecked(d):
+        d.loc[d.source == "census1950tillema", "checked"] = ""
+        return d
+    err = breaks(board_census.pd, "read_csv",
+                 patch_csv(board_census, lambda d: "checked" in d.columns, unchecked),
+                 build=board_members.build)
+    assert err and "what was checked" in err, f"not caught: {err}"
+
+
+def test_a_census_race_with_no_category_is_refused():
+    """A race the index prints that the build has no category for, which
+    would otherwise drop the claim and leave the member to the default."""
+    def uncoded(d):
+        d.loc[d.source == "census1880allen", "race"] = "Negro"
+        return d
+    err = breaks(board_census.pd, "read_csv",
+                 patch_csv(board_census, lambda d: "checked" in d.columns, uncoded),
+                 build=board_members.build)
+    assert err and "no category" in err, f"not caught: {err}"
 
 
 def test_party_must_account_for_the_same_seats():
