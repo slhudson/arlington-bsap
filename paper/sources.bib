@@ -7,8 +7,7 @@
 %
 % Every entry is built from the document itself, not from memory. Where a
 % detail could not be read off the document in hand, the entry says so in its
-% `note` rather than carrying a plausible guess. docs/sources.md holds the
-% prose about what each source can and cannot support.
+% `note` rather than carrying a plausible guess.
 %
 % A source we cite but take no numbers from is not downloaded into data/raw/;
 % its copy goes in the project's Drive folder. A citekey is a handle for LaTeX
@@ -16,16 +15,17 @@
 % scanning a folder, so it is written out - "Pratt 1995 - Arlington's At-Large
 % Electoral System.pdf", author first, year apart from the name. The two are
 % tied together by the "Filed in Drive as" line in each annotation below, which
-% is where you check that a cited source is actually filed. docs/sources.md has
-% the folder.
+% is where you check that a cited source is actually filed. The folder is
+% sources/documents in the project's Drive:
+%   https://drive.google.com/drive/folders/10SGuURB-ldC1AzM3ClsdL_tAiWeFIZB4
 %
 % `annotation` holds what we know about the document as evidence - what is
 % missing from the copy we hold, what its compiler warns about. biblatex does
 % not print it, so it stays in the repository for whoever works on the sources
 % next, and the report's footnotes carry only the caveats a reader needs.
 %
-% Citekeys are lowercase author + year and are PINNED in Zotero: editing a
-% field must never silently rename one, because the CSVs cite by key.
+% Citekeys are lowercase author + year and are maintained here, in this file:
+% editing an entry must never rename its key, because the CSVs cite by key.
 
 % ---------------------------------------------------------------- the roster
 

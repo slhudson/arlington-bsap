@@ -4,7 +4,7 @@ Who held each seat and when, and who they were: what each number in
 `data/clean/board_members.csv` and `data/clean/board_seats.csv` is, what backs
 it, what is assumed where nothing does, and why. Present tense; how a decision
 was reached is in the git history. The placeholders in the `source` columns
-are explained in `docs/sources.md`, and what is still open is in
+are explained in `code/build/citekeys.py`, and what is still open is in
 `docs/questions.csv`.
 
 

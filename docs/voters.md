@@ -4,7 +4,7 @@ Who voted, for whom, and how many: what each number in `data/clean/voters.csv`
 and `data/clean/turnout.csv` is, what backs it, what is assumed where nothing
 does, and why. Present tense; how a decision was reached is in the git
 history. The placeholders in the `source` columns are explained in
-`docs/sources.md`, and what is still open is in `docs/questions.csv`.
+`code/build/citekeys.py`, and what is still open is in `docs/questions.csv`.
 
 
 ## What rests on an assumption

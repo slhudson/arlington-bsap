@@ -91,10 +91,10 @@ silently go stale.
 | `CLAUDE.md` | Working rules; the code/build/analysis split; naming |
 | `data/contents.csv` | Every data folder and file: where it came from, what reads it |
 | `docs/residents.md`, `docs/board.md`, `docs/voters.md` | What each number is, what backs it, what is assumed, and why; one per subject |
-| `docs/sources.md` | The bibliography notes and where copies of the prose-only sources live |
 | `docs/questions.csv` | What is still open: one row per item with an owner, what it bites and what would settle it |
 | `docs/setup.md` | Getting a machine set up to build; written for a collaborator joining |
-| `paper/sources.bib` | Every source, cited by key from both the prose and `data/clean/` |
+| `paper/sources.bib` | Every source, cited by key from both the prose and `data/clean/`; each entry's `annotation` says what the copy held supports and where it is filed |
+| Drive, `sources/documents` | Copies of the sources no number is taken from: <https://drive.google.com/drive/folders/10SGuURB-ldC1AzM3ClsdL_tAiWeFIZB4> |
 
 Open questions are logged as they arise and answered in place, so the reasoning
 survives alongside the fix.

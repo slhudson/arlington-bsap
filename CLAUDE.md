@@ -134,7 +134,8 @@ either. A script is named for what it produces: `code/fetch/elections.py`,
 
 **`data/` holds what we take numbers out of.** A source consulted only to
 settle a question — a boundary history, a news article, a methods note — is
-cited under Works cited in `docs/sources.md`, not downloaded into `data/raw/`.
+cited in `paper/sources.bib` and filed in the project's Drive folder, not
+downloaded into `data/raw/`.
 The test is whether a figure derives from it.
 
 **Every source column holds a citekey from `paper/sources.bib`.** One registry
@@ -180,8 +181,8 @@ One write-up per subject, and one tracker. `docs/residents.md`,
 `docs/board.md` and `docs/voters.md` hold what is settled about each: what
 each number is, what backs it, what is assumed where nothing does, and why,
 in the present tense, ending with a list of what still rests on an
-assumption. `docs/sources.md` holds the bibliography notes and where copies
-live. `docs/questions.csv` is the tracker: one row per open item, with a
+assumption. `paper/sources.bib` is the registry of sources, and each entry's
+`annotation` holds the notes on it. `docs/questions.csv` is the tracker: one row per open item, with a
 stable slug for an id, its kind, an owner, the figure or table it bites, the
 question in a sentence, and what would settle it. Three kinds: `source`, a
 document to find or read; `decision`, a choice about how a number is built
