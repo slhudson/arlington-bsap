@@ -162,7 +162,7 @@ the Drive folder, and they change, so check before relying on one.
   fetches at 20 results a page, about eight minutes with the pause. The
   Star's story in the week after the 1931 election names each first-Board
   member's section, so for those search "Arlington" and the election week,
-  not the name.
+  not the name. Two whole-term searches took about 25 minutes with the pause.
 - **Virginia Chronicle** (Library of Virginia; the Sun 1935–51, the
   Arlington Daily 1943–48, the Northern Virginia Sun 1957–78). Cloudflare's
   human check blocks curl and the built-in browser; it passes in Sally's own
