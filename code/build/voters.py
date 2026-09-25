@@ -88,9 +88,8 @@ def oleary() -> pd.DataFrame:
 
 
 def state() -> pd.DataFrame:
-    s = pd.read_csv(STATE, low_memory=False)
-    s = s[~s.candidate_name.str.match(r"^(Total|Write|Under|Over)", na=False)].copy()
-    s["year"] = pd.to_datetime(s.election_date).dt.year
+    s = elections.state_results(STATE)
+    s = s[s.person].copy()
     s["band"] = s.candidate_party_name.map({"Democratic": "dem", "Republican": "rep"}).fillna("other")
     g = s.pivot_table(index=["year", "contest_id"], columns="band", values="votes", aggfunc="sum",
                       fill_value=0).reset_index()
