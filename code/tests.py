@@ -246,7 +246,7 @@ def test_more_board_voters_than_presidential_voters_is_rejected():
             b.loc[b.year == 1972, "board_votes"] *= 2
             return b
         return patched
-    err = breaks(turnout, "board_county", mangle)
+    err = breaks(turnout, "board_votes", mangle)
     assert err and "presidential" in err and "1972" in err, f"not caught: {err}"
 
 

@@ -27,7 +27,7 @@ import pandas as pd
 
 import citekeys
 import elections
-from elections import COUNTY_HISTORY_THROUGH, surname
+from elections import COUNTY_HISTORY_THROUGH, MONTHS, surname
 from paths import TRANSCRIBED
 
 BY_CLAUDE = TRANSCRIBED / "by_claude"
@@ -51,9 +51,6 @@ SEATED_BY = (ELECTION, SPECIAL_ELECTION, APPOINTMENT, UNRECORDED)
 # Va. Const. 1902 sec. 112, applied from the November 1903 election.
 TERM_YEARS = 4
 
-MONTHS = {m: i for i, m in enumerate(
-    ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], start=1)}
 MONTH_NAMES = {v: k for k, v in MONTHS.items()}
 MONTH = rf"({'|'.join(MONTHS)})[a-z]*\.?"          # "Dec", "December", "Dec."
 NAME = r"([A-Z][A-Za-z.'’\- ]+?)"
@@ -386,67 +383,25 @@ def _span_segments(name, page, span, bounds, last, stood, winners, specials) -> 
     return segments
 
 
-TWO_SEATS = re.compile(r"two seats|2 seats|vote for 2|two elected", re.I)
-SPECIAL = re.compile(r"special|unexpired", re.I)
-# "(to fill Eisenberg's unexpired term)", "(... following death of Charles Monroe)"
-FILLS = re.compile(r"to fill ([A-Za-z]+)['’]s unexpired term|death of ([A-Za-z. ]+?)\)", re.I)
-PARTY = re.compile(r"\s*\((?:[^)]+)\)\s*$")
-
-
-def county_contests():
-    """Each County Board general election 1993-2021: who won, how many seats.
-    Rows are grouped on the office with its parenthetical stripped, and the
-    parentheticals of the group are read together."""
-    c = elections.county_history()
-    c["base"] = c.office.str.replace(r"\s*\(.*", "", regex=True).str.strip()
-    key = ["year", "election_date", "base"]
-    qualifiers = c.groupby(key).office.agg(" ".join)
-    general = c[~c.primary & c.person]
-    for k, g in general.groupby(key):
-        year, date, base = k
-        text = qualifiers[k]
-        seats = 2 if TWO_SEATS.search(text) else 1
-        won = g.nlargest(seats, "votes")
-        fills = FILLS.search(text)
-        yield {"year": year, "month": MONTHS[date[:3]],
-               "special": bool(SPECIAL.search(text)) or not date.startswith("November"),
-               "page": int(g.page.iloc[0]),
-               "fills": surname(fills.group(1) or fills.group(2)) if fills else None,
-               "winners": [PARTY.sub("", n).strip() for n in won.candidate],
-               "stood": [PARTY.sub("", n).strip() for n in g.candidate]}
-
-
-def state_contests():
-    """Each County Board general election from 2022, from the state database,
-    votes summed per candidate."""
-    c = elections.state_results()
-    general = c[c.person & c.election_type.str.startswith("General")]
-    for (date, contest), g in general.groupby(["date", "contest_id"]):
-        by_name = g.groupby("candidate_name").votes.sum().sort_values(ascending=False)
-        seats = int(g.number_seats.iloc[0])
-        yield {"year": date.year, "month": date.month,
-               "special": date.month != 11,
-               "page": None, "contest": int(contest), "fills": None,
-               "winners": list(by_name.index[:seats]),
-               "stood": list(by_name.index)}
-
-
 def contests():
-    """Every County Board general election from 1993. Both sources hold 2021
-    and must name the same winner there."""
-    county = list(county_contests())
-    state = list(state_contests())
-    overlap = [(c["year"], sorted(map(surname, c["winners"]))) for c in county + state
+    """Every County Board general election from 1931, from both records: who
+    won, how many seats. Both records hold 2021 and must name the same
+    winner there."""
+    c = elections.contests()
+    c = c[c.person & ~c.primary]
+    out = []
+    for _, g in c.groupby("contest", sort=False):
+        first = g.iloc[0]
+        won = g.nlargest(int(first.seats), "votes")
+        out.append({"record": first.record, "year": int(first.year), "month": int(first.month),
+                    "special": bool(first.special), "fills": first.fills,
+                    "source": first.source,
+                    "winners": list(won.name), "stood": list(g.name)})
+    overlap = [(c["record"], sorted(map(surname, c["winners"]))) for c in out
                if c["year"] == COUNTY_HISTORY_THROUGH and not c["special"]]
     if len(overlap) != 2 or overlap[0][1] != overlap[1][1]:
         raise ValueError(f"county and state sources disagree on {COUNTY_HISTORY_THROUGH}: {overlap}")
-    return county + [c for c in state if c["year"] > COUNTY_HISTORY_THROUGH]
-
-
-def cite(c):
-    if c["page"] is not None:
-        return f"{citekeys.ARLINGTON_ELECTIONS} p.{c['page']}"
-    return f"{citekeys.VA_ELECTIONS} contest {c['contest']}"
+    return [c for c in out if c["record"] == "county" or c["year"] > COUNTY_HISTORY_THROUGH]
 
 
 def election_terms(earlier: pd.DataFrame):
@@ -468,7 +423,7 @@ def election_terms(earlier: pd.DataFrame):
     terms = [{"name": canonical(w), "district": "at large",
               "start_year": c["year"] + 1, "start_month": 1,
               "end_year": c["year"] + 4, "end_month": 12,
-              "seated_by": ELECTION, "source": cite(c), "note": ""}
+              "seated_by": ELECTION, "source": c["source"], "note": ""}
              for c in rows if not c["special"] and c["year"] >= 1994
              for w in c["winners"]]
     d = pd.concat([earlier, pd.DataFrame(terms)], ignore_index=True)
@@ -499,7 +454,7 @@ def election_terms(earlier: pd.DataFrame):
             d.loc[len(d)] = {"name": w, "district": "at large",
                              "start_year": c["year"], "start_month": c["month"],
                              "end_year": end, "end_month": 12,
-                             "seated_by": SPECIAL_ELECTION, "source": cite(c),
+                             "seated_by": SPECIAL_ELECTION, "source": c["source"],
                              "note": f"Elected in a special election in {when} to fill an unexpired term."}
     return d
 

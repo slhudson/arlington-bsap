@@ -65,35 +65,26 @@ def seats_filled(roster: pd.DataFrame, year: int) -> int:
     return n
 
 
-def board_county(roster) -> pd.DataFrame:
-    """1931-2021: every November County Board contest the county lists."""
-    c = elections.county_history()
-    c = c[c.november & ~c.primary]
+def board_votes(roster) -> pd.DataFrame:
+    """1931 on: every November County Board contest, all votes cast,
+    write-ins included. The county's years go through contest_rows(); the
+    state's are complete, and count their seats from the contest."""
+    c = elections.contests()
+    c = c[c.november & ~c.primary
+          & ((c.record == "county") | (c.year > COUNTY_HISTORY_THROUGH))]
     rows = []
     for year, g in c.groupby("year"):
-        named, complete, note = elections.contest_rows(g)   # write-ins are votes cast, and stay
-        rows.append({"year": year, "board_votes": int(named.votes.sum()),
-                     "board_seats": seats_filled(roster, year),
-                     "board_complete": complete,
-                     "board_source": f"{citekeys.ARLINGTON_ELECTIONS} p.{named.page.iloc[0]}",
-                     "board_note": note})
-    return pd.DataFrame(rows)
-
-
-def board_state() -> pd.DataFrame:
-    """2022 on: the state's November general contests, all votes cast."""
-    s = elections.state_results()
-    s = s[s.election_type.str.startswith("General") & (s.date.dt.month == 11)
-          & (s.year > COUNTY_HISTORY_THROUGH)]
-    votes = s[s.person | s.writein]       # write-ins are votes cast
-    rows = []
-    for year, g in votes.groupby(votes.date.dt.year):
-        rows.append({"year": int(year), "board_votes": int(g.votes.sum()),
-                     "board_seats": int(g.groupby("contest_id").number_seats.first().sum()),
-                     "board_complete": True,
-                     "board_source": f"{citekeys.VA_ELECTIONS} contest "
-                                     + ", ".join(str(c) for c in sorted(g.contest_id.unique())),
-                     "board_note": ""})
+        if g.record.iloc[0] == "county":
+            named, complete, note = elections.contest_rows(g)
+            votes, seats, source = named.votes.sum(), seats_filled(roster, year), named.source.iloc[0]
+        else:
+            g = g[g.person | g.writein]
+            votes, complete, note = g.votes.sum(), True, ""
+            seats = g.groupby("contest").seats.first().sum()
+            source = (f"{citekeys.VA_ELECTIONS} contest "
+                      + ", ".join(sorted(g.contest.unique(), key=int)))
+        rows.append({"year": int(year), "board_votes": int(votes), "board_seats": int(seats),
+                     "board_complete": complete, "board_source": source, "board_note": note})
     return pd.DataFrame(rows)
 
 
@@ -164,7 +155,7 @@ def president() -> pd.DataFrame:
 
 def build() -> pd.DataFrame:
     roster = read("board_members")
-    board = pd.concat([board_districts(), board_county(roster), board_state()], ignore_index=True)
+    board = pd.concat([board_districts(), board_votes(roster)], ignore_index=True)
     # The whole Board was elected every fourth year until terms were
     # staggered from 1940; from then on a seat is filled every November.
     years = list(board[board.year >= 1931].year)

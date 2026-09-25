@@ -47,7 +47,8 @@ def county_labels() -> dict:
     """(surname, election year) -> the labels the county prints for that
     person's County Board rows that year, with their pages."""
     out = {}
-    for _, r in elections.county_history().iterrows():
+    c = elections.contests()
+    for _, r in c[c.record == "county"].iterrows():
         entry = out.setdefault((r.surname, int(r.year)), {"labels": set(), "pages": set()})
         entry["labels"] |= elections.labels_on(r.candidate)
         entry["pages"].add(int(r.page))
@@ -59,20 +60,18 @@ def state_parties() -> dict:
     Board winner that year, and the contest. The general election is read
     first; where its winner carries no party (2000-2003, 2023 on), a win in
     that year's Democratic primary stands in, and the entry says so."""
-    c = elections.state_results()
-    won = c[c.person & c.is_winner].groupby(["year", "contest_id", "candidate_name"]).agg(
-        party=("candidate_party_name", "first"), kind=("election_type", "first"),
-        primary=("primary_party", "first")).reset_index()
+    c = elections.contests()
+    won = c[(c.record == "state") & c.person & (c.is_winner == True)]  # noqa: E712
     out = {}
-    for _, w in won.sort_values("kind").iterrows():     # "General" sorts before "Primary"
-        key = (elections.surname(w.candidate_name), int(w.year))
-        if w.kind.startswith("Primary"):
-            if key not in out and w.primary == "Democratic":
-                out[key] = {"party": "Democratic", "contest": int(w.contest_id),
+    for _, w in won.sort_values("kind", kind="stable").iterrows():     # "General" sorts before "Primary"
+        key = (w.surname, int(w.year))
+        if w.primary:
+            if key not in out and w.primary_party == "Democratic":
+                out[key] = {"party": "Democratic", "contest": int(w.contest),
                             "note": "won the Democratic primary; the general election "
                                     "record carries no party"}
         elif w.party in STATE_PARTIES:
-            out[key] = {"party": STATE_PARTIES[w.party], "contest": int(w.contest_id), "note": ""}
+            out[key] = {"party": STATE_PARTIES[w.party], "contest": int(w.contest), "note": ""}
     return out
 
 

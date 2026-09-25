@@ -3,11 +3,11 @@
 A module, not a step: it writes nothing. Each file is read one way, and
 the callers select from it.
 
-    county_history()   the county's candidate history, County Board rows,
-                       1931 to COUNTY_HISTORY_THROUGH
-    contest_rows()     one year's rows reduced to the contest's own lines,
-                       and whether they are the county's whole vote
-    state_results()    the state's database, County Board contests, 2000 on
+    contests()         both records as one table, one row per candidate per
+                       contest, with the contest's own facts on each row
+    contest_rows()     one year's county rows reduced to the contest's own
+                       lines, and whether they are the county's whole vote
+    county_history()   the county's candidate history for one office
     label_of()         the party label the county prints after a name
     surname()          the surname, as both records are matched on
 
@@ -19,8 +19,10 @@ non-candidate rows are marked rather than dropped.
 """
 import re
 
+import numpy as np
 import pandas as pd
 
+import citekeys
 from paths import RAW, TRANSCRIBED
 
 COUNTY = TRANSCRIBED / "by_claude" / "arlington_county" / "candidate_history_1920-present.csv"
@@ -31,6 +33,16 @@ COUNTY_HISTORY_THROUGH = 2021
 
 BOARD = re.compile(r"^(Member, )?County Board\b")      # a contest heading, any qualifier after
 NAMED = re.compile(r"^[*A-Z]")                          # a row naming a candidate
+# The qualifiers a contest heading carries.
+TWO_SEATS = re.compile(r"two seats|2 seats|vote for 2|two elected", re.I)
+SPECIAL = re.compile(r"special|unexpired", re.I)
+# "(to fill Eisenberg's unexpired term)", "(... following death of Charles Monroe)"
+FILLS = re.compile(r"to fill ([A-Za-z]+)['\u2019]s unexpired term|death of ([A-Za-z. ]+?)\)", re.I)
+PARTY_LABEL = re.compile(r"\s*\((?:[^)]+)\)\s*$")
+
+MONTHS = {m: i for i, m in enumerate(
+    ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], start=1)}
 
 # The label the county prints in parentheses after a name, and what it
 # records. A label not listed here stops the build.
@@ -139,6 +151,66 @@ def county_history(office=BOARD) -> pd.DataFrame:
     c["primary"] = c.election_kind.str.contains("Primary")
     c["surname"] = c.candidate.map(surname)
     return c.reset_index(drop=True)
+
+
+def contests() -> pd.DataFrame:
+    """Both records as one table: every County Board row of the county's
+    candidate history, and every candidate of every contest in the state's
+    file with their precinct rows summed. Each row carries its contest's
+    own facts:
+
+        record      "county" or "state"
+        contest     an id shared by the contest's rows
+        year, month, november, primary, kind
+        special     a special election, by the contest's label or an
+                    off-November date
+        seats       how many seats the contest filled
+        fills       whose unexpired term a special fills, by surname, or ""
+        candidate   as printed; `name` is it without the county's label
+        surname, votes, person, writein, prose
+        party, primary_party, is_winner    the state's columns; is_winner is
+                    true if any precinct row says so
+        source      the citation for the row
+
+    The county's text columns and page stay on its rows for contest_rows().
+    County rows come first, in page order; state rows follow, in contest order.
+    """
+    c = county_history()
+    c["base"] = c.office.str.replace(r"\s*\(.*", "", regex=True).str.strip()
+    key = ["year", "election_date", "base"]
+    c = c.merge(c.groupby(key).office.agg(" ".join).rename("qualifiers"),
+                left_on=key, right_index=True)
+    c["record"] = "county"
+    c["contest"] = c.year.astype(str) + " " + c.election_date + " " + c.base
+    c["month"] = c.election_date.str[:3].map(MONTHS)
+    c["kind"] = c.election_kind
+    c["special"] = c.qualifiers.str.contains(SPECIAL) | ~c.november
+    c["seats"] = np.where(c.qualifiers.str.contains(TWO_SEATS), 2, 1)
+    fills = c.qualifiers.str.extract(FILLS)
+    c["fills"] = [surname(a if isinstance(a, str) else b) if isinstance(a, str) or isinstance(b, str)
+                  else "" for a, b in zip(fills[0], fills[1])]
+    c["name"] = c.candidate.str.replace(PARTY_LABEL, "", regex=True).str.strip()
+    c["source"] = citekeys.ARLINGTON_ELECTIONS + " p." + c.page
+
+    s = state_results()
+    s = s[s.person | s.writein]
+    g = s.groupby(["contest_id", "candidate_name"], sort=False).agg(
+        votes=("votes", "sum"), date=("date", "first"), kind=("election_type", "first"),
+        seats=("number_seats", "first"), party=("candidate_party_name", "first"),
+        primary_party=("primary_party", "first"),
+        is_winner=("is_winner", lambda v: bool(v.fillna(False).astype(bool).any())),
+        person=("person", "first"), writein=("writein", "first")).reset_index()
+    t = pd.DataFrame({
+        "record": "state", "contest": g.contest_id.astype(str),
+        "year": g.date.dt.year, "month": g.date.dt.month, "november": g.date.dt.month == 11,
+        "primary": g.kind.str.startswith("Primary"), "kind": g.kind,
+        "special": g.date.dt.month != 11, "seats": g.seats.astype(int), "fills": "",
+        "candidate": g.candidate_name, "name": g.candidate_name,
+        "surname": g.candidate_name.map(surname), "votes": g.votes,
+        "person": g.person, "writein": g.writein, "prose": False,
+        "party": g.party, "primary_party": g.primary_party, "is_winner": g.is_winner,
+        "source": citekeys.VA_ELECTIONS + " contest " + g.contest_id.astype(str)})
+    return pd.concat([c, t], ignore_index=True)
 
 
 def state_results() -> pd.DataFrame:

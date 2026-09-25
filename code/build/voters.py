@@ -115,48 +115,40 @@ def county_check(d: pd.DataFrame):
               f"{TOLERANCE:.0%} in {list(off.index)} (state figures kept)")
 
 
-def county_board_county() -> pd.DataFrame:
-    """1931-2021 from the county's candidate history: every general and
-    special County Board contest in a year, summed; primaries and write-ins
-    left out."""
-    c = elections.county_history()
-    c = c[~c.primary]
+def county_board() -> pd.DataFrame:
+    """1931 on: every general and special County Board contest in a year,
+    summed; primaries and write-ins left out. A county candidate is counted
+    under the label the county prints. A state candidate is counted under
+    the state's party, or as Democratic if they won that year's Democratic
+    primary, or else as unrecorded."""
+    c = elections.contests()
+    c = c[(c.record == "county") | (c.year > COUNTY_HISTORY_THROUGH)]
+    won_primary = c[c.primary & c.person & (c.primary_party == "Democratic") & (c.is_winner == True)]  # noqa: E712
+    dem_primary = set(zip(won_primary.year, won_primary.surname))
     rows = []
-    for year, g in c.groupby("year"):
-        named, complete, note = elections.contest_rows(g)
+    for year, g in c[~c.primary].groupby("year"):
         counts = dict.fromkeys(BANDS, 0)
-        for _, r in named[named.person & named.votes.notna()].iterrows():
-            label = elections.label_of(r.candidate, where=f"{year}: ")
-            counts[BAND[elections.LABELS[label]] if label else "unrecorded"] += int(r.votes)
+        if g.record.iloc[0] == "county":
+            named, complete, note = elections.contest_rows(g)
+            for _, r in named[named.person & named.votes.notna()].iterrows():
+                label = elections.label_of(r.candidate, where=f"{year}: ")
+                counts[BAND[elections.LABELS[label]] if label else "unrecorded"] += int(r.votes)
+            source = named.source.iloc[0]
+        else:
+            g = g[g.person]
+            for _, r in g.iterrows():
+                band = ("dem" if r.party == "Democratic" or (year, r.surname) in dem_primary
+                        else "rep" if r.party == "Republican"
+                        else "other" if isinstance(r.party, str) else "unrecorded")
+                counts[band] += int(r.votes)
+            complete = True
+            note = ("party from the Democratic primary; the general carries none"
+                    if g.party.isna().all() else "")
+            source = (f"{citekeys.VA_ELECTIONS} contest "
+                      + ", ".join(sorted(g.contest.unique(), key=int)))
         rows.append({"year": int(year), "office": "county board", **counts,
                      "total": sum(counts.values()), "complete": complete,
-                     "source": f"{citekeys.ARLINGTON_ELECTIONS} p.{named.page.iloc[0]}",
-                     "note": note})
-    return pd.DataFrame(rows)
-
-
-def county_board_state() -> pd.DataFrame:
-    """2022 on from the state database. Its general-election rows carry a
-    party through 2022 and none after; a candidate who won that year's
-    Democratic primary is counted Democratic, and the rest are unrecorded."""
-    s = elections.state_results()
-    s = s[s.person & (s.year > COUNTY_HISTORY_THROUGH)]
-    won_primary = s[s.election_type.str.startswith("Primary") & (s.primary_party == "Democratic")
-                    & s.is_winner]
-    dem_primary = set(zip(won_primary.year, won_primary.surname))
-    general = s[s.election_type.str.startswith("General")].copy()
-    general["band"] = [
-        "dem" if p == "Democratic" or (y, n) in dem_primary
-        else "rep" if p == "Republican" else "other" if isinstance(p, str) else "unrecorded"
-        for p, y, n in zip(general.candidate_party_name, general.year, general.surname)]
-    rows = []
-    for year, g in general.groupby("year"):
-        counts = g.groupby("band").votes.sum().reindex(BANDS, fill_value=0)
-        rows.append({"year": int(year), "office": "county board", **counts.astype(int).to_dict(),
-                     "total": int(counts.sum()), "complete": True,
-                     "source": f"{citekeys.VA_ELECTIONS} contest " + ", ".join(str(c) for c in sorted(g.contest_id.unique())),
-                     "note": "party from the Democratic primary; the general carries none"
-                             if g.candidate_party_name.isna().all() else ""})
+                     "source": source, "note": note})
     return pd.DataFrame(rows)
 
 
@@ -168,7 +160,7 @@ def build() -> pd.DataFrame:
     years = sorted(pres.year)
     assert years == list(range(1872, 2025, 4)), f"not every fourth year 1872-2024: {years}"
     county_check(pres)
-    board = pd.concat([county_board_county(), county_board_state()], ignore_index=True)
+    board = county_board()
     years = sorted(board.year)
     # Four-year terms for the whole Board in 1931 and 1935; one seat a year from 1939.
     assert years == [1931, 1935] + list(range(1939, 2026)), f"County Board elections are not 1931, 1935, then every year: {years}"
