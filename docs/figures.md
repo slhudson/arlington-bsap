@@ -271,7 +271,9 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
   closer to the address a payroll or filing record would give. A member counts
   at the most exact place any source gives, whenever dated, so it can show a
   member as known from a source written after their service
-  (`residence-after-service`).
+  (`residence-after-service`). Years with no roster, 1912 to 1931, take
+  their three seats from the seat table and count as no place found, so the
+  Board's size is unbroken.
 - **board_age_bands.** The same sitting Board in three bands of age, under
   40, 40 to 59 and 60 and over, as a stacked step area on the seat axis so
   it reads like the gender and race figures; members with no birth year are

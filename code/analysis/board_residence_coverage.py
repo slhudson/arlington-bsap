@@ -4,8 +4,10 @@
 A stacked step area of the members sitting on 1 July of each year, by the
 most exact place any source gives for them, darkest for a house on a street
 and lightest for a side of the County, with the 1932 rule. Years with no
-roster are gaps. A place is counted whenever it is dated, so a member whose
-only place comes from after their service still counts.
+roster are filled from the seat table: the Board had three seats, and nobody
+is known to sit in them, so they count as no place found. A place is counted whenever it is
+dated, so a member whose only place comes from after their service still
+counts.
 """
 import pandas as pd
 
@@ -20,10 +22,16 @@ claims = pd.read_csv(paths.BOARD_RESIDENCE, dtype=str).fillna("")
 exactness = claims.precision.map(ORDER.index)
 best = exactness.groupby(claims.name).min().map(lambda r: ORDER[int(r)])
 
+seats = pd.read_csv(paths.BOARD_SEATS).set_index("year")
+seats = (seats.men + seats.women).fillna(0).astype(int)
+
 rows = []
 for year, s in members.by_year():
     found = s.name.map(best).fillna("none")
-    rows.append({"year": year, **{k: int((found == k).sum()) for k in ORDER + ["none"]}})
+    row = {"year": year, **{k: int((found == k).sum()) for k in ORDER + ["none"]}}
+    if s.empty:
+        row["none"] = int(seats.get(year, 0))
+    rows.append(row)
 d = pd.DataFrame(rows)
 if d[ORDER].sum().sum() == 0:
     raise ValueError("no sitting member has a place; nothing to draw")
