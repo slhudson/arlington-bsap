@@ -20,7 +20,7 @@ are explained in `code/build/citekeys.py`, and what is still open is in
   to the member rests on the name, Arlington and, where the index gives
   one, an occupation, a spouse or a street, and four of that era were found
   in no census (B. M. Smith, H. L. Brown Jr, T. W. Richards, R. L. Lowry).
-- Birth years, for 86 of 119 members, rest on the census listings' ages and
+- Birth years, for 88 of 119 members, rest on the census listings' ages and
   on an age stated in an obituary or a profile, each right to within a
   year, and the sitting-age figure draws a year only when all but at most
   one sitting member has one. The figure is not in the paper yet, and its

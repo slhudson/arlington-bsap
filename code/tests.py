@@ -174,9 +174,8 @@ def test_two_sources_disagreeing_on_race_is_a_finding():
 def test_a_birth_year_after_the_seating_is_rejected():
     """A birth year that makes a member a child when first seated."""
     def misread(d):
-        extra = d[d.name == "William A. Rowe"].iloc[[0]].copy()
-        extra["name"], extra["race"], extra["birth_year"] = "Harold J. Casto", "", "1953"
-        return pd.concat([d, extra], ignore_index=True)
+        d.loc[d.name == "Harold J. Casto", "birth_year"] = "1953"
+        return d
     err = breaks(board_members.pd, "read_csv",
                  patch_csv(board_members, lambda d: "race" in d.columns, misread),
                  build=board_members.build)
