@@ -30,12 +30,15 @@ too, so those run January to December unless a source says otherwise.
 **A vacant seat is not a row.** Nobody served, so there is no person and no
 term. Vacancies are recorded in docs/board.md instead.
 
-Sources:
+Sources, in sequence:
 
   oleary2010       1870-1915  who held each magisterial district, by election
-  novack1994       1930-1994  terms of service, with mid-term departures
+  novack1994       1932-1994  terms of service, with mid-term departures
+  election results 1995-      the county's candidate history to 2021, the
+                              state's database from 2022
 
-Gaps left empty rather than assumed: 1916-1929, and 1995 onward.
+1912-1931 names nobody: O'Leary's last listed election is 1915, and its
+winners' four-year terms end in January 1912 (docs/board.md).
 """
 import re
 
@@ -375,6 +378,10 @@ def novack_terms():
 
 
 def _novack_spans():
+    """Every span of every member's term string, as segments, before the
+    departure-dating pass in novack_terms(). Three steps per span, each a
+    function below: read its dates, find the elections that cut it, and
+    build one segment per cut."""
     stood = board_elections()
     winners = general_winners()
     specials = special_candidates()
@@ -386,112 +393,153 @@ def _novack_spans():
         events = list(novack_events(r.notes))
         parts = [p for p in str(r.term).split(";") if YEAR_RE.search(p)]
         for k, part in enumerate(parts):
-            years = [int(y) for y in YEAR_RE.findall(part)]
-            start, end = years[0], (years[-1] if len(years) > 1 else years[0])
-            # A trailing dash means still serving when Novack published.
-            open_ended = part.strip().endswith("-")
-            # "1981-Feb. 1990": the month is on the end's side of the dash.
-            before, _, after = part.partition("-")
-            month_before = MONTH_RE.findall(before)
-            month_after = MONTH_RE.findall(after)
-            span_end = NOVACK_PUBLISHED if open_ended else end
+            span = _span_dates(part, k, len(parts), events, last, stood, winners)
+            bounds = _span_bounds(span, last, stood)
+            yield from _span_segments(name, int(r.page), span, bounds, last, stood, winners, specials)
 
-            arrive = [e for e in events if e[0] == "arrive"
-                      and (e[1] == start or (e[1] is None and k == 0))]
-            # Novack sometimes dates a span from the election rather than
-            # from taking office: Fisher "1963-1974" won in November 1963
-            # and sat from January 1964. Where the span's first year is a
-            # year this person won the regular election, and no note dates
-            # an arrival in it, the term begins the following January.
-            # Someone who stood the year before took office in January of
-            # this year and is simply being re-elected, so the shift applies
-            # only when they did not.
-            if (not arrive and last in winners.get(start, set())
-                    and last not in stood.get(start - 1, set())):
-                start += 1
-            depart = [e for e in events if e[0] == "depart" and not open_ended
-                      and (e[1] == end or (e[1] is None and k == len(parts) - 1))]
-            first_month = (arrive[0][2] if arrive and arrive[0][2] else
-                           MONTHS[month_before[0].title()] if month_before else 1)
-            last_month = (depart[0][2] if depart and depart[0][2] else
-                          MONTHS[month_after[-1].title()] if month_after else 12)
-            arrive_note = " ".join(e[3] for e in arrive if e[3])
-            depart_note = " ".join(e[3] for e in depart if e[3])
 
-            # Each election this person contested inside the span starts a new
-            # term the following January - except the one that brought them
-            # in, when they were elected mid-term to an unexpired seat.
-            elected_in = arrive and re.search(r"elected", arrive[0][3] or "", re.I) and arrive[0][1] == start
-            cuts = sorted(y + 1 for y, who in stood.items()
-                          if last in who and start < y + 1 <= span_end
-                          and not (elected_in and y == start))
-            bounds = [start] + cuts + [span_end + 1]
+def _span_dates(part, k, n_parts, events, last, stood, winners) -> dict:
+    """One span of a term string - "1932-1947", "1981-Feb. 1990", "1991-" -
+    read into its years and months, with the notes that date them.
 
-            # How the span began is in its note, or it began at a regular
-            # election. Each later segment begins at an election the person
-            # stood in: the regular election if they won it, a special if
-            # they stood in one that day and are still serving, and one they
-            # lost continues the segment before it, however that began.
-            began = (APPOINTMENT if arrive and re.search(r"appointed", arrive[0][3] or "", re.I)
-                     else SPECIAL_ELECTION if arrive else ELECTION)
-            segments = []
-            for i in range(len(bounds) - 1):
-                first, final = bounds[i], bounds[i + 1] - 1
-                is_last = final == span_end
-                won_special = False
-                if i > 0 and last in winners.get(first - 1, set()):
-                    began = ELECTION
-                elif i > 0 and last in specials.get(first - 1, set()):
-                    began, won_special = SPECIAL_ELECTION, True
-                open_end_year = None
-                if open_ended and is_last:
-                    # Novack's trailing "-" means still serving in 1994, with
-                    # no end date of his own. A segment that began the January
-                    # after an election this person won is on the seat's
-                    # four-year clock and runs to first+3; one that began by
-                    # appointment or special election runs to the next regular
-                    # election this person stood in. election_terms() shortens
-                    # either if a special election followed.
-                    if last in winners.get(first - 1, set()):
-                        open_end_year = first + 3
-                    else:
-                        later = [y for y, who in stood.items() if last in who and y >= first]
-                        if not later:
-                            raise ValueError(f"{name} was serving when Novack published and "
-                                             "never stood again; the term's end cannot be inferred")
-                        open_end_year = min(later)
-                if final < first:
-                    continue
-                if won_special:
-                    # Seated in the month of the special election, and the
-                    # segment before it - the appointment - ends there.
-                    segments[-1]["end_year"], segments[-1]["end_month"] = first - 1, 11
-                segments.append({
-                    "name": name, "district": "at large",
-                    "start_year": first - 1 if won_special else first,
-                    "start_month": 11 if won_special else first_month if i == 0 else 1,
-                    "end_year": open_end_year if (open_ended and is_last) else final,
-                    "end_month": 12 if (open_ended and is_last) else (last_month if is_last else 12),
-                    "seated_by": began,
-                    "source": f"{citekeys.NOVACK} p.{r.page}"
-                              + (f"; term boundaries from {citekeys.ARLINGTON_ELECTIONS}"
-                                 if cuts or (open_ended and is_last) else ""),
-                    "note": " ".join(filter(None, [
-                        arrive_note if i == 0 else "",
-                        f"Elected in a special election in Nov {first - 1} to fill an "
-                        "unexpired term; the appointment ended then." if won_special else "",
-                        depart_note if is_last else ""])),
-                    # private, for the departure-dating pass above
-                    "_end_dated": bool(is_last and ((depart and depart[0][2]) or month_after)) or not is_last,
-                    # An appointment that names whose seat it filled ("to fill
-                    # the unexpired term of Joseph L. Fisher") is accounted
-                    # for already; only an unexplained one dates a departure.
-                    "_appointed": bool(i == 0 and arrive
-                                       and re.search(r"appointed", arrive[0][3] or "", re.I)
-                                       and not re.search(r"term of", arrive[0][3] or "", re.I)),
-                    "_open": bool(open_ended and is_last),
-                })
-            yield from segments
+    Novack sometimes dates a span from the election rather than from
+    taking office: Fisher "1963-1974" won in November 1963 and sat from
+    January 1964. Where the span's first year is a year this person won the
+    regular election, and no note dates an arrival in it, the term begins
+    the following January. Someone who stood the year before took office
+    in January of this year and is simply being re-elected, so the shift
+    applies only when they did not.
+
+    An arrival dated in the span's first year sets its first month, a
+    departure dated in its last year sets its last month; undated ones
+    belong to the first or last span (k against n_parts). A trailing dash
+    means still serving when Novack published, and no departure applies.
+    """
+    years = [int(y) for y in YEAR_RE.findall(part)]
+    start, end = years[0], (years[-1] if len(years) > 1 else years[0])
+    open_ended = part.strip().endswith("-")
+    # "1981-Feb. 1990": the month is on the end's side of the dash.
+    before, _, after = part.partition("-")
+    month_before = MONTH_RE.findall(before)
+    month_after = MONTH_RE.findall(after)
+
+    arrive = [e for e in events if e[0] == "arrive"
+              and (e[1] == start or (e[1] is None and k == 0))]
+    if (not arrive and last in winners.get(start, set())
+            and last not in stood.get(start - 1, set())):
+        start += 1
+    depart = [e for e in events if e[0] == "depart" and not open_ended
+              and (e[1] == end or (e[1] is None and k == n_parts - 1))]
+    return {
+        "start": start, "end": end, "open_ended": open_ended,
+        "span_end": NOVACK_PUBLISHED if open_ended else end,
+        "first_month": (arrive[0][2] if arrive and arrive[0][2] else
+                        MONTHS[month_before[0].title()] if month_before else 1),
+        "last_month": (depart[0][2] if depart and depart[0][2] else
+                       MONTHS[month_after[-1].title()] if month_after else 12),
+        "arrive": arrive, "depart": depart, "month_after": month_after,
+        "arrive_note": " ".join(e[3] for e in arrive if e[3]),
+        "depart_note": " ".join(e[3] for e in depart if e[3]),
+    }
+
+
+def _span_bounds(span, last, stood) -> list:
+    """The years at which a span is cut into terms: its first year, the
+    January after each election the person contested inside it, and the
+    year after its last.
+
+    Each election this person contested inside the span starts a new term
+    the following January - except the one that brought them in, when they
+    were elected mid-term to an unexpired seat.
+    """
+    arrive, start, span_end = span["arrive"], span["start"], span["span_end"]
+    elected_in = arrive and re.search(r"elected", arrive[0][3] or "", re.I) and arrive[0][1] == start
+    cuts = sorted(y + 1 for y, who in stood.items()
+                  if last in who and start < y + 1 <= span_end
+                  and not (elected_in and y == start))
+    return [start] + cuts + [span_end + 1]
+
+
+def _span_segments(name, page, span, bounds, last, stood, winners, specials) -> list:
+    """One term per pair of bounds, with how it began and where it ends.
+
+    How the span began is in its note, or it began at a regular election.
+    Each later segment begins at an election the person stood in: the
+    regular election if they won it, a special if they stood in one that
+    day and are still serving, and one they lost continues the segment
+    before it, however that began.
+
+    A member appointed to a vacancy who then wins the seat at a same-day
+    special election (Wilt, 1960) is seated by it in November, and the
+    appointment ends then.
+
+    Novack's trailing "-" means still serving in 1994, with no end date of
+    his own. A segment that began the January after an election this
+    person won is on the seat's four-year clock and runs to first+3; one
+    that began by appointment or special election runs to the next regular
+    election this person stood in. election_terms() shortens either if a
+    special election followed.
+
+    Three private keys, dropped before the rows leave novack_terms(), feed
+    the departure-dating pass there: whether the end is dated, whether the
+    span began with an unexplained appointment, and whether it is open.
+    """
+    arrive, open_ended, span_end = span["arrive"], span["open_ended"], span["span_end"]
+    cuts = bounds[1:-1]
+    began = (APPOINTMENT if arrive and re.search(r"appointed", arrive[0][3] or "", re.I)
+             else SPECIAL_ELECTION if arrive else ELECTION)
+    segments = []
+    for i in range(len(bounds) - 1):
+        first, final = bounds[i], bounds[i + 1] - 1
+        is_last = final == span_end
+        won_special = False
+        if i > 0 and last in winners.get(first - 1, set()):
+            began = ELECTION
+        elif i > 0 and last in specials.get(first - 1, set()):
+            began, won_special = SPECIAL_ELECTION, True
+        open_end_year = None
+        if open_ended and is_last:
+            if last in winners.get(first - 1, set()):
+                open_end_year = first + 3
+            else:
+                later = [y for y, who in stood.items() if last in who and y >= first]
+                if not later:
+                    raise ValueError(f"{name} was serving when Novack published and "
+                                     "never stood again; the term's end cannot be inferred")
+                open_end_year = min(later)
+        if final < first:
+            continue
+        if won_special:
+            # Seated in the month of the special election, and the
+            # segment before it - the appointment - ends there.
+            segments[-1]["end_year"], segments[-1]["end_month"] = first - 1, 11
+        segments.append({
+            "name": name, "district": "at large",
+            "start_year": first - 1 if won_special else first,
+            "start_month": 11 if won_special else span["first_month"] if i == 0 else 1,
+            "end_year": open_end_year if (open_ended and is_last) else final,
+            "end_month": 12 if (open_ended and is_last) else (span["last_month"] if is_last else 12),
+            "seated_by": began,
+            "source": f"{citekeys.NOVACK} p.{page}"
+                      + (f"; term boundaries from {citekeys.ARLINGTON_ELECTIONS}"
+                         if cuts or (open_ended and is_last) else ""),
+            "note": " ".join(filter(None, [
+                span["arrive_note"] if i == 0 else "",
+                f"Elected in a special election in Nov {first - 1} to fill an "
+                "unexpired term; the appointment ended then." if won_special else "",
+                span["depart_note"] if is_last else ""])),
+            # private, for the departure-dating pass in novack_terms()
+            "_end_dated": bool(is_last and ((span["depart"] and span["depart"][0][2])
+                                            or span["month_after"])) or not is_last,
+            # An appointment that names whose seat it filled ("to fill
+            # the unexpired term of Joseph L. Fisher") is accounted
+            # for already; only an unexplained one dates a departure.
+            "_appointed": bool(i == 0 and arrive
+                               and re.search(r"appointed", arrive[0][3] or "", re.I)
+                               and not re.search(r"term of", arrive[0][3] or "", re.I)),
+            "_open": bool(open_ended and is_last),
+        })
+    return segments
 
 
 TWO_SEATS = re.compile(r"two seats|2 seats|vote for 2|two elected", re.I)
