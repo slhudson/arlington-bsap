@@ -78,8 +78,8 @@ ballot, the other who sat. 1931–2021 is the county's candidate history, every
 general and special contest in a year summed; 2022 on is the state database,
 which names a party on the 2022 general and none after, so from 2023 a
 Democratic primary winner is Democratic and everyone else is unrecorded
-(Clement, Fierro and Cambridge are in that band). A year is incomplete where a
-member the roster seats by election has no vote count: 1942 and 1949. Two
+(Clement, Fierro and Cambridge are in that band). A year is incomplete on the
+same rule turnout uses, below: 1931, 1942, 1947 and 1949. Two
 seats are elected in every fourth year from 1951 and a ballot then carries
 two votes, so shares are of votes cast; that distorts a party's share only
 where it ran fewer candidates than seats, which the county's record shows in
@@ -114,7 +114,8 @@ says so. Ballots cast would be the right number and no source in hand holds
 it.
 
 **Which years are not the county's vote.** The county's own page says its
-tallies are complete only from 1971. A year is marked incomplete and not drawn
+tallies are complete only from 1971. One rule, in `code/build/elections.py`,
+decides for `voters.csv` and `turnout.csv` alike. A year is marked incomplete and not drawn
 where a named candidate has no count (1942, 1949, and Frisbie in 1947, whose
 page also says its totals are from 8 of 11 precincts) or where the page says
 others ran who are not listed (1931). Before 1932 the Board was elected by

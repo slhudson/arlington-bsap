@@ -35,10 +35,10 @@ returns.)" for the rest; the two are here, with `board_seats` 3.
 
 **Which years are not the county's vote.** The county's own candidate
 history says its tallies are complete only from 1971. A year is marked
-incomplete, and the figure leaves it out, where a named candidate has no
-count (1942, 1949, and Frisbie in 1947, whose page also says its totals
-are from 8 of 11 precincts) or where the page says others ran who are not
-listed (1931). The note column says which.
+incomplete, and the figure leaves it out, on the one rule in
+elections.contest_rows(), which voters.csv shares: a named candidate with
+no count (1942, 1949, and Frisbie in 1947), a partial canvass (1947), or
+others who ran and are not listed (1931). The note column says which.
 
 **Registration is the state's active list**, from 2010, when its monthly
 reports begin; `registered_all` adds the inactive list. Nothing before 2010
@@ -95,8 +95,6 @@ VOTING_AGE_SOURCE = {1980: citekeys.CENSUS_1980_STF1A, 1990: citekeys.CENSUS_199
 # the House of Delegates alone. The Board is the top of the ballot only in
 # the last of these.
 CYCLE = {0: "president", 1: "governor", 2: "midterm", 3: "delegates"}
-# What the county prints when a year's total is not the county's vote.
-PARTIAL = re.compile(r"not mentioned|not final|\d+ of \d+ precincts", re.I)
 
 
 def seats_filled(roster: pd.DataFrame, year: int) -> int:
@@ -122,27 +120,11 @@ def board_county(roster) -> pd.DataFrame:
     c = c[c.november & ~c.primary]
     rows = []
     for year, g in c.groupby("year"):
-        # 1935 and 1939 print the new Board's composition, without counts,
-        # beside the returns. A block (one page, one date) with no count on
-        # any row is that list, not a contest, unless the year has no counts
-        # anywhere - then it is the contest, and the year is incomplete.
-        blocks = g.groupby(["page", "election_date"]).votes.apply(lambda v: v.notna().any())
-        if blocks.any():
-            g = g[[blocks[k] for k in zip(g.page, g.election_date)]]
-        named = g[~g.prose].copy()         # write-ins are votes cast, and stay
-        # 1947 prints the same block twice, on facing pages; a candidate with
-        # the same count twice in one year is one candidate.
-        named["key"] = [elections.surname(n.lstrip("*W. ")) for n in named.candidate]
-        named = named.drop_duplicates(["key", "votes"])
-        missing = sorted(named[named.votes.isna()].key.unique())
-        partial = [t for t in pd.concat([g.candidate, g.office]) if PARTIAL.search(t)]
-        note = "; ".join(filter(None, [
-            f"no vote count for {', '.join(missing)}" if missing else "",
-            partial[0] if partial else ""]))
+        named, complete, note = elections.contest_rows(g)   # write-ins are votes cast, and stay
         rows.append({"year": year, "board_votes": int(named.votes.sum()),
                      "board_seats": seats_filled(roster, year),
-                     "board_complete": not (missing or partial),
-                     "board_source": f"{citekeys.ARLINGTON_ELECTIONS} p.{g.page.iloc[0]}",
+                     "board_complete": complete,
+                     "board_source": f"{citekeys.ARLINGTON_ELECTIONS} p.{named.page.iloc[0]}",
                      "board_note": note})
     return pd.DataFrame(rows)
 

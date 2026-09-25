@@ -11,6 +11,8 @@ one way and the callers select from it.
 
     county_history()   the county's candidate history, County Board rows,
                        1931 to COUNTY_HISTORY_THROUGH
+    contest_rows()     one year's rows reduced to the contest's own lines,
+                       and whether they are the county's whole vote
     state_results()    the state's database, County Board contests, 2000 on
     label_of()         the party label the county prints after a name
     surname()          the surname, as both records are matched on
@@ -114,6 +116,49 @@ def surname(name) -> str:
     s = re.sub(r"\b(Jr|Sr|II|III|IV|Dr|Mrs|Mr)\b\.?", "", s)
     s = re.sub(r"[^A-Za-z ]", " ", s).split()
     return s[-1].lower() if s else ""
+
+
+# What the county prints when a year's total is not the county's vote.
+PARTIAL = re.compile(r"not mentioned|not final|\d+ of \d+ precincts", re.I)
+
+
+def contest_rows(g):
+    """One year's County Board rows, reduced to the contest's own lines.
+
+    `g` is the year's rows with primaries left out and prose and write-ins
+    kept, since the page's remarks are where a shortfall is written. Returns
+    (rows, complete, note): the candidate and write-in rows, deduplicated;
+    whether they are the county's whole vote; and, if not, why.
+
+    voters.py and turnout.py both read this, so a year is complete or not
+    once, for the party shares and the turnout levels alike. They used to
+    decide separately, and 1931 and 1947 were drawn as shares while being
+    left out of the levels.
+
+    1935 and 1939 print the new Board's composition, without counts, beside
+    the returns. A block (one page, one date) with no count on any row is
+    that list, not a contest, unless the year has no counts anywhere - then
+    it is the contest, and the year is incomplete. 1947 prints the same
+    block twice, on facing pages; a candidate with the same count twice in
+    one year is one candidate.
+
+    A year is not the county's vote where a named candidate has no count
+    (1942, 1949, and Frisbie in 1947), where the page says its totals are
+    from some of the precincts (1947), or where it says others ran who are
+    not listed (1931). The note says which.
+    """
+    blocks = g.groupby(["page", "election_date"]).votes.apply(lambda v: v.notna().any())
+    if blocks.any():
+        g = g[[blocks[k] for k in zip(g.page, g.election_date)]]
+    named = g[~g.prose].copy()
+    named["key"] = [surname(n.lstrip("*W. ")) for n in named.candidate]
+    named = named.drop_duplicates(["key", "votes"])
+    missing = sorted(named[named.votes.isna()].key.unique())
+    partial = [t for t in pd.concat([g.candidate, g.office]) if PARTIAL.search(t)]
+    note = "; ".join(filter(None, [
+        f"no vote count for {', '.join(missing)}" if missing else "",
+        partial[0] if partial else ""]))
+    return named, not (missing or partial), note
 
 
 def county_history(office=BOARD) -> pd.DataFrame:

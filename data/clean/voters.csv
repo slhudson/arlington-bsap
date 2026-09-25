@@ -38,9 +38,9 @@ year,office,dem,rep,abc,other,unrecorded,total,complete,source,note
 2016,president,92016,20186,0,7240,0,119442,True,vaelections contest 80871,
 2020,president,105344,22318,0,1836,0,129498,True,vaelections contest 144567,
 2024,president,100446,25223,0,2693,0,128362,True,vaelections contest 161256,
-1931,county board,0,2088,0,0,7672,9760,True,arlingtonelections2021 p.6,
-1935,county board,0,0,0,0,15869,15869,True,arlingtonelections2021 p.9,
-1939,county board,25597,8092,0,0,0,33689,True,arlingtonelections2021 p.11,
+1931,county board,0,2088,0,0,7672,9760,False,arlingtonelections2021 p.6,(others not mentioned)
+1935,county board,0,0,0,0,15869,15869,True,arlingtonelections2021 p.10,
+1939,county board,25597,8092,0,0,0,33689,True,arlingtonelections2021 p.12,
 1940,county board,5538,4128,0,0,0,9666,True,arlingtonelections2021 p.12,
 1941,county board,0,0,0,0,2797,2797,True,arlingtonelections2021 p.12,
 1942,county board,0,0,0,0,0,0,False,arlingtonelections2021 p.13,no vote count for campbell
@@ -48,9 +48,9 @@ year,office,dem,rep,abc,other,unrecorded,total,complete,source,note
 1944,county board,0,0,0,0,13156,13156,True,arlingtonelections2021 p.14,
 1945,county board,3424,2037,0,0,0,5461,True,arlingtonelections2021 p.14,
 1946,county board,4742,0,0,5790,0,10532,True,arlingtonelections2021 p.14,
-1947,county board,0,0,0,0,27698,27698,True,arlingtonelections2021 p.15,
+1947,county board,0,0,0,0,13849,13849,False,arlingtonelections2021 p.15,no vote count for frisbie
 1948,county board,0,0,0,0,19585,19585,True,arlingtonelections2021 p.18,
-1949,county board,0,0,0,0,0,0,False,arlingtonelections2021 p.18,no vote count for cox
+1949,county board,0,0,0,0,0,0,False,arlingtonelections2021 p.18,"no vote count for bechtel, cox, delashmutt"
 1950,county board,5497,0,0,9931,1049,16477,True,arlingtonelections2021 p.19,
 1951,county board,7872,9077,0,13789,0,30738,True,arlingtonelections2021 p.21,
 1952,county board,6542,11440,0,110704,0,128686,True,arlingtonelections2021 p.22,

@@ -13,7 +13,7 @@ deliberately: this figure is about the choice on the ballot, that one about
 who sat. Candidates the county prints no label for are "not recorded".
 
 A step area, because it is annual, with each year's value spanning the year.
-Years the build marks incomplete - a winner with no vote count - are gaps.
+Years the build marks incomplete are gaps: the same years turnout leaves out.
 Shares are of votes cast: in a two-seat year each ballot carries two, which
 matters only where a party ran a short slate (docs/voters.md).
 """

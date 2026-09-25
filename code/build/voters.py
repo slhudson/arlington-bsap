@@ -14,8 +14,9 @@ the label the county's own record prints after their name - "(D)", "(ABC)",
 board_members.csv. Votes for Dorothy Grotos in 1975 sit in "other" here and
 her seat sits in Republican there, deliberately: this file is about the
 choice voters were offered, that one about who sat. Candidates the county
-prints no label for are "unrecorded", and a year in which a named candidate
-has no vote count is marked incomplete and not drawn.
+prints no label for are "unrecorded". A year whose returns are not the
+county's whole vote is marked incomplete and not drawn, on the one rule in
+elections.contest_rows(), which turnout.csv shares.
 
 **Why the presidential vote.** Virginia has no party registration, so there is
 no count of residents' partisanship at all; the presidential vote is the
@@ -50,16 +51,14 @@ figure, the two must agree within a few per cent (they are different
 compilations of the same canvass), and the build reports the years they do
 not.
 """
-import difflib
 import re
 
 import pandas as pd
 
-import board_roster
 import citekeys
 import elections
 from elections import COUNTY_HISTORY_THROUGH
-from paths import RAW, TRANSCRIBED, read, write
+from paths import RAW, TRANSCRIBED, write
 
 BY_CLAUDE = TRANSCRIBED / "by_claude"
 OLEARY = BY_CLAUDE / "arlington_county" / "president_1872-1920.csv"
@@ -152,54 +151,26 @@ BAND = {"Democratic": "dem", "Republican": "rep", "ABC": "abc",
 
 def county_board_county() -> pd.DataFrame:
     """1931-2021 from the county's candidate history: every general and
-    special County Board contest in a year, summed; primaries left out."""
+    special County Board contest in a year, summed; primaries left out.
+
+    Write-ins carry no label and are left out of the bands, so shares are of
+    votes for named candidates. Which years are complete, and which rows
+    are the contest's, is elections.contest_rows(), shared with turnout.
+    """
     c = elections.county_history()
-    c = c[~c.primary & c.person]
-    winners = elected_winners()
+    c = c[~c.primary]
     rows = []
     for year, g in c.groupby("year"):
+        named, complete, note = elections.contest_rows(g)
         counts = {"dem": 0, "rep": 0, "abc": 0, "other": 0, "unrecorded": 0}
-        for _, r in g.iterrows():
-            if pd.isna(r.votes):
-                continue
+        for _, r in named[named.person & named.votes.notna()].iterrows():
             label = elections.label_of(r.candidate, where=f"{year}: ")
             counts[BAND[elections.LABELS[label]] if label else "unrecorded"] += int(r.votes)
-        # A winner with no vote count means the year's returns are not the
-        # county's vote: Campbell unopposed in 1942, DeLashmutt "re-elected"
-        # in 1941, nobody counted in 1949. Losers without counts - the 1939
-        # primary field, the 1935 composition list - do not make a year
-        # incomplete. Winners come from the roster: the members whose term
-        # begins the following January by election.
-        # The county spells a few winners differently from Novack - Kelly for
-        # Kelley, Mcgruder for Magruder, Blevens for Blevins - so a surname
-        # counts as present when a close spelling has a vote count.
-        counted = set(g[g.votes.notna()].surname)
-        missing = sorted(w for w in winners.get(int(year), set())
-                         if not difflib.get_close_matches(w, counted, n=1, cutoff=0.8))
         rows.append({"year": int(year), "office": "county board", **counts,
-                     "total": sum(counts.values()), "complete": not missing,
-                     "source": f"{citekeys.ARLINGTON_ELECTIONS} p.{g.page.iloc[0]}",
-                     "note": f"no vote count for {', '.join(missing)}" if missing else ""})
+                     "total": sum(counts.values()), "complete": complete,
+                     "source": f"{citekeys.ARLINGTON_ELECTIONS} p.{named.page.iloc[0]}",
+                     "note": note})
     return pd.DataFrame(rows)
-
-
-def elected_winners() -> dict:
-    """Election year -> surnames of the members it seated in January.
-
-    Read from data/clean/board_members.csv, which the build writes first
-    (run.sh orders it so), the way board_seats.py reads it. An appointee's
-    term begins mid-year and is not an election result.
-    """
-    m = read("board_members")
-    # A term an election seated, beginning the January after it. The roster
-    # says how each term began, so a January term that continues an
-    # appointment (Frisbie, 1948) is an appointment here too, not a win.
-    seated = m[(m.start_year >= 1932) & (m.start_month == 1)
-               & (m.seated_by == board_roster.ELECTION)]
-    out = {}
-    for _, t in seated.iterrows():
-        out.setdefault(int(t.start_year) - 1, set()).add(elections.surname(t["name"]))
-    return out
 
 
 def county_board_state() -> pd.DataFrame:
