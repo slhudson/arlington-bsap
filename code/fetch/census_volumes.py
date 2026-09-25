@@ -1,28 +1,15 @@
 """Census volume scans -> data/raw/us_census_bureau/<year>/<chunk>.pdf, on demand.
 
-NOT part of `bash run.sh`. Like the rest of code/fetch/, it touches the
-network. The build never reads a scan - it reads the transcriptions, which
-cite the printed page - so nothing here is needed to build.
-
     .venv/bin/python code/fetch/census_volumes.py
 
-**Why some scans are not committed.** The 1880 and 1890 volumes' interior
-chunks are 50MB of PDF the build never opens, against an Overleaf ceiling of
-100MB for the whole repository. They are the Bureau's own files, published at
-stable URLs and byte-identical to what was held, so `data/contents.csv`
-records each one's URL and checksum and marks it `in_git = no`, and this
-script fetches whichever is missing. A download whose checksum does not match
-the inventory is refused and not written: the file is then not the one the
-transcriptions were read from, and that is worth knowing before anyone cites
-a page of it.
-
-The title-page chunks are committed, because `paper/sources.bib` is built
-from them. So are the three 1870 chunks: the Bureau's current copies at
-1870/population/ are chunked differently, so those files cannot be re-fetched
-(`1870-chunks-provenance` in `docs/questions.csv`).
-
-Every chunk already on disk is checked against the inventory too, so running
-this on a full checkout is a provenance audit that downloads nothing.
+The 1880 and 1890 volumes' interior chunks are 50MB of PDF the build never
+opens, so they are not committed: data/contents.csv records each one's URL
+and checksum with `in_git = no`, and this fetches whichever is missing. A
+download whose checksum does not match the inventory is refused, since it
+is then not the file the transcriptions were read from. Every chunk on
+disk is checked against the inventory too, so on a full checkout this is a
+provenance audit that downloads nothing. The title-page chunks and the
+1870 chunks are committed (1870-chunks-provenance in docs/questions.csv).
 """
 import csv
 import hashlib

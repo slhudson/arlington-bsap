@@ -1,13 +1,7 @@
 """The two election records the Board builds read, each loaded once.
 
-A module, not a step: it writes nothing. board_roster, board_members,
-voters and turnout all read the county's candidate history and the state's
-elections database, and each used to open the file itself with its own
-idea of which rows were County Board rows and which candidates were
-people. Six filters for one file is how they drift apart - one matching
-"County Board" anywhere in the office, another only at its start, a third
-also dropping the prose block the 1931 page carries. Here the file is read
-one way and the callers select from it.
+A module, not a step: it writes nothing. Each file is read one way, and
+the callers select from it.
 
     county_history()   the county's candidate history, County Board rows,
                        1931 to COUNTY_HISTORY_THROUGH
@@ -17,17 +11,11 @@ one way and the callers select from it.
     label_of()         the party label the county prints after a name
     surname()          the surname, as both records are matched on
 
-**The county's candidate history** (arlingtonelections2021) runs to the 2021
-election and the county no longer publishes it. Every County Board row is
-kept, primaries and write-ins included; the frame says what each row is and
-a caller chooses. Votes are numbers, blank where the page prints none.
-
-**The state's database** (vaelections) is the Department of Elections' own
-CSV, one row per candidate per precinct per vote channel, so a candidate's
-votes are summed by whoever needs them. It is the only source from 2022.
-Four rows per contest are not candidates - the ballot and vote totals, the
-undervotes, and write-ins - and the frame marks them rather than dropping
-them, because turnout counts write-ins as votes cast and the roster does not.
+The county's candidate history (arlingtonelections2021) runs to the 2021
+election. Every County Board row is kept, primaries and write-ins
+included, and the frame says what each row is. The state's database
+(vaelections) is one row per candidate per precinct per vote channel; its
+non-candidate rows are marked rather than dropped.
 """
 import re
 
@@ -38,25 +26,14 @@ from paths import RAW, TRANSCRIBED
 COUNTY = TRANSCRIBED / "by_claude" / "arlington_county" / "candidate_history_1920-present.csv"
 STATE = RAW / "va_dept_of_elections" / "county_board_2000-2026.csv"
 
-# The last election in the county's candidate history. The state database is
-# the source after it, and the build checks the two agree on this year.
+# The last election in the county's candidate history.
 COUNTY_HISTORY_THROUGH = 2021
 
-# A County Board contest's heading, whatever qualifier follows it - "(two
-# seats)", "(to fill Favola's unexpired term)", "Special Election".
-BOARD = re.compile(r"^(Member, )?County Board\b")
-# A row that names a candidate begins with a capital (or the asterisk some
-# years put on the winner). The page also carries prose - "(others not
-# mentioned)", "Running Before Primary:", "[Listing attached]" - and write-ins.
-NAMED = re.compile(r"^[*A-Z]")
+BOARD = re.compile(r"^(Member, )?County Board\b")      # a contest heading, any qualifier after
+NAMED = re.compile(r"^[*A-Z]")                          # a row naming a candidate
 
-# --- the county's party labels ----------------------------------------------
-# The label the county prints in parentheses after a candidate's name, and
-# what it records. Every label a County Board candidate has carried is here;
-# one that is not stops the build, because a new label is a decision and not
-# a default. board_members.py accepts a winner only under the four parties
-# and the convention case; voters.py counts every vote, so the minor labels
-# fall into "other" there.
+# The label the county prints in parentheses after a name, and what it
+# records. A label not listed here stops the build.
 LABELS = {
     "D": "Democratic",
     "R": "Republican", "Rep.": "Republican",
@@ -64,16 +41,12 @@ LABELS = {
     "I": "independent", "Non-Part.": "independent", "Non-Partisan": "independent",
     "NP": "independent",
     "IM": "independent",               # 1954, presumably Arlington Independent Movement
-    # Kaul and Krupsaw, 1955: nominated by a convention the source does not
-    # name. Not a party, so nothing is recorded; the note keeps the label.
-    "Convention": "",
-    # Labels only losing candidates have carried. A winner under one of these
-    # would be a decision for a person, and board_members.py stops on it.
+    "Convention": "",                  # 1955: a convention the source does not name
+    # Labels no winner has carried; board_members.py stops on one.
     "AIM": "other", "Ind. Dem.": "other", "Ind. Rep.": "other",
     "G": "other", "IG": "other", "Va. Reform": "other",
 }
 PARTIES = {"Democratic", "Republican", "ABC", "independent"}
-# Parentheticals that are not labels: "(won)", "(inc.)", "(holdover)".
 NOT_A_LABEL = {"won", "inc.", "holdover", "not on ballot"}
 LABEL = re.compile(r"\(([^()]*)\)")
 
@@ -84,11 +57,7 @@ def labels_on(candidate) -> set:
 
 
 def label_of(candidate, where="") -> str:
-    """The one party label a candidate row carries, or "" for none.
-
-    Raises where the row prints more than one, or one this module does not
-    know: either is a reading for a person to settle, not a value to guess.
-    """
+    """The one party label a candidate row carries, or "" for none."""
     labels = sorted(labels_on(candidate))
     if len(labels) > 1:
         raise ValueError(f"{where}{candidate!r} carries more than one label: {labels}")
@@ -101,16 +70,8 @@ def label_of(candidate, where="") -> str:
 
 
 def surname(name) -> str:
-    """The surname, ignoring the qualifiers the sources hang off a name.
-
-    Candidate entries carry party, status and outcome - "*Elizabeth B. Magruder
-    (holdover)", "Elizabeth B. Magruder (won)" - so anything in parentheses,
-    anything after a comma or dash, and honorifics are dropped before the last
-    word is taken. Without this, Magruder's surname reads as "won". Both
-    records are matched on it, because the state spells names its own way
-    ("Matthew David De Ferranti" for the county's "Matthew D. \"Matt\" de
-    Ferranti").
-    """
+    """The surname, lowercased, ignoring the qualifiers the sources hang off
+    a name: "*Elizabeth B. Magruder (holdover)", "Magruder, conservative"."""
     s = re.sub(r"\(.*?\)", " ", str(name))          # (won), (D), (holdover)
     s = re.split(r"[,–-]", s)[0]                 # ", conservative", " - removed for..."
     s = re.sub(r"\b(Jr|Sr|II|III|IV|Dr|Mrs|Mr)\b\.?", "", s)
@@ -126,26 +87,15 @@ def contest_rows(g):
     """One year's County Board rows, reduced to the contest's own lines.
 
     `g` is the year's rows with primaries left out and prose and write-ins
-    kept, since the page's remarks are where a shortfall is written. Returns
-    (rows, complete, note): the candidate and write-in rows, deduplicated;
-    whether they are the county's whole vote; and, if not, why.
+    kept. Returns (rows, complete, note): the candidate and write-in rows,
+    deduplicated; whether they are the county's whole vote; and if not, why.
 
-    voters.py and turnout.py both read this, so a year is complete or not
-    once, for the party shares and the turnout levels alike. They used to
-    decide separately, and 1931 and 1947 were drawn as shares while being
-    left out of the levels.
-
-    1935 and 1939 print the new Board's composition, without counts, beside
-    the returns. A block (one page, one date) with no count on any row is
-    that list, not a contest, unless the year has no counts anywhere - then
-    it is the contest, and the year is incomplete. 1947 prints the same
-    block twice, on facing pages; a candidate with the same count twice in
-    one year is one candidate.
-
-    A year is not the county's vote where a named candidate has no count
-    (1942, 1949, and Frisbie in 1947), where the page says its totals are
-    from some of the precincts (1947), or where it says others ran who are
-    not listed (1931). The note says which.
+    A block (one page, one date) with no count on any row is a list of the
+    Board, not a contest, unless the year has no counts anywhere. A
+    candidate with the same count twice in one year is one candidate. A
+    year is not the county's vote where a named candidate has no count,
+    the page says its totals are from some precincts, or it says others ran
+    who are not listed.
     """
     blocks = g.groupby(["page", "election_date"]).votes.apply(lambda v: v.notna().any())
     if blocks.any():
@@ -162,9 +112,8 @@ def contest_rows(g):
 
 
 def county_history(office=BOARD) -> pd.DataFrame:
-    """Every County Board row of the county's candidate history.
-
-    Text columns as transcribed, blanks as "", plus:
+    """Every row of the county's candidate history for `office`, text
+    columns as transcribed with blanks as "", plus:
 
         year       int
         votes      the count as a number; NaN where the page prints none
@@ -175,13 +124,9 @@ def county_history(office=BOARD) -> pd.DataFrame:
                    off-month special
         primary    the row is from a primary
         surname    surname() of the candidate
-
-    `office` narrows the rows to another office's - voters.py checks the
-    presidential returns the same pages print.
     """
     c = pd.read_csv(COUNTY, dtype=str).fillna("")
-    # The 1931 page carries a block headed "County Board Candidates" that is
-    # a pointer to an article, not a contest. Its office is not the Board's.
+    # "County Board Candidates" heads a pointer to an article, not a contest.
     c = c[c.office.str.match(office) & ~c.office.str.startswith("County Board Candidates")].copy()
     if not c.year.str.match(r"^\d{4}$").all():
         raise AssertionError("a County Board row has no four-digit year")
@@ -203,7 +148,7 @@ def state_results() -> pd.DataFrame:
         year       int
         person     the row names a candidate: not a total, an undervote
                    count or the write-in line
-        writein    the write-in line, which turnout counts as votes cast
+        writein    the write-in line
         surname    surname() of the candidate
     """
     s = pd.read_csv(STATE, low_memory=False)

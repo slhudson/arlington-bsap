@@ -1,65 +1,27 @@
 """Who votes for the County Board, year by year -> data/clean/turnout.csv
 
-One row per year in which any of four things is measured, 1872-2025:
+One row per year in which any of these is measured, 1872-2025:
 
   board_votes      every vote cast in the November County Board contests,
-                   write-ins included, and how many seats they filled
-  board_voters     the people that represents - see below
-  registered       Arlington's registered voters at that November's election
-  voting_age       the county's population 18 and over, in a census year, and
-                   voting_age_est the same carried between censuses
-  president_votes  the county's presidential vote, every fourth year
-  cycle            what else the November ballot carried, from 1931: the
-                   President, the governor, Congress alone, or the House of
-                   Delegates alone - the year's place in the four-year cycle
+                   write-ins included, and board_seats, how many seats
+                   they filled
+  board_voters     votes divided by seats: the people that represents,
+                   exactly for one seat and a lower bound for two or more
+  registered       Arlington's active registered voters at that November's
+                   election, from 2010; registered_all adds the inactive
+  voting_age       the population 18 and over in a census year, from 1980,
+                   and voting_age_est the same carried between censuses
+  president_votes  the county's presidential vote, from voters.csv
+  cycle            what else the November ballot carried, from 1931
 
-Each measure has its own `_source` column, as residents.csv does, because a
-row draws on up to four documents at once.
+Each measure has its own `_source` column. The seats an election filled
+are counted from the roster: terms an election seated the next January, or
+a special election that November. A year is marked incomplete on the rule
+in elections.contest_rows(). docs/voters.md has the reasoning.
 
-**Votes are not voters.** A County Board ballot carries one vote per seat
-being filled, so in a two-seat year the contest's total is up to twice the
-number of people who voted in it. `board_voters` divides the votes by the
-seats: exactly the number of people who voted for the Board when one seat
-was filled, and a lower bound when more than one was - a voter who marked
-only one of two choices is counted as half. The seats are counted from the
-roster (board_members.csv): the terms that began the following January, or
-in November for a special election held the same day, appointments excluded.
-That is what makes 1931, 1935 and 1939 five-seat elections (the whole Board
-was elected at once until terms were staggered), and 1943, 1947, 1952 and
-1997 more than the contest's own heading says.
-
-Before 1932 the Board was elected by district, one seat each, so every voter
-cast one vote and the county's total is the number who voted. O'Leary
-reports the count for two of those elections, 1907 and 1915, and "(No
-returns.)" for the rest; the two are here, with `board_seats` 3.
-
-**Which years are not the county's vote.** The county's own candidate
-history says its tallies are complete only from 1971. A year is marked
-incomplete, and the figure leaves it out, on the one rule in
-elections.contest_rows(), which voters.csv shares: a named candidate with
-no count (1942, 1949, and Frisbie in 1947), a partial canvass (1947), or
-others who ran and are not listed (1931). The note column says which.
-
-**Registration is the state's active list**, from 2010, when its monthly
-reports begin; `registered_all` adds the inactive list. Nothing before 2010
-is online, so turnout as a share of the registered is a fifteen-year series.
-Voting-age population is the census's population 18 and over, from 1980,
-when it can be read from the archived Summary Tape Files; `voting_age_est`
-carries it into every year between censuses, on a straight line, for the
-figure's share panel. Earlier censuses printed the count of those 21 and
-over, and the 1971 change of the voting age would have to be handled; that
-is adults-before-1980 in docs/questions.csv.
-
-**The presidential vote is voters.csv's**, the county's total for the office
-in each presidential year, so the two figures agree by construction; its
-source column says so.
-
-Three guards, the first two tested in code/tests.py: the Board's voters can
-never exceed the registered voters, nor the presidential vote of the same
-year, and the registered can never exceed the adults. Any of them would mean
-a total had been read as a per-candidate figure, or votes counted twice, or
-a state total read as the county's, and the figure would draw it without
-complaint.
+Three guards: the Board's voters never exceed the registered voters, nor
+the presidential vote of the same year, and the registered never exceed
+the adults.
 """
 import re
 
@@ -75,10 +37,8 @@ OLEARY = TRANSCRIBED / "by_claude" / "arlington_county" / "board_1870-1920.csv"
 REGISTRATION = RAW / "va_dept_of_elections" / "registration_2010-2025.csv"
 CENSUS = RAW / "us_census_bureau"
 
-# The population 18 and over, census by census. From 2000 the Bureau
-# publishes it as a table whose first cell is the total; 1980 and 1990 come
-# from the age distribution, summed from the "18" cell to the end. Each
-# entry is (file under data/raw/us_census_bureau/, the columns to sum).
+# The population 18 and over: from 2000 a table whose first cell is the
+# total; 1980 and 1990 the age distribution summed from the "18" cell on.
 VOTING_AGE = {
     1980: ("1980/stf1a_table10_age_virginia_counties.csv", "from 18"),
     1990: ("1990/stf1a_age_virginia_counties.csv", "from 18"),
@@ -87,22 +47,13 @@ VOTING_AGE = {
     2020: ("2020/censusapi_dec_pl_P3_race_18_and_over_virginia_counties.csv", ["P3_001N"]),
 }
 VOTING_AGE_SOURCE = {1980: citekeys.CENSUS_1980_STF1A, 1990: citekeys.CENSUS_1990_STF1A}
-# What else is on Arlington's November ballot, by the year's place in the
-# four-year cycle. Virginia has elected its governor in the year after a
-# presidential election since 1869 and its House of Delegates in every odd
-# year, and Congress is on the ballot in even years; so the four Novembers
-# are, in order: President, the governor, Congress alone (the midterm), and
-# the House of Delegates alone. The Board is the top of the ballot only in
-# the last of these.
+# The year's place in Virginia's four-year cycle, by year mod 4.
 CYCLE = {0: "president", 1: "governor", 2: "midterm", 3: "delegates"}
 
 
 def seats_filled(roster: pd.DataFrame, year: int) -> int:
     """Seats the November election of `year` filled: terms an election
-    seated the next January, or a special election seated that November.
-    An appointment is not an election, and a special election in another
-    month (January 1996) filled its seat then. The roster's seated_by says
-    which each term is."""
+    seated the next January, or a special election seated that November."""
     regular = ((roster.seated_by == board_roster.ELECTION)
                & (roster.start_year == year + 1) & (roster.start_month == 1))
     special = ((roster.seated_by == board_roster.SPECIAL_ELECTION)
@@ -148,8 +99,7 @@ def board_state() -> pd.DataFrame:
 
 def board_districts() -> pd.DataFrame:
     """1870-1915: the elections for which O'Leary reports a count in every
-    district. An entry reads "Corbett 213 Hagen 189"; one without counts
-    reads "(No returns.)" or a name alone, and the year is left out."""
+    district."""
     d = pd.read_csv(OLEARY)
     rows = []
     for year, g in d.groupby("year"):
@@ -194,14 +144,7 @@ def voting_age() -> pd.DataFrame:
 
 def between_censuses(d: pd.DataFrame) -> pd.Series:
     """The voting-age population in every year from the first census that
-    reports it: the census count in a census year, a straight line between
-    two censuses, and the last census's count carried forward after it.
-
-    A denominator for the share panel and nothing else. Linear is the
-    plainest assumption and is stated here rather than in a figure script,
-    because it makes a number; carrying 2020 forward understates the county's
-    growth since, so the shares after 2020 are, if anything, high.
-    """
+    reports it: a straight line between censuses, the last carried forward."""
     known = d.dropna(subset=["voting_age"]).set_index("year").voting_age
     est = pd.Series(index=d.year.to_numpy(), dtype=float)
     est.loc[known.index] = known.to_numpy(dtype=float)
@@ -237,24 +180,18 @@ def build() -> pd.DataFrame:
     d["voting_age_est"] = between_censuses(d)
     d["voting_age_est_source"] = [citekeys.DERIVED if pd.notna(v) else "" for v in d.voting_age_est]
 
-    # The guards. Both compare people with people, so an undercount from the
-    # per-seat division only makes them easier to pass, never harder.
-    both = d.dropna(subset=["board_voters", "registered"])
-    over = both[both.board_voters > both.registered]
-    assert over.empty, f"more Board voters than registered voters in {list(over.year)}"
-    both = d.dropna(subset=["board_voters", "president_votes"])
-    over = both[both.board_voters > both.president_votes]
-    assert over.empty, f"more Board voters than presidential voters in {list(over.year)}"
-
-    both = d.dropna(subset=["registered", "voting_age_est"])
-    over = both[both.registered > both.voting_age_est]
-    assert over.empty, f"more registered voters than adults in {list(over.year)}"
+    for a, b, what in (("board_voters", "registered", "more Board voters than registered voters"),
+                       ("board_voters", "president_votes", "more Board voters than presidential voters"),
+                       ("registered", "voting_age_est", "more registered voters than adults")):
+        both = d.dropna(subset=[a, b])
+        over = both[both[a] > both[b]]
+        assert over.empty, f"{what} in {list(over.year)}"
 
     for c in ("board_votes", "board_seats", "board_voters", "registered", "registered_all",
               "voting_age", "voting_age_est", "president_votes"):
         d[c] = d[c].round().astype("Int64")
     for c in ("board_source", "board_note", "registered_source", "voting_age_source", "president_source"):
-        d[c] = d[c].fillna("")           # a year the measure does not cover cites nothing
+        d[c] = d[c].fillna("")
     cols = ["year", "cycle", "board_votes", "board_seats", "board_voters", "board_complete", "board_source",
             "board_note", "registered", "registered_all", "registered_source",
             "voting_age", "voting_age_source", "voting_age_est", "voting_age_est_source",

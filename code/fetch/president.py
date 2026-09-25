@@ -1,29 +1,17 @@
 """Virginia elections database -> data/raw/va_dept_of_elections/president_1924-2024.csv
 
-NOT part of `bash run.sh`, deliberately. The build never touches the network:
-see code/fetch/census.py for why.
-
-Run by hand after a presidential election:
+Run by hand after a presidential election; the build never touches the
+network (CLAUDE.md).
 
     .venv/bin/python code/fetch/president.py
 
-Arlington's presidential vote, every four years from 1924, from the
-Department of Elections' historical database (historical.elections.virginia.gov).
-1924 is where the database's Arlington rows for this office begin; the county's
-own candidate history and O'Leary's electoral history carry 1872-1920, and the
-build takes those years from them.
-
-**An extract, not the file as published, and size is the only reason.** The
-database offers the search as one CSV for the whole state - 470,000 rows and
-75 MB for this office, against an Overleaf budget of 100 MB for the whole
-repository - so only Arlington's rows are kept. The rows kept are the
-database's own, unaltered: one per candidate per general election at the
-locality level, which the database carries for every year, including the
-years from 1996 for which it also holds precincts. Locality rows are the
-state's canvassed totals and are what the earlier years have; taking them
-throughout keeps every year on the same basis.
-
-Party is the database's own `candidate_party_name`, present on every row.
+Arlington's presidential vote every four years from 1924, where the
+database's Arlington rows for this office begin, from the Department of
+Elections' historical database. Only Arlington's locality-level general
+election rows are kept, unaltered, because the whole-state CSV is 75MB
+against an Overleaf budget of 100MB; locality rows are the state's
+canvassed totals and are what every year has. Party is the database's own
+`candidate_party_name`.
 """
 import io
 import json

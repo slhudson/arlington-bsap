@@ -1,21 +1,9 @@
 """Share of Arlington's vote for County Board, by party, 1931-2025 -> figures/voters_board.pdf, .png
 
-What the November electorate did with the candidates it was offered. The
-counterpart to voters_president, on the same axis and in the same colours,
-and to board_party, whose bands these are: reading the three together is the
-point. A separate figure rather than a panel because these are not the same
-voters as the presidential ones, and a shared frame would say they were.
-
-A candidate is counted under the label the county's record prints after
-their name, not under the party reporting later attached to the winners in
-board_party. So 1967-83 is mostly grey here and Republican there,
-deliberately: this figure is about the choice on the ballot, that one about
-who sat. Candidates the county prints no label for are "not recorded".
-
-A step area, because it is annual, with each year's value spanning the year.
-Years the build marks incomplete are gaps: the same years turnout leaves out.
-Shares are of votes cast: in a two-seat year each ballot carries two, which
-matters only where a party ran a short slate (docs/voters.md).
+A stacked step area of each band's share of the year's vote, in
+style.BOARD_VOTE_ORDER, on the same axis and in the same colours as
+voters_president. Years the build marks incomplete are gaps. A band with
+no votes in any year gets no band and no legend entry.
 """
 import pandas as pd
 
@@ -39,5 +27,5 @@ for profile in style.PROFILES:
     charts.stacked_steps(ax, d["year"].to_numpy(), series, spans)
     charts.shares(ax, label="share of the vote for County Board")
     charts.years(ax, 1870, 2020, step=20, label="year", through=2027)
-    charts.legend(fig, {style.BOARD_VOTE_LABELS[g]: style.BOARD_VOTE_COLORS[g] for g in held})
+    charts.legend(fig, series)
     paths.save(fig, "voters_board", profile)

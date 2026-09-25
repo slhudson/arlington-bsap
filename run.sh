@@ -1,48 +1,33 @@
 #!/usr/bin/env bash
-# Rebuild everything from raw/. The only entry point: no figure is produced by
-# hand, and nothing in data/ or figures/ is edited after the fact.
+# Rebuild everything from data/. The only entry point (CLAUDE.md).
 #
 #   bash run.sh                  build, then every figure
 #   bash run.sh residents_per    build, then only figures whose names match
 #
-# Invoke through bash, not ./run.sh - Overleaf does not preserve Unix file
-# permissions, so a push from Overleaf strips the executable bit.
-#
-# Steps are listed explicitly rather than globbed, so reading this file tells
-# you exactly what runs and in what order. Adding a figure means adding a line.
+# Invoke through bash, not ./run.sh: Overleaf strips the executable bit.
 set -euo pipefail
 cd "$(dirname "$0")"
 
 PY=.venv/bin/python
 [ -x "$PY" ] || { echo "no venv: python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflakes"; exit 1; }
 
-# Stage 1: raw/ -> data/. Every decision about what a number IS happens here.
-# Each step is named for the file it writes: residents.py -> data/clean/residents.csv
+# Stage 1: data/raw/ and data/transcribed/ -> data/clean/. Each step is named
+# for the file it writes, and later steps read what earlier ones wrote.
 BUILD=(residents board_members board_seats voters turnout)
 
-# Stage 2: data/ -> figures/. Presentation only; analysis cannot reach raw/.
-# Each step is named for the figure it writes: board_race.py -> board_race.pdf/.png
-# Three subjects - residents, voters, then board - alphabetical within each. Build order is
-# independent of the order the report uses them in: that belongs to the prose,
-# and a list here that tracked it would go stale with nothing to catch it.
+# Stage 2: data/clean/ -> figures/. Each step is named for the figure it
+# writes. Three subjects, alphabetical within each.
 FIGURES=(residents_by_race residents_per_seat turnout voters_board voters_president board_gender board_party board_race)
 
-# Nothing defined and never used. An import nobody reads or a variable
-# nobody looks at is how a module keeps describing a state it has left;
-# an audit found six in one pass, and this makes the next pass unnecessary.
 echo "lint"
 "$PY" -m pyflakes code style || { echo "  pyflakes: fix the above"; exit 1; }
 echo "  clean"
 
-# The guards live in code/build/. These prove the guards still fire, so editing
-# build/ cannot quietly disable one. About five seconds; run first so a broken
-# check is known before anything is written.
+# The tests prove the build's guards still fire. About five seconds.
 echo "tests"
 "$PY" code/tests.py | sed 's/^/  /'
 
-# Three steps read tables the steps before them wrote. paths.read() refuses a
-# table older than this, so a step listed above its input fails here rather
-# than reading the previous run's file.
+# paths.read() refuses a clean table older than this.
 export RUN_STARTED=$(date +%s)
 
 echo "build"
@@ -50,11 +35,7 @@ for s in "${BUILD[@]}"; do
   (cd code/build && ../../"$PY" "$s.py")
 done
 
-# style/ holds the visual conventions; code/analysis/ holds the substance. It
-# sits outside code/ because most of what is in it cannot be executed - a
-# typeface and a table of rcParams - and code/ is for things you can run.
-# Putting it on the path here means a figure script reads `import style` and
-# nothing else.
+# A figure script reads `import style` and `import charts` from here.
 export PYTHONPATH="$PWD/style"
 
 echo "analysis"
@@ -68,9 +49,8 @@ if [ $# -gt 0 ]; then
 fi
 for s in "${selected[@]}"; do
   printf '  %-34s' "$s"
-  # Remove the expected outputs FIRST. Checking only that they exist afterwards
-  # is not enough: a previous run's copy would still be sitting there, so a
-  # script saving under the wrong name would pass while leaving a stale figure.
+  # Removed first, so a script saving under the wrong name cannot pass on a
+  # previous run's copy.
   rm -f "figures/pdf/$s.pdf" "figures/png/$s.png"
   (cd code/analysis && ../../"$PY" "$s.py") >/dev/null
   for kind in pdf png; do
@@ -84,16 +64,7 @@ for s in "${selected[@]}"; do
 done
 echo "-> figures/pdf, figures/png ($(ls figures/pdf | wc -l | tr -d ' ') each)"
 
-# Which figures this run actually changed. figures/ is committed, so a script
-# edited without re-running leaves a stale PDF compiling into the paper, and
-# nothing else would say so.
-#
-# A report rather than a failure, and deliberately. The figures are the
-# baseline - there is no second copy of them to compare against, which is the
-# point - so a change here is usually the change you just made. What matters is
-# seeing it at the moment it happens rather than discovering it in a diff later.
-#
-# Tolerates not being a git repository, and never fails the build.
+# Which figures this run changed. A report, never a failure.
 if changed=$(git diff --name-only -- figures/ 2>/dev/null) && [ -n "$changed" ]; then
   echo
   echo "figures changed by this run:"
@@ -101,9 +72,7 @@ if changed=$(git diff --name-only -- figures/ 2>/dev/null) && [ -n "$changed" ];
   echo "  (commit them, or git checkout -- figures/ to discard)"
 fi
 
-# On a full run, figures/ should contain exactly what the steps produce and
-# nothing else. Renaming a figure otherwise leaves the old one behind, and it
-# keeps compiling into the paper long after its script is gone.
+# On a full run, figures/ should hold exactly what the steps produce.
 if [ $# -eq 0 ]; then
   for kind in pdf png; do
     for f in figures/$kind/*.$kind; do
@@ -114,10 +83,8 @@ if [ $# -eq 0 ]; then
   done
 fi
 
-# Some scans are not committed: the inventory marks them in_git = no, and
-# code/fetch/census_volumes.py fetches them. The build never reads them, so
-# a checkout without them builds; this says so, so nobody has to know the
-# script exists to find out.
+# Scans marked in_git = no in the inventory are fetched on demand and never
+# read by the build.
 missing=$("$PY" -c '
 import csv, pathlib
 for r in csv.DictReader(open("data/contents.csv")):
@@ -130,14 +97,8 @@ if [ -n "$missing" ]; then
   echo "  to read them: .venv/bin/python code/fetch/census_volumes.py"
 fi
 
-# Overleaf syncs the WHOLE repo, and its two limits are on the files it
-# syncs, not on git history: it recommends staying under 100MB in all, and it
-# stops syncing altogether if the editable (text) files exceed 7MB. We chose
-# a single repo on that basis, so each limit needs a tripwire rather than a
-# note someone has to remember. See CLAUDE.md.
-#
-# These checks must never be able to fail the build, so they tolerate tracked
-# files missing from disk and fall back to 0 rather than aborting.
+# Overleaf's limits on the files it syncs: 100MB in all, 7MB of editable
+# (text) files (CLAUDE.md). These checks never fail the build.
 kb=0; text_kb=0
 while IFS= read -r -d '' f; do
   [ -f "$f" ] || continue

@@ -1,7 +1,7 @@
 """Where the transcription scripts find the scans and put what they read.
 
-One paths.py per stage, deliberately: this one knows data/raw/ and
-data/transcribed/ and nothing below them.
+This one knows data/raw/ and data/transcribed/ and nothing below them
+(CLAUDE.md).
 """
 import pathlib
 

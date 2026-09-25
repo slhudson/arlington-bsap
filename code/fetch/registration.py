@@ -1,35 +1,20 @@
 """Virginia registration statistics -> data/raw/va_dept_of_elections/registration_2010-2025.csv
 
-NOT part of `bash run.sh`, deliberately. The build never touches the network:
-see code/fetch/census.py for why.
-
 Run by hand after a November election, once the state has posted the
-month's report:
+month's report; the build never touches the network (CLAUDE.md).
 
     .venv/bin/python code/fetch/registration.py
 
-Arlington's registered voters at each November election from 2010, from the
-Department of Elections' monthly registration statistics
-(elections.virginia.gov, "Registration Statistics"). The state posts one
-report a month, per locality and precinct, from January 2010; nothing
-earlier is online. The report filed under October is the one used here,
-because it is the count as the books stood for the election: it is dated in
-the first days of November, after registration closed and before or just
-after election day. The as-of date is recorded on every row where the file
-states it, so which side of election day a count falls is visible.
-
-**A compilation of locality totals, not the files as published.** Each
-report is a whole-state file - 2,500 precincts, half a megabyte - and the
-repository has an Overleaf budget of 100 MB. So one row is kept per year:
-the state's own locality total for Arlington, with the URL of the file it
-was read from. The figures are the file's own; the only work done here is
-finding the row. 2010-2012 are Excel workbooks with one sheet per locality
-(report CP-160); from 2013 the same report is a CSV whose every precinct
-row also carries the locality total.
-
-"Active" is the count the state reports as turnout's denominator; "all"
-adds the inactive list, which are registrants the state has failed to reach
-and has not yet removed. Both are kept, and the build says which it uses.
+Arlington's registered voters at each November election from 2010, from
+the Department of Elections' monthly registration statistics, which begin
+in January 2010. The report filed under October is the count as the books
+stood for the election, dated in the first days of November; the as-of
+date is recorded where the file states it. One row per year is kept - the
+state's own locality total, with the URL it was read from - because each
+report is a whole-state file of half a megabyte. 2010-2012 are Excel
+workbooks with one sheet per locality; from 2013 a CSV whose precinct rows
+carry the locality total. "Active" is the state's turnout denominator;
+"all" adds the inactive list.
 """
 import io
 import re
@@ -82,14 +67,10 @@ def from_xls(body):
 
 
 def from_csv(body, url):
-    """2013 on: every precinct row carries the locality's totals. The as-of
-    date is in the filename from 2020 and not stated at all before.
-
-    The state's column names invert what they seem to say: the columns
-    named ...PrecinctLocality are the locality's totals, and the ones named
-    ...Locality are the whole state's. So the total taken is checked against
-    the sum of Arlington's own precinct rows, which a state figure fails by
-    a factor of thirty.
+    """2013 on: every precinct row carries the locality's totals; the as-of
+    date is in the filename from 2020. The columns named ...PrecinctLocality
+    are the locality's and the ones named ...Locality the whole state's, so
+    the total taken is checked against the sum of Arlington's precinct rows.
     """
     d = pd.read_csv(io.BytesIO(body), thousands=",", dtype={"PrecinctCode": str})
     a = d[d.Locality.str.contains(LOCALITY)]

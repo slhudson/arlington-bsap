@@ -1,39 +1,26 @@
 """Who served on the Board, when, and who they were -> data/clean/board_members.csv
 
-One row per person per term, 1870 through 2026. The terms come from
-board_roster.py (O'Leary, Novack, and election results, in sequence). Race
-and gender are attached here, each with its own source and note, from the
-first of two places that has something to say:
+One row per person per term, from board_roster.py, with race and gender
+attached per person and party per term, each with its own source and note.
 
-  1. data/transcribed/by_claude/board_demographics.csv - a source's own
-     words about a named member, with a citation. The note carries the
-     basis and the quotation.
-  2. Nothing, in which case the source reads citekeys.ASSUMED and the member is
-     taken to be a white man. docs/board.md says what stands behind that
-     default in each period.
+Race and gender: data/transcribed/by_claude/board_demographics.csv, a
+source's own words about a named member with a citation; otherwise
+`assumed`, a white man. An attributed name must match a roster name
+exactly. docs/board.md has the reasoning.
 
-Every attributed name must match a roster name exactly - a near-miss would
-fall silently into the default - and the build refuses anything else rather
-than guess.
-
-**Party** is attached the same way, per term rather than per person, because
-a member's label changes between elections (Bozman ran as ABC's candidate
-five times and as a Democrat once). What "party" means when it has never
-been on the ballot is in docs/board.md. The sources, in order:
+Party, per term, from the first of three sources that speaks:
 
   1. data/transcribed/by_claude/board_party.csv - reporting, cited and
      quoted, keyed on the name and the term's start year.
   2. The county's candidate history, which prints a label after a name -
      "(D)", "(ABC)", "(I)" - from 1931, though not on every winner.
-  3. The state's elections database, which records party from 2007, and
-     from 2022 is the only source; where its general-election row carries
+  3. The state's elections database, which records party from 2007 and is
+     the only source from 2022; where its general-election row carries
      none, a win in that year's Democratic primary stands in.
 
-Where the county and the state both name a party they must agree, and
-reporting may override the county only where the county prints "(I)" or
-nothing: a cited claim that a member the county calls a Democrat was a
-Republican is a finding, and the build stops on it. A member none of the
-three covers is `unsourced`; before 1932 no party is attempted at all.
+The county and the state must agree where both name a party, and reporting
+may override the county only where it prints "(I)" or nothing. A member
+none of the three covers is `unsourced`; before 1932 no party is attempted.
 """
 import pandas as pd
 
@@ -46,19 +33,19 @@ from paths import TRANSCRIBED, write
 
 BY_CLAUDE = TRANSCRIBED / "by_claude"
 
-# The labels the county prints after a name, and what each records, are
-# elections.LABELS. The state's party names differ and are mapped here.
+# The county's labels are elections.LABELS; the state's names are mapped here.
 STATE_PARTIES = {"Democratic": "Democratic", "Republican": "Republican",
                  "Independent": "independent", "Green": "independent"}
 
 
+def quoted(basis, quotes) -> str:
+    """"basis: quote" per source, joined - the note on an attribution."""
+    return " | ".join(f"{b}: {q}" if q else b for b, q in zip(basis, quotes))
+
+
 def county_labels() -> dict:
     """(surname, election year) -> the labels the county prints for that
-    person's County Board rows that year, with the pages they are on.
-
-    A person's rows in one year may repeat the label (a primary listing and
-    the general) or print it on only one of them; a blank is not a label.
-    """
+    person's County Board rows that year, with their pages."""
     out = {}
     for _, r in elections.county_history().iterrows():
         entry = out.setdefault((r.surname, int(r.year)), {"labels": set(), "pages": set()})
@@ -68,13 +55,10 @@ def county_labels() -> dict:
 
 
 def state_parties() -> dict:
-    """(surname, election year) -> the party the state database records for a
-    County Board winner that year, and the contest it comes from.
-
-    The general election is read first. Where its winner carries no party -
-    2000-2003, and 2023 on - a win in that year's Democratic primary is the
-    record instead, and the entry says so.
-    """
+    """(surname, election year) -> the party the state records for a County
+    Board winner that year, and the contest. The general election is read
+    first; where its winner carries no party (2000-2003, 2023 on), a win in
+    that year's Democratic primary stands in, and the entry says so."""
     c = elections.state_results()
     won = c[c.person & c.is_winner].groupby(["year", "contest_id", "candidate_name"]).agg(
         party=("candidate_party_name", "first"), kind=("election_type", "first"),
@@ -93,9 +77,8 @@ def state_parties() -> dict:
 
 
 def party_attributions() -> pd.DataFrame:
-    """One row per (name, term start year) from the sourced file: party, with
-    every source and note joined. Two sources disagreeing is a finding, and
-    the build stops on it."""
+    """One row per (name, term start year) from the sourced file. Two sources
+    disagreeing stops the build."""
     a = pd.read_csv(BY_CLAUDE / "board_party.csv", dtype={"start_year": int}).fillna("")
 
     def fold(rows):
@@ -103,34 +86,28 @@ def party_attributions() -> pd.DataFrame:
         if len(vals) > 1:
             raise ValueError(f"{rows.name}: sources disagree on party: {vals}")
         return pd.Series({"party": vals[0], "source": "; ".join(rows.source),
-                          "note": " | ".join(f"{b}: {q}" if q else b
-                                             for b, q in zip(rows.basis, rows.quote))})
+                          "note": quoted(rows.basis, rows.quote)})
 
     return a.groupby(["name", "start_year"]).apply(fold, include_groups=False)
 
 
 def election_year(t) -> int:
-    """The election that seated a term. A January start follows a November
-    election; a special election or an appointment seats its winner at once."""
+    """The election that seated a term: a January start follows a November
+    election; a special election or an appointment seats at once."""
     if t.seated_by == board_roster.SPECIAL_ELECTION or t.start_month != 1:
         return int(t.start_year)
     return int(t.start_year) - 1
 
 
 def party_of(t, labels, state, att):
-    """(party, source, note) for one term, from the first source that speaks.
-
-    See the module docstring for the order and for which disagreements stop
-    the build.
-    """
+    """(party, source, note) for one term, from the first source that speaks."""
     key = (elections.surname(t["name"]), election_year(t))
     county = labels.get(key, {"labels": set(), "pages": set()})
     printed = sorted(county["labels"])
     if len(printed) > 1:
         raise ValueError(f"{t['name']} {key[1]}: the county prints more than one label: {printed}")
     label = printed[0] if printed else None
-    # A label only losers have carried is not a party a winner can be given
-    # by default: what "(Ind. Dem.)" records for a member is a decision.
+    # A label no winner has carried.
     if label is not None and elections.LABELS.get(label, "other") == "other":
         raise ValueError(f"{t['name']} {key[1]}: party label ({label}) is not one this build "
                          f"knows for a winner. Add it to elections.LABELS with what it "
@@ -161,8 +138,7 @@ def party_of(t, labels, state, att):
 
 def attributions() -> pd.DataFrame:
     """One row per person from the sourced file: race and gender, each with
-    source and note. Two sources for one person are both kept; two sources
-    disagreeing is a finding, and the build stops on it."""
+    every source and note joined. Two sources disagreeing stops the build."""
     a = pd.read_csv(BY_CLAUDE / "board_demographics.csv").fillna("")
 
     def fold(rows):
@@ -174,8 +150,7 @@ def attributions() -> pd.DataFrame:
                 raise ValueError(f"{rows.name}: sources disagree on {field}: {vals}")
             out[field] = vals[0] if vals else ""
             out[field + "_source"] = "; ".join(has.source)
-            out[field + "_note"] = " | ".join(
-                f"{b}: {q}" if q else b for b, q in zip(has.basis, has.quote))
+            out[field + "_note"] = quoted(has.basis, has.quote)
         return pd.Series(out)
 
     return a.groupby("name").apply(fold, include_groups=False)
@@ -197,17 +172,13 @@ def build() -> pd.DataFrame:
     rows = []
     for _, t in d.iterrows():
         row = dict(t)
-        if t.start_year >= AT_LARGE_FROM:
-            row["party"], row["party_source"], row["party_note"] = party_of(t, labels, state, parties)
-        else:
-            row["party"], row["party_source"], row["party_note"] = "", "", ""
+        row["party"], row["party_source"], row["party_note"] = (
+            party_of(t, labels, state, parties) if t.start_year >= AT_LARGE_FROM else ("", "", ""))
         att = a.loc[t["name"]] if t["name"] in a.index else None
         for field, default in (("race", "White"), ("gender", "man")):
-            if att is not None and att[field]:
-                row[field], row[field + "_source"], row[field + "_note"] = (
-                    att[field], att[field + "_source"], att[field + "_note"])
-            else:
-                row[field], row[field + "_source"], row[field + "_note"] = (default, citekeys.ASSUMED, "")
+            row[field], row[f"{field}_source"], row[f"{field}_note"] = (
+                (att[field], att[f"{field}_source"], att[f"{field}_note"])
+                if att is not None and att[field] else (default, citekeys.ASSUMED, ""))
         rows.append(row)
 
     cols = ["name", "term_number", "district", "start_year", "start_month",

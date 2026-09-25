@@ -1,22 +1,17 @@
-"""The chart types this report uses, with Urban's conventions already applied.
+"""The chart types this report uses, with the conventions in style applied.
 
-A figure script supplies data and says which chart it wants. It does not set a
-colour, a size, a legend position or a margin: those are decisions the style
-layer already made, and a script that makes them again is how a set of figures
-drifts apart.
+A figure script supplies data and says which chart it wants; it does not
+set a colour, a size, a legend position or a margin. The reasoning behind
+each placement is in docs/figures.md.
 
-Four types, which is all the report needs:
-
-    lines()         a series over time, labelled at its own right-hand end
-    stacked_bars()  composition at intervals, counts or shares
+    lines()         a series over time
+    stacked_bars()  composition at intervals
     stacked_steps() composition over continuous years, with gaps preserved
-    panels()        two of any of the above, side by side
-
-Legends are one row, in stacking order, outside the axes and below them -
-Urban's, except that Urban puts them above; legend() says why not. Notes that belong to the document rather than the
-image - sources, caveats - are not drawn here at all; they go in the LaTeX
-caption. An annotation attached to a mark, such as the 1932 rule, does belong
-in the panel, and rule() draws it.
+    panels()        two of the above, side by side
+    end_label()     a line named at its last point, inside the axes
+    legend()        one legend for the figure, one row, below the axes
+    rule()          a dated vertical rule with its note above the frame
+    fit()           the figure's size and margins, called by paths.save()
 """
 import numpy as np
 from matplotlib import pyplot as plt
@@ -36,86 +31,38 @@ def figure(profile=style.DEFAULT_PROFILE):
 
 
 def panels(profile=style.DEFAULT_PROFILE):
-    """Two panels side by side, sharing nothing but the figure.
-
-    Side by side rather than stacked because a composition panel needs to be
-    taller than it is wide when its early values are small.
-    """
+    """Two panels side by side."""
     fig, axes = plt.subplots(1, 2, figsize=style.figsize(profile))
     return fig, axes
 
 
 def lines(ax, x, series, marker=True):
     """One line per series. series is an ordered {label: (values, colour)}.
-
-    A marker on every point, unless the series is annual: ninety dots on a
-    line are noise, and a point is worth marking when the points are the
-    observations - one per census, one per presidential election.
-
-    Labels are not drawn here: see end_labels(), which has to run after the
-    axis limits are set.
-    """
+    A marker on every point unless marker=False."""
     for label, (values, color) in series.items():
         ax.plot(x, values, color=color, marker="o" if marker else None, zorder=3, label=label)
 
 
-def label_line(ax, x, y, text, color, ha="left", va="center"):
-    """Name a line where it runs, on one line of text, inside the axes.
-
-    Urban puts line labels at the far right, just outside the plot. That needs
-    headroom past the last data point, and a label long enough to be readable
-    needs enough of it to visibly stretch the axis - which distorts the series
-    to buy room for its own caption. Putting the label in the space the chart
-    already has costs nothing.
-
-    One line, not two. A label wrapped over two or three lines is read rather
-    than glanced at, which is the opposite of what direct labelling is for.
-    """
+def end_label(ax, x, y, text, color, where="left", gap=0.012):
+    """Name a line at (x, y), inside the axes: `left` ends the text at the
+    point; `above` and `below` sit it over or under the point, right-aligned.
+    gap is the offset as a fraction of the axis."""
+    if where == "above":
+        lo, hi = ax.get_ylim()
+        x, y, ha, va = x, y + (hi - lo) * gap, "right", "bottom"
+    elif where == "below":
+        lo, hi = ax.get_ylim()
+        x, y, ha, va = x, y - (hi - lo) * gap, "right", "top"
+    else:
+        lo, hi = ax.get_xlim()
+        x, y, ha, va = x - (hi - lo) * gap, y, "right", "center"
     ax.text(x, y, text, color=color, ha=ha, va=va, linespacing=1.25,
             fontsize=plt.rcParams["font.size"])
 
 
-def end_label(ax, x, y, text, color, where="left", gap=0.012):
-    """Name a line at the point it describes, on whichever side has room.
-
-    Never to the right of the last point: that needs headroom the axis does not
-    otherwise want, and buying room for a caption by stretching the series is
-    the wrong trade. The space inside the plot is already there.
-
-    Which side depends on the line, not on a rule. `left` right-aligns the text
-    so it ends at the point, which suits a line with empty space behind it.
-    `above` sits it over the point, still right-aligned so it ends there rather
-    than straddling it, which suits a line running close under where a
-    left-hand label would go. `below` is the same under the point, for a line
-    that arrives at its last point from above. Wrap the name over as many lines as it
-    takes to stay clear.
-    """
-    if where == "above":
-        lo, hi = ax.get_ylim()
-        label_line(ax, x, y + (hi - lo) * gap, text, color, ha="right", va="bottom")
-    elif where == "below":
-        lo, hi = ax.get_ylim()
-        label_line(ax, x, y - (hi - lo) * gap, text, color, ha="right", va="top")
-    else:
-        lo, hi = ax.get_xlim()
-        label_line(ax, x - (hi - lo) * gap, y, text, color, ha="right", va="center")
-
-
 def stacked_bars(ax, x, series, width=7):
     """Stacked bars. series is an ordered {label: (values, colour)} from the
-    axis upward.
-
-    Every band is a member of the stack, including a residual. A residual is
-    not drawn last and on top: where it is a kind of one of the other groups,
-    sitting it above them splits that population in two and makes it read as
-    smaller than it is.
-
-    No band is textured. A single hatched band among flat ones reads as
-    emphasis, and a residual is the last thing that should be emphasised.
-
-    Urban sets bar width at about twice the gap between bars; with decade
-    spacing that is a width of 6.7 years, which is what the default gives.
-    """
+    axis upward. No texture."""
     bottom = np.zeros(len(x))
     for label, (values, color) in series.items():
         v = np.asarray(values, dtype=float)
@@ -124,20 +71,9 @@ def stacked_bars(ax, x, series, width=7):
 
 
 def off_scale(ax, series_x, series_y, color, top):
-    """Mark where a series leaves the top of the axis.
-
-    For a series on scale for part of its range and far off it for the rest:
-    plot it, let the axis clip it, and put a triangle where it exits, so the
-    exit is a statement rather than a line that stops for no reason.
-
-    A triangle, not an arrow with a shaft. A shaft is a second stroke at its
-    own angle, which reads as another series; a marker sits on the line's own
-    last point and adds nothing to argue with. Where the series goes is the
-    caption's business - the legend has already named the colour.
-
-    Returns the year it crosses, interpolated between the two censuses either
-    side, so nothing is written in by hand.
-    """
+    """Mark where a series leaves the top of the axis with a triangle at the
+    crossing, interpolated between the points either side. Returns the x of
+    the crossing, or None if the series never leaves."""
     x = np.asarray(series_x, dtype=float)
     y = np.asarray(series_y, dtype=float)
     i = int(np.argmax(y > top))
@@ -152,11 +88,7 @@ def off_scale(ax, series_x, series_y, color, top):
 
 
 def runs(reported):
-    """Index ranges of consecutive reported years, as (first, last) inclusive.
-
-    A stacked area drawn straight through a year the source does not report
-    invents a value for it. Filling each run separately keeps a gap a gap.
-    """
+    """Index ranges of consecutive reported years, as (first, last) inclusive."""
     out, start = [], None
     for i, ok in enumerate(reported):
         if ok and start is None:
@@ -173,60 +105,23 @@ def stacked_steps(ax, years, series, spans):
     cum = np.zeros(len(years))
     for label, (values, color) in series.items():
         top = cum + np.asarray(values, dtype=float)
-        first = True
-        for a, b in spans:
+        for n, (a, b) in enumerate(spans):
             xs = np.append(years[a:b + 1], years[b] + 1)
             lo = np.append(cum[a:b + 1], cum[b])
             hi = np.append(top[a:b + 1], top[b])
             ax.fill_between(xs, lo, hi, step="post", facecolor=color,
                             edgecolor="white", linewidth=0.3,
-                            label=label if first else None)
-            first = False
+                            label=label if n == 0 else None)
         cum = top
 
 
 def fit(fig):
-    """Size and place this figure so the set looks like a set.
-
-    Three things want to be constant across the figures and only two can be:
-    the canvas width, the margin of white around the edge, and the plot region.
-    They are tied together - canvas = margin + labels + plot + margin - and the
-    label block is not the same width in every figure, because "0" to "5" on a
-    seat chart is narrower than "250,000" on a population one, by about a third
-    of an inch.
-
-    The canvas width and the margin are held; the plot absorbs the difference.
-    Plots come out within about 7 per cent of each other in size and identical
-    in shape, which is invisible between figures that never sit side by side,
-    and it costs nothing downstream: every figure is still exactly one text
-    width, so nothing that places them has to know about this.
-
-    Held: the canvas is the profile's width; style.MARGIN of white on all four
-    sides, the same number of inches on each; and a plot style.PLOT_ASPECT
-    times as wide as it is tall.
-
-    Measured to ink rather than to the frame, at every edge. A frame-based
-    margin looks wrong because what a reader sees as the edge of a figure is
-    where its ink starts, and the ink reaches different distances past the
-    frame on each side - the y labels a long way on the left, the last year's
-    label half its own width on the right, nothing much at the top.
-
-    Iterated, because a figure's height is its plot plus its furniture, the
-    furniture is only measurable once drawn, and resizing can reflow a legend
-    onto another row and change it again. Width and height are solved together
-    each pass: solving the height first and placing afterwards leaves the
-    aspect short, because the placement widens the plot after the height has
-    been fixed to the narrower one.
-
-    Called by paths.save(), so a figure script never has to remember any of it.
-    """
+    """Size and place this figure: the canvas is the profile's width, the
+    plot is style.PLOT_ASPECT times as wide as tall, and style.MARGIN of
+    white surrounds the ink on all four sides. Iterated, because the height
+    depends on furniture that is only measurable once drawn."""
     def ink(fig):
-        """The figure's drawn extent, in figure fractions, from the pixels.
-
-        Measured off the rendered image rather than from get_tightbbox, which
-        counts the figure's own background patch and so always answers "the
-        whole canvas". What is wanted here is where the marks are.
-        """
+        """The drawn extent in figure fractions, from the rendered pixels."""
         fig.canvas.draw()
         a = np.asarray(fig.canvas.buffer_rgba())[:, :, :3]
         mark = (a < 250).any(axis=2)
@@ -234,7 +129,6 @@ def fit(fig):
         if not len(cols):
             return 0.0, 1.0, 0.0, 1.0
         h, w = mark.shape
-        # Rows come down the image and figure fractions go up it.
         return (cols.min() / w, (cols.max() + 1) / w,
                 1 - (rows.max() + 1) / h, 1 - rows.min() / h)
 
@@ -244,12 +138,9 @@ def fit(fig):
         if not boxes:
             return
         w_in, h_in = fig.get_size_inches()
-        m_in = style.MARGIN * w_in                     # the same white everywhere
+        m_in = style.MARGIN * w_in
         lo, hi = min(b.x0 for b in boxes), max(b.x1 for b in boxes)
         y0, y1 = min(b.y0 for b in boxes), max(b.y1 for b in boxes)
-
-        # What the placement below will give the plot, and what sits above and
-        # below it - title, axis label, legend - which the margin does not touch.
         plot_w = (w_in - 2 * m_in) - (lo - ix0) * w_in - (ix1 - hi) * w_in
         furniture = (iy1 - iy0) * h_in - (y1 - y0) * h_in
         want = plot_w / style.PLOT_ASPECT + furniture + 2 * m_in
@@ -274,8 +165,7 @@ def fit(fig):
         ax.set_position([left + (b.x0 - lo) * scale, b.y0,
                          b.width * scale, b.height])
 
-    # The plot's width is settled only now, by the placement above, so its
-    # height is set from that rather than from the estimate the loop used.
+    # Height from the placed width.
     boxes = [(ax, ax.get_position()) for ax in fig.axes]
     y0 = min(b.y0 for _, b in boxes)
     y1 = max(b.y1 for _, b in boxes)
@@ -286,10 +176,7 @@ def fit(fig):
         for ax, b in boxes:
             ax.set_position([b.x0, y0 + (b.y0 - y0) * k, b.width, b.height * k])
 
-    # Re-place the legend under the plot, now that the plot is its final size.
-    # Constrained layout put it below the axes it saw before any of this; the
-    # step above resized those axes and left the legend where it was, which
-    # opens a gap between the two.
+    # Re-place the legend under the plot at its final size.
     if fig.legends:
         fig.canvas.draw()
         r = fig.canvas.get_renderer()
@@ -300,15 +187,8 @@ def fit(fig):
             lg.set_bbox_to_anchor((b.x0, low - gap - b.height, b.width, b.height),
                                   transform=fig.transFigure)
 
-    # Vertical, now that nothing will move it back. Constrained layout pads the
-    # top and the bottom by different rules - a title carries its own padding,
-    # and an "outside lower center" legend sits by its own - so the two edges
-    # come out unequal however the pad is set. This measures the rendered white
-    # and fixes it directly.
-    #
-    # Height is changed by adding inches and holding every element's size in
-    # inches, not by scaling: growing the figure with fractional positions
-    # scales the contents too, so the white grows with it and nothing moves.
+    # Vertical margins, measured from the rendered white; height is changed
+    # by adding inches, holding every element's size in inches.
     for _ in range(6):
         h_in = fig.get_size_inches()[1]
         m_in = style.MARGIN * w_in
@@ -317,10 +197,8 @@ def fit(fig):
         short_top = m_in - (1 - iy1) * h_in
         if abs(short_bottom) < 0.005 and abs(short_top) < 0.005:
             break
-        # Signed: an edge with too much white is pulled in as well as an edge
-        # with too little pushed out, or a generous top never corrects.
         new_h = max(h_in + short_bottom + short_top, 1.0)
-        k = h_in / new_h                                  # keep inches, not fractions
+        k = h_in / new_h
         rise = short_bottom / new_h
         fig.set_size_inches(w_in, new_h, forward=True)
         for ax in fig.axes:
@@ -333,39 +211,17 @@ def fit(fig):
 
 
 def legend(fig, entries, ncol=None):
-    """One legend for the whole figure, below it, one row.
-
-    entries is an ordered {label: colour}, in stacking order, which is the
-    order Urban asks a legend to follow. Patches are built here rather than
-    collected from the axes so that a figure with two panels showing the same
-    groups gets one legend rather than two.
-
-    Below rather than Urban's across-the-top: several of these figures carry a
-    note above the plot, and the two compete for the same band.
-
-    ncol wraps it onto more than one row. One row is the default and the
-    preference, but five long category names in a row are read by scanning a
-    line of text rather than by glancing at a key, which is the opposite of
-    what a legend is for.
-    """
-    handles = [Patch(facecolor=c) for c in entries.values()]
-    fig.legend(handles=handles, labels=list(entries), loc="outside lower center",
-               ncol=ncol or len(entries))
+    """One legend for the whole figure, below it, one row unless ncol is
+    given. entries is ordered {label: colour} or the {label: (values, colour)}
+    a chart took."""
+    colors = [v if isinstance(v, str) else v[1] for v in entries.values()]
+    fig.legend(handles=[Patch(facecolor=c) for c in colors], labels=list(entries),
+               loc="outside lower center", ncol=ncol or len(entries))
 
 
 def rule(ax, year=style.EXPANSION_YEAR, note=style.EXPANSION_NOTE):
-    """A dated vertical rule, with its note above the plot rather than in it.
-
-    The note is an annotation attached to a mark, not a source note, so it
-    belongs to the image rather than the caption. But inside the axes it sits
-    on whatever the chart has drawn there - on a filled seat chart that is a
-    solid band, and the text stops being legible. So it goes above the top of
-    the frame, and the rule is extended up to meet it.
-
-    The note is drawn once per figure even when the rule is drawn on every
-    panel: the line is the mark, the note explains it, and explaining it twice
-    in one figure is noise.
-    """
+    """A dated vertical rule, with its note above the frame; note=None for
+    the rule alone."""
     ax.axvline(year, zorder=5, **style.EXPANSION_LINE)
     if note is None:
         return
@@ -377,23 +233,11 @@ def rule(ax, year=style.EXPANSION_YEAR, note=style.EXPANSION_NOTE):
 
 
 def years(ax, first, last, step=10, label="census year", minor=10, through=None):
-    """A year axis.
-
-    `first` and `last` are the first and last labelled years; `step` is the
-    labelled interval. `minor` adds an unlabelled tick at every census in
-    between, so a reader can locate 1890 or 1910 on an axis that only names
-    every twentieth year. Skipped where the labelled interval is already the
-    census interval, which would only double the ticks.
-
-    `through` is where the axis ends when the data run past the last label:
-    a seat chart names 2020 and runs to the present. Left out, the axis ends
-    a little clear of `last`.
-    """
+    """A year axis labelled every `step` years, anchored on `last`, with an
+    unlabelled tick every `minor` years between. `through` is where the axis
+    ends; otherwise a little clear of `last`."""
     span = last - first
     ax.set_xlim(first - span * 0.03, through or last + span * 0.03)
-    # Anchored on the last year, not the first. With a twenty-year step from
-    # 1870 the labels stop at 2010 and the most recent census - the one a
-    # reader looks for - goes unnamed.
     major = sorted(range(last, first - 1, -step))
     ax.set_xticks(major)
     if minor and minor < step:
@@ -403,11 +247,8 @@ def years(ax, first, last, step=10, label="census year", minor=10, through=None)
 
 
 def counts(ax, top, step, label="residents", minor=None):
-    """A count axis ending on a round tick rather than just clear of the data.
-
-    `minor` adds an unlabelled gridline between the labelled ones, for reading
-    a value off a line chart more closely than the labels allow.
-    """
+    """A count axis from 0 to `top`, labelled every `step`, with a lighter
+    gridline every `minor` if given."""
     ax.set_ylim(0, top)
     ax.yaxis.set_major_locator(MultipleLocator(step))
     ax.yaxis.set_major_formatter(THOUSANDS)
@@ -430,4 +271,4 @@ def seats(ax, label="board seats"):
     ax.yaxis.set_major_locator(MultipleLocator(1))
     ax.set_ylabel(label)
     ax.grid(axis="y", color="white", alpha=0.8, linewidth=0.8)
-    ax.set_axisbelow(False)          # seat guides read over the fills
+    ax.set_axisbelow(False)          # guides over the fills

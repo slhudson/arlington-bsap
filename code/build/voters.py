@@ -5,51 +5,21 @@ other candidates, votes for candidates the source gives no label, the total,
 and a source per row. `office` is "president" (every fourth year from 1872)
 or "county board" (every year from 1931).
 
-**The two are not the same electorate and are not coded the same way.** The
-presidential vote is the county's partisanship as the whole electorate
-expresses it; the County Board vote is what the smaller November electorate
-did with the candidates it was offered. A Board candidate is counted under
-the label the county's own record prints after their name - "(D)", "(ABC)",
-"(I)" - and not under the party reporting later attached to the winners in
-board_members.csv. Votes for Dorothy Grotos in 1975 sit in "other" here and
-her seat sits in Republican there, deliberately: this file is about the
-choice voters were offered, that one about who sat. Candidates the county
-prints no label for are "unrecorded". A year whose returns are not the
-county's whole vote is marked incomplete and not drawn, on the one rule in
-elections.contest_rows(), which turnout.csv shares.
+A County Board candidate is counted under the label the county's record
+prints after their name, not under the party board_members.csv attaches to
+the winner. A year whose returns are not the county's whole vote is marked
+incomplete, on the rule in elections.contest_rows(). docs/voters.md has
+the reasoning.
 
-**Why the presidential vote.** Virginia has no party registration, so there is
-no count of residents' partisanship at all; the presidential vote is the
-standard proxy and the one measure that arrives as a dataset. It measures
-voters, not residents, and before 1966 an electorate narrowed by the poll
-tax and the 1902 constitution - which is why the file is voters.csv and the
-figure says "share of voters". docs/voters.md.
+Two sources for the presidential vote, joined at 1924:
 
-Two sources, joined at 1924:
+  oleary2010     1872-1920   the county's returns as O'Leary compiled them;
+                             party is the nominee's, named in NOMINEES
+  vaelections    1924-2024   the state's canvassed locality totals
 
-  oleary2010     1872-1920   the county's returns as O'Leary compiled them
-                             from the Alexandria Gazette, by district or as
-                             a county figure, transcribed verbatim
-  vaelections    1924-2024   the state's canvassed locality totals, with the
-                             database's own party names
-
-**Three elections are kept but marked incomplete**, and the figure leaves
-them out: 1896, where the Washington district and the total are printed "?";
-and 1904 and 1908, of which O'Leary writes that the returns "appear
-incomplete" - 1904 sums to 256 votes against 826 four years earlier. A row
-that is not the county's vote should not be drawn as if it were.
-
-**Party before 1924 is the nominee's, not the source's.** O'Leary prints
-party for 1912 only. The Democratic and Republican nominees of each election
-are a matter of record and are named here, with the candidate as O'Leary
-spells him; a name this table does not know stops the build rather than
-falling into "other". 1884's St. John line reads 0 0 0 0 and is kept.
-
-The county's own candidate history also prints presidential returns from
-1920 and is read as a check: where it and the state both give a major-party
-figure, the two must agree within a few per cent (they are different
-compilations of the same canvass), and the build reports the years they do
-not.
+The years in INCOMPLETE are kept but marked so. The county's own
+presidential returns are read as a check on the state's, and the build
+reports the years they differ by more than TOLERANCE.
 """
 import re
 
@@ -64,8 +34,7 @@ BY_CLAUDE = TRANSCRIBED / "by_claude"
 OLEARY = BY_CLAUDE / "arlington_county" / "president_1872-1920.csv"
 STATE = RAW / "va_dept_of_elections" / "president_1924-2024.csv"
 
-# The major-party nominees, as O'Leary spells them. Everyone else he lists is
-# "other". A year's entry is (Democratic, Republican).
+# The major-party nominees, (Democratic, Republican), as O'Leary spells them.
 NOMINEES = {
     1872: ("Greeley", "Grant"), 1876: ("Tilden", "Hayes"), 1880: ("Hancock", "Garfield"),
     1884: ("Cleveland", "Blaine"), 1888: ("Cleveland", "Harrison"), 1892: ("Cleveland", "Harrison"),
@@ -78,6 +47,11 @@ INCOMPLETE = {1896: "Washington district and the total are printed '?'",
               1908: "O'Leary: the returns 'appear incomplete'"}
 LINE = re.compile(r"^(?P<name>[A-Za-z.'’ /]+?)(?:\s*\([^)]*\))?\s+(?P<counts>[\d,? ]+)$")
 TOLERANCE = 0.05
+BANDS = ["dem", "rep", "abc", "other", "unrecorded"]
+# What the county's labels record (elections.LABELS) and the band each
+# vote counts in.
+BAND = {"Democratic": "dem", "Republican": "rep", "ABC": "abc",
+        "independent": "other", "other": "other", "": "unrecorded"}
 
 
 def oleary() -> pd.DataFrame:
@@ -141,28 +115,16 @@ def county_check(d: pd.DataFrame):
               f"{TOLERANCE:.0%} in {list(off.index)} (state figures kept)")
 
 
-# What the county's labels record (elections.LABELS) and the band each vote
-# counts in here. The independents and every minor label are one band, and a
-# candidate with no label - or "(Convention)", which names no party - is
-# unrecorded.
-BAND = {"Democratic": "dem", "Republican": "rep", "ABC": "abc",
-        "independent": "other", "other": "other", "": "unrecorded"}
-
-
 def county_board_county() -> pd.DataFrame:
     """1931-2021 from the county's candidate history: every general and
-    special County Board contest in a year, summed; primaries left out.
-
-    Write-ins carry no label and are left out of the bands, so shares are of
-    votes for named candidates. Which years are complete, and which rows
-    are the contest's, is elections.contest_rows(), shared with turnout.
-    """
+    special County Board contest in a year, summed; primaries and write-ins
+    left out."""
     c = elections.county_history()
     c = c[~c.primary]
     rows = []
     for year, g in c.groupby("year"):
         named, complete, note = elections.contest_rows(g)
-        counts = {"dem": 0, "rep": 0, "abc": 0, "other": 0, "unrecorded": 0}
+        counts = dict.fromkeys(BANDS, 0)
         for _, r in named[named.person & named.votes.notna()].iterrows():
             label = elections.label_of(r.candidate, where=f"{year}: ")
             counts[BAND[elections.LABELS[label]] if label else "unrecorded"] += int(r.votes)
@@ -189,7 +151,7 @@ def county_board_state() -> pd.DataFrame:
         for p, y, n in zip(general.candidate_party_name, general.year, general.surname)]
     rows = []
     for year, g in general.groupby("year"):
-        counts = g.groupby("band").votes.sum().reindex(["dem", "rep", "abc", "other", "unrecorded"], fill_value=0)
+        counts = g.groupby("band").votes.sum().reindex(BANDS, fill_value=0)
         rows.append({"year": int(year), "office": "county board", **counts.astype(int).to_dict(),
                      "total": int(counts.sum()), "complete": True,
                      "source": f"{citekeys.VA_ELECTIONS} contest " + ", ".join(str(c) for c in sorted(g.contest_id.unique())),
@@ -211,9 +173,9 @@ def build() -> pd.DataFrame:
     # Four-year terms for the whole Board in 1931 and 1935; one seat a year from 1939.
     assert years == [1931, 1935] + list(range(1939, 2026)), f"County Board elections are not 1931, 1935, then every year: {years}"
     d = pd.concat([pres, board], ignore_index=True)
-    cols = ["year", "office", "dem", "rep", "abc", "other", "unrecorded", "total", "complete", "source", "note"]
+    cols = ["year", "office", *BANDS, "total", "complete", "source", "note"]
     d = d[cols].sort_values(["office", "year"], ascending=[False, True]).reset_index(drop=True)
-    assert (d.total == d[["dem", "rep", "abc", "other", "unrecorded"]].sum(axis=1)).all(), "bands do not sum to the total"
+    assert (d.total == d[BANDS].sum(axis=1)).all(), "bands do not sum to the total"
     return d
 
 

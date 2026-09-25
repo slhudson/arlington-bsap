@@ -1,24 +1,13 @@
 """Census scans -> data/transcribed/by_ocr/us_census_bureau/<year>/*.txt, one text file per volume.
 
-Seven of the nine scanned volumes have no text layer, so nothing in them can
-be searched or cited without this. Running it makes all 521 pages greppable,
-which is what documenting the early census figures depends on - see
-docs/residents.md.
-
-Uses macOS's built-in Vision OCR, so there is nothing to install beyond the
-Python bindings. Language correction is off: these are tables of numbers, and
-correction turns digits into words.
-
-NOT part of `bash run.sh`. It takes minutes, not seconds, and its output only
-changes if raw/ changes - which it never does. Run it by hand if the output is
-ever lost:
+Run by hand on a Mac, output committed; it takes minutes. macOS's Vision
+OCR with language correction off, since these are tables of numbers.
 
     .venv/bin/python code/transcribe/census.py
 
-Read the output as a finding aid, not as data. OCR of 19th-century tables
-misreads digits routinely - the existing text layer renders 13,659 as
-"lB, 659". Use it to locate a table and page, then read the number off the
-scan itself.
+The output is a finding aid, not data: nothing in the build reads it
+(CLAUDE.md). Use it to locate a table and page, then read the number off
+the scan.
 """
 import sys
 import time
@@ -41,7 +30,7 @@ def ocr_image(png_bytes):
     img = Quartz.CGImageSourceCreateImageAtIndex(src, 0, None)
     req = Vision.VNRecognizeTextRequest.alloc().init()
     req.setRecognitionLevel_(0)            # accurate, not fast
-    req.setUsesLanguageCorrection_(False)  # tables of numbers
+    req.setUsesLanguageCorrection_(False)
     handler = Vision.VNImageRequestHandler.alloc().initWithCGImage_options_(img, None)
     handler.performRequests_error_([req], None)
     return [o.topCandidates_(1)[0].string() for o in (req.results() or [])]

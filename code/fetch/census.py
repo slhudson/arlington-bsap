@@ -1,62 +1,27 @@
 """Census -> data/raw/us_census_bureau/<year>/*.csv, whole tables, 1980-2020.
 
-NOT part of `bash run.sh`, deliberately. The build never touches the network:
-anyone who clones this repository produces every figure from committed files,
-with no account, no API key and no connection. Fetching is a separate act whose
-output is committed.
+Run by hand when a year is needed, output committed; the build never
+touches the network (CLAUDE.md). Needs CENSUS_API_KEY in .env at the
+repository root, which is gitignored.
 
-It also keeps figures reproducible. An API can change its answer; a committed
-file cannot, which is the standard the scanned volumes are held to.
+    .venv/bin/python code/fetch/census.py [2000 2010 2020]
 
-Run by hand when a year is needed:
+Whole tables, every Virginia county, one column per variable, as the Bureau
+publishes them, with a data dictionary per census so the codes are readable.
+2000-2020 come from the API. 1980 and 1990 come from the archived Summary
+Tape Files at www2.census.gov, since the API holds no decennial data before
+2000; they carry Hispanic (1980: Spanish) origin crossed with race, which is
+what a consistent set of categories back to 1980 is built from. 1970 is not
+here and should not be added: its Hispanic origin is a 5 percent sample the
+Bureau does not hold comparable with later years.
 
-    .venv/bin/python code/fetch/census.py
-
-Needs CENSUS_API_KEY in .env at the repository root. That file is gitignored.
-
-**Whole tables, every county, saved as published.** One row per Virginia
-county, one column per variable, exactly the shape the Bureau publishes.
-Arlington is a row in it rather than an extract - which is the same rule the
-transcriptions follow, and which also allows a figure to be checked against
-neighbouring counties.
-
-Picking out the variables today's figure happens to need would hide what sits
-beside them, and in this project what sat beside them mattered twice.
-
-Each census also gets a data dictionary, so the column codes are readable
-without the API documentation.
-
-For 2000-2020 the Bureau publishes machine-readable data, so there is no page
-to read and no transcription step, and therefore no reading error to make. The
-scanned volumes are transcribed only because nothing else exists for them.
-
-**1980 and 1990 come from the archived Summary Tape Files, not the API.** The
-Census API holds no decennial data before 2000; its 1990-vintage entries are
-the December Current Population Survey. The 1980 and 1990 STF1A files are
-published as fixed-width ASCII, one file per state, at www2.census.gov, and
-need no key.
-
-They are what makes a consistent set of race categories possible back to 1980:
-both carry Hispanic (1980: Spanish) origin crossed with race at county level,
-which is the only way to build groups that do not overlap. 1970 is not in this
-script and should not be added. Hispanic origin in 1970 was asked of a
-5 percent sample rather than the full count, the Bureau's position is that it
-is not comparable with later years, and it has a known defect miscoding people
-in the southern and central states into "Central or South American".
-
-1980's record layout is the Bureau's own published dictionary, saved beside the
-data. 1990's technical documentation is only published as PDF, so its cell
-offsets were derived from the file and then checked: the five race cells and
-the ten Hispanic-origin-by-race cells each sum to the published county total,
-for all 136 Virginia county-level geographies. main() re-runs those checks on
-every fetch and refuses to write if one fails.
-
-**What is saved is an extract, not the file as published.** The two 1990
-segments are 172MB and the 1980 file 30MB, against an Overleaf budget of
-100MB for the whole repository. So these are cut to Virginia county rows and
-the tables named below - the same shape as the API years, which are also one
-row per Virginia county. It is a departure from saving a source untouched, and
-the reason is size alone.
+1980's record layout is the Bureau's published dictionary, saved beside the
+data. 1990's is PDF only, so its cell offsets were derived from the file;
+main() checks on every fetch that each table's cells sum to the published
+county total for all 136 Virginia geographies, and refuses to write if one
+does not. The STF files are cut to Virginia county rows and the tables
+named below - 200MB against an Overleaf budget of 100MB - which is the one
+departure from saving a source untouched.
 """
 import io
 import json
@@ -70,15 +35,9 @@ ROOT = paths.ROOT
 RAW = paths.RAW / "us_census_bureau"
 STATE, COUNTY = "51", "013"   # Virginia, Arlington County
 
-# Which tables to fetch for each census. RACE gives the race partition; the
-# Hispanic-origin table gives race crossed with Hispanic origin, which is what
-# any consistent set of categories has to be built from - see docs/residents.md.
-# Group names differ by census even where the variables do not: 2000 uses
-# P003, 2010 the same table as P3, 2020 as P1. Named here rather than derived.
-#
-# The third table is the same race partition for the population 18 years and
-# over, which is the voting-age population: the denominator turnout is put
-# over when registration is not known. Its first cell is the total.
+# The tables to fetch for each census: race, race crossed with Hispanic
+# origin, and race for the population 18 and over (turnout's denominator;
+# its first cell is the total). Table names differ by census.
 TABLES = {
     2000: ("dec/sf1", {"P003": "race", "P008": "hispanic_origin_by_race",
                        "P005": "race_18_and_over"}),
@@ -90,17 +49,11 @@ TABLES = {
 
 
 # --- 1980 and 1990: the archived Summary Tape Files --------------------------
-#
-# Fixed-width ASCII, one file per state, no key. Positions below are 1-based
-# and inclusive of the first character, as the Bureau's dictionaries write them.
-# Every cell is 9 characters.
-#
-# 1980 comes from the published dictionary saved beside the data
-# (1980_stf1_datadict.txt): Table 7 is race, Table 8 Spanish origin, Table 9
-# the race of persons of Spanish origin. Table 9 is the cross-tab.
-#
-# 1990's documentation is PDF only, so its offsets were read off the file and
-# are checked on every run - see this module's docstring.
+# Fixed-width ASCII, one file per state, every cell 9 characters. Positions
+# are 1-based, as the Bureau's dictionaries write them. 1980's tables are
+# from the published dictionary (Table 7 race, 8 Spanish origin, 9 the
+# cross-tab); 1990's offsets were read off the file and are checked on
+# every run.
 
 # The age groups as the two files cut them, in the Bureau's order.
 AGES_1980 = ["under_1", "1_2", "3_4", "5", "6", "7_9", "10_13", "14", "15", "16", "17",
@@ -129,12 +82,7 @@ ARCHIVE = {
             "table9_race_of_spanish_origin": (550, ["total", "white", "black",
                                                     "american_indian_eskimo_aleut_asian_pacific_islander",
                                                     "other"]),
-            # Table 10 is "sex by age": 26 age groups for everyone, then the
-            # same 26 for women - the dictionary's two strata are Total and
-            # Female, and men are the difference. Saved as its two halves.
-            # The voting-age population is everyone from "18 years" on, the
-            # last fifteen cells of the first half, summed in
-            # code/build/turnout.py.
+            # Table 10, sex by age: 26 groups for everyone, then for women.
             "table10_age": (595, AGES_1980),
             "table10_female_by_age": (829, AGES_1980),
         },
@@ -155,11 +103,8 @@ ARCHIVE = {
         "tables": {
             "race": (382, ["white", "black", "american_indian_eskimo_aleut",
                            "asian_pacific_islander", "other"]),
-            # P11, age in 31 groups. Located the way the race tables were: the
-            # one run of 31 cells in Arlington's record that sums to the county
-            # total, whose first cells (1,878 under one year, 4,178 aged one and
-            # two) are the shape of an age distribution. Voting age is the 19
-            # cells from "18" on.
+            # P11, age in 31 groups: the one run of 31 cells in Arlington's
+            # record that sums to the county total.
             "age": (796, AGES_1990),
             "hispanic_origin_by_race": (706, [
                 "not_hispanic_white", "not_hispanic_black",
@@ -205,9 +150,7 @@ def archive_year(year, spec):
     assert len(set(fips)) == len(fips), f"{year}: duplicate county FIPS"
     records.sort(key=spec["name"])
 
-    # Every table must account for the same population, and where the file
-    # states a total, for that total. A layout that has slipped by one cell
-    # fails here rather than becoming a figure.
+    # A layout that has slipped by one cell fails here.
     for table, total_at in spec["ties"]:
         begin, names = spec["tables"][table]
         for r in records:
@@ -276,13 +219,7 @@ def labels(year, dataset):
 
 
 def main(years=None):
-    """Everything, or only the censuses named on the command line:
-
-        .venv/bin/python code/fetch/census.py 2000 2010 2020
-
-    names the API years alone, which spares the 200 MB archive downloads
-    when a table is added for the machine-readable censuses.
-    """
+    """Every census, or only those named on the command line."""
     for year, spec in ARCHIVE.items():
         if not years or year in years:
             archive_year(year, spec)
@@ -297,9 +234,6 @@ def main(years=None):
         wanted = set()
 
         for table, name in tables.items():
-            # Every county in Virginia, not just Arlington. The published unit
-            # is the table, and Arlington is a row in it - which is also what
-            # lets a figure be sanity-checked against neighbouring counties.
             url = f"https://api.census.gov/data/{year}/{dataset}?" + urllib.parse.urlencode({
                 "get": f"group({table})", "for": "county:*",
                 "in": f"state:{STATE}", "key": key})
@@ -318,8 +252,6 @@ def main(years=None):
             print(f"  {out.relative_to(ROOT)}  {len(rows)-1} counties, {len(keep)} columns"
                   f"  (Arlington total {int(arl[head.index(first_value(head, table))]):,})")
 
-        # One data dictionary per census, so the column codes are readable
-        # without the API documentation.
         dic = out_dir / f"censusapi_{dataset.replace('/', '_')}_variables.csv"
         with dic.open("w") as fh:
             fh.write("variable,label\n")

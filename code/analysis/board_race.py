@@ -1,16 +1,8 @@
 """Board seats by race/ethnicity, 1870-2026 -> figures/board_race.pdf, .png
 
-The same size and scale as board_gender, so the two read as a pair.
-
-A category holding no seat in any year gets no band and no legend entry: an
-empty swatch reads as a sliver too small to see rather than as zero, and the
-absence belongs in the prose. That no Asian American or Pacific Islander member
-has served is a finding, and a finding is a sentence. The test is on the data
-rather than the category name, so a future member restores the band with no
-edit here.
-
-1931 is missing in the source and appears as a gap rather than a zero.
-Half-height segments are genuine: a member left mid-year and was replaced.
+A stacked step area of seat-years in style.GROUP_ORDER, on the same frame
+as board_gender, with the 1932 rule. Blank years are gaps. A category with
+no seat in any year gets no band and no legend entry.
 """
 import pandas as pd
 
@@ -33,5 +25,5 @@ for profile in style.PROFILES:
     charts.seats(ax)
     charts.years(ax, 1870, 2020, step=20, label="year", through=2027)
     charts.rule(ax, note=style.EXPANSION_NOTE_SEATS)
-    charts.legend(fig, {style.GROUP_LABELS[g]: style.RACE_COLORS[g] for g in held})
+    charts.legend(fig, series)
     paths.save(fig, "board_race", profile)

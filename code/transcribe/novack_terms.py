@@ -1,19 +1,10 @@
 """Novack's roster -> transcribed/by_claude/arlington_historical_magazine/*.csv
 
 *Six Decades of Arlington Leadership*, compiled by Norman S. Novack for the
-Arlington Historical Magazine, 1994. An alphabetical roster of County Board
-members with their terms of service, from the adoption of the County Manager
-plan in 1930 to 1994.
-
-It is the only source in the project that records **service** rather than
-elections for that period: who held a seat and between which dates, with the
-circumstances of every mid-term departure written in parentheses beneath the
-name.
-
-NOT part of `bash run.sh`. Run by hand, output committed.
-
-A compilation, not a record. Novack worked from Electoral Board material and
-local history; nothing here is a primary document.
+Arlington Historical Magazine, 1994: an alphabetical roster of County Board
+members with their terms of service, 1930-1994, and the circumstances of
+each mid-term departure in parentheses beneath the name. Run by hand,
+output committed.
 
     .venv/bin/python code/transcribe/novack_terms.py
 """
@@ -42,13 +33,8 @@ def read():
             if not line:
                 continue
             # A note runs until its closing paren, however many lines that
-            # takes. Testing that directly is what keeps a note from being cut
-            # short - guessing from the wrapped line's first word does not,
-            # because a wrapped line can begin with a capital ("House of
-            # Representatives") or follow a footnote marker.
+            # takes; a word broken across lines is rejoined.
             if current and open_paren:
-                # A word broken across lines is rejoined; the page shows one
-                # word ("unconstitutional"), and the hyphen is typesetting.
                 if current["notes"].endswith("-") and line[:1].islower():
                     current["notes"] = current["notes"][:-1] + line
                 else:
@@ -60,11 +46,8 @@ def read():
                 if current:
                     yield current
                 name, term = m.group(1).strip(), m.group(2).strip()
-                # The PDF's text layer splits digits inside some years -
-                # "194 7" for 1947, "197 4" for 1974. The page shows no space,
-                # so closing it restores what is printed rather than
-                # interpreting it. Leftover dot leaders are stripped for the
-                # same reason.
+                # The text layer splits digits inside some years ("194 7")
+                # and leaves dot leaders; the page shows neither.
                 term = re.sub(r"(?<=\d)\s+(?=\d)", "", term)
                 term = re.sub(r"^[_\s.]+", "", term).strip()
                 name = re.sub(r"[_\s.]+$", "", name).strip()

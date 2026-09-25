@@ -1,7 +1,6 @@
 """Where the fetch scripts put what they download.
 
-One paths.py per stage, deliberately: this one knows data/raw/ and nothing
-below it. A fetch script names its own file under RAW.
+This one knows data/raw/ and nothing below it (CLAUDE.md).
 """
 import pathlib
 

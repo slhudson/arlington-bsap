@@ -103,7 +103,9 @@ for the analysis stage, so a figure script reads `import style` and
 
 The conventions themselves are the Urban Institute's data visualization style
 guide, loaded from `style/urban.mplstyle` and cited there. Where this project
-departs from Urban, the departure is in `style/style.py` with its reason.
+departs from Urban, the departure and its reason are in `docs/figures.md`,
+which holds the reasoning behind every visual convention; the style layer
+states the values.
 
 `style/` sits outside `code/` because most of it cannot be executed: a typeface
 and a table of rcParams. `code/` is for things you can run.

@@ -2,24 +2,15 @@
 
 The presidential returns from *The Electoral History of That Part of
 Alexandria County Now Known as Arlington County, 1870-1920*, by Frank
-O'Leary - the only source for the county's presidential vote before the
-state database begins in 1924.
-
-NOT part of `bash run.sh`. Run by hand, output committed.
-
-Read the same way as board_1870_1920.py, and using its page reader: a
-rotated page's columns are the table's lines. A "President" line inside an
-election block starts the returns, and each line after it is one candidate
-with the district counts as printed - "Grant 226 157 72 455" for Arlington,
-Jefferson, Washington and the total, or a single county figure from 1904.
-Lines are kept verbatim, "?" and parentheses included; parsing them is
-code/build/voters.py's job.
-
-**A compilation, not a record**, in O'Leary's own words, and the returns
-for 1896, 1904 and 1908 are visibly incomplete on the page. The build says
-what it does with them.
+O'Leary. Run by hand, output committed.
 
     .venv/bin/python code/transcribe/president_1872_1920.py
+
+Read with board_1870_1920.py's page reader. A "President" line inside an
+election block starts the returns, and each line after it is one candidate
+with the district counts as printed - "Grant 226 157 72 455" - kept
+verbatim, "?" and parentheses included; parsing them is
+code/build/voters.py's job.
 """
 import pymupdf
 

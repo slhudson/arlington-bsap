@@ -1,75 +1,38 @@
 """Census population by year -> data/clean/residents.csv
 
-One row per census year, 1870-2020: population totals, the four race
-categories, the seats the Board had, and residents per seat.
+One row per census, 1870-2020: the total, four race categories, the seats
+the Board had, and residents per seat. `total_source` and `race_source`
+name the document each came from.
 
-Two source columns rather than one, because after 1900 the total and the
-race figures never come from the same document. `total_source` names the
-document the year's total came from; `race_source` names where its race and
-ethnicity figures came from. One column saying `forstall1996` beside race
-figures that document never supplied would be a false citation.
+    1870-1890  derived from the census volumes: Alexandria city sat inside
+               the county, so the Board's territory is county minus city
+    1900-1990  totals from the Bureau's county series (forstall1996)
+    2000-2020  totals from the Bureau's data files, code/fetch/census.py
+    1900-1970  race from POP-TWPS0076 Table 47
+    1980-      race crossed with Hispanic origin: `hisp` is Hispanic of any
+               race, the other three are non-Hispanic, and the five groups
+               partition the county exactly
 
-**1870-1890 are derived from the census volumes.** Before 1900 Alexandria city
-sat inside the county, so no published table gives the territory the Board
-governed - it has to be derived by subtracting the city. That happens in
-early_years() below, from the tables transcribed under
-data/transcribed/by_claude/. See docs/residents.md.
-
-**1900-1990 totals come from the published Census county series**, transcribed
-from data/raw/us_census_bureau/.
-
-**2000-2020 totals come from the Bureau's own data files**, fetched by
-code/fetch/census.py into data/raw/us_census_bureau/. No transcription step, so no
-reading error to make.
-
-**1900-1970 race figures come from POP-TWPS0076**, whose Table 47 prints
-Arlington by race at every census from 1900; see twps0076() below.
-
-**From 1980 the race columns come from the crossed census table.** Race and
-Hispanic origin are two census questions, not one, so a person answers both
-and lands in two of the four columns at once, and the four published race
-columns never sum to the county. The Bureau also publishes the two answers
-crossed, and those categories partition the county exactly:
-
-    hisp + white + black + aapi + the remainder == total
-
-where `hisp` is Hispanic of any race and the other three are non-Hispanic. The
-remainder - non-Hispanic other and multiracial - is not a column: it is what a
-figure has left after subtracting these four from the total, which is how the
-figures already draw it.
-
-1980 is the first census to ask Hispanic origin of everyone rather than of a
-sample. 1970's is not comparable and is left blank; before 1970 the question
-does not exist and `white` means white.
-
-`race_source` says which of the three each year's figures came from, so a row
-carries its own provenance rather than the reader having to know where the
-switches fall.
-
-Values are otherwise written as reported; docs/residents.md says what backs
-each year.
+The fifth crossed group, non-Hispanic other and multiracial, is not a
+column: a figure takes it as total minus the four. `hisp` is blank before
+1980. docs/residents.md says what backs each year and why.
 """
 import pandas as pd
 
 import citekeys
-from board_roster import AT_LARGE_FROM, SEATS_AT_LARGE, SEATS_DISTRICT
+from board_roster import seats
 from paths import RAW, TRANSCRIBED, write
 
-# Which document each year's population total comes from. Named here rather
-# than decided by a rule, so it can be read off rather than inferred, and so a
-# change of source is a visible edit.
-TOTAL_SOURCE = {
-    1870: citekeys.CENSUS_1870,
-    1880: citekeys.CENSUS_1880,
-    1890: citekeys.CENSUS_1890,
-    1900: citekeys.CENSUS_COUNTY_SERIES, 1910: citekeys.CENSUS_COUNTY_SERIES,
-    1920: citekeys.CENSUS_COUNTY_SERIES, 1930: citekeys.CENSUS_COUNTY_SERIES,
-    1940: citekeys.CENSUS_COUNTY_SERIES, 1950: citekeys.CENSUS_COUNTY_SERIES,
-    1960: citekeys.CENSUS_COUNTY_SERIES, 1970: citekeys.CENSUS_COUNTY_SERIES,
-    1980: citekeys.CENSUS_COUNTY_SERIES, 1990: citekeys.CENSUS_COUNTY_SERIES,
-    2000: citekeys.CENSUS_DATA_FILE, 2010: citekeys.CENSUS_DATA_FILE,
-    2020: citekeys.CENSUS_DATA_FILE,
-}
+COLUMNS = ["year", "total", "white", "black", "hisp", "aapi", "board_seats",
+           "residents_per_seat"]
+CENSUSES = range(1870, 2021, 10)
+# Which document each year's total comes from.
+TOTAL_SOURCE = {1870: citekeys.CENSUS_1870, 1880: citekeys.CENSUS_1880, 1890: citekeys.CENSUS_1890,
+                **{y: citekeys.CENSUS_COUNTY_SERIES for y in range(1900, 2000, 10)},
+                **{y: citekeys.CENSUS_DATA_FILE for y in range(2000, 2021, 10)}}
+# The crossed census groups, 1980 on, and the column each one fills.
+CENSUS_BASIS = {"hisp": "hispanic", "white": "nh_white",
+                "black": "nh_black", "aapi": "nh_aapi"}
 
 
 def table(path):
@@ -78,36 +41,17 @@ def table(path):
 
 
 def twps0076() -> dict:
-    """Arlington by race, 1900-1970, from POP-TWPS0076 Table 47.
-
-    White, Black and Asian/Pacific Islander are taken as printed; `other` is
-    not a column here, so American Indian and other race reach the figures as
-    the remainder, the same way the fifth group does from 1980.
-
-    Two years do not give everything:
-
-    **1940** prints American Indian and Asian/Pacific Islander as a single
-    merged cell - 10 people, spanning both columns - so neither can be read on
-    its own. `aapi` is left empty for that year rather than guessed, and those
-    ten reach the remainder instead.
-
-    **Hispanic origin** is (NA) at full count for every year here. 1970 has it
-    only as a sample estimate, 6,315 on the 15 percent sample against 4,890 on
-    the 5 percent, which is a different kind of number from the full counts
-    beside it. The series therefore begins in 1980, the first census to ask
-    the question of everyone - decided by Sally, 24 September 2026. The
-    transcription carries the sample rows so the decision can be revisited
-    against them; this function does not read them.
-    """
+    """Arlington by race, 1900-1970, from POP-TWPS0076 Table 47: White, Black
+    and Asian/Pacific Islander as printed, full count only. 1940 prints
+    American Indian and Asian/Pacific Islander as one merged cell, so `aapi`
+    is left empty that year."""
     t = table("by_claude/us_census_bureau/"
               "censusgov_pop-twps0076_p1_virginia_arlington.csv")
     t = t[(t.basis == "full count") & (t.year.between(1900, 1970))]
+    parts = ["white", "black", "american_indian", "asian_pacific_islander",
+             "american_indian_asian_pacific_islander", "other_race"]
     out = {}
     for _, r in t.iterrows():
-        # The race columns must still account for the county exactly. The
-        # merged cell counts towards the total even where it cannot be split.
-        parts = ["white", "black", "american_indian", "asian_pacific_islander",
-                 "american_indian_asian_pacific_islander", "other_race"]
         got = sum(0 if pd.isna(r[c]) else r[c] for c in parts)
         assert got == r.total, (
             f"{int(r.year)}: the race columns give {got:,.0f} against a "
@@ -119,12 +63,7 @@ def twps0076() -> dict:
 
 
 def arlington(year, table):
-    """Arlington's row from a Census data file, which holds every Virginia county.
-
-    The table is named by its Census code - P003, P3, P1 - because the codes
-    differ by census and a name like "race" also matches
-    "hispanic_origin_by_race".
-    """
+    """Arlington's row from a Census data file, by the table's Census code."""
     hits = sorted((RAW / "us_census_bureau" / str(year)).glob(f"censusapi_*_{table}_*_virginia_counties.csv"))
     if len(hits) != 1:
         raise FileNotFoundError(f"expected one {table} file for {year}, found {len(hits)}")
@@ -136,15 +75,9 @@ def arlington(year, table):
 
 
 def early_years() -> pd.DataFrame:
-    """County population for 1870-1890, derived from the published volumes.
-
-    The hierarchy check is the point. Each transcription carries the printed
-    indentation as a `level` column, and sums take level 1 only - a level-2 row
-    is a detail of the line above and already inside it. Freedman village is
-    printed at level 2 within Arlington district, so it cannot be added as a
-    fourth district. That error is unrepresentable here rather than warned
-    against; it is what produced 4,596 where the districts give 4,258.
-    """
+    """County population 1870-1890: the county minus Alexandria city, from
+    the published volumes. Sums take `level` 1 rows only; a level-2 row is
+    already inside the line above it."""
     t5_1890 = table("by_claude/us_census_bureau/1890/1890a_v1-11_p346_table5_virginia_alexandria.csv")
     t2_1870 = table("by_claude/us_census_bureau/1870/1870a-04_p69_table2_virginia_alexandria.csv").set_index("section")
     t3_1870 = table("by_claude/us_census_bureau/1870/1870a-09_p278_table3_virginia_alexandria.csv")
@@ -181,9 +114,7 @@ def early_years() -> pd.DataFrame:
     rows[1890]["black"] = colored(t22) - colored(t23)
 
     d = pd.DataFrame(rows).T.rename_axis("year").reset_index()
-
-    # A race split must account for its own total. A single mis-keyed digit
-    # fails this by exactly its size, which is how two were found.
+    # A race split must account for its own total.
     for _, r in d.iterrows():
         gap = r.total - r.white - r.black
         if abs(gap) > 5:
@@ -191,21 +122,6 @@ def early_years() -> pd.DataFrame:
                 f"{int(r.year)}: white {r.white:,.0f} + black {r.black:,.0f} leaves "
                 f"{gap:,.0f} of a total of {r.total:,.0f} unaccounted.")
     return d
-
-COLUMNS = ["year", "total", "white", "black", "hisp", "aapi", "board_seats",
-           "residents_per_seat"]
-
-# Every decennial census since the Board existed. 1870 is its first year.
-CENSUSES = range(1870, 2021, 10)
-
-# The Board's size - three seats, then five from 1932 - is stated once, in
-# board_roster.py, and imported: the seats that exist, not the seats filled.
-
-# Categories that do not overlap, 1980 on. Written in stacking order.
-# The crossed census groups, and which delivered column each one replaces.
-# "nh_other" has no column: it is the remainder, and the figures compute it.
-CENSUS_BASIS = {"hisp": "hispanic", "white": "nh_white",
-                "black": "nh_black", "aapi": "nh_aapi"}
 
 
 def stf1a(year, table):
@@ -219,16 +135,13 @@ def stf1a(year, table):
 
 
 def census_basis() -> dict:
-    """Five groups that partition the county, one row per census from 1980.
-
-    Each census names its cells differently and 1980 words it as Spanish
-    origin, so the arithmetic is written out per year rather than driven from a
-    table of variable codes. Reading it should not require the code books.
-    """
+    """Five groups that partition the county, one row per census from 1980,
+    with the arithmetic written out per census."""
     out = {}
 
     # 1980: Table 7 is race for everyone, Table 9 the race of persons of
-    # Spanish origin. Non-Hispanic is the first minus the second.
+    # Spanish origin; non-Hispanic is the first minus the second. Table 9
+    # does not split American Indian from Asian, so nh_aapi carries both.
     r7, r9 = stf1a(1980, "table7_race"), stf1a(1980, "table9_race_of_spanish_origin")
     asian = ["japanese", "chinese", "filipino", "korean", "asian_indian",
              "vietnamese", "hawaiian", "guamanian", "samoan"]
@@ -237,9 +150,6 @@ def census_basis() -> dict:
         "hispanic": r9["total"],
         "nh_white": r7["white"] - r9["white"],
         "nh_black": r7["black"] - r9["black"],
-        # 1980 does not split American Indian from Asian among Spanish-origin
-        # persons, so the two are subtracted together and the remainder is
-        # carried in nh_aapi rather than split on an assumption.
         "nh_aapi": sum(r7[c] for c in asian + native)
                    - r9["american_indian_eskimo_aleut_asian_pacific_islander"],
         "nh_other": r7["other"] - r9["other"],
@@ -256,9 +166,7 @@ def census_basis() -> dict:
         "nh_other": r["not_hispanic_other"] + r["not_hispanic_american_indian_eskimo_aleut"],
     }
 
-    # 2000-2020, from the API files. Variable numbers differ by census and
-    # 2020 nests the races a level deeper, so each is named from the file's own
-    # data dictionary rather than assumed to follow the previous one.
+    # 2000-2020, from the API files, each named from its own data dictionary:
     #     hisp   Hispanic or Latino, all races
     #     w b a  non-Hispanic White, Black, Asian alone
     #     nh     non-Hispanic Native Hawaiian and other Pacific Islander alone
@@ -287,57 +195,31 @@ def census_basis() -> dict:
 
 
 def build() -> pd.DataFrame:
-    d = pd.DataFrame({"year": list(CENSUSES)}, dtype=float)
-    for col in COLUMNS[1:]:
-        d[col] = float("nan")
-    d["board_seats"] = [SEATS_DISTRICT if y < AT_LARGE_FROM else SEATS_AT_LARGE
-                        for y in d["year"]]
-
-    # 1900-1990 totals from the published Census county series.
+    d = pd.DataFrame({"year": list(CENSUSES)}, dtype=float).reindex(columns=COLUMNS)
+    d["board_seats"] = d["year"].map(seats)
     d["total_source"] = d["year"].map(TOTAL_SOURCE)
+
     series = table("by_claude/us_census_bureau/censusgov_pop1790-1990_p177_counties_virginia_arlington.csv").iloc[0]
     for year in range(1900, 2000, 10):
         d.loc[d["year"] == year, "total"] = series[f"y{year}"]
-
-    # 2000-2020 come from the Bureau's own data files, fetched by
-    # code/fetch/census.py. No transcription step, so no reading error.
     # (year, race table, its total variable) - all three differ by census.
     for year, race_table, total in ((2000, "P003", "P003001"),
                                     (2010, "P3", "P003001"),
                                     (2020, "P1", "P1_001N")):
         d.loc[d["year"] == year, "total"] = arlington(year, race_table)[total]
-
-    # Replace 1870-1890 with the figures derived from the volumes.
-    early = early_years().set_index("year")
-    for year, r in early.iterrows():
+    for year, r in early_years().set_index("year").iterrows():
         m = d["year"] == year
         for col in ("total", "white", "black"):
             d.loc[m, col] = r[col]
-        d.loc[m, "total_source"] = TOTAL_SOURCE[year]
 
-    # The race figures have their own provenance, and it is never the same
-    # document as the total's after 1900: the volumes to 1890, POP-TWPS0076 to
-    # 1970, the crossed census tables from 1980. Every year is assigned one of
-    # those three below, so there is no fallback here to write - a row that
-    # reached the end without a race source would be a bug, and the assert
-    # after them says so.
     d["race_source"] = [TOTAL_SOURCE[y] if y < 1900 else "" for y in d["year"]]
-
-    # 1900-1970 come from POP-TWPS0076, which prints Arlington at every
-    # census from 1900; 1980 on is overwritten below by the crossed tables.
     for year, r in twps0076().items():
         m = d["year"] == year
         for col in ("white", "black", "aapi", "hisp"):
             d.loc[m, col] = r[col]
         d.loc[m, "race_source"] = citekeys.CENSUS_TWPS0076
-
-    # From 1980, the crossed census table supplies the four columns.
-    # The guard is the point of the exercise: if the five groups do not account
-    # for the county exactly, they are not a partition and must not be drawn as
-    # one. Only four are written - the fifth is the remainder a figure is left
-    # with, and writing it as well would be the same number twice.
-    basis = census_basis()
-    for year, groups in basis.items():
+    # From 1980 the five groups must account for the county exactly.
+    for year, groups in census_basis().items():
         m = d["year"] == year
         total = int(d.loc[m, "total"].iloc[0])
         got = sum(int(v) for v in groups.values())
@@ -350,17 +232,12 @@ def build() -> pd.DataFrame:
         d.loc[m, "race_source"] = (
             {1980: citekeys.CENSUS_1980_STF1A,
              1990: citekeys.CENSUS_1990_STF1A}.get(year, citekeys.CENSUS_DATA_FILE))
-
     assert (d["race_source"] != "").all(), (
         "no race source for "
         f"{[int(y) for y in d.loc[d.race_source == '', 'year']]}")
 
     d["residents_per_seat"] = d["total"] / d["board_seats"]
-
-    # Written as counts, not floats: the source values are all whole numbers,
-    # and dtype=float above was only a computing convenience. Int64 (nullable)
-    # keeps a genuine blank - aapi in 1940, hisp before 1980 - as blank rather
-    # than 0 or NaN-as-float.
+    # Int64 keeps a blank blank.
     d["year"] = d["year"].astype(int)
     for col in ("total", "white", "black", "hisp", "aapi", "board_seats"):
         d[col] = d[col].astype("Int64")

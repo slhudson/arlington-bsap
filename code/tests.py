@@ -2,24 +2,22 @@
 
     .venv/bin/python code/tests.py
 
-The build already refuses bad data. What these test is that it still refuses -
-so that editing code/build/ cannot quietly disable a check. Each test reintroduces
-the specific mistake a guard exists to catch and asserts the build stops.
-
-Only guards whose failure would be *silent* are worth this. If a figure script
-saves under the wrong name the build halts with an error in your face; if the
-Freedman village check stops working, a figure shows 4,596 and nobody notices.
-These cover the second kind.
-
-No framework by design: plain functions named test_*, each building its own
+Each test reintroduces the specific mistake a guard exists to catch and
+asserts the build stops. Only guards whose failure would be silent are
+tested. No framework: plain functions named test_*, each building its own
 input, run by the loop at the bottom.
 """
+import csv
+import hashlib
+import os
+import re
 import sys
 from pathlib import Path
 
 import pandas as pd
 
-sys.path.insert(0, str(Path(__file__).resolve().parent / "build"))
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "code" / "build"))
 import board_members  # noqa: E402
 import paths  # noqa: E402
 import board_roster  # noqa: E402
@@ -28,17 +26,12 @@ import citekeys  # noqa: E402
 import residents  # noqa: E402
 import turnout  # noqa: E402
 
-sys.path.insert(0, str(Path(__file__).resolve().parent / "fetch"))
+sys.path.insert(0, str(ROOT / "code" / "fetch"))
 import registration  # noqa: E402
 
 
 def breaks(module, attr, mangle, build=None):
-    """Run a build with one input mangled; return the error it raised, or None.
-
-    Most guards in this repository raise AssertionError. board_roster's raise
-    ValueError instead - they are refusals over irreconcilable historical
-    sources, not sanity checks on arithmetic - so both are caught here.
-    """
+    """Run a build with one input mangled; return the error it raised, or None."""
     original = getattr(module, attr)
     setattr(module, attr, mangle(original))
     try:
@@ -50,10 +43,31 @@ def breaks(module, attr, mangle, build=None):
         setattr(module, attr, original)
 
 
+def patch_csv(module, when, change):
+    """A mangle for a module's pd.read_csv: `change` is applied to any frame
+    for which `when(frame)` holds."""
+    def mangle(orig):
+        def patched(path, *a, **k):
+            d = orig(path, *a, **k)
+            return change(d) if when(d) else d
+        return patched
+    return mangle
+
+
+def bib_entries():
+    """(key, body) for every entry in paper/sources.bib."""
+    bib = (ROOT / "paper" / "sources.bib").read_text()
+    return re.findall(r"^@\w+\{([^,\s]+)\s*,(.*?)^\}", bib, re.M | re.S)
+
+
+def questions():
+    return (ROOT / "docs" / "questions.csv").read_text()
+
+
 # --- guards on the census derivation ----------------------------------------
 
 def test_freedman_village_cannot_become_a_district():
-    """Promoting a level-2 sub-line to level 1 is what produced 4,596."""
+    """A level-2 sub-line promoted to level 1."""
     def mangle(orig):
         def patched(path):
             d = orig(path)
@@ -67,7 +81,7 @@ def test_freedman_village_cannot_become_a_district():
 
 
 def test_race_split_must_account_for_its_total():
-    """The 1870 error: white 1,075 + black 2,010 leaves 100 unexplained."""
+    """A race column that leaves part of the total unexplained."""
     def mangle(orig):
         def patched(path):
             d = orig(path)
@@ -83,21 +97,11 @@ def test_race_split_must_account_for_its_total():
 # --- guards on the Board files ----------------------------------------------
 
 def test_race_and_gender_must_account_for_the_same_seats():
-    """Two independent splits of the same seats have to agree.
-
-    board_race and board_gender are drawn from the same rows and are meant to
-    be read side by side, so a term counted in one split and not the other
-    moves one figure without moving its pair - and nothing else would surface
-    it. The mangle below takes a term out of the gender split only, by giving
-    it a gender the seat table has no column for, leaving the race split
-    untouched so the seats-versus-seats guards stay quiet.
-    """
+    """One term with a gender the seat table has no column for."""
     def mangle(orig):
         def patched(members):
-            d = orig(members)
-            d = d.copy()
-            first = d.index[d.year == 1975][0]
-            d.loc[first, "gender"] = "unrecorded"
+            d = orig(members).copy()
+            d.loc[d.index[d.year == 1975][0], "gender"] = "unrecorded"
             return d
         return patched
     err = breaks(board_seats, "months_held", mangle)
@@ -105,19 +109,11 @@ def test_race_and_gender_must_account_for_the_same_seats():
 
 
 def test_a_wrong_term_length_is_rejected():
-    """Stretching one term by a year should throw off the five-seat count.
-
-    check_five_seats() is what catches a wrong term boundary anywhere in the
-    roster - Novack's open-ended spans, a special election's handover, a
-    regular four-year cycle. This mangles one term after election_terms()
-    has produced it, so the mistake looks exactly like a bad source read: an
-    extra year that overlaps the next member's term.
-    """
+    """One term stretched by a year, so it overlaps the next member's."""
     def mangle(orig):
         def patched(earlier):
-            d = orig(earlier)
+            d = orig(earlier).copy()
             at_large = d.index[(d.district == "at large") & (d.end_year == 1997)]
-            d = d.copy()
             d.loc[at_large, "end_year"] += 1
             return d
         return patched
@@ -126,16 +122,10 @@ def test_a_wrong_term_length_is_rejected():
 
 
 def test_a_term_that_does_not_say_how_it_began_is_rejected():
-    """voters.py and turnout.py select terms by seated_by - the ones an
-    election seated, the ones a special election handed over. A value
-    outside the four the roster defines would match no selection and the
-    term would drop out of a count with nothing said, which is the silent
-    kind. The mangle gives one 1997 term the word a note used to carry.
-    """
+    """A seated_by value outside the four the roster defines."""
     def mangle(orig):
         def patched(earlier):
-            d = orig(earlier)
-            d = d.copy()
+            d = orig(earlier).copy()
             d.loc[d.index[(d.district == "at large") & (d.start_year == 1997)][0],
                   "seated_by"] = "Elected"
             return d
@@ -145,11 +135,7 @@ def test_a_term_that_does_not_say_how_it_began_is_rejected():
 
 
 def test_prose_in_the_name_column_is_rejected():
-    """O'Leary sometimes writes a sentence where a name goes - "A. D. Torreyson
-    elected, but successfully contested by Frederick S. Corbett in Oct." - and
-    a parser that misses the pattern would carry the whole sentence through as
-    a person. check_names() refuses any name that reads as prose.
-    """
+    """A sentence carried through the name column as a person."""
     def mangle(orig):
         def patched():
             for row in orig():
@@ -162,48 +148,34 @@ def test_prose_in_the_name_column_is_rejected():
 
 
 def test_an_attributed_name_that_misses_the_roster_is_rejected():
-    """The demographics file matches people by exact name. A near-miss
-    ("Bozman" for "Ellen Bozman") would fall silently into the default -
-    the one failure that file exists to prevent - so the build refuses it.
-    """
-    def mangle(orig):
-        def patched(path, *a, **k):
-            d = orig(path, *a, **k)
-            if "basis" in d.columns:                        # the attributions file
-                d.loc[d.name == "Ellen Bozman", "name"] = "Bozman"
-            return d
-        return patched
-    err = breaks(board_members.pd, "read_csv", mangle, build=board_members.build)
+    """An attributed name that is a near-miss for a roster name."""
+    def rename(d):
+        d.loc[d.name == "Ellen Bozman", "name"] = "Bozman"
+        return d
+    err = breaks(board_members.pd, "read_csv",
+                 patch_csv(board_members, lambda d: "basis" in d.columns, rename),
+                 build=board_members.build)
     assert err and "not in the roster" in err, f"not caught: {err}"
 
 
 def test_two_sources_disagreeing_on_race_is_a_finding():
-    """Two sources naming a different race for one person is something to
-    stop and look at, not something to pick between silently."""
-    def mangle(orig):
-        def patched(path, *a, **k):
-            d = orig(path, *a, **k)
-            if "basis" in d.columns:
-                extra = d[d.name == "William A. Rowe"].iloc[[0]].copy()
-                extra["race"] = "White"
-                d = pd.concat([d, extra], ignore_index=True)
-            return d
-        return patched
-    err = breaks(board_members.pd, "read_csv", mangle, build=board_members.build)
+    """Two sources naming a different race for one person."""
+    def contradict(d):
+        extra = d[d.name == "William A. Rowe"].iloc[[0]].copy()
+        extra["race"] = "White"
+        return pd.concat([d, extra], ignore_index=True)
+    err = breaks(board_members.pd, "read_csv",
+                 patch_csv(board_members, lambda d: "basis" in d.columns, contradict),
+                 build=board_members.build)
     assert err and "disagree" in err, f"not caught: {err}"
 
+
 def test_party_must_account_for_the_same_seats():
-    """The third split of the same seats. A term whose party maps to no
-    column would thin board_party while board_race stayed whole, and nothing
-    else would say so. The mangle gives one 1975 term a party the seat
-    table has no column for, leaving race and gender untouched.
-    """
+    """One term with a party the seat table has no column for."""
     def mangle(orig):
         def patched(members):
-            d = orig(members)
-            d = d.copy()
-            first = d.index[d.year == 1975][0]
-            d.loc[first, "party"] = "whig"
+            d = orig(members).copy()
+            d.loc[d.index[d.year == 1975][0], "party"] = "whig"
             return d
         return patched
     err = breaks(board_seats, "months_held", mangle)
@@ -211,11 +183,7 @@ def test_party_must_account_for_the_same_seats():
 
 
 def test_an_unknown_party_label_stops_the_build():
-    """The county prints a party in parentheses after a winner's name, and the
-    build maps each label it knows to what it records. A label it has never
-    seen - a misread, or a group nobody has looked up - must not fall quietly
-    into "independent" or into "not recorded"; it is a decision for a person.
-    """
+    """A county party label the build has never seen."""
     def mangle(orig):
         def patched():
             labels = orig()
@@ -227,26 +195,19 @@ def test_an_unknown_party_label_stops_the_build():
 
 
 def test_reporting_cannot_overrule_a_party_the_county_prints():
-    """Reporting fills in where the county prints "(I)" or nothing. Where the
-    county names a party, a source saying otherwise is a finding to look at,
-    not a value to take."""
-    def mangle(orig):
-        def patched(path, *a, **k):
-            d = orig(path, *a, **k)
-            if "quote" in d.columns and "party" in d.columns:     # the party attributions
-                extra = d.iloc[[0]].copy()
-                extra["name"], extra["start_year"], extra["party"] = "Mary Margaret Whipple", 1983, "Republican"
-                d = pd.concat([d, extra], ignore_index=True)
-            return d
-        return patched
-    err = breaks(board_members.pd, "read_csv", mangle, build=board_members.build)
+    """Reporting that contradicts a party the county prints."""
+    def contradict(d):
+        extra = d.iloc[[0]].copy()
+        extra["name"], extra["start_year"], extra["party"] = "Mary Margaret Whipple", 1983, "Republican"
+        return pd.concat([d, extra], ignore_index=True)
+    err = breaks(board_members.pd, "read_csv",
+                 patch_csv(board_members, lambda d: {"quote", "party"} <= set(d.columns), contradict),
+                 build=board_members.build)
     assert err and "county lists (D)" in err, f"not caught: {err}"
 
 
 def test_a_citekey_with_no_bibliography_entry_is_rejected():
-    """A source cell naming an entry that does not exist in sources.bib is a
-    number in the report that cannot be traced to a document. That is exactly
-    the silent kind: the figure still draws, and the citation points nowhere."""
+    """A source cell naming no entry in sources.bib."""
     try:
         citekeys.check(["novack1994 p.4", "oleary2O10 p.6"], "board_members.csv")
         err = None
@@ -256,9 +217,7 @@ def test_a_citekey_with_no_bibliography_entry_is_rejected():
 
 
 def test_a_placeholder_is_allowed_and_counted():
-    """The placeholders are the way to say "we do not know yet" without
-    stopping the build - draft work over an incomplete record needs one. They
-    must pass, and must come back counted so every run reports them."""
+    """The placeholders pass, and come back counted."""
     counts = citekeys.check(
         [citekeys.ASSUMED, citekeys.ASSUMED, citekeys.UNSOURCED], "x.csv")
     assert counts[citekeys.ASSUMED] == 2, counts
@@ -268,10 +227,7 @@ def test_a_placeholder_is_allowed_and_counted():
 # --- guards on the turnout series ---------------------------------------------
 
 def test_more_board_voters_than_registered_voters_is_rejected():
-    """A Board contest's votes read as voters, in a two-seat year, or a
-    total read as a per-candidate figure, would put the Board line above
-    the registered line - and the figure would draw it. The mangle makes
-    2020's registration smaller than its Board vote."""
+    """A year's registration smaller than its Board vote."""
     def mangle(orig):
         def patched():
             r = orig()
@@ -283,9 +239,7 @@ def test_more_board_voters_than_registered_voters_is_rejected():
 
 
 def test_more_board_voters_than_presidential_voters_is_rejected():
-    """The same guard against the presidential vote, which reaches back to
-    1932 where registration does not. The mangle doubles 1972's Board
-    vote, as counting a two-seat year's votes as one seat's would."""
+    """A year's Board vote larger than its presidential vote."""
     def mangle(orig):
         def patched(roster):
             b = orig(roster)
@@ -297,13 +251,7 @@ def test_more_board_voters_than_presidential_voters_is_rejected():
 
 
 def test_registration_refuses_a_locality_total_that_is_not_its_precincts():
-    """The state's registration CSV names its columns backwards: the ones
-    called ...Locality hold the whole state's totals, and the ones called
-    ...PrecinctLocality hold the locality's. Reading the wrong one gives
-    Arlington five million registered voters, and nothing downstream would
-    object - the Board's voters are comfortably below it. The fetch checks
-    the total it takes against the sum of Arlington's own precinct rows.
-    """
+    """A locality total that is not the sum of the locality's precincts."""
     head = ("Locality,PrecinctCode,PrecinctName,ActiveVoters,InactiveVoters,AllVoters,"
             "TotalPrecinctsInLocality,TotalActiveVotersPrecinctLocality,"
             "TotalInActiveVotersPrecinctLocality,TotalAllVotersPrecinctLocality,"
@@ -324,31 +272,9 @@ def test_registration_refuses_a_locality_total_that_is_not_its_precincts():
 # --- the documentation names real files ---------------------------------------
 
 def test_a_source_we_cannot_fully_cite_is_logged_as_a_question():
-    """An entry whose annotation admits it is provisional must be named in
-    docs/questions.csv.
-
-    A source we cannot fully cite is a debt, and the failure is silent: the
-    bibliography prints a clean-looking line, the figure that rests on it
-    builds, and the one place the shortfall was written down is an annotation
-    biblatex never renders. The question tracker is docs/questions.csv, and
-    the citekey has to appear in a row of it. POP-TWPS0076 is the live case - the Bureau
-    publishes it as one table per state with no front matter, so its title is
-    read off a table header and its date off a file path.
-
-    This makes the debt impossible to hold quietly: mark an entry provisional
-    and the build demands a question with an owner, which is where the decision
-    about how the report says so will live.
-    """
-    import re
-    root = Path(__file__).resolve().parents[1]
-    bib = (root / "paper" / "sources.bib").read_text()
-    questions = (root / "docs" / "questions.csv").read_text()
-
-    unlogged = []
-    for entry in re.findall(r"^@\w+\{([^,\s]+)\s*,(.*?)^\}", bib, re.M | re.S):
-        key, body = entry
-        if re.search(r"PROVISIONAL|INCOMPLETE", body) and key not in questions:
-            unlogged.append(key)
+    """A bib entry marked provisional that docs/questions.csv does not name."""
+    unlogged = [key for key, body in bib_entries()
+                if re.search(r"PROVISIONAL|INCOMPLETE", body) and key not in questions()]
     assert not unlogged, (
         f"{', '.join(unlogged)}: the annotation says the entry is provisional, "
         f"but docs/questions.csv never names it. Log it as a question with an "
@@ -356,89 +282,46 @@ def test_a_source_we_cannot_fully_cite_is_logged_as_a_question():
 
 
 def test_every_source_with_a_url_is_filed():
-    """A source read from the web is filed in Drive, or held in data/raw/,
-    or its absence is a logged question. "Not yet filed" is not a state.
-
-    A web page moves or disappears, and then a citation names something
-    nobody can open. The failure is silent: the footnote prints, the
-    argument stands on it, and the copy that would settle a dispute was
-    never taken. So every entry with a `url` field must say where its copy
-    is - "Filed in Drive as" in the annotation, or a path under data/raw/ -
-    unless docs/questions.csv names the key, which is how a document not in
-    hand (bestebreurtje2017) is carried. And no annotation may say a source
-    is not filed: filing a web page takes a minute, so the words are a task
-    left undone rather than a fact worth recording.
-    """
-    import re
-    root = Path(__file__).resolve().parents[1]
-    bib = (root / "paper" / "sources.bib").read_text()
-    questions = (root / "docs" / "questions.csv").read_text()
+    """A bib entry with a url that names no copy on file ("Filed in Drive
+    as", or a path under data/raw/) and is not a logged question; or one
+    that says it is not filed."""
     problems = []
-    for key, body in re.findall(r"^@\w+\{([^,\s]+)\s*,(.*?)^\}", bib, re.M | re.S):
+    for key, body in bib_entries():
         if re.search(r"not\s+(?:yet\s+)?filed", body, re.I):
             problems.append(f"{key}: says it is not filed - file it in Drive and say so")
         has_url = re.search(r"^\s*url\s*=", body, re.M)
         held = "Filed in Drive as" in body or "data/raw/" in body
-        if has_url and not held and key not in questions:
+        if has_url and not held and key not in questions():
             problems.append(f"{key}: has a url but names no copy - add 'Filed in Drive as \"...\"' "
                             f"or the path under data/raw/, or log a question naming the key")
     assert not problems, "sources with no copy on file:\n  " + "\n  ".join(problems)
 
 
 def test_docs_name_only_paths_that_exist():
-    """Every path a document names must exist.
-
-    This is how documentation rots: a file is renamed or retired and the
-    prose that pointed at it keeps pointing. One day's work left the docs
-    naming a retired CSV, a folder that had been renamed twice, and a
-    layout that no longer existed. A path in backticks is a claim that the
-    thing is there; this checks the claim on every build.
-
-    Covers the root and docs/ Markdown, the skill docs under
-    .claude/skills/*/SKILL.md - all three name paths in backticks - and
-    paper/sources.bib and paper/arlington-bsap.tex, where a path sits in
-    an annotation or a TeX comment as a bare word instead. Only paths
-    under the repository's top-level folders are checked, so a backticked
-    column name or a shell command is left alone. Globs and placeholders
-    (`*`, `<year>`) are skipped in both forms.
-    """
-    import re
-    root = Path(__file__).resolve().parents[1]
+    """A path named in the docs, the skill, sources.bib or the paper that
+    does not exist. Markdown names paths in backticks; the bib and the
+    .tex as bare words. Globs and placeholders are skipped."""
     tops = ("code/", "data/", "docs/", "figures/", "paper/", "style/")
     missing = []
-
-    backticked = [*root.glob("*.md"), *root.glob("docs/*.md"),
-                  *root.glob(".claude/skills/*/SKILL.md")]
-    for doc in backticked:
+    for doc in [*ROOT.glob("*.md"), *ROOT.glob("docs/*.md"), *ROOT.glob(".claude/skills/*/SKILL.md")]:
         for m in re.finditer(r"`([^`\n]+)`", doc.read_text()):
             token = m.group(1).strip().rstrip("/")
             if not token.startswith(tops) or any(c in token for c in "*<>{}"):
                 continue
-            if not (root / token).exists():
-                missing.append(f"{doc.relative_to(root)}: `{token}`")
-
-    # sources.bib and the paper's own .tex name paths as bare words, not in
-    # backticks, so they are matched by pattern instead.
-    bare = [root / "paper" / "sources.bib", root / "paper" / "arlington-bsap.tex"]
-    for doc in bare:
-        for m in re.finditer(r"\b(?:code|data|docs|figures|paper|style)/[\w./-]+",
-                              doc.read_text()):
+            if not (ROOT / token).exists():
+                missing.append(f"{doc.relative_to(ROOT)}: `{token}`")
+    for doc in [ROOT / "paper" / "sources.bib", ROOT / "paper" / "arlington-bsap.tex"]:
+        for m in re.finditer(r"\b(?:code|data|docs|figures|paper|style)/[\w./-]+", doc.read_text()):
             token = m.group(0).rstrip(".,;)}")
             if any(c in token for c in "*<>{}"):
                 continue
-            if not (root / token).exists():
-                missing.append(f"{doc.relative_to(root)}: {token}")
-
+            if not (ROOT / token).exists():
+                missing.append(f"{doc.relative_to(ROOT)}: {token}")
     assert not missing, "documentation names paths that do not exist:\n  " + "\n  ".join(missing)
 
 
 def test_a_stale_input_table_is_refused():
-    """board_seats, voters and turnout read tables earlier steps wrote, so
-    the order of BUILD in run.sh is a dependency. paths.read() refuses a
-    table older than the run; this sets the run's start to the future and
-    asserts it does.
-    """
-    import os
+    """A clean table older than the run's start."""
     os.environ["RUN_STARTED"] = str(2e10)
     try:
         paths.read("board_members")
@@ -451,47 +334,31 @@ def test_a_stale_input_table_is_refused():
 
 
 def test_every_data_file_is_inventoried():
-    """data/contents.csv is the inventory: one row per file under data/,
-    and for raw/ the checksum. A file with no row is one nobody has said
-    where it came from; a row with no file is a claim about nothing, unless
-    the row says the file is fetched on demand; a raw file whose checksum
-    has moved has been edited, which data/raw/ never is. All three are
-    silent otherwise.
-    """
-    import csv
-    import hashlib
-    root = Path(__file__).resolve().parents[1]
-    data = root / "data"
+    """A file under data/ with no row in data/contents.csv, a row with no
+    file (unless fetched on demand), or a raw file whose checksum has moved."""
+    data = ROOT / "data"
     rows = {r["path"]: r for r in csv.DictReader((data / "contents.csv").open())}
-    on_disk = {str(p.relative_to(root)) for p in data.rglob("*")
+    on_disk = {str(p.relative_to(ROOT)) for p in data.rglob("*")
                if p.is_file() and not p.name.startswith(".") and p.name != "contents.csv"}
     missing = sorted(on_disk - set(rows))
     gone = sorted(p for p in set(rows) - on_disk if rows[p]["in_git"] == "yes")
     assert not missing, "files under data/ with no row in data/contents.csv:\n  " + "\n  ".join(missing)
     assert not gone, "rows in data/contents.csv for files that do not exist:\n  " + "\n  ".join(gone)
-    moved = [p for p, r in rows.items() if r["layer"] == "raw" and (root / p).exists()
-             and hashlib.sha256((root / p).read_bytes()).hexdigest()[:16] != r["sha256"]]
+    moved = [p for p, r in rows.items() if r["layer"] == "raw" and (ROOT / p).exists()
+             and hashlib.sha256((ROOT / p).read_bytes()).hexdigest()[:16] != r["sha256"]]
     assert not moved, ("raw files whose checksum does not match data/contents.csv - data/raw/ "
                        "is never edited:\n  " + "\n  ".join(moved))
 
 
 def test_docs_agree_with_run_sh():
-    """What the docs say about the build must match what run.sh does.
-
-    run.sh is the one place that knows the install command and the list of
-    figures. setup.md, README.md and CLAUDE.md each repeat one or both for a
-    reader who has not opened it, and that is where a changed dependency or
-    a sixth figure goes unmentioned. So: every `pip install` line in the
-    docs is the same as run.sh's, and every "N figures" is run.sh's count.
-    """
-    import re
-    root = Path(__file__).resolve().parents[1]
-    run = (root / "run.sh").read_text()
+    """A `pip install` line or an "N figures" in the docs that differs from
+    run.sh."""
+    run = (ROOT / "run.sh").read_text()
     install = re.search(r"pip install ([a-z0-9 ]+)", run).group(1).split()
     figures = re.search(r"FIGURES=\(([^)]*)\)", run, re.S).group(1).split()
     words = {3: "three", 4: "four", 5: "five", 6: "six", 7: "seven", 8: "eight"}
     problems = []
-    for doc in [root / "README.md", root / "CLAUDE.md", root / "docs" / "setup.md"]:
+    for doc in [ROOT / "README.md", ROOT / "CLAUDE.md", ROOT / "docs" / "setup.md"]:
         text = doc.read_text()
         for m in re.finditer(r"pip install ([a-z0-9 ]+)", text):
             if m.group(1).split() != install:
