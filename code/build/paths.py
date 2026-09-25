@@ -65,7 +65,7 @@ def read(stem):
 
 
 def write(frame, stem):
-    """Write a built dataset to data/<stem>.csv, matching this script's name."""
+    """Write a built dataset to data/clean/<stem>.csv, matching this script's name."""
     CLEAN.mkdir(parents=True, exist_ok=True)
     path = CLEAN / f"{stem}.csv"
     counts = citekeys.check(

@@ -149,7 +149,7 @@ admits to. Anything else stops the build.
 **Guards that prevent silent wrongness get a test.** `code/tests.py` reintroduces
 the specific mistake each guard exists to catch and asserts the build refuses,
 so editing `code/build/` cannot quietly disable a check. `bash run.sh` runs it first;
-it takes under a second.
+it takes about five seconds.
 
 Only silent failures are worth this. A figure script saving under the wrong
 name halts the build with an error in your face; the Freedman village check

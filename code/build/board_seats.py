@@ -178,6 +178,7 @@ def build() -> pd.DataFrame:
         f"{list(off.astype(int))}")
     blank = d.loc[(d.year < AT_LARGE_FROM) & d[PARTY_COLUMNS].notna().any(axis=1), "year"]
     assert blank.empty, f"party is recorded before {AT_LARGE_FROM} in {list(blank.astype(int))}"
+
     return d
 
 

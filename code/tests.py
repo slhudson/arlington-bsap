@@ -1,6 +1,6 @@
 """Tests that the build's guards still work.
 
-    .venv/bin/python tests.py
+    .venv/bin/python code/tests.py
 
 The build already refuses bad data. What these test is that it still refuses -
 so that editing code/build/ cannot quietly disable a check. Each test reintroduces
@@ -356,7 +356,7 @@ def test_a_source_we_cannot_fully_cite_is_logged_as_a_question():
 
 
 def test_docs_name_only_paths_that_exist():
-    """Every path a document names in backticks must exist.
+    """Every path a document names must exist.
 
     This is how documentation rots: a file is renamed or retired and the
     prose that pointed at it keeps pointing. One day's work left the docs
@@ -364,22 +364,41 @@ def test_docs_name_only_paths_that_exist():
     layout that no longer existed. A path in backticks is a claim that the
     thing is there; this checks the claim on every build.
 
-    Only paths under the repository's top-level folders are checked, so a
-    backticked column name or a shell command is left alone. Globs and
-    placeholders (`*`, `<year>`) are skipped.
+    Covers the root and docs/ Markdown, the skill docs under
+    .claude/skills/*/SKILL.md - all three name paths in backticks - and
+    paper/sources.bib and paper/arlington-bsap.tex, where a path sits in
+    an annotation or a TeX comment as a bare word instead. Only paths
+    under the repository's top-level folders are checked, so a backticked
+    column name or a shell command is left alone. Globs and placeholders
+    (`*`, `<year>`) are skipped in both forms.
     """
     import re
     root = Path(__file__).resolve().parents[1]
     tops = ("code/", "data/", "docs/", "figures/", "paper/", "style/")
-    docs = [*root.glob("*.md"), *root.glob("docs/*.md")]
     missing = []
-    for doc in docs:
+
+    backticked = [*root.glob("*.md"), *root.glob("docs/*.md"),
+                  *root.glob(".claude/skills/*/SKILL.md")]
+    for doc in backticked:
         for m in re.finditer(r"`([^`\n]+)`", doc.read_text()):
             token = m.group(1).strip().rstrip("/")
             if not token.startswith(tops) or any(c in token for c in "*<>{}"):
                 continue
             if not (root / token).exists():
                 missing.append(f"{doc.relative_to(root)}: `{token}`")
+
+    # sources.bib and the paper's own .tex name paths as bare words, not in
+    # backticks, so they are matched by pattern instead.
+    bare = [root / "paper" / "sources.bib", root / "paper" / "arlington-bsap.tex"]
+    for doc in bare:
+        for m in re.finditer(r"\b(?:code|data|docs|figures|paper|style)/[\w./-]+",
+                              doc.read_text()):
+            token = m.group(0).rstrip(".,;)}")
+            if any(c in token for c in "*<>{}"):
+                continue
+            if not (root / token).exists():
+                missing.append(f"{doc.relative_to(root)}: {token}")
+
     assert not missing, "documentation names paths that do not exist:\n  " + "\n  ".join(missing)
 
 

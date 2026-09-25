@@ -356,6 +356,14 @@ def build() -> pd.DataFrame:
         f"{[int(y) for y in d.loc[d.race_source == '', 'year']]}")
 
     d["residents_per_seat"] = d["total"] / d["board_seats"]
+
+    # Written as counts, not floats: the source values are all whole numbers,
+    # and dtype=float above was only a computing convenience. Int64 (nullable)
+    # keeps a genuine blank - aapi in 1940, hisp before 1980 - as blank rather
+    # than 0 or NaN-as-float.
+    d["year"] = d["year"].astype(int)
+    for col in ("total", "white", "black", "hisp", "aapi", "board_seats"):
+        d[col] = d[col].astype("Int64")
     return d
 
 
