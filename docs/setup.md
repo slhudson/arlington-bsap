@@ -196,7 +196,7 @@ the Drive folder, and they change, so check before relying on one.
   your computer", into `~/Downloads` as `<image id>.jpg`, sometimes with
   no extension for 1880 sheets, so add it. A click that lands off the Save
   button fails silently: take the button's ref from `find("Save button")`
-  and check `~/Downloads` before moving on. Two tabs in one tab group can
+  and check `~/Downloads` before moving on. Read a sheet's street labels by cropping at full resolution and rotating 270: they print sideways, and the index misreads both street and house number. Two tabs in one tab group can
   run batches at once. Hill's Arlington
   County directories are not in Ancestry's city-directory collection; its
   Alexandria volumes cover the 1930s and 1940s only.
