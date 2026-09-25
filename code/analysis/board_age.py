@@ -3,8 +3,8 @@
 Three lines over the years: the oldest, the median and the youngest member
 sitting on 1 July, in whole years from a birth year, with the 1932 rule.
 A year is drawn when all but at most one of the members sitting that year
-have a birth year; other years are gaps. docs/figures.md says why the
-lines start in 1932.
+have a birth year; other years are gaps. The axis runs from 1870 like the
+other Board figures, with nothing drawn before 1932; docs/figures.md says why.
 """
 import numpy as np
 import pandas as pd
@@ -43,7 +43,7 @@ for profile in style.PROFILES:
     fig, ax = charts.figure(profile)
     charts.lines(ax, d.year.to_numpy(), series, marker=False)
     charts.ages(ax, 20, 80)
-    charts.years(ax, 1930, 2020, step=20, label="year", through=LAST + 1)
+    charts.years(ax, 1870, 2020, step=20, label="year", through=LAST + 1)
     charts.rule(ax)
     last = d[d.oldest.notna()].iloc[-1]
     for key, where in (("oldest", "above"), ("median", "above"), ("youngest", "below")):

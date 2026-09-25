@@ -276,7 +276,8 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
   handover month goes to the incoming member as the seat table counts it.
   A year is drawn only when all but at most one of the sitting members
   have a birth year: a median of two of five is not a median. The lines
-  start in 1932, where the census listings begin to cover the Board;
+  start in 1932, where the census listings begin to cover the Board, and
+  the axis still runs from 1870 so the empty stretch is visible;
   before 1932 the rule is met in eight scattered years of a three-seat
   Board, which as fragments would read as noise. Gaps after 1932 are
   years where two or more members have no birth year, and they are left

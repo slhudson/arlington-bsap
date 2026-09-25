@@ -23,7 +23,8 @@ are explained in `code/build/citekeys.py`, and what is still open is in
 - Birth years, for 86 of 119 members, rest on the census listings' ages and
   on an age stated in an obituary or a profile, each right to within a
   year, and the sitting-age figure draws a year only when all but at most
-  one sitting member has one (`age-at-service`).
+  one sitting member has one. The figure is not in the paper yet, and its
+  lines start in 1932 on an axis that still runs from 1870.
 - 1912–1931 has no roster; the 1923 and 1927 names are not entered
   (`roster-1912-1931`).
 - The November 1903 winners are seated in January on sec. 112 without the
