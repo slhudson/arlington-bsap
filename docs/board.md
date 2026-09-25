@@ -14,6 +14,12 @@ are explained in `code/build/citekeys.py`, and what is still open is in
   and the five Reconstruction-era members rest on Hjerpe's census linking
   (`default-1931-1986`).
 - Gender is read from names for most of the roster (`gender-from-names`).
+- For 33 members first seated 1932–1966 and 16 first seated 1870–1904,
+  race and gender come from 53 census records, each index reading checked
+  against the sheet where the row could be found on it; the match
+  to the member rests on the name, Arlington and, where the index gives
+  one, an occupation, a spouse or a street, and four of that era were found
+  in no census (B. M. Smith, H. L. Brown Jr, T. W. Richards, R. L. Lowry).
 - 1912–1931 has no roster; the 1923 and 1927 names are not entered
   (`roster-1912-1931`).
 - The November 1903 winners are seated in January on sec. 112 without the
@@ -27,8 +33,7 @@ are explained in `code/build/citekeys.py`, and what is still open is in
 - Where members lived is transcribed but not yet coded, and the 1973 Post map
   that places a whole Board at once has not been seen (`mathews1973-map`);
   seven of the 37 members first seated 1932–1962 have none
-  (`residence-1932-1962`), and 28 of the rows are census index records whose
-  match to the member rests on a name (`census-demographics`), 10 of the 25 seated 1964–1999 have none
+  (`residence-1932-1962`), 10 of the 25 seated 1964–1999 have none
   (`residence-1964-1999`), two rows postdate the member's service
   (`residence-after-service`), and for Thomas, Tillema and Massey two
   sources name different places (`thomas-residence`, `tillema-residence`,
