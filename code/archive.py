@@ -413,8 +413,9 @@ def main():
     else:
         print(f"index: would write {index_path} ({len(index.splitlines())} lines)")
 
+    renamed = dict(moves) if a.apply else {}   # `present` names the files as they were before --apply moved them
     size = sum((ROOT / p).stat().st_size for p in scans if p not in absent) \
-        + sum((documents / p).stat().st_size for p in present)
+        + sum((documents / renamed.get(p, p)).stat().st_size for p in present)
     if not a.apply:
         print(f"zip: would build {zip_path} (documents and scans {size >> 20}MB before the repository)")
     elif changed or dirty:
