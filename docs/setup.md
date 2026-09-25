@@ -92,7 +92,7 @@ writes which file — while `CLAUDE.md` holds the working rules.
        python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflakes
 
 5. **A successful build.** `bash run.sh` from the repository folder should
-   print the tests, a build step, eight figures, and a line about
+   print the tests, a build step, ten figures, and a line about
    `figures/pdf` and `figures/png`. That is the test that everything works.
    Invoke it through `bash`, not `./run.sh`; `run.sh` says why at the top.
 6. **The Overleaf project open and synced.** In Overleaf, the GitHub link
@@ -203,8 +203,20 @@ the Drive folder, and they change, so check before relying on one.
 - **ProQuest** (the Post 1877–2001, including the 11 November 1973
   residence map): a UVA or public-library login; neither was available.
 - **washingtonpost.com**: refuses curl and the built-in browser; in Chrome
-  the archive pages show two paragraphs once a few have been read. The
-  older `wp-dyn` pages (about 2005–2010) read in full.
+  the archive pages show two paragraphs once a few have been read, and
+  now and then a whole article. The older `wp-dyn` and `wp-srv` pages
+  (about 1998–2010) read in full. The Post's own search,
+  `washingtonpost.com/search/?query=%22Full+Name%22+Arlington`, works in
+  Chrome and lists archive articles back to 1977 with their dates; the
+  result links' addresses come from `read_page`, not from clicking, which
+  opens nothing. An obituary's or a profile's age is usually in the first
+  two paragraphs, so a paywalled page can still give it. Nothing before
+  1977 is there: the Northern Virginia Sun on Virginia Chronicle is the
+  route for the 1960s.
+- **arlingtonva.us and dignitymemorial.com** refuse curl and, mostly,
+  automated fetchers, but render in the built-in browser; a page held that
+  way is copied into a plain page as text and printed, and the annotation
+  says so.
 - **Claude in Chrome's JavaScript tool** refuses to return any output that
   contains `?`, `&` or `=`; strip them before returning. A worktree has no
   `.venv`; a symlink to the primary checkout's works, and pymupdf there

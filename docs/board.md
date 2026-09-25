@@ -20,6 +20,10 @@ are explained in `code/build/citekeys.py`, and what is still open is in
   to the member rests on the name, Arlington and, where the index gives
   one, an occupation, a spouse or a street, and four of that era were found
   in no census (B. M. Smith, H. L. Brown Jr, T. W. Richards, R. L. Lowry).
+- Birth years, for 86 of 119 members, rest on the census listings' ages and
+  on an age stated in an obituary or a profile, each right to within a
+  year, and the sitting-age figure draws a year only when all but at most
+  one sitting member has one (`age-at-service`).
 - 1912–1931 has no roster; the 1923 and 1927 names are not entered
   (`roster-1912-1931`).
 - The November 1903 winners are seated in January on sec. 112 without the
@@ -201,7 +205,22 @@ seats filled. Where a seat sat empty, each serving member represented more
 people than the figure shows. Whether to divide by the filled count instead,
 which would make the growth figure depend on the roster, is open.
 
-## Race and gender of Board members
+## Race, gender and birth year of Board members
+
+Birth years come from the same file as race and gender, one row per
+source, and reach `board_members.csv` as `birth_year` with a source and a
+note; with no source the year is blank and `unsourced`, since no standing
+assumption stands in. A census listing gives an age, and the year is the
+census year less the age, so it is right to within a year; an obituary or
+a profile gives a birth date, or an age on a date, and the row's basis says
+which. For members seated 1960 on the sources are obituaries on legacy.com,
+Dignity Memorial and InsideNoVa, candidate profiles in the Connection,
+ARLnow and Patch, a Senate of Virginia member page, and the Post's archive
+where it shows the paragraph that carries the age. The build refuses a year
+that would seat a member under 18 or over 100, and two sources disagreeing
+stop it. `election_year` on each elected term is the election that seated
+it, a January start following a November election, so a figure can
+subtract without re-deriving that rule.
 
 Race and gender come from `data/transcribed/by_claude/board_demographics.csv`,
 one row per claim a source makes about a member, in the source's own words

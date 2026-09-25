@@ -170,6 +170,18 @@ def test_two_sources_disagreeing_on_race_is_a_finding():
     assert err and "disagree" in err, f"not caught: {err}"
 
 
+def test_a_birth_year_after_the_seating_is_rejected():
+    """A birth year that makes a member a child when first seated."""
+    def misread(d):
+        extra = d[d.name == "William A. Rowe"].iloc[[0]].copy()
+        extra["name"], extra["race"], extra["birth_year"] = "Harold J. Casto", "", "1953"
+        return pd.concat([d, extra], ignore_index=True)
+    err = breaks(board_members.pd, "read_csv",
+                 patch_csv(board_members, lambda d: "race" in d.columns, misread),
+                 build=board_members.build)
+    assert err and "age when first seated" in err, f"not caught: {err}"
+
+
 def test_party_must_account_for_the_same_seats():
     """One term with a party the seat table has no column for."""
     def mangle(orig):
@@ -356,7 +368,7 @@ def test_docs_agree_with_run_sh():
     run = (ROOT / "run.sh").read_text()
     install = re.search(r"pip install ([a-z0-9 ]+)", run).group(1).split()
     figures = re.search(r"FIGURES=\(([^)]*)\)", run, re.S).group(1).split()
-    words = {3: "three", 4: "four", 5: "five", 6: "six", 7: "seven", 8: "eight"}
+    words = {3: "three", 4: "four", 5: "five", 6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten"}
     problems = []
     for doc in [ROOT / "README.md", ROOT / "CLAUDE.md", ROOT / "docs" / "setup.md"]:
         text = doc.read_text()

@@ -1,12 +1,15 @@
 """Who served on the Board, when, and who they were -> data/clean/board_members.csv
 
-One row per person per term, from board_roster.py, with race and gender
-attached per person and party per term, each with its own source and note.
+One row per person per term, from board_roster.py, with race, gender and
+birth year attached per person and party per term, each with its own
+source and note, and the year of the election that seated each elected
+term.
 
-Race and gender: data/transcribed/by_claude/board_demographics.csv, a
-source's own words about a named member with a citation; otherwise
-`assumed`, a white man. An attributed name must match a roster name
-exactly. docs/board.md has the reasoning.
+Race, gender and birth year: data/transcribed/by_claude/board_demographics.csv,
+a source's own words about a named member with a citation; otherwise race
+and gender are `assumed`, a white man, and the birth year is blank and
+`unsourced`. An attributed name must match a roster name exactly.
+docs/board.md has the reasoning.
 
 Party, per term, from the first of three sources that speaks:
 
@@ -36,6 +39,15 @@ BY_CLAUDE = TRANSCRIBED / "by_claude"
 # The county's labels are elections.LABELS; the state's names are mapped here.
 STATE_PARTIES = {"Democratic": "Democratic", "Republican": "Republican",
                  "Independent": "independent", "Green": "independent"}
+
+# What board_demographics.csv attributes per person, and what a person is
+# when no source speaks: race and gender have a standing assumption, a birth
+# year has none.
+ATTRIBUTED = {"race": "White", "gender": "man", "birth_year": ""}
+
+# A birth year that puts a member outside this range of ages when first
+# seated is a misreading, not a finding.
+AGE_WHEN_SEATED = (18, 100)
 
 
 def quoted(basis, quotes) -> str:
@@ -136,13 +148,17 @@ def party_of(t, labels, state, att):
 
 
 def attributions() -> pd.DataFrame:
-    """One row per person from the sourced file: race and gender, each with
-    every source and note joined. Two sources disagreeing stops the build."""
-    a = pd.read_csv(BY_CLAUDE / "board_demographics.csv").fillna("")
+    """One row per person from the sourced file: race, gender and birth year,
+    each with every source and note joined. Two sources disagreeing stops
+    the build."""
+    a = pd.read_csv(BY_CLAUDE / "board_demographics.csv", dtype=str).fillna("")
+    missing = [f for f in ATTRIBUTED if f not in a.columns]
+    if missing:
+        raise ValueError(f"board_demographics.csv has no {', '.join(missing)} column")
 
     def fold(rows):
         out = {}
-        for field in ("race", "gender"):
+        for field in ATTRIBUTED:
             has = rows[rows[field] != ""]
             vals = sorted(set(has[field]))
             if len(vals) > 1:
@@ -171,20 +187,44 @@ def build() -> pd.DataFrame:
     rows = []
     for _, t in d.iterrows():
         row = dict(t)
+        row["election_year"] = (election_year(t) if t.seated_by in
+                                (board_roster.ELECTION, board_roster.SPECIAL_ELECTION) else "")
         row["party"], row["party_source"], row["party_note"] = (
             party_of(t, labels, state, parties) if t.start_year >= AT_LARGE_FROM else ("", "", ""))
         att = a.loc[t["name"]] if t["name"] in a.index else None
-        for field, default in (("race", "White"), ("gender", "man")):
+        for field, default in ATTRIBUTED.items():
             row[field], row[f"{field}_source"], row[f"{field}_note"] = (
                 (att[field], att[f"{field}_source"], att[f"{field}_note"])
-                if att is not None and att[field] else (default, citekeys.ASSUMED, ""))
+                if att is not None and att[field]
+                else (default, citekeys.ASSUMED if default else citekeys.UNSOURCED, ""))
         rows.append(row)
 
+    out = pd.DataFrame(rows)
+    check_birth_years(out)
     cols = ["name", "term_number", "district", "start_year", "start_month",
-            "end_year", "end_month", "seated_by", "source", "note",
+            "end_year", "end_month", "seated_by", "election_year", "source", "note",
             "race", "race_source", "race_note", "gender", "gender_source", "gender_note",
+            "birth_year", "birth_year_source", "birth_year_note",
             "party", "party_source", "party_note"]
-    return pd.DataFrame(rows)[cols]
+    return out[cols]
+
+
+def check_birth_years(members):
+    """A birth year is a four-digit year, and the member's age when first
+    seated falls in AGE_WHEN_SEATED."""
+    has = members[members.birth_year != ""]
+    bad = has[~has.birth_year.str.fullmatch(r"\d{4}")]
+    if len(bad):
+        raise ValueError("birth_year must be a four-digit year:\n"
+                         + "\n".join(f"  {r['name']!r}: {r.birth_year!r}" for _, r in bad.iterrows()))
+    first = has.sort_values(["start_year", "start_month"]).groupby("name").first()
+    age = first.start_year - first.birth_year.astype(int)
+    lo, hi = AGE_WHEN_SEATED
+    off = first[(age < lo) | (age > hi)]
+    if len(off):
+        raise ValueError(f"age when first seated is outside {lo}-{hi}; check the birth year:\n"
+                         + "\n".join(f"  {n!r}: born {r.birth_year}, seated {r.start_year}"
+                                     for n, r in off.iterrows()))
 
 
 if __name__ == "__main__":

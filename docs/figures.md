@@ -255,6 +255,36 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
   in any year gets no band and no legend entry, because an empty swatch
   reads as a sliver too small to see rather than as zero, and the absence is
   a finding for the prose. The test is on the data, not the category name.
+- **board_age_coverage.** A diagnostic: of the members sitting on 1 July
+  of each year, how many have a birth year and how many do not, as a
+  stacked step area on the seat axis, so it reads like the seat figures
+  and a reader can see at once which years the age figure can stand on.
+  Counts rather than a share, because two of three and four of five are
+  different situations and a share would say they were the same. With a
+  birth year takes the sand, without takes the no-evidence grey, as
+  "not recorded" does on the party chart. Years with no roster are gaps.
+- **board_age.** The ages of the members sitting on 1 July of each year,
+  as three lines: the oldest, the median and the youngest. The Board's
+  age composition is the question, not the age at which people arrive, so
+  the lines follow the sitting Board rather than marking each member once
+  at first election; and three lines rather than a band, because a band
+  hides the median and a band's edges are exactly these two lines. An age
+  is whole years from a birth year, so every point is right to within a
+  year; most sources give an age at a date, and a birth date would not
+  tighten it. 1 July, because a Board seated in January and reshuffled by
+  a November election is the same five people at mid-year, and the
+  handover month goes to the incoming member as the seat table counts it.
+  A year is drawn only when all but at most one of the sitting members
+  have a birth year: a median of two of five is not a median. The lines
+  start in 1932, where the census listings begin to cover the Board;
+  before 1932 the rule is met in eight scattered years of a three-seat
+  Board, which as fragments would read as noise. Gaps after 1932 are
+  years where two or more members have no birth year, and they are left
+  open rather than bridged. The envelope takes the stroke neutral and the
+  median the growth figure's dark grey, since nothing here is a category,
+  and the lines are named at their ends, above and below, rather than in a
+  legend. The axis runs 20 to 80, round ticks either side of the data,
+  from 1930 so the 1932 rule sits where the series starts.
 - **voters_president.** Stacked bars, because an election is a point in
   time; a step would claim the share held for four years. Incomplete years
   are left out rather than drawn short.

@@ -6,6 +6,7 @@ each placement is in docs/figures.md.
 
     series()        a {label: (values, colour)} from a table and a frame
     lines()         a series over time
+    points()        one mark per observation, no line
     stacked_bars()  composition at intervals
     stacked_steps() composition over continuous years, with gaps preserved
     panels()        two of the above, side by side
@@ -50,6 +51,13 @@ def lines(ax, x, series, marker=True):
     A marker on every point unless marker=False."""
     for label, (values, color) in series.items():
         ax.plot(x, values, color=color, marker="o" if marker else None, zorder=3, label=label)
+
+
+def points(ax, x, y, color):
+    """One mark per observation and no line between them, for values that
+    are not a series: each is its own event."""
+    ax.plot(x, y, linestyle="none", marker="o", color=color, zorder=3,
+            markeredgecolor="white", markeredgewidth=0.5)
 
 
 def end_label(ax, x, y, text, color, where="left", gap=0.012):
@@ -266,6 +274,14 @@ def counts(ax, top, step, label="residents", minor=None):
         ax.yaxis.set_minor_locator(MultipleLocator(minor))
         ax.grid(axis="y", which="minor", color=plt.rcParams["grid.color"],
                 linewidth=plt.rcParams["grid.linewidth"] * 0.7, alpha=0.6)
+
+
+def ages(ax, low, high, step=10, label="age"):
+    """An age axis from `low` to `high`, both round ticks, labelled every
+    `step` years."""
+    ax.set_ylim(low, high)
+    ax.yaxis.set_major_locator(MultipleLocator(step))
+    ax.set_ylabel(label)
 
 
 def shares(ax, label="share of residents"):

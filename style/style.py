@@ -59,6 +59,18 @@ BOARD_VOTE = {**{k: PARTY[k] for k in ("dem", "abc", "unrecorded")},
               "other": ("other", GREY), "rep": PARTY["rep"]}
 POPULATION = ("total population", DARK)
 PER_SEAT = ("residents per Board seat", OKABE_ITO["vermilion"])
+# Which sitting members have a birth year: the mass in sand, none in the
+# no-evidence grey.
+AGE_COVERAGE = {
+    "known":   ("with a birth year", SAND),
+    "unknown": ("without", UNRECORDED),
+}
+# The sitting Board's ages: the envelope in the stroke neutral, the median dark.
+AGES = {
+    "oldest":   ("oldest", SAND_LINE),
+    "median":   ("median", DARK),
+    "youngest": ("youngest", SAND_LINE),
+}
 PRESIDENT = ("voted for President", DARK)
 CYCLE = {
     "president": ("presidential year", OKABE_ITO["vermilion"]),
