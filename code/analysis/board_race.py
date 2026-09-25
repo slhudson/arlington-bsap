@@ -1,6 +1,6 @@
 """Board seats by race/ethnicity, 1870-2026 -> figures/board_race.pdf, .png
 
-A stacked step area of seat-years in style.GROUP_ORDER, on the same frame
+A stacked step area of seat-years in style.RACE, on the same frame
 as board_gender, with the 1932 rule. Blank years are gaps. A category with
 no seat in any year gets no band and no legend entry.
 """
@@ -15,10 +15,9 @@ for profile in style.PROFILES:
 
     d = pd.read_csv(paths.BOARD_SEATS)
     spans = charts.runs(d["white"].notna().to_numpy())
-    held = [g for g in style.GROUP_ORDER if d[g].fillna(0).sum() > 0]
+    held = [g for g in style.RACE if d[g].fillna(0).sum() > 0]
     assert held, "no seat is attributed to any race category - check the build"
-    series = {style.GROUP_LABELS[g]: (d[g].fillna(0).to_numpy(), style.RACE_COLORS[g])
-              for g in held}
+    series = charts.series(d.fillna(0), style.RACE, held)
 
     fig, ax = charts.figure(profile)
     charts.stacked_steps(ax, d["year"].to_numpy(), series, spans)

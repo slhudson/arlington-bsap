@@ -2,7 +2,7 @@
 
 Two panels. (a) Counts, one line per group with a marker per census; White
 is clipped at TOP and marked where it leaves the axis. (b) Shares, as
-stacked bars in style.GROUP_ORDER with the residual between the counted
+stacked bars in style.RESIDENTS, the residual between the counted
 groups and White. One legend for both.
 """
 import numpy as np
@@ -18,38 +18,28 @@ for profile in style.PROFILES:
     style.apply(profile)
 
     c = pd.read_csv(paths.RESIDENTS)
-    groups = style.GROUP_ORDER                                 # black, hisp, aapi, white
+    groups = list(style.RACE)
 
     # A blank stays blank, so a line begins where the column does.
     counts = c[groups].astype(float)
-    residual = (c["total"] - c[groups].sum(axis=1)).clip(lower=0)
+    counts["other"] = (c["total"] - c[groups].sum(axis=1)).clip(lower=0).replace(0, np.nan)
 
-    shares = counts.div(c["total"], axis=0) * 100
-    residual_share = (100 - shares.fillna(0).sum(axis=1)).clip(lower=0)
+    shares = counts[groups].div(c["total"], axis=0) * 100
+    shares["other"] = (100 - shares.fillna(0).sum(axis=1)).clip(lower=0)
     shares = shares.fillna(0)
-
-    def bands(frame, resid):
-        out = {style.GROUP_LABELS[g]: (frame[g].to_numpy(), style.RACE_COLORS[g])
-               for g in ("black", "hisp", "aapi")}
-        out[style.OTHER_LABEL] = (np.asarray(resid), style.RESIDUAL_COLOR)
-        out[style.GROUP_LABELS["white"]] = (frame["white"].to_numpy(),
-                                            style.RACE_COLORS["white"])
-        return out
 
     fig, (a, b) = charts.panels(profile)
 
     # (a) White is drawn last, in the darker stroke, clipped at TOP.
-    lines = {style.GROUP_LABELS[g]: (counts[g], style.RACE_COLORS[g])
-             for g in ("black", "hisp", "aapi")}
-    lines[style.OTHER_LABEL] = (residual.replace(0, np.nan), style.RESIDUAL_COLOR)
-    lines[style.GROUP_LABELS["white"]] = (counts["white"], style.SAND_LINE)
+    lines = charts.series(counts, style.RESIDENTS)
+    lines[style.RACE["white"][0]] = (counts["white"], style.SAND_LINE)
     charts.lines(a, c["year"], lines)
     charts.counts(a, TOP, 5000)
     charts.years(a, 1870, 2020, step=20)
     charts.off_scale(a, c["year"], counts["white"], style.SAND_LINE, TOP)
     a.set_title("(a) number of residents")
 
-    stacked = bands(shares, residual_share)
+    stacked = charts.series(shares, style.RESIDENTS)
     charts.stacked_bars(b, c["year"], stacked)
     charts.shares(b)
     charts.years(b, 1870, 2020, step=20)

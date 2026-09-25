@@ -1,7 +1,7 @@
 """Share of Arlington's vote for President, by party, 1872-2024 -> figures/voters_president.pdf, .png
 
 Stacked bars of each band's share of the vote, one per election, in
-style.VOTERS_ORDER. Years the build marks incomplete are left out.
+style.VOTERS. Years the build marks incomplete are left out.
 """
 import pandas as pd
 
@@ -14,9 +14,8 @@ for profile in style.PROFILES:
 
     d = pd.read_csv(paths.VOTERS)
     d = d[(d.office == "president") & d.complete]
-    share = d[style.VOTERS_ORDER].div(d.total, axis=0) * 100
-    series = {style.VOTERS_LABELS[g]: (share[g].to_numpy(), style.VOTERS_COLORS[g])
-              for g in style.VOTERS_ORDER}
+    share = d[list(style.VOTERS)].div(d.total, axis=0) * 100
+    series = charts.series(share, style.VOTERS)
 
     fig, ax = charts.figure(profile)
     charts.stacked_bars(ax, d["year"].to_numpy(), series, width=3)

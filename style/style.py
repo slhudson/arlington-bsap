@@ -30,64 +30,42 @@ SAND_LINE = "#A3997F"     # the same, as a stroke
 GREY = "#8C8C8C"          # the residual
 UNRECORDED = "#DDDDDD"    # no evidence
 
-RACE_COLORS = {
-    "black": OKABE_ITO["orange"],
-    "hisp":  OKABE_ITO["bluish_green"],
-    "aapi":  OKABE_ITO["blue"],
-    "white": SAND,
-}
-GENDER_COLORS = {
-    "women": OKABE_ITO["reddish_purple"],
-    "men":   SAND,
-}
-SERIES_COLORS = {"population": "#5C5859", "per_seat": OKABE_ITO["vermilion"]}
-TURNOUT_COLORS = {"president": "#5C5859"}
-CYCLE_ORDER = ["president", "governor", "midterm", "delegates"]
-CYCLE_COLORS = {
-    "president": OKABE_ITO["vermilion"],
-    "governor":  OKABE_ITO["orange"],
-    "midterm":   OKABE_ITO["bluish_green"],
-    "delegates": OKABE_ITO["black"],
-}
-CYCLE_LABELS = {
-    "president": "presidential year",
-    "governor":  "governor's year",
-    "midterm":   "midterm year",
-    "delegates": "House of Delegates year",
-}
-PARTY_COLORS = {
-    "dem":        OKABE_ITO["sky_blue"],
-    "abc":        OKABE_ITO["yellow"],
-    "rep":        OKABE_ITO["vermilion"],
-    "ind":        GREY,
-    "unrecorded": UNRECORDED,
-}
-PARTY_ORDER = ["dem", "abc", "unrecorded", "ind", "rep"]        # axis upward
-PARTY_LABELS = {
-    "dem": "Democratic",
-    "abc": "ABC",
-    "rep": "Republican",
-    "ind": "independent",
-    "unrecorded": "not recorded",
-}
-VOTERS_ORDER = ["dem", "other", "rep"]
-VOTERS_COLORS = {"dem": PARTY_COLORS["dem"], "other": GREY, "rep": PARTY_COLORS["rep"]}
-VOTERS_LABELS = {"dem": "Democratic", "other": "other", "rep": "Republican"}
-BOARD_VOTE_ORDER = ["dem", "abc", "unrecorded", "other", "rep"]
-BOARD_VOTE_COLORS = {**PARTY_COLORS, "other": GREY}
-BOARD_VOTE_LABELS = {**PARTY_LABELS, "other": "other"}
+DARK = "#5C5859"          # a reference series
 
-RESIDUAL_COLOR = GREY
-GROUP_ORDER = ["black", "hisp", "aapi", "white"]                 # axis upward
-GROUP_LABELS = {
-    "black": "Black",
-    "hisp": "Hispanic or Latino",
-    "aapi": "Asian & Pacific Islander",
-    "white": "White",
+# One table per subject: column -> (legend label, colour), in stacking
+# order, axis upward.
+RACE = {
+    "black": ("Black", OKABE_ITO["orange"]),
+    "hisp":  ("Hispanic or Latino", OKABE_ITO["bluish_green"]),
+    "aapi":  ("Asian & Pacific Islander", OKABE_ITO["blue"]),
+    "white": ("White", SAND),
 }
-GENDER_ORDER = ["women", "men"]
-GENDER_LABELS = {"women": "women", "men": "men"}
-OTHER_LABEL = "Other or Multiracial"
+RESIDUAL = ("Other or Multiracial", GREY)
+RESIDENTS = {**{k: RACE[k] for k in ("black", "hisp", "aapi")},
+             "other": RESIDUAL, "white": RACE["white"]}
+GENDER = {
+    "women": ("women", OKABE_ITO["reddish_purple"]),
+    "men":   ("men", SAND),
+}
+PARTY = {
+    "dem":        ("Democratic", OKABE_ITO["sky_blue"]),
+    "abc":        ("ABC", OKABE_ITO["yellow"]),
+    "unrecorded": ("not recorded", UNRECORDED),
+    "ind":        ("independent", GREY),
+    "rep":        ("Republican", OKABE_ITO["vermilion"]),
+}
+VOTERS = {"dem": PARTY["dem"], "other": ("other", GREY), "rep": PARTY["rep"]}
+BOARD_VOTE = {**{k: PARTY[k] for k in ("dem", "abc", "unrecorded")},
+              "other": ("other", GREY), "rep": PARTY["rep"]}
+POPULATION = ("total population", DARK)
+PER_SEAT = ("residents per Board seat", OKABE_ITO["vermilion"])
+PRESIDENT = ("voted for President", DARK)
+CYCLE = {
+    "president": ("presidential year", OKABE_ITO["vermilion"]),
+    "governor":  ("governor's year", OKABE_ITO["orange"]),
+    "midterm":   ("midterm year", OKABE_ITO["bluish_green"]),
+    "delegates": ("House of Delegates year", OKABE_ITO["black"]),
+}
 
 # Same figure code, two destinations: the memo's PDF and the deck's PNG.
 PROFILES = {

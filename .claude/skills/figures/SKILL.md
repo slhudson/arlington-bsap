@@ -117,7 +117,7 @@ neither repeats the reasons.
 - **No textures.** Distinguish with colour.
 - **Name a residual for what is in it.** Check the data before writing the
   label. `Other, multiracial or unreported` was wrong: nothing in that band
-  is unreported. `style.OTHER_LABEL` carries the current name; `docs/figures.md` its basis.
+  is unreported. `style.RESIDUAL` carries the current name; `docs/figures.md` its basis.
 - The largest group takes a near-neutral. No group holds a saturated lead
   colour on a chart about representation.
 

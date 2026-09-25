@@ -14,8 +14,7 @@ for profile in style.PROFILES:
 
     d = pd.read_csv(paths.BOARD_SEATS)
     spans = charts.runs(d["women"].notna().to_numpy())
-    series = {style.GENDER_LABELS[g]: (d[g].fillna(0).to_numpy(), style.GENDER_COLORS[g])
-              for g in style.GENDER_ORDER}
+    series = charts.series(d.fillna(0), style.GENDER)
 
     fig, ax = charts.figure(profile)
     charts.stacked_steps(ax, d["year"].to_numpy(), series, spans)

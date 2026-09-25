@@ -1,7 +1,7 @@
 """Share of Arlington's vote for County Board, by party, 1931-2025 -> figures/voters_board.pdf, .png
 
 A stacked step area of each band's share of the year's vote, in
-style.BOARD_VOTE_ORDER, on the same axis and in the same colours as
+style.BOARD_VOTE, on the same axis and in the same colours as
 voters_president. Years the build marks incomplete are gaps. A band with
 no votes in any year gets no band and no legend entry.
 """
@@ -16,12 +16,11 @@ for profile in style.PROFILES:
 
     d = pd.read_csv(paths.VOTERS)
     d = d[d.office == "county board"].sort_values("year")
-    held = [g for g in style.BOARD_VOTE_ORDER if d[g].sum() > 0]
+    held = [g for g in style.BOARD_VOTE if d[g].sum() > 0]
     assert held, "no County Board vote is attributed to any band - check the build"
     share = d[held].where(d.complete).div(d.total, axis=0) * 100
     spans = charts.runs(d.complete.to_numpy())
-    series = {style.BOARD_VOTE_LABELS[g]: (share[g].fillna(0).to_numpy(), style.BOARD_VOTE_COLORS[g])
-              for g in held}
+    series = charts.series(share.fillna(0), style.BOARD_VOTE, held)
 
     fig, ax = charts.figure(profile)
     charts.stacked_steps(ax, d["year"].to_numpy(), series, spans)

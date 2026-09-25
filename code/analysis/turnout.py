@@ -28,12 +28,11 @@ for profile in style.PROFILES:
 
     fig, (a, b) = charts.panels(profile)
     for ax, col in ((a, "people"), (b, "share")):
-        charts.lines(ax, president.year, {"voted for President":
-                     (president[col], style.TURNOUT_COLORS["president"])})
-        for cycle in style.CYCLE_ORDER:
+        label, colour = style.PRESIDENT
+        charts.lines(ax, president.year, {label: (president[col], colour)})
+        for cycle, (label, colour) in style.CYCLE.items():
             part = board[board.cycle == cycle]
-            charts.lines(ax, part.year, {style.CYCLE_LABELS[cycle]:
-                         (part[col], style.CYCLE_COLORS[cycle])}, marker=False)
+            charts.lines(ax, part.year, {label: (part[col], colour)}, marker=False)
 
     charts.counts(a, 150000, 50000, label="people", minor=25000)
     a.set_title("(a) people")
@@ -42,7 +41,5 @@ for profile in style.PROFILES:
     charts.years(a, 1930, 2020, step=20, label="November election", through=2028)
     charts.years(b, 1980, 2020, step=20, label="November election", through=2028)
 
-    entries = {"voted for President": style.TURNOUT_COLORS["president"]}
-    entries.update({style.CYCLE_LABELS[c]: style.CYCLE_COLORS[c] for c in style.CYCLE_ORDER})
-    charts.legend(fig, entries, ncol=3)
+    charts.legend(fig, dict([style.PRESIDENT, *style.CYCLE.values()]), ncol=3)
     paths.save(fig, "turnout", profile)

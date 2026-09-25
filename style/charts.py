@@ -4,6 +4,7 @@ A figure script supplies data and says which chart it wants; it does not
 set a colour, a size, a legend position or a margin. The reasoning behind
 each placement is in docs/figures.md.
 
+    series()        a {label: (values, colour)} from a table and a frame
     lines()         a series over time
     stacked_bars()  composition at intervals
     stacked_steps() composition over continuous years, with gaps preserved
@@ -34,6 +35,14 @@ def panels(profile=style.DEFAULT_PROFILE):
     """Two panels side by side."""
     fig, axes = plt.subplots(1, 2, figsize=style.figsize(profile))
     return fig, axes
+
+
+def series(frame, table, keys=None):
+    """{label: (values, colour)} for the columns of `frame` named in `table`,
+    a style table of column -> (label, colour), in its order; `keys` narrows
+    it."""
+    return {label: (frame[k].to_numpy(), colour) for k, (label, colour) in table.items()
+            if keys is None or k in keys}
 
 
 def lines(ax, x, series, marker=True):
