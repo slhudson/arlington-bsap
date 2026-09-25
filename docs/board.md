@@ -51,8 +51,9 @@ Each is a row in `docs/questions.csv`, with an owner and what would settle it.
 ## The roster
 
 `data/clean/board_members.csv` holds one row per person per term: name, term
-number, district, when service began and ended (to the month), how the term
-began, and a source per row. 217 terms, 1870 through 2026, from three sources
+number, district, when service began and ended (to the month), the months the
+term held (`held_from` and `held_to`, counted from year 0, the end exclusive),
+how the term began, and a source per row. 217 terms, 1870 through 2026, from three sources
 in sequence: O'Leary's electoral history to 1915, Novack's roster from 1932 to
 1994, and election results after that, the county's candidate history to 2021
 and the state's elections database from 2022. Nothing covers 1912–1931 except
@@ -177,7 +178,10 @@ a member who sat for four months of a year counts 4/12. It is computed from
 `board_members.csv` for every year but 1912–1931, which are the assumption
 above. Days are not recorded consistently, Novack giving some and the election
 dates others, so the month is the unit, and **the handover month belongs to
-the incoming member** (Sally, 22 September 2026).
+the incoming member** (Sally, 22 September 2026). An end no source records
+holds to the end of the term's first year. Both rules are applied once, in
+`held_from` and `held_to` on `board_members.csv`; the seat-years and the
+figures of who was sitting on 1 July read those columns rather than the dates.
 
 The denominator is the months the Board existed that year, which is twelve for
 every year but its first. Arlington's Board came into existence at the May

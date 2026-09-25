@@ -1,8 +1,8 @@
 """Seats held per year, by race, gender and party -> data/clean/board_seats.csv
 
 One row per year, 1870-2026, in seat-years: a member who held a seat for
-four months of a year counts 4/12, and a handover month belongs to the
-incoming member. Computed from board_members.csv, except 1912-1931, which
+four months of a year counts 4/12, by the months board_members.csv says
+each term held. Computed from that table, except 1912-1931, which
 have no roster and are stated: three seats, held by white men, labelled
 `assumed`. Party is from 1932 only, with a member no source records under
 `unrecorded`. The denominator is the months the Board existed that year,
@@ -24,21 +24,13 @@ NO_ROSTER_YEARS = range(1912, AT_LARGE_FROM)
 
 
 def months_held(members: pd.DataFrame) -> pd.DataFrame:
-    """One row per term per calendar year: how many months of it were held."""
-    m = members.copy()
-    m["end_year"] = m.end_year.fillna(m.start_year)      # end unrecorded: this year only
-    m["end_month"] = m.end_month.fillna(12)
-    m["start"] = m.start_year * 12 + m.start_month - 1   # months since year 0, inclusive
-    m["stop"] = m.end_year * 12 + m.end_month             # exclusive
-    # The handover month belongs to the incoming member.
-    starts = m.groupby("district").start.apply(set)
-    m["stop"] = [stop - 1 if (stop - 1) in starts[d] else stop
-                 for d, stop in zip(m.district, m.stop)]
-
+    """One row per term per calendar year: how many months of it were held,
+    from held_from and held_to."""
+    m = members
     rows = []
     for _, t in m.iterrows():
-        for year in range(int(t.start_year), int(t.end_year) + 1):
-            lo, hi = max(t.start, year * 12), min(t.stop, year * 12 + 12)
+        for year in range(t.held_from // 12, (t.held_to - 1) // 12 + 1):
+            lo, hi = max(t.held_from, year * 12), min(t.held_to, year * 12 + 12)
             if hi > lo:
                 rows.append({"year": year, "months": hi - lo,
                              "race": RACE[t.race], "gender": GENDER[t.gender],
