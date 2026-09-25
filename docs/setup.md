@@ -166,9 +166,18 @@ the Drive folder, and they change, so check before relying on one.
   with a date range) and read pages. A page's text needs no login:
   `?a=d&d=<page id>&f=XML`. The page PDF needs the site's free login, which
   Sally has and enters on request; it then opens in Chrome's viewer and the
-  download icon saves it as `<page>.pdf`. Addresses sit on the election-week
+  download icon saves it as `<page>.pdf`, though Chrome has refused that
+  click from a second tab, in which case Sally saves each page herself
+  (Cmd+S) at about a page a minute; plan for that. A downloaded PDF's text
+  layer differs from the `f=XML` OCR, so identify a page by the id in the
+  tab's URL, not by matching text. Title codes for `puq`: TSU the Sun
+  (1935–51), TAD the Arlington Daily (1943–48), TDS the Daily Sun
+  (1951–56), ALCR the Arlington County Record (1932–33), ANG the
+  News-Gazette (1936), NVS the Northern Virginia Sun (1957–78). Addresses sit on the election-week
   jump page, not where the surname is densest: search the surname, then scan
-  every hit page's text for "lives at", "resides at" or "live at". The OCR
+  every hit page's full text for "lives at", "home is at", "resides at" or
+  "of <number> North/South"; the Sun's 1947 candidate series and the Daily's
+  appointment stories put the street in the first sentence. The OCR
   misreads house numbers (3111 for 3411); read each number off the page
   image before writing a row.
 - **Ancestry** (the 1880–1950 censuses with street and house number, race,
