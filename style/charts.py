@@ -64,12 +64,13 @@ def lines(ax, x, entries, marker=True):
         ax.plot(x, values, color=color, marker="o" if marker else None, zorder=3, label=label)
 
 
-def age_band(ax, years, low, high, spans, color):
-    """The youngest-to-oldest span of each year's Board as a step area; each
-    year's value spans [year, year + 1). NaN years are gaps, left open."""
-    years = np.asarray(years)
+def age_band(ax, x, low, high, spans, color, width=1.0):
+    """The youngest-to-oldest span of the Board as a step area over samples
+    at `x` (years, possibly fractional), each holding for `width` of a year.
+    NaN samples are gaps, left open."""
+    x = np.asarray(x, dtype=float)
     for a, b in spans:
-        xs = np.append(years[a:b + 1], years[b] + 1)
+        xs = np.append(x[a:b + 1], x[b] + width)
         ax.fill_between(xs, np.append(low[a:b + 1], low[b]), np.append(high[a:b + 1], high[b]),
                         step="post", facecolor=color, edgecolor="none", zorder=1)
 

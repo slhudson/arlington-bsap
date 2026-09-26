@@ -399,18 +399,18 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
   moment, so the band is the minimum and maximum rather than a quartile
   range or three lines: when the oldest member leaves and no one older
   replaces them the ceiling drops, and that step (1997 to 1998) is the
-  finding, which a smoothed band hides. The band is a step because each
-  year's value is the Board on 1 July, and 1 July because a Board seated
-  in January and reshuffled by a November election is the same people at
-  mid-year; which months a term held comes from `board_members.csv`, so the
-  figure and the seat table agree on it, and a term with no recorded end
-  holds to the end of its first year there. A year is drawn only when all
-  but at most one sitting member has a birth year.
-  A stroke's age is the year less the birth year less a half: a birth year
-  alone puts the birthday at mid-year, so the stroke crosses the band's edge
-  values on 1 July. The stroke still runs smoothly through a band that steps
-  each January, so an edge stroke sits up to half a year off the band's
-  edge.
+  finding, which a smoothed band hides. The band is sampled by month, from
+  the months each term held in `board_members.csv`, so the figure and the
+  seat table agree on who sits when, and a term with no recorded end holds
+  to the end of its first year there. A month is drawn only when all but at
+  most one sitting member has a birth year.
+  A stroke's age is the year less the birth year less a half, since a birth
+  year alone puts the birthday at mid-year, and the band's edges are
+  measured the same way, so the youngest and oldest strokes run along the
+  band's edges and the band moves only when the Board changes (Sally, 26
+  September 2026; it had stepped each January, which put an edge stroke up
+  to half a year off the band). There is no legend: the caption names the
+  band and the strokes (same decision).
   The figure starts in 1932. Before it the Board has three seats, the rule
   is met in eight scattered years and 40 percent of member-years in 1900-31
   have no birth year, so a band there would be fragments; the 1932 rule

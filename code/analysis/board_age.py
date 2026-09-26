@@ -1,8 +1,9 @@
 """Ages of the Board, 1932-2026 -> figures/board_age.pdf, .png
 
 A Lexis diagram: age against year. Behind, the youngest-to-oldest span of the
-members sitting on 1 July of each year, drawn when all but at most one of them
-have a birth year. Over it, one diagonal per member with a birth year, from
+members holding a seat in each month, drawn when all but at most one of them
+have a birth year, so its edges lie on the strokes and move only when the
+Board changes. Over it, one diagonal per member with a birth year, from
 the age at which they arrived to the age at which they left; terms less than
 a year apart are one stroke. Diagonals are clipped at the left edge.
 """
@@ -19,19 +20,22 @@ MISSING_ALLOWED = 1
 MERGE_WITHIN = 12           # months between terms that still make one stroke
 
 
-def span_by_year():
-    """One row per year: youngest and oldest age sitting, NaN where too few
-    members have a birth year."""
+def span_by_month():
+    """One row per month: youngest and oldest age holding a seat, as the
+    strokes measure age (the month less the birth year less a half), NaN
+    where too few members have a birth year."""
+    d = pd.read_csv(paths.BOARD_MEMBERS)
     rows = []
-    for year, s in members.by_year(FIRST, LAST):
-        ages = (year - s.birth_year.dropna()).to_numpy()
+    for m in range(FIRST * 12, (LAST + 1) * 12):
+        s = d[(d.held_from <= m) & (m < d.held_to)].drop_duplicates("name")
+        ages = (m / 12 - s.birth_year.dropna() - 0.5).to_numpy()
         drawn = len(ages) and len(s) - len(ages) <= MISSING_ALLOWED
-        rows.append({"year": year,
+        rows.append({"x": m / 12,
                      "youngest": ages.min() if drawn else np.nan,
                      "oldest": ages.max() if drawn else np.nan})
     out = pd.DataFrame(rows)
     if out.oldest.notna().sum() == 0:
-        raise ValueError("no year has enough birth years to draw; nothing to draw")
+        raise ValueError("no month has enough birth years to draw; nothing to draw")
     return out
 
 
@@ -60,12 +64,12 @@ def tenures():
 
 for profile in style.PROFILES:
     style.apply(profile)
-    d = span_by_year()
+    d = span_by_month()
     spans = charts.runs(d.oldest.notna().to_numpy())
 
     fig, ax = charts.figure(profile)
-    charts.age_band(ax, d.year.to_numpy(), d.youngest.to_numpy(), d.oldest.to_numpy(),
-                    spans, style.AGE_SPAN["band"][1])
+    charts.age_band(ax, d.x.to_numpy(), d.youngest.to_numpy(), d.oldest.to_numpy(),
+                    spans, style.AGE_SPAN["band"][1], width=1 / 12)
     charts.strokes(ax, tenures(), style.AGE_SPAN["member"][1])
     charts.ages(ax, 0, 100)
     charts.years(ax, 1930, 2020, step=10, label="year", through=LAST + 1)
