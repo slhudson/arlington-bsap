@@ -87,22 +87,37 @@ API_AGE_TABLE = {2000: ("P012", "P012001", "P012{:03d}".format),
 # A year may stack two tables; a label then names one printed line of the
 # year, and no label may repeat.
 VOLUME_AGE_TABLES = {
+    1960: ["1960/09768066v1p48ch3_p48-76_table27_virginia_arlington.csv"],
     1970: ["1970/00496492v1p48ch03_p48-122_table35_virginia_arlington.csv"],
 }
 # The line that prints the county's total.
-VOLUME_TOTAL_LINE = {1970: "All ages"}
+VOLUME_TOTAL_LINE = {1960: "ALL AGES", 1970: "All ages"}
 _SINGLE_1970 = ["Under 1 year", "1 year", *[f"{a} years" for a in range(2, 21)]]
 _FIVE_1970 = ["Under 5 years", *[f"{a} to {a + 4} years" for a in range(5, 85, 5)],
               "85 years and over"]
+_SINGLE_1960 = ["UNDER 1 YEAR", "1 YEAR", *[f"{a} YEARS" for a in range(2, 21)]]
+_FIVE_1960 = ["UNDER 5 YEARS", *[f"{a} TO {a + 4} YEARS" for a in range(5, 85, 5)],
+              "85 AND OVER"]
 # Runs of printed lines that must sum to the same number: a distribution the
 # table prints in full against the county total, or two tables' counts of
 # the same ages. A misread digit breaks one of them.
 VOLUME_AGE_RUNS = {
+    1960: [(_SINGLE_1960 + ["21 AND OVER"], ["ALL AGES"]),
+           (_FIVE_1960, ["ALL AGES"])],
     1970: [(_SINGLE_1970 + ["21 years and over"], ["All ages"]),
            (_FIVE_1970, ["All ages"])],
 }
 # Which printed lines each band is summed from.
 VOLUME_AGE_LINES = {
+    1960: {"ageunder18": ["UNDER 5 YEARS", "5 TO 9 YEARS", "10 TO 14 YEARS",
+                          "15 YEARS", "16 YEARS", "17 YEARS"],
+           "age18to24": ["18 YEARS", "19 YEARS", "20 TO 24 YEARS"],
+           "age25to34": ["25 TO 29 YEARS", "30 TO 34 YEARS"],
+           "age35to44": ["35 TO 39 YEARS", "40 TO 44 YEARS"],
+           "age45to54": ["45 TO 49 YEARS", "50 TO 54 YEARS"],
+           "age55to64": ["55 TO 59 YEARS", "60 TO 64 YEARS"],
+           "age65plus": ["65 TO 69 YEARS", "70 TO 74 YEARS", "75 TO 79 YEARS",
+                         "80 TO 84 YEARS", "85 AND OVER"]},
     1970: {"ageunder18": ["Under 5 years", "5 to 9 years", "10 to 14 years",
                           "15 years", "16 years", "17 years"],
            "age18to24": ["18 years", "19 years", "20 to 24 years"],

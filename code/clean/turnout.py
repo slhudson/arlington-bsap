@@ -53,7 +53,7 @@ VOTING_AGE_SOURCE = {1980: citekeys.CENSUS_1980_STF1A, 1990: citekeys.CENSUS_199
 # 1930-1970, printed lines of the census volume's county age table, which
 # residents.volume_table() checks: the population 21 and over, and in 1970
 # the population 18 and over, read from the single years.
-VOLUME_VOTING_AGE_21 = {1970: ["21 years and over"]}
+VOLUME_VOTING_AGE_21 = {1960: ["21 AND OVER"], 1970: ["21 years and over"]}
 VOLUME_VOTING_AGE = {1970: ["18 years", "19 years", "20 years", "21 years and over"]}
 # The first November at which 18-year-olds voted.
 VOTE_AT_18 = 1971

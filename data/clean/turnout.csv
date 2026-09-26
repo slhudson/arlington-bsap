@@ -38,16 +38,16 @@ year,cycle,board_votes,board_seats,board_voters,board_complete,board_source,boar
 1957,governor,25575,1,25575,True,arlingtonelections2021 p.31,,,,,,,,,,,,
 1958,midterm,29013,1,29013,True,arlingtonelections2021 p.33,,,,,,,,,,,,
 1959,delegates,27934,2,13967,True,arlingtonelections2021 p.34,,,,,,,,,,,,
-1960,president,42573,2,21286,True,arlingtonelections2021 p.36,,,,,,,,,,,45977,derived
-1961,governor,19835,1,19835,True,arlingtonelections2021 p.37,,,,,,,,,,,,
-1962,midterm,29092,1,29092,True,arlingtonelections2021 p.38,,,,,,,,,,,,
-1963,delegates,43204,2,21602,True,arlingtonelections2021 p.40,,,,,,,,,,,,
-1964,president,40727,1,40727,True,arlingtonelections2021 p.41,,,,,,,,,,,54363,derived
-1965,governor,23256,1,23256,True,arlingtonelections2021 p.43,,,,,,,,,,,,
-1966,midterm,37330,1,37330,True,arlingtonelections2021 p.44,,,,,,,,,,,,
-1967,delegates,55806,2,27903,True,arlingtonelections2021 p.46,,,,,,,,,,,,
-1968,president,50772,1,50772,True,arlingtonelections2021 p.47,,,,,,,,,,,61326,derived
-1969,governor,32126,1,32126,True,arlingtonelections2021 p.49,,,,,,,,,,,,
+1960,president,42573,2,21286,True,arlingtonelections2021 p.36,,,,,,,107578,census1960va table 27 p.48-76,107578,derived,45977,derived
+1961,governor,19835,1,19835,True,arlingtonelections2021 p.37,,,,,,,,,109166,derived,,
+1962,midterm,29092,1,29092,True,arlingtonelections2021 p.38,,,,,,,,,110754,derived,,
+1963,delegates,43204,2,21602,True,arlingtonelections2021 p.40,,,,,,,,,112342,derived,,
+1964,president,40727,1,40727,True,arlingtonelections2021 p.41,,,,,,,,,113930,derived,54363,derived
+1965,governor,23256,1,23256,True,arlingtonelections2021 p.43,,,,,,,,,115518,derived,,
+1966,midterm,37330,1,37330,True,arlingtonelections2021 p.44,,,,,,,,,117107,derived,,
+1967,delegates,55806,2,27903,True,arlingtonelections2021 p.46,,,,,,,,,118695,derived,,
+1968,president,50772,1,50772,True,arlingtonelections2021 p.47,,,,,,,,,120283,derived,61326,derived
+1969,governor,32126,1,32126,True,arlingtonelections2021 p.49,,,,,,,,,121871,derived,,
 1970,midterm,42355,1,42355,True,arlingtonelections2021 p.50,,,,,132720,census1970va table 35 p.48-122,123459,census1970va table 35 p.48-122,123459,derived,,
 1971,delegates,61238,2,30619,True,arlingtonelections2021 p.52,,,,,,,,,132211,derived,,
 1972,president,60316,1,60316,True,arlingtonelections2021 p.54,,,,,,,,,131702,derived,66383,derived
