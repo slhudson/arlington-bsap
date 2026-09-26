@@ -4,45 +4,56 @@ Historical and descriptive-representation analysis for Arlington County's Board
 Structure and Performance study. Figures and the final PDF are built from this
 repo; prose is written in Overleaf, which syncs the repository.
 
-## The two stages
+## The three stages
 
 ```
   |  code/fetch/        <- on demand: the network, output committed
 data/raw/        published sources - a file here is its own citation
   |  code/transcribe/   <- on demand: OCR and reading, output committed
 data/transcribed/  by_ocr/ and by_claude/ read off raw/
-  |  code/build/        <- every subjective decision about what a number IS
-data/clean/      built output
+  |  code/build/        <- reshaping only; every value that goes in comes out
+data/built/      the sources in one shape each, not committed
+  |  code/clean/        <- every subjective decision about what a number IS
+data/clean/      the tables the figures read; committed
   |  code/analysis/     <- presentation only; cannot see anything above clean/
 figures/         pdf/ for the paper, png/ for slides
   |
 paper/           prose -> Overleaf -> compiled PDF
 ```
 
-The four data layers are sorted by how the numbers were produced — published,
-read by software, keyed in by a person, or computed here. Which folder
-something belongs in depends on that, not on what it is about. Inside
+The five data layers are sorted by how the numbers were produced — published,
+read by software, keyed in by a person, reshaped, or decided here. Which
+folder something belongs in depends on that, not on what it is about. Inside
 `raw/`, folders are named for who published the material, not its subject.
 `data/contents.csv` is the inventory: one row per file, with its layer, what
 produced it, its source, what reads it, and for `raw/` a checksum;
 `code/tests.py` refuses a file with no row and a raw file whose checksum has
 moved.
 
-**Build resolves ambiguity in the sources.** What a blank means, whether
-categories overlap, which of two conflicting totals is right. If two reasonable
+**Build reshapes and never decides.** Stacking the claim files into one table,
+putting both election records in one, pulling Arlington's row out of a census
+file, expanding a term into months. Every distinct value that goes in comes
+out: `code/build/paths.py` compares each column an output shares with its
+inputs and refuses the step if a value is missing. A build step that has to
+choose is in the wrong stage.
+
+**Clean resolves ambiguity in the sources.** What a blank means, whether
+categories overlap, which of two conflicting totals is right, whether the
+census line naming "E. Duncan" is the Board's Edward Duncan. If two reasonable
 people could disagree about what the value *is*, the decision belongs in
-`code/build/`.
+`code/clean/`, and its output is exactly what a reviewer reads as a diff.
 
 **Analysis does arithmetic that is fully determined once those are settled.**
-Dividing counts into shares, choosing a log axis, deciding which years to show.
-Presentation choices are still subjective, but they cannot change a value. If
-they would only disagree about how to *show* it, it belongs in `code/analysis/`.
+Dividing counts into shares, choosing a log axis, deciding which years to show,
+reading two grades of knowledge as one shade while `data/clean/` keeps them
+apart. Presentation choices are still subjective, but they cannot change a
+value. If they would only disagree about how to *show* it, it belongs in
+`code/analysis/`.
 
-This is enforced structurally, not by convention: `code/analysis/paths.py` has no
-path to `data/raw/` or `data/transcribed/`. A figure script that wants to reach around the cleaning step
-has nothing to reach with. Note that `analysis` scripts *append* `code/build/` to
-`sys.path` rather than inserting it, so `code/build/paths.py` cannot shadow
-`code/analysis/paths.py` and quietly restore that route.
+This is enforced structurally, not by convention. `code/clean/paths.py` has no
+path to `data/raw/` or `data/transcribed/`, and `code/analysis/paths.py` has
+none to `data/built/` either: a script that wants to reach around the stage
+before it has nothing to reach with. `code/tests.py` checks both.
 
 ## Naming
 
@@ -63,14 +74,15 @@ under `docs/`; the code carries a pointer to it, not an argument.
 **`paths.py` is where real paths are assigned to the short names a stage
 uses.** Fix the mapping once and every script in that stage follows. There is
 one per stage, and that is deliberate — see above. They cannot be merged:
-`code/build/paths.py` maps `data/raw/` and `code/analysis/paths.py` does not,
-and that absence is the wall.
+`code/build/paths.py` maps `data/raw/`, `code/clean/paths.py` maps
+`data/built/` and no higher, `code/analysis/paths.py` maps `data/clean/` and
+no higher, and each absence is a wall.
 
 ## The rules that matter
 
 **`data/raw/` is read-only.** It is the files as published. Never edit,
 rename, clean or "fix" anything inside it. A defect in a source is corrected
-in `code/build/`, where the correction is visible and reviewable, never in the
+in `code/clean/`, where the correction is visible and reviewable, never in the
 file.
 
 **Nothing reads `data/transcribed/`.** OCR misreads digits, so a number leaves
@@ -89,6 +101,9 @@ next run overwrites them. A change you want to keep is a change to a script.
 opposite, and we follow it elsewhere. These are small CSVs, and committing them
 means a cleaning decision shows up as a reviewable diff — you can see exactly
 which numbers moved and by how much. That matters while those are open.
+`data/built/` is not committed: it holds no decisions, rebuilds in seconds
+from the layers above, and would add 1.6MB to the text Overleaf syncs.
+`bash run.sh` makes it before anything reads it.
 
 **Visual conventions live in `style/`, not in `code/analysis/`.** Colors,
 fonts, chart types and figure dimensions are imported, never redeclared, so a
@@ -127,12 +142,13 @@ every build if they are missing. A raw file the build reads is always
 committed.
 
 **Each code folder writes one data layer.** `code/fetch/` writes `data/raw/`,
-`code/transcribe/` writes `data/transcribed/`, `code/build/` writes `data/clean/`,
-`code/analysis/` writes `figures/`. `run.sh` runs the last two every time; the
-first two run on demand — the network for one, a slow Mac-only OCR for the
-other — and their output is committed, so the build is reproducible without
-either. A script is named for what it produces: `code/fetch/elections.py`,
-`code/transcribe/novack_terms.py`.
+`code/transcribe/` writes `data/transcribed/`, `code/build/` writes
+`data/built/`, `code/clean/` writes `data/clean/`, `code/analysis/` writes
+`figures/`. `run.sh` runs the last three every time; the first two run on
+demand — the network for one, a slow Mac-only OCR for the other — and their
+output is committed, so the build is reproducible without either. A script is
+named for what it produces: `code/fetch/elections.py`,
+`code/transcribe/novack_terms.py`, `code/build/census.py`.
 
 **`data/` holds what we take numbers out of.** A source consulted only to
 settle a question — a boundary history, a news article, a methods note — is
@@ -166,8 +182,8 @@ is no row.
 
 **Guards that prevent silent wrongness get a test.** `code/tests.py` reintroduces
 the specific mistake each guard exists to catch and asserts the build refuses,
-so editing `code/build/` cannot quietly disable a check. `bash run.sh` runs it first;
-it takes about five seconds.
+so editing `code/build/` or `code/clean/` cannot quietly disable a check.
+`bash run.sh` runs it after the build stage; it takes about five seconds.
 
 Only silent failures are worth this. A figure script saving under the wrong
 name halts the build with an error in your face; the Freedman village check
@@ -217,9 +233,9 @@ records how a decision was reached or what was tried on the way; git has
 that.
 
 **An open question that changes a value gets a named function**, in a module
-of its own under `code/build/`, applied by name in each figure - so which
+of its own under `code/clean/`, applied by name in each figure - so which
 figure takes which position is greppable rather than buried. When the question
-is settled the assumption moves into the relevant build step and the function
+is settled the assumption moves into the relevant clean step and the function
 is deleted. None is in force.
 
 ## Repository decisions
