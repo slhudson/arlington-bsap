@@ -26,7 +26,7 @@ def save(fig, stem, profile=None):
     own name."""
     import charts
     import style
-    charts.fit(fig)
+    charts.fit(fig, profile or style.DEFAULT_PROFILE)
     for name in [profile] if profile else list(style.PROFILES):
         spec = style.PROFILES[name]
         kind = spec["format"]
