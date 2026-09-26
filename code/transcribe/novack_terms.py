@@ -53,6 +53,13 @@ def read():
                 name = re.sub(r"[_\s.]+$", "", name).strip()
                 # The text layer renders the roman numeral III as 111.
                 name = re.sub(r"\b111\b", "III", name)
+                # The text layer also runs an initial into the word before it
+                # ("HerbertL."), and the trailing-dot strip above takes the
+                # period off Jr and Sr; the rest of the project writes both
+                # with the period and initials with a space after each.
+                name = re.sub(r"(?<=[a-z])(?=[A-Z]\.)", " ", name)
+                name = re.sub(r"\b([A-Z])\.(?=[A-Z])", r"\1. ", name)
+                name = re.sub(r"\b(Jr|Sr)$", r"\1.", name)
                 current = {"page": page_no, "name": name, "term": term, "notes": ""}
             elif current and line.startswith("("):
                 current["notes"] += ("; " if current["notes"] else "") + line

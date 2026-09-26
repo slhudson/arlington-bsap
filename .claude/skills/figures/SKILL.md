@@ -111,9 +111,6 @@ neither repeats the reasons.
 
 ## Legend
 
-- **No legend at all where the lines can be labelled directly.** A legend is
-  a lookup table the reader has to hold in their head; getting rid of one is a
-  gain, not an inconsistency to correct. The growth figure has none.
 - One legend for the whole figure, not one per panel, where one is needed.
 - One row, in stacking order, below the figure and outside the axes.
   `charts.legend()` puts it there.
@@ -129,13 +126,6 @@ neither repeats the reasons.
 - A category with no data anywhere gets no swatch. An empty legend entry reads
   as a sliver too small to see rather than as zero, and the absence belongs in
   the prose. Test on the data, not on the category name.
-- Direct end-labels on a line chart are preferred to a legend where the lines
-  allow it. This is Urban's rule and it applies.
-- **A direct label sits beside the point it names, at that point's height.**
-  Anywhere else it is a caption the reader has to match to a line, which is
-  what a legend already is. `charts.end_label()` takes which side.
-  Wrap the name above the value: two short lines need half the room of one
-  long one, so it fits without the axis visibly stretching to hold it.
 
 ## Colour
 
@@ -143,6 +133,11 @@ neither repeats the reasons.
   not introduce a colour that is not in it, and do not move a colour between
   groups without reading `docs/figures.md`: several are placed so that
   nothing shares a colour with anything a reader meets beside it.
+- **Ordered categories take `style.ramp(n)`; unordered take Okabe-Ito.** Age
+  and residence coverage are ordered. Never define a ramp in a figure.
+- **Where a category's definition changes mid-figure, the legend does not
+  relabel silently.** `residents_by_race` says "not Hispanic" (`style.RESIDENTS_CROSSED`)
+  and rules off 1980; `board_race` keeps `style.RACE`.
 - **No textures.** Distinguish with colour.
 - **Name a residual for what is in it.** Check the data before writing the
   label. `Other, multiracial or unreported` was wrong: nothing in that band

@@ -1,7 +1,7 @@
 """Residents and residents per Board seat, 1870-2020 -> figures/residents_per_seat.pdf, .png
 
-Two lines on one count axis, a marker per census, each labelled at its
-last point with its 2020 value, with the 1932 rule. No legend.
+Two lines on one count axis, a marker per census, with a legend
+and the 1932 rule.
 """
 import pandas as pd
 
@@ -21,14 +21,6 @@ for profile in style.PROFILES:
     charts.counts(ax, 250000, 50000)
     charts.years(ax, 1870, 2020, step=20)
 
-    last = d.iloc[-1]
-    charts.end_label(ax, 2020, last["total"],
-                     f"2020 population:\n{int(last['total']):,}",
-                     style.POPULATION[1], gap=0.035)
-    charts.end_label(ax, 2020, last["residents_per_seat"],
-                     f"2020 residents\nper seat:\n"
-                     f"{int(round(last['residents_per_seat'])):,}",
-                     style.PER_SEAT[1], where="above", gap=0.02)
-
     charts.rule(ax)
+    charts.legend(fig, series)
     paths.save(fig, "residents_per_seat", profile)
