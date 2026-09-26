@@ -15,10 +15,6 @@ spike: the figure shows the size of the Board, not who sat.
 
 - Retrocession is dated 1846 or 1847 depending on the source; the report has
   to pick one (`retrocession-date`).
-- The 1970–80 population decline is unexplained. It is most likely the
-  national fall in average household size, which cost inner-ring suburbs
-  population while their housing stock grew, but that is untested here
-  (`population-decline-1970-80`).
 - The age bands start at 1980, because nothing earlier is held in a
   machine-readable form (`adults-before-1980`).
 
@@ -216,6 +212,18 @@ county; from 1980 it is American Indian and Alaska Native, some other race,
 and two or more races, all counted, and in 2020 two or more races is 12,196 of
 its 13,945. It is drawn inside the stack below White, because it is another
 kind of not-White and stacking it on top would split that population in two.
+
+### The 1970s population fall
+
+Arlington's population fell from 174,284 in 1970 to 152,599 in 1980, a drop of
+21,685 (12.4 per cent). Over the same decade the county's housing stock grew:
+the 1970 Census of Housing counted 71,241 housing units in Arlington
+(`census1970housing`, Table 1, p. 48-7), and the 1980 Census of Housing counted
+75,182 (`census1980housing`, Table 46, p. 48-200), a gain of 3,941 units (5.5
+per cent). Units rose while population fell, so the decade's loss is people
+per household falling faster than the county could add units to hold them,
+not a shrinking housing stock — the pattern of the era's inner-ring suburbs
+generally, not something particular to Arlington.
 
 ### What the Black share shows
 
