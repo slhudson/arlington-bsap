@@ -1,6 +1,7 @@
 """Census scans -> data/transcribed/by_ocr/us_census_bureau/<year>/*.txt, one text file per volume.
 
-Run by hand on a Mac, output committed; it takes minutes. macOS's Vision
+Run by hand on a Mac; it takes minutes. The output is not committed: it is
+1.8MB of the 7MB of text Overleaf syncs, and nothing reads it. macOS's Vision
 OCR with language correction off, since these are tables of numbers.
 
     .venv/bin/python code/transcribe/census.py

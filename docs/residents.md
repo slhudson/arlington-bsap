@@ -238,7 +238,8 @@ Eleven PDFs, 537 pages, from the published 1870, 1880 and 1890 volumes:
 three title-page chunks, on which the bibliography entries rest, and eight
 interior chunks carrying the tables the transcriptions were read from. Seven
 of the eleven have no text layer; `data/transcribed/by_ocr/` holds OCR of the
-nine that were held first. The method is to search the OCR to locate a table,
+nine that were held first, on the author's Mac and not in git, since the OCR
+is a finding aid and would take 1.8MB of Overleaf's text cap. The method is to search the OCR to locate a table,
 then render the page and read it by eye. OCR misread digits on the first
 table checked (17,546 as 17,516, 14,339 as 14,830), which is why it is never
 the source of a number.

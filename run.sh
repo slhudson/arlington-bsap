@@ -100,7 +100,8 @@ if [ -n "$missing" ]; then
   echo
   echo "not on disk, and not needed to build:"
   printf '%s\n' "$missing" | sed 's/^/  /'
-  echo "  to read them: .venv/bin/python code/fetch/census_volumes.py"
+  echo "  scans: .venv/bin/python code/fetch/census_volumes.py"
+  echo "  OCR text under data/transcribed/by_ocr/ (a Mac): .venv/bin/python code/transcribe/census.py"
 fi
 
 # Overleaf's limits on the files it syncs: 100MB in all, 7MB of editable
