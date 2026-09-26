@@ -225,6 +225,17 @@ per household falling faster than the county could add units to hold them,
 not a shrinking housing stock — the pattern of the era's inner-ring suburbs
 generally, not something particular to Arlington.
 
+The story behind the arithmetic is the baby boom growing up. Nationally the
+average household fell from 3.14 people in 1970 to 2.76 in 1980, and almost
+all of the fall is children: members under 18 per household went from 1.09
+to 0.79 while adults per household barely moved (`censushh6`). The children
+born to the young families who filled Arlington in the 1940s and 50s turned
+18 across the 1970s and left, to careers and households of their own, and
+fewer were born behind them. A built-out inner suburb of small units feels
+that hardest. The Arlington-specific evidence, the under-18 count in the
+1970 and 1980 census age tables, is what `adults-before-1980` in
+docs/questions.csv would also transcribe.
+
 ### What the Black share shows
 
 Panel (b) of `residents_by_race` shows the Black share of Arlington falling
