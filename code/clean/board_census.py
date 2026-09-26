@@ -13,16 +13,30 @@ import paths
 GENDER = {"Male": "man", "Female": "woman"}
 RACE = {"White": "White", "Black": "Black", "Mulatto": "Black"}
 
+# What may tie a record to a member besides the name (docs/board.md, "Census
+# records"). Several are joined with "; ". A row that states `none` stays in
+# the table and feeds nothing; a blank has not been read for a tie and stands
+# until it is (census-match-quality in docs/questions.csv).
+MATCH = ("district", "occupation", "household", "address", "unique", "none", "")
+WEAK = "none"
+
 # How a birth year was had from the record, added to the basis of its claim.
 BIRTH_PRINTED = "; the birth year as the census recorded it"
 BIRTH_BY_AGE = "; the year is the census year less the age given, so within a year"
 
 
 def records() -> pd.DataFrame:
-    """The census rows, refused if one prints a gender or race the build has
-    no category for."""
+    """The census rows that may be used: a row matched on nothing beyond the
+    name stays in the table and gives no claim. Refused if a row prints a
+    gender or race the build has no category for, or a match it does not
+    list."""
     r = paths.built("board_claims")
     r = r[r.claim == "census"].reset_index(drop=True)
+    unknown = r[~r.match.str.split("; ").map(lambda ties: all(x in MATCH for x in ties))]
+    if len(unknown):
+        raise ValueError("census match with no category here: "
+                         + ", ".join(f"{s} {v!r}" for s, v in zip(unknown.source, unknown.match)))
+    r = r[r.match != WEAK].reset_index(drop=True)
     for field, codes in (("gender", GENDER), ("race", RACE)):
         unknown = r[(r[field] != "") & ~r[field].isin(list(codes))]
         if len(unknown):

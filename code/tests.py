@@ -31,6 +31,7 @@ sys.path.remove(str(ROOT / "code" / "build"))
 del sys.modules["paths"]
 
 sys.path.insert(0, str(ROOT / "code" / "clean"))
+import board_census  # noqa: E402
 import board_members  # noqa: E402
 import board_residence  # noqa: E402
 import paths  # noqa: E402
@@ -380,6 +381,34 @@ def test_a_census_race_with_no_category_is_refused():
         return d
     err = breaks(paths, "built", patch_claims("census", uncoded), build=board_members.build)
     assert err and "no category" in err, f"not caught: {err}"
+
+
+def test_a_census_record_matched_on_the_name_alone_feeds_nothing():
+    """A census row whose match is `none` stays in the table but gives the
+    member no birth year, race, gender or place; without this a doubtful
+    match would put a stroke on board_age."""
+    def weak(d):
+        d.loc[d.source == "census1950tillema", "match"] = "none"
+        return d
+    original = paths.built
+    paths.built = patch_claims("census", weak)(original)
+    try:
+        m = board_members.build()
+        places = board_census.residences()
+    finally:
+        paths.built = original
+    t = m[m.name == "John A. Tillema"].iloc[0]
+    assert t.birth_year_source != "census1950tillema" and "census1950tillema" not in t.race_source, t
+    assert not (places.source == "census1950tillema").any()
+
+
+def test_a_census_match_with_no_category_is_refused():
+    """A `match` value the clean stage does not list."""
+    def novel(d):
+        d.loc[d.source == "census1950tillema", "match"] = "same street"
+        return d
+    err = breaks(paths, "built", patch_claims("census", novel), build=board_members.build)
+    assert err and "match with no category" in err, f"not caught: {err}"
 
 
 def test_an_at_large_seat_gets_no_derived_district():
