@@ -41,6 +41,7 @@ import board_roster_results  # noqa: E402
 import board_terms  # noqa: E402
 import board_seats  # noqa: E402
 import residents  # noqa: E402
+import residents_by_district  # noqa: E402
 import turnout  # noqa: E402
 import voters  # noqa: E402
 
@@ -153,6 +154,44 @@ def test_race_split_must_account_for_its_total():
         return patched
     err = breaks(residents, "table", mangle)
     assert err and "unaccounted" in err, f"not caught: {err}"
+
+
+def districts_with(page, change):
+    """The error residents_by_district.build() raises with one keyed-in
+    table changed, or None. The tests run before the clean stage, so the
+    residents.csv it checks against is last run's: the run's start is set
+    aside."""
+    def mangle(orig):
+        def patched(path):
+            d = orig(path)
+            return change(d.copy()) if f"_p{page}_" in path else d
+        return patched
+    started = os.environ.pop("RUN_STARTED", None)
+    try:
+        return breaks(residents_by_district, "table", mangle)
+    finally:
+        if started:
+            os.environ["RUN_STARTED"] = started
+
+
+def test_a_misread_district_cell_is_refused():
+    """The 1930 scan's 6 and 0 are hard to tell apart: Washington district
+    read 5,606 for 5,666 still looks like a district."""
+    def misread(d):
+        d.loc[d.label == "Washington district", "pop_1930"] = 5606
+        return d
+    err = districts_with(1123, misread)
+    assert err and "districts sum to" in err, f"not caught: {err}"
+
+
+def test_a_district_race_split_that_misses_its_total_is_refused():
+    """Jefferson's 1870 colored count misread, which moves its Black share
+    and leaves every total tying."""
+    def misread(d):
+        d.loc[d.label == "Jefferson", "colored"] = 837
+        return d
+    err = districts_with(279, misread)
+    assert err and "do not make its total" in err, f"not caught: {err}"
 
 
 def test_an_age_group_left_out_of_every_band_is_refused():
@@ -648,6 +687,57 @@ def test_a_candidate_the_1931_list_marks_is_not_left_out():
     assert err and "the 1931 list marks" in err, f"not caught: {err}"
 
 
+# --- the numbers the prose cites ------------------------------------------------
+
+def body_text_numbers():
+    """(name, value, the rest of the line) for each command
+    paper/body_text_numbers.tex defines."""
+    tex = (ROOT / "paper" / "body_text_numbers.tex").read_text()
+    return re.findall(r"^\\newcommand\{\\(\w+)\}\{([^}]*)\}(.*)$", tex, re.M)
+
+
+def test_every_body_text_number_is_cited_or_marked():
+    """A command the prose calls that the file marks as not yet cited, or one
+    the prose never calls that carries no mark. Either way the list of
+    numbers the report rests on is wrong; CITED in
+    code/analysis/body_text_numbers.py is where it is corrected."""
+    tex = (ROOT / "paper" / "arlington-bsap.tex").read_text()
+    prose = "\n".join(re.sub(r"(?<!\\)%.*", "", line) for line in tex.split("\n"))
+    problems = []
+    for name, _, rest in body_text_numbers():
+        used = re.search(rf"\\{name}(?![A-Za-z])", prose) is not None
+        marked = "not yet cited" in rest
+        if used and marked:
+            problems.append(f"\\{name} is called in the prose: add it to CITED")
+        if not used and not marked:
+            problems.append(f"\\{name} is called nowhere in the prose: take it out of CITED")
+    assert not problems, ("paper/body_text_numbers.tex disagrees with the prose "
+                          "(code/analysis/body_text_numbers.py):\n  " + "\n  ".join(problems))
+
+
+def test_a_body_text_number_is_the_clean_tables_number():
+    """A value in paper/body_text_numbers.tex that is not the share its clean
+    table gives, worked out here separately: a hand edit, a rounding change,
+    or a file left from before the table moved."""
+    words = {1870: "EighteenSeventy", 1880: "EighteenEighty", 1890: "EighteenNinety",
+             1900: "NineteenHundred", 1910: "NineteenTen", 1920: "NineteenTwenty",
+             1930: "NineteenThirty"}
+
+    def rounded(part, whole):          # a whole per cent, halves up
+        return str((200 * int(part) + int(whole)) // (2 * int(whole)))
+
+    d = pd.read_csv(ROOT / "data" / "clean" / "residents_by_district.csv")
+    expected = {}
+    for r in d.itertuples():
+        county = d.loc[d.year == r.year, "total"].sum()
+        expected[f"share{r.district}{words[r.year]}"] = rounded(r.total, county)
+        if pd.notna(r.black):
+            expected[f"blackShare{r.district}{words[r.year]}"] = rounded(r.black, r.total)
+    wrong = [f"\\{name} is {value}, the table gives {expected.get(name, 'nothing')}"
+             for name, value, _ in body_text_numbers() if expected.get(name) != value]
+    assert not wrong, "paper/body_text_numbers.tex:\n  " + "\n  ".join(wrong)
+
+
 # --- the documentation names real files ---------------------------------------
 
 def test_a_source_we_cannot_fully_cite_is_logged_as_a_question():
@@ -726,8 +816,12 @@ def test_a_stale_input_table_is_refused():
 
 def test_every_data_file_is_inventoried():
     """A file under data/ with no row in data/contents.csv, a row with no
-    file (unless fetched on demand), or a raw file whose checksum has moved."""
+    file (unless fetched on demand), a file with two rows, or a raw file
+    whose checksum has moved."""
     data = ROOT / "data"
+    listed = [r["path"] for r in csv.DictReader((data / "contents.csv").open())]
+    twice = sorted({p for p in listed if listed.count(p) > 1})
+    assert not twice, "files with two rows in data/contents.csv:\n  " + "\n  ".join(twice)
     rows = {r["path"]: r for r in csv.DictReader((data / "contents.csv").open())}
     on_disk = {str(p.relative_to(ROOT)) for p in data.rglob("*")
                if p.is_file() and not p.name.startswith(".") and p.name != "contents.csv"}
@@ -758,7 +852,7 @@ def test_the_inventory_names_what_reads_each_table():
                 found.append(str(script.relative_to(ROOT)))
         if layer == "clean":
             for script in sorted((ROOT / "code" / "analysis").glob("*.py")):
-                if f"paths.{mapped[stem]}" in script.read_text():
+                if re.search(rf"paths\.{mapped[stem]}\b", script.read_text()):
                     found.append(str(script.relative_to(ROOT)))
         return "; ".join(found)
 

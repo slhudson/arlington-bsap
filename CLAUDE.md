@@ -134,8 +134,8 @@ key, no connection. And an API can change its answer, so a live call could move
 a figure between runs with nothing in the repo to explain it; a committed file
 is the same evidence standard as a scanned page.
 
-The one exception is sixteen census scans the build never reads, 175MB that
-would push Overleaf past its ceiling. They are marked `in_git = no` in
+The one exception is twenty-four census scans the build never reads, about
+250MB that would push Overleaf past its ceiling. They are marked `in_git = no` in
 `data/contents.csv` with their URL and checksum; `code/fetch/census_volumes.py`
 fetches them and refuses a byte that differs, and `run.sh` says at the end of
 every build if they are missing. A raw file the build reads is always
@@ -144,8 +144,11 @@ committed.
 **Each code folder writes one data layer.** `code/fetch/` writes `data/raw/`,
 `code/transcribe/` writes `data/transcribed/`, `code/build/` writes
 `data/built/`, `code/clean/` writes `data/clean/`, `code/analysis/` writes
-`figures/`. `run.sh` runs the last three every time; the first two run on
-demand — the network for one, a slow Mac-only OCR for the other — and their
+`figures/` and, from `code/analysis/body_text_numbers.py`, the numbers the
+prose cites that no figure carries, as LaTeX commands in
+`paper/body_text_numbers.tex`. `run.sh` runs the last three every time; the
+first two run on demand — the network for one, a slow Mac-only OCR for the
+other — and their
 output is committed, so the build is reproducible without either. A script is
 named for what it produces: `code/fetch/elections.py`,
 `code/transcribe/novack_terms.py`, `code/build/census.py`.
