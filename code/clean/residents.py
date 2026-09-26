@@ -87,15 +87,23 @@ API_AGE_TABLE = {2000: ("P012", "P012001", "P012{:03d}".format),
 # A year may stack two tables; a label then names one printed line of the
 # year, and no label may repeat.
 VOLUME_AGE_TABLES = {
+    1940: ["1940/33973538v2p7ch3_p173_table22_virginia_arlington.csv",
+           "1940/33973538v2p7ch3_p164_table21_virginia_arlington.csv"],
     1950: ["1950/37784122v2p46ch3_p46-74_table41_virginia_arlington.csv"],
     1960: ["1960/09768066v1p48ch3_p48-76_table27_virginia_arlington.csv"],
     1970: ["1970/00496492v1p48ch03_p48-122_table35_virginia_arlington.csv"],
 }
 # The line that prints the county's total.
-VOLUME_TOTAL_LINE = {1950: "All ages", 1960: "ALL AGES", 1970: "All ages"}
+VOLUME_TOTAL_LINE = {1940: "ARLINGTON", 1950: "All ages", 1960: "ALL AGES", 1970: "All ages"}
 _SINGLE_1970 = ["Under 1 year", "1 year", *[f"{a} years" for a in range(2, 21)]]
 _FIVE_1970 = ["Under 5 years", *[f"{a} to {a + 4} years" for a in range(5, 85, 5)],
               "85 years and over"]
+_FIVE_1940 = ["Under 5 years", *[f"{a} to {a + 4} years" for a in range(5, 75, 5)],
+              "75 years and over"]
+# 1940's age table has no line at 18; Table 21 prints the population by
+# school ages from 5 to 24, which does.
+_SCHOOL_1940 = [f"Persons {a} years old" for a in
+                ("5 and 6", "7 to 13", "14 and 15", "16 and 17", "18 to 20", "21 to 24")]
 _FIVE_1950 = ["Under 5 years", *[f"{a} to {a + 4} years" for a in range(5, 75, 5)],
               "75 to 84 years", "85 years and over"]
 _SINGLE_1960 = ["UNDER 1 YEAR", "1 YEAR", *[f"{a} YEARS" for a in range(2, 21)]]
@@ -105,6 +113,11 @@ _FIVE_1960 = ["UNDER 5 YEARS", *[f"{a} TO {a + 4} YEARS" for a in range(5, 85, 5
 # table prints in full against the county total, or two tables' counts of
 # the same ages. A misread digit breaks one of them.
 VOLUME_AGE_RUNS = {
+    1940: [(_FIVE_1940, ["ARLINGTON"]),
+           (["Under 5 years", *_SCHOOL_1940[:5], "21 years and over"], ["ARLINGTON"]),
+           (_SCHOOL_1940, ["5 to 9 years", "10 to 14 years", "15 to 19 years", "20 to 24 years"]),
+           (["Male, 21 years old and over", "Female, 21 years old and over"], ["21 years and over"]),
+           (["Total population"], ["ARLINGTON"])],
     1950: [(_FIVE_1950, ["All ages"]),
            (["Under 1 year", "1 and 2 years", "3 and 4 years"], ["Under 5 years"]),
            (["5 years", "6 years", "7 to 9 years"], ["5 to 9 years"]),
@@ -117,6 +130,13 @@ VOLUME_AGE_RUNS = {
 }
 # Which printed lines each band is summed from.
 VOLUME_AGE_LINES = {
+    1940: {"ageunder18": ["Under 5 years", *_SCHOOL_1940[:4]],
+           "age18to24": _SCHOOL_1940[4:],
+           "age25to34": ["25 to 29 years", "30 to 34 years"],
+           "age35to44": ["35 to 39 years", "40 to 44 years"],
+           "age45to54": ["45 to 49 years", "50 to 54 years"],
+           "age55to64": ["55 to 59 years", "60 to 64 years"],
+           "age65plus": ["65 to 69 years", "70 to 74 years", "75 years and over"]},
     1950: {"ageunder18": ["Under 5 years", "5 to 9 years", "10 to 14 years",
                           "15 years", "16 and 17 years"],
            "age18to24": ["18 and 19 years", "20 to 24 years"],
@@ -237,7 +257,7 @@ def volume_table(year) -> pd.DataFrame:
     parts = []
     for path in VOLUME_AGE_TABLES[year]:
         t = table(path)
-        page = t["page"].map(lambda p: f"{p:.0f}" if isinstance(p, float) else p)
+        page = t["page"].map(lambda p: p if isinstance(p, str) else f"{p:.0f}")
         t["cite"] = t["source"] + " p." + page
         parts.append(t)
     t = pd.concat(parts, ignore_index=True)

@@ -18,16 +18,16 @@ year,cycle,board_votes,board_seats,board_voters,board_complete,board_source,boar
 1935,delegates,15869,5,3174,True,arlingtonelections2021 p.10,,,,,,,,,,,,
 1936,president,,,,,,,,,,,,,,,,7835,derived
 1939,delegates,33689,5,6738,True,arlingtonelections2021 p.12,,,,,,,,,,,,
-1940,president,9666,1,9666,True,arlingtonelections2021 p.12,,,,,,,,,,,9862,derived
-1941,governor,2797,1,2797,True,arlingtonelections2021 p.12,,,,,,,,,,,,
-1942,midterm,0,1,0,False,arlingtonelections2021 p.13,no vote count for campbell,,,,,,,,,,,
-1943,delegates,16715,2,8358,True,arlingtonelections2021 p.13,,,,,,,,,,,,
-1944,president,13156,1,13156,True,arlingtonelections2021 p.14,,,,,,,,,,,15499,derived
-1945,governor,5461,1,5461,True,arlingtonelections2021 p.14,,,,,,,,,,,,
-1946,midterm,10532,1,10532,True,arlingtonelections2021 p.14,,,,,,,,,,,,
-1947,delegates,13849,2,6924,False,arlingtonelections2021 p.15,no vote count for frisbie,,,,,,,,,,,
-1948,president,19585,1,19585,True,arlingtonelections2021 p.18,,,,,,,,,,,20111,derived
-1949,governor,0,1,0,False,arlingtonelections2021 p.18,"no vote count for bechtel, cox, delashmutt",,,,,,,,,,,
+1940,president,9666,1,9666,True,arlingtonelections2021 p.12,,,,,,,39693,census1940v2p7 table 22 p.173,39693,derived,9862,derived
+1941,governor,2797,1,2797,True,arlingtonelections2021 p.12,,,,,,,,,44866,derived,,
+1942,midterm,0,1,0,False,arlingtonelections2021 p.13,no vote count for campbell,,,,,,,,50039,derived,,
+1943,delegates,16715,2,8358,True,arlingtonelections2021 p.13,,,,,,,,,55213,derived,,
+1944,president,13156,1,13156,True,arlingtonelections2021 p.14,,,,,,,,,60386,derived,15499,derived
+1945,governor,5461,1,5461,True,arlingtonelections2021 p.14,,,,,,,,,65559,derived,,
+1946,midterm,10532,1,10532,True,arlingtonelections2021 p.14,,,,,,,,,70732,derived,,
+1947,delegates,13849,2,6924,False,arlingtonelections2021 p.15,no vote count for frisbie,,,,,,,,75905,derived,,
+1948,president,19585,1,19585,True,arlingtonelections2021 p.18,,,,,,,,,81079,derived,20111,derived
+1949,governor,0,1,0,False,arlingtonelections2021 p.18,"no vote count for bechtel, cox, delashmutt",,,,,,,,86252,derived,,
 1950,midterm,16477,1,16477,True,arlingtonelections2021 p.19,,,,,,,91425,census1950va table 41 p.46-74,91425,derived,,
 1951,delegates,30738,2,15369,True,arlingtonelections2021 p.21,,,,,,,,,93040,derived,,
 1952,president,128686,4,32172,True,arlingtonelections2021 p.22,,,,,,,,,94656,derived,36380,derived
