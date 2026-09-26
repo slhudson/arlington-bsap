@@ -294,7 +294,15 @@ less the age, and the note on it says which. The place joins the claims in
 `data/clean/board_residence.csv`, one row per claim, none chosen over
 another and nothing coded.
 
-A press or obituary age is keyed the same way: `board_demographics.csv` has
+The claim files keep words, not categories. `board_demographics.csv` has
+`race_words` and `gender_words` (the pronoun, honorific or description as
+the source prints it), and `board_party.csv` has `party_words`; the tables
+that say what each means are `RACE_WORDS`, `GENDER_WORDS` and `PARTY_WORDS`
+in `code/clean/board_members.py`, where a word not listed stops the build.
+`board_terms.csv` keeps the election date the county prints; the January
+start, the missing end and the election as how the seat was gained are
+`code/clean/board_roster_results.py`'s. A press or obituary age is keyed the
+same way: `board_demographics.csv` has
 `age` and `age_date` (as printed: "25 April 2019", "1960"), and
 `birth_year` only where a source prints a birth date or year. The transcriber
 never subtracts. `code/clean/board_members.py` takes the year of the date

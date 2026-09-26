@@ -262,11 +262,22 @@ def test_an_attributed_name_that_misses_the_roster_is_rejected():
     assert err and "not in the roster" in err, f"not caught: {err}"
 
 
+def test_words_with_no_category_are_refused():
+    """A race, gender or party as a source words it that clean has no
+    category for: the transcribed files keep the words, so a new phrasing has
+    to be decided in code/clean/board_members.py before it counts."""
+    def novel(d):
+        d.loc[d.name == "William A. Rowe", "race_words"] = "a man of color"
+        return d
+    err = breaks(paths, "built", patch_claims("demographics", novel), build=board_members.build)
+    assert err and "no single category" in err, f"not caught: {err}"
+
+
 def test_two_sources_disagreeing_on_race_is_a_finding():
     """Two sources naming a different race for one person."""
     def contradict(d):
         extra = d[d.name == "William A. Rowe"].iloc[[0]].copy()
-        extra["race"] = "White"
+        extra["race_words"] = "former confederate soldier"
         return pd.concat([d, extra], ignore_index=True)
     err = breaks(paths, "built", patch_claims("demographics", contradict), build=board_members.build)
     assert err and "disagree" in err, f"not caught: {err}"
@@ -428,7 +439,7 @@ def test_reporting_cannot_overrule_a_party_the_county_prints():
     """Reporting that contradicts a party the county prints."""
     def contradict(d):
         extra = d.iloc[[0]].copy()
-        extra["name"], extra["start_year"], extra["party"] = "Mary Margaret Whipple", "1983", "Republican"
+        extra["name"], extra["start_year"], extra["party_words"] = "Mary Margaret Whipple", "1983", "Republicans"
         return pd.concat([d, extra], ignore_index=True)
     err = breaks(paths, "built", patch_claims("party", contradict), build=board_members.build)
     assert err and "county lists (D)" in err, f"not caught: {err}"
