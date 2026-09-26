@@ -39,6 +39,7 @@ CENSUS_DATA_FILE = "censusapi"
 CENSUS_1980_STF1A = "census1980stf1a"
 CENSUS_1990_STF1A = "census1990stf1a"
 CENSUS_TWPS0076 = "censusbureau1990twps76"
+CENSUS_GAZETTEER_2020 = "censusgazetteer2020"
 
 
 def keys():

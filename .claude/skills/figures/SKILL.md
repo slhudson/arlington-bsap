@@ -30,8 +30,6 @@ neither repeats the reasons.
 
 ## Content
 
-- Raw series only. No benchmark line, trend line or reference line unless
-  asked for. The cube-root-law benchmark was removed for this reason.
 - No title inside the image. The LaTeX caption carries it, which is also
   Urban's rule for PDF products.
 - No value labels on bars.
@@ -54,6 +52,18 @@ neither repeats the reasons.
   arriving at the third one needs to reorient just as much as at the first.
   Notes that belong to the document, such as sources, caveats and
   definitions, go in the caption, not the image.
+
+## Scatters
+
+- Start both axes at zero where possible; break an axis (`charts.broken_scatter()`)
+  rather than lose a far point or start above zero.
+- Squarer than the time series: `charts.scatter()` takes `style.SQUARE`.
+  Two scatters with different x axes are two figures, each with its own legend.
+- One dot size. Area does not carry a third measure a reader can read.
+- Name dots with `charts.dot_label()` and let `charts.place_labels()` choose
+  where; never hand-place a name. Every cluster gets at least one name; a dot
+  too crowded to name beside it takes `leader=True`. A name that finds no
+  clear place stops the build: pick another representative for its cluster.
 
 ## Type
 
