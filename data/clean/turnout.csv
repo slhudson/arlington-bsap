@@ -28,16 +28,16 @@ year,cycle,board_votes,board_seats,board_voters,board_complete,board_source,boar
 1947,delegates,13849,2,6924,False,arlingtonelections2021 p.15,no vote count for frisbie,,,,,,,,,,,
 1948,president,19585,1,19585,True,arlingtonelections2021 p.18,,,,,,,,,,,20111,derived
 1949,governor,0,1,0,False,arlingtonelections2021 p.18,"no vote count for bechtel, cox, delashmutt",,,,,,,,,,,
-1950,midterm,16477,1,16477,True,arlingtonelections2021 p.19,,,,,,,,,,,,
-1951,delegates,30738,2,15369,True,arlingtonelections2021 p.21,,,,,,,,,,,,
-1952,president,128686,4,32172,True,arlingtonelections2021 p.22,,,,,,,,,,,36380,derived
-1953,governor,19066,1,19066,True,arlingtonelections2021 p.25,,,,,,,,,,,,
-1954,midterm,24322,1,24322,True,arlingtonelections2021 p.26,,,,,,,,,,,,
-1955,delegates,38295,2,19148,True,arlingtonelections2021 p.28,,,,,,,,,,,,
-1956,president,35807,1,35807,True,arlingtonelections2021 p.30,,,,,,,,,,,39725,derived
-1957,governor,25575,1,25575,True,arlingtonelections2021 p.31,,,,,,,,,,,,
-1958,midterm,29013,1,29013,True,arlingtonelections2021 p.33,,,,,,,,,,,,
-1959,delegates,27934,2,13967,True,arlingtonelections2021 p.34,,,,,,,,,,,,
+1950,midterm,16477,1,16477,True,arlingtonelections2021 p.19,,,,,,,91425,census1950va table 41 p.46-74,91425,derived,,
+1951,delegates,30738,2,15369,True,arlingtonelections2021 p.21,,,,,,,,,93040,derived,,
+1952,president,128686,4,32172,True,arlingtonelections2021 p.22,,,,,,,,,94656,derived,36380,derived
+1953,governor,19066,1,19066,True,arlingtonelections2021 p.25,,,,,,,,,96271,derived,,
+1954,midterm,24322,1,24322,True,arlingtonelections2021 p.26,,,,,,,,,97886,derived,,
+1955,delegates,38295,2,19148,True,arlingtonelections2021 p.28,,,,,,,,,99502,derived,,
+1956,president,35807,1,35807,True,arlingtonelections2021 p.30,,,,,,,,,101117,derived,39725,derived
+1957,governor,25575,1,25575,True,arlingtonelections2021 p.31,,,,,,,,,102732,derived,,
+1958,midterm,29013,1,29013,True,arlingtonelections2021 p.33,,,,,,,,,104347,derived,,
+1959,delegates,27934,2,13967,True,arlingtonelections2021 p.34,,,,,,,,,105963,derived,,
 1960,president,42573,2,21286,True,arlingtonelections2021 p.36,,,,,,,107578,census1960va table 27 p.48-76,107578,derived,45977,derived
 1961,governor,19835,1,19835,True,arlingtonelections2021 p.37,,,,,,,,,109166,derived,,
 1962,midterm,29092,1,29092,True,arlingtonelections2021 p.38,,,,,,,,,110754,derived,,
