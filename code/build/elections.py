@@ -29,7 +29,7 @@ import citekeys
 from paths import BY_CLAUDE, RAW
 
 COUNTY = BY_CLAUDE / "arlington_county" / "candidate_history_1920-present.csv"
-STATE = RAW / "va_dept_of_elections" / "county_board_2000-2026.csv"
+STATE = RAW / "va_dept_of_elections" / "county_board_2000-2026.csv.gz"
 
 # The last election in the county's candidate history.
 COUNTY_HISTORY_THROUGH = 2021

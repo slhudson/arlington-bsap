@@ -1,4 +1,4 @@
-"""Virginia elections database -> data/raw/va_dept_of_elections/county_board_2000-2026.csv
+"""Virginia elections database -> data/raw/va_dept_of_elections/county_board_2000-2026.csv.gz
 
 Run by hand when a newer election is needed; the build never touches the
 network (CLAUDE.md).
@@ -7,7 +7,8 @@ network (CLAUDE.md).
 
 Every County Board contest in the Department of Elections' historical
 database (historical.elections.virginia.gov), as the CSV its search offers,
-unaltered: every precinct, every vote channel, primaries included. The
+unaltered and stored gzip-compressed, so the file is 87KB, not 1.9MB, against
+Overleaf's 7MB text cap: every precinct, every vote channel, primaries included. The
 office is Arlington's alone, so no locality filter is needed. It starts at
 2000 because the database does for this office (checked 23 September 2026
 against every 1930-1999 contest); 2000-2003 carry no party and, from 2002,
@@ -15,6 +16,8 @@ no votes, and party is recorded from 2007. It is the second source for a
 member's party where it overlaps the county's candidate history, and the
 only one from 2022.
 """
+import gzip
+import io
 import json
 import urllib.parse
 import urllib.request
@@ -22,7 +25,7 @@ import urllib.request
 import paths
 
 ROOT = paths.ROOT
-OUT = paths.RAW / "va_dept_of_elections" / "county_board_2000-2026.csv"
+OUT = paths.RAW / "va_dept_of_elections" / "county_board_2000-2026.csv.gz"
 
 ENDPOINT = "https://va2.elstats.civera.com/api/download_search.csv"
 COUNTY_BOARD_MEMBER = 546            # the database's id for the office
@@ -43,7 +46,11 @@ def main():
     if not body.startswith(b"contest_id,"):
         raise SystemExit("unexpected response - not the results CSV")
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_bytes(body)
+    # mtime 0 and no name in the header, so the same rows give the same bytes
+    buf = io.BytesIO()
+    with gzip.GzipFile(filename="", mode="wb", fileobj=buf, compresslevel=9, mtime=0) as z:
+        z.write(body)
+    OUT.write_bytes(buf.getvalue())
     print(f"  {OUT.relative_to(ROOT)}  ({body.count(b'\n'):,} rows)")
 
 

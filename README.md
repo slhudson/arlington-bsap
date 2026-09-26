@@ -26,7 +26,7 @@ without a network connection, an API key, or a Mac.
 | Script | Writes | Explained in |
 |---|---|---|
 | `code/fetch/census.py` | `data/raw/us_census_bureau/<year>/*.csv` | `data/contents.csv` |
-| `code/fetch/elections.py` | `data/raw/va_dept_of_elections/county_board_2000-2026.csv` | `data/contents.csv` |
+| `code/fetch/elections.py` | `data/raw/va_dept_of_elections/county_board_2000-2026.csv.gz` | `data/contents.csv` |
 | `code/fetch/president.py` | `data/raw/va_dept_of_elections/president_1924-2024.csv` | `data/contents.csv` |
 | `code/fetch/registration.py` | `data/raw/va_dept_of_elections/registration_2010-2025.csv` | `data/contents.csv` |
 | `code/fetch/census_volumes.py` | `data/raw/us_census_bureau/<year>/<volume>-01.pdf` | `data/contents.csv` |
