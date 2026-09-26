@@ -13,10 +13,10 @@ are explained in `code/citekeys.py`, and what is still open is in
 - 1889–1986 is coded all-White on the "first since Reconstruction" framing,
   and the five Reconstruction-era members rest on Hjerpe's census linking
   (`default-1931-1986`).
-- Gender rests on the default (man) for 30 members: 25 seated before 1912, the
-  three of 1916–20 (Wibirt, Duncan, Walker), B. M. Smith (1933) and
-  A. Leslie Phillips (1969). The other 89 have a census listing (50) or a
-  pronoun or honorific in the press (42; three have both).
+- Gender rests on the default (man) for 29 members: 25 seated before 1912, the
+  three of 1916–20 (Wibirt, Duncan, Walker) and B. M. Smith (1933). The
+  other 90 have a census listing (50) or a pronoun or honorific in the press
+  (43; three have both).
   `gender_evidence` in `board_members.csv` says which (`gender-from-names`).
 - For 33 members first seated 1932–1966 and 16 first seated 1870–1904,
   race and gender come from 53 census records, each index reading checked
@@ -372,7 +372,7 @@ each period:
 |---|---|---|
 | 1870–1888 | Five Black members named by Hjerpe (2021): Rowe, Syphax, Pinn, Pendleton, Allen. Pinn, Pendleton and Allen each rest on a reproduced 1880 census image; Rowe and Allen on narrative statements in her paper; Syphax on O'Leary, who writes that his photograph shows he was African American. The sentence naming the five as a group sits in her own list of open inquiries, and the file records it as such. O'Leary adds that "a majority of the early office holders" were probably African-American but cannot name them. Nobody on our side has checked the census linking. | Names in O'Leary, but seven members before 1912 appear by initials only (`gender-1870-1912`). |
 | 1889–1930 | One collective sentence: the board "became and remained all white for the duration of this system" (Hjerpe 2021, p.4), sourced to the county's election records. No per-person evidence. | Names in O'Leary; initials only before 1912. No source names a first woman member, so "all men before Magruder (1932)" is assumed. |
-| 1931–1986 | Nothing per-person from any source. The default rests on Newman (1987) being described as the first Black member since Reconstruction. About 280 person-years. **The weakest stretch.** | Census listing or a press honorific or pronoun for all but B. M. Smith (1933) and A. Leslie Phillips (1969). |
+| 1931–1986 | Nothing per-person from any source. The default rests on Newman (1987) being described as the first Black member since Reconstruction. About 280 person-years. **The weakest stretch.** | Census listing or a press honorific or pronoun for all but B. M. Smith (1933). |
 | 1987–present | Per-person: Newman (1987), Monroe (1999), Dorsey (2015), Spain (2024), and Tejada as the first Latino member (Hjerpe 2021). The Arlington Historical Society keeps a curated entry. | A press pronoun or honorific for every member. |
 
 None of the three roster sources states anyone's race or gender. Race comes
