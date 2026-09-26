@@ -19,7 +19,7 @@ PY=.venv/bin/python
 
 # Stage 1: data/raw/ and data/transcribed/ -> data/built/. Reshaping only;
 # each step is refused if a value its inputs carry is missing from its output.
-BUILD=(elections board_claims census registration board_peers)
+BUILD=(elections board_claims census registration board_peers voters_party)
 
 # Stage 2: data/built/ -> data/clean/. Every decision about what a number
 # is. Each step is named for the file it writes, and later steps read what

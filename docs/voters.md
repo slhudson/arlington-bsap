@@ -11,8 +11,6 @@ history. The placeholders in the `source` columns are explained in
 
 - The 1938 referendum margin has two counts and the canvass has not been
   found (`referendum-1938-margin`).
-- The non-Democratic County Board candidates since 2023 carry no party
-  (`voters-2023-labels`).
 - The presidential figure stacks three bands, and the pre-1924 nominees are a
   table in the build (`president-figure-form`).
 - Turnout's denominators: adults before 1980 (`adults-before-1980`), adults
@@ -77,8 +75,14 @@ is Republican in `board_party`, deliberately; one figure is the choice on the
 ballot, the other who sat. 1931–2021 is the county's candidate history, every
 general and special contest in a year summed; 2022 on is the state database,
 which names a party on the 2022 general and none after, so from 2023 a
-Democratic primary winner is Democratic and everyone else is unrecorded
-(Clement, Fierro and Cambridge are in that band). A year is incomplete on the
+Democratic primary winner is Democratic. Every other general-election
+candidate since 2023 is read from a press or campaign source, quoted in
+`data/transcribed/by_claude/voters_party.csv` and decoded in
+`code/clean/voters.py`'s `CANDIDATE_PARTY_WORDS`: Fierro (2023, 2024) and
+Cambridge (2025) are Republican, named by the county Republican committee;
+Clement (2023–2025), Granger (2024, running under the Forward Party's
+banner) and De Castro Pretelt and Olmack (2025) are independent, so in
+"other". A year is incomplete on the
 same rule turnout uses, below: 1931, 1942, 1947 and 1949. Two
 seats are elected in every fourth year from 1951 and a ballot then carries
 two votes, so shares are of votes cast; that distorts a party's share only

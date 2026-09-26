@@ -41,6 +41,7 @@ import board_seats  # noqa: E402
 import residence_district  # noqa: E402
 import residents  # noqa: E402
 import turnout  # noqa: E402
+import voters  # noqa: E402
 
 # The fetch stage has a paths.py of its own too.
 del sys.modules["paths"]
@@ -271,6 +272,23 @@ def test_words_with_no_category_are_refused():
         return d
     err = breaks(paths, "built", patch_claims("demographics", novel), build=board_members.build)
     assert err and "no single category" in err, f"not caught: {err}"
+
+
+def test_a_candidate_party_word_with_no_category_is_refused():
+    """A press or campaign source's own words for a County Board candidate's
+    party since 2023 that CANDIDATE_PARTY_WORDS has no category for: the
+    transcribed file keeps the words, so a new phrasing has to be decided in
+    code/clean/voters.py before it counts."""
+    def mangle(orig):
+        def patched(stem):
+            d = orig(stem)
+            if stem == "voters_party":
+                d = d.copy()
+                d.loc[d.name == "Bob Cambridge", "party_words"] = "Libertarian"
+            return d
+        return patched
+    err = breaks(paths, "built", mangle, build=voters.build)
+    assert err and "no category here" in err, f"not caught: {err}"
 
 
 def test_two_sources_disagreeing_on_race_is_a_finding():

@@ -28,6 +28,7 @@ import pandas as pd
 import board_terms
 import citekeys
 import elections
+import paths
 from elections import COUNTY_HISTORY_THROUGH
 from paths import write
 
@@ -49,6 +50,17 @@ BANDS = ["dem", "rep", "abc", "other", "unrecorded"]
 # vote counts in.
 BAND = {"Democratic": "dem", "Republican": "rep", "ABC": "abc",
         "independent": "other", "other": "other", "": "unrecorded"}
+
+# The words data/transcribed/by_claude/voters_party.csv carries for a
+# non-Democratic County Board candidate since 2023, the state record's first
+# year with no party on a candidate who did not win a Democratic primary; a
+# word not listed here stops the build. docs/voters.md, voters-2023-labels.
+CANDIDATE_PARTY_WORDS = {
+    "independent": "independent",
+    "independent; running under the banner of the forward party": "independent",
+    "republican": "Republican",
+    "republican for arlington county board": "Republican",
+}
 
 
 def oleary() -> pd.DataFrame:
@@ -112,16 +124,38 @@ def county_check(d: pd.DataFrame):
               f"{TOLERANCE:.0%} in {list(off.index)} (state figures kept)")
 
 
+def candidate_parties() -> dict:
+    """(year, surname) -> (band, source, note) for a County Board
+    general-election candidate the state record carries no party for, from
+    data/built/voters_party.csv: the party a press or campaign source gives,
+    decoded through CANDIDATE_PARTY_WORDS."""
+    a = paths.built("voters_party")
+    out = {}
+    for _, r in a.iterrows():
+        word = r.party_words.strip().lower()
+        if word not in CANDIDATE_PARTY_WORDS:
+            raise ValueError(f"{r['name']} {r.year}: party words with no category here: "
+                             f"{r.party_words!r}; add them to CANDIDATE_PARTY_WORDS in "
+                             f"voters.py or fix the reading")
+        key = (int(r.year), elections.surname(r["name"]))
+        out[key] = (BAND[CANDIDATE_PARTY_WORDS[word]], r.source,
+                    f"{r.basis}: {r.quote}" if r.quote else r.basis)
+    return out
+
+
 def county_board() -> pd.DataFrame:
     """1931 on: every general and special County Board contest in a year,
     summed; primaries and write-ins left out. A county candidate is counted
     under the label the county prints. A state candidate is counted under
     the state's party, or as Democratic if they won that year's Democratic
-    primary, or else as unrecorded."""
+    primary; since 2023, when the state record stopped naming a
+    non-Democratic candidate's party, a press or campaign source stands in
+    (candidate_parties()); failing both, unrecorded."""
     c = elections.contests()
     c = c[(c.record == "county") | (c.year > COUNTY_HISTORY_THROUGH)]
     won_primary = c[c.primary & c.person & (c.primary_party == "Democratic") & (c.is_winner == True)]  # noqa: E712
     dem_primary = set(zip(won_primary.year, won_primary.surname))
+    attributed = candidate_parties()
     rows = []
     for year, g in c[~c.primary].groupby("year"):
         counts = dict.fromkeys(BANDS, 0)
@@ -133,16 +167,32 @@ def county_board() -> pd.DataFrame:
             source = named.source.iloc[0]
         else:
             g = g[g.person]
+            extra_sources, extra_notes = [], []
             for _, r in g.iterrows():
-                band = ("dem" if r.party == "Democratic" or (year, r.surname) in dem_primary
-                        else "rep" if r.party == "Republican"
-                        else "other" if isinstance(r.party, str) else "unrecorded")
+                attribution = attributed.get((year, r.surname))
+                if r.party == "Democratic" or (year, r.surname) in dem_primary:
+                    band = "dem"
+                elif r.party == "Republican":
+                    band = "rep"
+                elif isinstance(r.party, str):
+                    band = "other"
+                elif attribution:
+                    band, cite, note_ = attribution
+                    if cite not in extra_sources:
+                        extra_sources.append(cite)
+                    extra_notes.append(note_)
+                else:
+                    band = "unrecorded"
                 counts[band] += int(r.votes)
             complete = True
             note = ("party from the Democratic primary; the general carries none"
                     if g.party.isna().all() else "")
             source = (f"{citekeys.VA_ELECTIONS} contest "
                       + ", ".join(sorted(g.contest.unique(), key=int)))
+            if extra_sources:
+                source += "; " + "; ".join(extra_sources)
+            if extra_notes:
+                note = "; ".join(filter(None, [note, "; ".join(extra_notes)]))
         rows.append({"year": int(year), "office": "county board", **counts,
                      "total": sum(counts.values()), "complete": complete,
                      "source": source, "note": note})
