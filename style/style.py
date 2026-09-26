@@ -32,6 +32,19 @@ UNRECORDED = "#DDDDDD"    # no evidence
 
 DARK = "#5C5859"          # a reference series
 
+# The sequential profile: one hue, light to dark, for categories that are
+# ordered. ramp(n) is n steps of it, lightest first; an ordered figure takes
+# its colours from here and defines none of its own. See docs/figures.md.
+SEQUENTIAL = ("#D3EBDD", "#1B6B4A")
+
+
+def ramp(n):
+    """n colours from the sequential profile, lightest first."""
+    lo, hi = (tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) for c in SEQUENTIAL)
+    return ["#" + "".join(f"{round(a + (b - a) * k / (n - 1)):02X}" for a, b in zip(lo, hi))
+            for k in range(n)]
+
+
 # One table per subject: column -> (legend label, colour), in stacking
 # order, axis upward.
 RACE = {
@@ -41,21 +54,21 @@ RACE = {
     "white": ("White", SAND),
 }
 RESIDUAL = ("Other or Multiracial", GREY)
+# The county's crossed census tables, from 1980: race and Hispanic origin are
+# two questions, so Black and White there are the non-Hispanic cells. Only
+# the residents figure reads them; the Board's race is not a crosstab.
+CROSSED_LABELS = {"black": "Black, not Hispanic", "white": "White, not Hispanic"}
+CROSSED_YEAR = 1980
 RESIDENTS = {**{k: RACE[k] for k in ("black", "hisp", "aapi")},
              "other": RESIDUAL, "white": RACE["white"]}
-# The county by age band, youngest at the base. Age bands are ordered, so
-# they take one hue that darkens with age rather than seven unrelated
-# colours; the hue is one no other subject uses, so a band cannot be
-# mistaken for a race, a party or a gender group.
-RESIDENT_AGES = {
-    "ageunder18": ("under 18", "#DEDBEF"),
-    "age18to24":  ("18 to 24", "#C4BEE2"),
-    "age25to34":  ("25 to 34", "#A79ED1"),
-    "age35to44":  ("35 to 44", "#8A7EBD"),
-    "age45to54":  ("45 to 54", "#6D60A3"),
-    "age55to64":  ("55 to 64", "#514585"),
-    "age65plus":  ("65 and over", "#332B62"),
-}
+RESIDENTS_CROSSED = {k: (CROSSED_LABELS.get(k, label), colour)
+                     for k, (label, colour) in RESIDENTS.items()}
+# The county by age band, youngest at the base. Ordered, so it takes the
+# sequential profile, darker with age.
+RESIDENT_AGES = dict(zip(
+    ("ageunder18", "age18to24", "age25to34", "age35to44", "age45to54", "age55to64", "age65plus"),
+    zip(("under 18", "18 to 24", "25 to 34", "35 to 44", "45 to 54", "55 to 64", "65 and over"),
+        ramp(7))))
 GENDER = {
     "women": ("women", OKABE_ITO["reddish_purple"]),
     "men":   ("men", SAND),
@@ -94,15 +107,14 @@ AGE_SPAN = {
     "band":   ("youngest to oldest sitting", SAND),
     "member": ("member", DARK),
 }
-# How exactly the sitting Board's homes are known: one hue, darker the more
-# exactly the place is named, and the no-evidence grey for no place at all.
-RESIDENCE = {
-    "address":          ("street address", "#1B6B4A"),
-    "street":           ("street name", "#4FA37D"),
-    "neighborhood":     ("neighborhood", "#9CCFB3"),
-    "side_or_district": ("north/south side or district", "#D3EBDD"),
-    "none":             ("no location", UNRECORDED),
-}
+# How exactly the sitting Board's homes are known: ordered, so the sequential
+# profile, darker the more exactly the place is named, and the no-evidence
+# grey for no place at all.
+RESIDENCE = dict(zip(
+    ("address", "street", "neighborhood", "side_or_district"),
+    zip(("street address", "street name", "neighborhood", "north/south side or district"),
+        reversed(ramp(4)))))
+RESIDENCE["none"] = ("no location", UNRECORDED)
 PRESIDENT = ("voted for President", DARK)
 CYCLE = {
     "president": ("presidential year", OKABE_ITO["vermilion"]),

@@ -2,8 +2,11 @@
 
 Two panels. (a) Counts, one line per group with a marker per census; White
 is clipped at TOP and marked where it leaves the axis. (b) Shares, as
-stacked bars in style.RESIDENTS, the residual between the counted
-groups and White. One legend for both.
+stacked bars, the residual between the counted groups and White. One
+legend for both. Both draw from style.RESIDENTS_CROSSED_CROSSED, so Black and White
+read "not Hispanic"; that is true only from style.CROSSED_YEAR, before which
+the census asked no Hispanic-origin question, so a dashed rule marks the year
+the definition changes.
 """
 import numpy as np
 import pandas as pd
@@ -31,18 +34,20 @@ for profile in style.PROFILES:
     fig, (a, b) = charts.panels(profile)
 
     # (a) White is drawn last, in the darker stroke, clipped at TOP.
-    lines = charts.series(counts, style.RESIDENTS)
-    lines[style.RACE["white"][0]] = (counts["white"], style.SAND_LINE)
+    lines = charts.series(counts, style.RESIDENTS_CROSSED)
+    lines[style.RESIDENTS_CROSSED["white"][0]] = (counts["white"], style.SAND_LINE)
     charts.lines(a, c["year"], lines)
     charts.counts(a, TOP, 5000)
     charts.years(a, 1870, 2020, step=40)
     charts.off_scale(a, c["year"], counts["white"], style.SAND_LINE, TOP)
+    charts.rule(a, style.CROSSED_YEAR, note=None)
     a.set_title("(a) number of residents")
 
-    stacked = charts.series(shares, style.RESIDENTS)
+    stacked = charts.series(shares, style.RESIDENTS_CROSSED)
     charts.stacked_bars(b, c["year"], stacked)
     charts.shares(b)
     charts.years(b, 1870, 2020, step=40)
+    charts.rule(b, style.CROSSED_YEAR, note=None)
     b.set_title("(b) share of residents")
 
     charts.legend(fig, stacked, ncol=3)

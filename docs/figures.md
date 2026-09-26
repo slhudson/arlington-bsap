@@ -53,21 +53,29 @@ category in both.
 Colours are assigned per subject rather than through numbered slots, and
 nothing shares a colour with anything it appears beside.
 
+**Whether the categories are ordered decides the palette, not the topic.**
+Ordered categories take one sequential ramp, `style.SEQUENTIAL`, drawn on by
+`style.ramp(n)`: adjacent bands read as adjacent, and the darker end is the
+more of the thing. Unordered categories take Okabe-Ito, where no hue implies
+a rank. A figure never defines a ramp of its own.
+
+- Ordered: `residents_by_age` (young to old) and `board_residence_coverage`
+  (how exactly a home is named). Both draw from the one ramp, so they read as
+  a pair; the no-evidence grey stays outside it, since an absence is not a
+  step on the scale.
+- Unordered, Okabe-Ito: `board_race`, `board_gender`, `residents_by_race`,
+  and the party and growth figures.
+
 - **Race.** Black orange, Hispanic or Latino bluish green, Asian and Pacific
   Islander blue, White sand. Asian and Pacific Islander takes blue rather
   than reddish purple because the reddish purple carries women on the
   gender chart, and the two should not read as the same category across a
   section.
-- **Age.** The county's seven age bands are ordered, and seven unrelated
-  hues would say they were not: a reader would have to consult the legend
-  to know which band sits next to which. They take one hue that darkens
-  with age, `#DEDBEF` to `#332B62`, the way the residence diagnostic takes
-  one green that darkens as the place is named more exactly. The hue is
-  indigo because no other subject uses it: age is the only figure in the
-  report where a band is neither a race, a party nor a gender, and it
-  should not be mistaken for one. The near-neutral rule is set aside, as it
-  is for party: there is no largest group holding the mass here, since the
-  bands are of comparable size and the darkest is not the biggest.
+- **Age.** Ordered: see the palette rule above. Seven bands on the
+  sequential profile, `style.ramp(7)`, light for the youngest. The
+  near-neutral rule is set aside, as it is for party: there is no largest
+  group holding the mass here, since the bands are of comparable size and the
+  darkest is not the biggest.
 - **Gender.** Women reddish purple, men sand. Urban's guide says: "Urban
   tries not to use color palettes that reinforce gender or racial
   stereotypes (e.g., pink for women and blue for men)." Half the pairing
@@ -160,9 +168,16 @@ out, never above 0.12 per cent of the county; from 1980 it is American
 Indian and Alaska Native, some other race, and two or more races, all
 counted, and in 2020 two or more races is 12,196 of its 13,945.
 
-A qualifier is stated once, in the caption. On the census basis every group
-except Hispanic or Latino is non-Hispanic; the legend says "Black", "White"
-and so on, and the caption says so.
+A qualifier is stated once, in the caption, where a category means the same
+thing throughout. On the census basis every group except Hispanic or Latino
+is non-Hispanic, but only from 1980, the first census that asked; before it
+Black and White are everyone in the race, Hispanic or not. So on
+`residents_by_race` alone the legend says "Black, not Hispanic" and "White,
+not Hispanic" (`style.RESIDENTS_CROSSED`), and a dashed rule at 1980 marks
+where the definition changes; the caption says what the series before it
+are. `board_race` keeps "Black" and "White" (`style.RACE`): the Board's race
+is not a census crosstab, and Hispanic there is from published research, not
+a cell.
 
 ## Legend
 
@@ -184,17 +199,6 @@ marks it names — far enough on a narrow figure to read as a mistake. The
 plot's own span is what a reader sees as the figure, so that is what the
 legend is hung beneath. `charts.fit()` places it, after the plot is sized,
 because the plot's position is not known until then.
-
-No legend where the lines can be labelled directly. A direct label sits
-beside the point it names, at that point's height, inside the axes. Urban
-puts line labels at the far right just outside the plot; that needs headroom
-past the last data point, and a label long enough to be readable needs
-enough of it to visibly stretch the axis, which distorts the series to buy
-room for its own caption. Which side of the point depends on the line: to
-the left, ending at the point, for a line with empty space behind it; above
-or below, for a line another runs close to. Wrapping the name over lines
-halves the room it needs. A label is one block of a few short lines, not one
-long line, because a long line is read rather than glanced at.
 
 ## Size and margins
 

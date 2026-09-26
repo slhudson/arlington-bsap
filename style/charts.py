@@ -9,7 +9,6 @@ each placement is in docs/figures.md.
     stacked_bars()  composition at intervals
     stacked_steps() composition over continuous years, with gaps preserved
     panels()        two of the above, side by side
-    end_label()     a line named at its last point, inside the axes
     legend()        one legend for the figure, one row, below the axes
     rule()          a dated vertical rule with its note above the frame
     scatter()       one scatter, squarer than a time series
@@ -76,23 +75,6 @@ def strokes(ax, segments, color, alpha=1.0):
     """One straight stroke per (x0, y0, x1, y1), over the band."""
     for x0, y0, x1, y1 in segments:
         ax.plot([x0, x1], [y0, y1], color=color, alpha=alpha, solid_capstyle="butt", zorder=3)
-
-
-def end_label(ax, x, y, text, color, where="left", gap=0.012):
-    """Name a line at (x, y), inside the axes: `left` ends the text at the
-    point; `above` and `below` sit it over or under the point, right-aligned.
-    gap is the offset as a fraction of the axis."""
-    if where == "above":
-        lo, hi = ax.get_ylim()
-        x, y, ha, va = x, y + (hi - lo) * gap, "right", "bottom"
-    elif where == "below":
-        lo, hi = ax.get_ylim()
-        x, y, ha, va = x, y - (hi - lo) * gap, "right", "top"
-    else:
-        lo, hi = ax.get_xlim()
-        x, y, ha, va = x - (hi - lo) * gap, y, "right", "center"
-    ax.text(x, y, text, color=color, ha=ha, va=va, linespacing=1.25,
-            fontsize=plt.rcParams["font.size"])
 
 
 def stacked_bars(ax, x, series, width=7):
