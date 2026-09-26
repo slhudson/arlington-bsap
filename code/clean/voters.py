@@ -29,10 +29,7 @@ import board_roster
 import citekeys
 import elections
 from elections import COUNTY_HISTORY_THROUGH
-from paths import BY_CLAUDE, RAW, write
-
-OLEARY = BY_CLAUDE / "arlington_county" / "president_1872-1920.csv"
-STATE = RAW / "va_dept_of_elections" / "president_1924-2024.csv"
+from paths import OLEARY_PRESIDENT, source, write
 
 # The major-party nominees, (Democratic, Republican), as O'Leary spells them.
 NOMINEES = {
@@ -55,7 +52,7 @@ BAND = {"Democratic": "dem", "Republican": "rep", "ABC": "abc",
 
 
 def oleary() -> pd.DataFrame:
-    d = pd.read_csv(OLEARY)
+    d = source(OLEARY_PRESIDENT)
     rows = []
     for year, g in d.groupby("year"):
         dem, rep = NOMINEES[int(year)]
@@ -88,21 +85,22 @@ def oleary() -> pd.DataFrame:
 
 
 def state() -> pd.DataFrame:
-    s = elections.state_results(STATE)
-    s = s[s.person].copy()
-    s["band"] = s.candidate_party_name.map({"Democratic": "dem", "Republican": "rep"}).fillna("other")
-    g = s.pivot_table(index=["year", "contest_id"], columns="band", values="votes", aggfunc="sum",
+    s = elections.contests(elections.PRESIDENT)
+    s = s[(s.record == "state") & s.person].copy()
+    s["votes"] = s.votes.astype(int)
+    s["band"] = s.party.map({"Democratic": "dem", "Republican": "rep"}).fillna("other")
+    g = s.pivot_table(index=["year", "contest"], columns="band", values="votes", aggfunc="sum",
                       fill_value=0).reset_index()
     g["total"] = g[["dem", "rep", "other"]].sum(axis=1)
     g["complete"] = True
-    g["source"] = [f"{citekeys.VA_ELECTIONS} contest {c}" for c in g.contest_id]
+    g["source"] = [f"{citekeys.VA_ELECTIONS} contest {c}" for c in g.contest]
     g["note"] = ""
     return g[["year", "dem", "rep", "other", "total", "complete", "source", "note"]]
 
 
 def county_check(d: pd.DataFrame):
     """The county's own presidential returns, against the state's."""
-    c = elections.county_history(office=re.compile("^President"))
+    c = elections.county_history(elections.PRESIDENT)
     c = c[c.candidate.str.contains(r"\((?:D|R)\s?\)$")].copy()
     c["band"] = c.candidate.str.extract(r"\((D|R)\s?\)$")[0].map({"D": "dem", "R": "rep"})
     county = c.groupby(["year", "band"]).votes.sum().unstack()

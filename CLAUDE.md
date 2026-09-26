@@ -46,7 +46,7 @@ has nothing to reach with. Note that `analysis` scripts *append* `code/build/` t
 
 ## Naming
 
-**A file is named after what it produces.** `code/build/residents.py` writes
+**A file is named after what it produces.** `code/clean/residents.py` writes
 `data/clean/residents.csv`. `code/analysis/board_race.py` writes
 `figures/pdf/board_race.pdf` and `figures/png/board_race.png`. No `make_`
 prefixes, no `_chart` suffixes: the directory says what the stage does, the
@@ -155,7 +155,7 @@ for the prose and the data, so a footnote in the report and a cell in a table
 name the same document. Entries are built from the document in hand, never from
 memory; what is missing from the copy we hold goes in `annotation`, which
 biblatex does not print. Three values are not citekeys - `assumed`,
-`derived`, `unsourced` - and `code/build/citekeys.py` says what each one
+`derived`, `unsourced` - and `code/citekeys.py` says what each one
 admits to. Anything else stops the build.
 
 **A row read from a census, a directory or a map states its match.** Those
@@ -175,7 +175,7 @@ failing would show 4,596 in a figure and tell nobody.
 
 **Fail loudly.** A script that cannot find its input, or whose numbers stop
 tying out, should raise — not carry on and emit a plausible-looking figure with
-wrong values. `code/build/residents.py` asserts its derived columns still agree with
+wrong values. `code/clean/residents.py` asserts its derived columns still agree with
 the figures they derive from, and `run.sh` fails if a script does not write the
 figure it is named for.
 

@@ -36,9 +36,10 @@ import board_census
 import board_roster
 import citekeys
 import elections
+import paths
 from board_roster import AT_LARGE_FROM
 from elections import PARTIES
-from paths import BY_CLAUDE, write
+from paths import write
 
 # The county's labels are elections.LABELS; the state's names are mapped here.
 STATE_PARTIES = {"Democratic": "Democratic", "Republican": "Republican",
@@ -57,6 +58,13 @@ NO_EVIDENCE = "none"
 # A birth year that puts a member outside this range of ages when first
 # seated is a misreading, not a finding.
 AGE_WHEN_SEATED = (18, 100)
+
+
+def claims(kind, columns) -> pd.DataFrame:
+    """The rows of one claim file, from data/built/board_claims.csv, in the
+    file's own columns."""
+    c = paths.built("board_claims")
+    return c.loc[c.claim == kind, columns].reset_index(drop=True)
 
 
 def quoted(basis, quotes) -> str:
@@ -99,7 +107,8 @@ def state_parties() -> dict:
 def party_attributions() -> pd.DataFrame:
     """One row per (name, term start year) from the sourced file. Two sources
     disagreeing stops the build."""
-    a = pd.read_csv(BY_CLAUDE / "board_party.csv", dtype={"start_year": int}).fillna("")
+    a = claims("party", ["name", "start_year", "party", "basis", "source", "quote"])
+    a["start_year"] = a.start_year.astype(int)
 
     def fold(rows):
         vals = sorted(set(rows.party))
@@ -174,7 +183,7 @@ def attributions() -> pd.DataFrame:
     """One row per person from the claim file and the census records: race,
     gender and birth year, each with every source and note joined. Two
     sources disagreeing stops the build."""
-    a = pd.read_csv(BY_CLAUDE / "board_demographics.csv", dtype=str).fillna("")
+    a = claims("demographics", ["name", *ATTRIBUTED, "basis", "source", "quote"])
     missing = [f for f in ATTRIBUTED if f not in a.columns]
     if missing:
         raise ValueError(f"board_demographics.csv has no {', '.join(missing)} column")

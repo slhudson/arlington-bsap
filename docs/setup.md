@@ -48,22 +48,27 @@ code, each writing one folder of data:
 - `code/transcribe/` reads the scanned documents in `data/raw/` into tables in
   `data/transcribed/`. Also run only when something new needs reading, and
   its output is committed.
-- `code/build/` turns the raw and transcribed files into the clean tables in
-  `data/clean/`. This is where every decision about what a number *is* gets
-  made — what a blank means, which of two conflicting figures to trust.
+- `code/build/` reshapes the raw and transcribed files into the tables in
+  `data/built/` — stacks the claim files, puts both election records in one
+  table — and decides nothing. A step is refused if a value its inputs
+  carry is missing from its output.
+- `code/clean/` turns those, and the few sources it still reads directly,
+  into the clean tables in `data/clean/`. This is where every decision about
+  what a number *is* gets made — what a blank means, which of two
+  conflicting figures to trust, whether a census line is the Board member.
 - `code/analysis/` draws the figures from `data/clean/` into `figures/`. One
   script per figure. These scripts decide how a number is shown, and they
   cannot see anything above `data/clean/`, so a figure can never quietly
   change a value.
 
-`run.sh` runs the last two every time; the first two only run when someone
+`run.sh` runs the last three every time; the first two only run when someone
 asks for them. Alongside those: `paper/` holds the LaTeX source that Overleaf
 syncs, and `docs/` holds the open questions, the record of what backs every
 number, and the reasoning behind each figure.
 
 Two rules to know before touching anything. `data/raw/` holds the sources as
 published and is never edited — a defect in one is corrected in
-`code/build/`, where the correction is visible. And `README.md` is the front
+`code/clean/`, where the correction is visible. And `README.md` is the front
 door — it has a table of which script
 writes which file — while `CLAUDE.md` holds the working rules.
 

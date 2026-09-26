@@ -5,23 +5,26 @@ Structure and Performance study. National Civic League (prime), with Sally
 Hudson (Ranked Choice Virginia) and Alex Keena (VCU).
 
 **Start with `CLAUDE.md`.** It holds the working rules and explains the one
-idea everything else follows: `code/build/` decides what a number *is*, `code/analysis/`
-decides how it is *shown*, and the second cannot reach around the first.
+idea everything else follows: `code/build/` reshapes the sources without
+deciding anything, `code/clean/` decides what a number *is*, `code/analysis/`
+decides how it is *shown*, and no stage can reach around the one before it.
 
 ## The pipeline
 
 ```
 code/fetch/       -> data/raw/          published sources, saved as published
 code/transcribe/  -> data/transcribed/  read off the scans
-code/build/       -> data/clean/        every decision about what a number is
+code/build/       -> data/built/        the sources reshaped; every value kept
+code/clean/       -> data/clean/        every decision about what a number is
 code/analysis/    -> figures/           which numbers a figure shows
 style/                             how they are shown: conventions, palette, font
 paper/                             the prose and sources.bib, via Overleaf
 ```
 
-`bash run.sh` runs the tests, then `code/build/`, then `code/analysis/`. The first two
-folders run on demand and their output is committed, so anyone can rebuild
-without a network connection, an API key, or a Mac.
+`bash run.sh` runs the tests, then `code/build/`, `code/clean/` and
+`code/analysis/`. The first two folders run on demand and their output is
+committed, so anyone can rebuild without a network connection, an API key,
+or a Mac.
 
 | Script | Writes | Explained in |
 |---|---|---|
@@ -35,21 +38,27 @@ without a network connection, an API key, or a Mac.
 | `code/transcribe/president_1872_1920.py` | `data/transcribed/by_claude/arlington_county/president_1872-1920.csv` | `data/contents.csv` |
 | `code/transcribe/candidate_history.py` | `data/transcribed/by_claude/arlington_county/candidate_history_1920-present.csv` | `data/contents.csv` |
 | `code/transcribe/novack_terms.py` | `data/transcribed/by_claude/arlington_historical_magazine/novack_terms_1930-1994.csv` | `data/contents.csv` |
-| `code/build/residents.py` | `data/clean/residents.csv` | `docs/residents.md` |
-| `code/build/voters.py` | `data/clean/voters.csv` | `docs/voters.md` |
-| `code/build/board_members.py` | `data/clean/board_members.csv` | `docs/board.md` |
-| `code/build/board_seats.py` | `data/clean/board_seats.csv` | `docs/board.md` |
-| `code/build/turnout.py` | `data/clean/turnout.csv` | `docs/voters.md` |
+| `code/build/elections.py` | `data/built/elections.csv` | its own docstring |
+| `code/build/board_claims.py` | `data/built/board_claims.csv` | `docs/board.md` |
+| `code/clean/residents.py` | `data/clean/residents.csv` | `docs/residents.md` |
+| `code/clean/voters.py` | `data/clean/voters.csv` | `docs/voters.md` |
+| `code/clean/board_members.py` | `data/clean/board_members.csv` | `docs/board.md` |
+| `code/clean/board_residence.py` | `data/clean/board_residence.csv` | `docs/board.md` |
+| `code/clean/board_seats.py` | `data/clean/board_seats.csv` | `docs/board.md` |
+| `code/clean/turnout.py` | `data/clean/turnout.csv` | `docs/voters.md` |
 | `code/analysis/<figure>.py` | `figures/pdf/<figure>.pdf`, `figures/png/<figure>.png` | its own docstring |
 | `code/archive.py` | `index.md` at the top of the Drive documents folder, and the zip the County receives | `CLAUDE.md` |
 
-Three build modules write nothing and are read by the steps above:
-`code/build/board_roster.py` (who held each seat and when),
-`code/build/elections.py` (the county's and the state's election records,
-read once) and `code/build/citekeys.py` (the citekeys `paper/sources.bib`
-defines). Each stage has a `paths.py` that maps its data folders.
+Three clean modules write nothing and are read by the steps above:
+`code/clean/board_roster.py` (who held each seat and when),
+`code/clean/elections.py` (an office's contests, selected from the built
+table) and `code/clean/board_census.py` (the census rows of the built claims,
+coded). `code/citekeys.py` (the citekeys `paper/sources.bib` defines) is
+read by both data stages. Each stage has a `paths.py` that maps its data
+folders; `code/clean/paths.py` also lists the sources the clean stage
+still reads directly.
 
-Twelve figures build. Four are in the paper so far, `residents_per_seat`,
+Eleven figures build. Four are in the paper so far, `residents_per_seat`,
 `residents_by_race`, `board_gender` and `board_race`; the rest are built
 and waiting on the outline.
 
@@ -89,7 +98,7 @@ silently go stale.
 
 | File | What it holds |
 |---|---|
-| `CLAUDE.md` | Working rules; the code/build/analysis split; naming |
+| `CLAUDE.md` | Working rules; the build/clean/analysis split; naming |
 | `data/contents.csv` | Every data folder and file: where it came from, what reads it |
 | `docs/residents.md`, `docs/board.md`, `docs/voters.md` | What each number is, what backs it, what is assumed, and why; one per subject |
 | `docs/questions.csv` | What is still open: one row per item with an owner, what it bites and what would settle it |

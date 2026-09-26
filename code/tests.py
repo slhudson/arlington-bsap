@@ -12,24 +12,38 @@ import hashlib
 import os
 import re
 import sys
+import tempfile
 from pathlib import Path
 
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "code"))
+import citekeys  # noqa: E402
+
+# Each data stage has its own paths.py. The build stage's modules load
+# first and keep theirs; the name is then cleared so the clean stage's can
+# load under it.
 sys.path.insert(0, str(ROOT / "code" / "build"))
-import board_census  # noqa: E402
+import paths as build_paths  # noqa: E402
+import board_claims  # noqa: E402
+sys.path.remove(str(ROOT / "code" / "build"))
+del sys.modules["paths"]
+
+sys.path.insert(0, str(ROOT / "code" / "clean"))
 import board_members  # noqa: E402
 import paths  # noqa: E402
-import board_residence  # noqa: E402
 import board_roster  # noqa: E402
 import board_seats  # noqa: E402
-import citekeys  # noqa: E402
 import residents  # noqa: E402
 import turnout  # noqa: E402
 
+# The fetch stage has a paths.py of its own too.
+del sys.modules["paths"]
 sys.path.insert(0, str(ROOT / "code" / "fetch"))
 import registration  # noqa: E402
+sys.path.remove(str(ROOT / "code" / "fetch"))
+sys.modules["paths"] = paths
 
 
 def breaks(module, attr, mangle, build=None):
@@ -45,13 +59,28 @@ def breaks(module, attr, mangle, build=None):
         setattr(module, attr, original)
 
 
-def patch_csv(module, when, change):
-    """A mangle for a module's pd.read_csv: `change` is applied to any frame
-    for which `when(frame)` holds."""
+def patch_source(when, change):
+    """A mangle for a build step's paths.source: `change` is applied to any
+    frame for which `when(frame)` holds."""
     def mangle(orig):
         def patched(path, *a, **k):
             d = orig(path, *a, **k)
             return change(d) if when(d) else d
+        return patched
+    return mangle
+
+
+def patch_claims(kind, change):
+    """A mangle for the clean stage's paths.built: `change` is applied to
+    the rows of data/built/board_claims.csv from one claim file, or to
+    every row when `kind` is None."""
+    def mangle(orig):
+        def patched(stem):
+            d = orig(stem)
+            if stem == "board_claims":
+                rows = (d.claim == kind) if kind else pd.Series(True, index=d.index)
+                d = pd.concat([d[~rows], change(d[rows].copy())], ignore_index=True)
+            return d
         return patched
     return mangle
 
@@ -184,9 +213,7 @@ def test_an_attributed_name_that_misses_the_roster_is_rejected():
     def rename(d):
         d.loc[d.name == "Ellen Bozman", "name"] = "Bozman"
         return d
-    err = breaks(board_members.pd, "read_csv",
-                 patch_csv(board_members, lambda d: "basis" in d.columns, rename),
-                 build=board_members.build)
+    err = breaks(paths, "built", patch_claims("demographics", rename), build=board_members.build)
     assert err and "not in the roster" in err, f"not caught: {err}"
 
 
@@ -196,9 +223,7 @@ def test_two_sources_disagreeing_on_race_is_a_finding():
         extra = d[d.name == "William A. Rowe"].iloc[[0]].copy()
         extra["race"] = "White"
         return pd.concat([d, extra], ignore_index=True)
-    err = breaks(board_members.pd, "read_csv",
-                 patch_csv(board_members, lambda d: "basis" in d.columns, contradict),
-                 build=board_members.build)
+    err = breaks(paths, "built", patch_claims("demographics", contradict), build=board_members.build)
     assert err and "disagree" in err, f"not caught: {err}"
 
 
@@ -207,9 +232,7 @@ def test_a_birth_year_after_the_seating_is_rejected():
     def misread(d):
         d.loc[d.name == "Harold J. Casto", "birth_year"] = "1953"
         return d
-    err = breaks(board_members.pd, "read_csv",
-                 patch_csv(board_members, lambda d: "race" in d.columns, misread),
-                 build=board_members.build)
+    err = breaks(paths, "built", patch_claims(None, misread), build=board_members.build)
     assert err and "age when first seated" in err, f"not caught: {err}"
 
 
@@ -219,9 +242,9 @@ def test_a_census_row_that_does_not_name_what_was_checked_is_refused():
     def unchecked(d):
         d.loc[d.source == "census1950tillema", "checked"] = ""
         return d
-    err = breaks(board_census.pd, "read_csv",
-                 patch_csv(board_census, lambda d: "checked" in d.columns, unchecked),
-                 build=board_members.build)
+    err = breaks(board_claims, "source",
+                 patch_source(lambda d: "checked" in d.columns, unchecked),
+                 build=board_claims.build)
     assert err and "what was checked" in err, f"not caught: {err}"
 
 
@@ -233,9 +256,9 @@ def test_a_place_read_only_from_the_index_is_refused():
         d.loc[d.source == "census1950kaul", "checked"] = "the index only"
         d.loc[d.source == "census1950kaul", "place"] = "N Nash St, house number 1101"
         return d
-    err = breaks(board_census.pd, "read_csv",
-                 patch_csv(board_census, lambda d: "checked" in d.columns, index_only),
-                 build=board_residence.build)
+    err = breaks(board_claims, "source",
+                 patch_source(lambda d: "checked" in d.columns, index_only),
+                 build=board_claims.build)
     assert err and "without the sheet read" in err, f"not caught: {err}"
 
 
@@ -245,10 +268,49 @@ def test_a_census_race_with_no_category_is_refused():
     def uncoded(d):
         d.loc[d.source == "census1880allen", "race"] = "Negro"
         return d
-    err = breaks(board_census.pd, "read_csv",
-                 patch_csv(board_census, lambda d: "checked" in d.columns, uncoded),
-                 build=board_members.build)
+    err = breaks(paths, "built", patch_claims("census", uncoded), build=board_members.build)
     assert err and "no category" in err, f"not caught: {err}"
+
+
+# --- the build stage reshapes and never decides -------------------------------
+
+def test_a_category_merged_in_the_build_stage_is_refused():
+    """Two census race categories collapsed into one by a build step. That
+    is a decision, and the stage refuses it; the same collapse in
+    code/clean/board_census.py is where it belongs. Written to a scratch
+    folder, so a broken guard cannot leave a collapsed table in data/built/."""
+    build_paths._INPUTS.clear()
+    honest = board_claims.build()
+    assert not build_paths.lost(honest), build_paths.lost(honest)
+    collapsed = honest.copy()
+    collapsed.loc[collapsed.race == "Mulatto", "race"] = "Black"
+    kept, build_paths.BUILT = build_paths.BUILT, Path(tempfile.mkdtemp())
+    try:
+        build_paths.write(collapsed, "board_claims")
+        err = None
+    except AssertionError as e:
+        err = str(e)
+    finally:
+        build_paths.BUILT = kept
+    assert err and "'race'" in err and "Mulatto" in err, f"not caught: {err}"
+
+
+def test_the_clean_stage_reads_only_the_sources_it_lists():
+    """A clean step reading a source its paths.py does not name; and the
+    list disagreeing with what data/contents.csv says clean steps read."""
+    try:
+        paths.source(ROOT / "data" / "transcribed" / "by_claude" / "board_census.csv")
+        err = None
+    except PermissionError as e:
+        err = str(e)
+    assert err and "no route" in err, f"not caught: {err}"
+    listed = {str(p.relative_to(ROOT)) for p in paths.SOURCES}
+    inventoried = {r["path"] for r in csv.DictReader((ROOT / "data" / "contents.csv").open())
+                   if r["layer"] in ("raw", "transcribed/by_claude") and "code/clean/" in r["read_by"]}
+    assert listed == inventoried, (
+        "code/clean/paths.py and data/contents.csv disagree on what the clean stage reads directly:\n"
+        + "\n".join(f"  listed, not inventoried as read by clean: {p}" for p in sorted(listed - inventoried))
+        + "\n".join(f"  inventoried as read by clean, not listed: {p}" for p in sorted(inventoried - listed)))
 
 
 def test_party_must_account_for_the_same_seats():
@@ -279,11 +341,9 @@ def test_reporting_cannot_overrule_a_party_the_county_prints():
     """Reporting that contradicts a party the county prints."""
     def contradict(d):
         extra = d.iloc[[0]].copy()
-        extra["name"], extra["start_year"], extra["party"] = "Mary Margaret Whipple", 1983, "Republican"
+        extra["name"], extra["start_year"], extra["party"] = "Mary Margaret Whipple", "1983", "Republican"
         return pd.concat([d, extra], ignore_index=True)
-    err = breaks(board_members.pd, "read_csv",
-                 patch_csv(board_members, lambda d: {"quote", "party"} <= set(d.columns), contradict),
-                 build=board_members.build)
+    err = breaks(paths, "built", patch_claims("party", contradict), build=board_members.build)
     assert err and "county lists (D)" in err, f"not caught: {err}"
 
 

@@ -11,9 +11,8 @@ import re
 import pandas as pd
 
 import board_census
-from paths import BY_CLAUDE, write
-
-CLAIMS = BY_CLAUDE / "board_residence.csv"
+import paths
+from paths import write
 
 # How exactly a place is named, most to least: a house on a street, a street
 # with no house, a neighborhood or civic association, a side of the County,
@@ -48,8 +47,9 @@ def precision(place: str) -> str:
 
 
 def build() -> pd.DataFrame:
-    claims = pd.concat([pd.read_csv(CLAIMS, dtype=str), board_census.residences()],
-                       ignore_index=True).fillna("")
+    c = paths.built("board_claims")
+    stated = c.loc[c.claim == "residence", ["name", "year", "place", "basis", "source", "quote"]]
+    claims = pd.concat([stated, board_census.residences()], ignore_index=True).fillna("")
     claims["precision"] = [precision(p) for p in claims.place]
     return claims.sort_values(["name", "year"], kind="stable")
 

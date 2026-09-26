@@ -4,7 +4,7 @@ Who held each seat and when, and who they were: what each number in
 `data/clean/board_members.csv` and `data/clean/board_seats.csv` is, what backs
 it, what is assumed where nothing does, and why. Present tense; how a decision
 was reached is in the git history. The placeholders in the `source` columns
-are explained in `code/build/citekeys.py`, and what is still open is in
+are explained in `code/citekeys.py`, and what is still open is in
 `docs/questions.csv`.
 
 
@@ -40,7 +40,7 @@ are explained in `code/build/citekeys.py`, and what is still open is in
 - The 1930 candidacies of Harris, Morton and Mosley rest on a page nobody has
   read (`bestebreurtje-p215`).
 - Each place carries a precision, from the place's own words by rules in
-  `code/build/board_residence.py`: a house number with a street is an address;
+  `code/clean/board_residence.py`: a house number with a street is an address;
   a street with no number, a street; a neighborhood, civic association or
   named community, a neighborhood; and "North Arlington" or the northernmost
   section, a side; and one of the three magisterial districts of Alexandria
@@ -124,7 +124,7 @@ sourced and carries no note.
 
 **So the roster names almost nobody from 1912 to 1931.** No source in hand
 records who served, and the seat counts for those years are an assumption,
-stated in `code/build/board_seats.py` and labelled `assumed`: three seats,
+stated in `code/clean/board_seats.py` and labelled `assumed`: three seats,
 filled, held by white men. `board_seats` states those years itself and
 replaces whatever the roster holds for them, so a name added to the roster
 moves no seat-year; `code/tests.py` adds a member in 1925 and checks that
@@ -255,7 +255,7 @@ columns:
 | `quote` | the index listing verbatim |
 | `sheet` | the sheet's lines verbatim, where they were read |
 
-`code/build/board_census.py` codes the printed values: `Male` a man,
+`code/clean/board_census.py` codes the printed values: `Male` a man,
 `Female` a woman, `White` White, and both `Black` and `Mulatto` Black, as
 Hjerpe codes Pinn's 1880 record. A printed value it has no code for stops
 the build, since a dropped claim would fall silently into the default, and
@@ -298,7 +298,7 @@ standing as the OCR under `data/transcribed/by_ocr/`: it locates the line, it
 does not read it. That is a second reading of every record, not a sample,
 because there are only 72 of them and the cost of a wrong one is silent.
 
-`code/build/board_census.py` enforces the half of that rule a machine can
+`code/build/board_claims.py` enforces the half of that rule a machine can
 check. A row whose `checked` names neither the sheet nor the index stops the
 build, and so does a `place` on a row the sheet was never read against, since
 a street is the field the index gets wrong. `code/tests.py` reintroduces both

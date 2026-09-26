@@ -17,11 +17,16 @@ fi
 PY=.venv/bin/python
 [ -x "$PY" ] || { echo "no venv: python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflakes"; exit 1; }
 
-# Stage 1: data/raw/ and data/transcribed/ -> data/clean/. Each step is named
-# for the file it writes, and later steps read what earlier ones wrote.
-BUILD=(residents board_members board_residence board_seats voters turnout)
+# Stage 1: data/raw/ and data/transcribed/ -> data/built/. Reshaping only;
+# each step is refused if a value its inputs carry is missing from its output.
+BUILD=(elections board_claims)
 
-# Stage 2: data/clean/ -> figures/. Each step is named for the figure it
+# Stage 2: data/built/, and the sources code/clean/paths.py still names,
+# -> data/clean/. Every decision about what a number is. Each step is named
+# for the file it writes, and later steps read what earlier ones wrote.
+CLEAN=(residents board_members board_residence board_seats voters turnout)
+
+# Stage 3: data/clean/ -> figures/. Each step is named for the figure it
 # writes. Three subjects, alphabetical within each.
 FIGURES=(residents_by_race residents_per_seat turnout voters_board voters_president board_age board_age_coverage board_residence_coverage board_gender board_party board_race)
 
@@ -33,12 +38,20 @@ echo "  clean"
 echo "tests"
 "$PY" code/tests.py | sed 's/^/  /'
 
-# paths.read() refuses a clean table older than this.
+# paths.read() refuses a built or clean table older than this.
 export RUN_STARTED=$(date +%s)
+
+# Both data stages read `import citekeys` from here; nothing else is on the path.
+export PYTHONPATH="$PWD/code"
 
 echo "build"
 for s in "${BUILD[@]}"; do
   (cd code/build && ../../"$PY" "$s.py")
+done
+
+echo "clean"
+for s in "${CLEAN[@]}"; do
+  (cd code/clean && ../../"$PY" "$s.py")
 done
 
 # A figure script reads `import style` and `import charts` from here.

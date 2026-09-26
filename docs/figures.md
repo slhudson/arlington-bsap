@@ -266,11 +266,15 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
 - **board_residence_coverage.** A diagnostic to show the County: of the
   members sitting on 1 July of each year, how exactly a home is known, as a
   stacked step area on the seat axis like the age coverage. One hue, darkest
-  green for a street address, then a street name, a neighborhood, a
-  north/south side, a magisterial district of Alexandria County (the
-  1880–1910 census sheets, which name the district and leave the street
-  column blank), and the no-evidence grey for no place found; darker means
-  closer to the address a payroll or filing record would give. A member counts
+  green for a street address, then a street name, a neighborhood, then one
+  shade for a north/south side or a magisterial district of Alexandria
+  County, and the no-evidence grey for no location; darker means closer to
+  the address a payroll or filing record would give. The clean table keeps
+  side and district apart, but they are the same grade of knowledge, which
+  half of the County, and differ only in the era of the source: a side comes
+  from twentieth-century reporting, a district from the 1880–1910 census
+  sheets, which name the district and leave the street column blank. So the
+  figure reads them as one and drops a step from the ramp. A member counts
   at the most exact place any source gives, whenever dated, so it can show a
   member as known from a source written after their service
   (`residence-after-service`). Years with no roster, 1912 to 1931, take

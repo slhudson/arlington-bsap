@@ -10,7 +10,7 @@ Read with board_1870_1920.py's page reader. A "President" line inside an
 election block starts the returns, and each line after it is one candidate
 with the district counts as printed - "Grant 226 157 72 455" - kept
 verbatim, "?" and parentheses included; parsing them is
-code/build/voters.py's job.
+code/clean/voters.py's job.
 """
 import pymupdf
 
