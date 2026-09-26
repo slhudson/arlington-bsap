@@ -1,10 +1,12 @@
 """Black candidacies for the Board, 1870-2026 -> figures/board_candidacies.pdf, .png
 
-A timeline strip: one dot per Black candidate's run in a regular or special
-election, at its year, filled if the candidate won and a ring if not;
-runs in the same year stacked, earliest lowest. Primaries are in the table
-and not drawn. A year with no dot is a year no source records a Black
-candidacy. The 1932 rule marks the at-large Board.
+A timeline strip: one dot per Black candidate's run for a seat, at its
+year, filled if the candidate won and a ring if not; runs in the same year
+stacked, earliest lowest. A primary and the general election of the same
+year are one run, with the general's outcome; a primary the candidate lost
+is a run lost, since in Arlington the primary decides the seat. A special
+election is its own run. A year with no dot is a year no source records a
+Black candidacy. The 1932 rule marks the at-large Board.
 """
 import pandas as pd
 
@@ -17,7 +19,11 @@ for profile in style.PROFILES:
     style.apply(profile)
 
     d = pd.read_csv(paths.BOARD_CANDIDACIES)
-    runs = d[(d.claim == "candidacy") & (d.election != "primary")]
+    c = d[d.claim == "candidacy"]
+    # A primary is drawn only where no general election follows it that year.
+    followed = c.set_index(["name", "year"]).index.isin(
+        c[c.election == "regular"].set_index(["name", "year"]).index)
+    runs = c[(c.election != "primary") | ~followed]
     assert len(runs), "no candidacy to draw - check the build"
     won = runs.won.astype(bool)
     shown = {label: (colour, filled) for key, (label, colour, filled) in style.CANDIDACY.items()

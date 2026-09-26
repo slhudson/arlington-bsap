@@ -491,8 +491,9 @@ def events(ax, x, filled, colour, profile=style.DEFAULT_PROFILE):
         k = level.get(xi, 0)
         level[xi] = k + 1
         lift = ScaledTranslation(0, (k + 0.6) * step, ax.figure.dpi_scale_trans)
-        ax.scatter([xi], [0], s=area, transform=ax.transData + lift, zorder=6, clip_on=False,
-                   facecolors=colour if f else "white", edgecolors=colour,
+        # A ring draws over the filled dots, so a loss a year from a win stays visible.
+        ax.scatter([xi], [0], s=area, transform=ax.transData + lift, zorder=6 if f else 7,
+                   clip_on=False, facecolors=colour if f else "white", edgecolors=colour,
                    linewidths=0.0 if f else ring)
     ax.set_ylim(0, 1)
     ax.yaxis.set_visible(False)

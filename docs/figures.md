@@ -447,10 +447,12 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
   candidates ran and lost or stopped running, so the years with no dot are
   the finding and are left bare: what the sources say about each empty
   stretch, a stated negative or a record that cannot show a loss, is in
-  `docs/board.md` and belongs in the caption. Primaries are left out: a
-  primary and the general in the same year would stack as two runs for one
-  seat, and a ring for Spain's 2023 primary would sit under his 2024 dot a
-  year to the right. The 1932 rule is drawn, since the three losses of 1931
+  `docs/board.md` and belongs in the caption. A primary and the general in
+  the same year are one run, with the general's outcome, so they do not
+  stack as two runs for one seat; a primary the candidate lost is a run
+  lost and is drawn, because in Arlington the Democratic primary decides
+  the seat and a figure about running and losing cannot leave Spain's 2023
+  loss out (Sally, 26 September 2026). The 1932 rule is drawn, since the three losses of 1931
   are the first at-large election. One legend, won and lost, below.
 - **voters_president.** Stacked bars, because an election is a point in
   time; a step would claim the share held for four years. Incomplete years
