@@ -9,7 +9,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 CLEAN = ROOT / "data" / "clean"
 FIGURES = ROOT / "figures"
-PAPER = ROOT / "paper" / "arlington-bsap.tex"
 BODY_TEXT_NUMBERS = ROOT / "paper" / "body_text_numbers.tex"
 
 RESIDENTS = CLEAN / "residents.csv"

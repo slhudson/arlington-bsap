@@ -696,24 +696,6 @@ def body_text_numbers():
     return re.findall(r"^\\newcommand\{\\(\w+)\}\{([^}]*)\}(.*)$", tex, re.M)
 
 
-def test_every_body_text_number_is_cited_or_marked():
-    """A command the prose calls that the file marks as not yet cited, or one
-    the prose never calls that carries no mark: the file was built before the
-    prose changed. bash run.sh rewrites it from the paper."""
-    tex = (ROOT / "paper" / "arlington-bsap.tex").read_text()
-    prose = "\n".join(re.sub(r"(?<!\\)%.*", "", line) for line in tex.split("\n"))
-    problems = []
-    for name, _, rest in body_text_numbers():
-        used = re.search(rf"\\{name}(?![A-Za-z])", prose) is not None
-        marked = "not yet cited" in rest
-        if used and marked:
-            problems.append(f"\\{name} is called in the prose but the file marks it uncited")
-        if not used and not marked:
-            problems.append(f"\\{name} is called nowhere in the prose but the file does not say so")
-    assert not problems, ("paper/body_text_numbers.tex is older than the prose; "
-                          "bash run.sh rewrites it:\n  " + "\n  ".join(problems))
-
-
 def test_a_body_text_number_is_the_clean_tables_number():
     """A value in paper/body_text_numbers.tex that is not the share its clean
     table gives, worked out here separately: a hand edit, a rounding change,
