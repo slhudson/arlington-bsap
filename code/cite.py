@@ -83,8 +83,8 @@ def entry_text(a, filename, kind):
         fields.append(("organization", a.organization))
     fields += [("date", a.date), ("url", a.url), ("urldate", today), ("note", a.note),
                ("annotation", f'Read {today}. Filed in Drive as "{kind}/{filename}", '
-                              + ("a copy printed in Sally's own browser" if a.copy else
-                                 "saved as published" if a.url.lower().endswith(AS_PUBLISHED)
+                              + ("saved as published" if a.url.lower().endswith(AS_PUBLISHED)
+                                 else "a copy printed in Sally's own browser" if a.copy
                                  else "printed from the page")
                               + f" on {today}")]
     lines = [f"@{a.type}{{{a.key},"]
