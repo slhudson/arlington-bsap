@@ -13,17 +13,20 @@ are explained in `code/citekeys.py`, and what is still open is in
 - 1889–1986 is coded all-White on the "first since Reconstruction" framing,
   and the five Reconstruction-era members rest on Hjerpe's census linking
   (`default-1931-1986`).
-- Gender rests on the default (man) for 29 members: 25 seated before 1912, the
-  three of 1916–20 (Wibirt, Duncan, Walker) and B. M. Smith (1933). The
-  other 90 have a census listing (50) or a pronoun or honorific in the press
-  (43; three have both).
+- Gender rests on the default (man) for nine members: six seated before 1912
+  (H. Dwight Smith, Crocker, Schutt, Robinson, Willson and W. M. Febrey) and
+  the three of 1916–28 (Wibirt, Walker and Edward Duncan). The other 113 have
+  a census listing (70) or a pronoun or honorific in the press (40; three have
+  both).
   `gender_evidence` in `board_members.csv` says which (`gender-from-names`).
-- For 33 members first seated 1932–1966 and 16 first seated 1870–1904,
-  race and gender come from 53 census records, each index reading checked
-  against the sheet where the row could be found on it; the match
-  to the member rests on the name, Arlington and, where the index gives
-  one, an occupation, a spouse or a street, and four of that era were found
-  in no census (B. M. Smith, H. L. Brown Jr, T. W. Richards, R. L. Lowry).
+- For the 40 members first seated 1932–1966 and the 38 first seated
+  1870–1904, race and gender come from 75 census records covering 68 of the
+  78, each index reading checked against the sheet where the row could be
+  found on it; the match to the member rests on the name, the district he sat
+  for or Arlington, and, where the record gives one, an occupation, a
+  household or a street. Ten of those 78 were found in no census: Casto,
+  H. L. Brown Jr, Fisher, Lowry and T. W. Richards of the later era, and
+  H. Dwight Smith, Crocker, Schutt, Robinson and Willson of the earlier.
 - Birth years, for 88 of 119 members, rest on the census listings' ages and
   on an age stated in an obituary or a profile, each right to within a
   year, and the age figure draws a year only when all but at most
@@ -445,8 +448,8 @@ and the window matters to the neighborhood analysis, which is not yet built.
 A census listing names a person, not a Board member, and gives several
 traits at once, so each record matched to a member is one row of
 `data/transcribed/by_claude/board_census.csv`, and the build derives each
-trait from it rather than each trait being keyed separately. 74 records, for
-68 members, from the 1870, 1880, 1900, 1910, 1920, 1930, 1940 and 1950
+trait from it rather than each trait being keyed separately. 80 records, for
+73 members, from the 1870, 1880, 1900, 1910, 1920, 1930, 1940 and 1950
 schedules. The columns:
 
 | Column | Holds |
@@ -616,6 +619,28 @@ Corbett's birth years come from printed dates, not ages, and Phillips's
 initial bears only on the strength of his match, which rests on R. H. and
 is weaker than its `basis` says until a second source gives the middle
 name. The other pre-1912 readings stand as read.
+
+**Five members off the assumed list (26 September 2026).** The censuses of
+the years each served were searched for the members whose gender rested on
+the default. Five gained a record, and with it a gender, a race and a birth
+year read from a source rather than assumed: **B. M. Smith** (below),
+**Storm V. Boyd**, a farmer in the Jefferson township in 1870 whose sheet
+gives the middle initial as B where the roster gives V, so the match rests
+on the district; **Duncan** of 1916–20, the Edward Duncan of Duncan Lane in
+the Jefferson district, the household of `census1910duncan` ten years on by
+his son Morton, his trade and his Irish parents; **W. J. Ingram**, a
+hardware salesman at 204 Virginia Ave in the Arlington district in 1920,
+whose widow Julia keeps the house in 1930 with their son William; and
+**E. C. Thornburke**, whom the sheet and the index both call Eugene C.
+Turnburke, a house painter at 35 Preston Avenue in the Washington district.
+
+Nine members keep the default, and the searches that found nothing are in
+`gender-from-names` so that nobody repeats them. Two are worth stating
+here. **Wibirt** has two households in the Arlington district in 1920,
+William C. and Clarence, and nothing chooses between them, so neither is a
+row. **Edward Duncan** of 1924–28 has no record of his own: Arlington
+County holds no Duncan of his age in 1930, and the 1920 record above is
+entered against the roster's Duncan of 1916–20, the term its year falls in.
 
 **B. M. Smith, 1930 and 1940.** The member appointed in June 1933 is
 **Benjamin M. Smith**, a real-estate salesman in 1930 and a broker in 1940,
