@@ -515,6 +515,12 @@ N. in 1910, and the two names are never in the same year. The 1910 sheet's
 wife's given name and its age of 51 are that sheet's own errors, as are the
 ages of 66 in 1920 and about 78 in 1930.
 
+The *Evening Star*'s death notice of 23 January 1940 (`star1940febrey`)
+closes the household: William N. Febrey died on 22 January 1940, "beloved
+father of Henry W. Febrey and Mrs. Annie Louise Arnold" — the son and the
+daughter of the 1900 sheet, the daughter by the married name the 1920 and
+1930 records give her. It names no office.
+
 His birth year is the one the 1900 schedule records as a date, **November
 1851**; the ages in the later records would give 1859, 1854 and 1852, and
 `AGE_MISREPORTED` in `code/clean/board_census.py` names the records no birth
