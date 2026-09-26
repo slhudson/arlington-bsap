@@ -110,6 +110,12 @@ a rank. A figure never defines a ramp of its own.
   "other" in the independents' grey. The County Board vote has the seat
   chart's bands in the seat chart's order, with "other" where "independent"
   stands there.
+- **Candidacies.** One colour, the race figures' Black orange, since every
+  mark is a Black candidacy and the figure sits in the race section. Won and
+  lost are told apart by fill, a solid dot and an open ring, rather than by
+  a second hue: a second colour would read as a second group of people, and
+  the palette's other oranges and greys already mean a party, the residual
+  or no evidence.
 - **Peers.** Cities dark grey, counties the sand stroke, Arlington the
   per-seat vermilion. The two neutrals are close on purpose: the kind of
   government is context, and a second saturated hue would compete with
@@ -291,6 +297,17 @@ on-scale point, so the exit is a statement rather than a line that stops
 for no reason. A triangle, not an arrow with a shaft: a shaft is a second
 stroke at its own angle, which reads as another series.
 
+**A timeline strip** for events that are counted, not measured: one dot per
+event at its year, events in the same year stacked dot on dot upward from
+the axis, and no y axis, since the height of a stack is the only quantity
+and a reader counts it. The stack is laid out in points, not data units, so
+it keeps its shape whatever height the plot is given. A filled dot has no
+white edge, unlike a scatter's: events a year apart overlap at this width,
+and a white edge cuts the overlap into crescents that read as open rings.
+Dots sit over the 1932 rule rather than under it. The strip is flatter than
+the time series (`style.STRIP`, 7 to 1): at the time series' 2.2 a stack of
+three is a thin line at the foot of an empty frame.
+
 **The 1932 rule** marks the Board's expansion from three to five seats and
 the end of magisterial districts. It is drawn identically wherever it
 appears, with its note above the top of the frame: inside the axes it would
@@ -424,6 +441,17 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
   long, and the decades do not collide at the profile's width, unlike the
   1870-2026 axes that step by twenty. There is no legend and no direct
   label; the caption says what band and stroke are.
+- **board_candidacies.** A timeline strip of every candidacy a source says
+  was a Black candidate's, in a regular or special election, filled if won
+  and a ring if lost, from `board_candidacies.csv`. It answers whether Black
+  candidates ran and lost or stopped running, so the years with no dot are
+  the finding and are left bare: what the sources say about each empty
+  stretch, a stated negative or a record that cannot show a loss, is in
+  `docs/board.md` and belongs in the caption. Primaries are left out: a
+  primary and the general in the same year would stack as two runs for one
+  seat, and a ring for Spain's 2023 primary would sit under his 2024 dot a
+  year to the right. The 1932 rule is drawn, since the three losses of 1931
+  are the first at-large election. One legend, won and lost, below.
 - **voters_president.** Stacked bars, because an election is a point in
   time; a step would claim the share held for four years. Incomplete years
   are left out rather than drawn short.
