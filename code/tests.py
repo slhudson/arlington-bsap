@@ -663,6 +663,26 @@ def test_docs_agree_with_run_sh():
     assert not problems, "docs disagree with run.sh:\n  " + "\n  ".join(problems)
 
 
+def test_a_timeline_citation_reaches_the_footnote():
+    """A \\autocite inside \\timeline while the preamble does not make tabular
+    footnote-safe. LaTeX drops a footnote raised inside a tabular: the
+    superscript prints and the note never appears, with no warning and a
+    compile that succeeds. Six citations were lost that way before
+    \\makesavenoteenv{tabular} was added, so the pairing is checked rather
+    than trusted."""
+    tex = (ROOT / "paper" / "arlington-bsap.tex").read_text()
+    live = "\n".join(re.sub(r"(?<!\\\\)%.*", "", line) for line in tex.split("\n"))
+    cited = len([m for m in re.finditer(r"\\timeline\{(.*?)\n\}", live, re.S)
+                 if "autocite" in m.group(1)])
+    tabular = re.search(r"\\newcommand\{\\timeline\}.*?\\end\{tabular\}", live, re.S)
+    safe = re.search(r"\\makesavenoteenv\{tabular\}", live)
+    assert not (cited and tabular and not safe), (
+        f"{cited} timeline(s) cite a source inside a tabular, but the preamble "
+        f"has no \\makesavenoteenv{{tabular}}: those footnotes are dropped "
+        f"silently. Add \\usepackage{{footnote}} and \\makesavenoteenv{{tabular}}, "
+        f"or move the citations into the prose.")
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in sorted(globals().items()) if n.startswith("test_")]
     failed = 0
