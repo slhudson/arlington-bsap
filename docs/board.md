@@ -53,12 +53,12 @@ are explained in `code/citekeys.py`, and what is still open is in
   Two of the 34 are weak matches, Roach and R. Henry Phillips, flagged in
   their rows. Seven have no record in the 1870–1920 indexes under any
   spelling tried (`residence-pre-1932`).
-- Every member seated for a magisterial district also has a district claim
-  from the office, source `derived`, and 1912–1931, where no roster exists,
-  the figure counts the Board's three seats at district precision. Both rest
-  on the decision that a supervisor lived in the district he represented,
-  which the law required only from 1903 (`code/clean/board_residence.py`,
-  and "Residence in the district" below).
+- Before 1932 a member seated for a magisterial district has no claim from
+  the office, and 1912–1931, where no roster exists, the figure counts no
+  seats. Both once rested on the assumption that a supervisor lived in the
+  district he represented; no instrument required that before 1903, so the
+  assumption was the project's rather than the law's and the 49 derived rows
+  are gone. See "Residence in the district" below.
 - Where members lived is transcribed but not yet coded, and the 1973 Post map
   that places a whole Board at once has not been seen (`mathews1973-map`);
   two of the 37 members first seated 1932–1962 have none
@@ -135,25 +135,51 @@ rule is a special act for Alexandria County rather than an order of the
 Board. The 1869-70 and 1874-5 session volumes carry no such act; the
 remaining sessions to 1902 have not been searched one by one.
 
-The 1888 proceeding against Tibbett Allen does not corroborate a rule for the
-Board seat. The Alexandria Gazette of 3 September 1888 reports that "A rule
-was issued against Tibbett Allen to show cause why he should not be removed
-as supervisor of roads Jefferson District on account of non-residence"
-(`hjerpe2021`). "Supervisor of roads" is the Gazette's phrase, not the
-Code's: the Code of 1887 in force that year ties district residence to the
-road surveyor (sec. 963) and not to the Board seat (ch. 9 sec. 96), so the
-rule is at least as consistent with a road office as with the seat, and
-Hjerpe records that Allen resigned the following month rather than being
-removed. The episode does not corroborate a residence rule for the seat.
+No statute required it, but the Board observed it. The minute books, as the
+Arlington Historical Society read them in 1967 (`arlhist1967officials`),
+record two supervisors leaving their seats on moving out of their district:
+Francis G. Schutt in June 1877, on a notation that "he had moved from
+Arlington District", and William A. Rowe on 2 April 1879, "moved from
+Jefferson to Arlington District". Rowe stood for Arlington District that
+July and won it, the same office in his new district. The practice is in the
+primary record three times in eleven years, Tibbett Allen's being the third,
+and it is a custom rather than a qualification: nothing made a supervisor
+ineligible, and the men resigned.
 
-So the 49 derived rows of `data/clean/board_residence.csv` rest on a custom
-that the law did not require, not on the law. They stay, as the project's
-decision (Sally, 26 September 2026): before 1932 the district is the only
-place the sources give for most members, so the coverage figure can show
-that much and no more, and the question the residence analysis can answer,
-whether members' homes were dispersed across the County, is one it can only
-ask of the members seated from 1932 on. That the earlier record does not
-allow it is itself the finding for those years.
+Allen's departure differs in how it was enforced. The Alexandria Gazette of
+3 September 1888 reports that "A rule was issued against Tibbett Allen to
+show cause why he should not be removed as supervisor of roads Jefferson
+District on account of non-residence", in the same sitting of the county
+court that removed every previously appointed policeman except Robert
+Walker; on 3 October it reports that "Judge Chichester yesterday, before the
+adjournment of the County Court, appointed Mr. Frank Hume supervisor of
+Jefferson district, in place of Tibbett Allen, resigned"
+(`alexandriagazette1888rule`, `alexandriagazette1888hume`). Allen was the
+last Black member of the Board until 1986. Schutt and Rowe went on their own
+and no process issued against either.
+
+Three things the record does not support, each of which it would be easy to
+assume. The office named in the rule is not certain: "supervisor of roads"
+is the Gazette's phrase, and the Code of 1887 ties district residence to the
+road surveyor (sec. 963) and not to the Board seat (ch. 9 sec. 96), while
+the seat is what fell vacant. Freedman's Village cannot be the cause: the
+1890 census puts it inside Arlington district, not Allen's Jefferson
+(`census1890`), so the clearing that began in December 1887 was emptying a
+settlement in another district. And Frank Hume is not simply the instrument
+of a purge: by 1890 he was running for Congress as an independent Democrat
+and the Washington Bee endorsed him, writing that "he should receive the
+undivided colored vote because he is the colored man's friend"
+(`washingtonbee1890hume`) - two years later, and no evidence about 1888.
+
+Where Allen lived is unknown, and no account of why the rule issued has been
+found. The episode reached no newspaper that took his side: the Washington
+Bee carries nothing on it in any issue from August to December 1888, the
+Richmond Planet has one digitized issue in all of 1888 and it is silent, the
+People's Advocate had ceased publishing by 1884, and the National
+Republican's digitized run ends in May 1888. What would settle it is the
+Alexandria County court order book for 1888, which would carry the rule and
+its disposition, and the Board's own minute books; neither is online
+(`allen-1888`).
 
 ---
 

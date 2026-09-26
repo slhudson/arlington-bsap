@@ -45,7 +45,10 @@ UNPLACED = "unplaced"
 
 # Web outlets whose pages are press when read online; see kind().
 PAPERS = ("ARLnow", "InsideNoVa", "Sun Gazette", "Connection", "Washington Post", "Patch",
-          "Blue Virginia")
+          "Blue Virginia",
+          # papers of the period, read as scanned pages on Chronicling America
+          "Alexandria Gazette", "Washington Bee", "Richmond Planet", "Evening Star",
+          "National Republican")
 
 # Magazines are press, like papers. A historical society's magazine is scholarship: books.
 MAGAZINES = ("Arlington Magazine",)

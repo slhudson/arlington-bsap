@@ -33,7 +33,6 @@ del sys.modules["paths"]
 sys.path.insert(0, str(ROOT / "code" / "clean"))
 import board_census  # noqa: E402
 import board_members  # noqa: E402
-import board_residence  # noqa: E402
 import paths  # noqa: E402
 import board_roster  # noqa: E402
 import board_roster_oleary  # noqa: E402
@@ -410,18 +409,6 @@ def test_a_census_match_with_no_category_is_refused():
     err = breaks(paths, "built", patch_claims("census", novel), build=board_members.build)
     assert err and "match with no category" in err, f"not caught: {err}"
 
-
-def test_an_at_large_seat_gets_no_derived_district():
-    """The derived district claim is for a magisterial district. An at-large
-    seat names no place, so a district claim for it would be invented."""
-    m = pd.DataFrame({"name": ["A", "B"], "district": ["Jefferson", "at large"],
-                      "start_year": [1900, 1950], "start_month": [5, 1]})
-    got = board_residence.district_claims(m)
-    assert list(got.name) == ["A"] and list(got.place) == ["Jefferson District"], got
-    assert (got.source == "derived").all() and (got.precision == "district").all()
-
-
-# --- the build stage reshapes and never decides -------------------------------
 
 def test_a_category_merged_in_the_build_stage_is_refused():
     """Two census race categories collapsed into one by a build step. That
