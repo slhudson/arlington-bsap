@@ -78,6 +78,13 @@ hands. Sources are under Works cited.
 
 ### The three districts, and what sits inside them
 
+The districts are keyed in for every census 1870 through 1930, each table's
+districts summing to the county total for that year. Race below the county is
+published for 1870 alone: Jefferson 383 white to 873 colored, Arlington 517 to
+857, Washington 275 to 280. Every later volume gives the districts by total
+only, so the concentration the district argument rests on can be shown at the
+start of the period and not at its end (`race-by-district-after-1870`).
+
 | District | 1890 | 1880 |
 |---|---|---|
 | Arlington | 2,013 | 1,754 |
