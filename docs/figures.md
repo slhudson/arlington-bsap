@@ -341,17 +341,15 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
   picture of the electorate when what the section is about is the county.
   For the same reason the denominator is every resident, not every adult.
 
-  It begins at 1980 while the Board figures begin at 1870, and the two are
+  It begins at 1930 while the Board figures begin at 1870, and the two are
   not drawn on a shared range. Nothing is lost by that. The Board series
   reaches back to 1870 because a Board member is one person whose birth
   year can be found in a census sheet or an obituary; a county age
-  distribution has to come from a published table, and the Bureau's
-  machine-readable county tables begin with the 1980 Summary Tape File.
-  Earlier censuses did print county age tables, but only in the bound
-  volumes, so carrying the series back would mean keying them in the way
-  the 1870-1890 totals were keyed in. That is a job the report has not
-  asked for; `adults-before-1980` in `docs/questions.csv` holds it, for
-  this figure and for the turnout one. The figure is a benchmark for the
+  distribution has to come from a published table, and 1930 is the
+  earliest census volume keyed in. Ten bars name every twentieth year, as
+  the other long census axes do. The 14 people of unknown age in 1930 are
+  in no band, so that bar stops 0.05 per cent short of the top, which no
+  one can see and nothing marks. The figure is a benchmark for the
   residents section and is never put on a panel with the Board's ages:
   there is no defensible right age for a Board member, and a shared panel
   would imply there is. Two figures in two sections, each on the range its
@@ -439,7 +437,10 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
   reference line. The district-era counts and the registered voters are in
   the table and not drawn: the registration series is fifteen years long,
   and the prose can state it in a sentence. The share panel starts where its
-  denominator does, so its frame is not half empty.
+  denominator does, so its frame is not half empty. Its adults are 21 and
+  over through 1970 and 18 and over from 1971, and nothing marks the change:
+  as with residents_by_race at 1980, it is real but small, no line steps at
+  it, and a rule would claim more for it than it has. The caption carries it.
 - **board_peers_residents, board_peers_density.** Arlington beside every
   Virginia city and county of 100,000 or more, two separate figures rather
   than panels, because each answers a different question about who

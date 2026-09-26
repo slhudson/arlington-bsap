@@ -1,4 +1,4 @@
-"""Residents by age band, 1980-2020 -> figures/residents_by_age.pdf, .png
+"""Residents by age band, 1930-2020 -> figures/residents_by_age.pdf, .png
 
 One panel: every resident, as stacked bars in style.RESIDENT_AGES with the
 youngest band at the base. Shares rather than counts, and children included
@@ -10,7 +10,7 @@ import charts
 import paths
 import style
 
-FIRST = 1980         # the first census that reports age this way
+FIRST = 1930         # the first census whose county age table is held
 BARS = 7             # years per bar, as on the other census figures
 
 for profile in style.PROFILES:
@@ -25,7 +25,7 @@ for profile in style.PROFILES:
     stacked = charts.series(shares, style.RESIDENT_AGES)
     charts.stacked_bars(ax, c["year"], stacked, width=BARS)
     charts.shares(ax)
-    charts.years(ax, FIRST, 2020, bars=BARS)
+    charts.years(ax, FIRST, 2020, step=20, bars=BARS)
 
     charts.legend(fig, stacked, ncol=4)
     paths.save(fig, "residents_by_age", profile)
