@@ -27,8 +27,8 @@ for profile in style.PROFILES:
 
     fig, ax = charts.figure(profile)
     charts.stacked_steps(ax, d.year.to_numpy(), series, spans)
-    charts.seats(ax, label="members sitting")
+    charts.seats(ax)
     charts.years(ax, members.FIRST, 2020, step=20, label="year", through=members.LAST + 1)
-    charts.rule(ax, note=style.EXPANSION_NOTE_SEATS)
+    charts.rule(ax)
     charts.legend(fig, series)
     paths.save(fig, "board_age_coverage", profile)

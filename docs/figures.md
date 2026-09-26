@@ -111,6 +111,14 @@ groups and White, because it is another kind of not-White and belongs with
 them. Above the sand it splits the non-White population in two and
 understates how much the county has diversified.
 
+Gender: women, then men. The same shape as race, and for the same reason:
+the category the sand marks - the majority - takes the ceiling, and the
+smaller category sits on the floor where its band is measured against the
+axis rather than floating on top of another band. Ordering the legend some
+other way, alphabetically say, would put men first here and leave race
+ordered the other way, so the two demographic figures would stop reading as
+one pair.
+
 Age: youngest at the base, children first, so the stack runs the way the
 axis does and the band a reader is looking for is where its number puts it.
 With the hue darkening as the band ages, the stack also runs light at the
@@ -211,12 +219,28 @@ the difference. Plots come out within about 7 per cent of each other in size
 and identical in shape, which is invisible between figures that never sit
 side by side, and every figure is still exactly one text width.
 
-The plot's shape is fixed at 2.2 times as wide as tall, and its height is
+The plot's shape is fixed per profile: 2.2 times as wide as tall for the
+memo, 3.0 for the deck. Its height is
 solved from that rather than set, because a figure's height is its plot plus
 whatever a title, a legend and an axis label need, which differs per figure.
 Fixed heights went stale as figures were added. Equal plots, not equal
 canvases, are what a reader sees: on a slide a figure with a taller plot
 fits by height and is letterboxed beside its neighbours.
+
+The two differ because the destinations do. The memo page is portrait and a
+2.2 plot sits well on it. A slide's content column is 1664 by 824 pixels,
+about 2.0 to 1, and what is placed on it is the saved file, not the plot: the
+title, legend and axis labels around the plot are stepped up by 1.45 with the
+type and take a larger share of a 10-inch canvas than of a 6.25-inch one. At
+2.2 the deck's PNGs came out near 1.6 to 1, about 300 pixels narrower than
+the space they were given, and the decades on the two-panel figures ran into
+each other. 3.0 lands the figures with a legend at 1.96 and the two-panel ones
+at 1.9; those without a legend come out wider, and are fitted by width. The
+figure to size against is the file, so the value is worked back from the
+rendered aspect rather than chosen from the plot alone. The narrow figure
+(`NARROW`, 0.7 of the width) takes the same plot shape and needs no value of
+its own. The two-panel figures label the census years every 40 rather than
+every 20, since each panel is under half the canvas.
 
 The margin is 0.037 of the width on all four sides, measured to the first
 ink rather than to the plot frame, because what a reader sees as the edge

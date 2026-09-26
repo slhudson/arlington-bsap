@@ -142,11 +142,13 @@ def stacked_steps(ax, years, series, spans):
         cum = top
 
 
-def fit(fig):
+def fit(fig, profile=style.DEFAULT_PROFILE):
     """Size and place this figure: the canvas is the profile's width, the
-    plot is style.PLOT_ASPECT times as wide as tall, and style.MARGIN of
+    plot is the profile's aspect times as wide as tall, and style.MARGIN of
     white surrounds the ink on all four sides. Iterated, because the height
     depends on furniture that is only measurable once drawn."""
+    aspect = style.PROFILES[profile]["aspect"]
+
     def ink(fig):
         """The drawn extent in figure fractions, from the rendered pixels."""
         fig.canvas.draw()
@@ -170,7 +172,7 @@ def fit(fig):
         y0, y1 = min(b.y0 for b in boxes), max(b.y1 for b in boxes)
         plot_w = (w_in - 2 * m_in) - (lo - ix0) * w_in - (ix1 - hi) * w_in
         furniture = (iy1 - iy0) * h_in - (y1 - y0) * h_in
-        want = plot_w / style.PLOT_ASPECT + furniture + 2 * m_in
+        want = plot_w / aspect + furniture + 2 * m_in
         if abs(want - h_in) < 0.002:
             break
         fig.set_size_inches(w_in, want)
@@ -197,7 +199,7 @@ def fit(fig):
     y0 = min(b.y0 for _, b in boxes)
     y1 = max(b.y1 for _, b in boxes)
     h_in = fig.get_size_inches()[1]
-    want_h = ((right - left) * w_in / style.PLOT_ASPECT) / h_in
+    want_h = ((right - left) * w_in / aspect) / h_in
     if y1 - y0 > 1e-9:
         k = want_h / (y1 - y0)
         for ax, b in boxes:
@@ -313,7 +315,7 @@ def shares(ax, label="share of residents"):
     ax.set_ylabel(label)
 
 
-def seats(ax, label="board seats"):
+def seats(ax, label="board members"):
     ax.set_ylim(0, 5)
     ax.yaxis.set_major_locator(MultipleLocator(1))
     ax.set_ylabel(label)

@@ -103,19 +103,19 @@ CYCLE = {
 
 # Same figure code, two destinations: the memo's PDF and the deck's PNG.
 PROFILES = {
-    "print": {"width": 6.25, "scale": 1.0, "dpi": 300, "format": "pdf"},
-    "screen": {"width": 10.0, "scale": 1.45, "dpi": 200, "format": "png"},
+    "print": {"width": 6.25, "scale": 1.0, "dpi": 300, "format": "pdf", "aspect": 2.2},
+    "screen": {"width": 10.0, "scale": 1.45, "dpi": 200, "format": "png", "aspect": 3.0},
 }
 DEFAULT_PROFILE = "print"
 
-PLOT_ASPECT = 2.2     # every plot is this many times as wide as it is tall; charts.fit() solves the height
+# Each profile's "aspect" is how many times as wide as tall its plot is;
+# charts.fit() solves the height from it. See docs/figures.md, Size and margins.
 NARROW = 0.7          # the fraction of the profile's width a few-category figure takes; see docs/figures.md
 MARGIN = 0.037        # white on all four sides, as a fraction of the width, measured to ink
 LEGEND_GAP = 0.2      # inches between the lowest ink of the plot and the legend
 
 EXPANSION_YEAR = 1932
-EXPANSION_NOTE = "1932 Board expansion"
-EXPANSION_NOTE_SEATS = "1932: Board expands from 3 to 5 seats"
+EXPANSION_NOTE = "1932: Board expands from 3 to 5 seats"
 EXPANSION_LINE = dict(color="#000000", lw=1.0, ls=(0, (4, 2)))
 
 

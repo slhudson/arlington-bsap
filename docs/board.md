@@ -10,6 +10,12 @@ are explained in `code/citekeys.py`, and what is still open is in
 
 ## What rests on an assumption
 
+- The Board's origin is stated without its mechanism. Prose says the Board is
+  created in 1870 "under the post-Civil War constitution", which does not say
+  whether the constitution did it or an enabling act did (`board-creation-1870`),
+  and what preceded it — a county court of justices of the peace — rests on the
+  general Virginia pattern rather than on anything held for this county
+  (`county-court-1847-1870`).
 - 1889–1986 is coded all-White on the "first since Reconstruction" framing,
   and the five Reconstruction-era members rest on Hjerpe's census linking
   (`default-1931-1986`).
@@ -90,6 +96,16 @@ district to Arlington at term 7.
 appointment, or unrecorded where O'Leary writes only that someone was
 replaced. Three builds select terms by it, so it is a column rather than
 something read out of the note.
+
+**The Board's name changed with its form.** Members elected by magisterial
+district were supervisors: the county's own returns print "Supervisor Jefferson
+District" for the election of 8 November 1927 (arlingtonelections2021 p.4), and
+Corbett's 1910 census occupation is "Supervisor, County". Arlington adopted the
+County Manager Plan by referendum in 1930 and has operated under it since 1932;
+samuel2026 note 8 records that the Plan "appears to be the only county form of
+government that does not refer to its Board members as 'supervisors'". The
+name, the at-large method and the five seats therefore arrive together, and
+prose should not carry one back across 1932 without the others.
 
 **When a term begins depends on the constitution in force.** Under the
 magisterial system elections were held in May and the board took office then,

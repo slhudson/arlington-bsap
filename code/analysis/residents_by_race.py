@@ -35,14 +35,14 @@ for profile in style.PROFILES:
     lines[style.RACE["white"][0]] = (counts["white"], style.SAND_LINE)
     charts.lines(a, c["year"], lines)
     charts.counts(a, TOP, 5000)
-    charts.years(a, 1870, 2020, step=20)
+    charts.years(a, 1870, 2020, step=40)
     charts.off_scale(a, c["year"], counts["white"], style.SAND_LINE, TOP)
     a.set_title("(a) number of residents")
 
     stacked = charts.series(shares, style.RESIDENTS)
     charts.stacked_bars(b, c["year"], stacked)
     charts.shares(b)
-    charts.years(b, 1870, 2020, step=20)
+    charts.years(b, 1870, 2020, step=40)
     b.set_title("(b) share of residents")
 
     charts.legend(fig, stacked, ncol=3)
