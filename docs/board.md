@@ -547,12 +547,10 @@ carrying seven of the quoted addresses. It found one wrong value: Detwiler's
 1940 sheet gives his birthplace as **Minnesota** where the index reads
 Wisconsin, and spells the surname Detwiler, as the Board member does, where
 the index reads Detweiler. Birthplace is not a column the build reads, so no
-figure moved. Three smaller disagreements stand unresolved or need no fix:
-the sheet's own number reads 63A or 67A where the index and the filed image's
-name say 62A, and neither reading is firm; the index's street name for
-Buchholz, `1`, is a column number and not a street; and Byrne's sheet gives
-202 N. Highland St., which the *Daily Sun* of 11 September 1952 prints as
-well. The 103 figures keyed from the 1870, 1880 and 1890 volumes and the
+figure moved. Two smaller disagreements need no fix: the index's street name
+for Buchholz, `1`, is a column number and not a street; and Byrne's sheet
+gives 202 N. Highland St., which the *Daily Sun* of 11 September 1952 prints
+as well. A third is settled below. The 103 figures keyed from the 1870, 1880 and 1890 volumes and the
 whole of the POP-TWPS0076 Arlington block were re-read against the printed
 pages and every one agreed.
 
@@ -595,6 +593,15 @@ Corbett's birth years come from printed dates, not ages, and Phillips's
 initial bears only on the strength of his match, which rests on R. H. and
 is weaker than its `basis` says until a second source gives the middle
 name. The other pre-1912 readings stand as read.
+
+**Detwiler's sheet number, 1940.** The sheet is **63A**, and Ancestry's
+index's 62A is the sheet before it. The sheet's own number is a 3 written
+over a 7, which is why it has been read as 63A or 67A. The images of
+enumeration district 7-13 settle it: image 64 is 62A, stamped 222 by the
+National Archives, image 65 is its blank B side, image 66 is Detwiler's
+sheet, stamped 223, and image 67 is 63B. The stamp runs one to a sheet, so
+Detwiler's is the sheet after 62. The bib entry and the filed image's name
+carry 63A.
 
 **Ames, 1940.** Sheet 21B, read again at full resolution on the same day,
 gives W. P. Ames's house no street. The label W. Lee, with an abbreviation
