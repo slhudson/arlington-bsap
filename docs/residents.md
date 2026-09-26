@@ -187,7 +187,14 @@ ASCII at www2.census.gov, cut to Virginia's county rows for size); 2000–2020
 from the API. 1980's "Spanish origin" is the same question. In 1980 the file
 does not split American Indian from Asian among persons of Spanish origin, so
 the two are subtracted together and carried in `nh_aapi` rather than split on
-an assumption.
+an assumption. The 1980 `aapi` band therefore holds the county's 384
+American Indian, Eskimo and Aleut residents of all origins beside its 6,792
+Asian and Pacific Islanders, where 1990 and later put them in the residual;
+the point is about five per cent high on that band, once. It stays as the
+source prints it and the caption says so, rather than being corrected from
+a second table that is not crossed with Spanish origin (Sally, 26 September
+2026): the figure keeps fidelity to the table it reads and states the
+grouping, instead of a quiet adjustment that mixes two tables.
 
 **The Hispanic series begins in 1980**, the first census to ask the question
 of everyone (decided by Sally, 24 September 2026). Before 1970 the question
