@@ -541,11 +541,14 @@ recorded, in the sheet's own words.
 The filed copy of each record's Ancestry page is written by
 `code/ancestry.py` from the row's own `quote`, since Ancestry refuses an
 automated request and the page cannot be fetched by anyone reading this
-repository. The page says on its face that it is derived. The copies filed
-before that script also carry a sentence saying Ancestry states the facts in
-the collection were found using artificial intelligence and may contain
-errors; the 1930 and 1940 census record pages carry no such statement, and
-the script does not repeat it.
+repository. The page says on its face that it is derived. The copies filed before that
+script carried a sentence saying Ancestry states the facts in the collection
+were found using artificial intelligence and may contain errors; the 1930 and
+1940 census record pages carry no such statement, so it is gone from all 80.
+The one exception is William Duncan's 1910 page, which keeps its original
+wording: the record is cited but kept out of the table while
+`duncan-birth-year` is open, so there is no row for the script to build it
+from, and it says so each time it runs.
 
 Only the census record itself goes in this table. What a newspaper, an
 obituary or a secondary source says, Hjerpe's reading of an 1880 record

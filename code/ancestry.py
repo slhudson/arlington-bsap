@@ -134,7 +134,9 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--apply", action="store_true", help="write the pages")
     ap.add_argument("--redo", nargs="*", default=[], metavar="KEY",
-                    help="rebuild these entries' pages even though they are on disk")
+                    help="rebuild these entries' pages even though they are on disk; "
+                         "`all` rebuilds every one, which is how a change to the page "
+                         "itself reaches the pages already filed")
     ap.add_argument("--documents", type=Path, default=archive.DOCUMENTS)
     a = ap.parse_args()
 
@@ -144,7 +146,7 @@ def main():
         rows = list(csv.DictReader(f))
     bib = archive.BIB.read_text()
 
-    unnamed, todo = [], []
+    unnamed, todo, named = [], [], set()
     for record in records(bib, rows):
         want = expected_name(record)
         if record["name"] is None:
@@ -154,8 +156,16 @@ def main():
             sys.exit(f"{record['key']}: the annotation names {record['name']!r}, "
                      f"where the title and the record number give {want!r}")
         out = a.documents / "census" / "Ancestry" / record["year"] / want
-        if not out.exists() or record["key"] in a.redo:
+        named.add(out)
+        if not out.exists() or "all" in a.redo or record["key"] in a.redo:
             todo.append((record, out))
+
+    # A page for a record kept out of the table - one cited while a question
+    # about it is open - has no row to be built from, so this script leaves it
+    # as it was filed. It says so rather than passing over it.
+    loose = sorted(set((a.documents / "census" / "Ancestry").glob("*/*.pdf")) - named)
+    for f in loose:
+        print(f"{f.name}: filed, and no census row cites it; left as it was made")
 
     for key, want in unnamed:
         print(f"{key}: the annotation names no filed page; it would be "
@@ -167,7 +177,7 @@ def main():
             out.parent.mkdir(parents=True, exist_ok=True)
             to_pdf(page(record, record["sheet"]), out)
     if not unnamed and not todo:
-        print("every census row's filed page is on disk")
+        print(f"every census row's filed page is on disk ({len(named)})")
     elif not a.apply:
         print("--apply writes them")
 
