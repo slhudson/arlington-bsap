@@ -813,14 +813,14 @@ county recorded it and an ABC-majority Board from 1957 to 1966 is a finding.
 
 | Period | Source | What it gives |
 |---|---|---|
-| 1932–1950 | County candidate history, where it prints a label | 9 of 32 terms. The rest are `unsourced` except where McCaffrey (2026a) names the 1949–52 independents and the 1952 appointees. |
+| 1932–1950 | County candidate history, where it prints a label | 23 of 33 terms: the county for 9, newspaper reporting for 1933 and 1942–49, McCaffrey (2026a) for the 1949–52 independents and the 1952 appointees; the rest are `unsourced`. |
 | 1951–1966 | County candidate history | Every winner but Blevins (1956) and the two `(Convention)` nominees of 1955. `(ABC)` appears from 1957. |
 | 1967–1983 | County prints `(I)` on most winners; reporting names the party | Fisher, Munsey, Purdy and Wholey as Democrats; Bozman as ABC's candidate; Grotos, Frankland and Detwiler as Republicans. Ricks stays `(I)`. |
 | 1984–2006 | County candidate history | Every winner labelled. Bozman `(I)` through 1989, `(D)` in 1993. |
 | 2007–2021 | County and state, checked against each other | Agree on every winner. |
 | 2022– | State database | Party on the 2022 general; from 2023, the Democratic primary win. |
 
-The reporting file has 26 rows, each a sentence in the source's own words
+The reporting file has 41 rows, each a sentence in the source's own words
 with its citation, keyed on the name and the term's start year: pieces by
 Scott McCaffrey for the Sun Gazette and ARLnow (2009–2026), the Library of
 Virginia's biography of Joseph Fisher, Joseph Wholey's obituary and an ARLnow
@@ -833,24 +833,35 @@ which was used to build it.
 **Not attempted before 1932.** O'Leary's own summary of the magisterial era
 is that "with few exceptions, party affiliation has to be inferred", and
 nothing held names a party per person; the figure starts at 1932 with a gap
-before it. It is recoverable: local elections of the period were run on party
-tickets and the Alexandria Gazette printed them, so an RA with O'Leary's dates
-could key a ticket per winner into the reporting file.
+before it. It is recoverable from the Alexandria Gazette (Chronicling
+America, sn85025007), which prints the result of each May election. Tried:
+1895 (Grunwell, Corbett and Duncan were elected on "the entire republican
+ticket", 24 May 1895, p. 3) and 1871 (Deeble on "the whole Conservative
+ticket", 26 May 1871, p. 3; Smith and Rowe unlabelled). 1872–73 were read
+and print no party beside the supervisors; 1874–75 were fetched and not read. Paused, and no row is keyed for
+any of these: the County has not said it wants these data used.
 
-**What is not labelled.** 23 terms have no label anywhere, 1932–1960 almost
-entirely: the first two Boards (1932–39), DeLashmutt 1942–45, Campbell
-1943–46, Lloyd 1945–47, Chew and Cannon 1948–51, Frisbie 1947–52, Blevins
-1957–60, and four appointees. Where to look is the Northern Virginia Sun and
-Arlington Daily on Virginia Chronicle, and for the 1950s Franklin Felt's 1961
-dissertation on ABC (Michigan State, d.lib.msu.edu/etd/39978). Three labels
-are recorded but not resolved: `(Convention)` on Kaul and Krupsaw in 1955,
-whose convention the source does not name (they are `(ABC)` in 1959); `(IM)`
-on Buchholz in 1954, coded independent, though if it is the Arlington
-Independent Movement, the conservative counterpart to ABC, it may deserve its
-own band; and Ricks (1968–71) and Brunner (1984–87), who stay independent on
-the county's label although the Washington Post's 1983 preview reportedly
-calls Brunner a Republican. Each finding is a row in the reporting file: the
-sentence, the citation.
+**What is not labelled.** 12 terms have no label anywhere: the four 1932
+winners (Magruder, Fellows, Gall, Kelley), B. M. Smith 1933, McShea 1934,
+the four 1936 winners (Magruder, Chew, Yeatman, McShea), Wilt 1960 and
+Richards 1975. Read and settled from the Sun, Daily Sun, Northern Virginia
+Sun and Evening Star: DeLashmutt 1942, Campbell 1943, Lloyd 1945, Cuppett,
+Frisbie (three terms), Chew and Cannon 1948, Garnett 1933, Krupsaw, Kaul,
+Blevins, Ricks and Buchholz 1955. `(Convention)` on Kaul and Krupsaw in 1955
+is ABC's nominating meeting (Daily Sun, 25 May 1955). `(IM)` on Buchholz in
+1954 is the Arlington Independent Movement, whose nominee the Evening Star
+calls her; AIM candidates (Buchholz, Blevins) are coded independent, so
+whether AIM is a band of its own is open. Ricks was backed by ABC and the
+Democratic party and is coded Democratic, as Fisher is.
+
+The 1931 election was non-partisan in what the papers print: the Washington
+Times of 4–5 November 1931 labels Gosnell alone ("Republican nominee"), the
+Evening Star of 5 November prints no party, and on 2 January 1936 the Sun
+calls Ames "the only Republican" on the Board. That leaves the other 1932 and
+1936 winners without a printed party. Not found: Smith 1933, McShea 1934
+(Evening Star searches by name returned no article) and Wilt 1960 (the
+Northern Virginia Sun's OCR for January 1960 is too poor to search). Brunner
+(1984–87) stays on the county's `(I)`; the 1983 Post preview is not read.
 
 `board_seats.csv` carries the split as `dem`, `abc`, `rep`, `ind` and
 `unrecorded`, seat-years from 1932, empty before. "Not recorded" is a band
