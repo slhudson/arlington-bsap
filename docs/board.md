@@ -69,9 +69,6 @@ are explained in `code/citekeys.py`, and what is still open is in
   (`residence-after-service`), and for Thomas two sources name different
   places (`thomas-residence`). Tillema's and Massey's two sources also
   differ, but which each source says is settled; see "Reading an image".
-- Thirteen county board sizes rest on search summaries of county web pages,
-  not on a document held (`county-seat-counts`); Arlington's five is the
-  County Attorney's.
 
 Each is a row in `docs/questions.csv`, with an owner and what would settle it.
 
