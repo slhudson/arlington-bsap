@@ -13,17 +13,20 @@ are explained in `code/citekeys.py`, and what is still open is in
 - 1889–1986 is coded all-White on the "first since Reconstruction" framing,
   and the five Reconstruction-era members rest on Hjerpe's census linking
   (`default-1931-1986`).
-- Gender rests on the default (man) for 29 members: 25 seated before 1912, the
-  three of 1916–20 (Wibirt, Duncan, Walker) and B. M. Smith (1933). The
-  other 90 have a census listing (50) or a pronoun or honorific in the press
-  (43; three have both).
+- Gender rests on the default (man) for nine members: six seated before 1912
+  (H. Dwight Smith, Crocker, Schutt, Robinson, Willson and W. M. Febrey) and
+  the three of 1916–28 (Wibirt, Walker and Edward Duncan). The other 113 have
+  a census listing (70) or a pronoun or honorific in the press (40; three have
+  both).
   `gender_evidence` in `board_members.csv` says which (`gender-from-names`).
-- For 33 members first seated 1932–1966 and 16 first seated 1870–1904,
-  race and gender come from 53 census records, each index reading checked
-  against the sheet where the row could be found on it; the match
-  to the member rests on the name, Arlington and, where the index gives
-  one, an occupation, a spouse or a street, and four of that era were found
-  in no census (B. M. Smith, H. L. Brown Jr, T. W. Richards, R. L. Lowry).
+- For the 40 members first seated 1932–1966 and the 38 first seated
+  1870–1904, race and gender come from 75 census records covering 68 of the
+  78, each index reading checked against the sheet where the row could be
+  found on it; the match to the member rests on the name, the district he sat
+  for or Arlington, and, where the record gives one, an occupation, a
+  household or a street. Ten of those 78 were found in no census: Casto,
+  H. L. Brown Jr, Fisher, Lowry and T. W. Richards of the later era, and
+  H. Dwight Smith, Crocker, Schutt, Robinson and Willson of the earlier.
 - Birth years, for 88 of 119 members, rest on the census listings' ages and
   on an age stated in an obituary or a profile, each right to within a
   year, and the age figure draws a year only when all but at most
@@ -418,21 +421,25 @@ magisterial district), the year the source gives, and the source. Nothing is
 coded North or South and no claim is chosen over another; the coverage
 figure takes each member's most exact dated place in each year.
 
-**How much is known, for the 75 members first seated from 1932 on**
-(recomputed from the clean tables on 26 September 2026; the earlier count in
-the tracker row agreed on every address and differed by one or two in the
-lesser kinds, from where "within five years" was measured):
+**How much is known, for the 75 members first seated from 1932 on.** A member
+is counted under the most exact kind of place any source gives him, and dated
+by the best-dated row of that kind: during service if the row's year falls
+inside a term, otherwise by the distance to the nearest term's ends. Every
+census read moves these numbers, so the count is not kept by hand:
+`test_the_residence_coverage_table_in_the_write_up_is_current` in
+`code/tests.py` recomputes it from the clean tables on every build and fails
+with both sets of figures when the table below no longer matches.
 
 | Most exact place held | Dated during service | Within 5 years of it | 6 or more years from it | Undated | Members |
 |---|---|---|---|---|---|
-| Street address | 14 | 18 | 8 | 0 | 40 |
+| Street address | 14 | 19 | 8 | 0 | 41 |
 | Street name | 2 | 0 | 1 | 0 | 3 |
 | Neighborhood | 10 | 1 | 4 | 2 | 17 |
-| Side of the County | 0 | 0 | 0 | 2 | 2 |
-| Nothing | | | | | 13 |
+| Side of the County | 1 | 1 | 0 | 0 | 2 |
+| Nothing | | | | | 12 |
 
-So 40 of the 75 have a street address and 62 have a place of some kind,
-but only 26 of the 62 are placed by a source dated to their service. The
+So 41 of the 75 have a street address and 63 have a place of some kind,
+but only 27 of the 63 are placed by a source dated to their service. The
 sources found online give a place at the time of writing, an obituary's
 address is where the person died, and a candidate profile's is where they
 lived when they ran; County records may give an address at taking office
@@ -446,9 +453,9 @@ and the window matters to the neighborhood analysis, which is not yet built.
 A census listing names a person, not a Board member, and gives several
 traits at once, so each record matched to a member is one row of
 `data/transcribed/by_claude/board_census.csv`, and the build derives each
-trait from it rather than each trait being keyed separately. 72 records, for
-68 members, from the 1880, 1900, 1910, 1930, 1940 and 1950 schedules. The
-columns:
+trait from it rather than each trait being keyed separately. 80 records, for
+73 members, from the 1870, 1880, 1900, 1910, 1920, 1930, 1940 and 1950
+schedules. The columns:
 
 | Column | Holds |
 |---|---|
@@ -497,19 +504,53 @@ never subtracts. `code/clean/board_members.py` takes the year of the date
 less the age, refuses an age with no year in its date, and refuses a row that
 gives both a birth year and an age.
 
-Three records read on 25 September 2026 are filed and cited but kept out of
-the table, since each gives a birth year that disagrees with the member's
-other record and the build stops on two sources disagreeing: W. N. Febrey's
-1900 and 1920 records (`census1900febrey`, `census1920febrey`, one
-household, born 1851 or 1854, against the 1910 record's 1859, a second
-William N. Febrey household) and William Duncan's 1910 record
-(`census1910duncanwilliam`, 1857 against the 1900 record's August 1854).
-Which household is Febrey and which year is Duncan's are open
-(`febrey-birth-year`, `duncan-birth-year`); the rows are added when it is
-settled. For the members seated 1870–1911 the 1880, 1900 and 1910
+One record read on 25 September 2026 is filed and cited but kept out of the
+table, since it gives a birth year that disagrees with the member's other
+record and the build stops on two sources disagreeing: William Duncan's 1910
+record (`census1910duncanwilliam`, 1857 against the 1900 record's August
+1854). Which year is Duncan's is open (`duncan-birth-year`); the row is added
+when it is settled.
+
+**W. N. Febrey is one household, born November 1851.** The county's 1900,
+1910 and 1920 schedules hold one William N. Febrey household, not two. All
+three give the same marriage year, 1882 — eighteen years married in 1900,
+twenty-eight in 1910 — and a wife born in the District of Columbia about
+1860; the daughter is Annie L. in 1900, Louise E. in 1910 and Annie E.,
+married to Ira H. Arnold, in 1920, whose son is entered Walter Febrey
+Arnold; the son Henry W., born July 1891, keeps his own house in the same
+district by 1910. No second household of the name stands beside them in
+1900, 1910, 1920 or 1930: the wife is Eliza F. in 1900 and 1920 and Fannie
+N. in 1910, and the two names are never in the same year. The 1910 sheet's
+wife's given name and its age of 51 are that sheet's own errors, as are the
+ages of 66 in 1920 and about 78 in 1930.
+
+The *Evening Star*'s death notice of 23 January 1940 (`star1940febrey`)
+closes the household: William N. Febrey died on 22 January 1940, "beloved
+father of Henry W. Febrey and Mrs. Annie Louise Arnold" — the son and the
+daughter of the 1900 sheet, the daughter by the married name the 1920 and
+1930 records give her. It names no office.
+
+His birth year is the one the 1900 schedule records as a date, **November
+1851**; the ages in the later records would give 1859, 1854 and 1852, and
+`AGE_MISREPORTED` in `code/clean/board_census.py` names the records no birth
+year is read from. He is the William, 29, that the 1880 sheet enters in
+Henry W. Febrey's household, and Henry W. Febrey sat for the same Washington
+district in 1872-73. For the members seated 1870–1911 the 1880, 1900 and 1910
 sheets name a magisterial district at the head of each page and, outside
 the towns, leave the street column blank, so the district is the place
 recorded, in the sheet's own words.
+
+The filed copy of each record's Ancestry page is written by
+`code/ancestry.py` from the row's own `quote`, since Ancestry refuses an
+automated request and the page cannot be fetched by anyone reading this
+repository. The page says on its face that it is derived. The copies filed before that
+script carried a sentence saying Ancestry states the facts in the collection
+were found using artificial intelligence and may contain errors; the 1930 and
+1940 census record pages carry no such statement, so it is gone from all 80.
+The one exception is William Duncan's 1910 page, which keeps its original
+wording: the record is cited but kept out of the table while
+`duncan-birth-year` is open, so there is no row for the script to build it
+from, and it says so each time it runs.
 
 Only the census record itself goes in this table. What a newspaper, an
 obituary or a secondary source says, Hjerpe's reading of an 1880 record
@@ -549,12 +590,10 @@ carrying seven of the quoted addresses. It found one wrong value: Detwiler's
 1940 sheet gives his birthplace as **Minnesota** where the index reads
 Wisconsin, and spells the surname Detwiler, as the Board member does, where
 the index reads Detweiler. Birthplace is not a column the build reads, so no
-figure moved. Three smaller disagreements stand unresolved or need no fix:
-the sheet's own number reads 63A or 67A where the index and the filed image's
-name say 62A, and neither reading is firm; the index's street name for
-Buchholz, `1`, is a column number and not a street; and Byrne's sheet gives
-202 N. Highland St., which the *Daily Sun* of 11 September 1952 prints as
-well. The 103 figures keyed from the 1870, 1880 and 1890 volumes and the
+figure moved. Two smaller disagreements need no fix: the index's street name
+for Buchholz, `1`, is a column number and not a street; and Byrne's sheet
+gives 202 N. Highland St., which the *Daily Sun* of 11 September 1952 prints
+as well. A third is settled below. The 103 figures keyed from the 1870, 1880 and 1890 volumes and the
 whole of the POP-TWPS0076 Arlington block were re-read against the printed
 pages and every one agreed.
 
@@ -597,6 +636,50 @@ Corbett's birth years come from printed dates, not ages, and Phillips's
 initial bears only on the strength of his match, which rests on R. H. and
 is weaker than its `basis` says until a second source gives the middle
 name. The other pre-1912 readings stand as read.
+
+**Five members off the assumed list (26 September 2026).** The censuses of
+the years each served were searched for the members whose gender rested on
+the default. Five gained a record, and with it a gender, a race and a birth
+year read from a source rather than assumed: **B. M. Smith** (below),
+**Storm V. Boyd**, a farmer in the Jefferson township in 1870 whose sheet
+gives the middle initial as B where the roster gives V, so the match rests
+on the district; **Duncan** of 1916–20, the Edward Duncan of Duncan Lane in
+the Jefferson district, the household of `census1910duncan` ten years on by
+his son Morton, his trade and his Irish parents; **W. J. Ingram**, a
+hardware salesman at 204 Virginia Ave in the Arlington district in 1920,
+whose widow Julia keeps the house in 1930 with their son William; and
+**E. C. Thornburke**, whom the sheet and the index both call Eugene C.
+Turnburke, a house painter at 35 Preston Avenue in the Washington district.
+
+Nine members keep the default, and the searches that found nothing are in
+`gender-from-names` so that nobody repeats them. Two are worth stating
+here. **Wibirt** has two households in the Arlington district in 1920,
+William C. and Clarence, and nothing chooses between them, so neither is a
+row. **Edward Duncan** of 1924–28 has no record of his own: Arlington
+County holds no Duncan of his age in 1930, and the 1920 record above is
+entered against the roster's Duncan of 1916–20, the term its year falls in.
+
+**B. M. Smith, 1930 and 1940.** The member appointed in June 1933 is
+**Benjamin M. Smith**, a real-estate salesman in 1930 and a broker in 1940,
+working on his own account both years. The *Evening Star* calls its B. M.
+Smith a real-estate dealer with an office at 443 Columbia Pike; this man
+lives at 439 Columbia Pike in 1930 and 2908 Columbia Pike in 1940, and is
+the only B. M. Smith in the county's index in either year in the trade. Both
+streets were read off the sheet, where the name is written across the lines
+in the left margin. The 1940 sheet's residence column for 1 April 1935 reads
+**same house**, which dates the address inside his term, and the two ages
+give him a birth year, 1885, within a year. **Lowry** is still unplaced: he
+is in no 1940 or 1950 census index under Roye or any near spelling, and
+Ancestry holds no Arlington city directory at all (`residence-1932-1962`).
+
+**Detwiler's sheet number, 1940.** The sheet is **63A**, and Ancestry's
+index's 62A is the sheet before it. The sheet's own number is a 3 written
+over a 7, which is why it has been read as 63A or 67A. The images of
+enumeration district 7-13 settle it: image 64 is 62A, stamped 222 by the
+National Archives, image 65 is its blank B side, image 66 is Detwiler's
+sheet, stamped 223, and image 67 is 63B. The stamp runs one to a sheet, so
+Detwiler's is the sheet after 62. The bib entry and the filed image's name
+carry 63A.
 
 **Ames, 1940.** Sheet 21B, read again at full resolution on the same day,
 gives W. P. Ames's house no street. The label W. Lee, with an abbreviation

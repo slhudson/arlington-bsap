@@ -160,6 +160,10 @@ downloaded into `data/raw/`.
 The test is whether a figure derives from it.
 `code/cite.py` fetches such a source, files it and writes its bib entry in one
 step; the note, what the document says, is still written by the reader.
+`code/ancestry.py` does the filing for a census record, whose page is behind a
+sign-in and cannot be fetched at all: it sets the record out on a plain page
+from the row that already holds it, so the filed copy follows the row rather
+than being made by hand.
 
 **The Drive folder is filed by kind, and its index is generated.**
 `code/archive.py` files the documents folder into `legal`, `reports`, `books`, `bios`,
