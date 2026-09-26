@@ -698,9 +698,8 @@ def body_text_numbers():
 
 def test_every_body_text_number_is_cited_or_marked():
     """A command the prose calls that the file marks as not yet cited, or one
-    the prose never calls that carries no mark. Either way the list of
-    numbers the report rests on is wrong; CITED in
-    code/analysis/body_text_numbers.py is where it is corrected."""
+    the prose never calls that carries no mark: the file was built before the
+    prose changed. bash run.sh rewrites it from the paper."""
     tex = (ROOT / "paper" / "arlington-bsap.tex").read_text()
     prose = "\n".join(re.sub(r"(?<!\\)%.*", "", line) for line in tex.split("\n"))
     problems = []
@@ -708,11 +707,11 @@ def test_every_body_text_number_is_cited_or_marked():
         used = re.search(rf"\\{name}(?![A-Za-z])", prose) is not None
         marked = "not yet cited" in rest
         if used and marked:
-            problems.append(f"\\{name} is called in the prose: add it to CITED")
+            problems.append(f"\\{name} is called in the prose but the file marks it uncited")
         if not used and not marked:
-            problems.append(f"\\{name} is called nowhere in the prose: take it out of CITED")
-    assert not problems, ("paper/body_text_numbers.tex disagrees with the prose "
-                          "(code/analysis/body_text_numbers.py):\n  " + "\n  ".join(problems))
+            problems.append(f"\\{name} is called nowhere in the prose but the file does not say so")
+    assert not problems, ("paper/body_text_numbers.tex is older than the prose; "
+                          "bash run.sh rewrites it:\n  " + "\n  ".join(problems))
 
 
 def test_a_body_text_number_is_the_clean_tables_number():
