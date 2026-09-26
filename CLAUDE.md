@@ -224,7 +224,8 @@ or shown; and `scope`, a proposal for analysis the report does not yet do,
 such as comparing Arlington's Board to peer localities. A row is something
 that would change a number, a citation or a figure's form, or add an
 analysis, once answered; meeting logistics and what to bring to whom are not
-tracked here.
+tracked here. Nor is whether the report uses a figure that exists: the
+figure is the reminder, so a `scope` row closes when its figure is built.
 
 Log a question at the moment it arises, not in your head or in chat: a row
 in the tracker, and a sentence in the subject write-up where it bites. When

@@ -19,8 +19,6 @@ spike: the figure shows the size of the Board, not who sat.
   national fall in average household size, which cost inner-ring suburbs
   population while their housing stock grew, but that is untested here
   (`population-decline-1970-80`).
-- Whether the report compares Arlington to peer localities at all
-  (`peer-localities`).
 - The age bands start at 1980, because nothing earlier is held in a
   machine-readable form (`adults-before-1980`).
 

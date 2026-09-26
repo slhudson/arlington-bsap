@@ -69,6 +69,9 @@ are explained in `code/citekeys.py`, and what is still open is in
   (`residence-after-service`), and for Thomas two sources name different
   places (`thomas-residence`). Tillema's and Massey's two sources also
   differ, but which each source says is settled; see "Reading an image".
+- Thirteen county board sizes rest on search summaries of county web pages,
+  not on a document held (`county-seat-counts`); Arlington's five is the
+  County Attorney's.
 
 Each is a row in `docs/questions.csv`, with an owner and what would settle it.
 
@@ -503,3 +506,24 @@ sentence, the citation.
 `unrecorded`, seat-years from 1932, empty before. "Not recorded" is a band
 rather than a gap because the seats existed and were held; what is missing is
 the label.
+
+## Other localities
+
+`board_peers.csv` sets Arlington's Board beside the governing body of every
+Virginia independent city and of fourteen counties: the thirteen largest
+other than Arlington, and Rockingham. The figures show those of 100,000
+residents or more, eighteen in all, and leave the choice of peer to the
+reader: places Arlington's size in `board_peers_residents`, places as dense
+in `board_peers_density`.
+
+A city's council is the Richmond Charter Review Commission's count
+(`richmond2023`, Appendix D). A Mayor elected at large counts as a member,
+because the appendix's notes say most vote on council; Richmond's is the one
+the notes name as sitting outside it. A Mayor chosen from council is already
+among its members. A county board's count includes a chair elected at large.
+Residents are the 2020 census; land area is the 2020 Gazetteer's.
+
+Arlington carries about 48,000 residents per member, beside Loudoun and
+Virginia Beach. Cities of its size carry about half that, and Alexandria,
+the one place as dense, about 23,000; the larger counties, Henrico,
+Chesterfield, Prince William and Fairfax, carry more.

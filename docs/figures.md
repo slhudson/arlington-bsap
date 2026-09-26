@@ -310,8 +310,8 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
   exist, and the two differ where a seat sat vacant, which the label "residents per
   seat" says and which keeps a vacancy from drawing a spike. A cube-root-law benchmark is not drawn: the law is
   descriptive, not normative, its reference class is national parliaments,
-  and as drawn it implied a 62-member Board (`peer-localities` in
-  `docs/questions.csv` is the comparison the report might want instead).
+  and as drawn it implied a 62-member Board (board_peers_residents and
+  board_peers_density are the comparison instead).
 - **residents_by_race.** Counts as unstacked lines, because a stacked band
   of height zero and one that has not started are the same picture, and a
   line simply begins the year the Census first reported that group. White
