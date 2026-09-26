@@ -56,5 +56,5 @@ for profile in style.PROFILES:
     charts.seats(ax)
     charts.years(ax, members.FIRST, 2020, step=20, label="year", through=members.LAST + 1)
     charts.rule(ax)
-    charts.legend(fig, series)
+    charts.legend(fig, series, ncol=3)
     paths.save(fig, "board_residence_coverage", profile)
