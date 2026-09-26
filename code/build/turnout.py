@@ -30,6 +30,7 @@ import pandas as pd
 import board_roster
 import citekeys
 import elections
+import residents
 from elections import COUNTY_HISTORY_THROUGH
 from paths import BY_CLAUDE, RAW, read, write
 
@@ -168,6 +169,19 @@ def build() -> pd.DataFrame:
     d["cycle"] = [CYCLE[y % 4] if y >= 1931 else "" for y in d.year]
     d["voting_age_est"] = between_censuses(d)
     d["voting_age_est_source"] = [citekeys.DERIVED if pd.notna(v) else "" for v in d.voting_age_est]
+
+    # Two independent reads of the same figure. voting_age comes from each
+    # census's race-by-18-and-over table; residents.csv builds the adult
+    # population by summing six age bands out of the sex-by-age table. They
+    # are different tables of the same census and must agree exactly.
+    bands = read("residents").set_index("year")[list(residents.ADULT_BANDS)]
+    adults = bands.dropna().sum(axis=1)
+    for year, here in d.dropna(subset=["voting_age"]).set_index("year").voting_age.items():
+        there = adults.get(year)
+        assert there is not None and int(here) == int(there), (
+            f"{year}: the 18-and-over table gives {int(here):,} adults and the "
+            f"age bands in residents.csv give "
+            f"{'no row' if there is None else format(int(there), ',')}")
 
     for a, b, what in (("board_voters", "registered", "more Board voters than registered voters"),
                        ("board_voters", "president_votes", "more Board voters than presidential voters"),

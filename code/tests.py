@@ -96,6 +96,47 @@ def test_race_split_must_account_for_its_total():
     assert err and "unaccounted" in err, f"not caught: {err}"
 
 
+def test_an_age_group_left_out_of_every_band_is_refused():
+    """A Summary Tape File group that no band claims. The county total would
+    still tie, because the missing people are simply never counted, so only
+    the partition check sees it."""
+    err = breaks(residents, "STF_AGE_GROUPS",
+                 lambda orig: {**orig, 1980: {**orig[1980], "age25to34": ["25_29"]}})
+    assert err and "do not cover the age groups exactly" in err, f"not caught: {err}"
+
+
+def test_an_age_group_claimed_by_two_bands_is_refused():
+    """The same group summed into two bands, which would inflate the adults."""
+    err = breaks(residents, "STF_AGE_GROUPS",
+                 lambda orig: {**orig, 1990: {**orig[1990],
+                                              "age35to44": ["35_39", "40_44", "45_49"]}})
+    assert err and "named in more than one band" in err, f"not caught: {err}"
+
+
+def test_a_wrong_sex_by_age_cell_number_is_refused():
+    """A cell dropped from the API's sex-by-age table. The bands must name
+    every age cell the table has, 3 to 25; the tie to the table's own total
+    stands behind that and would catch a cell counted as the wrong sex."""
+    err = breaks(residents, "API_AGE_CELLS",
+                 lambda orig: {**orig, "age25to34": [12]})
+    assert err and "the table's age cells are 3 to 25" in err, f"not caught: {err}"
+
+
+def test_the_two_counts_of_the_adult_population_must_agree():
+    """residents.csv sums six bands out of the sex-by-age table; turnout.csv
+    reads the 18-and-over table. Different tables, same census, same figure."""
+    def mangle(orig):
+        def patched(stem):
+            d = orig(stem)
+            if stem == "residents":
+                d = d.copy()
+                d.loc[d.year == 2020, "age65plus"] = 0
+            return d
+        return patched
+    err = breaks(turnout, "read", mangle)
+    assert err and "the age bands in residents.csv give" in err, f"not caught: {err}"
+
+
 # --- guards on the Board files ----------------------------------------------
 
 def test_race_and_gender_must_account_for_the_same_seats():
