@@ -54,6 +54,10 @@ RACE = {
     "white": ("White", SAND),
 }
 RESIDUAL = ("Other or Multiracial", GREY)
+# Black candidacies for the Board: the race figures' Black, filled for a
+# seat won and an open ring for a race lost.
+CANDIDACY = {"won": ("won", RACE["black"][1], True),
+             "lost": ("lost", RACE["black"][1], False)}
 # The county's crossed census tables, from 1980: race and Hispanic origin are
 # two questions, so Black and White there are the non-Hispanic cells. Only
 # the residents figure reads them; the Board's race is not a crosstab.
@@ -134,6 +138,7 @@ DEFAULT_PROFILE = "print"
 # charts.fit() solves the height from it. See docs/figures.md, Size and margins.
 NARROW = 0.7          # the fraction of the profile's width a few-category figure takes; see docs/figures.md
 SQUARE = 1.2          # the aspect of a scatter, whose two axes are both measures; see docs/figures.md
+STRIP = 7.0           # the aspect of a timeline of events, whose y axis carries no measure; see docs/figures.md
 BROKEN = (5, 1)       # widths of the two sides of a broken x axis, near and far
 MARGIN = 0.037        # white on all four sides, as a fraction of the width, measured to ink
 LEGEND_GAP = 0.2      # inches between the lowest ink of the plot and the legend

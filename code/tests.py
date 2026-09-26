@@ -31,6 +31,7 @@ sys.path.remove(str(ROOT / "code" / "build"))
 del sys.modules["paths"]
 
 sys.path.insert(0, str(ROOT / "code" / "clean"))
+import board_candidacies  # noqa: E402
 import board_census  # noqa: E402
 import board_members  # noqa: E402
 import paths  # noqa: E402
@@ -88,6 +89,30 @@ def patch_claims(kind, change):
             return d
         return patched
     return mangle
+
+
+def patch_built(stem, change):
+    """A mangle for the clean stage's paths.built: `change` is applied to
+    data/built/<stem>.csv as read."""
+    def mangle(orig):
+        def patched(name):
+            d = orig(name)
+            return change(d.copy()) if name == stem else d
+        return patched
+    return mangle
+
+
+def candidacies_with(change):
+    """The error board_candidacies.build() raises with the built candidacy
+    table changed, or None. The tests run before the clean stage, so the
+    board_members.csv it reads is last run's: the run's start is set aside."""
+    started = os.environ.pop("RUN_STARTED", None)
+    try:
+        return breaks(paths, "built", patch_built("board_candidacies", change),
+                      build=board_candidacies.build)
+    finally:
+        if started:
+            os.environ["RUN_STARTED"] = started
 
 
 def bib_entries():
@@ -585,6 +610,42 @@ def test_registration_refuses_a_locality_total_that_is_not_its_precincts():
     except SystemExit as e:
         err = str(e)
     assert err and "sum of Arlington's precincts" in err, f"not caught: {err}"
+
+
+# --- guards on Black candidacies ----------------------------------------------
+
+def test_a_candidacy_that_matches_no_election_is_refused():
+    """Monroe's special election keyed a year early. With no guard the
+    figure would draw a loss in 1998, a year no record has him standing."""
+    def move(d):
+        d.loc[(d.name == "Charles P. Monroe") & (d.election == "special"), "year"] = "1998"
+        return d
+    err = candidacies_with(move)
+    assert err and "matches no election record" in err, f"not caught: {err}"
+
+
+def test_a_black_members_election_with_no_candidacy_is_refused():
+    """Pendleton's 1883 row left out: his seat would still count in
+    board_race, and this figure would show 1883 as a year nobody ran."""
+    err = candidacies_with(lambda d: d[d.name != "John W. Pendleton"])
+    assert err and "a term, no candidacy" in err, f"not caught: {err}"
+
+
+def test_a_candidacy_inside_a_period_a_source_says_none_ran_is_refused():
+    """Hjerpe's period keyed from 1880: it would then contain five
+    elections Black members won, and the two claims cannot both stand."""
+    def widen(d):
+        d.loc[(d.name == "") & (d.source == "hjerpe2021"), "year"] = "1880"
+        return d
+    err = candidacies_with(widen)
+    assert err and "says no Black candidate ran" in err, f"not caught: {err}"
+
+
+def test_a_candidate_the_1931_list_marks_is_not_left_out():
+    """Moseley's rows left out, which no count would notice: the list still
+    marks him "(Col)", so the build stops."""
+    err = candidacies_with(lambda d: d[~((d.claim == "candidacy") & (d.name == "Moseley, C. H."))])
+    assert err and "the 1931 list marks" in err, f"not caught: {err}"
 
 
 # --- the documentation names real files ---------------------------------------

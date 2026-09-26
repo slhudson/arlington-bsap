@@ -19,16 +19,16 @@ PY=.venv/bin/python
 
 # Stage 1: data/raw/ and data/transcribed/ -> data/built/. Reshaping only;
 # each step is refused if a value its inputs carry is missing from its output.
-BUILD=(elections board_claims census registration board_peers voters_party)
+BUILD=(elections board_claims board_candidacies census registration board_peers voters_party)
 
 # Stage 2: data/built/ -> data/clean/. Every decision about what a number
 # is. Each step is named for the file it writes, and later steps read what
 # earlier ones wrote.
-CLEAN=(residents board_members board_residence board_seats voters turnout board_peers)
+CLEAN=(residents board_members board_candidacies board_residence board_seats voters turnout board_peers)
 
 # Stage 3: data/clean/ -> figures/. Each step is named for the figure it
 # writes. Three subjects, alphabetical within each.
-FIGURES=(residents_by_age residents_by_race residents_per_seat turnout voters_board voters_president board_age board_age_coverage board_gender board_party board_peers_density board_peers_residents board_race board_residence_coverage)
+FIGURES=(residents_by_age residents_by_race residents_per_seat turnout voters_board voters_president board_age board_age_coverage board_candidacies board_gender board_party board_peers_density board_peers_residents board_race board_residence_coverage)
 
 echo "lint"
 "$PY" -m pyflakes code style || { echo "  pyflakes: fix the above"; exit 1; }

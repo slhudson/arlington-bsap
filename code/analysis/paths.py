@@ -16,8 +16,10 @@ BOARD_RESIDENCE = CLEAN / "board_residence.csv"
 VOTERS = CLEAN / "voters.csv"
 TURNOUT = CLEAN / "turnout.csv"
 BOARD_PEERS = CLEAN / "board_peers.csv"
+BOARD_CANDIDACIES = CLEAN / "board_candidacies.csv"
 
-for _f in (RESIDENTS, BOARD_MEMBERS, BOARD_SEATS, BOARD_RESIDENCE, VOTERS, TURNOUT, BOARD_PEERS):
+for _f in (RESIDENTS, BOARD_MEMBERS, BOARD_SEATS, BOARD_RESIDENCE, VOTERS, TURNOUT, BOARD_PEERS,
+           BOARD_CANDIDACIES):
     if not _f.exists():
         raise FileNotFoundError(f"{_f} missing - run the build stage first (bash run.sh)")
 
