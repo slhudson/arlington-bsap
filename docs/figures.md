@@ -101,6 +101,14 @@ groups and White, because it is another kind of not-White and belongs with
 them. Above the sand it splits the non-White population in two and
 understates how much the county has diversified.
 
+Gender: women, then men. The same shape as race, and for the same reason:
+the category the sand marks - the majority - takes the ceiling, and the
+smaller category sits on the floor where its band is measured against the
+axis rather than floating on top of another band. Ordering the legend some
+other way, alphabetically say, would put men first here and leave race
+ordered the other way, so the two demographic figures would stop reading as
+one pair.
+
 Party: Democratic, ABC, not recorded, independent, Republican. The two
 parties take the two edges of the frame, so each category keeps one place
 on the page for the whole run and a majority reads as the block that crosses
