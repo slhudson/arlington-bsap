@@ -180,11 +180,37 @@ def held(terms: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame({"held_from": start.astype(int), "held_to": pd.Series(stop, index=terms.index).astype(int)})
 
 
+BORN_BY_AGE = "; the year is the year of the date less the age given, so within a year"
+
+
+def birth_years_from_ages(a: pd.DataFrame) -> pd.DataFrame:
+    """A source that states an age gives the age and the date it was stated
+    (`age`, `age_date`, as printed); the birth year is decided here, the
+    same way board_census.py does it for a census record. A row gives a
+    birth year or an age, and an age needs its date."""
+    aged = a.age != ""
+    if (aged & (a.birth_year != "")).any():
+        raise ValueError("a claim row gives both a birth year and an age:\n"
+                         + "\n".join(f"  {n}" for n in a.name[aged & (a.birth_year != "")]))
+    years = a.age_date.str.findall(r"\d{4}").str[-1]
+    undated = aged & years.isna()
+    if undated.any():
+        raise ValueError("an age with no year in its date:\n"
+                         + "\n".join(f"  {n}: {d!r}" for n, d in zip(a.name[undated], a.age_date[undated])))
+    if ((~aged) & (a.age_date != "")).any():
+        raise ValueError("a date with no age beside it")
+    a = a.copy()
+    a.loc[aged, "birth_year"] = (years[aged].astype(int) - a.age[aged].astype(int)).astype(str)
+    a.loc[aged, "basis"] = a.basis[aged] + BORN_BY_AGE
+    return a.drop(columns=["age", "age_date"])
+
+
 def attributions() -> pd.DataFrame:
     """One row per person from the claim file and the census records: race,
     gender and birth year, each with every source and note joined. Two
     sources disagreeing stops the build."""
-    a = claims("demographics", ["name", *ATTRIBUTED, "basis", "source", "quote"])
+    a = claims("demographics", ["name", *ATTRIBUTED, "age", "age_date", "basis", "source", "quote"])
+    a = birth_years_from_ages(a)
     missing = [f for f in ATTRIBUTED if f not in a.columns]
     if missing:
         raise ValueError(f"board_demographics.csv has no {', '.join(missing)} column")

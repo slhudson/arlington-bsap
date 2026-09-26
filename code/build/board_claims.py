@@ -38,7 +38,7 @@ FILES = {"demographics": BY_CLAUDE / "board_demographics.csv",
 CENSUS_RECORD = re.compile(r"census\d{4}[a-z]+")
 
 COLUMNS = ["name", "claim", "year", "start_year", "start_month", "end_year", "end_month",
-           "district", "seated_by", "term", "race", "gender", "birth_year", "age", "birthplace",
+           "district", "seated_by", "term", "race", "gender", "birth_year", "age", "age_date", "birthplace",
            "occupation", "place", "party", "basis", "checked", "source", "page", "quote",
            "sheet", "notes", "note"]
 

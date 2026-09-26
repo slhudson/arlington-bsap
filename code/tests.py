@@ -272,13 +272,35 @@ def test_two_sources_disagreeing_on_race_is_a_finding():
     assert err and "disagree" in err, f"not caught: {err}"
 
 
-def test_a_birth_year_after_the_seating_is_rejected():
-    """A birth year that makes a member a child when first seated."""
+def test_an_age_that_makes_a_child_a_member_is_rejected():
+    """A misread age (39 read as 10) that makes a member a child when first
+    seated. The birth year is worked out in the clean stage, from the age
+    and the date it was stated, so the check has to see it there."""
     def misread(d):
-        d.loc[d.name == "Harold J. Casto", "birth_year"] = "1953"
+        d.loc[(d.name == "Harold J. Casto") & (d.age != ""), "age"] = "10"
         return d
-    err = breaks(paths, "built", patch_claims(None, misread), build=board_members.build)
+    err = breaks(paths, "built", patch_claims("demographics", misread), build=board_members.build)
     assert err and "age when first seated" in err, f"not caught: {err}"
+
+
+def test_an_age_without_the_date_it_was_stated_is_rejected():
+    """An age is only a birth year with a date beside it; the transcribed
+    file gives both and this stage does the subtraction."""
+    def undated(d):
+        d.loc[d.name == "Harold J. Casto", "age_date"] = ""
+        return d
+    err = breaks(paths, "built", patch_claims("demographics", undated), build=board_members.build)
+    assert err and "no year in its date" in err, f"not caught: {err}"
+
+
+def test_a_birth_year_written_beside_an_age_is_rejected():
+    """The transcribed file records what was printed. A birth year worked
+    out by the reader and keyed beside the age it came from is refused."""
+    def worked_out(d):
+        d.loc[d.name == "Harold J. Casto", "birth_year"] = "1924"
+        return d
+    err = breaks(paths, "built", patch_claims("demographics", worked_out), build=board_members.build)
+    assert err and "both a birth year and an age" in err, f"not caught: {err}"
 
 
 def test_a_census_row_that_does_not_name_what_was_checked_is_refused():

@@ -294,6 +294,13 @@ less the age, and the note on it says which. The place joins the claims in
 `data/clean/board_residence.csv`, one row per claim, none chosen over
 another and nothing coded.
 
+A press or obituary age is keyed the same way: `board_demographics.csv` has
+`age` and `age_date` (as printed: "25 April 2019", "1960"), and
+`birth_year` only where a source prints a birth date or year. The transcriber
+never subtracts. `code/clean/board_members.py` takes the year of the date
+less the age, refuses an age with no year in its date, and refuses a row that
+gives both a birth year and an age.
+
 Three records read on 25 September 2026 are filed and cited but kept out of
 the table, since each gives a birth year that disagrees with the member's
 other record and the build stops on two sources disagreeing: W. N. Febrey's
