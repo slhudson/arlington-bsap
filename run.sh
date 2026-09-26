@@ -23,7 +23,7 @@ BUILD=(residents board_members board_residence board_seats voters turnout)
 
 # Stage 2: data/clean/ -> figures/. Each step is named for the figure it
 # writes. Three subjects, alphabetical within each.
-FIGURES=(residents_by_race residents_per_seat turnout voters_board voters_president board_age board_age_bands board_age_coverage board_residence_coverage board_gender board_party board_race)
+FIGURES=(residents_by_age residents_by_race residents_per_seat turnout voters_board voters_president board_age board_age_bands board_age_coverage board_residence_coverage board_gender board_party board_race)
 
 echo "lint"
 "$PY" -m pyflakes code style || { echo "  pyflakes: fix the above"; exit 1; }

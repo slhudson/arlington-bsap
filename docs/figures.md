@@ -58,6 +58,16 @@ nothing shares a colour with anything it appears beside.
   than reddish purple because the reddish purple carries women on the
   gender chart, and the two should not read as the same category across a
   section.
+- **Age.** The county's seven age bands are ordered, and seven unrelated
+  hues would say they were not: a reader would have to consult the legend
+  to know which band sits next to which. They take one hue that darkens
+  with age, `#DEDBEF` to `#332B62`, the way the residence diagnostic takes
+  one green that darkens as the place is named more exactly. The hue is
+  indigo because no other subject uses it: age is the only figure in the
+  report where a band is neither a race, a party nor a gender, and it
+  should not be mistaken for one. The near-neutral rule is set aside, as it
+  is for party: there is no largest group holding the mass here, since the
+  bands are of comparable size and the darkest is not the biggest.
 - **Gender.** Women reddish purple, men sand. Urban's guide says: "Urban
   tries not to use color palettes that reinforce gender or racial
   stereotypes (e.g., pink for women and blue for men)." Half the pairing
@@ -100,6 +110,11 @@ then White; on the residents figure the residual sits between the counted
 groups and White, because it is another kind of not-White and belongs with
 them. Above the sand it splits the non-White population in two and
 understates how much the county has diversified.
+
+Age: youngest at the base, children first, so the stack runs the way the
+axis does and the band a reader is looking for is where its number puts it.
+With the hue darkening as the band ages, the stack also runs light at the
+floor to dark at the ceiling, which is the order a reader expects of a ramp.
 
 Party: Democratic, ABC, not recorded, independent, Republican. The two
 parties take the two edges of the frame, so each category keeps one place
@@ -248,6 +263,37 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
   basis: the change is real but small, and a rule across the figure claims
   more visual importance for it than it has; the caption carries it, and
   the labels are the same either side.
+- **residents_by_age.** One panel of stacked bars, shares rather than
+  counts. A counts panel was drawn first and dropped: once the shares are
+  seen to be nearly flat, the counts panel only restates the growth that
+  `residents_per_seat` already shows, and a second panel that repeats a
+  figure the reader has met is worse than no second panel. Six lines were
+  tried before the stack and fail for a different reason: the bands are of
+  comparable size, so five of them run together in a band a few thousand
+  people deep, and a ramp chosen so that neighbouring bands read as
+  neighbours is exactly the wrong palette for lines that cross.
+
+  Children are a band, though they cannot vote. They are a seventh of the
+  county and no one on the Board represents them in the sense the rest of
+  this section measures, so leaving them out would make the figure a
+  picture of the electorate when what the section is about is the county.
+  For the same reason the denominator is every resident, not every adult.
+
+  It begins at 1980 while the Board figures begin at 1870, and the two are
+  not drawn on a shared range. Nothing is lost by that. The Board series
+  reaches back to 1870 because a Board member is one person whose birth
+  year can be found in a census sheet or an obituary; a county age
+  distribution has to come from a published table, and the Bureau's
+  machine-readable county tables begin with the 1980 Summary Tape File.
+  Earlier censuses did print county age tables, but only in the bound
+  volumes, so carrying the series back would mean keying them in the way
+  the 1870-1890 totals were keyed in. That is a job the report has not
+  asked for; `adults-before-1980` in `docs/questions.csv` holds it, for
+  this figure and for the turnout one. The figure is a benchmark for the
+  residents section and is never put on a panel with the Board's ages:
+  there is no defensible right age for a Board member, and a shared panel
+  would imply there is. Two figures in two sections, each on the range its
+  own sources support.
 - **board_race, board_gender, board_party.** Seat counts rather than
   shares, so the 1932 expansion is legible on the axis. All bands are drawn,
   men and White included: they are the denominator, and without them two

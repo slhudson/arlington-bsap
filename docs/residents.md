@@ -1,6 +1,6 @@
 # Residents
 
-Who lived in Arlington at each census, and by what race: what each number in
+Who lived in Arlington at each census, by what race and at what age: what each number in
 `data/clean/residents.csv` is, what backs it, what is assumed where nothing
 does, and why. Present tense; how a decision was reached is in the git
 history. The placeholders in the `source` columns are explained in
@@ -17,6 +17,8 @@ spike: the figure shows the size of the Board, not who sat.
   to pick one (`retrocession-date`).
 - Whether the report compares Arlington to peer localities at all
   (`peer-localities`).
+- The age bands start at 1980, because nothing earlier is held in a
+  machine-readable form (`adults-before-1980`).
 
 Each is a row in `docs/questions.csv`, with an owner and what would settle it.
 
@@ -229,6 +231,59 @@ Works cited, is where to look). And the 1870 baseline reflects Freedman
 village, a settlement the federal government created and then dismantled.
 How much of this the prose says is an open question.
 
+
+---
+
+## Age, 1980 onward
+
+`residents.csv` carries the county in seven age bands from 1980: `ageunder18`,
+`age18to24`, `age25to34`, `age35to44`, `age45to54`, `age55to64` and
+`age65plus`. They sum to `total` at every census, and `residents_by_age`
+draws them as shares of it. There is no `adults` column: the adult
+population is the six bands above `ageunder18`, summed where something needs
+it.
+
+**The cuts are the ones every census from 1980 shares.** 1980's Summary Tape
+File prints 35 to 44, 45 to 54, 65 to 74 and 75 to 84 as single groups, so
+no cut at 40, 50, 70 or 80 exists to take without splitting a published
+group, which would mean inventing a number. Every cut the bands do use — 18,
+25, 35, 45, 55, 65 — is a boundary printed in all five censuses, so no year
+is interpolated and the bands are the same object in 1980 as in 2020.
+
+**Where each census's ages come from.** 1980 and 1990 from the archived
+Summary Tape Files, which name their age groups; 2000, 2010 and 2020 from
+the Bureau's sex-by-age table, which numbers them, men and women summed. The
+2020 figures come from a different release than the 2020 race figures beside
+them: the redistricting file gives age only as an 18-and-over total, so sex
+by age is fetched from the Demographic and Housing Characteristics file.
+Both are `censusapi`.
+
+| Year | Age from | Table |
+|---|---|---|
+| 1980 | `census1980stf1a` | Table 10, age |
+| 1990 | `census1990stf1a` | P11, age |
+| 2000 | `censusapi` | SF1 P012, sex by age |
+| 2010 | `censusapi` | SF1 P12, sex by age |
+| 2020 | `censusapi` | DHC P12, sex by age |
+
+**Three guards, because a mis-mapped band would be silent.** The bands must
+name every age group the source table has, exactly once — a group left out
+of all seven would simply never be counted, and the county total would still
+tie. The bands must then sum to the same county total the `total` column
+carries. And `turnout.csv`, which counts adults from a different table
+altogether (race by 18 and over), must agree exactly with the six adult
+bands summed; it does, at all five censuses. `code/tests.py` reintroduces
+each mistake and asserts the build refuses.
+
+**Children are counted.** They cannot vote, and the report's other age
+figure is about people who can serve, but a seventh of Arlington is under 18
+and the section is about the county rather than the electorate.
+`docs/figures.md` carries that reasoning and the rest of the figure's form.
+
+The series starts at 1980 because the Bureau's machine-readable county
+tables do. Earlier censuses printed county age tables in the bound volumes,
+and carrying the series back would mean keying them in by hand
+(`adults-before-1980`, which the turnout figure shares).
 
 ---
 

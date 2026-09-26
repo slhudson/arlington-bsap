@@ -43,6 +43,19 @@ RACE = {
 RESIDUAL = ("Other or Multiracial", GREY)
 RESIDENTS = {**{k: RACE[k] for k in ("black", "hisp", "aapi")},
              "other": RESIDUAL, "white": RACE["white"]}
+# The county by age band, youngest at the base. Age bands are ordered, so
+# they take one hue that darkens with age rather than seven unrelated
+# colours; the hue is one no other subject uses, so a band cannot be
+# mistaken for a race, a party or a gender group.
+RESIDENT_AGES = {
+    "ageunder18": ("under 18", "#DEDBEF"),
+    "age18to24":  ("18 to 24", "#C4BEE2"),
+    "age25to34":  ("25 to 34", "#A79ED1"),
+    "age35to44":  ("35 to 44", "#8A7EBD"),
+    "age45to54":  ("45 to 54", "#6D60A3"),
+    "age55to64":  ("55 to 64", "#514585"),
+    "age65plus":  ("65 and over", "#332B62"),
+}
 GENDER = {
     "women": ("women", OKABE_ITO["reddish_purple"]),
     "men":   ("men", SAND),
