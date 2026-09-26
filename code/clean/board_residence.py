@@ -6,7 +6,9 @@ per claim with its source, basis and quote, and how precisely the place is
 named (PRECISION). Nothing is coded North or South and no claim is chosen
 over another; docs/board.md has what is open. A member seated for a
 magisterial district also gets a district claim from the office, source
-`derived` (residence_district.py).
+`derived`: the project assumes a supervisor lived in the district he was
+seated for, which the law required only from 1903 (docs/board.md, Residence
+in the district).
 """
 import re
 
@@ -14,8 +16,25 @@ import pandas as pd
 
 import board_census
 import paths
-import residence_district
 from paths import write
+
+DISTRICTS = ("Arlington", "Jefferson", "Washington")
+
+BASIS = ("derived from the office: the member was seated for this magisterial "
+         "district, and a supervisor is assumed to have lived in the district "
+         "he represented; no record about the person")
+
+
+def district_claims(members: pd.DataFrame) -> pd.DataFrame:
+    """One claim per person per district they were seated for, dated to the
+    start of the first term there. An at-large seat names no place."""
+    seated = members[members.district.isin(DISTRICTS)]
+    first = seated.sort_values(["start_year", "start_month"]).drop_duplicates(["name", "district"])
+    return pd.DataFrame({
+        "name": first.name, "year": first.start_year.astype(int).astype(str),
+        "place": first.district + " District", "basis": BASIS,
+        "source": "derived", "quote": "", "precision": "district"})
+
 
 # How exactly a place is named, most to least: a house on a street, a street
 # with no house, a neighborhood or civic association, a side of the County,
@@ -54,7 +73,7 @@ def build() -> pd.DataFrame:
     stated = c.loc[c.claim == "residence", ["name", "year", "place", "basis", "source", "quote"]]
     claims = pd.concat([stated, board_census.residences()], ignore_index=True).fillna("")
     claims["precision"] = [precision(p) for p in claims.place]
-    claims = pd.concat([claims, residence_district.district_claims(paths.read("board_members"))],
+    claims = pd.concat([claims, district_claims(paths.read("board_members"))],
                        ignore_index=True)
     return claims.sort_values(["name", "year"], kind="stable")
 

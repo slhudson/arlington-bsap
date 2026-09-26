@@ -56,11 +56,9 @@ are explained in `code/citekeys.py`, and what is still open is in
 - Every member seated for a magisterial district also has a district claim
   from the office, source `derived`, and 1912–1931, where no roster exists,
   the figure counts the Board's three seats at district precision. Both rest
-  on the assumption that a supervisor lived in the district he represented
-  (`code/clean/residence_district.py`). No instrument required it before
-  1903, so for the 47 members seated before 1932 the assumption is the
-  project's, not the law's (`residence-district`). See "Residence in the
-  district" below.
+  on the decision that a supervisor lived in the district he represented,
+  which the law required only from 1903 (`code/clean/board_residence.py`,
+  and "Residence in the district" below).
 - Where members lived is transcribed but not yet coded, and the 1973 Post map
   that places a whole Board at once has not been seen (`mathews1973-map`);
   two of the 37 members first seated 1932–1962 have none
@@ -149,8 +147,13 @@ Hjerpe records that Allen resigned the following month rather than being
 removed. The episode does not corroborate a residence rule for the seat.
 
 So the 49 derived rows of `data/clean/board_residence.csv` rest on a custom
-that the law did not require, not on the law. Whether to keep them is open;
-the County Attorney owns `residence-district`.
+that the law did not require, not on the law. They stay, as the project's
+decision (Sally, 26 September 2026): before 1932 the district is the only
+place the sources give for most members, so the coverage figure can show
+that much and no more, and the question the residence analysis can answer,
+whether members' homes were dispersed across the County, is one it can only
+ask of the members seated from 1932 on. That the earlier record does not
+allow it is itself the finding for those years.
 
 ---
 

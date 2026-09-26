@@ -239,7 +239,7 @@ that.
 of its own under `code/clean/`, applied by name in each figure - so which
 figure takes which position is greppable rather than buried. When the question
 is settled the assumption moves into the relevant clean step and the function
-is deleted. In force: `code/clean/residence_district.py`, for `residence-district`.
+is deleted. None is in force.
 
 ## Repository decisions
 

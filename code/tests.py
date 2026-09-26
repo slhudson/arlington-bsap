@@ -32,13 +32,13 @@ del sys.modules["paths"]
 
 sys.path.insert(0, str(ROOT / "code" / "clean"))
 import board_members  # noqa: E402
+import board_residence  # noqa: E402
 import paths  # noqa: E402
 import board_roster  # noqa: E402
 import board_roster_oleary  # noqa: E402
 import board_roster_results  # noqa: E402
 import board_terms  # noqa: E402
 import board_seats  # noqa: E402
-import residence_district  # noqa: E402
 import residents  # noqa: E402
 import turnout  # noqa: E402
 import voters  # noqa: E402
@@ -383,11 +383,11 @@ def test_a_census_race_with_no_category_is_refused():
 
 
 def test_an_at_large_seat_gets_no_derived_district():
-    """The residence-district assumption is for a magisterial district. An
-    at-large seat names no place, so a district claim for it would be invented."""
+    """The derived district claim is for a magisterial district. An at-large
+    seat names no place, so a district claim for it would be invented."""
     m = pd.DataFrame({"name": ["A", "B"], "district": ["Jefferson", "at large"],
                       "start_year": [1900, 1950], "start_month": [5, 1]})
-    got = residence_district.district_claims(m)
+    got = board_residence.district_claims(m)
     assert list(got.name) == ["A"] and list(got.place) == ["Jefferson District"], got
     assert (got.source == "derived").all() and (got.precision == "district").all()
 

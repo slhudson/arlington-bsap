@@ -7,7 +7,7 @@ and lightest for a side of the County or a magisterial district of
 Alexandria County, with the 1932 rule. Years with no roster are filled from
 the seat table: the Board had three seats, one per magisterial district,
 and nobody is known to sit in them, so they count at district precision
-(residence-district in docs/questions.csv). A place is counted whenever it is
+(docs/board.md, Residence in the district). A place is counted whenever it is
 dated, so a member whose only place comes from after their service still
 counts.
 """
