@@ -8,9 +8,11 @@ repository root, which is gitignored.
 
 Whole tables, every Virginia county, one column per variable, as the Bureau
 publishes them, with a data dictionary per census so the codes are readable.
-2000-2020 come from the API. 1980 and 1990 come from the archived Summary
-Tape Files at www2.census.gov, since the API holds no decennial data before
-2000; they carry Hispanic (1980: Spanish) origin crossed with race, which is
+2000-2020 come from the API, 2020 from two of its releases: the
+redistricting file carries race and Hispanic origin but no age detail, so sex
+by age comes from the Demographic and Housing Characteristics file. 1980 and
+1990 come from the archived Summary Tape Files at www2.census.gov, since the
+API holds no decennial data before 2000; they carry Hispanic (1980: Spanish) origin crossed with race, which is
 what a consistent set of categories back to 1980 is built from. 1970 is not
 here and should not be added: its Hispanic origin is a 5 percent sample the
 Bureau does not hold comparable with later years.
@@ -36,15 +38,21 @@ RAW = paths.RAW / "us_census_bureau"
 STATE, COUNTY = "51", "013"   # Virginia, Arlington County
 
 # The tables to fetch for each census: race, race crossed with Hispanic
-# origin, and race for the population 18 and over (turnout's denominator;
-# its first cell is the total). Table names differ by census.
+# origin, race for the population 18 and over (turnout's denominator; its
+# first cell is the total), and sex by age. Table names differ by census, and
+# a census may publish them across more than one release, so each year holds
+# a list of (dataset, tables).
 TABLES = {
-    2000: ("dec/sf1", {"P003": "race", "P008": "hispanic_origin_by_race",
-                       "P005": "race_18_and_over"}),
-    2010: ("dec/sf1", {"P3": "race", "P5": "hispanic_origin_by_race",
-                       "P10": "race_18_and_over"}),
-    2020: ("dec/pl", {"P1": "race", "P2": "hispanic_origin_by_race",
-                      "P3": "race_18_and_over"}),
+    2000: [("dec/sf1", {"P003": "race", "P008": "hispanic_origin_by_race",
+                        "P005": "race_18_and_over", "P012": "sex_by_age"})],
+    2010: [("dec/sf1", {"P3": "race", "P5": "hispanic_origin_by_race",
+                        "P10": "race_18_and_over", "P12": "sex_by_age"})],
+    # 2020's redistricting file is deliberately minimal: it gives age only as
+    # an 18-and-over total, so sex by age comes from the fuller Demographic
+    # and Housing Characteristics release, published three years later.
+    2020: [("dec/pl", {"P1": "race", "P2": "hispanic_origin_by_race",
+                       "P3": "race_18_and_over"}),
+           ("dec/dhc", {"P12": "sex_by_age"})],
 }
 
 
@@ -199,7 +207,7 @@ def get(url):
 
 def is_value(code, table):
     """True for a data column of this table, false for annotation columns."""
-    if code.endswith(("ERR", "EA", "MA", "_NA")):
+    if code.endswith(("ERR", "EA", "MA", "NA")):
         return False
     # 2010's codes pad the table number to three digits: table P3 is P003001
     # and P10 is P010001.
@@ -225,40 +233,43 @@ def main(years=None):
             archive_year(year, spec)
 
     key = api_key()
-    for year, (dataset, tables) in TABLES.items():
+    for year, releases in TABLES.items():
         if years and year not in years:
             continue
         out_dir = RAW / str(year)
         out_dir.mkdir(parents=True, exist_ok=True)
-        meta = labels(year, dataset)
-        wanted = set()
+        for dataset, tables in releases:
+            meta = labels(year, dataset)
+            wanted = set()
 
-        for table, name in tables.items():
-            url = f"https://api.census.gov/data/{year}/{dataset}?" + urllib.parse.urlencode({
-                "get": f"group({table})", "for": "county:*",
-                "in": f"state:{STATE}", "key": key})
-            rows = get(url)
-            head = rows[0]
-            keep = [i for i, c in enumerate(head)
-                    if c in ("NAME", "state", "county") or is_value(c, table)]
-            wanted.update(head[i] for i in keep if head[i] not in ("NAME", "state", "county"))
+            for table, name in tables.items():
+                url = f"https://api.census.gov/data/{year}/{dataset}?" + urllib.parse.urlencode({
+                    "get": f"group({table})", "for": "county:*",
+                    "in": f"state:{STATE}", "key": key})
+                rows = get(url)
+                head = rows[0]
+                keep = [i for i, c in enumerate(head)
+                        if c in ("NAME", "state", "county") or is_value(c, table)]
+                wanted.update(head[i] for i in keep
+                              if head[i] not in ("NAME", "state", "county"))
 
-            out = out_dir / f"censusapi_{dataset.replace('/', '_')}_{table}_{name}_virginia_counties.csv"
-            with out.open("w") as fh:
-                fh.write(",".join(head[i] for i in keep) + "\n")
-                for r in sorted(rows[1:], key=lambda r: r[head.index("NAME")]):
-                    fh.write(",".join(f'"{r[i]}"' if "," in str(r[i]) else str(r[i]) for i in keep) + "\n")
-            arl = next(r for r in rows[1:] if r[head.index("NAME")].startswith("Arlington"))
-            print(f"  {out.relative_to(ROOT)}  {len(rows)-1} counties, {len(keep)} columns"
-                  f"  (Arlington total {int(arl[head.index(first_value(head, table))]):,})")
+                out = out_dir / f"censusapi_{dataset.replace('/', '_')}_{table}_{name}_virginia_counties.csv"
+                with out.open("w") as fh:
+                    fh.write(",".join(head[i] for i in keep) + "\n")
+                    for r in sorted(rows[1:], key=lambda r: r[head.index("NAME")]):
+                        fh.write(",".join(f'"{r[i]}"' if "," in str(r[i]) else str(r[i])
+                                          for i in keep) + "\n")
+                arl = next(r for r in rows[1:] if r[head.index("NAME")].startswith("Arlington"))
+                print(f"  {out.relative_to(ROOT)}  {len(rows)-1} counties, {len(keep)} columns"
+                      f"  (Arlington total {int(arl[head.index(first_value(head, table))]):,})")
 
-        dic = out_dir / f"censusapi_{dataset.replace('/', '_')}_variables.csv"
-        with dic.open("w") as fh:
-            fh.write("variable,label\n")
-            for code in sorted(wanted):
-                label = meta.get(code, {}).get("label", "").replace("!!", " / ").strip(" /")
-                fh.write(f'{code},"{label}"\n')
-        print(f"  {dic.relative_to(ROOT)}  {len(wanted)} variables")
+            dic = out_dir / f"censusapi_{dataset.replace('/', '_')}_variables.csv"
+            with dic.open("w") as fh:
+                fh.write("variable,label\n")
+                for code in sorted(wanted):
+                    label = meta.get(code, {}).get("label", "").replace("!!", " / ").strip(" /")
+                    fh.write(f'{code},"{label}"\n')
+            print(f"  {dic.relative_to(ROOT)}  {len(wanted)} variables")
 
 
 if __name__ == "__main__":

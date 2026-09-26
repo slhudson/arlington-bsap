@@ -191,12 +191,16 @@
 
 @online{censusapi,
   author      = {{U.S. Census Bureau}},
-  title       = {Decennial Census Summary File and Redistricting Data},
+  title       = {Decennial Census Summary File, Redistricting Data and
+                 Demographic and Housing Characteristics},
   url         = {https://api.census.gov/data},
-  urldate     = {2026-09-22},
+  urldate     = {2026-09-25},
   annotation  = {2000 and 2010 Summary File 1, 2020 Redistricting Data (P.L.
-                 94-171), fetched by fetch/census.py and saved whole in
-                 data/raw/},
+                 94-171) and 2020 Demographic and Housing Characteristics,
+                 fetched by fetch/census.py and saved whole in data/raw/. The
+                 2020 redistricting file gives age only as an 18-and-over
+                 total, so sex by age comes from the Demographic and Housing
+                 Characteristics release},
 }
 
 % ------------------------------------------------- race and gender of members
