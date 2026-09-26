@@ -1,17 +1,17 @@
-"""O'Leary's electoral history -> transcribed/by_claude/arlington_county/board_1870-1920.csv
+"""O'Leary's electoral history -> transcribed/by_claude/arlington_county/members_1870-1920.csv
 
 The Board of Supervisors entries from *The Electoral History of That Part
 of Alexandria County Now Known as Arlington County, 1870-1920*, by Frank
 O'Leary. Run by hand, output committed.
 
-    .venv/bin/python code/transcribe/board_1870_1920.py
+    .venv/bin/python code/transcribe/members_1870_1920.py
 
 The listing pages are rotated 90 degrees, so a column on the page is a
 line of the table, read left to right by x-offset. Each election begins a
 block - "1872 May 25 Board of Supervisors" - and the columns that follow
 give a district and who held it, with replacements and vacancies in prose
 beside the name. The prose is kept verbatim; parsing it is
-code/clean/board_roster.py's job.
+code/clean/members_roster.py's job.
 """
 import re
 
@@ -20,7 +20,7 @@ import pymupdf
 from paths import BY_CLAUDE, RAW
 
 SOURCE = RAW / "arlington_county" / "electoral_history_1870-1920.pdf"
-OUT = BY_CLAUDE / "arlington_county" / "board_1870-1920.csv"
+OUT = BY_CLAUDE / "arlington_county" / "members_1870-1920.csv"
 
 DISTRICTS = ("Arlington", "Jefferson", "Washington")
 

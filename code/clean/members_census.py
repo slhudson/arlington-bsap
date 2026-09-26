@@ -1,9 +1,9 @@
 """What each census record says of a Board member, as claims. A module, not a step.
 
-Reads the census rows of data/built/board_claims.csv, one per record, and
-gives board_members.py race, gender and birth year and board_residence.py
+Reads the census rows of data/built/members_claims.csv, one per record, and
+gives members.py race, gender and birth year and members_residence.py
 the place, each as a claim row in the shape of the claim files beside it.
-docs/board.md, "Census records", has what each column holds and why.
+docs/members.md, "Census records", has what each column holds and why.
 """
 import pandas as pd
 
@@ -13,7 +13,7 @@ import paths
 GENDER = {"Male": "man", "Female": "woman"}
 RACE = {"White": "White", "Black": "Black", "Mulatto": "Black"}
 
-# What may tie a record to a member besides the name (docs/board.md, "Census
+# What may tie a record to a member besides the name (docs/members.md, "Census
 # records"). Several are joined with "; ". A row that states `none` stays in
 # the table and feeds nothing; a blank has not been read for a tie and stands
 # until it is (census-match-quality in docs/questions.csv).
@@ -22,7 +22,7 @@ WEAK = "none"
 
 # Records whose age the sheet misreports, so no birth year is read from them.
 # The member's birth year comes from the record that gives a date instead;
-# docs/board.md, "Census records", says which record and why. A key here that
+# docs/members.md, "Census records", says which record and why. A key here that
 # no census row uses would drop nothing and say nothing, so records() refuses
 # one.
 AGE_MISREPORTED = ("census1910febrey", "census1920febrey")
@@ -37,7 +37,7 @@ def records() -> pd.DataFrame:
     name stays in the table and gives no claim. Refused if a row prints a
     gender or race the build has no category for, or a match it does not
     list."""
-    r = paths.built("board_claims")
+    r = paths.built("members_claims")
     r = r[r.claim == "census"].reset_index(drop=True)
     unknown = r[~r.match.str.split("; ").map(lambda ties: all(x in MATCH for x in ties))]
     if len(unknown):
@@ -58,7 +58,7 @@ def records() -> pd.DataFrame:
 
 def claims() -> pd.DataFrame:
     """Race and gender per record, then birth year per record, in the
-    columns of board_demographics.csv. The birth year is the one the index
+    columns of members_demographics.csv. The birth year is the one the index
     prints as a date, or else the census year less the age, and its basis
     says which."""
     r = records()
@@ -79,10 +79,10 @@ def claims() -> pd.DataFrame:
 
 def residences() -> pd.DataFrame:
     """The place per record that has one, in the columns of
-    board_residence.csv: the match, then what was checked where the match
+    members_residence.csv: the match, then what was checked where the match
     does not already say it. The quote is the sheet where it was read.
     The build stage has already refused a place from a record read only
-    in the index (docs/board.md, "Reading an image")."""
+    in the index (docs/members.md, "Reading an image")."""
     r = records()
     r = r[r.place != ""]
     basis = ["; ".join([b] + [c for c in checked.split("; ") if c not in b])

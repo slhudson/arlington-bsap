@@ -1,23 +1,23 @@
-"""Black candidacies for the Board, each joined to its election -> data/clean/board_candidacies.csv
+"""Black candidacies for the Board, each joined to its election -> data/clean/candidates.csv
 
 One row per candidacy a source says was a Black candidate's, with the
 election it was in: the seats, the candidate's votes, the fewest votes that
 won a seat, whether the candidate won, and the party label the record
 prints. A primary won is a nomination won. Then one row per period in
 which a source says no Black candidate ran, name blank, `through` its last
-year. docs/board.md, "Black candidacies", has what each column holds and
+year. docs/candidates.md, "Black candidacies", has what each column holds and
 what the sources say about the years between.
 
 A candidacy is matched on surname, year and kind of election (regular,
 special or primary) to:
 
-    before 1931   the term board_members.csv holds for that election, from
+    before 1931   the term members.csv holds for that election, from
                   O'Leary, whose record names the winners and no one else
     1931          the county's contest, which prints the top six and "others
                   not mentioned", and the county's list of all 51 candidates
                   (Anderson p.67), which marks three "(Col)"
     after 1931    the county's candidate history to 2021 and the state's
-                  database after, as board_roster_results.outcomes() reads them
+                  database after, as members_roster_results.outcomes() reads them
 
 A candidacy that matches no election, or two, stops the build. So do a
 Black member's election with no candidacy row, a candidacy inside a period
@@ -56,7 +56,7 @@ def kind(r) -> str:
 
 def records() -> pd.DataFrame:
     """The Board's contests from 1931, one row per candidate: the county's to
-    2021 and the state's after, as board_roster_results.outcomes() reads them."""
+    2021 and the state's after, as members_roster_results.outcomes() reads them."""
     c = elections.contests()
     c = c[(c.record == "county") & (c.year <= COUNTY_HISTORY_THROUGH)
           | (c.record == "state") & (c.year > COUNTY_HISTORY_THROUGH)]
@@ -105,7 +105,7 @@ def join(c, members, listed, contests) -> dict:
         t = members[(members.election_year == year) & (members.surname == key[1])
                     & members.district.map(lambda d: f"{d} District" in first.office)]
         if len(t) != 1:
-            raise ValueError(f"{name} {year}: {len(t)} terms in board_members.csv; "
+            raise ValueError(f"{name} {year}: {len(t)} terms in members.csv; "
                              f"a candidacy {BEFORE} must match exactly one")
         return {**out, "seats": 1, "votes": np.nan, "winning_votes": np.nan, "won": True,
                 "party": "", "election_source": t.source.iloc[0], "month": np.nan,
@@ -176,10 +176,10 @@ def check(out, members, listed):
 
 
 def build() -> pd.DataFrame:
-    d = paths.built("board_candidacies")
+    d = paths.built("candidates")
     listed = d[d.claim == "listed"].assign(surname=lambda x: x.entry.map(surname))
     claims = d[(d.claim == "candidacy") & (d["name"] != "")]
-    members = paths.read("board_members").assign(surname=lambda m: m["name"].map(surname))
+    members = paths.read("members").assign(surname=lambda m: m["name"].map(surname))
     contests = records()
     joined = [join(c, members, listed, contests)
               for _, c in claims.groupby(["year", "name", "election", "office"], sort=False)]
@@ -197,4 +197,4 @@ def build() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    paths.write(build(), "board_candidacies")
+    paths.write(build(), "candidates")

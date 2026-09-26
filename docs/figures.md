@@ -59,11 +59,11 @@ Ordered categories take one sequential ramp, `style.SEQUENTIAL`, drawn on by
 more of the thing. Unordered categories take Okabe-Ito, where no hue implies
 a rank. A figure never defines a ramp of its own.
 
-- Ordered: `residents_by_age` (young to old) and `board_residence_coverage`
+- Ordered: `residents_by_age` (young to old) and `members_residence_coverage`
   (how exactly a home is named). Both draw from the one ramp, so they read as
   a pair; the no-evidence grey stays outside it, since an absence is not a
   step on the scale.
-- Unordered, Okabe-Ito: `board_race`, `board_gender`, `residents_by_race`,
+- Unordered, Okabe-Ito: `members_race`, `members_gender`, `residents_by_race`,
   and the party and growth figures.
 
 - **Race.** Black orange, Hispanic or Latino bluish green, Asian and Pacific
@@ -181,7 +181,7 @@ Black and White are everyone in the race, Hispanic or not. So on
 `residents_by_race` alone the legend says "Black, not Hispanic" and "White,
 not Hispanic" (`style.RESIDENTS_CROSSED`), and a dashed rule at 1980 marks
 where the definition changes; the caption says what the series before it
-are. `board_race` keeps "Black" and "White" (`style.RACE`): the Board's race
+are. `members_race` keeps "Black" and "White" (`style.RACE`): the Board's race
 is not a census crosstab, and Hispanic there is from published research, not
 a cell.
 
@@ -331,8 +331,8 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
   exist, and the two differ where a seat sat vacant, which the label "residents per
   seat" says and which keeps a vacancy from drawing a spike. A cube-root-law benchmark is not drawn: the law is
   descriptive, not normative, its reference class is national parliaments,
-  and as drawn it implied a 62-member Board (board_peers_residents and
-  board_peers_density are the comparison instead).
+  and as drawn it implied a 62-member Board (localities_residents and
+  localities_density are the comparison instead).
 - **residents_by_race.** Counts as unstacked lines, because a stacked band
   of height zero and one that has not started are the same picture, and a
   line simply begins the year the Census first reported that group. White
@@ -371,14 +371,14 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
   there is no defensible right age for a Board member, and a shared panel
   would imply there is. Two figures in two sections, each on the range its
   own sources support.
-- **board_race, board_gender, board_party.** Seat counts rather than
+- **members_race, members_gender, members_party.** Seat counts rather than
   shares, so the 1932 expansion is legible on the axis. All bands are drawn,
   men and White included: they are the denominator, and without them two
   seats of five and two of three look the same. A category holding no seat
   in any year gets no band and no legend entry, because an empty swatch
   reads as a sliver too small to see rather than as zero, and the absence is
   a finding for the prose. The test is on the data, not the category name.
-- **board_age_coverage.** A diagnostic: of the members sitting on 1 July
+- **members_age_coverage.** A diagnostic: of the members sitting on 1 July
   of each year, how many have a birth year and how many do not, as a
   stacked step area on the seat axis, so it reads like the seat figures
   and a reader can see at once which years the age figure can stand on.
@@ -386,7 +386,7 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
   different situations and a share would say they were the same. With a
   birth year takes the sand, without takes the no-evidence grey, as
   "not recorded" does on the party chart. Years with no roster are gaps.
-- **board_residence_coverage.** A diagnostic to show the County: of the
+- **members_residence_coverage.** A diagnostic to show the County: of the
   members sitting on 1 July of each year, how exactly a home is known, as a
   stacked step area on the seat axis like the age coverage. One hue, darkest
   green for a street address, then a street name, a neighborhood, then one
@@ -403,19 +403,19 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
   (`residence-after-service`). Years with no roster, 1912 to 1931, take
   their three seats from the seat table and count as no place found, so the
   Board's size is unbroken.
-- **board_age.** A Lexis diagram, age against year, the standard demographic
+- **members_age.** A Lexis diagram, age against year, the standard demographic
   form for it. Behind, the youngest-to-oldest span of the members sitting
   on 1 July of each year, as a step area; over it, one diagonal per member
   from the age they arrived to the age they left. Terms less than twelve
   months apart are one stroke, so a member's stroke is their tenure; longer
   gaps (six cases of two years or more) are two strokes. A member with no
-  birth year does not appear, and `board_age_coverage` in front of it says
+  birth year does not appear, and `members_age_coverage` in front of it says
   how many. The question is what range of ages the Board holds at a given
   moment, so the band is the minimum and maximum rather than a quartile
   range or three lines: when the oldest member leaves and no one older
   replaces them the ceiling drops, and that step (1997 to 1998) is the
   finding, which a smoothed band hides. The band is sampled by month, from
-  the months each term held in `board_members.csv`, so the figure and the
+  the months each term held in `members.csv`, so the figure and the
   seat table agree on who sits when, and a term with no recorded end holds
   to the end of its first year there. A month is drawn only when all but at
   most one sitting member has a birth year.
@@ -441,13 +441,13 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
   long, and the decades do not collide at the profile's width, unlike the
   1870-2026 axes that step by twenty. There is no legend and no direct
   label; the caption says what band and stroke are.
-- **board_candidacies.** A timeline strip of every candidacy a source says
+- **candidates.** A timeline strip of every candidacy a source says
   was a Black candidate's, in a regular or special election, filled if won
-  and a ring if lost, from `board_candidacies.csv`. It answers whether Black
+  and a ring if lost, from `candidates.csv`. It answers whether Black
   candidates ran and lost or stopped running, so the years with no dot are
   the finding and are left bare: what the sources say about each empty
   stretch, a stated negative or a record that cannot show a loss, is in
-  `docs/board.md` and belongs in the caption. A primary and the general in
+  `docs/members.md` and belongs in the caption. A primary and the general in
   the same year are one run, with the general's outcome, so they do not
   stack as two runs for one seat; a primary the candidate lost is a run
   lost and is drawn, because in Arlington the Democratic primary decides
@@ -471,7 +471,7 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
   over through 1970 and 18 and over from 1971, and nothing marks the change:
   as with residents_by_race at 1980, it is real but small, no line steps at
   it, and a rule would claim more for it than it has. The caption carries it.
-- **board_peers_residents, board_peers_density.** Arlington beside every
+- **localities_residents, localities_density.** Arlington beside every
   Virginia city and county of 100,000 or more, two separate figures rather
   than panels, because each answers a different question about who
   Arlington's peers are: places its size, and places as dense. Both axes

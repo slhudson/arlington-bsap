@@ -1,12 +1,11 @@
 # The Board
 
 Who held each seat and when, and who they were: what each number in
-`data/clean/board_members.csv` and `data/clean/board_seats.csv` is, what backs
+`data/clean/members.csv` and `data/clean/members_by_year.csv` is, what backs
 it, what is assumed where nothing does, and why. Present tense; how a decision
 was reached is in the git history. The placeholders in the `source` columns
 are explained in `code/citekeys.py`, and what is still open is in
 `docs/questions.csv`.
-
 
 ## What rests on an assumption
 
@@ -18,7 +17,7 @@ are explained in `code/citekeys.py`, and what is still open is in
   the three of 1916–28 (Wibirt, Walker and Edward Duncan). The other 113 have
   a census listing (70) or a pronoun or honorific in the press (40; three have
   both).
-  `gender_evidence` in `board_members.csv` says which (`gender-from-names`).
+  `gender_evidence` in `members.csv` says which (`gender-from-names`).
 - For the 40 members first seated 1932–1966 and the 38 first seated
   1870–1904, race and gender come from 75 census records covering 68 of the
   78, each index reading checked against the sheet where the row could be
@@ -38,14 +37,8 @@ are explained in `code/citekeys.py`, and what is still open is in
   (`surnames-from-1907`).
 - 23 terms from 1932 carry no party, three labels are unresolved, and no
   party is attempted before 1932 (`party-unlabelled`, `party-before-1932`).
-- A Black candidate who lost is recorded only in 1931 and, after 1987, only
-  for the four Black members: before 1931 the election record names winners
-  (`black-losers-1870-1930`), and the 400 or so losing candidates since 1932
-  have not been matched to a census record or a press description for race
-  (`black-losers-1932-on`), so "none ran 1932-1986" is two authors' sentences,
-  not a check of the list.
 - Each place carries a precision, from the place's own words by rules in
-  `code/clean/board_residence.py`: a house number with a street is an address;
+  `code/clean/members_residence.py`: a house number with a street is an address;
   a street with no number, a street; a neighborhood, civic association or
   named community, a neighborhood; and "North Arlington" or the northernmost
   section, a side; and one of the three magisterial districts of Alexandria
@@ -76,9 +69,9 @@ are explained in `code/citekeys.py`, and what is still open is in
   differ, but which each source says is settled; see "Reading an image".
 
 Each is a row in `docs/questions.csv`, with an owner and what would settle it.
+Each is a row in `docs/questions.csv`, with an owner and what would settle it.
 
 ---
-
 ## Local legal authority
 
 The two Dillon's Rule opinions the paper's local legal authority section
@@ -192,7 +185,7 @@ its disposition, and the Board's own minute books; neither is online
 
 ## The roster
 
-`data/clean/board_members.csv` holds one row per person per term: name, term
+`data/clean/members.csv` holds one row per person per term: name, term
 number, district, when service began and ended (to the month), the months the
 term held (`held_from` and `held_to`, counted from year 0, the end exclusive),
 how the term began, and a source per row. 222 terms, 1870 through 2026, from three sources
@@ -302,8 +295,8 @@ sourced and carries no note.
 
 **So the roster names almost nobody from 1912 to 1931.** No source in hand
 records who served, and the seat counts for those years are an assumption,
-stated in `code/clean/board_seats.py` and labelled `assumed`: three seats,
-filled, held by white men. `board_seats` states those years itself and
+stated in `code/clean/members_by_year.py` and labelled `assumed`: three seats,
+filled, held by white men. `members_by_year` states those years itself and
 replaces whatever the roster holds for them, so a name added to the roster
 moves no seat-year; `code/tests.py` adds a member in 1925 and checks that
 the table for 1912–1931 does not change. Two elections inside the stretch are printed in the county's
@@ -311,7 +304,7 @@ candidate history under the district headings rather than under "County
 Board": November 1923 (Ingram in Arlington, Duncan in Jefferson, Thornburke
 in Washington, each the only name listed) and November 1927 (Duncan and
 Thornburke, each with the highest vote). They are keyed in
-`data/transcribed/by_claude/board_terms.csv`, page 2 and page 4, as five
+`data/transcribed/by_claude/members_terms.csv`, page 2 and page 4, as five
 terms seated the following January, with no end: the county gives neither a
 start nor an end, so the January start is the build's rule for a November
 winner and each term holds to the end of its first year (1924 and 1928). Ingram and Thornburke appear in no
@@ -374,15 +367,15 @@ swept, since there is no roster to sweep.
 
 ## Seat-years
 
-`data/clean/board_seats.csv` is one row per year, 1870 through 2026: seats
+`data/clean/members_by_year.csv` is one row per year, 1870 through 2026: seats
 held by each race, each gender and (from 1932) each party, in seat-years, so
 a member who sat for four months of a year counts 4/12. It is computed from
-`board_members.csv` for every year but 1912–1931, which are the assumption
+`members.csv` for every year but 1912–1931, which are the assumption
 above whatever the roster holds for them. Days are not recorded consistently, Novack giving some and the election
 dates others, so the month is the unit, and **the handover month belongs to
 the incoming member** (Sally, 22 September 2026). An end no source records
 holds to the end of the term's first year. Both rules are applied once, in
-`held_from` and `held_to` on `board_members.csv`; the seat-years and the
+`held_from` and `held_to` on `members.csv`; the seat-years and the
 figures of who was sitting on 1 July read those columns rather than the dates.
 
 The denominator is the months the Board existed that year, which is twelve for
@@ -414,7 +407,7 @@ which would make the growth figure depend on the roster, is open.
 
 ## Where members lived
 
-`data/clean/board_residence.csv` holds one row per claim about a member's
+`data/clean/members_residence.csv` holds one row per claim about a member's
 home: the place as the source names it, how exactly (`precision`: a street
 address, a street name, a neighborhood, a side of the County or a
 magisterial district), the year the source gives, and the source. Nothing is
@@ -452,7 +445,7 @@ and the window matters to the neighborhood analysis, which is not yet built.
 
 A census listing names a person, not a Board member, and gives several
 traits at once, so each record matched to a member is one row of
-`data/transcribed/by_claude/board_census.csv`, and the build derives each
+`data/transcribed/by_claude/members_census.csv`, and the build derives each
 trait from it rather than each trait being keyed separately. 80 records, for
 73 members, from the 1870, 1880, 1900, 1910, 1920, 1930, 1940 and 1950
 schedules. The columns:
@@ -478,29 +471,29 @@ place, which then fall to the default or to the member's other sources
 and stands until it is; which rows are blank, and the revisit once the age
 and neighborhood analyses are settled, are `census-match-quality`.
 
-`code/clean/board_census.py` codes the printed values: `Male` a man,
+`code/clean/members_census.py` codes the printed values: `Male` a man,
 `Female` a woman, `White` White, and both `Black` and `Mulatto` Black, as
 Hjerpe codes Pinn's 1880 record. A printed value it has no code for stops
 the build, since a dropped claim would fall silently into the default, and
 so does a row whose `checked` names neither the sheet nor the index. The
 birth year is the one the index prints as a date, or else the census year
 less the age, and the note on it says which. The place joins the claims in
-`data/transcribed/by_claude/board_residence.csv` in
-`data/clean/board_residence.csv`, one row per claim, none chosen over
+`data/transcribed/by_claude/members_residence.csv` in
+`data/clean/members_residence.csv`, one row per claim, none chosen over
 another and nothing coded.
 
-The claim files keep words, not categories. `board_demographics.csv` has
+The claim files keep words, not categories. `members_demographics.csv` has
 `race_words` and `gender_words` (the pronoun, honorific or description as
-the source prints it), and `board_party.csv` has `party_words`; the tables
+the source prints it), and `members_party.csv` has `party_words`; the tables
 that say what each means are `RACE_WORDS`, `GENDER_WORDS` and `PARTY_WORDS`
-in `code/clean/board_members.py`, where a word not listed stops the build.
-`board_terms.csv` keeps the election date the county prints; the January
+in `code/clean/members.py`, where a word not listed stops the build.
+`members_terms.csv` keeps the election date the county prints; the January
 start, the missing end and the election as how the seat was gained are
-`code/clean/board_roster_results.py`'s. A press or obituary age is keyed the
-same way: `board_demographics.csv` has
+`code/clean/members_roster_results.py`'s. A press or obituary age is keyed the
+same way: `members_demographics.csv` has
 `age` and `age_date` (as printed: "25 April 2019", "1960"), and
 `birth_year` only where a source prints a birth date or year. The transcriber
-never subtracts. `code/clean/board_members.py` takes the year of the date
+never subtracts. `code/clean/members.py` takes the year of the date
 less the age, refuses an age with no year in its date, and refuses a row that
 gives both a birth year and an age.
 
@@ -532,7 +525,7 @@ daughter of the 1900 sheet, the daughter by the married name the 1920 and
 
 His birth year is the one the 1900 schedule records as a date, **November
 1851**; the ages in the later records would give 1859, 1854 and 1852, and
-`AGE_MISREPORTED` in `code/clean/board_census.py` names the records no birth
+`AGE_MISREPORTED` in `code/clean/members_census.py` names the records no birth
 year is read from. He is the William, 29, that the 1880 sheet enters in
 Henry W. Febrey's household, and Henry W. Febrey sat for the same Washington
 district in 1872-73. For the members seated 1870–1911 the 1880, 1900 and 1910
@@ -554,8 +547,8 @@ from, and it says so each time it runs.
 
 Only the census record itself goes in this table. What a newspaper, an
 obituary or a secondary source says, Hjerpe's reading of an 1880 record
-included, is a separate claim and stays in `board_demographics.csv` or
-`board_residence.csv`. `code/transcribe/board_census.py` moves any row that
+included, is a separate claim and stays in `members_demographics.csv` or
+`members_residence.csv`. `code/transcribe/members_census.py` moves any row that
 cites a census record out of those two files and into the table, merging
 it with the record's row where there is one, and stops where the two
 disagree. A new record is keyed into the table directly, and the build
@@ -571,14 +564,14 @@ standing as the OCR under `data/transcribed/by_ocr/`: it locates the line, it
 does not read it. That is a second reading of every record, not a sample,
 because there are only 72 of them and the cost of a wrong one is silent.
 
-`code/build/board_claims.py` enforces the half of that rule a machine can
+`code/build/members_claims.py` enforces the half of that rule a machine can
 check. A row whose `checked` names neither the sheet nor the index stops the
 build, and so does a `place` on a row the sheet was never read against, since
 a street is the field the index gets wrong. `code/tests.py` reintroduces both
 mistakes.
 
 For a page read through OCR — a newspaper claim in
-`board_residence.csv` — the quoted sentence is read off the page image before
+`members_residence.csv` — the quoted sentence is read off the page image before
 the row is written, and any house number in it is read off the image, never
 off the OCR. Where rows were entered before this rule, the backlog is cleared
 a page at a time, whole pages rather than a sample of rows, since opening the
@@ -695,13 +688,13 @@ unincorporated place in the sheet's heading, as its one firm place
 ## Race, gender and birth year of Board members
 
 Birth years come from the same files as race and gender, one row per
-source, and reach `board_members.csv` as `birth_year` with a source and a
+source, and reach `members.csv` as `birth_year` with a source and a
 note; with no source the year is blank and `unsourced`, since no standing
 assumption stands in. A census listing gives an age, and the year is the
 census year less the age, so it is right to within a year, except where
 the index prints a birth date; an obituary or a profile gives a birth
 date, or an age on a date, and the row's basis says which. Which case it
-is reaches `board_members.csv` as `birth_year_precision`, `exact` or
+is reaches `members.csv` as `birth_year_precision`, `exact` or
 `within a year` (86 of 107 are within a year); the age figures draw both
 the same, a stroke assuming a mid-year birthday, since the half-year is
 below what a stroke can show (Sally, 26 September 2026). What the report
@@ -716,11 +709,11 @@ stop it. `election_year` on each elected term is the election that seated
 it, a January start following a November election, so a figure can
 subtract without re-deriving that rule.
 
-Race and gender come from `data/transcribed/by_claude/board_demographics.csv`,
+Race and gender come from `data/transcribed/by_claude/members_demographics.csv`,
 one row per claim a source makes about a member, in the source's own words
 with a citation to the page the document prints, and from the census records
 above; and otherwise from a default,
-a white man, labelled `assumed`. Each cell of `board_members.csv` says which, and
+a white man, labelled `assumed`. Each cell of `members.csv` says which, and
 `gender_evidence` says how a gender is known: `record` (a census listing),
 `press` (the pronoun or honorific a paper uses for the member; each such row
 of the claim file quotes the sentence and cites the page), both joined with
@@ -772,103 +765,6 @@ Arlington County objected to the ballot's wording (`sun1938womenvoters`).
 Florence E. Cannon is elected parliamentarian of the Organised Women Voters
 in the second notice and sits on the Board from 1948 to 1951.
 
-## Black candidacies
-
-`data/clean/board_candidacies.csv` holds one row per candidacy a source says
-was a Black candidate's for the Board, joined to the election it was in, and
-one row per period in which a source says no Black candidate ran. The claims
-are keyed in `data/transcribed/by_claude/board_candidacies.csv`, one row per
-source, in the source's words, with the name as the election record prints
-it; a race is never read off a name or a neighborhood. A candidacy is matched
-on surname, year and kind of election (regular, special or primary): before
-1931 to the term the roster holds for that election, in 1931 to the county's
-contest and its list of candidates, and from 1932 to the county's candidate
-history through 2021 and the state's database after. Each row carries the
-seats, the candidate's votes, the fewest votes that won a seat, whether the
-candidate won (for a primary, the nomination) and the party the record
-prints. A candidacy that matches no election stops the build, and so do a
-Black member's election with no candidacy, a candidacy inside a period a
-source says none ran, and a name the 1931 list marks "(Col)" with no
-candidacy. The table holds 26 candidacies by twelve people.
-
-**1871–1887.** Thirteen candidacies, all won, by the five members Hjerpe
-highlights in her Table 1 (`hjerpe2021` p.2): Jefferson District elects a
-Black member at ten of its eleven elections, every one but 1885's, and
-Syphax (1872) and Rowe (1879, 1881) win Arlington District. Hjerpe's table
-sets some names against the wrong years, so the year and district of each
-are O'Leary's. His record names each district's winner and, before 1907,
-nobody who lost, so no loss by a Black candidate can appear in these years:
-the absence is the record's, not a finding.
-
-**1888–1930.** Allen resigns in 1888 ("Residence in the district", above).
-Hjerpe writes that "no black candidates were recorded as running for the
-county board again until after 1930" (p.3), on the same record of winners.
-Bestebreurtje (`bestebreurtje2017` p.215) has Black candidates running in
-1931 "for the first time since 1903", and names no 1903 candidate or office.
-The two agree that none ran from 1904 and differ at most on 1889–1903; the
-Alexandria Gazette's returns would settle both (`black-losers-1870-1930`).
-
-**1931.** The county's list of the 51 candidates for the first at-large
-election, 3 November 1931, which its candidate history points to rather
-than prints and Anderson reprints (`anderson1958` p.67), marks three
-"(Col)": Mrs. Mary B. Harris of Nauck Station, Dr. E. T. Morton and C. H.
-Moseley of Halls Hill. It is keyed in full in
-`data/transcribed/by_claude/arlington_historical_magazine/anderson_candidates_1931.csv`.
-None of the five elected is marked. The county prints the top six with their
-votes and "others not mentioned": the fifth seat went to Kelly with 1,456
-and McShea ran sixth with 1,177, so each of the three had fewer than 1,177.
-Bestebreurtje names the same three, spelling Moseley "Mosley". George
-Vollin, Jr. of Queen City ran for sheriff and lost (Bestebreurtje p.215;
-Pratt p.22); a sheriff's race is not a Board candidacy and is not in the
-table. Pratt's four are the three and Vollin, and ARLnow's "four for the
-Board" (Lyon's Legacy V) is the count that is off. Hjerpe dates the four to 1930,
-the year of the referendum, citing Bestebreurtje p.215, which says November
-1931, and the county's list is of the 1931 ballot.
-
-**1932–1986.** No Black candidate for the Board, as two sources state it.
-Pratt: after 1931 "only one other Black candidate ever bothered to file for
-office" until Newman, and his note 7 names him, Arthur W. Walls, defeated for
-the House of Delegates in 1969 (`pratt1995` pp.22–23, 35). Bestebreurtje:
-"It would be fifty years before another African American candidate ran for
-office in Arlington" (pp.217–218). The county's history names every
-candidate in these years and gives no race, so the negative is the two
-sources'. For why, Pratt reports the 1974 testimony of Vollin and Harrison
-Douglas: that after 1931 Black Arlingtonians thought running at large an
-exercise in futility.
-
-**1987 on.** Ten candidacies by the four Black members, from the county's
-and the state's records. Newman wins in 1987 and 1991. Monroe loses the April
-1999 special election, the one-seat contest, to Lane by 169 votes and wins
-the two-seat general that November ("Race, gender and birth year of Board
-members", above). Dorsey wins the June 2015 primary and the generals of 2015
-and 2019. Spain loses the Democratic primary of June 2023 and wins the
-primary and the general of 2024; both primaries were ranked-choice, the
-state's file carries first choices and flags more winners than seats, so the
-outcome of each is the press's (`arlnow2023coffeyprimary`,
-`arlnow2024spain`). Dorsey also sought the Democratic nomination in 2002,
-at a party caucus rather than on a public ballot (`connection2002`), so it
-is not a candidacy here. No losing candidate since 1932, about 400
-candidacies, has been matched to a census record or a press description for
-race, so 1932-1986 rests on Pratt's and Bestebreurtje's sentence that none
-ran, and the years from 1987 hold every run by a Black member and nobody
-else's (`black-losers-1932-on`). The check is bounded: the 1930-1950
-censuses for the early candidates, and candidate profiles for the rest. It
-cannot reach the nomination stage, though: a candidate who lost a
-Democratic primary never appeared on the general ballot, and the county's
-list records primaries only patchily from 1950, the state's fully from
-2007, and a caucus or convention nomination never.
-
-**The figure.** `board_candidacies` draws each candidacy in a regular or
-special election as a dot at its year, filled if won and a ring if lost,
-with runs in the same year stacked; primaries are in the table and not
-drawn. It shows a win at every Jefferson election but one from 1871 to
-1887; nothing from 1888 to 1930; three losses at the first at-large election
-in 1931; nothing for the next 55 years; and from 1987 wins, the one loss
-being Monroe's in the one-seat special. Where a year is empty the sources
-say different things, and this section says which: from 1932 to 1986 two
-sources state that no Black candidate ran; before 1931 and after 1987 the
-records cannot show a loss by anyone but a member.
-
 ## Party of Board members
 
 Party has never been printed on the County Board ballot; the county's own
@@ -884,7 +780,7 @@ Three sources, in order:
 2. The state's elections database, which records party from 2007 and is the
    only source from 2022. Where its general-election row carries no party
    (2023 on), a win in that year's Democratic primary stands in.
-3. Reporting, in `data/transcribed/by_claude/board_party.csv`, one quoted and
+3. Reporting, in `data/transcribed/by_claude/members_party.csv`, one quoted and
    cited claim per row, used only where the county prints `(I)` or nothing.
 
 Where the county and the state both name a party they must agree, and a cited
@@ -955,28 +851,7 @@ calls Ames "the only Republican" on the Board. That leaves the other 1932 and
 Northern Virginia Sun's OCR for January 1960 is too poor to search). Brunner
 (1984–87) stays on the county's `(I)`; the 1983 Post preview is not read.
 
-`board_seats.csv` carries the split as `dem`, `abc`, `rep`, `ind` and
+`members_by_year.csv` carries the split as `dem`, `abc`, `rep`, `ind` and
 `unrecorded`, seat-years from 1932, empty before. "Not recorded" is a band
 rather than a gap because the seats existed and were held; what is missing is
 the label.
-
-## Other localities
-
-`board_peers.csv` sets Arlington's Board beside the governing body of every
-Virginia independent city and of fourteen counties: the thirteen largest
-other than Arlington, and Rockingham. The figures show those of 100,000
-residents or more, eighteen in all, and leave the choice of peer to the
-reader: places Arlington's size in `board_peers_residents`, places as dense
-in `board_peers_density`.
-
-A city's council is the Richmond Charter Review Commission's count
-(`richmond2023`, Appendix D). A Mayor elected at large counts as a member,
-because the appendix's notes say most vote on council; Richmond's is the one
-the notes name as sitting outside it. A Mayor chosen from council is already
-among its members. A county board's count includes a chair elected at large.
-Residents are the 2020 census; land area is the 2020 Gazetteer's.
-
-Arlington carries about 48,000 residents per member, beside Loudoun and
-Virginia Beach. Cities of its size carry about half that, and Alexandria,
-the one place as dense, about 23,000; the larger counties, Henrico,
-Chesterfield, Prince William and Fairfax, carry more.

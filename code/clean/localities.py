@@ -1,11 +1,11 @@
-"""Virginia's governing bodies beside Arlington's -> data/clean/board_peers.csv
+"""Virginia's governing bodies beside Arlington's -> data/clean/localities.csv
 
 One row per locality: its kind (city or county), its voting members, its
 2020 residents and its land area, each with a source.
 
 A city's members are its council members, and a Mayor elected at large
 counts as one more unless the appendix says the Mayor sits outside council,
-which it says only of Richmond. docs/board.md has the reasoning.
+which it says only of Richmond. docs/localities.md has the reasoning.
 
 Every count must lie within the three to eleven members the Code of
 Virginia allows a governing body.
@@ -30,7 +30,7 @@ def members(row) -> int:
 
 
 def clean() -> pd.DataFrame:
-    b = paths.built("board_peers")
+    b = paths.built("localities")
     out = pd.DataFrame({
         "locality": b["locality"],
         "kind": b["kind"],
@@ -52,4 +52,4 @@ def clean() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    write(clean(), "board_peers")
+    write(clean(), "localities")

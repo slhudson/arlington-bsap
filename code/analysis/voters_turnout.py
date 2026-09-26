@@ -1,4 +1,4 @@
-"""Who votes for the County Board, by what else is on the ballot -> figures/turnout.pdf, .png
+"""Who votes for the County Board, by what else is on the ballot -> figures/voters_turnout.pdf, .png
 
 Two panels with the same lines: (a) people, (b) shares of the adult
 population. The presidential vote is one line with a marker per election;
@@ -15,7 +15,7 @@ import style
 for profile in style.PROFILES:
     style.apply(profile)
 
-    d = pd.read_csv(paths.TURNOUT)
+    d = pd.read_csv(paths.VOTERS_TURNOUT)
     d = d[d.year >= 1930]
     adults = d.set_index("year").voting_age_est
 
@@ -42,4 +42,4 @@ for profile in style.PROFILES:
     charts.years(b, 1930, 2020, step=20, label="November election", through=2028)
 
     charts.legend(fig, dict([style.PRESIDENT, *style.CYCLE.values()]), ncol=3)
-    paths.save(fig, "turnout", profile)
+    paths.save(fig, "voters_turnout", profile)

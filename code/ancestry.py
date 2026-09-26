@@ -4,13 +4,13 @@
     .venv/bin/python code/ancestry.py --apply
     .venv/bin/python code/ancestry.py --apply --redo census1940detwiler
 
-Every census row in data/transcribed/by_claude/board_census.csv cites a
+Every census row in data/transcribed/by_claude/members_census.csv cites a
 record on Ancestry, and the Drive folder keeps a copy of each beside the
 sheet image, because a site behind a sign-in cannot be fetched again by
 anyone reading this repository. Ancestry refuses an automated request, so
 the copy is not the page itself: it is the record as the row already holds
 it, the index listing in the row's `quote`, set on a plain page with the
-record's url and the date it was read. docs/board.md, "Census records", says
+record's url and the date it was read. docs/members.md, "Census records", says
 what the row holds.
 
 The page is therefore derived, not fetched, which is why this script exists
@@ -34,7 +34,7 @@ from pathlib import Path
 import archive
 
 CHROME = Path("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
-CENSUS = archive.ROOT / "data" / "transcribed" / "by_claude" / "board_census.csv"
+CENSUS = archive.ROOT / "data" / "transcribed" / "by_claude" / "members_census.csv"
 
 # The provenance sentence every filed page carries, under the record's url.
 # It says what the page is, because the page is derived and a reader who
@@ -106,7 +106,7 @@ def records(bib, rows):
     for row in rows:
         entry = entries.get(row["source"])
         if entry is None:
-            sys.exit(f"{row['source']} is in board_census.csv and not in sources.bib")
+            sys.exit(f"{row['source']} is in members_census.csv and not in sources.bib")
         annotation = entry.get("annotation", "")
         sheet = filed(annotation, "census/US Census")
         if sheet is None:

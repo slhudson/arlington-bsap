@@ -1,23 +1,23 @@
-"""Where Board members lived, claim by claim -> data/clean/board_residence.csv
+"""Where Board members lived, claim by claim -> data/clean/members_residence.csv
 
-Every claim in data/transcribed/by_claude/board_residence.csv, and the place
-from each census record in board_census.csv through board_census.py, one row
+Every claim in data/transcribed/by_claude/members_residence.csv, and the place
+from each census record in members_census.csv through members_census.py, one row
 per claim with its source, basis and quote, and how precisely the place is
 named (PRECISION). Nothing is coded North or South and no claim is chosen
-over another; docs/board.md has what is open.
+over another; docs/members.md has what is open.
 """
 import re
 
 import pandas as pd
 
-import board_census
+import members_census
 import paths
 from paths import write
 
 # How exactly a place is named, most to least: a house on a street, a street
 # with no house, a neighborhood or civic association, a side of the County,
 # a magisterial district of Alexandria County (the 1880-1910 sheets, where
-# the street column is blank). docs/board.md says where each line falls.
+# the street column is blank). docs/members.md says where each line falls.
 PRECISION = ("address", "street", "neighborhood", "side", "district")
 
 _SIDE = re.compile(r"^(North|South) Arlington$|northernmost section", re.I)
@@ -47,12 +47,12 @@ def precision(place: str) -> str:
 
 
 def build() -> pd.DataFrame:
-    c = paths.built("board_claims")
+    c = paths.built("members_claims")
     stated = c.loc[c.claim == "residence", ["name", "year", "place", "basis", "source", "quote"]]
-    claims = pd.concat([stated, board_census.residences()], ignore_index=True).fillna("")
+    claims = pd.concat([stated, members_census.residences()], ignore_index=True).fillna("")
     claims["precision"] = [precision(p) for p in claims.place]
     return claims.sort_values(["name", "year"], kind="stable")
 
 
 if __name__ == "__main__":
-    write(build(), "board_residence")
+    write(build(), "members_residence")

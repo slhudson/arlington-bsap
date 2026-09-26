@@ -12,7 +12,7 @@ import paths
 import style
 
 SMALLEST = 100_000
-LEGEND = {label: c for label, c in style.PEERS.values()}
+LEGEND = {label: c for label, c in style.LOCALITIES.values()}
 
 
 def load(profile) -> pd.DataFrame:
@@ -20,7 +20,7 @@ def load(profile) -> pd.DataFrame:
     d = d[d["residents"] >= SMALLEST].copy()
     d["arlington"] = d["locality"] == "Arlington"
     d = d.sort_values("arlington")
-    kinds = {k: c for k, (_, c) in style.PEERS.items()}
+    kinds = {k: c for k, (_, c) in style.LOCALITIES.items()}
     d["color"] = d["kind"].map(kinds).where(~d["arlington"], style.ARLINGTON)
     d["area"] = [charts.dot_area(a, profile) for a in d["arlington"]]
     return d

@@ -6,7 +6,7 @@ O'Leary. Run by hand, output committed.
 
     .venv/bin/python code/transcribe/president_1872_1920.py
 
-Read with board_1870_1920.py's page reader. A "President" line inside an
+Read with members_1870_1920.py's page reader. A "President" line inside an
 election block starts the returns, and each line after it is one candidate
 with the district counts as printed - "Grant 226 157 72 455" - kept
 verbatim, "?" and parentheses included; parsing them is
@@ -14,7 +14,7 @@ code/clean/voters.py's job.
 """
 import pymupdf
 
-from board_1870_1920 import ELECTION, PAGE_FURNITURE, SOURCE, columns
+from members_1870_1920 import ELECTION, PAGE_FURNITURE, SOURCE, columns
 from paths import BY_CLAUDE, RAW
 
 OUT = BY_CLAUDE / "arlington_county" / "president_1872-1920.csv"

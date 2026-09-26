@@ -6,7 +6,7 @@ and a source per row. `office` is "president" (every fourth year from 1872)
 or "county board" (every year from 1931).
 
 A County Board candidate is counted under the label the county's record
-prints after their name, not under the party board_members.csv attaches to
+prints after their name, not under the party members.csv attaches to
 the winner. A year whose returns are not the county's whole vote is marked
 incomplete, on the rule in elections.contest_rows(). docs/voters.md has
 the reasoning.
@@ -25,7 +25,7 @@ import re
 
 import pandas as pd
 
-import board_terms
+import members_terms
 import citekeys
 import elections
 import paths
@@ -210,8 +210,8 @@ def build() -> pd.DataFrame:
     board = county_board()
     years = sorted(board.year)
     # Four-year terms for the whole Board in 1931 and 1935; one seat a year from 1939.
-    assert years == [1931, 1935] + list(range(1939, board_terms.PRESENT)), \
-        f"County Board elections are not 1931, 1935, then every year to {board_terms.PRESENT - 1}: {years}"
+    assert years == [1931, 1935] + list(range(1939, members_terms.PRESENT)), \
+        f"County Board elections are not 1931, 1935, then every year to {members_terms.PRESENT - 1}: {years}"
     d = pd.concat([pres, board], ignore_index=True)
     cols = ["year", "office", *BANDS, "total", "complete", "source", "note"]
     d = d[cols].sort_values(["office", "year"], ascending=[False, True]).reset_index(drop=True)

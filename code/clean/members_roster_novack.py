@@ -1,11 +1,11 @@
 """Terms of service 1932-1994 under the County Manager plan, elected at
-large, from Novack's roster. A module, not a step: board_roster.py
+large, from Novack's roster. A module, not a step: members_roster.py
 assembles it with the rest.
 
 Novack lists a person once, with their whole service as one string,
 "1932-1947", and records no elections, so the span is split at each
 election they contested, from the county's candidate history
-(board_roster_results.py). Months come from the notes. A member appointed
+(members_roster_results.py). Months come from the notes. A member appointed
 to a vacancy who then wins a same-day special election is seated by it in
 November.
 """
@@ -13,9 +13,9 @@ import re
 
 import pandas as pd
 
-import board_roster_results as results
+import members_roster_results as results
 import citekeys
-from board_terms import (APPOINTMENT, ELECTION, MONTH, MONTH_RE, SPECIAL_ELECTION, YEAR_RE,
+from members_terms import (APPOINTMENT, ELECTION, MONTH, MONTH_RE, SPECIAL_ELECTION, YEAR_RE,
                          listing)
 from elections import MONTHS, surname
 

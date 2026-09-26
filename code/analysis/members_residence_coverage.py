@@ -1,5 +1,5 @@
 """How exactly the sitting Board's homes are known, 1870-2026
--> figures/board_residence_coverage.pdf, .png
+-> figures/members_residence_coverage.pdf, .png
 
 A stacked step area of the members sitting on 1 July of each year, by the
 most exact place any source gives for them, darkest for a house on a street
@@ -7,7 +7,7 @@ and lightest for a side of the County or a magisterial district of
 Alexandria County, with the 1932 rule. Years with no roster are filled from
 the seat table: the Board had three seats, one per magisterial district,
 and nobody is known to sit in them, so they count at district precision
-(docs/board.md, Residence in the district). A place is counted whenever it is
+(docs/members.md, Residence in the district). A place is counted whenever it is
 dated, so a member whose only place comes from after their service still
 counts.
 """
@@ -18,7 +18,7 @@ import members
 import paths
 import style
 
-# The grades of precision data/clean/board_residence.csv records, most exact first.
+# The grades of precision data/clean/members_residence.csv records, most exact first.
 ORDER = ["address", "street", "neighborhood", "side", "district"]
 # The grades one shade shows. A side of the County and a magisterial
 # district are the same grade of knowledge, told apart only by the era of
@@ -31,7 +31,7 @@ claims = pd.read_csv(paths.BOARD_RESIDENCE, dtype=str).fillna("")
 exactness = claims.precision.map(ORDER.index)
 best = exactness.groupby(claims.name).min().map(lambda r: ORDER[int(r)])
 
-seats = pd.read_csv(paths.BOARD_SEATS).set_index("year")
+seats = pd.read_csv(paths.MEMBERS_BY_YEAR).set_index("year")
 seats = (seats.men + seats.women).fillna(0).astype(int)
 
 rows = []
@@ -57,4 +57,4 @@ for profile in style.PROFILES:
     charts.years(ax, members.FIRST, 2020, step=20, label="year", through=members.LAST + 1)
     charts.rule(ax)
     charts.legend(fig, series, ncol=3)
-    paths.save(fig, "board_residence_coverage", profile)
+    paths.save(fig, "members_residence_coverage", profile)
