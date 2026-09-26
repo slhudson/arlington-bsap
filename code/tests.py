@@ -195,6 +195,22 @@ def test_a_transcribed_age_table_that_does_not_sum_to_its_total_is_refused():
     assert err and "The transcription misreads a number" in err, f"not caught: {err}"
 
 
+def test_a_misread_adult_count_cannot_move_into_the_children_in_1930():
+    """1930's under-18 band is the county less those 18 and over, so a
+    misread count of men 21 and over moves people into the children and
+    the county total still ties. The 1940 volume's own 1930 column prints
+    21 and over again, and the two readings must agree."""
+    def mangle(orig):
+        def patched(path):
+            d = orig(path)
+            if "table13" in path:
+                d = d.copy()
+                d.loc[d.label == "Males 21 years old and over", "total"] += 100
+            return d
+        return patched
+    err = breaks(residents, "table", mangle)
+    assert err and "The transcription misreads a number" in err, f"not caught: {err}"
+
 def test_an_age_line_whose_sexes_do_not_make_its_total_is_refused():
     """A digit misread in the total column alone."""
     err = breaks(residents, "table", misread("19 years", 100, ["total"]))

@@ -1,0 +1,8 @@
+year,label,total,male,female,attending,percent_attending,source,page
+1930,"Total population",26615,13618,12997,,,census1930v3p2 table 13,1161
+1930,"Males 21 years old and over",8359,,,,,census1930v3p2 table 13,1161
+1930,"Females 21 years old and over",8084,,,,,census1930v3p2 table 13,1161
+1930,"Total 7 to 13 years, inclusive",3528,,,3429,97.2,census1930v3p2 table 13,1161
+1930,"Total 14 and 15 years",815,,,767,94.1,census1930v3p2 table 13,1161
+1930,"Total 16 and 17 years",796,,,513,64.4,census1930v3p2 table 13,1161
+1930,"Total 18 to 20 years, inclusive",1410,,,348,24.7,census1930v3p2 table 13,1161

@@ -13,11 +13,12 @@ year,cycle,board_votes,board_seats,board_voters,board_complete,board_source,boar
 1920,,,,,,,,,,,,,,,,,1831,derived
 1924,,,,,,,,,,,,,,,,,2921,derived
 1928,,,,,,,,,,,,,,,,,5718,derived
-1931,delegates,9760,5,1952,False,arlingtonelections2021 p.6,(others not mentioned),,,,,,,,,,,
-1932,president,,,,,,,,,,,,,,,,6234,derived
-1935,delegates,15869,5,3174,True,arlingtonelections2021 p.10,,,,,,,,,,,,
-1936,president,,,,,,,,,,,,,,,,7835,derived
-1939,delegates,33689,5,6738,True,arlingtonelections2021 p.12,,,,,,,,,,,,
+1930,,,,,,,,,,,,,16443,census1930v3p2 table 13 p.1161,16443,derived,,
+1931,delegates,9760,5,1952,False,arlingtonelections2021 p.6,(others not mentioned),,,,,,,,18768,derived,,
+1932,president,,,,,,,,,,,,,,21093,derived,6234,derived
+1935,delegates,15869,5,3174,True,arlingtonelections2021 p.10,,,,,,,,,28068,derived,,
+1936,president,,,,,,,,,,,,,,30393,derived,7835,derived
+1939,delegates,33689,5,6738,True,arlingtonelections2021 p.12,,,,,,,,,37368,derived,,
 1940,president,9666,1,9666,True,arlingtonelections2021 p.12,,,,,,,39693,census1940v2p7 table 22 p.173,39693,derived,9862,derived
 1941,governor,2797,1,2797,True,arlingtonelections2021 p.12,,,,,,,,,44866,derived,,
 1942,midterm,0,1,0,False,arlingtonelections2021 p.13,no vote count for campbell,,,,,,,,50039,derived,,
