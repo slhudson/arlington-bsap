@@ -1,0 +1,22 @@
+year,district,total,white,black,source
+1870,Arlington,1374,517,857,walker1872 p.279
+1870,Jefferson,1256,383,873,walker1872 p.279
+1870,Washington,555,275,280,walker1872 p.279
+1880,Arlington,1754,,,census1880 p.356
+1880,Jefferson,1319,,,census1880 p.356
+1880,Washington,814,,,census1880 p.356
+1890,Arlington,2013,,,census1890 p.346
+1890,Jefferson,1303,,,census1890 p.346
+1890,Washington,942,,,census1890 p.346
+1900,Arlington,3200,,,census1900v1 p.396
+1900,Jefferson,1913,,,census1900v1 p.396
+1900,Washington,1317,,,census1900v1 p.396
+1910,Arlington,5850,,,census1910v3 p.920
+1910,Jefferson,2672,,,census1910v3 p.920
+1910,Washington,1709,,,census1910v3 p.920
+1920,Arlington,8547,,,census1920v1 p.647
+1920,Jefferson,3668,,,census1920v1 p.647
+1920,Washington,3825,,,census1920v1 p.647
+1930,Arlington,17845,,,census1930v1 p.1123
+1930,Jefferson,3104,,,census1930v1 p.1123
+1930,Washington,5666,,,census1930v1 p.1123

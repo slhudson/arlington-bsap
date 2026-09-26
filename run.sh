@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 # Rebuild everything from data/. The only entry point (CLAUDE.md).
 #
-#   bash run.sh                  build, then every figure
-#   bash run.sh residents_per    build, then only figures whose names match
+#   bash run.sh                  build, test, then every figure
+#   bash run.sh residents_per    only figures whose names match; the data
+#                                stages run only if their inputs changed,
+#                                and the tests not at all
 #
 # Invoke through bash, not ./run.sh: Overleaf strips the executable bit.
 set -euo pipefail
@@ -24,36 +26,83 @@ BUILD=(elections board_claims board_candidacies census registration board_peers 
 # Stage 2: data/built/ -> data/clean/. Every decision about what a number
 # is. Each step is named for the file it writes, and later steps read what
 # earlier ones wrote.
-CLEAN=(residents board_members board_candidacies board_residence board_seats voters turnout board_peers)
+CLEAN=(residents residents_by_district board_members board_candidacies board_residence board_seats voters turnout board_peers)
 
 # Stage 3: data/clean/ -> figures/. Each step is named for the figure it
-# writes. Three subjects, alphabetical within each.
-FIGURES=(residents_by_age residents_by_race residents_per_seat turnout voters_board voters_president board_age board_age_coverage board_candidacies board_gender board_party board_peers_density board_peers_residents board_race board_residence_coverage)
+# writes. Three subjects, alphabetical within each; last, the one step that
+# writes the numbers the prose cites, paper/body_text_numbers.tex, instead.
+FIGURES=(residents_by_age residents_by_race residents_per_seat turnout voters_board voters_president board_age board_age_coverage board_candidacies board_gender board_party board_peers_density board_peers_residents board_race board_residence_coverage body_text_numbers)
 
 echo "lint"
 "$PY" -m pyflakes code style || { echo "  pyflakes: fix the above"; exit 1; }
 echo "  clean"
 
-# code/clean/paths.py refuses a built or clean table older than this.
-export RUN_STARTED=$(date +%s)
+# What the data stages depend on. A full run always runs both; a filtered
+# run reruns build only if one of its inputs changed since the last run that
+# completed the data stages, and clean from the first step whose script
+# changed (a change to a module every step imports reruns them all). The
+# fingerprints live in data/built/, which is not committed, and are size and
+# modification time, not content: a touched file only costs a rebuild.
+BUILT_BY=(data/raw data/transcribed code/build code/citekeys.py)
+CLEANED_BY=(code/clean code/citekeys.py)
+STAMP=data/built/.inputs      # line 1: when the build stage started; then one line per input
+fingerprint() {
+  find "$@" -type f -not -path '*/__pycache__/*' -print0 | sort -z | xargs -0 stat -f '%N %z %m' | sort -u
+}
+changed() {                   # inputs under "$@" whose line is not in the stamp, or that left it
+  comm -3 <(tail -n +2 "$STAMP" | grep -E "^($(IFS='|'; echo "$*"))" || true) <(fingerprint "$@") \
+    | sed 's/^\t//' | cut -d' ' -f1 | sort -u
+}
+mkdir -p data/built
+
+build=yes; from=0
+if [ $# -gt 0 ] && [ -f "$STAMP" ]; then
+  if [ -z "$(changed "${BUILT_BY[@]}")" ]; then
+    build=no; from=${#CLEAN[@]}
+    for f in $(changed "${CLEANED_BY[@]}"); do
+      i=0; step=${#CLEAN[@]}
+      for s in "${CLEAN[@]}"; do [ "$f" = "code/clean/$s.py" ] && step=$i; i=$((i + 1)); done
+      [ "$step" -lt "${#CLEAN[@]}" ] || step=0        # not a step: a module the steps import
+      [ "$step" -lt "$from" ] && from=$step
+    done
+  fi
+fi
 
 # Both data stages read `import citekeys` from here; nothing else is on the path.
 export PYTHONPATH="$PWD/code"
 
-# data/built/ is not committed, so it is made before anything reads it.
-echo "build"
-for s in "${BUILD[@]}"; do
-  (cd code/build && ../../"$PY" "$s.py")
-done
+# code/clean/paths.py refuses a built or clean table older than this. When
+# the build stage is skipped, its tables are from the run the stamp records.
+if [ "$build" = yes ]; then
+  export RUN_STARTED=$(date +%s)
+  # data/built/ is not committed, so it is made before anything reads it.
+  echo "build"
+  for s in "${BUILD[@]}"; do
+    (cd code/build && ../../"$PY" "$s.py")
+  done
+else
+  export RUN_STARTED=$(head -1 "$STAMP")
+  echo "build: skipped, its inputs have not changed"
+fi
 
-# The tests prove the guards still fire. About five seconds.
-echo "tests"
-"$PY" code/tests.py | sed 's/^/  /'
+# The tests prove the guards still fire, about ten seconds. A filtered run
+# is for editing one thing; the full run that gates a commit runs them.
+if [ $# -eq 0 ]; then
+  echo "tests"
+  "$PY" code/tests.py | sed 's/^/  /'
+else
+  echo "tests: skipped on a filtered run"
+fi
 
-echo "clean"
-for s in "${CLEAN[@]}"; do
-  (cd code/clean && ../../"$PY" "$s.py")
-done
+if [ "$from" -lt "${#CLEAN[@]}" ]; then
+  [ "$from" -eq 0 ] && echo "clean" || echo "clean: from ${CLEAN[$from]}, earlier steps unchanged"
+  for s in "${CLEAN[@]:$from}"; do
+    (cd code/clean && ../../"$PY" "$s.py")
+  done
+else
+  echo "clean: skipped, no script changed"
+fi
+{ echo "$RUN_STARTED"; fingerprint "${BUILT_BY[@]}" "${CLEANED_BY[@]}"; } > "$STAMP"
 
 # A figure script reads `import style` and `import charts` from here.
 export PYTHONPATH="$PWD/style"
@@ -69,14 +118,16 @@ if [ $# -gt 0 ]; then
 fi
 for s in "${selected[@]}"; do
   printf '  %-34s' "$s"
+  outputs=("figures/pdf/$s.pdf" "figures/png/$s.png")
+  [ "$s" = body_text_numbers ] && outputs=("paper/$s.tex")
   # Removed first, so a script saving under the wrong name cannot pass on a
   # previous run's copy.
-  rm -f "figures/pdf/$s.pdf" "figures/png/$s.png"
+  rm -f "${outputs[@]}"
   (cd code/analysis && ../../"$PY" "$s.py") >/dev/null
-  for kind in pdf png; do
-    [ -f "figures/$kind/$s.$kind" ] || {
+  for out in "${outputs[@]}"; do
+    [ -f "$out" ] || {
       echo "FAILED"
-      echo "    $s.py did not write figures/$kind/$s.$kind"
+      echo "    $s.py did not write $out"
       echo "    A script must save under its own name - check its files.save() call."
       exit 1; }
   done

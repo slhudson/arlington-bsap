@@ -2,8 +2,9 @@
 
     .venv/bin/python code/fetch/census_volumes.py
 
-The 1880 and 1890 volumes' interior chunks, and the 1930-1970 volumes'
-Virginia parts, are PDF the build never opens and too large for Overleaf,
+The 1880 and 1890 volumes' interior chunks, the 1900-1930 volumes' Virginia
+chunks with their front matter, and the 1930-1970 volumes' Virginia parts,
+are PDF the build never opens and too large for Overleaf,
 so they are not committed: data/contents.csv records each one's URL and
 checksum with `in_git = no`, and this fetches whichever is missing. A
 download whose checksum does not match the inventory is refused, since it

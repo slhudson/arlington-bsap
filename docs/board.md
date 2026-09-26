@@ -35,10 +35,12 @@ are explained in `code/citekeys.py`, and what is still open is in
   (`surnames-from-1907`).
 - 23 terms from 1932 carry no party, three labels are unresolved, and no
   party is attempted before 1932 (`party-unlabelled`, `party-before-1932`).
-- A Black candidate who lost is recorded only in 1931 and after 1987, and
-  only for the four Black members after 1987: before 1931 the election record
-  names winners (`black-losers-1870-1930`), and no source gives the race of
-  a candidate who lost and never served (`black-losers-1988-on`).
+- A Black candidate who lost is recorded only in 1931 and, after 1987, only
+  for the four Black members: before 1931 the election record names winners
+  (`black-losers-1870-1930`), and the 400 or so losing candidates since 1932
+  have not been matched to a census record or a press description for race
+  (`black-losers-1932-on`), so "none ran 1932-1986" is two authors' sentences,
+  not a check of the list.
 - Each place carries a precision, from the place's own words by rules in
   `code/clean/board_residence.py`: a house number with a street is an address;
   a street with no number, a street; a neighborhood, civic association or
@@ -762,9 +764,16 @@ state's file carries first choices and flags more winners than seats, so the
 outcome of each is the press's (`arlnow2023coffeyprimary`,
 `arlnow2024spain`). Dorsey also sought the Democratic nomination in 2002,
 at a party caucus rather than on a public ballot (`connection2002`), so it
-is not a candidacy here. No source in hand gives the race of anyone who lost
-and never served, about 60 people since 1987, so these years hold every run
-by a Black member and nobody else's (`black-losers-1988-on`).
+is not a candidacy here. No losing candidate since 1932, about 400
+candidacies, has been matched to a census record or a press description for
+race, so 1932-1986 rests on Pratt's and Bestebreurtje's sentence that none
+ran, and the years from 1987 hold every run by a Black member and nobody
+else's (`black-losers-1932-on`). The check is bounded: the 1930-1950
+censuses for the early candidates, and candidate profiles for the rest. It
+cannot reach the nomination stage, though: a candidate who lost a
+Democratic primary never appeared on the general ballot, and the county's
+list records primaries only patchily from 1950, the state's fully from
+2007, and a caucus or convention nomination never.
 
 **The figure.** `board_candidacies` draws each candidacy in a regular or
 special election as a dot at its year, filled if won and a ring if lost,

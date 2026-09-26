@@ -81,6 +81,23 @@ hands. Sources are under Works cited.
 
 ### The three districts, and what sits inside them
 
+The districts are keyed in for every census 1870 through 1930, and
+`data/clean/residents_by_district.csv` holds them, one row per census per
+district, each as that census drew it. They are the level-1 lines of each
+census's table of the county's minor civil divisions, less Alexandria city,
+and each census's three sum to the county total in `residents.csv`, or the
+build stops. The series crosses two boundary changes, both printed as
+footnotes to the tables that follow them: part of Jefferson district is
+annexed to Alexandria city in 1915, between the 1910 and 1920 censuses, and
+part of Arlington and part of Jefferson, including Potomac town, in 1930.
+Each table's earlier-census columns reprint the earlier counts unchanged
+rather than restating them to the new lines, so no district is on constant
+land across the series. Race below the county is
+published for 1870 alone: Jefferson 383 white to 873 colored, Arlington 517 to
+857, Washington 275 to 280. Every later volume gives the districts by total
+only, so the concentration the district argument rests on can be shown at the
+start of the period and not at its end (`race-by-district-after-1870`).
+
 | District | 1890 | 1880 |
 |---|---|---|
 | Arlington | 2,013 | 1,754 |
@@ -395,5 +412,7 @@ census the Bureau's front-matter file, on which the bibliography entry rests,
 and the chapter holding Arlington's age tables, 127MB between them. They are
 fetched and checked the same way. None has a text layer and none is OCR'd;
 each table was found by rendering the chapter's page headers and read off
-the page at 200 dpi. `data/raw/us_census_bureau/README.md` lists all sixteen
-files fetched on demand.
+the page at 200 dpi. The magisterial districts for 1900 to 1930 come from four
+more volumes fetched the same way, each front-matter file with the chunk
+holding the district table. `data/raw/us_census_bureau/README.md` lists all
+twenty-four files fetched on demand.
