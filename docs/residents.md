@@ -15,6 +15,10 @@ spike: the figure shows the size of the Board, not who sat.
 
 - Retrocession is dated 1846 or 1847 depending on the source; the report has
   to pick one (`retrocession-date`).
+- The 1970–80 population decline is unexplained. It is most likely the
+  national fall in average household size, which cost inner-ring suburbs
+  population while their housing stock grew, but that is untested here
+  (`population-decline-1970-80`).
 - Whether the report compares Arlington to peer localities at all
   (`peer-localities`).
 

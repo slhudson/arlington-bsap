@@ -10,6 +10,15 @@ are explained in `code/citekeys.py`, and what is still open is in
 
 ## What rests on an assumption
 
+- The Board's origin is stated without its mechanism. Prose says the Board is
+  created in 1870 "under the post-Civil War constitution", which does not say
+  whether the constitution did it or an enabling act did (`board-creation-1870`),
+  and what preceded it — a county court of justices of the peace — rests on the
+  general Virginia pattern rather than on anything held for this county
+  (`county-court-1847-1870`).
+- The body is called a board of supervisors before 1932 and the County Board
+  after, on the county's own election returns, but nothing held names the
+  instrument that changed it (`board-name-change`).
 - 1889–1986 is coded all-White on the "first since Reconstruction" framing,
   and the five Reconstruction-era members rest on Hjerpe's census linking
   (`default-1931-1986`).
