@@ -46,8 +46,8 @@ CENSUS_TWPS0076 = "censusbureau1990twps76"
 CENSUS_GAZETTEER_2020 = "censusgazetteer2020"
 # The 1920 full count, and the enumeration district descriptions that say
 # which magisterial district each of its six districts covers.
-IPUMS_1920 = "ipumsfullcount"
-NARA_1920_EDS = "nara1920eds"
+IPUMS = {1910: "ipumsfullcount", 1920: "ipumsfullcount"}
+NARA_EDS = {1910: "nara1910eds", 1920: "nara1920eds"}
 
 
 def keys():

@@ -31,15 +31,16 @@ from paths import BY_CLAUDE, RAW, source, write
 EXTRACTS = sorted((RAW / "ipums").glob("*/*.csv.gz"))
 DESCRIPTIONS = sorted((BY_CLAUDE / "nara").glob("*/*_enumeration_districts.csv"))
 
-# IPUMS builds ENUMDIST as the county code and the district's own number; the
-# last two digits are the number the census printed, 10 to 15 in 1920.
-ED_DIGITS = 2
+# IPUMS builds ENUMDIST as the county's code followed by the district's own
+# number in five digits, so the number the census printed is what is left of
+# it below 100,000: 13000010 is district 10.
+ED_IN = 100_000
 
 
 def people(path) -> pd.DataFrame:
     """One extract as counts by enumeration district and race code."""
     d = source(path, dtype=str, keep_default_na=False)
-    d = d.assign(ed=d.ENUMDIST.str[-ED_DIGITS:])
+    d = d.assign(ed=(d.ENUMDIST.astype(int) % ED_IN).astype(str))
     return (d.groupby(["YEAR", "ed", "RACE"]).size().rename("people").reset_index()
             .rename(columns={"YEAR": "year", "RACE": "race"}))
 

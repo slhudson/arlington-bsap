@@ -116,10 +116,11 @@ a rank. A figure never defines a ramp of its own.
   a second hue: a second colour would read as a second group of people, and
   the palette's other oranges and greys already mean a party, the residual
   or no evidence.
-- **A district's race at two dates.** One colour again, the same Black
-  orange, because the figure shows one measure twice and not two things:
-  `style.DISTRICT_RACE` gives the two censuses the ring and the fill rather
-  than two hues. See Chart types.
+- **The magisterial districts.** Three unordered places, so Okabe-Ito:
+  Arlington vermilion, Jefferson blue, Washington reddish purple. The county
+  behind them takes the dark grey the growth and peer figures use for a
+  reference series, because it is not a fourth district but the thing the
+  three are being read against. `style.DISTRICTS` and `style.WHOLE_COUNTY`.
 - **Peers.** Cities dark grey, counties the sand stroke, Arlington the
   per-seat vermilion. The two neutrals are close on purpose: the kind of
   government is context, and a second saturated hue would compete with
@@ -312,22 +313,6 @@ Dots sit over the 1932 rule rather than under it. The strip is flatter than
 the time series (`style.STRIP`, 7 to 1): at the time series' 2.2 a stack of
 three is a thin line at the foot of an empty frame.
 
-**A dumbbell** for one measure at two dates, one category per position on
-the axis: a stroke from the earlier value to the later with a dot at each
-end. The figure is about the change, and a dumbbell draws the change as the
-mark itself, where two bars side by side draw two levels and leave the
-reader to subtract. Because it is one measure and not two categories, both
-ends take one colour, and the dates are told apart by fill: an open ring
-earlier, a filled dot later, the same device as `style.CANDIDACY` and for
-the same reason, that a fill is not a texture. Two hues here would say the
-two ends are different things.
-
-Its axis is categorical, which no other figure here has, so
-`charts.places()` sets the positions and leaves white at each end. It takes
-an axis label only where every position is of one kind;
-`residents_by_district_race` puts the county beside the three districts, so
-the names carry it and no label would be true of all four.
-
 **The 1932 rule** marks the Board's expansion from three to five seats and
 the end of magisterial districts. It is drawn identically wherever it
 appears, with its note above the top of the frame: inside the axes it would
@@ -392,16 +377,20 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
   would imply there is. Two figures in two sections, each on the range its
   own sources support.
 - **residents_by_district_race.** The Black share of each magisterial
-  district in 1870 and 1920, and of the county beside them. 1870 is the only
-  census that prints race below the county; 1920 is counted from the
-  full-count schedules, which is why there are two dates and not a series.
-  The county position is the three districts added together rather than the
-  county row of `residents.csv`, so all four marks are the same arithmetic
-  on the same count; in 1920 that puts it 0.3 points above the published
-  county share, because the schedules record 2,559 Black residents where the
-  volume prints 2,507. Each share divides by the people its own count
-  records in that place, not by the volume's total, for the same reason.
-  `docs/residents.md` has the mapping the 1920 marks rest on.
+  district over the censuses that give race below the county, with the county
+  behind them. Lines, because the points are observations one per census, and
+  the line breaks between 1870 and 1910 rather than being drawn through
+  1880, 1890 and 1900, which report no race below the county: the gap is half
+  the panel and it is the state of the evidence, not a fault in the drawing.
+  1870 is therefore four unconnected dots, and the caption says why. The
+  county line is the three districts added together rather than the county row
+  of `residents.csv`, so every line on the figure is the same arithmetic on
+  the same count; in 1920 that puts it 0.3 points above the published county
+  share, because the schedules record 2,559 Black residents where the volume
+  prints 2,507. Each share divides by the people its own count records in that
+  place, not by the volume's total, for the same reason. The axis stops at
+  1920 rather than running on to 1930, whose districts have no race split.
+  `docs/residents.md` has the mapping the 1910 and 1920 points rest on.
 
 - **board_race, board_gender, board_party.** Seat counts rather than
   shares, so the 1932 expansion is legible on the axis. All bands are drawn,

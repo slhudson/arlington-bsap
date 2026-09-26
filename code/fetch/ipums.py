@@ -4,7 +4,7 @@ Run by hand when a census is needed, output committed; the build never
 touches the network (CLAUDE.md). Needs IPUMS_API_KEY in .env at the
 repository root, which is gitignored, and ipumspy in the venv.
 
-    .venv/bin/python code/fetch/ipums.py [1920]
+    .venv/bin/python code/fetch/ipums.py [1910 1920]
 
 A published table is its own citation, and the rest of data/raw/ holds
 published tables. A microdata extract is not one: it is a query, so the
@@ -24,12 +24,12 @@ year, under the name it held at the time. Alexandria city is 5100 and is
 therefore not in the extract, which is what the report wants - the Board
 never governed the city.
 
-The 1920 enumeration districts are numbered within a supervisor's
-district rather than within the county, so SUPDIST comes with ENUMDIST;
-together they name a district uniquely. MCDSTR, which would name the
-magisterial district in words, is not available for 1920, so which
-district an enumeration district sits in is a decision made in
-code/clean/ against the 1920 district descriptions.
+MCDSTR, which would name the magisterial district in words, is published
+for no full-count sample, so the geography in an extract is the
+enumeration district and which magisterial district each of those sits in
+is a decision made in code/clean/ against that census's district
+descriptions. The numbering is the census's own and is not comparable
+between censuses: Fort Myer is district 10 in 1910 and 11 in 1920.
 
 main() refuses to write a census whose head count is not close to the
 published county total, which is the one number about the extract that is
@@ -53,6 +53,17 @@ RAW = paths.RAW / "ipums"
 # count is checked against. The total is the one in data/clean/residents.csv,
 # repeated here so the check does not reach across stages.
 CENSUSES = {
+    # 1900 is not here: its 100% database holds 5,931 of the county's 6,430
+    # people, 499 of them missing from Arlington district alone, and numbers
+    # the enumeration districts differently from the descriptions. See
+    # docs/residents.md.
+    1910: {
+        "sample": "us1910m",              # 1910 100% database
+        "state": "51",                    # Virginia
+        "county": "0130",                 # Arlington/Alexandria, ICPSR
+        "county_in_year": "Alexandria County",
+        "published_total": 10_231,
+    },
     1920: {
         "sample": "us1920c",              # 1920 100% database
         "state": "51",                    # Virginia

@@ -217,6 +217,20 @@ def test_a_wrong_enumeration_district_mapping_is_refused():
     assert err and "disagree about a district" in err, f"not caught: {err}"
 
 
+def test_a_tolerance_too_wide_to_catch_a_move_is_refused():
+    """TOO_FAR widened until an enumeration district could sit in the wrong
+    magisterial district and still pass. The mapping written is still the
+    right one, so every number would be correct and the check would have
+    stopped doing anything, which nothing else would notice."""
+    started = os.environ.pop("RUN_STARTED", None)
+    try:
+        err = breaks(residents_by_district, "TOO_FAR", lambda orig: 0.9)
+    finally:
+        if started:
+            os.environ["RUN_STARTED"] = started
+    assert err and "do not identify the mapping" in err, f"not caught: {err}"
+
+
 def test_an_age_group_left_out_of_every_band_is_refused():
     """A Summary Tape File group that no band claims. The county total would
     still tie, because the missing people are simply never counted, so only

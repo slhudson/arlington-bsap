@@ -105,91 +105,121 @@ off a page. 1920 is, below.
 | Washington | 942 | 814 |
 | **County outside the city** | **4,258** | **3,887** |
 
-### Race by district in 1920, counted from the schedules
+### Race by district in 1910 and 1920, counted from the schedules
 
-`residents_by_district.csv` carries a race split for 1920 as well as 1870,
-and it is a different kind of number: 1870's is printed in the volume, and
-1920's is counted person by person out of the full-count schedules. The
-figure is `residents_by_district_race`.
+`residents_by_district.csv` carries a race split for 1910 and 1920 as well
+as 1870, and the later two are a different kind of number: 1870's is printed
+in the volume, and 1910's and 1920's are counted person by person out of the
+full-count schedules. The figure is `residents_by_district_race`.
 
-| District | Black share, 1870 | Black share, 1920 |
-|---|---|---|
-| Arlington | 62% | 12% |
-| Jefferson | 70% | 27% |
-| Washington | 50% | 14% |
-| **The county** | **63%** | **16%** |
+| District | Black share, 1870 | 1910 | 1920 |
+|---|---|---|---|
+| Arlington | 62% | 21% | 12% |
+| Jefferson | 70% | 40% | 27% |
+| Washington | 50% | 23% | 14% |
+| **The county** | **63%** | **26%** | **16%** |
 
-**The extract.** `code/fetch/ipums.py` asks IPUMS USA for the 1920 100 per
-cent database, case-selected to Virginia and to the ICPSR county code 0130,
-which is Arlington under the name it held in 1920, Alexandria County.
-Alexandria city is county 5100 and is therefore not in it, which is what the
-report wants: the Board never governed the city. The extract, and the
-codebook the API delivers with it, are committed under
-`data/raw/ipums/1920/`; the query that produced them is the script, since a
+Jefferson is the concentration the district argument rests on, and it holds
+at every census that can be counted: the district with the most Black
+residents in 1870 is still the one with much the largest Black share fifty
+years later, at more than twice the county's.
+
+**The extracts.** `code/fetch/ipums.py` asks IPUMS USA for the 100 per cent
+database of a census, case-selected to Virginia and to the ICPSR county code
+0130, which is Arlington under the name it held at the time, Alexandria
+County. Alexandria city is county 5100 and is therefore not in them, which
+is what the report wants: the Board never governed the city. Each extract,
+and the codebook the API delivers with it, is committed under
+`data/raw/ipums/`; the query that produced it is the script, since a
 microdata extract is not a published table and cannot be its own citation.
 The data are `ipumsfullcount`, and IPUMS's terms of use require that
 `ipumsusa` be cited beside it.
 
 **The mapping.** IPUMS gives no variable that names the magisterial
-district in 1920. `MCDSTR`, which would name it in words, is published for
-1880, 1900, 1930 and 1940 and not for 1920, so the geography in the extract
-is the enumeration district. The county had six, numbered 10 to 15, and the
-1920 descriptions of them (`nara1920eds`, NARA T1224) name a magisterial
-district for five:
+district. `MCDSTR`, which would name it in words, is published for no
+full-count sample, so the geography in an extract is the enumeration
+district, and the descriptions of those (`nara1910eds`, `nara1920eds`, NARA
+T1224) name a magisterial district for all but one district in each census.
+The numbering is each census's own and is not comparable between them: Fort
+Myer is district 10 in 1910 and 11 in 1920.
 
-| ED | District | What the description says |
+| 1910 | 1920 | District |
 |---|---|---|
-| 10 | Arlington | Arlington district, excluding Fort Myer, north of the Ballston and Alexandria road |
-| 11 | — | Fort Myer Military Reservation |
-| 12 | Arlington | Arlington district, excluding the reservation (the rest of the line is under tape on the film) |
-| 13 | Jefferson | Jefferson district, including Potomac town and the Alexandria city almshouse and workhouse, south of the Bluemont Branch |
-| 14 | Jefferson | Jefferson district, excluding Potomac town, north of the Bluemont Branch |
-| 15 | Washington | Washington district, including the part of Falls Church town within it |
+| 9, 11 | 10, 12 | Arlington, either side of the Ballston and Alexandria road, excluding Fort Myer |
+| 10 | 11 | Fort Myer Military Reservation — named by neither description |
+| 12, 13 | 13, 14 | Jefferson, either side of the Bluemont line, the southern one including Potomac town |
+| 14 | 15 | Washington, including the part of Falls Church town within it |
 
-The descriptions are keyed in at
-`data/transcribed/by_claude/nara/1920/t1224_alexandria_enumeration_districts.csv`,
-the district each names in its own column and blank where it names none.
+The descriptions are keyed in under
+`data/transcribed/by_claude/nara/`, the district each names in its own
+column and blank where it names none.
 
-**One district is a decision.** ED 11 is the Fort Myer Military Reservation
-and its description names no magisterial district. It is Arlington's. Both
-Arlington district descriptions define themselves as that district
-*excluding* the reservation, so the reservation is the piece they were drawn
-around, and it can only be the part of Arlington district they leave out.
-The arithmetic agrees: with Fort Myer's 1,148 people Arlington district
-holds 8,546 against the 8,547 the volume prints, and without them 7,398. The
-reading is `ED_WITHOUT_A_DISTRICT` in `code/clean/residents_by_district.py`,
-by name, so which figure takes it is greppable.
+**One district is a decision, and it is the same one twice.** Fort Myer's
+description names no magisterial district. It is Arlington's. Both Arlington
+descriptions in both censuses define themselves as that district *excluding*
+the reservation, so the reservation is the piece they were drawn around, and
+it can only be the part of Arlington they leave out. The arithmetic agrees:
+with Fort Myer's people Arlington district holds 5,841 in 1910 against the
+5,850 the volume prints and 8,546 in 1920 against 8,547, and without them
+4,702 and 7,398. The reading is `ED_WITHOUT_A_DISTRICT` in
+`code/clean/residents_by_district.py`, by name and by census, so which
+figure takes it is greppable.
 
-**Two checks the mapping passes, and one it would fail.** Each district's
-head count in the extract is within a handful of the total the 1920 volume
-prints for it — Arlington 8,546 against 8,547, Jefferson 3,672 against
-3,668, Washington 3,825 against 3,825 exactly. And the two inclusions the
-descriptions record are the two the volume's own district lines record:
-Potomac town in Jefferson, part of Falls Church town in Washington. Moving
-any one enumeration district into another magisterial district moves a
-district total by at least 1,148 people, the smallest of the six, so the
-first check cannot be passed by a wrong mapping; `code/tests.py` reads ED
-12 into Jefferson and asserts the build refuses.
+**What the mapping is checked against.** Each district's head count in the
+extract is close to the total the volume prints for it — in 1920 Arlington
+8,546 against 8,547, Jefferson 3,672 against 3,668, Washington 3,825 against
+3,825 exactly; in 1910 every district is between nine and seventy-five
+people short. And the two inclusions the descriptions record are the two the
+volume's own district lines record: Potomac town in Jefferson, part of Falls
+Church town in Washington.
 
-**The two counts are not identical, and the guard admits that.** The extract
-holds 16,043 people where the volume prints 16,040, and 2,559 Black
-residents where the county series prints 2,507 — two per cent apart. They
-are two counts of the same population: Ancestry's transcription of the
-manuscript schedules, re-coded by IPUMS, against the Bureau's own 1920
-tabulation. The build therefore admits a district difference of 25 people
-and refuses more (`PEOPLE_APART`), which is forty-five times narrower than
-the smallest misplacement it has to catch. The 1920 shares above divide by
-the people the extract records in each place, not by the volume's total, so
-each share is internally one count; at the county that puts the Black share
-0.3 points above the published one, and `residents_by_race`, which reads the
-published series, is the figure to take the county's own number from.
+**The tolerance polices itself.** The two counts of the same population are
+not identical — Ancestry's transcription of the manuscript schedules,
+re-coded by IPUMS, against the Bureau's own tabulation — so the check admits
+a district ten per cent from its published total. A tolerance is only worth
+having if it is tight enough to catch the thing it exists for, so the build
+also tries moving each enumeration district into each other magisterial
+district in turn, and refuses if any of those would pass the check too: if
+the published totals do not identify the mapping, the check is decorative
+and the build should stop rather than write a number on it. The smallest
+enumeration district is a third of the smallest district in 1920 and
+two-thirds of it in 1910, so every move is caught by a wide margin.
+`code/tests.py` reads 1920's ED 12 into Jefferson and asserts the build
+refuses, and widens the tolerance until a move would pass and asserts the
+same.
 
-**The 1915 annexation sits inside this.** ED 13 is the southern part of
-Jefferson district, and it is the part of the county that 1915 took a bite
-out of; the volume's own footnote records the annexation. So Jefferson's
-fall from 70 per cent Black to 27 is partly people leaving the district for
-Alexandria city and partly the district's white population growing. Nothing
-in `data/` separates the two.
+**The counts do not match the volumes exactly.** The 1920 extract holds
+16,043 people where the volume prints 16,040, and 2,559 Black residents
+where the county series prints 2,507 — two per cent apart. The 1910 extract
+holds 10,077 where the series prints 10,231, 154 short. The shares above
+divide by the people each extract records in each place, not by the volume's
+total, so each share is internally one count; at the county in 1920 that
+puts the Black share 0.3 points above the published one, and
+`residents_by_race`, which reads the published series, is the figure to take
+the county's own number from.
+
+**1900 is not here, and the schedules are why.** Its 100 per cent database
+holds 5,931 of the county's 6,430 people. Jefferson and Washington districts
+tie to the volume exactly, at 1,913 and 1,317, and the whole shortfall of
+499 falls in Arlington district, which the schedules give as 2,701 against a
+published 3,200 — one resident in six missing, with nothing to say what race
+they were. The file also numbers the enumeration districts differently from
+the descriptions, which list 1, 2, 3 and 99 where the extract has 1, 2, 3,
+15 and 16; districts 15 and 16 are Fort Myer, 67 of their 211 people being
+men of nineteen to forty in group quarters. Neither the head-count check in
+`code/fetch/ipums.py` nor the build's join would let it through, and a Black
+share for a district missing a sixth of its people is not worth writing.
+1880's full count exists but the transcribed descriptions of its eight
+enumeration districts carry no text at all, so nothing maps them to
+districts. Both are `race-by-district-1880-and-1900`.
+
+**The 1915 annexation sits inside this.** The southern Jefferson district
+enumeration district is the part of the county that 1915 took a bite out of;
+the 1920 volume's own footnote records the annexation. So Jefferson's fall
+from 40 per cent Black in 1910 to 27 in 1920 is partly people leaving the
+district for Alexandria city and partly the district's white population
+growing. Nothing in `data/` separates the two, which is why 1910 is worth
+having: it is the last census before the boundary moved.
 
 **Freedman village is not a fourth district.** It was a settlement of formerly
 enslaved people on the confiscated Lee estate, inside Arlington district. The

@@ -1,12 +1,11 @@
-"""The Black share of each magisterial district, 1870 and 1920 -> figures/residents_by_district_race.pdf, .png
+"""The Black share of each magisterial district -> figures/residents_by_district_race.pdf, .png
 
-One position per place - the three districts, then the whole county - and at each
-a stroke from the district's Black share in 1870 to its share in 1920, an
-open ring at the earlier census and a filled dot at the later. The county is
-the three districts added together, so it is the same arithmetic as the
-three beside it. Each share is of the people the same count records in that
-place, so 1870 divides by the volume's district total and 1920 by the
-schedules'.
+One line per district over the censuses that give race below the county,
+with the whole county behind them as the reference. 1870 is printed in the
+volume; 1910 and 1920 are counted from the full-count schedules. 1880 to
+1900 give no race below the county, so the line breaks there rather than
+being drawn through three censuses nothing reports. Each share is of the
+people the same count records in that place.
 """
 import pandas as pd
 
@@ -14,35 +13,38 @@ import charts
 import paths
 import style
 
-YEARS = tuple(style.DISTRICT_RACE)
-COUNTY = "whole county"
+COUNTY = "county"
 
 
 def shares() -> pd.DataFrame:
-    """One row per place, one column per census, the Black share per cent."""
+    """One row per census, one column per place, the Black share per cent,
+    a census with no race split left empty."""
     d = pd.read_csv(paths.RESIDENTS_BY_DISTRICT)
-    d = d[d.year.isin(YEARS)].copy()
     d["counted"] = d[["white", "black", "other"]].sum(axis=1)
 
-    county = d.groupby("year")[["black", "counted"]].sum().assign(district=COUNTY)
-    both = pd.concat([d, county.reset_index()], ignore_index=True)
+    county = d.groupby("year")[["black", "counted"]].sum().assign(district=COUNTY).reset_index()
+    both = pd.concat([d, county], ignore_index=True)
     both["share"] = 100 * both.black / both.counted
-    wide = both.pivot(index="district", columns="year", values="share")
-    return wide.reindex(sorted(wide.index.drop(COUNTY)) + [COUNTY])
+    wide = both.pivot(index="year", columns="district", values="share")
+    # The censuses with no race below the county stay, empty, so the line
+    # breaks across them instead of being drawn through them; the axis stops
+    # at the last census that has one rather than running on over nothing.
+    told = wide.index[wide.notna().any(axis=1)]
+    return wide.loc[told.min():told.max(), list(style.DISTRICTS) + [COUNTY]]
 
 
 for profile in style.PROFILES:
     style.apply(profile)
 
     s = shares()
-    assert s.notna().all().all(), f"a place with no share to draw:\n{s}"
+    assert s.notna().any().all(), f"a place with nothing to draw:\n{s}"
 
-    fig, ax = charts.figure(profile, of_width=style.NARROW)
-    charts.dumbbell(ax, {label: (s[year].to_numpy(), colour, filled)
-                         for year, (label, colour, filled) in style.DISTRICT_RACE.items()},
-                    profile)
+    fig, ax = charts.figure(profile)
+    charts.lines(ax, s.index.to_numpy(),
+                 {style.WHOLE_COUNTY[0]: (s[COUNTY].to_numpy(), style.WHOLE_COUNTY[1])})
+    charts.lines(ax, s.index.to_numpy(), charts.series(s, style.DISTRICTS))
     charts.shares(ax, label="Black share of residents")
-    charts.places(ax, list(s.index))
-    charts.dot_legend(fig, {label: (colour, filled)
-                           for label, colour, filled in style.DISTRICT_RACE.values()}, profile)
+    charts.years(ax, int(s.index.min()), int(s.index.max()), step=10)
+    charts.legend(fig, {**{l: c for l, c in style.DISTRICTS.values()},
+                        style.WHOLE_COUNTY[0]: style.WHOLE_COUNTY[1]})
     paths.save(fig, "residents_by_district_race", profile)
