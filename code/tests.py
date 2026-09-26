@@ -194,6 +194,29 @@ def test_a_district_race_split_that_misses_its_total_is_refused():
     assert err and "do not make its total" in err, f"not caught: {err}"
 
 
+def test_a_wrong_enumeration_district_mapping_is_refused():
+    """ED 12 read into Jefferson instead of Arlington. The county still ties,
+    because the same people are counted either way, and both districts keep a
+    Black share a reader would accept; only the check against the district
+    totals the 1920 volume prints sees it."""
+    def mangle(orig):
+        def patched(stem):
+            d = orig(stem)
+            if stem != "ipums":
+                return d
+            d = d.copy()
+            d.loc[d.ed == "12", "district"] = "Jefferson"
+            return d
+        return patched
+    started = os.environ.pop("RUN_STARTED", None)
+    try:
+        err = breaks(residents_by_district, "built", mangle)
+    finally:
+        if started:
+            os.environ["RUN_STARTED"] = started
+    assert err and "disagree about a district" in err, f"not caught: {err}"
+
+
 def test_an_age_group_left_out_of_every_band_is_refused():
     """A Summary Tape File group that no band claims. The county total would
     still tie, because the missing people are simply never counted, so only

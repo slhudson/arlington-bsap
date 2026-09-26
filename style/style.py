@@ -58,6 +58,11 @@ RESIDUAL = ("Other or Multiracial", GREY)
 # seat won and an open ring for a race lost.
 CANDIDACY = {"won": ("won", RACE["black"][1], True),
              "lost": ("lost", RACE["black"][1], False)}
+# The Black share of a place at two censuses: one measure, so one colour, the
+# race figures' Black, an open ring at the earlier date and filled at the
+# later. See docs/figures.md.
+DISTRICT_RACE = {1870: ("1870", RACE["black"][1], False),
+                 1920: ("1920", RACE["black"][1], True)}
 # The county's crossed census tables, from 1980: race and Hispanic origin are
 # two questions, so Black and White there are the non-Hispanic cells. Only
 # the residents figure reads them; the Board's race is not a crosstab.

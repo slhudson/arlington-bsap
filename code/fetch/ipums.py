@@ -65,7 +65,7 @@ CENSUSES = {
 # The geography the districts are read from, the person's race, sex and age,
 # and the household. YEAR, SAMPLE, SERIAL, PERNUM and the weights come with
 # every extract whether or not they are asked for.
-VARIABLES = ["STATEFIP", "COUNTYICP", "SUPDIST", "ENUMDIST",
+VARIABLES = ["STATEFIP", "COUNTYICP", "ENUMDIST",
              "GQ", "SEX", "AGE", "RACE", "HISPAN"]
 
 # A head count this far from the published total is refused: the wrong county,

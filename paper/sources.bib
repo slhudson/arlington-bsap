@@ -1068,6 +1068,55 @@
                  rows only, in data/raw/: the published segments are 172MB},
 }
 
+@online{ipumsusa,
+  author      = {Ruggles, Steven and Flood, Sarah and Sobek, Matthew and
+                 Backman, Daniel and Cooper, Grace and Rivera Drew, Julia A.
+                 and Richards, Stephanie and Rodgers, Renae and Schroeder,
+                 Jonathan and Williams, Kari C. W.},
+  title       = {IPUMS USA: Version 16.0 [dataset]},
+  organization = {IPUMS},
+  location    = {Minneapolis, MN},
+  date        = {2025},
+  doi         = {10.18128/D010.V16.0},
+  url         = {https://doi.org/10.18128/D010.V16.0},
+  annotation  = {The dissemination system the 1920 extract in
+                 data/raw/ipums/1920/ was drawn from, cited in the wording
+                 IPUMS asks for at usa.ipums.org/usa/cite.shtml, read
+                 2026-09-26. The version and DOI are the ones the extract's own
+                 codebook states, data/raw/ipums/1920/usa_00001.xml, which
+                 agree with that page. IPUMS's terms of use require that a full
+                 count file cite ipumsfullcount as well, so the two entries go
+                 together and neither is dropped. The terms also ask that the
+                 Census Bureau be acknowledged as the source of the underlying
+                 data},
+}
+
+@online{ipumsfullcount,
+  author      = {Ruggles, Steven and Nelson, Matt A. and Sobek, Matthew and
+                 Fitch, Catherine A. and Goeken, Ronald and Hacker, J. David
+                 and Roberts, Evan and Warren, J. Robert},
+  title       = {IPUMS Ancestry Full Count Data: Version 4.0 [dataset]},
+  organization = {IPUMS},
+  location    = {Minneapolis, MN},
+  date        = {2024},
+  doi         = {10.18128/D014.V4.0},
+  url         = {https://doi.org/10.18128/D014.V4.0},
+  annotation  = {The 1920 100 percent database, which is where the county's
+                 16,043 people in data/raw/ipums/1920/usa_00001.csv.gz come
+                 from; the transcription of the manuscript schedules is
+                 Ancestry's. This is the citation IPUMS requires for full count
+                 data 1790-1950, in the wording at usa.ipums.org/usa/cite.shtml
+                 read 2026-09-26, and it is cited alongside ipumsusa, not
+                 instead of it. The extract is one county on six variables:
+                 what was asked for is in code/fetch/ipums.py and what was
+                 delivered is described in data/raw/ipums/1920/usa_00001.xml,
+                 the codebook as delivered. The head count is three people
+                 above the 16,040 the 1920 volume prints for the county, so the
+                 two counts of the same population are not identical and
+                 code/clean/residents_by_district.py admits a difference of
+                 that order and no more},
+}
+
 % ------------------------------------------------------- party of Board members
 % Party has never been printed on the County Board ballot, so where the county's
 % own candidate history prints no party or "(I)", a member's party comes from
@@ -4200,4 +4249,29 @@
                  same shall be re-ceded by the congress of the United
                  States.pdf", a copy printed in Sally's own browser on
                  2026-09-26},
+}
+
+@online{nara1920eds,
+  author      = {{U.S. National Archives and Records Administration}},
+  title       = {Descriptions of Census Enumeration Districts, 1920: Virginia, Alexandria County},
+  date        = {1920},
+  url         = {https://stevemorse.org/ed/ed2.php?year=1920&state=VA&county=Alexandria&ed=All+EDs&keywords=},
+  urldate     = {2026-09-26},
+  note        = {The six enumeration districts of Alexandria County, Virginia,
+                 in the 1920 census, series T625 roll 1879, each described by
+                 the magisterial district it covers: 10 and 12 Arlington
+                 district, 11 the Fort Myer Military Reservation, which ED 10
+                 and 12 are described as excluding, 13 and 14 Jefferson
+                 district, 13 including Potomac town and the Alexandria city
+                 almshouse and workhouse, and 15 Washington district including
+                 the part of Falls Church town within it. ED 12's description
+                 is partly obscured by tape on the film and the transcription
+                 says so. The descriptions are NARA microfilm T1224; the copy
+                 read is Stephen P. Morse and Joel D. Weintraub's transcription
+                 of it, which credits The Generations Network (Ancestry), the
+                 National Archives and T1224.},
+  annotation  = {Read 2026-09-26. Filed in Drive as "reports/U.S. National
+                 Archives and Records Administration 1920 - Descriptions of
+                 Census Enumeration Districts, 1920- Virginia, Alexandria
+                 County.pdf", printed from the page on 2026-09-26},
 }

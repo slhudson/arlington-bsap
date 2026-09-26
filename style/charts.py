@@ -8,6 +8,8 @@ each placement is in docs/figures.md.
     series()        a {label: (values, colour)} from a table and a frame
     lines()         a series over time; off_scale() marks where one leaves the axis
     stacked_bars()  composition at intervals
+    dumbbell()      one measure at two dates, a category per axis position
+    places()        a categorical axis, for the charts that have one
     stacked_steps() composition over continuous years; runs() finds the gaps
     age_band()      youngest to oldest as a band; strokes() draws tenures over it
     scatter()       one scatter, squarer than a time series
@@ -91,6 +93,38 @@ def stacked_bars(ax, x, entries, width=7):
         v = np.asarray(values, dtype=float)
         ax.bar(x, v, bottom=bottom, width=width, color=color, label=label)
         bottom = bottom + v
+
+
+def dumbbell(ax, entries, profile=style.DEFAULT_PROFILE):
+    """One measure at two dates, one category per position on the axis: a
+    stroke from the earlier value to the later, a dot at each end, all in the
+    shared colour, the earlier a ring and the later filled. `entries` is an
+    ordered {label: (values, colour, filled)} of two, as style's two-date
+    tables hold them, and the values are one per category, in axis order."""
+    (early, late) = ((v, c, f) for v, c, f in entries.values())
+    x = np.arange(len(early[0]))
+    for i in x:
+        ax.plot([i, i], [early[0][i], late[0][i]], color=early[1], lw=1.2, zorder=2,
+                solid_capstyle="butt")
+    area = dot_area(profile=profile)
+    ring = RING * style.PROFILES[profile]["scale"]
+    for values, colour, filled in (early, late):
+        ax.scatter(x, values, s=area, zorder=3, clip_on=False,
+                   facecolors=colour if filled else "white", edgecolors=colour,
+                   linewidths=0.0 if filled else ring)
+
+
+def places(ax, labels, label=None):
+    """A categorical axis: one position per label, in the order given, with
+    white at each end so the first and last marks stand clear of the frame.
+    `label` is for an axis whose positions are all of one kind; where the
+    names already say what they are, leave it out."""
+    ax.set_xticks(range(len(labels)))
+    ax.set_xticklabels(labels)
+    ax.set_xlim(-0.6, len(labels) - 0.4)
+    if label:
+        ax.set_xlabel(label)
+    ax.grid(False, axis="x")
 
 
 def off_scale(ax, series_x, series_y, color, top):

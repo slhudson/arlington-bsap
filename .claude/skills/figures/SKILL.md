@@ -144,6 +144,9 @@ neither repeats the reasons.
   and rules off 1980; `board_race` keeps `style.RACE`.
 - **No textures.** Distinguish with colour. A filled dot against an open
   ring of the same colour is a fill, not a texture: `style.CANDIDACY`.
+- **One measure shown twice takes one colour**, with the two showings told
+  apart by fill rather than hue: the same measure at two dates is not two
+  categories. `style.DISTRICT_RACE` is the standing example.
 - **Name a residual for what is in it.** Check the data before writing the
   label. `Other, multiracial or unreported` was wrong: nothing in that band
   is unreported. `style.RESIDUAL` carries the current name; `docs/figures.md` its basis.
