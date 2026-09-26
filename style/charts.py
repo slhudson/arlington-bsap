@@ -299,7 +299,7 @@ def shares(ax, label="share of residents"):
     ax.set_ylabel(label)
 
 
-def seats(ax, label="board seats"):
+def seats(ax, label="board members"):
     ax.set_ylim(0, 5)
     ax.yaxis.set_major_locator(MultipleLocator(1))
     ax.set_ylabel(label)
