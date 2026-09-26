@@ -258,6 +258,25 @@ byte-identical figures.
 renders by a few pixels with a newer matplotlib. Regression checks target the
 numbers, not the rendering.
 
+## Updates to the project lead
+
+A session that runs for a while reports to someone who is not watching it and
+cannot read its tool calls. Every status message, at each batch and whenever
+it stops, has the same four lines, in plain words and with numbers first:
+
+```
+Task: <what this session is for, in one sentence>
+Progress: X of Y <units of the task> done (Z%), <n> stuck
+Left: <the remaining steps in one sentence, no member names unless needed>
+Time: about N minutes, or "waiting on you" first if you need the lead
+```
+
+The units are the ones the task is measured in: members read, rows written,
+sheets checked. Never a search term, a page id or an internal step. If the
+lead is needed (a sign-in, a click, a decision), say so at the top of the
+message. Say where the work is saved (branch and last commit) so nothing
+lives only in the session.
+
 ## Register
 
 This repository is read by collaborators. Write about artifacts and open
