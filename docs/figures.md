@@ -157,9 +157,21 @@ and so on, and the caption says so.
 One legend for the whole figure, built from patches rather than collected
 from the axes, so a figure with two panels showing the same groups gets one
 legend rather than two. One row, in stacking order, which is the order Urban
-asks a legend to follow. Wrapped onto more rows only where five long
-category names in a row would be read by scanning a line of text rather than
-glanced at.
+asks a legend to follow. Wrapped onto more rows where a single row would be
+read by scanning a line of text rather than glanced at: five long category
+names, or more entries than a row can hold at all, which is what seven age
+bands on a narrow figure are. Two rows of four and three is a shape the eye
+takes in at once; seven entries edge to edge is a sentence. The type is
+never shrunk to buy the row back, because the legend is the one part of a
+figure a reader has to read rather than see.
+
+The legend is centred on the plot region rather than on the canvas. Centring
+on the canvas counts the y-axis label and the tick labels as part of what to
+centre under, and since both sit on the left, the legend lands left of the
+marks it names — far enough on a narrow figure to read as a mistake. The
+plot's own span is what a reader sees as the figure, so that is what the
+legend is hung beneath. `charts.fit()` places it, after the plot is sized,
+because the plot's position is not known until then.
 
 No legend where the lines can be labelled directly. A direct label sits
 beside the point it names, at that point's height, inside the axes. Urban
@@ -177,6 +189,18 @@ long line, because a long line is read rather than glanced at.
 Every figure is exactly the profile's width: 6.25 inches for the memo's PDF,
 Urban's full-width figure, and 10 inches for the deck's PNG, with every type
 size stepped up by 1.45 so the type holds the same proportion to the frame.
+
+One exception, added when `residents_by_age` was drawn. A figure whose axis
+carries only a few categories — five censuses of stacked bars — looks
+wrong at full width: the bars become slabs with as much white between them
+as ink in them, and the figure reads as though a series has been left out
+of it rather than as though it is complete. Such a figure takes
+`style.NARROW`, 0.7 of the profile's width. The fraction is a name in
+`style` rather than a number in the figure script, so that the narrow
+figures stay one size as a set the way the full-width ones do, and the
+plot's shape is still solved from `PLOT_ASPECT`, so it is the same plot,
+smaller. Two sizes is a set; a size per figure is not, and the rule stays
+that a figure takes the full width unless it is one of these.
 
 Three things want to be constant across the figures and only two can be:
 the canvas width, the margin of white around the edge, and the plot region.
@@ -214,7 +238,13 @@ panel needs to be taller than it is wide when its early values are small.
 **Stacked bars** for composition at intervals, at a width about twice the
 gap between bars, which is Urban's rule. No band is textured: a single
 hatched band among flat ones reads as emphasis, and a residual is the last
-thing that should be emphasised.
+thing that should be emphasised. The axis clears half a bar at each end, so
+that the first and last bars are drawn whole: a bar centred on the first or
+last year is otherwise sliced by the frame, and a sliced bar reads as a
+narrower category rather than as a clipped one. It only bites on a short
+series — over 150 years the ordinary padding is already wider than half a
+bar — which is why `residents_by_age` found it and the others did not.
+`charts.years(..., bars=...)` takes the width and widens the limits.
 
 **Stacked step areas** for composition over continuous years, each year's
 value spanning the year, filled run by run so a year the source does not

@@ -25,9 +25,11 @@ import style
 THOUSANDS = FuncFormatter(lambda v, _: f"{int(v):,}")
 
 
-def figure(profile=style.DEFAULT_PROFILE):
-    """One panel at this profile's width. The height is solved by fit()."""
-    fig, ax = plt.subplots(figsize=style.figsize(profile))
+def figure(profile=style.DEFAULT_PROFILE, of_width=1.0):
+    """One panel at this profile's width. The height is solved by fit().
+    `of_width` is the fraction of that width to take, for the few figures
+    too narrow to fill the page; pass a name from style, never a number."""
+    fig, ax = plt.subplots(figsize=style.figsize(profile, of_width))
     return fig, ax
 
 
@@ -185,15 +187,21 @@ def fit(fig):
         for ax, b in boxes:
             ax.set_position([b.x0, y0 + (b.y0 - y0) * k, b.width, b.height * k])
 
-    # Re-place the legend under the plot at its final size.
+    # Re-place the legend under the plot at its final size: centred on the
+    # plot region, not on the canvas. Centring on the canvas counts the
+    # y-axis label and tick labels as part of what to centre under, which
+    # pushes the legend left of the bars it names.
     if fig.legends:
         fig.canvas.draw()
         r = fig.canvas.get_renderer()
         low = min(ax.get_tightbbox(r).y0 for ax in fig.axes) / fig.bbox.height
         gap = style.LEGEND_GAP / fig.get_size_inches()[1]
+        placed = [ax.get_position() for ax in fig.axes]
+        mid = (min(p.x0 for p in placed) + max(p.x1 for p in placed)) / 2
         for lg in fig.legends:
             b = lg.get_window_extent(r).transformed(fig.transFigure.inverted())
-            lg.set_bbox_to_anchor((b.x0, low - gap - b.height, b.width, b.height),
+            lg.set_bbox_to_anchor((mid - b.width / 2, low - gap - b.height,
+                                   b.width, b.height),
                                   transform=fig.transFigure)
 
     # Vertical margins, measured from the rendered white; height is changed
@@ -241,12 +249,18 @@ def rule(ax, year=style.EXPANSION_YEAR, note=style.EXPANSION_NOTE):
             fontsize=plt.rcParams["font.size"])
 
 
-def years(ax, first, last, step=10, label="census year", minor=10, through=None):
+def years(ax, first, last, step=10, label="census year", minor=10, through=None,
+          bars=None):
     """A year axis labelled every `step` years, anchored on `last`, with an
     unlabelled tick every `minor` years between. `through` is where the axis
-    ends; otherwise a little clear of `last`."""
+    ends; otherwise a little clear of `last`. `bars` is the width the bars
+    on this axis were drawn at: the limits then clear half a bar, so that
+    the first and last are drawn whole rather than sliced by the frame."""
     span = last - first
-    ax.set_xlim(first - span * 0.03, through or last + span * 0.03)
+    pad = span * 0.03
+    if bars:
+        pad = max(pad, bars / 2 + span * 0.01)
+    ax.set_xlim(first - pad, through or last + pad)
     major = sorted(range(last, first - 1, -step))
     ax.set_xticks(major)
     if minor and minor < step:

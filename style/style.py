@@ -118,6 +118,7 @@ PROFILES = {
 DEFAULT_PROFILE = "print"
 
 PLOT_ASPECT = 2.2     # every plot is this many times as wide as it is tall; charts.fit() solves the height
+NARROW = 0.7          # the fraction of the profile's width a few-category figure takes; see docs/figures.md
 MARGIN = 0.037        # white on all four sides, as a fraction of the width, measured to ink
 LEGEND_GAP = 0.2      # inches between the lowest ink of the plot and the legend
 
@@ -153,7 +154,7 @@ def apply(profile=DEFAULT_PROFILE):
     return spec
 
 
-def figsize(profile=DEFAULT_PROFILE):
+def figsize(profile=DEFAULT_PROFILE, of_width=1.0):
     """A starting size for this profile. charts.fit() sets the real height."""
-    w = PROFILES[profile]["width"]
+    w = PROFILES[profile]["width"] * of_width
     return (w, w * 0.62)

@@ -67,7 +67,7 @@ legend.frameon:         False
 legend.handlelength:    1.1
 legend.handleheight:    1.1
 legend.handletextpad:   0.4
-legend.columnspacing:   1.6
+legend.columnspacing:   3.2
 legend.borderaxespad:   0.0
 
 # Lines and bars.

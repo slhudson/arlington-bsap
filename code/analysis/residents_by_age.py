@@ -11,6 +11,7 @@ import paths
 import style
 
 FIRST = 1980         # the first census that reports age this way
+BARS = 7             # years per bar, as on the other census figures
 
 for profile in style.PROFILES:
     style.apply(profile)
@@ -20,11 +21,11 @@ for profile in style.PROFILES:
     c = c[c["year"] >= FIRST].reset_index(drop=True)
     shares = c[bands].astype(float).div(c["total"], axis=0) * 100
 
-    fig, ax = charts.figure(profile)
+    fig, ax = charts.figure(profile, of_width=style.NARROW)
     stacked = charts.series(shares, style.RESIDENT_AGES)
-    charts.stacked_bars(ax, c["year"], stacked)
+    charts.stacked_bars(ax, c["year"], stacked, width=BARS)
     charts.shares(ax)
-    charts.years(ax, FIRST, 2020)
+    charts.years(ax, FIRST, 2020, bars=BARS)
 
-    charts.legend(fig, stacked)
+    charts.legend(fig, stacked, ncol=4)
     paths.save(fig, "residents_by_age", profile)
