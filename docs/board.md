@@ -10,12 +10,6 @@ are explained in `code/citekeys.py`, and what is still open is in
 
 ## What rests on an assumption
 
-- The Board's origin is stated without its mechanism. Prose says the Board is
-  created in 1870 "under the post-Civil War constitution", which does not say
-  whether the constitution did it or an enabling act did (`board-creation-1870`),
-  and what preceded it — a county court of justices of the peace — rests on the
-  general Virginia pattern rather than on anything held for this county
-  (`county-court-1847-1870`).
 - 1889–1986 is coded all-White on the "first since Reconstruction" framing,
   and the five Reconstruction-era members rest on Hjerpe's census linking
   (`default-1931-1986`).
@@ -114,6 +108,49 @@ district to Arlington at term 7.
 appointment, or unrecorded where O'Leary writes only that someone was
 replaced. Three builds select terms by it, so it is a column rather than
 something read out of the note.
+
+**The constitution created the Board; the acts of 1870 stood it up.** The
+constitution framed in 1868 and ratified in 1869 divides every county into not
+fewer than three townships, has one supervisor elected annually in each, and
+provides that "The Supervisors of each township shall constitute the Board of
+Supervisors for that county" (art. VII sec. 2, `vaconstitution1868`). The
+mechanism is the constitution itself, not an enabling act; prose should say so
+rather than "under the post-Civil War constitution". Three acts of the 1869–70
+session then made it exist in fact: ch. 39, approved 2 April 1870, has the
+governor appoint five commissioners in each county to lay it off into
+townships; ch. 76 sec. 14, approved 11 May 1870, has one supervisor chosen in
+each township at the May general election; and ch. 188 sec. 2, approved 11
+July 1870, repeats the constitutional sentence and gives the board a corporate
+name it can sue and be sued by (`vaacts1870`). That order is why the roster
+starts at the May 1870 election and not at ratification.
+
+**Townships became magisterial districts in 1875, without a change of unit.**
+An amendment to art. VII respecting county organization was ratified on 3
+November 1874, and ch. 76 of the 1874–75 session, approved 5 February 1875,
+declares the townships as they stood on that date to be the magisterial
+districts the amendment directs, keeping their boundaries, names and voting
+places; ch. 69, approved 2 February 1875, makes "township" in any earlier
+statute read as those districts (`vaacts1875`). The conversion renames units
+Alexandria County already had, which is why the roster shows no seat-count
+change at that point. The amendment's own text has not been read: both
+chapters describe it and date its ratification, and that is what is cited.
+
+**Before 1870 the county court governed, and its justices were elected by
+district from 1852.** The 1851 constitution puts a County Court in each
+county, "held monthly, by not less than three nor more than five Justices",
+with the jurisdiction of the existing county courts, and lays each county off
+into districts in which the voters elect four Justices of the Peace for four
+years (art. VI secs. 25–27, `vaconstitution1851`). The administrative work is
+that court's: the Code of Virginia in force through the period has the county
+levy laid by the court of the county, made up annually in May or June "when a
+majority of the acting justices of the county is present" (ch. 53 secs. 1 and
+3), and the court held "by the justices of the county or corporation, or any
+four or more of them" (ch. 157 sec. 1, `vacode1860`). So the 1870 Board is the
+county's first elected governing body of this kind, and the elected element
+before it reached only the justices who composed the court. Both sources apply
+by their terms to every county and name none, so this is Alexandria County's
+arrangement by generality, not from a document about this county; nothing held
+says the county was treated as an exception.
 
 **The Board's name changed with its form.** Members elected by magisterial
 district were supervisors: the county's own returns print "Supervisor Jefferson
