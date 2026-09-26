@@ -4,7 +4,7 @@ Who voted, for whom, and how many: what each number in `data/clean/voters.csv`
 and `data/clean/turnout.csv` is, what backs it, what is assumed where nothing
 does, and why. Present tense; how a decision was reached is in the git
 history. The placeholders in the `source` columns are explained in
-`code/build/citekeys.py`, and what is still open is in `docs/questions.csv`.
+`code/citekeys.py`, and what is still open is in `docs/questions.csv`.
 
 
 ## What rests on an assumption
@@ -37,7 +37,7 @@ constitution allowed, poll tax and literacy test, and before 1920 it was men.
 The comparison the figures invite is therefore the Board against the people
 who were allowed to vote, which the file name and axis label say so that no
 caption has to. 1872–1920 is O'Leary's compilation of the Alexandria Gazette,
-transcribed verbatim and parsed in `code/build/voters.py`. Party before 1924
+transcribed verbatim and parsed in `code/clean/voters.py`. Party before 1924
 is the nominee's, named in the build, since O'Leary prints it for 1912 only;
 a name the build does not know stops it rather than falling into "other".
 Three elections are kept and marked incomplete, and the figure leaves them
@@ -114,7 +114,7 @@ says so. Ballots cast would be the right number and no source in hand holds
 it.
 
 **Which years are not the county's vote.** The county's own page says its
-tallies are complete only from 1971. One rule, in `code/build/elections.py`,
+tallies are complete only from 1971. One rule, in `code/clean/elections.py`,
 decides for `voters.csv` and `turnout.csv` alike. A year is marked incomplete and not drawn
 where a named candidate has no count (1942, 1949, and Frisbie in 1947, whose
 page also says its totals are from 8 of 11 precincts) or where the page says

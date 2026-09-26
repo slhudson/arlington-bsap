@@ -36,3 +36,7 @@ data/raw/us_census_bureau/1890/1890a_v1-14.pdf
 # code/transcribe/census.py, and 1.8MB of the 7MB of text Overleaf syncs.
 data/transcribed/by_ocr/*
 !data/transcribed/by_ocr/README.md
+
+# The built layer: reshaped copies of the layers above, rebuilt by bash run.sh
+# in seconds, so nothing to review in a diff and 1.6MB kept off the text Overleaf syncs.
+data/built/

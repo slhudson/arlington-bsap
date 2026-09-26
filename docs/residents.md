@@ -4,7 +4,7 @@ Who lived in Arlington at each census, by what race and at what age: what each n
 `data/clean/residents.csv` is, what backs it, what is assumed where nothing
 does, and why. Present tense; how a decision was reached is in the git
 history. The placeholders in the `source` columns are explained in
-`code/build/citekeys.py`, and what is still open is in `docs/questions.csv`.
+`code/citekeys.py`, and what is still open is in `docs/questions.csv`.
 
 
 `residents_per_seat` divides by the seats that exist, not the seats filled, and

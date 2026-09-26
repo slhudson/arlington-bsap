@@ -11,7 +11,7 @@ line of the table, read left to right by x-offset. Each election begins a
 block - "1872 May 25 Board of Supervisors" - and the columns that follow
 give a district and who held it, with replacements and vacancies in prose
 beside the name. The prose is kept verbatim; parsing it is
-code/build/board_roster.py's job.
+code/clean/board_roster.py's job.
 """
 import re
 

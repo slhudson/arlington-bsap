@@ -29,8 +29,8 @@ import pandas as pd
 
 import citekeys
 import elections
+import paths
 from elections import COUNTY_HISTORY_THROUGH, MONTHS, surname
-from paths import BY_CLAUDE
 
 NOVACK_PUBLISHED = 1994
 PRESENT = 2026            # checked month by month up to here; board_seats stops here
@@ -53,6 +53,13 @@ SEATED_BY = (ELECTION, SPECIAL_ELECTION, APPOINTMENT, UNRECORDED)
 TERM_YEARS = 4
 
 MONTH_NAMES = {v: k for k, v in MONTHS.items()}
+
+
+def listing(kind) -> pd.DataFrame:
+    """The rows of one term listing, from data/built/board_claims.csv, every
+    cell as keyed in and a blank a blank."""
+    c = paths.built("board_claims")
+    return c[c.claim == kind].reset_index(drop=True)
 MONTH = rf"({'|'.join(MONTHS)})[a-z]*\.?"          # "Dec", "December", "Dec."
 NAME = r"([A-Z][A-Za-z.'’\- ]+?)"
 MONTH_RE = re.compile(r"\b" + MONTH, re.I)
@@ -111,7 +118,7 @@ def oleary_terms():
     election seats a successor first. Each handover in the prose ends the
     sitting member's term and begins the successor's.
     """
-    d = pd.read_csv(BY_CLAUDE / "arlington_county" / "board_1870-1920.csv")
+    d = elections.oleary(elections.SUPERVISORS)
     listed = sorted(d.year.unique())
     for year, nxt in zip(listed, listed[1:] + [None]):
         nxt_seated = (seated(int(nxt), d[d.year == nxt].election_date.iloc[0])
@@ -164,7 +171,7 @@ def county_history_terms():
     two 1912-1931 elections it prints under the district headings
     (board_terms.csv). They add names to the roster; board_seats does not
     read them, and states the 1912-1931 seats itself. docs/board.md."""
-    d = pd.read_csv(BY_CLAUDE / "board_terms.csv", dtype=str).fillna("")
+    d = listing("terms")
     for _, r in d.iterrows():
         yield {"name": r["name"], "district": r.district,
                "start_year": int(r.start_year), "start_month": int(r.start_month),
@@ -272,8 +279,7 @@ def _novack_spans():
     stood = board_elections()
     winners = general_winners()
     specials = special_candidates()
-    d = pd.read_csv(BY_CLAUDE / "arlington_historical_magazine"
-                    / "novack_terms_1930-1994.csv")
+    d = listing("novack")
     for _, r in d.iterrows():
         name = str(r["name"]).strip()
         last = surname(name)
@@ -457,7 +463,7 @@ def election_terms(earlier: pd.DataFrame):
             covers = ((d.start_year * 12 + d.start_month <= c["year"] * 12 + c["month"])
                       & (d.end_year == end) & (d.end_month == 12) & (d.name != w))
             if c["fills"]:
-                covers &= d.name.map(surname) == c["fills"]
+                covers &= d.name.map(surname) == surname(c["fills"])
             if covers.sum() != 1:
                 raise ValueError(f"special election {when}: {covers.sum()} members "
                                  f"hold a term ending {end}, expected 1:\n"

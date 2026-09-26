@@ -24,9 +24,10 @@ its own. docs/residents.md says what backs each year and why.
 """
 import pandas as pd
 
+import census
 import citekeys
 from board_roster import seats
-from paths import BY_CLAUDE, RAW, write
+from paths import write
 
 # The county in seven age bands. Every cut is one all five censuses from
 # 1980 share: 1980 prints 35 to 44, 45 to 54, 65 to 74 and 75 to 84 as
@@ -80,8 +81,9 @@ API_AGE_TABLE = {2000: ("P012", "P012001", "P012{:03d}".format),
 
 
 def table(path):
-    """Read a transcribed table by its path under data/transcribed/by_claude/."""
-    return pd.read_csv(BY_CLAUDE / path)
+    """A transcribed census table by its path under
+    data/transcribed/by_claude/us_census_bureau/."""
+    return census.table("transcribed/by_claude/us_census_bureau/" + path)
 
 
 def twps0076() -> dict:
@@ -89,8 +91,7 @@ def twps0076() -> dict:
     and Asian/Pacific Islander as printed, full count only. 1940 prints
     American Indian and Asian/Pacific Islander as one merged cell, so `aapi`
     is left empty that year."""
-    t = table("us_census_bureau/"
-              "censusgov_pop-twps0076_p1_virginia_arlington.csv")
+    t = table("censusgov_pop-twps0076_p1_virginia_arlington.csv")
     t = t[(t.basis == "full count") & (t.year.between(1900, 1970))]
     parts = ["white", "black", "american_indian", "asian_pacific_islander",
              "american_indian_asian_pacific_islander", "other_race"]
@@ -108,13 +109,13 @@ def twps0076() -> dict:
 
 def arlington(year, table):
     """Arlington's row from a Census data file, by the table's Census code."""
-    hits = sorted((RAW / "us_census_bureau" / str(year)).glob(f"censusapi_*_{table}_*_virginia_counties.csv"))
+    hits = census.names(f"raw/us_census_bureau/{year}/censusapi_*_{table}_*_virginia_counties.csv")
     if len(hits) != 1:
         raise FileNotFoundError(f"expected one {table} file for {year}, found {len(hits)}")
-    d = pd.read_csv(hits[0])
+    d = census.table(hits[0])
     row = d[d.NAME.str.startswith("Arlington")]
     if len(row) != 1:
-        raise AssertionError(f"{hits[0].name}: expected one Arlington row, found {len(row)}")
+        raise AssertionError(f"{hits[0]}: expected one Arlington row, found {len(row)}")
     return row.iloc[0]
 
 
@@ -122,13 +123,13 @@ def early_years() -> pd.DataFrame:
     """County population 1870-1890: the county minus Alexandria city, from
     the published volumes. Sums take `level` 1 rows only; a level-2 row is
     already inside the line above it."""
-    t5_1890 = table("us_census_bureau/1890/1890a_v1-11_p346_table5_virginia_alexandria.csv")
-    t2_1870 = table("us_census_bureau/1870/1870a-04_p69_table2_virginia_alexandria.csv").set_index("section")
-    t3_1870 = table("us_census_bureau/1870/1870a-09_p278_table3_virginia_alexandria.csv")
-    t5_1880 = table("us_census_bureau/1880/1880_v1-13_p412_table5_virginia_alexandria.csv")
-    t6_1880 = table("us_census_bureau/1880/1880_v1-13_p425_table6_virginia_alexandria.csv")
-    t22 = table("us_census_bureau/1890/1890a_v1-14_p520_table22_virginia_alexandria.csv").iloc[0]
-    t23 = table("us_census_bureau/1890/1890a_v1-14_p556_table23_virginia_alexandria.csv").iloc[0]
+    t5_1890 = table("1890/1890a_v1-11_p346_table5_virginia_alexandria.csv")
+    t2_1870 = table("1870/1870a-04_p69_table2_virginia_alexandria.csv").set_index("section")
+    t3_1870 = table("1870/1870a-09_p278_table3_virginia_alexandria.csv")
+    t5_1880 = table("1880/1880_v1-13_p412_table5_virginia_alexandria.csv")
+    t6_1880 = table("1880/1880_v1-13_p425_table6_virginia_alexandria.csv")
+    t22 = table("1890/1890a_v1-14_p520_table22_virginia_alexandria.csv").iloc[0]
+    t23 = table("1890/1890a_v1-14_p556_table23_virginia_alexandria.csv").iloc[0]
 
     rows = {}
     for year, col in ((1890, "pop_1890"), (1880, "pop_1880")):
@@ -170,11 +171,11 @@ def early_years() -> pd.DataFrame:
 
 def stf1a(year, table):
     """A row of one archived Summary Tape File extract, for Arlington."""
-    path = RAW / "us_census_bureau" / str(year) / f"stf1a_{table}_virginia_counties.csv"
-    d = pd.read_csv(path)
+    path = f"raw/us_census_bureau/{year}/stf1a_{table}_virginia_counties.csv"
+    d = census.table(path)
     row = d[d.name.str.strip().str.upper().str.startswith("ARLINGTON COUNTY")]
     if len(row) != 1:
-        raise AssertionError(f"{path.name}: expected one Arlington row, found {len(row)}")
+        raise AssertionError(f"{path}: expected one Arlington row, found {len(row)}")
     return row.iloc[0]
 
 
@@ -288,7 +289,7 @@ def build() -> pd.DataFrame:
     d["board_seats"] = d["year"].map(seats)
     d["total_source"] = d["year"].map(TOTAL_SOURCE)
 
-    series = table("us_census_bureau/censusgov_pop1790-1990_p177_counties_virginia_arlington.csv").iloc[0]
+    series = table("censusgov_pop1790-1990_p177_counties_virginia_arlington.csv").iloc[0]
     for year in range(1900, 2000, 10):
         d.loc[d["year"] == year, "total"] = series[f"y{year}"]
     # (year, race table, its total variable) - all three differ by census.

@@ -18,7 +18,7 @@ run.sh prints a count of each on every build.
 import pathlib
 import re
 
-BIB = pathlib.Path(__file__).resolve().parents[2] / "paper" / "sources.bib"
+BIB = pathlib.Path(__file__).resolve().parents[1] / "paper" / "sources.bib"
 
 UNSOURCED = "unsourced"
 ASSUMED = "assumed"

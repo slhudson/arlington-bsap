@@ -39,7 +39,7 @@ FIELDS = {
 BIRTH = re.compile(r"(?:Birth Date|Birth Year|Estimated Birth Year) (?!abt|Abt)(?:\w+ )?(\d{4})")
 
 # How the claim rows coded what the index prints; the build codes the same
-# way (code/build/board_census.py) and a pair not listed stops this script.
+# way (code/clean/board_census.py) and a pair not listed stops this script.
 CODED = {("gender", "Male"): "man", ("gender", "Female"): "woman",
          ("race", "White"): "White", ("race", "Black"): "Black",
          ("race", "Mulatto"): "Black"}
@@ -91,7 +91,7 @@ def record(key, demo, resi):
         want = {CODED[(field, printed)]} if printed and (field, printed) in CODED else set()
         if printed and not want:
             raise ValueError(f"{name} {source}: no coding for {field} {printed!r}; add it to CODED "
-                             f"here and in code/build/board_census.py")
+                             f"here and in code/clean/board_census.py")
         if claimed != want:
             raise ValueError(f"{name} {source}: the rows claim {field} {sorted(claimed)}, the "
                              f"index prints {printed!r}")

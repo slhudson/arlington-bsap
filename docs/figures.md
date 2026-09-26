@@ -342,46 +342,58 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
 - **board_residence_coverage.** A diagnostic to show the County: of the
   members sitting on 1 July of each year, how exactly a home is known, as a
   stacked step area on the seat axis like the age coverage. One hue, darkest
-  green for a street address, then a street name, a neighborhood, a
-  north/south side, a magisterial district of Alexandria County (the
-  1880–1910 census sheets, which name the district and leave the street
-  column blank), and the no-evidence grey for no place found; darker means
-  closer to the address a payroll or filing record would give. A member counts
+  green for a street address, then a street name, a neighborhood, then one
+  shade for a north/south side or a magisterial district of Alexandria
+  County, and the no-evidence grey for no location; darker means closer to
+  the address a payroll or filing record would give. The clean table keeps
+  side and district apart, but they are the same grade of knowledge, which
+  half of the County, and differ only in the era of the source: a side comes
+  from twentieth-century reporting, a district from the 1880–1910 census
+  sheets, which name the district and leave the street column blank. So the
+  figure reads them as one and drops a step from the ramp. A member counts
   at the most exact place any source gives, whenever dated, so it can show a
   member as known from a source written after their service
   (`residence-after-service`). Years with no roster, 1912 to 1931, take
   their three seats from the seat table and count as no place found, so the
   Board's size is unbroken.
-- **board_age_bands.** The same sitting Board in three bands of age, under
-  40, 40 to 59 and 60 and over, as a stacked step area on the seat axis so
-  it reads like the gender and race figures; members with no birth year are
-  the no-evidence grey on top, so the coverage shows in the same picture.
-  The cuts are young adult, prime age and nearing retirement, and are the
-  only choice here that changes what the picture says.
-- **board_age.** The ages of the members sitting on 1 July of each year,
-  as three lines: the oldest, the median and the youngest. The Board's
-  age composition is the question, not the age at which people arrive, so
-  the lines follow the sitting Board rather than marking each member once
-  at first election; and three lines rather than a band, because a band
-  hides the median and a band's edges are exactly these two lines. An age
-  is whole years from a birth year, so every point is right to within a
-  year; most sources give an age at a date, and a birth date would not
-  tighten it. 1 July, because a Board seated in January and reshuffled by
-  a November election is the same five people at mid-year; which months a
-  term held is read from `board_members.csv`, so the figure and the seat
-  table cannot disagree on it.
-  A year is drawn only when all but at most one of the sitting members
-  have a birth year: a median of two of five is not a median. The lines
-  start in 1932, where the census listings begin to cover the Board, and
-  the axis still runs from 1870 so the empty stretch is visible;
-  before 1932 the rule is met in eight scattered years of a three-seat
-  Board, which as fragments would read as noise. Gaps after 1932 are
-  years where two or more members have no birth year, and they are left
-  open rather than bridged. The envelope takes the stroke neutral and the
-  median the growth figure's dark grey, since nothing here is a category,
-  and the lines are named at their ends, above and below, rather than in a
-  legend. The axis runs 20 to 80, round ticks either side of the data,
-  from 1930 so the 1932 rule sits where the series starts.
+- **board_age.** A Lexis diagram, age against year, the standard demographic
+  form for it. Behind, the youngest-to-oldest span of the members sitting
+  on 1 July of each year, as a step area; over it, one diagonal per member
+  from the age they arrived to the age they left. Terms less than twelve
+  months apart are one stroke, so a member's stroke is their tenure; longer
+  gaps (six cases of two years or more) are two strokes. A member with no
+  birth year does not appear, and `board_age_coverage` in front of it says
+  how many. The question is what range of ages the Board holds at a given
+  moment, so the band is the minimum and maximum rather than a quartile
+  range or three lines: when the oldest member leaves and no one older
+  replaces them the ceiling drops, and that step (1997 to 1998) is the
+  finding, which a smoothed band hides. The band is a step because each
+  year's value is the Board on 1 July, and 1 July because a Board seated
+  in January and reshuffled by a November election is the same people at
+  mid-year; which months a term held comes from `board_members.csv`, so the
+  figure and the seat table agree on it, and a term with no recorded end
+  holds to the end of its first year there. A year is drawn only when all
+  but at most one sitting member has a birth year.
+  A stroke's age is the year less the birth year less a half: a birth year
+  alone puts the birthday at mid-year, so the stroke crosses the band's edge
+  values on 1 July. The stroke still runs smoothly through a band that steps
+  each January, so an edge stroke sits up to half a year off the band's
+  edge.
+  The figure starts in 1932. Before it the Board has three seats, the rule
+  is met in eight scattered years and 40 percent of member-years in 1900-31
+  have no birth year, so a band there would be fragments; the 1932 rule
+  therefore sits at the left edge and needs no note. The band is five seats
+  wide throughout. A member seated before 1932 who was still sitting after
+  it is clipped at the edge, and one who left earlier is not drawn. The
+  band takes the near-neutral sand and the strokes the growth figure's dark
+  grey, since nothing is a category, with no new colour. Strokes are thin
+  and opaque: at 60 percent opacity a stroke reads as dashed where it
+  crosses the band's edge, and around 2013, where four lines sit inside ten
+  years, thin strokes separate without it. The axis runs 0 to 100, so the
+  age is read from zero, and every decade is labelled: the axis is 95 years
+  long, and the decades do not collide at the profile's width, unlike the
+  1870-2026 axes that step by twenty. There is no legend and no direct
+  label; the caption says what band and stroke are.
 - **voters_president.** Stacked bars, because an election is a point in
   time; a step would claim the share held for four years. Incomplete years
   are left out rather than drawn short.

@@ -54,6 +54,22 @@ def lines(ax, x, series, marker=True):
         ax.plot(x, values, color=color, marker="o" if marker else None, zorder=3, label=label)
 
 
+def age_band(ax, years, low, high, spans, color):
+    """The youngest-to-oldest span of each year's Board as a step area; each
+    year's value spans [year, year + 1). NaN years are gaps, left open."""
+    years = np.asarray(years)
+    for a, b in spans:
+        xs = np.append(years[a:b + 1], years[b] + 1)
+        ax.fill_between(xs, np.append(low[a:b + 1], low[b]), np.append(high[a:b + 1], high[b]),
+                        step="post", facecolor=color, edgecolor="none", zorder=1)
+
+
+def strokes(ax, segments, color, alpha=1.0):
+    """One straight stroke per (x0, y0, x1, y1), over the band."""
+    for x0, y0, x1, y1 in segments:
+        ax.plot([x0, x1], [y0, y1], color=color, alpha=alpha, solid_capstyle="butt", zorder=3)
+
+
 def end_label(ax, x, y, text, color, where="left", gap=0.012):
     """Name a line at (x, y), inside the axes: `left` ends the text at the
     point; `above` and `below` sit it over or under the point, right-aligned.
@@ -279,7 +295,7 @@ def counts(ax, top, step, label="residents", minor=None):
     if minor:
         ax.yaxis.set_minor_locator(MultipleLocator(minor))
         ax.grid(axis="y", which="minor", color=plt.rcParams["grid.color"],
-                linewidth=plt.rcParams["grid.linewidth"] * 0.7, alpha=0.6)
+                linewidth=plt.rcParams["grid.linewidth"] * 0.7, alpha=1.0)
 
 
 def ages(ax, low, high, step=10, label="age"):

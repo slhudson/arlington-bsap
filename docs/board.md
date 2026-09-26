@@ -4,7 +4,7 @@ Who held each seat and when, and who they were: what each number in
 `data/clean/board_members.csv` and `data/clean/board_seats.csv` is, what backs
 it, what is assumed where nothing does, and why. Present tense; how a decision
 was reached is in the git history. The placeholders in the `source` columns
-are explained in `code/build/citekeys.py`, and what is still open is in
+are explained in `code/citekeys.py`, and what is still open is in
 `docs/questions.csv`.
 
 
@@ -13,10 +13,10 @@ are explained in `code/build/citekeys.py`, and what is still open is in
 - 1889–1986 is coded all-White on the "first since Reconstruction" framing,
   and the five Reconstruction-era members rest on Hjerpe's census linking
   (`default-1931-1986`).
-- Gender rests on the default (man) for 30 members: 25 seated before 1912, the
-  three of 1916–20 (Wibirt, Duncan, Walker), B. M. Smith (1933) and
-  A. Leslie Phillips (1969). The other 89 have a census listing (50) or a
-  pronoun or honorific in the press (42; three have both).
+- Gender rests on the default (man) for 29 members: 25 seated before 1912, the
+  three of 1916–20 (Wibirt, Duncan, Walker) and B. M. Smith (1933). The
+  other 90 have a census listing (50) or a pronoun or honorific in the press
+  (43; three have both).
   `gender_evidence` in `board_members.csv` says which (`gender-from-names`).
 - For 33 members first seated 1932–1966 and 16 first seated 1870–1904,
   race and gender come from 53 census records, each index reading checked
@@ -26,9 +26,9 @@ are explained in `code/build/citekeys.py`, and what is still open is in
   in no census (B. M. Smith, H. L. Brown Jr, T. W. Richards, R. L. Lowry).
 - Birth years, for 88 of 119 members, rest on the census listings' ages and
   on an age stated in an obituary or a profile, each right to within a
-  year, and the sitting-age figure draws a year only when all but at most
-  one sitting member has one. The figure is not in the paper yet, and its
-  lines start in 1932 on an axis that still runs from 1870.
+  year, and the age figure draws a year only when all but at most
+  one sitting member has one. The figure is not in the paper yet, and it
+  starts in 1932.
 - 1912–1931 names five terms and no more; the seats for those years are
   assumed, not counted from them.
 - The November 1903 winners are seated in January on sec. 112 without the
@@ -40,7 +40,7 @@ are explained in `code/build/citekeys.py`, and what is still open is in
 - The 1930 candidacies of Harris, Morton and Mosley rest on a page nobody has
   read (`bestebreurtje-p215`).
 - Each place carries a precision, from the place's own words by rules in
-  `code/build/board_residence.py`: a house number with a street is an address;
+  `code/clean/board_residence.py`: a house number with a street is an address;
   a street with no number, a street; a neighborhood, civic association or
   named community, a neighborhood; and "North Arlington" or the northernmost
   section, a side; and one of the three magisterial districts of Alexandria
@@ -124,7 +124,7 @@ sourced and carries no note.
 
 **So the roster names almost nobody from 1912 to 1931.** No source in hand
 records who served, and the seat counts for those years are an assumption,
-stated in `code/build/board_seats.py` and labelled `assumed`: three seats,
+stated in `code/clean/board_seats.py` and labelled `assumed`: three seats,
 filled, held by white men. `board_seats` states those years itself and
 replaces whatever the roster holds for them, so a name added to the roster
 moves no seat-year; `code/tests.py` adds a member in 1925 and checks that
@@ -255,7 +255,7 @@ columns:
 | `quote` | the index listing verbatim |
 | `sheet` | the sheet's lines verbatim, where they were read |
 
-`code/build/board_census.py` codes the printed values: `Male` a man,
+`code/clean/board_census.py` codes the printed values: `Male` a man,
 `Female` a woman, `White` White, and both `Black` and `Mulatto` Black, as
 Hjerpe codes Pinn's 1880 record. A printed value it has no code for stops
 the build, since a dropped claim would fall silently into the default, and
@@ -298,7 +298,7 @@ standing as the OCR under `data/transcribed/by_ocr/`: it locates the line, it
 does not read it. That is a second reading of every record, not a sample,
 because there are only 72 of them and the cost of a wrong one is silent.
 
-`code/build/board_census.py` enforces the half of that rule a machine can
+`code/build/board_claims.py` enforces the half of that rule a machine can
 check. A row whose `checked` names neither the sheet nor the index stops the
 build, and so does a `place` on a row the sheet was never read against, since
 a street is the field the index gets wrong. `code/tests.py` reintroduces both
@@ -372,7 +372,7 @@ each period:
 |---|---|---|
 | 1870–1888 | Five Black members named by Hjerpe (2021): Rowe, Syphax, Pinn, Pendleton, Allen. Pinn, Pendleton and Allen each rest on a reproduced 1880 census image; Rowe and Allen on narrative statements in her paper; Syphax on O'Leary, who writes that his photograph shows he was African American. The sentence naming the five as a group sits in her own list of open inquiries, and the file records it as such. O'Leary adds that "a majority of the early office holders" were probably African-American but cannot name them. Nobody on our side has checked the census linking. | Names in O'Leary, but seven members before 1912 appear by initials only (`gender-1870-1912`). |
 | 1889–1930 | One collective sentence: the board "became and remained all white for the duration of this system" (Hjerpe 2021, p.4), sourced to the county's election records. No per-person evidence. | Names in O'Leary; initials only before 1912. No source names a first woman member, so "all men before Magruder (1932)" is assumed. |
-| 1931–1986 | Nothing per-person from any source. The default rests on Newman (1987) being described as the first Black member since Reconstruction. About 280 person-years. **The weakest stretch.** | Census listing or a press honorific or pronoun for all but B. M. Smith (1933) and A. Leslie Phillips (1969). |
+| 1931–1986 | Nothing per-person from any source. The default rests on Newman (1987) being described as the first Black member since Reconstruction. About 280 person-years. **The weakest stretch.** | Census listing or a press honorific or pronoun for all but B. M. Smith (1933). |
 | 1987–present | Per-person: Newman (1987), Monroe (1999), Dorsey (2015), Spain (2024), and Tejada as the first Latino member (Hjerpe 2021). The Arlington Historical Society keeps a curated entry. | A press pronoun or honorific for every member. |
 
 None of the three roster sources states anyone's race or gender. Race comes

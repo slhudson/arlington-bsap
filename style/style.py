@@ -78,11 +78,11 @@ AGE_COVERAGE = {
     "known":   ("with a birth year", SAND),
     "unknown": ("without", UNRECORDED),
 }
-# The sitting Board's ages: the envelope in the stroke neutral, the median dark.
-AGES = {
-    "oldest":   ("oldest", SAND_LINE),
-    "median":   ("median", DARK),
-    "youngest": ("youngest", SAND_LINE),
+# The sitting Board's ages on a Lexis diagram: the span from youngest to
+# oldest in the near-neutral, each member's tenure a stroke in the dark grey.
+AGE_SPAN = {
+    "band":   ("youngest to oldest sitting", SAND),
+    "member": ("member", DARK),
 }
 # The sitting Board by age band, youngest at the base; the members with no
 # birth year in the no-evidence grey on top.
@@ -95,12 +95,11 @@ AGE_BANDS = {
 # How exactly the sitting Board's homes are known: one hue, darker the more
 # exactly the place is named, and the no-evidence grey for no place at all.
 RESIDENCE = {
-    "address":      ("street address", "#1B6B4A"),
-    "street":       ("street name", "#4FA37D"),
-    "neighborhood": ("neighborhood", "#9CCFB3"),
-    "side":         ("north/south side", "#D3EBDD"),
-    "district":     ("magisterial district", "#EEF7F2"),
-    "none":         ("no place found", UNRECORDED),
+    "address":          ("street address", "#1B6B4A"),
+    "street":           ("street name", "#4FA37D"),
+    "neighborhood":     ("neighborhood", "#9CCFB3"),
+    "side_or_district": ("north/south side or district", "#D3EBDD"),
+    "none":             ("no location", UNRECORDED),
 }
 PRESIDENT = ("voted for President", DARK)
 CYCLE = {
