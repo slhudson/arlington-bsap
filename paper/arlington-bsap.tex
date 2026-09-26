@@ -30,6 +30,12 @@
 % The paper includes the PDF versions; figures/png/ is for slides and email.
 \graphicspath{{../figures/pdf/}}
 
+% A footnote inside a tabular is silently dropped by LaTeX: the mark prints
+% and the note never appears. Timeline rows carry citations, so make tabular
+% save and emit them.
+\usepackage{footnote}
+\makesavenoteenv{tabular}
+
 % A timeline is a dated list, not prose: a narrow date column and a wrapping
 % one beside it. Used by every section that has one.
 \newcommand{\timeline}[1]{%
@@ -93,10 +99,13 @@ analyses this study could take on.
 \timeline{
   1847--1870 & After retrocession the county is run by a county court of
   justices of the peace, doing the administrative work alongside the judicial.
-  There is no elected board. \\[2pt]
-  1870--1931 & Virginia's new constitution creates boards of supervisors
-  statewide. Three magisterial districts --- Arlington, Jefferson and
-  Washington --- elect one supervisor each. \\[2pt]
+  Its justices are elected by district from 1852, but there is no elected
+  board.\autocite[art.~VI, secs.~25--27]{vaconstitution1851} \\[2pt]
+  1870--1931 & Virginia's new constitution creates the boards of supervisors
+  itself: the supervisors elected in each township constitute the county's
+  board.\autocite[art.~VII, sec.~2]{vaconstitution1869} Three magisterial
+  districts --- Arlington, Jefferson and Washington --- elect one supervisor
+  each. \\[2pt]
   1930--1932 & Arlington adopts the County Manager Plan by referendum and
   begins operating under it. The Board expands from three seats to five,
   elections become at-large, and its members stop being supervisors. \\[2pt]
@@ -107,16 +116,20 @@ analyses this study could take on.
 The series begins in 1870 because that is the first year Arlington has an
 elected body of this kind at all, not because the Board changed shape: the
 administrative work the Board of Supervisors took up is the work the county
-court had been doing. The third row is three changes in one package, and they
-arrive together. The County Attorney's July 2026 report
-confirms that the County Manager Plan is the only Virginia county form that
+court had been doing, which the Code of the period puts in that court's
+hands.\autocite[ch.~53, secs.~1 and 3]{vacode1860} Neither that Code nor the
+1851 constitution names Alexandria County; both apply to every county in the
+state. The mechanism in the second row is the constitution rather than an
+enabling act, but three acts of the 1869--70 session stood the Board up --- the
+counties laid off into townships, a supervisor elected in each, and the board
+given a name it can sue by --- which is why the roster begins at the May 1870
+election and not at ratification.\autocite[chs.~39, 76 and 188]{vaacts1870} The magisterial
+districts that replace the townships in 1875 are those units renamed, so the
+seat count does not move with the name.\autocite[ch.~76, sec.~1]{vaacts1875}
+The third row is three changes in one package, and they arrive together.
+The County Attorney's July 2026 report confirms that the County Manager Plan is the only Virginia county form that
 does not call its members supervisors, and the only one that requires at-large
 election of all of them.\autocite{samuel2026}
-
-Two claims in the first two rows are not yet sourced and are logged in
-\texttt{docs/questions.csv}: what exactly the county court was in this county,
-and whether the 1869 constitution created the boards of supervisors itself or
-an enabling act did.
 
 \section{Gender}
 
