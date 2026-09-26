@@ -30,6 +30,7 @@ The county and the state must agree where both name a party, and reporting
 may override the county only where it prints "(I)" or nothing. A member
 none of the three covers is `unsourced`; before 1932 no party is attempted.
 """
+import numpy as np
 import pandas as pd
 
 import board_census
@@ -240,6 +241,11 @@ def decode(words: pd.Series, table: dict, what: str) -> pd.Series:
 
 BORN_BY_AGE = "; the year is the year of the date less the age given, so within a year"
 
+# How exact a birth year is, in board_members.birth_year_precision: a printed
+# birth date or year, or a date less a printed age. docs/board.md.
+EXACT = "exact"
+WITHIN_A_YEAR = "within a year"
+
 
 def birth_years_from_ages(a: pd.DataFrame) -> pd.DataFrame:
     """A source that states an age gives the age and the date it was stated
@@ -260,6 +266,7 @@ def birth_years_from_ages(a: pd.DataFrame) -> pd.DataFrame:
     a = a.copy()
     a.loc[aged, "birth_year"] = (years[aged].astype(int) - a.age[aged].astype(int)).astype(str)
     a.loc[aged, "basis"] = a.basis[aged] + BORN_BY_AGE
+    a["birth_year_precision"] = np.where(aged, WITHIN_A_YEAR, np.where(a.birth_year != "", EXACT, ""))
     return a.drop(columns=["age", "age_date"])
 
 
@@ -288,6 +295,9 @@ def attributions() -> pd.DataFrame:
             out[field] = vals[0] if vals else ""
             out[field + "_source"] = "; ".join(has.source)
             out[field + "_note"] = quoted(has.basis, has.quote)
+            if field == "birth_year":
+                out["birth_year_precision"] = (EXACT if (has.birth_year_precision == EXACT).any()
+                                               else WITHIN_A_YEAR if len(has) else "")
             if field == "gender":
                 out["gender_evidence"] = "; ".join(sorted(set(has.evidence)))
         return pd.Series(out)
@@ -322,6 +332,7 @@ def build() -> pd.DataFrame:
                 if att is not None and att[field]
                 else (default, citekeys.ASSUMED if default else citekeys.UNSOURCED, ""))
         row["gender_evidence"] = att["gender_evidence"] if att is not None and att["gender"] else NO_EVIDENCE
+        row["birth_year_precision"] = att["birth_year_precision"] if att is not None and att["birth_year"] else ""
         rows.append(row)
 
     out = pd.DataFrame(rows)
@@ -334,7 +345,7 @@ def build() -> pd.DataFrame:
             "source", "note",
             "race", "race_source", "race_note", "gender", "gender_source", "gender_note",
             "gender_evidence",
-            "birth_year", "birth_year_source", "birth_year_note",
+            "birth_year", "birth_year_source", "birth_year_note", "birth_year_precision",
             "party", "party_source", "party_note"]
     return out[cols]
 

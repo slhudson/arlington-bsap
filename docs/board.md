@@ -547,7 +547,13 @@ note; with no source the year is blank and `unsourced`, since no standing
 assumption stands in. A census listing gives an age, and the year is the
 census year less the age, so it is right to within a year, except where
 the index prints a birth date; an obituary or a profile gives a birth
-date, or an age on a date, and the row's basis says which. For members
+date, or an age on a date, and the row's basis says which. Which case it
+is reaches `board_members.csv` as `birth_year_precision`, `exact` or
+`within a year` (86 of 107 are within a year); the age figures draw both
+the same, a stroke assuming a mid-year birthday, since the half-year is
+below what a stroke can show (Sally, 26 September 2026). What the report
+does with such distinctions is the data appendix's to explain
+(`data-appendix`). For members
 seated 1960 on the sources are obituaries on legacy.com,
 Dignity Memorial and InsideNoVa, candidate profiles in the Connection,
 ARLnow and Patch, a Senate of Virginia member page, and the Post's archive

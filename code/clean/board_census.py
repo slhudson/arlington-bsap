@@ -60,6 +60,7 @@ def claims() -> pd.DataFrame:
     born = pd.DataFrame({"name": r.name, "race": blank, "gender": blank,
                          "birth_year": r.birth_year.where(printed, by_age).replace("<NA>", ""),
                          "basis": r.basis + printed.map({True: BIRTH_PRINTED, False: BIRTH_BY_AGE}),
+                         "birth_year_precision": printed.map({True: "exact", False: "within a year"}),
                          "source": r.source, "quote": r.quote})
     return pd.concat([traits, born], ignore_index=True)
 
