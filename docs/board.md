@@ -47,13 +47,14 @@ are explained in `code/build/citekeys.py`, and what is still open is in
   County, Arlington, Jefferson or Washington, as the 1880–1910 census sheets
   head each page, a district. A place no rule reads stops the build. A house
   number whose street is unread (Ames) counts as a neighborhood.
-- Before 1932 the only places are the census sheets' own: 32 of the 41
-  members seated 1870–1911 have a record, and for 27 of them the sheet gives
+- Before 1932 the only places are the census sheets' own: 34 of the 41
+  members seated 1870–1911 have a record, and for 29 of them the sheet gives
   a magisterial district and nothing finer, since the street column is blank
   outside the towns; Cherrydale, Washington Avenue, Old Glebe Road and
   Saegmuller's Maryland Avenue house in Washington City are the exceptions.
-  Nine have no record in the 1870–1920 indexes under any spelling tried
-  (`residence-pre-1932`).
+  Two of the 34 are weak matches, Roach and R. Henry Phillips, flagged in
+  their rows. Seven have no record in the 1870–1920 indexes under any
+  spelling tried (`residence-pre-1932`).
 - Where members lived is transcribed but not yet coded, and the 1973 Post map
   that places a whole Board at once has not been seen (`mathews1973-map`);
   two of the 37 members first seated 1932–1962 have none
@@ -238,8 +239,8 @@ which would make the growth figure depend on the roster, is open.
 A census listing names a person, not a Board member, and gives several
 traits at once, so each record matched to a member is one row of
 `data/transcribed/by_claude/board_census.csv`, and the build derives each
-trait from it rather than each trait being keyed separately. 70 records, for
-66 members, from the 1880, 1900, 1910, 1930, 1940 and 1950 schedules. The
+trait from it rather than each trait being keyed separately. 72 records, for
+68 members, from the 1880, 1900, 1910, 1930, 1940 and 1950 schedules. The
 columns:
 
 | Column | Holds |
@@ -265,14 +266,16 @@ less the age, and the note on it says which. The place joins the claims in
 `data/clean/board_residence.csv`, one row per claim, none chosen over
 another and nothing coded.
 
-Two records read on 25 September 2026 are filed and cited but kept out of
+Three records read on 25 September 2026 are filed and cited but kept out of
 the table, since each gives a birth year that disagrees with the member's
 other record and the build stops on two sources disagreeing: W. N. Febrey's
-1900 record (`census1900febrey`, November 1851 against the 1910 record's
-1859) and William Duncan's 1910 record (`census1910duncanwilliam`, 1857
-against the 1900 record's August 1854). Which year is right is open
-(`febrey-birth-year`, `duncan-birth-year`); the two rows are added when it
-is settled. For the members seated 1870–1911 the 1880, 1900 and 1910
+1900 and 1920 records (`census1900febrey`, `census1920febrey`, one
+household, born 1851 or 1854, against the 1910 record's 1859, a second
+William N. Febrey household) and William Duncan's 1910 record
+(`census1910duncanwilliam`, 1857 against the 1900 record's August 1854).
+Which household is Febrey and which year is Duncan's are open
+(`febrey-birth-year`, `duncan-birth-year`); the rows are added when it is
+settled. For the members seated 1870–1911 the 1880, 1900 and 1910
 sheets name a magisterial district at the head of each page and, outside
 the towns, leave the street column blank, so the district is the place
 recorded, in the sheet's own words.
@@ -293,7 +296,7 @@ its own enumeration sheet before any of its fields is used, and its `checked`
 column says what the sheet gives. Ancestry's index is a finding aid, the same
 standing as the OCR under `data/transcribed/by_ocr/`: it locates the line, it
 does not read it. That is a second reading of every record, not a sample,
-because there are only 70 of them and the cost of a wrong one is silent.
+because there are only 72 of them and the cost of a wrong one is silent.
 
 `code/build/board_census.py` enforces the half of that rule a machine can
 check. A row whose `checked` names neither the sheet nor the index stops the
