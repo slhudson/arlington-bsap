@@ -1,14 +1,14 @@
 """Members and residents, Arlington beside Virginia's other large localities
--> figures/board_peers_residents.pdf, .png
+-> figures/localities_residents.pdf, .png
 
-Every city and county of at least peers.SMALLEST residents in 2020:
+Every city and county of at least localities.SMALLEST residents in 2020:
 residents across, members of the governing body up. The x axis breaks
 after NEAR so that Fairfax stays in view. Arlington in its own colour; the
 named dots are those the prose discusses.
 """
 import charts
 import paths
-import peers
+import localities
 import style
 
 NEAR = 560_000                    # the near side of the break
@@ -24,16 +24,16 @@ LEADERS = {"Alexandria"}
 for profile in style.PROFILES:
     style.apply(profile)
 
-    d = peers.load(profile)
+    d = localities.load(profile)
     fig, (near, far) = charts.broken_scatter(profile)
     for ax, side in ((near, d[d["residents"] <= NEAR]), (far, d[d["residents"] > NEAR])):
         charts.dots(ax, side["residents"], side["members"], side["area"], side["color"])
         for _, r in side[side["locality"].isin(NAMED)].iterrows():
-            peers.name(ax, r, "residents", "members", leader=r["locality"] in LEADERS)
+            localities.name(ax, r, "residents", "members", leader=r["locality"] in LEADERS)
 
     charts.comma_axis(near.xaxis, NEAR, 100_000, "")
     charts.comma_axis(near.yaxis, 12, 2, "members")
     charts.break_x(near, far, "residents", FAR, FAR_TICK)
 
-    charts.dot_legend(fig, peers.LEGEND, profile)
-    paths.save(fig, "board_peers_residents", profile)
+    charts.dot_legend(fig, localities.LEGEND, profile)
+    paths.save(fig, "localities_residents", profile)

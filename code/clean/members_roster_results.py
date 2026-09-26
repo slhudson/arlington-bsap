@@ -1,20 +1,20 @@
 """Terms from election results: the county's candidate history to 2021 and
-the state's database from 2022. A module, not a step: board_roster.py
+the state's database from 2022. A module, not a step: members_roster.py
 assembles it with the rest.
 
     keyed_terms()   the district races of November 1923 and 1927, which the
-                    county's history prints and board_terms.csv keys by hand
+                    county's history prints and members_terms.csv keys by hand
     terms()         1995 on, computed from who won each contest
     outcomes()      every County Board general election from 1931: who won,
                     who stood, how many seats
 
 board_elections(), special_candidates() and general_winners() are the
-lookups board_roster_novack.py cuts Novack's spans with.
+lookups members_roster_novack.py cuts Novack's spans with.
 """
 import pandas as pd
 
 import elections
-from board_terms import ELECTION, SPECIAL_ELECTION, listing
+from members_terms import ELECTION, SPECIAL_ELECTION, listing
 from elections import COUNTY_HISTORY_THROUGH, MONTHS, surname
 
 MONTH_NAMES = {v: k for k, v in MONTHS.items()}
@@ -23,12 +23,12 @@ MONTH_NAMES = {v: k for k, v in MONTHS.items()}
 def keyed_terms():
     """Terms keyed by hand from the county's candidate history, for the
     two 1912-1931 elections it prints under the district headings
-    (board_terms.csv). They add names to the roster; board_seats does not
-    read them, and states the 1912-1931 seats itself. docs/board.md."""
+    (members_terms.csv). They add names to the roster; members_by_year does not
+    read them, and states the 1912-1931 seats itself. docs/members.md."""
     d = listing("terms")
     for _, r in d.iterrows():
         # The county prints the election and no start or end: a November
-        # winner takes his seat the following January (board_roster.py),
+        # winner takes his seat the following January (members_roster.py),
         # and the end is unrecorded.
         yield {"name": r["name"], "district": r.district,
                "start_year": int(r.election_date[-4:]) + 1, "start_month": 1,

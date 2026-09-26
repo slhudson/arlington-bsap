@@ -1,6 +1,6 @@
 """Who held each seat and when, 1870 through 2026, one row per person per term.
 
-A module, not a step: board_members.py takes these terms and attaches race,
+A module, not a step: members.py takes these terms and attaches race,
 gender and party.
 
     name  district  start_year  start_month  end_year  end_month  seated_by  source  note
@@ -9,33 +9,33 @@ gender and party.
 `seated_by` is how the term began: a regular election, a special election,
 an appointment, or unrecorded. Months are given where a source gives them;
 a November winner is seated the following January. A vacant seat is not a
-row. The reasoning is in docs/board.md.
+row. The reasoning is in docs/members.md.
 
 Sources, in sequence, one module each:
 
-  oleary2010       1870-1915  board_roster_oleary.py    who held each magisterial
+  oleary2010       1870-1915  members_roster_oleary.py    who held each magisterial
                                                         district, by election
-  novack1994       1932-1994  board_roster_novack.py    terms of service, with
+  novack1994       1932-1994  members_roster_novack.py    terms of service, with
                                                         mid-term departures
-  election results 1995-      board_roster_results.py   the county's candidate
+  election results 1995-      members_roster_results.py   the county's candidate
                                                         history to 2021, the
                                                         state's database from 2022
 
 1912-1931 names almost nobody: O'Leary's last listed election is 1915, and
 its winners' four-year terms end in January 1912. The county's candidate
 history prints the district races of November 1923 and 1927, keyed in
-board_terms.csv and read by board_roster_results.py. What a term is, the
+members_terms.csv and read by members_roster_results.py. What a term is, the
 seats that exist, how a term begins, the readers the sources share, is
-board_terms.py.
+members_terms.py.
 """
 import re
 
 import pandas as pd
 
-import board_roster_novack as novack
-import board_roster_oleary as oleary
-import board_roster_results as results
-from board_terms import PRESENT, SEATED_BY, SPECIAL_ELECTION, UNRECORDED
+import members_roster_novack as novack
+import members_roster_oleary as oleary
+import members_roster_results as results
+from members_terms import PRESENT, SEATED_BY, SPECIAL_ELECTION, UNRECORDED
 
 
 def check_five_seats(d: pd.DataFrame, first=1995, last=PRESENT):

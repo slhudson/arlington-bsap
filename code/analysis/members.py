@@ -2,7 +2,7 @@
 figures read it so they agree on what "sitting" means.
 
 A member sits in a year if a term holds 1 July of it, by the months
-board_members.csv says the term held. docs/figures.md says why 1 July.
+members.csv says the term held. docs/figures.md says why 1 July.
 
 FIRST and LAST are the years the build covers, read from the seat table,
 which ends in the year the roster was checked to. A figure's year axis
@@ -12,7 +12,7 @@ import pandas as pd
 
 import paths
 
-_years = pd.read_csv(paths.BOARD_SEATS).year
+_years = pd.read_csv(paths.MEMBERS_BY_YEAR).year
 FIRST, LAST = int(_years.min()), int(_years.max())
 
 
@@ -24,5 +24,5 @@ def sitting(members, year):
 
 def by_year(first=FIRST, last=LAST):
     """(year, the members sitting) for every year first..last."""
-    d = pd.read_csv(paths.BOARD_MEMBERS)
+    d = pd.read_csv(paths.MEMBERS)
     return [(year, sitting(d, year)) for year in range(first, last + 1)]

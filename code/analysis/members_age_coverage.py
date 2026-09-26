@@ -1,5 +1,5 @@
 """How many sitting members have a birth year, 1870-2026
--> figures/board_age_coverage.pdf, .png
+-> figures/members_age_coverage.pdf, .png
 
 A stacked step area of the members sitting on 1 July of each year, those
 with a birth year and those without, with the 1932 rule. Years with no
@@ -31,4 +31,4 @@ for profile in style.PROFILES:
     charts.years(ax, members.FIRST, 2020, step=20, label="year", through=members.LAST + 1)
     charts.rule(ax)
     charts.legend(fig, series)
-    paths.save(fig, "board_age_coverage", profile)
+    paths.save(fig, "members_age_coverage", profile)

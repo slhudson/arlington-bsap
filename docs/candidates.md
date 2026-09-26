@@ -1,7 +1,7 @@
 # Candidates
 
 Who ran for the Board and which of them a source says was Black: what each
-number in `data/clean/board_candidacies.csv` is, what backs it, what is assumed
+number in `data/clean/candidates.csv` is, what backs it, what is assumed
 where nothing does, and why. Present tense; how a decision was reached is in
 the git history. The placeholders in the `source` columns are explained in
 `code/citekeys.py`, and what is still open is in `docs/questions.csv`.
@@ -21,10 +21,10 @@ Each is a row in `docs/questions.csv`, with an owner and what would settle it.
 
 ## Black candidacies
 
-`data/clean/board_candidacies.csv` holds one row per candidacy a source says
+`data/clean/candidates.csv` holds one row per candidacy a source says
 was a Black candidate's for the Board, joined to the election it was in, and
 one row per period in which a source says no Black candidate ran. The claims
-are keyed in `data/transcribed/by_claude/board_candidacies.csv`, one row per
+are keyed in `data/transcribed/by_claude/candidates.csv`, one row per
 source, in the source's words, with the name as the election record prints
 it; a race is never read off a name or a neighborhood. A candidacy is matched
 on surname, year and kind of election (regular, special or primary): before
@@ -105,7 +105,7 @@ Democratic primary never appeared on the general ballot, and the county's
 list records primaries only patchily from 1950, the state's fully from
 2007, and a caucus or convention nomination never.
 
-**The figure.** `board_candidacies` draws each candidacy in a regular or
+**The figure.** `candidates` draws each candidacy in a regular or
 special election as a dot at its year, filled if won and a ring if lost,
 with runs in the same year stacked; primaries are in the table and not
 drawn. It shows a win at every Jefferson election but one from 1871 to

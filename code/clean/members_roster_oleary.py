@@ -1,5 +1,5 @@
 """Who held each magisterial district, 1870-1915, from O'Leary's election
-listings. A module, not a step: board_roster.py assembles it with the rest.
+listings. A module, not a step: members_roster.py assembles it with the rest.
 
 From 1903 an entry lists every candidate with a vote count and the highest
 wins; earlier it names the holder, with replacements in prose. A November
@@ -11,7 +11,7 @@ import re
 
 import citekeys
 import elections
-from board_terms import APPOINTMENT, ELECTION, MONTH, TERM_YEARS, UNRECORDED, month_of
+from members_terms import APPOINTMENT, ELECTION, MONTH, TERM_YEARS, UNRECORDED, month_of
 from elections import MONTHS
 
 NAME = r"([A-Z][A-Za-z.'’\- ]+?)"

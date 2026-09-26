@@ -1,17 +1,17 @@
-"""Seats held per year, by race, gender and party -> data/clean/board_seats.csv
+"""Seats held per year, by race, gender and party -> data/clean/members_by_year.csv
 
 One row per year, 1870-2026, in seat-years: a member who held a seat for
-four months of a year counts 4/12, by the months board_members.csv says
+four months of a year counts 4/12, by the months members.csv says
 each term held. Computed from that table, except 1912-1931, which
 have no roster and are stated: three seats, held by white men, labelled
 `assumed`. Party is from 1932 only, with a member no source records under
 `unrecorded`. The denominator is the months the Board existed that year,
-which is twelve for every year but 1870. docs/board.md, Seat-years.
+which is twelve for every year but 1870. docs/members.md, Seat-years.
 """
 import pandas as pd
 
 import citekeys
-from board_terms import AT_LARGE_FROM, PRESENT, SEATS_DISTRICT, seats
+from members_terms import AT_LARGE_FROM, PRESENT, SEATS_DISTRICT, seats
 from paths import read, write
 
 COLUMNS = ["year", "white", "black", "hisp", "aapi", "men", "women"]
@@ -39,7 +39,7 @@ def months_held(members: pd.DataFrame) -> pd.DataFrame:
 
 
 def build() -> pd.DataFrame:
-    members = read("board_members")
+    members = read("members")
     held = months_held(members)
 
     def split(by, columns):
@@ -96,4 +96,4 @@ def build() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    write(build(), "board_seats")
+    write(build(), "members_by_year")

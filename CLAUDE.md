@@ -238,8 +238,9 @@ is required to rebuild.
 
 ## Questions and decisions
 
-One write-up per subject, and one tracker. `docs/residents.md`,
-`docs/board.md` and `docs/voters.md` hold what is settled about each: what
+One write-up per population, and one tracker. `docs/residents.md`,
+`docs/voters.md`, `docs/members.md`, `docs/candidates.md` and
+`docs/localities.md` hold what is settled about each: what
 each number is, what backs it, what is assumed where nothing does, and why,
 in the present tense, ending with a list of what still rests on an
 assumption. `paper/sources.bib` is the registry of sources, and each entry's

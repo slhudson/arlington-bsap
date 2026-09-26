@@ -1,4 +1,4 @@
-"""Every claim about a Board member, one row each -> data/built/board_claims.csv
+"""Every claim about a Board member, one row each -> data/built/members_claims.csv
 
 Six files under data/transcribed/by_claude/ stacked into one table, each
 cell as keyed in, with `claim` saying which file a row came from:
@@ -9,16 +9,16 @@ sheet gives), `novack` (a member's whole service as Novack prints it, the
 `term` string and `notes`) and `terms` (a term keyed in from the county's
 candidate history, with its dates and `note`). A field a row does not
 carry is blank. Nothing is coded, matched or chosen here;
-code/clean/board_roster.py reads the terms, code/clean/board_census.py the
-census rows, and code/clean/board_members.py and board_residence.py resolve
-the rest. docs/board.md, "Census records", has what each column holds.
+code/clean/members_roster.py reads the terms, code/clean/members_census.py the
+census rows, and code/clean/members.py and members_residence.py resolve
+the rest. docs/members.md, "Census records", has what each column holds.
 
 Three rows are refused. A census row that does not say what was read
 against the image, the sheet or the index; a place on a census row the
 sheet was never read against, since a street is the field the index gets
-wrong (docs/board.md, "Reading an image"); and a demographics or residence
+wrong (docs/members.md, "Reading an image"); and a demographics or residence
 row citing a census record, which belongs in the census file, one row per
-record, where code/transcribe/board_census.py moves it.
+record, where code/transcribe/members_census.py moves it.
 """
 import re
 
@@ -27,12 +27,12 @@ import pandas as pd
 import citekeys
 from paths import BY_CLAUDE, source, write
 
-FILES = {"demographics": BY_CLAUDE / "board_demographics.csv",
-         "party": BY_CLAUDE / "board_party.csv",
-         "residence": BY_CLAUDE / "board_residence.csv",
-         "census": BY_CLAUDE / "board_census.csv",
+FILES = {"demographics": BY_CLAUDE / "members_demographics.csv",
+         "party": BY_CLAUDE / "members_party.csv",
+         "residence": BY_CLAUDE / "members_residence.csv",
+         "census": BY_CLAUDE / "members_census.csv",
          "novack": BY_CLAUDE / "arlington_historical_magazine" / "novack_terms_1930-1994.csv",
-         "terms": BY_CLAUDE / "board_terms.csv"}
+         "terms": BY_CLAUDE / "members_terms.csv"}
 
 # A census record's citekey, census<year><surname>, unlike a volume's (census1880).
 CENSUS_RECORD = re.compile(r"census\d{4}[a-z]+")
@@ -61,12 +61,12 @@ def census_records(r: pd.DataFrame) -> pd.DataFrame:
 
 def not_census(r: pd.DataFrame, claim) -> pd.DataFrame:
     """A demographics or residence file, refused if a row cites a census
-    record: the record is one row of board_census.csv, and each claim is
+    record: the record is one row of members_census.csv, and each claim is
     derived from it there."""
     stray = r[[bool(CENSUS_RECORD.fullmatch(citekeys.key_of(s))) for s in r.source]]
     if len(stray):
-        raise ValueError(f"{claim} rows citing a census record, which belongs in board_census.csv "
-                         f"(code/transcribe/board_census.py moves it):\n"
+        raise ValueError(f"{claim} rows citing a census record, which belongs in members_census.csv "
+                         f"(code/transcribe/members_census.py moves it):\n"
                          + "\n".join(f"  {n} {s}" for n, s in zip(stray.name, stray.source)))
     return r
 
@@ -84,4 +84,4 @@ def build() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    write(build(), "board_claims")
+    write(build(), "members_claims")

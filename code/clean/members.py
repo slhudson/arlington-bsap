@@ -1,24 +1,24 @@
-"""Who served on the Board, when, and who they were -> data/clean/board_members.csv
+"""Who served on the Board, when, and who they were -> data/clean/members.csv
 
-One row per person per term, from board_roster.py, with race, gender and
+One row per person per term, from members_roster.py, with race, gender and
 birth year attached per person and party per term, each with its own
 source and note, the year of the election that seated each elected term,
 and the months the term held: `held_from` and `held_to`, months counted
 from year 0, the end exclusive, with the handover month given to the
 incoming member and an unrecorded end held to the end of its first year.
 Every count of who held a seat when reads those two columns, so the rule
-is applied here and nowhere else. docs/board.md, Seat-years.
+is applied here and nowhere else. docs/members.md, Seat-years.
 
-Race, gender and birth year: data/transcribed/by_claude/board_demographics.csv,
+Race, gender and birth year: data/transcribed/by_claude/members_demographics.csv,
 a source's own words about a named member with a citation, and the census
-records in board_census.csv through board_census.py; otherwise race and
+records in members_census.csv through members_census.py; otherwise race and
 gender are `assumed`, a white man, and the birth year is blank and
 `unsourced`. An attributed name must match a roster name exactly.
-docs/board.md has the reasoning.
+docs/members.md has the reasoning.
 
 Party, per term, from the first of three sources that speaks:
 
-  1. data/transcribed/by_claude/board_party.csv - reporting, cited and
+  1. data/transcribed/by_claude/members_party.csv - reporting, cited and
      quoted, keyed on the name and the term's start year.
   2. The county's candidate history, which prints a label after a name -
      "(D)", "(ABC)", "(I)" - from 1931, though not on every winner.
@@ -33,13 +33,13 @@ none of the three covers is `unsourced`; before 1932 no party is attempted.
 import numpy as np
 import pandas as pd
 
-import board_census
-import board_roster
-import board_terms
+import members_census
+import members_roster
+import members_terms
 import citekeys
 import elections
 import paths
-from board_terms import AT_LARGE_FROM
+from members_terms import AT_LARGE_FROM
 from elections import PARTIES
 from paths import write
 
@@ -47,12 +47,12 @@ from paths import write
 STATE_PARTIES = {"Democratic": "Democratic", "Republican": "Republican",
                  "Independent": "independent", "Green": "independent"}
 
-# What board_demographics.csv attributes per person, and what a person is
+# What members_demographics.csv attributes per person, and what a person is
 # when no source speaks: race and gender have a standing assumption, a birth
 # year has none.
 ATTRIBUTED = {"race": "White", "gender": "man", "birth_year": ""}
 
-# How a gender is known, in board_members.gender_evidence: "record" (a census
+# How a gender is known, in members.gender_evidence: "record" (a census
 # listing), "press" (a pronoun or honorific a paper uses), both joined with
 # "; ", or this when no source speaks and the default stands.
 NO_EVIDENCE = "none"
@@ -63,9 +63,9 @@ AGE_WHEN_SEATED = (18, 100)
 
 
 def claims(kind, columns) -> pd.DataFrame:
-    """The rows of one claim file, from data/built/board_claims.csv, in the
+    """The rows of one claim file, from data/built/members_claims.csv, in the
     file's own columns."""
-    c = paths.built("board_claims")
+    c = paths.built("members_claims")
     return c.loc[c.claim == kind, columns].reset_index(drop=True)
 
 
@@ -126,7 +126,7 @@ def party_attributions() -> pd.DataFrame:
 def election_year(t) -> int:
     """The election that seated a term: a January start follows a November
     election; a special election or an appointment seats at once."""
-    if t.seated_by == board_terms.SPECIAL_ELECTION or t.start_month != 1:
+    if t.seated_by == members_terms.SPECIAL_ELECTION or t.start_month != 1:
         return int(t.start_year)
     return int(t.start_year) - 1
 
@@ -182,8 +182,8 @@ def held(terms: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame({"held_from": start.astype(int), "held_to": pd.Series(stop, index=terms.index).astype(int)})
 
 
-# What the words a source uses mean. board_demographics.csv and
-# board_party.csv keep the words as printed (`race_words`, `gender_words`,
+# What the words a source uses mean. members_demographics.csv and
+# members_party.csv keep the words as printed (`race_words`, `gender_words`,
 # `party_words`); the category is decided here, in the open. A word this does
 # not list stops the build.
 GENDER_WORDS = {"he": "man", "his": "man", "him": "man", "mr.": "man",
@@ -191,7 +191,7 @@ GENDER_WORDS = {"he": "man", "his": "man", "him": "man", "mr.": "man",
 RACE_WORDS = {
     "black": "Black", "african american": "Black", "african americans": "Black",
     "black community": "Black", "black people i know, i among them": "Black",
-    # As the census's Mulatto is coded (board_census.py).
+    # As the census's Mulatto is coded (members_census.py).
     "mixed race": "Black",
     "latin american heritage": "Hispanic",
     # A description that implies a race the source does not state: a
@@ -230,7 +230,7 @@ PARTY_WORDS = {
     "a democrat": "Democratic",
     "independent candidates": "independent",
     "represent the abc political coalition": "ABC",
-    # AIM, the Arlington Independent Movement, is coded independent: docs/board.md.
+    # AIM, the Arlington Independent Movement, is coded independent: docs/members.md.
     "candidate of the arlington independent movement (aim)": "independent",
     "nominee of arlington independent movement": "independent",
 }
@@ -247,15 +247,15 @@ def decode(words: pd.Series, table: dict, what: str) -> pd.Series:
         found = {table[p] for p in parts if p in table}
         if missing or len(found) != 1:
             raise ValueError(f"{what} words with no single category here: {w!r}; "
-                             f"add them to the table in board_members.py or fix the reading")
+                             f"add them to the table in members.py or fix the reading")
         return found.pop()
     return words.map(one)
 
 
 BORN_BY_AGE = "; the year is the year of the date less the age given, so within a year"
 
-# How exact a birth year is, in board_members.birth_year_precision: a printed
-# birth date or year, or a date less a printed age. docs/board.md.
+# How exact a birth year is, in members.birth_year_precision: a printed
+# birth date or year, or a date less a printed age. docs/members.md.
 EXACT = "exact"
 WITHIN_A_YEAR = "within a year"
 
@@ -263,7 +263,7 @@ WITHIN_A_YEAR = "within a year"
 def birth_years_from_ages(a: pd.DataFrame) -> pd.DataFrame:
     """A source that states an age gives the age and the date it was stated
     (`age`, `age_date`, as printed); the birth year is decided here, the
-    same way board_census.py does it for a census record. A row gives a
+    same way members_census.py does it for a census record. A row gives a
     birth year or an age, and an age needs its date."""
     aged = a.age != ""
     if (aged & (a.birth_year != "")).any():
@@ -294,7 +294,7 @@ def attributions() -> pd.DataFrame:
     a = birth_years_from_ages(a.drop(columns=["race_words", "gender_words"]))
     # Where a gender came from: a row of the claim file is a press reading
     # (the pronoun or honorific a paper uses), a census claim is a record.
-    census = board_census.claims()
+    census = members_census.claims()
     a = pd.concat([a.assign(evidence="press"), census.assign(evidence="record")],
                   ignore_index=True).fillna("")
 
@@ -319,7 +319,7 @@ def attributions() -> pd.DataFrame:
 
 
 def build() -> pd.DataFrame:
-    d = board_roster.build()
+    d = members_roster.build()
     a = attributions()
     unknown = sorted(set(a.index) - set(d.name))
     if unknown:
@@ -335,7 +335,7 @@ def build() -> pd.DataFrame:
     for _, t in d.iterrows():
         row = dict(t)
         row["election_year"] = (election_year(t) if t.seated_by in
-                                (board_terms.ELECTION, board_terms.SPECIAL_ELECTION) else "")
+                                (members_terms.ELECTION, members_terms.SPECIAL_ELECTION) else "")
         row["party"], row["party_source"], row["party_note"] = (
             party_of(t, labels, state, parties) if t.start_year >= AT_LARGE_FROM else ("", "", ""))
         att = a.loc[t["name"]] if t["name"] in a.index else None
@@ -382,4 +382,4 @@ def check_birth_years(members):
 
 
 if __name__ == "__main__":
-    write(build(), "board_members")
+    write(build(), "members")

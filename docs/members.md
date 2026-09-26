@@ -1,7 +1,7 @@
 # The Board
 
 Who held each seat and when, and who they were: what each number in
-`data/clean/board_members.csv` and `data/clean/board_seats.csv` is, what backs
+`data/clean/members.csv` and `data/clean/members_by_year.csv` is, what backs
 it, what is assumed where nothing does, and why. Present tense; how a decision
 was reached is in the git history. The placeholders in the `source` columns
 are explained in `code/citekeys.py`, and what is still open is in
@@ -16,7 +16,7 @@ are explained in `code/citekeys.py`, and what is still open is in
   three of 1916–20 (Wibirt, Duncan, Walker) and B. M. Smith (1933). The
   other 90 have a census listing (50) or a pronoun or honorific in the press
   (43; three have both).
-  `gender_evidence` in `board_members.csv` says which (`gender-from-names`).
+  `gender_evidence` in `members.csv` says which (`gender-from-names`).
 - For 33 members first seated 1932–1966 and 16 first seated 1870–1904,
   race and gender come from 53 census records, each index reading checked
   against the sheet where the row could be found on it; the match
@@ -35,7 +35,7 @@ are explained in `code/citekeys.py`, and what is still open is in
 - 23 terms from 1932 carry no party, three labels are unresolved, and no
   party is attempted before 1932 (`party-unlabelled`, `party-before-1932`).
 - Each place carries a precision, from the place's own words by rules in
-  `code/clean/board_residence.py`: a house number with a street is an address;
+  `code/clean/members_residence.py`: a house number with a street is an address;
   a street with no number, a street; a neighborhood, civic association or
   named community, a neighborhood; and "North Arlington" or the northernmost
   section, a side; and one of the three magisterial districts of Alexandria
@@ -182,7 +182,7 @@ its disposition, and the Board's own minute books; neither is online
 
 ## The roster
 
-`data/clean/board_members.csv` holds one row per person per term: name, term
+`data/clean/members.csv` holds one row per person per term: name, term
 number, district, when service began and ended (to the month), the months the
 term held (`held_from` and `held_to`, counted from year 0, the end exclusive),
 how the term began, and a source per row. 222 terms, 1870 through 2026, from three sources
@@ -292,8 +292,8 @@ sourced and carries no note.
 
 **So the roster names almost nobody from 1912 to 1931.** No source in hand
 records who served, and the seat counts for those years are an assumption,
-stated in `code/clean/board_seats.py` and labelled `assumed`: three seats,
-filled, held by white men. `board_seats` states those years itself and
+stated in `code/clean/members_by_year.py` and labelled `assumed`: three seats,
+filled, held by white men. `members_by_year` states those years itself and
 replaces whatever the roster holds for them, so a name added to the roster
 moves no seat-year; `code/tests.py` adds a member in 1925 and checks that
 the table for 1912–1931 does not change. Two elections inside the stretch are printed in the county's
@@ -301,7 +301,7 @@ candidate history under the district headings rather than under "County
 Board": November 1923 (Ingram in Arlington, Duncan in Jefferson, Thornburke
 in Washington, each the only name listed) and November 1927 (Duncan and
 Thornburke, each with the highest vote). They are keyed in
-`data/transcribed/by_claude/board_terms.csv`, page 2 and page 4, as five
+`data/transcribed/by_claude/members_terms.csv`, page 2 and page 4, as five
 terms seated the following January, with no end: the county gives neither a
 start nor an end, so the January start is the build's rule for a November
 winner and each term holds to the end of its first year (1924 and 1928). Ingram and Thornburke appear in no
@@ -364,15 +364,15 @@ swept, since there is no roster to sweep.
 
 ## Seat-years
 
-`data/clean/board_seats.csv` is one row per year, 1870 through 2026: seats
+`data/clean/members_by_year.csv` is one row per year, 1870 through 2026: seats
 held by each race, each gender and (from 1932) each party, in seat-years, so
 a member who sat for four months of a year counts 4/12. It is computed from
-`board_members.csv` for every year but 1912–1931, which are the assumption
+`members.csv` for every year but 1912–1931, which are the assumption
 above whatever the roster holds for them. Days are not recorded consistently, Novack giving some and the election
 dates others, so the month is the unit, and **the handover month belongs to
 the incoming member** (Sally, 22 September 2026). An end no source records
 holds to the end of the term's first year. Both rules are applied once, in
-`held_from` and `held_to` on `board_members.csv`; the seat-years and the
+`held_from` and `held_to` on `members.csv`; the seat-years and the
 figures of who was sitting on 1 July read those columns rather than the dates.
 
 The denominator is the months the Board existed that year, which is twelve for
@@ -404,7 +404,7 @@ which would make the growth figure depend on the roster, is open.
 
 ## Where members lived
 
-`data/clean/board_residence.csv` holds one row per claim about a member's
+`data/clean/members_residence.csv` holds one row per claim about a member's
 home: the place as the source names it, how exactly (`precision`: a street
 address, a street name, a neighborhood, a side of the County or a
 magisterial district), the year the source gives, and the source. Nothing is
@@ -438,7 +438,7 @@ and the window matters to the neighborhood analysis, which is not yet built.
 
 A census listing names a person, not a Board member, and gives several
 traits at once, so each record matched to a member is one row of
-`data/transcribed/by_claude/board_census.csv`, and the build derives each
+`data/transcribed/by_claude/members_census.csv`, and the build derives each
 trait from it rather than each trait being keyed separately. 72 records, for
 68 members, from the 1880, 1900, 1910, 1930, 1940 and 1950 schedules. The
 columns:
@@ -464,29 +464,29 @@ place, which then fall to the default or to the member's other sources
 and stands until it is; which rows are blank, and the revisit once the age
 and neighborhood analyses are settled, are `census-match-quality`.
 
-`code/clean/board_census.py` codes the printed values: `Male` a man,
+`code/clean/members_census.py` codes the printed values: `Male` a man,
 `Female` a woman, `White` White, and both `Black` and `Mulatto` Black, as
 Hjerpe codes Pinn's 1880 record. A printed value it has no code for stops
 the build, since a dropped claim would fall silently into the default, and
 so does a row whose `checked` names neither the sheet nor the index. The
 birth year is the one the index prints as a date, or else the census year
 less the age, and the note on it says which. The place joins the claims in
-`data/transcribed/by_claude/board_residence.csv` in
-`data/clean/board_residence.csv`, one row per claim, none chosen over
+`data/transcribed/by_claude/members_residence.csv` in
+`data/clean/members_residence.csv`, one row per claim, none chosen over
 another and nothing coded.
 
-The claim files keep words, not categories. `board_demographics.csv` has
+The claim files keep words, not categories. `members_demographics.csv` has
 `race_words` and `gender_words` (the pronoun, honorific or description as
-the source prints it), and `board_party.csv` has `party_words`; the tables
+the source prints it), and `members_party.csv` has `party_words`; the tables
 that say what each means are `RACE_WORDS`, `GENDER_WORDS` and `PARTY_WORDS`
-in `code/clean/board_members.py`, where a word not listed stops the build.
-`board_terms.csv` keeps the election date the county prints; the January
+in `code/clean/members.py`, where a word not listed stops the build.
+`members_terms.csv` keeps the election date the county prints; the January
 start, the missing end and the election as how the seat was gained are
-`code/clean/board_roster_results.py`'s. A press or obituary age is keyed the
-same way: `board_demographics.csv` has
+`code/clean/members_roster_results.py`'s. A press or obituary age is keyed the
+same way: `members_demographics.csv` has
 `age` and `age_date` (as printed: "25 April 2019", "1960"), and
 `birth_year` only where a source prints a birth date or year. The transcriber
-never subtracts. `code/clean/board_members.py` takes the year of the date
+never subtracts. `code/clean/members.py` takes the year of the date
 less the age, refuses an age with no year in its date, and refuses a row that
 gives both a birth year and an age.
 
@@ -506,8 +506,8 @@ recorded, in the sheet's own words.
 
 Only the census record itself goes in this table. What a newspaper, an
 obituary or a secondary source says, Hjerpe's reading of an 1880 record
-included, is a separate claim and stays in `board_demographics.csv` or
-`board_residence.csv`. `code/transcribe/board_census.py` moves any row that
+included, is a separate claim and stays in `members_demographics.csv` or
+`members_residence.csv`. `code/transcribe/members_census.py` moves any row that
 cites a census record out of those two files and into the table, merging
 it with the record's row where there is one, and stops where the two
 disagree. A new record is keyed into the table directly, and the build
@@ -523,14 +523,14 @@ standing as the OCR under `data/transcribed/by_ocr/`: it locates the line, it
 does not read it. That is a second reading of every record, not a sample,
 because there are only 72 of them and the cost of a wrong one is silent.
 
-`code/build/board_claims.py` enforces the half of that rule a machine can
+`code/build/members_claims.py` enforces the half of that rule a machine can
 check. A row whose `checked` names neither the sheet nor the index stops the
 build, and so does a `place` on a row the sheet was never read against, since
 a street is the field the index gets wrong. `code/tests.py` reintroduces both
 mistakes.
 
 For a page read through OCR — a newspaper claim in
-`board_residence.csv` — the quoted sentence is read off the page image before
+`members_residence.csv` — the quoted sentence is read off the page image before
 the row is written, and any house number in it is read off the image, never
 off the OCR. Where rows were entered before this rule, the backlog is cleared
 a page at a time, whole pages rather than a sample of rows, since opening the
@@ -605,13 +605,13 @@ unincorporated place in the sheet's heading, as its one firm place
 ## Race, gender and birth year of Board members
 
 Birth years come from the same files as race and gender, one row per
-source, and reach `board_members.csv` as `birth_year` with a source and a
+source, and reach `members.csv` as `birth_year` with a source and a
 note; with no source the year is blank and `unsourced`, since no standing
 assumption stands in. A census listing gives an age, and the year is the
 census year less the age, so it is right to within a year, except where
 the index prints a birth date; an obituary or a profile gives a birth
 date, or an age on a date, and the row's basis says which. Which case it
-is reaches `board_members.csv` as `birth_year_precision`, `exact` or
+is reaches `members.csv` as `birth_year_precision`, `exact` or
 `within a year` (86 of 107 are within a year); the age figures draw both
 the same, a stroke assuming a mid-year birthday, since the half-year is
 below what a stroke can show (Sally, 26 September 2026). What the report
@@ -626,11 +626,11 @@ stop it. `election_year` on each elected term is the election that seated
 it, a January start following a November election, so a figure can
 subtract without re-deriving that rule.
 
-Race and gender come from `data/transcribed/by_claude/board_demographics.csv`,
+Race and gender come from `data/transcribed/by_claude/members_demographics.csv`,
 one row per claim a source makes about a member, in the source's own words
 with a citation to the page the document prints, and from the census records
 above; and otherwise from a default,
-a white man, labelled `assumed`. Each cell of `board_members.csv` says which, and
+a white man, labelled `assumed`. Each cell of `members.csv` says which, and
 `gender_evidence` says how a gender is known: `record` (a census listing),
 `press` (the pronoun or honorific a paper uses for the member; each such row
 of the claim file quotes the sentence and cites the page), both joined with
@@ -697,7 +697,7 @@ Three sources, in order:
 2. The state's elections database, which records party from 2007 and is the
    only source from 2022. Where its general-election row carries no party
    (2023 on), a win in that year's Democratic primary stands in.
-3. Reporting, in `data/transcribed/by_claude/board_party.csv`, one quoted and
+3. Reporting, in `data/transcribed/by_claude/members_party.csv`, one quoted and
    cited claim per row, used only where the county prints `(I)` or nothing.
 
 Where the county and the state both name a party they must agree, and a cited
@@ -768,7 +768,7 @@ calls Ames "the only Republican" on the Board. That leaves the other 1932 and
 Northern Virginia Sun's OCR for January 1960 is too poor to search). Brunner
 (1984–87) stays on the county's `(I)`; the 1983 Post preview is not read.
 
-`board_seats.csv` carries the split as `dem`, `abc`, `rep`, `ind` and
+`members_by_year.csv` carries the split as `dem`, `abc`, `rep`, `ind` and
 `unrecorded`, seat-years from 1932, empty before. "Not recorded" is a band
 rather than a gap because the seats existed and were held; what is missing is
 the label.

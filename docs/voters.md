@@ -1,7 +1,7 @@
 # Voters
 
 Who voted, for whom, and how many: what each number in `data/clean/voters.csv`
-and `data/clean/turnout.csv` is, what backs it, what is assumed where nothing
+and `data/clean/voters_turnout.csv` is, what backs it, what is assumed where nothing
 does, and why. Present tense; how a decision was reached is in the git
 history. The placeholders in the `source` columns are explained in
 `code/citekeys.py`, and what is still open is in `docs/questions.csv`.
@@ -71,7 +71,7 @@ electorate did with the candidates it was offered, and it is not coded the
 same way as the roster: a candidate is counted under the label the county
 prints after their name, not under the party reporting later attached to the
 winner. Votes for Dorothy Grotos in 1975 sit in "other" here while her seat
-is Republican in `board_party`, deliberately; one figure is the choice on the
+is Republican in `members_party`, deliberately; one figure is the choice on the
 ballot, the other who sat. 1931–2021 is the county's candidate history, every
 general and special contest in a year summed; 2022 on is the state database,
 which names a party on the 2022 general and none after, so from 2023 a
@@ -95,7 +95,7 @@ ABC) and 2003 (one Republican).
 
 ## Turnout
 
-`data/clean/turnout.csv` puts four measures side by side, one row per year:
+`data/clean/voters_turnout.csv` puts four measures side by side, one row per year:
 votes cast in the November County Board contests and the seats they filled;
 the people that represents; registered voters; the population 18 and over;
 and the presidential vote. Each measure has its own source column, because a
@@ -106,7 +106,7 @@ filled, so `board_voters` divides the votes by the seats: exactly the number
 of people who voted for the Board when one seat was filled, and a lower bound
 when more than one was. **Seats are counted from the roster, not read off the
 page.** The county prints "Vote for 2" on some two-seat contests and nothing
-on others, so the build counts the terms in `board_members.csv` that an
+on others, so the build counts the terms in `members.csv` that an
 election seated the following January, or a special election seated that
 November. That makes 1931, 1935 and 1939 five-seat elections (the whole
 Board, before terms were staggered), 1943 and 1960 two (1960 is the regular
@@ -119,7 +119,7 @@ it.
 
 **Which years are not the county's vote.** The county's own page says its
 tallies are complete only from 1971. One rule, in `code/clean/elections.py`,
-decides for `voters.csv` and `turnout.csv` alike. A year is marked incomplete and not drawn
+decides for `voters.csv` and `voters_turnout.csv` alike. A year is marked incomplete and not drawn
 where a named candidate has no count (1942, 1949, and Frisbie in 1947, whose
 page also says its totals are from 8 of 11 precincts) or where the page says
 others ran who are not listed (1931). Before 1932 the Board was elected by

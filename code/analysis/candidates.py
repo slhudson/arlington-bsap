@@ -1,4 +1,4 @@
-"""Black candidacies for the Board, 1870-2026 -> figures/board_candidacies.pdf, .png
+"""Black candidacies for the Board, 1870-2026 -> figures/candidates.pdf, .png
 
 A timeline strip: one dot per Black candidate's run for a seat, at its
 year, filled if the candidate won and a ring if not; runs in the same year
@@ -34,4 +34,4 @@ for profile in style.PROFILES:
     charts.years(ax, 1870, 2020, step=20, label="year", through=members.LAST + 1)
     charts.rule(ax)
     charts.dot_legend(fig, shown, profile)
-    paths.save(fig, "board_candidacies", profile)
+    paths.save(fig, "candidates", profile)

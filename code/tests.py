@@ -26,23 +26,23 @@ import citekeys  # noqa: E402
 # load under it.
 sys.path.insert(0, str(ROOT / "code" / "build"))
 import paths as build_paths  # noqa: E402
-import board_claims  # noqa: E402
+import members_claims  # noqa: E402
 sys.path.remove(str(ROOT / "code" / "build"))
 del sys.modules["paths"]
 
 sys.path.insert(0, str(ROOT / "code" / "clean"))
-import board_candidacies  # noqa: E402
-import board_census  # noqa: E402
-import board_members  # noqa: E402
+import candidates  # noqa: E402
+import members_census  # noqa: E402
+import members  # noqa: E402
 import paths  # noqa: E402
-import board_roster  # noqa: E402
-import board_roster_oleary  # noqa: E402
-import board_roster_results  # noqa: E402
-import board_terms  # noqa: E402
-import board_seats  # noqa: E402
+import members_roster  # noqa: E402
+import members_roster_oleary  # noqa: E402
+import members_roster_results  # noqa: E402
+import members_terms  # noqa: E402
+import members_by_year  # noqa: E402
 import residents  # noqa: E402
 import residents_by_district  # noqa: E402
-import turnout  # noqa: E402
+import voters_turnout  # noqa: E402
 import voters  # noqa: E402
 
 # The fetch stage has a paths.py of its own too.
@@ -79,12 +79,12 @@ def patch_source(when, change):
 
 def patch_claims(kind, change):
     """A mangle for the clean stage's paths.built: `change` is applied to
-    the rows of data/built/board_claims.csv from one claim file, or to
+    the rows of data/built/members_claims.csv from one claim file, or to
     every row when `kind` is None."""
     def mangle(orig):
         def patched(stem):
             d = orig(stem)
-            if stem == "board_claims":
+            if stem == "members_claims":
                 rows = (d.claim == kind) if kind else pd.Series(True, index=d.index)
                 d = pd.concat([d[~rows], change(d[rows].copy())], ignore_index=True)
             return d
@@ -104,13 +104,13 @@ def patch_built(stem, change):
 
 
 def candidacies_with(change):
-    """The error board_candidacies.build() raises with the built candidacy
+    """The error candidates.build() raises with the built candidacy
     table changed, or None. The tests run before the clean stage, so the
-    board_members.csv it reads is last run's: the run's start is set aside."""
+    members.csv it reads is last run's: the run's start is set aside."""
     started = os.environ.pop("RUN_STARTED", None)
     try:
-        return breaks(paths, "built", patch_built("board_candidacies", change),
-                      build=board_candidacies.build)
+        return breaks(paths, "built", patch_built("candidates", change),
+                      build=candidates.build)
     finally:
         if started:
             os.environ["RUN_STARTED"] = started
@@ -221,7 +221,7 @@ def test_a_wrong_sex_by_age_cell_number_is_refused():
 
 
 def test_the_two_counts_of_the_adult_population_must_agree():
-    """residents.csv sums six bands out of the sex-by-age table; turnout.csv
+    """residents.csv sums six bands out of the sex-by-age table; voters_turnout.csv
     reads the 18-and-over table. Different tables, same census, same figure."""
     def mangle(orig):
         def patched(stem):
@@ -231,7 +231,7 @@ def test_the_two_counts_of_the_adult_population_must_agree():
                 d.loc[d.year == 2020, "age65plus"] = 0
             return d
         return patched
-    err = breaks(turnout, "read", mangle)
+    err = breaks(voters_turnout, "read", mangle)
     assert err and "the age bands in residents.csv give" in err, f"not caught: {err}"
 
 
@@ -290,7 +290,7 @@ def test_race_and_gender_must_account_for_the_same_seats():
             d.loc[d.index[d.year == 1975][0], "gender"] = "unrecorded"
             return d
         return patched
-    err = breaks(board_seats, "months_held", mangle)
+    err = breaks(members_by_year, "months_held", mangle)
     assert err and "same seats" in err, f"not caught: {err}"
 
 
@@ -303,36 +303,36 @@ def test_a_wrong_term_length_is_rejected():
             d.loc[at_large, "end_year"] += 1
             return d
         return patched
-    err = breaks(board_roster_results, "terms", mangle, build=board_roster.build)
+    err = breaks(members_roster_results, "terms", mangle, build=members_roster.build)
     assert err and "at large" in err, f"not caught: {err}"
 
 
 def test_the_seat_table_before_1932_does_not_depend_on_the_roster():
     """A member with a term in the middle of the years no source names.
-    board_seats states those years itself, so adding people to the roster
-    for them (board_terms.csv) must not move a seat-year. If the stated
+    members_by_year states those years itself, so adding people to the roster
+    for them (members_terms.csv) must not move a seat-year. If the stated
     years were read from the roster instead, the surrounding years would
     read as unfilled and this member would appear in the race, gender
     and party columns."""
-    stated = list(board_seats.NO_ROSTER_YEARS)
-    assert stated == list(range(1912, board_terms.AT_LARGE_FROM)), f"stated years are {stated[0]}-{stated[-1]}"
-    real = board_seats.build()
-    read = board_seats.read
+    stated = list(members_by_year.NO_ROSTER_YEARS)
+    assert stated == list(range(1912, members_terms.AT_LARGE_FROM)), f"stated years are {stated[0]}-{stated[-1]}"
+    real = members_by_year.build()
+    read = members_by_year.read
 
     def with_a_member(name):
         members = read(name)
-        if name != "board_members":
+        if name != "members":
             return members
         extra = members.iloc[[0]].copy()
         extra["held_from"], extra["held_to"] = 1925 * 12, 1926 * 12
         extra["race"], extra["gender"], extra["party"] = "Black", "woman", "Democratic"
         return pd.concat([members, extra], ignore_index=True)
 
-    board_seats.read = with_a_member
+    members_by_year.read = with_a_member
     try:
-        changed = board_seats.build()
+        changed = members_by_year.build()
     finally:
-        board_seats.read = read
+        members_by_year.read = read
     before, after = (t[t.year.isin(stated)].reset_index(drop=True) for t in (real, changed))
     pd.testing.assert_frame_equal(before, after)
 
@@ -346,7 +346,7 @@ def test_a_term_that_does_not_say_how_it_began_is_rejected():
                   "seated_by"] = "Elected"
             return d
         return patched
-    err = breaks(board_roster_results, "terms", mangle, build=board_roster.build)
+    err = breaks(members_roster_results, "terms", mangle, build=members_roster.build)
     assert err and "seated_by must be one of" in err, f"not caught: {err}"
 
 
@@ -359,7 +359,7 @@ def test_prose_in_the_name_column_is_rejected():
                     row = dict(row, name="A. D. Torreyson elected, but contested")
                 yield row
         return patched
-    err = breaks(board_roster_oleary, "terms", mangle, build=board_roster.build)
+    err = breaks(members_roster_oleary, "terms", mangle, build=members_roster.build)
     assert err and "prose" in err, f"not caught: {err}"
 
 
@@ -368,18 +368,18 @@ def test_an_attributed_name_that_misses_the_roster_is_rejected():
     def rename(d):
         d.loc[d.name == "Ellen Bozman", "name"] = "Bozman"
         return d
-    err = breaks(paths, "built", patch_claims("demographics", rename), build=board_members.build)
+    err = breaks(paths, "built", patch_claims("demographics", rename), build=members.build)
     assert err and "not in the roster" in err, f"not caught: {err}"
 
 
 def test_words_with_no_category_are_refused():
     """A race, gender or party as a source words it that clean has no
     category for: the transcribed files keep the words, so a new phrasing has
-    to be decided in code/clean/board_members.py before it counts."""
+    to be decided in code/clean/members.py before it counts."""
     def novel(d):
         d.loc[d.name == "William A. Rowe", "race_words"] = "a man of color"
         return d
-    err = breaks(paths, "built", patch_claims("demographics", novel), build=board_members.build)
+    err = breaks(paths, "built", patch_claims("demographics", novel), build=members.build)
     assert err and "no single category" in err, f"not caught: {err}"
 
 
@@ -406,7 +406,7 @@ def test_two_sources_disagreeing_on_race_is_a_finding():
         extra = d[d.name == "William A. Rowe"].iloc[[0]].copy()
         extra["race_words"] = "former confederate soldier"
         return pd.concat([d, extra], ignore_index=True)
-    err = breaks(paths, "built", patch_claims("demographics", contradict), build=board_members.build)
+    err = breaks(paths, "built", patch_claims("demographics", contradict), build=members.build)
     assert err and "disagree" in err, f"not caught: {err}"
 
 
@@ -417,7 +417,7 @@ def test_an_age_that_makes_a_child_a_member_is_rejected():
     def misread(d):
         d.loc[(d.name == "Harold J. Casto") & (d.age != ""), "age"] = "10"
         return d
-    err = breaks(paths, "built", patch_claims("demographics", misread), build=board_members.build)
+    err = breaks(paths, "built", patch_claims("demographics", misread), build=members.build)
     assert err and "age when first seated" in err, f"not caught: {err}"
 
 
@@ -427,7 +427,7 @@ def test_an_age_without_the_date_it_was_stated_is_rejected():
     def undated(d):
         d.loc[d.name == "Harold J. Casto", "age_date"] = ""
         return d
-    err = breaks(paths, "built", patch_claims("demographics", undated), build=board_members.build)
+    err = breaks(paths, "built", patch_claims("demographics", undated), build=members.build)
     assert err and "no year in its date" in err, f"not caught: {err}"
 
 
@@ -437,7 +437,7 @@ def test_a_birth_year_written_beside_an_age_is_rejected():
     def worked_out(d):
         d.loc[d.name == "Harold J. Casto", "birth_year"] = "1924"
         return d
-    err = breaks(paths, "built", patch_claims("demographics", worked_out), build=board_members.build)
+    err = breaks(paths, "built", patch_claims("demographics", worked_out), build=members.build)
     assert err and "both a birth year and an age" in err, f"not caught: {err}"
 
 
@@ -447,9 +447,9 @@ def test_a_census_row_that_does_not_name_what_was_checked_is_refused():
     def unchecked(d):
         d.loc[d.source == "census1950tillema", "checked"] = ""
         return d
-    err = breaks(board_claims, "source",
+    err = breaks(members_claims, "source",
                  patch_source(lambda d: "checked" in d.columns, unchecked),
-                 build=board_claims.build)
+                 build=members_claims.build)
     assert err and "what was checked" in err, f"not caught: {err}"
 
 
@@ -461,24 +461,24 @@ def test_a_place_read_only_from_the_index_is_refused():
         d.loc[d.source == "census1950kaul", "checked"] = "the index only"
         d.loc[d.source == "census1950kaul", "place"] = "N Nash St, house number 1101"
         return d
-    err = breaks(board_claims, "source",
+    err = breaks(members_claims, "source",
                  patch_source(lambda d: "checked" in d.columns, index_only),
-                 build=board_claims.build)
+                 build=members_claims.build)
     assert err and "without the sheet read" in err, f"not caught: {err}"
 
 
 def test_a_census_record_keyed_into_a_claim_file_is_refused():
     """A demographics row citing a census record. The record belongs in
-    board_census.csv as one row, and left in the claim file it would count
+    members_census.csv as one row, and left in the claim file it would count
     beside the record's own row as a second source."""
     def stray(d):
         extra = d.iloc[[0]].copy()
         extra["source"] = "census1950tillema"
         return pd.concat([d, extra], ignore_index=True)
-    err = breaks(board_claims, "source",
+    err = breaks(members_claims, "source",
                  patch_source(lambda d: "birth_year" in d.columns and "checked" not in d.columns, stray),
-                 build=board_claims.build)
-    assert err and "belongs in board_census.csv" in err, f"not caught: {err}"
+                 build=members_claims.build)
+    assert err and "belongs in members_census.csv" in err, f"not caught: {err}"
 
 
 def test_a_census_race_with_no_category_is_refused():
@@ -487,22 +487,22 @@ def test_a_census_race_with_no_category_is_refused():
     def uncoded(d):
         d.loc[d.source == "census1880allen", "race"] = "Negro"
         return d
-    err = breaks(paths, "built", patch_claims("census", uncoded), build=board_members.build)
+    err = breaks(paths, "built", patch_claims("census", uncoded), build=members.build)
     assert err and "no category" in err, f"not caught: {err}"
 
 
 def test_a_census_record_matched_on_the_name_alone_feeds_nothing():
     """A census row whose match is `none` stays in the table but gives the
     member no birth year, race, gender or place; without this a doubtful
-    match would put a stroke on board_age."""
+    match would put a stroke on members_age."""
     def weak(d):
         d.loc[d.source == "census1950tillema", "match"] = "none"
         return d
     original = paths.built
     paths.built = patch_claims("census", weak)(original)
     try:
-        m = board_members.build()
-        places = board_census.residences()
+        m = members.build()
+        places = members_census.residences()
     finally:
         paths.built = original
     t = m[m.name == "John A. Tillema"].iloc[0]
@@ -515,23 +515,23 @@ def test_a_census_match_with_no_category_is_refused():
     def novel(d):
         d.loc[d.source == "census1950tillema", "match"] = "same street"
         return d
-    err = breaks(paths, "built", patch_claims("census", novel), build=board_members.build)
+    err = breaks(paths, "built", patch_claims("census", novel), build=members.build)
     assert err and "match with no category" in err, f"not caught: {err}"
 
 
 def test_a_category_merged_in_the_build_stage_is_refused():
     """Two census race categories collapsed into one by a build step. That
     is a decision, and the stage refuses it; the same collapse in
-    code/clean/board_census.py is where it belongs. Written to a scratch
+    code/clean/members_census.py is where it belongs. Written to a scratch
     folder, so a broken guard cannot leave a collapsed table in data/built/."""
     build_paths._INPUTS.clear()
-    honest = board_claims.build()
+    honest = members_claims.build()
     assert not build_paths.lost(honest), build_paths.lost(honest)
     collapsed = honest.copy()
     collapsed.loc[collapsed.race == "Mulatto", "race"] = "Black"
     kept, build_paths.BUILT = build_paths.BUILT, Path(tempfile.mkdtemp())
     try:
-        build_paths.write(collapsed, "board_claims")
+        build_paths.write(collapsed, "members_claims")
         err = None
     except AssertionError as e:
         err = str(e)
@@ -562,7 +562,7 @@ def test_party_must_account_for_the_same_seats():
             d.loc[d.index[d.year == 1975][0], "party"] = "whig"
             return d
         return patched
-    err = breaks(board_seats, "months_held", mangle)
+    err = breaks(members_by_year, "months_held", mangle)
     assert err and "party does not account" in err, f"not caught: {err}"
 
 
@@ -574,7 +574,7 @@ def test_an_unknown_party_label_stops_the_build():
             labels[("bozman", 1993)]["labels"] = {"X"}
             return labels
         return patched
-    err = breaks(board_members, "county_labels", mangle, build=board_members.build)
+    err = breaks(members, "county_labels", mangle, build=members.build)
     assert err and "label (X)" in err, f"not caught: {err}"
 
 
@@ -584,14 +584,14 @@ def test_reporting_cannot_overrule_a_party_the_county_prints():
         extra = d.iloc[[0]].copy()
         extra["name"], extra["start_year"], extra["party_words"] = "Mary Margaret Whipple", "1983", "Republicans"
         return pd.concat([d, extra], ignore_index=True)
-    err = breaks(paths, "built", patch_claims("party", contradict), build=board_members.build)
+    err = breaks(paths, "built", patch_claims("party", contradict), build=members.build)
     assert err and "county lists (D)" in err, f"not caught: {err}"
 
 
 def test_a_citekey_with_no_bibliography_entry_is_rejected():
     """A source cell naming no entry in sources.bib."""
     try:
-        citekeys.check(["novack1994 p.4", "oleary2O10 p.6"], "board_members.csv")
+        citekeys.check(["novack1994 p.4", "oleary2O10 p.6"], "members.csv")
         err = None
     except AssertionError as e:
         err = str(e)
@@ -616,7 +616,7 @@ def test_more_board_voters_than_registered_voters_is_rejected():
             r.loc[r.year == 2020, "registered"] = 100000
             return r
         return patched
-    err = breaks(turnout, "registration", mangle)
+    err = breaks(voters_turnout, "registration", mangle)
     assert err and "registered" in err and "2020" in err, f"not caught: {err}"
 
 
@@ -628,7 +628,7 @@ def test_more_board_voters_than_presidential_voters_is_rejected():
             b.loc[b.year == 1972, "board_votes"] *= 2
             return b
         return patched
-    err = breaks(turnout, "board_votes", mangle)
+    err = breaks(voters_turnout, "board_votes", mangle)
     assert err and "presidential" in err and "1972" in err, f"not caught: {err}"
 
 
@@ -665,7 +665,7 @@ def test_a_candidacy_that_matches_no_election_is_refused():
 
 def test_a_black_members_election_with_no_candidacy_is_refused():
     """Pendleton's 1883 row left out: his seat would still count in
-    board_race, and this figure would show 1883 as a year nobody ran."""
+    members_race, and this figure would show 1883 as a year nobody ran."""
     err = candidacies_with(lambda d: d[d.name != "John W. Pendleton"])
     assert err and "a term, no candidacy" in err, f"not caught: {err}"
 
@@ -786,7 +786,7 @@ def test_a_stale_input_table_is_refused():
     """A clean table older than the run's start."""
     os.environ["RUN_STARTED"] = str(2e10)
     try:
-        paths.read("board_members")
+        paths.read("members")
         err = None
     except AssertionError as e:
         err = str(e)

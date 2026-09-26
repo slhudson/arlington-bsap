@@ -13,16 +13,16 @@ BODY_TEXT_NUMBERS = ROOT / "paper" / "body_text_numbers.tex"
 
 RESIDENTS = CLEAN / "residents.csv"
 RESIDENTS_BY_DISTRICT = CLEAN / "residents_by_district.csv"
-BOARD_MEMBERS = CLEAN / "board_members.csv"
-BOARD_SEATS = CLEAN / "board_seats.csv"
-BOARD_RESIDENCE = CLEAN / "board_residence.csv"
+MEMBERS = CLEAN / "members.csv"
+MEMBERS_BY_YEAR = CLEAN / "members_by_year.csv"
+BOARD_RESIDENCE = CLEAN / "members_residence.csv"
 VOTERS = CLEAN / "voters.csv"
-TURNOUT = CLEAN / "turnout.csv"
-BOARD_PEERS = CLEAN / "board_peers.csv"
-BOARD_CANDIDACIES = CLEAN / "board_candidacies.csv"
+VOTERS_TURNOUT = CLEAN / "voters_turnout.csv"
+BOARD_PEERS = CLEAN / "localities.csv"
+BOARD_CANDIDACIES = CLEAN / "candidates.csv"
 
-for _f in (RESIDENTS, RESIDENTS_BY_DISTRICT, BOARD_MEMBERS, BOARD_SEATS, BOARD_RESIDENCE,
-           VOTERS, TURNOUT, BOARD_PEERS, BOARD_CANDIDACIES):
+for _f in (RESIDENTS, RESIDENTS_BY_DISTRICT, MEMBERS, MEMBERS_BY_YEAR, BOARD_RESIDENCE,
+           VOTERS, VOTERS_TURNOUT, BOARD_PEERS, BOARD_CANDIDACIES):
     if not _f.exists():
         raise FileNotFoundError(f"{_f} missing - run the build stage first (bash run.sh)")
 

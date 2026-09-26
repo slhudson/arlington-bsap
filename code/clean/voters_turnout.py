@@ -1,4 +1,4 @@
-"""Who votes for the County Board, year by year -> data/clean/turnout.csv
+"""Who votes for the County Board, year by year -> data/clean/voters_turnout.csv
 
 One row per year in which any of these is measured, 1872-2025:
 
@@ -31,7 +31,7 @@ import re
 
 import pandas as pd
 
-import board_terms
+import members_terms
 import census
 import citekeys
 import elections
@@ -65,9 +65,9 @@ CYCLE = {0: "president", 1: "governor", 2: "midterm", 3: "delegates"}
 def seats_filled(roster: pd.DataFrame, year: int) -> int:
     """Seats the November election of `year` filled: terms an election
     seated the next January, or a special election seated that November."""
-    regular = ((roster.seated_by == board_terms.ELECTION)
+    regular = ((roster.seated_by == members_terms.ELECTION)
                & (roster.start_year == year + 1) & (roster.start_month == 1))
-    special = ((roster.seated_by == board_terms.SPECIAL_ELECTION)
+    special = ((roster.seated_by == members_terms.SPECIAL_ELECTION)
                & (roster.start_year == year) & (roster.start_month == 11))
     n = int((regular | special).sum())
     if not 1 <= n <= 5:
@@ -181,12 +181,12 @@ def president() -> pd.DataFrame:
 
 
 def build() -> pd.DataFrame:
-    roster = read("board_members")
+    roster = read("members")
     board = pd.concat([board_districts(), board_votes(roster)], ignore_index=True)
     # The whole Board was elected every fourth year until terms were
     # staggered from 1940; from then on a seat is filled every November.
     years = list(board[board.year >= 1931].year)
-    assert years == [1931, 1935, 1939] + list(range(1940, board_terms.PRESENT)), \
+    assert years == [1931, 1935, 1939] + list(range(1940, members_terms.PRESENT)), \
         f"a November Board contest is missing or extra: {years}"
     board["board_voters"] = (board.board_votes / board.board_seats).round().astype(int)
 
@@ -234,4 +234,4 @@ def build() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    write(build(), "turnout")
+    write(build(), "voters_turnout")

@@ -1,4 +1,4 @@
-"""Virginia's other governing bodies beside Arlington's -> data/built/board_peers.csv
+"""Virginia's other governing bodies beside Arlington's -> data/built/localities.csv
 
 One row per locality whose governing body is keyed in: the 38 independent
 cities from the Richmond Charter Review Commission's Appendix D, and the
@@ -15,7 +15,7 @@ census population and its land area, joined on the locality's name.
     residents         the 2020 census total, and residents_source
     land_sq_mi        land area in square miles, and land_source
 
-Nothing is added up or chosen here: code/clean/board_peers.py decides what
+Nothing is added up or chosen here: code/clean/localities.py decides what
 a city's council counts as.
 """
 import zipfile
@@ -75,4 +75,4 @@ def build() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    write(build(), "board_peers")
+    write(build(), "localities")

@@ -1,7 +1,7 @@
 # Localities
 
 The governing body of every Virginia locality Arlington's Board is set beside,
-and how large each place is: what each number in `data/clean/board_peers.csv`
+and how large each place is: what each number in `data/clean/localities.csv`
 is, what backs it, what is assumed where nothing does, and why. Present tense;
 how a decision was reached is in the git history. The placeholders in the
 `source` columns are explained in `code/citekeys.py`, and what is still open is
@@ -16,12 +16,12 @@ Nothing. Which localities are shown is a decision, and it is below.
 
 
 ## The peer set
-`board_peers.csv` sets Arlington's Board beside the governing body of every
+`localities.csv` sets Arlington's Board beside the governing body of every
 Virginia independent city and of fourteen counties: the thirteen largest
 other than Arlington, and Rockingham. The figures show those of 100,000
 residents or more, eighteen in all, and leave the choice of peer to the
-reader: places Arlington's size in `board_peers_residents`, places as dense
-in `board_peers_density`.
+reader: places Arlington's size in `localities_residents`, places as dense
+in `localities_density`.
 
 A city's council is the Richmond Charter Review Commission's count
 (`richmond2023`, Appendix D). A Mayor elected at large counts as a member,

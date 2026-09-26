@@ -4,7 +4,7 @@ A module, not a step.
 The seats that exist, how a term begins, how long one runs by statute and
 the year the roster is checked to; and the readers the sources share, a
 month or a year in a source's prose and a term listing in
-data/built/board_claims.csv. docs/board.md has the reasoning.
+data/built/members_claims.csv. docs/members.md has the reasoning.
 """
 import re
 
@@ -13,7 +13,7 @@ import pandas as pd
 import paths
 from elections import MONTHS
 
-PRESENT = 2026            # checked month by month up to here; board_seats stops here
+PRESENT = 2026            # checked month by month up to here; members_by_year stops here
 
 # The seats that exist: three district supervisors from 1870, five members
 # at large from January 1932 (anderson1958).
@@ -48,7 +48,7 @@ def month_of(text):
 
 
 def listing(kind) -> pd.DataFrame:
-    """The rows of one term listing, from data/built/board_claims.csv, every
+    """The rows of one term listing, from data/built/members_claims.csv, every
     cell as keyed in and a blank a blank."""
-    c = paths.built("board_claims")
+    c = paths.built("members_claims")
     return c[c.claim == kind].reset_index(drop=True)

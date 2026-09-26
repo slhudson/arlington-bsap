@@ -1,16 +1,16 @@
-"""Census rows in the claim files -> transcribed/by_claude/board_census.csv
+"""Census rows in the claim files -> transcribed/by_claude/members_census.csv
 
 Moves every row that cites a census record (a citekey census<year><name>)
-out of board_demographics.csv and board_residence.csv and into one row per
-record in board_census.csv. The rows left behind, newspapers, obituaries
+out of members_demographics.csv and members_residence.csv and into one row per
+record in members_census.csv. The rows left behind, newspapers, obituaries
 and secondary sources, are untouched, byte for byte. Re-runnable: a record
 already in the table is merged with any new rows that cite it, and two
 statements that differ stop the script rather than one overwriting the
 other. Run by hand, output committed.
 
-    .venv/bin/python code/transcribe/board_census.py
+    .venv/bin/python code/transcribe/members_census.py
 
-What each column holds is in docs/board.md, "Census records".
+What each column holds is in docs/members.md, "Census records".
 """
 import csv
 import re
@@ -18,9 +18,9 @@ from io import StringIO
 
 from paths import BY_CLAUDE
 
-DEMOGRAPHICS = BY_CLAUDE / "board_demographics.csv"
-RESIDENCE = BY_CLAUDE / "board_residence.csv"
-OUT = BY_CLAUDE / "board_census.csv"
+DEMOGRAPHICS = BY_CLAUDE / "members_demographics.csv"
+RESIDENCE = BY_CLAUDE / "members_residence.csv"
+OUT = BY_CLAUDE / "members_census.csv"
 
 COLUMNS = ["name", "source", "year", "basis", "checked", "gender", "race", "age",
            "birth_year", "birthplace", "occupation", "place", "quote", "sheet"]

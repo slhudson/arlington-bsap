@@ -45,7 +45,7 @@ LABELS = {
     "NP": "independent",
     "IM": "independent",               # 1954, presumably Arlington Independent Movement
     "Convention": "",                  # 1955: a convention the source does not name
-    # Labels no winner has carried; board_members.py stops on one.
+    # Labels no winner has carried; members.py stops on one.
     "AIM": "other", "Ind. Dem.": "other", "Ind. Rep.": "other",
     "G": "other", "IG": "other", "Va. Reform": "other",
 }
