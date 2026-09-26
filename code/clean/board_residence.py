@@ -4,9 +4,7 @@ Every claim in data/transcribed/by_claude/board_residence.csv, and the place
 from each census record in board_census.csv through board_census.py, one row
 per claim with its source, basis and quote, and how precisely the place is
 named (PRECISION). Nothing is coded North or South and no claim is chosen
-over another; docs/board.md has what is open. A member seated for a
-magisterial district also gets a district claim from the office, source
-`derived` (residence_district.py).
+over another; docs/board.md has what is open.
 """
 import re
 
@@ -14,7 +12,6 @@ import pandas as pd
 
 import board_census
 import paths
-import residence_district
 from paths import write
 
 # How exactly a place is named, most to least: a house on a street, a street
@@ -54,8 +51,6 @@ def build() -> pd.DataFrame:
     stated = c.loc[c.claim == "residence", ["name", "year", "place", "basis", "source", "quote"]]
     claims = pd.concat([stated, board_census.residences()], ignore_index=True).fillna("")
     claims["precision"] = [precision(p) for p in claims.place]
-    claims = pd.concat([claims, residence_district.district_claims(paths.read("board_members"))],
-                       ignore_index=True)
     return claims.sort_values(["name", "year"], kind="stable")
 
 
