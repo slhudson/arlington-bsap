@@ -417,20 +417,21 @@ coded North or South and no claim is chosen over another; the coverage
 figure takes each member's most exact dated place in each year.
 
 **How much is known, for the 75 members first seated from 1932 on**
-(recomputed from the clean tables on 26 September 2026; the earlier count in
-the tracker row agreed on every address and differed by one or two in the
-lesser kinds, from where "within five years" was measured):
+(recomputed from the clean tables on 26 September 2026). A member is counted
+under the most exact kind of place any source gives him, and dated by the
+best-dated row of that kind: during service if the row's year falls inside a
+term, otherwise by the distance to the nearest term's ends.
 
 | Most exact place held | Dated during service | Within 5 years of it | 6 or more years from it | Undated | Members |
 |---|---|---|---|---|---|
-| Street address | 14 | 18 | 8 | 0 | 40 |
+| Street address | 14 | 19 | 8 | 0 | 41 |
 | Street name | 2 | 0 | 1 | 0 | 3 |
 | Neighborhood | 10 | 1 | 4 | 2 | 17 |
-| Side of the County | 0 | 0 | 0 | 2 | 2 |
-| Nothing | | | | | 13 |
+| Side of the County | 1 | 1 | 0 | 0 | 2 |
+| Nothing | | | | | 12 |
 
-So 40 of the 75 have a street address and 62 have a place of some kind,
-but only 26 of the 62 are placed by a source dated to their service. The
+So 41 of the 75 have a street address and 63 have a place of some kind,
+but only 27 of the 63 are placed by a source dated to their service. The
 sources found online give a place at the time of writing, an obituary's
 address is where the person died, and a candidate profile's is where they
 lived when they ran; County records may give an address at taking office
@@ -615,6 +616,19 @@ Corbett's birth years come from printed dates, not ages, and Phillips's
 initial bears only on the strength of his match, which rests on R. H. and
 is weaker than its `basis` says until a second source gives the middle
 name. The other pre-1912 readings stand as read.
+
+**B. M. Smith, 1930 and 1940.** The member appointed in June 1933 is
+**Benjamin M. Smith**, a real-estate salesman in 1930 and a broker in 1940,
+working on his own account both years. The *Evening Star* calls its B. M.
+Smith a real-estate dealer with an office at 443 Columbia Pike; this man
+lives at 439 Columbia Pike in 1930 and 2908 Columbia Pike in 1940, and is
+the only B. M. Smith in the county's index in either year in the trade. Both
+streets were read off the sheet, where the name is written across the lines
+in the left margin. The 1940 sheet's residence column for 1 April 1935 reads
+**same house**, which dates the address inside his term, and the two ages
+give him a birth year, 1885, within a year. **Lowry** is still unplaced: he
+is in no 1940 or 1950 census index under Roye or any near spelling, and
+Ancestry holds no Arlington city directory at all (`residence-1932-1962`).
 
 **Detwiler's sheet number, 1940.** The sheet is **63A**, and Ancestry's
 index's 62A is the sheet before it. The sheet's own number is a 3 written
