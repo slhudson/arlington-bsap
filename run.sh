@@ -24,11 +24,12 @@ BUILD=(elections board_claims board_candidacies census registration board_peers 
 # Stage 2: data/built/ -> data/clean/. Every decision about what a number
 # is. Each step is named for the file it writes, and later steps read what
 # earlier ones wrote.
-CLEAN=(residents board_members board_candidacies board_residence board_seats voters turnout board_peers)
+CLEAN=(residents residents_by_district board_members board_candidacies board_residence board_seats voters turnout board_peers)
 
 # Stage 3: data/clean/ -> figures/. Each step is named for the figure it
-# writes. Three subjects, alphabetical within each.
-FIGURES=(residents_by_age residents_by_race residents_per_seat turnout voters_board voters_president board_age board_age_coverage board_candidacies board_gender board_party board_peers_density board_peers_residents board_race board_residence_coverage)
+# writes. Three subjects, alphabetical within each; last, the one step that
+# writes the numbers the prose cites, paper/body_text_numbers.tex, instead.
+FIGURES=(residents_by_age residents_by_race residents_per_seat turnout voters_board voters_president board_age board_age_coverage board_candidacies board_gender board_party board_peers_density board_peers_residents board_race board_residence_coverage body_text_numbers)
 
 echo "lint"
 "$PY" -m pyflakes code style || { echo "  pyflakes: fix the above"; exit 1; }
@@ -69,14 +70,16 @@ if [ $# -gt 0 ]; then
 fi
 for s in "${selected[@]}"; do
   printf '  %-34s' "$s"
+  outputs=("figures/pdf/$s.pdf" "figures/png/$s.png")
+  [ "$s" = body_text_numbers ] && outputs=("paper/$s.tex")
   # Removed first, so a script saving under the wrong name cannot pass on a
   # previous run's copy.
-  rm -f "figures/pdf/$s.pdf" "figures/png/$s.png"
+  rm -f "${outputs[@]}"
   (cd code/analysis && ../../"$PY" "$s.py") >/dev/null
-  for kind in pdf png; do
-    [ -f "figures/$kind/$s.$kind" ] || {
+  for out in "${outputs[@]}"; do
+    [ -f "$out" ] || {
       echo "FAILED"
-      echo "    $s.py did not write figures/$kind/$s.$kind"
+      echo "    $s.py did not write $out"
       echo "    A script must save under its own name - check its files.save() call."
       exit 1; }
   done

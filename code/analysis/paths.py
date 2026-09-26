@@ -1,15 +1,18 @@
 """Where real paths are assigned to the short names this stage uses.
 
-Maps data/clean/ and figures/, and defines no route to data/raw/ or
-data/transcribed/ (CLAUDE.md).
+Maps data/clean/, figures/ and the one file of numbers the prose cites,
+paper/body_text_numbers.tex, and defines no route to data/raw/,
+data/transcribed/ or data/built/ (CLAUDE.md).
 """
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 CLEAN = ROOT / "data" / "clean"
 FIGURES = ROOT / "figures"
+BODY_TEXT_NUMBERS = ROOT / "paper" / "body_text_numbers.tex"
 
 RESIDENTS = CLEAN / "residents.csv"
+RESIDENTS_BY_DISTRICT = CLEAN / "residents_by_district.csv"
 BOARD_MEMBERS = CLEAN / "board_members.csv"
 BOARD_SEATS = CLEAN / "board_seats.csv"
 BOARD_RESIDENCE = CLEAN / "board_residence.csv"
@@ -18,8 +21,8 @@ TURNOUT = CLEAN / "turnout.csv"
 BOARD_PEERS = CLEAN / "board_peers.csv"
 BOARD_CANDIDACIES = CLEAN / "board_candidacies.csv"
 
-for _f in (RESIDENTS, BOARD_MEMBERS, BOARD_SEATS, BOARD_RESIDENCE, VOTERS, TURNOUT, BOARD_PEERS,
-           BOARD_CANDIDACIES):
+for _f in (RESIDENTS, RESIDENTS_BY_DISTRICT, BOARD_MEMBERS, BOARD_SEATS, BOARD_RESIDENCE,
+           VOTERS, TURNOUT, BOARD_PEERS, BOARD_CANDIDACIES):
     if not _f.exists():
         raise FileNotFoundError(f"{_f} missing - run the build stage first (bash run.sh)")
 

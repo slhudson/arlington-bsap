@@ -1,7 +1,7 @@
 # Census volumes not kept in git
 
-Sixteen scans the build never reads are not in this repository, because together
-they are 175MB and would push Overleaf past its ceiling. `data/contents.csv`
+Twenty-four scans the build never reads are not in this repository, because
+together they are about 250MB and would push Overleaf past its ceiling. `data/contents.csv`
 has each one's URL and checksum. To fetch them, refusing any byte that differs:
 
     .venv/bin/python code/fetch/census_volumes.py
@@ -15,6 +15,14 @@ and race counts were read from:
 - `1890/1890a_v1-12.pdf`
 - `1890/1890a_v1-13.pdf`
 - `1890/1890a_v1-14.pdf`
+
+The 1900-1930 volumes' front matter, on which each bibliography entry rests,
+and the chunk holding the county's magisterial districts:
+
+- `1900/volume-1-p1.pdf`, `1900/volume-1-p8.pdf`
+- `1910/volume-3-p1.pdf`, `1910/volume-3-p8.pdf`
+- `1920/41084484v1.pdf`, `1920/41084484v1ch5.pdf`
+- `1930/03815512v1.pdf`, `1930/03815512v1ch10.pdf`
 
 The 1930-1970 volumes' front matter, on which each bibliography entry rests,
 and the chapter holding Arlington's age tables:
