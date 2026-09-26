@@ -1,106 +1,106 @@
-year,cycle,board_votes,board_seats,board_voters,board_complete,board_source,board_note,registered,registered_all,registered_source,voting_age,voting_age_source,voting_age_est,voting_age_est_source,president_votes,president_source
-1872,,,,,,,,,,,,,,,580,derived
-1876,,,,,,,,,,,,,,,824,derived
-1880,,,,,,,,,,,,,,,721,derived
-1884,,,,,,,,,,,,,,,772,derived
-1888,,,,,,,,,,,,,,,721,derived
-1892,,,,,,,,,,,,,,,764,derived
-1900,,,,,,,,,,,,,,,826,derived
-1907,,756,3,252,True,oleary2010 p.25,"one seat per district, so one vote per voter",,,,,,,,,
-1912,,,,,,,,,,,,,,,485,derived
-1915,,876,3,292,True,oleary2010 p.27,"one seat per district, so one vote per voter",,,,,,,,,
-1916,,,,,,,,,,,,,,,804,derived
-1920,,,,,,,,,,,,,,,1831,derived
-1924,,,,,,,,,,,,,,,2921,derived
-1928,,,,,,,,,,,,,,,5718,derived
-1931,delegates,9760,5,1952,False,arlingtonelections2021 p.6,(others not mentioned),,,,,,,,,
-1932,president,,,,,,,,,,,,,,6234,derived
-1935,delegates,15869,5,3174,True,arlingtonelections2021 p.10,,,,,,,,,,
-1936,president,,,,,,,,,,,,,,7835,derived
-1939,delegates,33689,5,6738,True,arlingtonelections2021 p.12,,,,,,,,,,
-1940,president,9666,1,9666,True,arlingtonelections2021 p.12,,,,,,,,,9862,derived
-1941,governor,2797,1,2797,True,arlingtonelections2021 p.12,,,,,,,,,,
-1942,midterm,0,1,0,False,arlingtonelections2021 p.13,no vote count for campbell,,,,,,,,,
-1943,delegates,16715,2,8358,True,arlingtonelections2021 p.13,,,,,,,,,,
-1944,president,13156,1,13156,True,arlingtonelections2021 p.14,,,,,,,,,15499,derived
-1945,governor,5461,1,5461,True,arlingtonelections2021 p.14,,,,,,,,,,
-1946,midterm,10532,1,10532,True,arlingtonelections2021 p.14,,,,,,,,,,
-1947,delegates,13849,2,6924,False,arlingtonelections2021 p.15,no vote count for frisbie,,,,,,,,,
-1948,president,19585,1,19585,True,arlingtonelections2021 p.18,,,,,,,,,20111,derived
-1949,governor,0,1,0,False,arlingtonelections2021 p.18,"no vote count for bechtel, cox, delashmutt",,,,,,,,,
-1950,midterm,16477,1,16477,True,arlingtonelections2021 p.19,,,,,,,,,,
-1951,delegates,30738,2,15369,True,arlingtonelections2021 p.21,,,,,,,,,,
-1952,president,128686,4,32172,True,arlingtonelections2021 p.22,,,,,,,,,36380,derived
-1953,governor,19066,1,19066,True,arlingtonelections2021 p.25,,,,,,,,,,
-1954,midterm,24322,1,24322,True,arlingtonelections2021 p.26,,,,,,,,,,
-1955,delegates,38295,2,19148,True,arlingtonelections2021 p.28,,,,,,,,,,
-1956,president,35807,1,35807,True,arlingtonelections2021 p.30,,,,,,,,,39725,derived
-1957,governor,25575,1,25575,True,arlingtonelections2021 p.31,,,,,,,,,,
-1958,midterm,29013,1,29013,True,arlingtonelections2021 p.33,,,,,,,,,,
-1959,delegates,27934,2,13967,True,arlingtonelections2021 p.34,,,,,,,,,,
-1960,president,42573,2,21286,True,arlingtonelections2021 p.36,,,,,,,,,45977,derived
-1961,governor,19835,1,19835,True,arlingtonelections2021 p.37,,,,,,,,,,
-1962,midterm,29092,1,29092,True,arlingtonelections2021 p.38,,,,,,,,,,
-1963,delegates,43204,2,21602,True,arlingtonelections2021 p.40,,,,,,,,,,
-1964,president,40727,1,40727,True,arlingtonelections2021 p.41,,,,,,,,,54363,derived
-1965,governor,23256,1,23256,True,arlingtonelections2021 p.43,,,,,,,,,,
-1966,midterm,37330,1,37330,True,arlingtonelections2021 p.44,,,,,,,,,,
-1967,delegates,55806,2,27903,True,arlingtonelections2021 p.46,,,,,,,,,,
-1968,president,50772,1,50772,True,arlingtonelections2021 p.47,,,,,,,,,61326,derived
-1969,governor,32126,1,32126,True,arlingtonelections2021 p.49,,,,,,,,,,
-1970,midterm,42355,1,42355,True,arlingtonelections2021 p.50,,,,,,,,,,
-1971,delegates,61238,2,30619,True,arlingtonelections2021 p.52,,,,,,,,,,
-1972,president,60316,1,60316,True,arlingtonelections2021 p.54,,,,,,,,,66383,derived
-1973,governor,35092,1,35092,True,arlingtonelections2021 p.55,,,,,,,,,,
-1974,midterm,42122,1,42122,True,arlingtonelections2021 p.56,,,,,,,,,,
-1975,delegates,55041,2,27520,True,arlingtonelections2021 p.57,,,,,,,,,,
-1976,president,59547,1,59547,True,arlingtonelections2021 p.59,,,,,,,,,64599,derived
-1977,governor,33154,1,33154,True,arlingtonelections2021 p.61,,,,,,,,,,
-1978,midterm,41493,1,41493,True,arlingtonelections2021 p.62,,,,,,,,,,
-1979,delegates,60151,2,30076,True,arlingtonelections2021 p.63,,,,,,,,,,
-1980,president,45882,1,45882,True,arlingtonelections2021 p.64,,,,,127630,census1980stf1a stf1a_table10_age_virginia_counties.csv,127630,derived,66861,derived
-1981,governor,42377,1,42377,True,arlingtonelections2021 p.65,,,,,,,129373,derived,,
-1982,midterm,48572,1,48572,True,arlingtonelections2021 p.66,,,,,,,131116,derived,,
-1983,delegates,66166,2,33083,True,arlingtonelections2021 p.68,,,,,,,132858,derived,,
-1984,president,59521,1,59521,True,arlingtonelections2021 p.68,,,,,,,134601,derived,72242,derived
-1985,governor,37104,1,37104,True,arlingtonelections2021 p.70,,,,,,,136344,derived,,
-1986,midterm,37743,1,37743,True,arlingtonelections2021 p.70,,,,,,,138087,derived,,
-1987,delegates,73549,2,36774,True,arlingtonelections2021 p.71,,,,,,,139830,derived,,
-1988,president,69529,1,69529,True,arlingtonelections2021 p.72,,,,,,,141572,derived,75365,derived
-1989,governor,49216,1,49216,True,arlingtonelections2021 p.73,,,,,,,143315,derived,,
-1990,midterm,44105,1,44105,True,arlingtonelections2021 p.74,,,,,145058,census1990stf1a stf1a_age_virginia_counties.csv,145058,derived,,
-1991,delegates,57804,2,28902,True,arlingtonelections2021 p.76,,,,,,,146374,derived,,
-1992,president,74177,1,74177,True,arlingtonelections2021 p.76,,,,,,,147689,derived,82584,derived
-1993,governor,48800,1,48800,True,arlingtonelections2021 p.78,,,,,,,149005,derived,,
-1994,midterm,63277,1,63277,True,arlingtonelections2021 p.79,,,,,,,150320,derived,,
-1995,delegates,73964,2,36982,True,arlingtonelections2021 p.81,,,,,,,151636,derived,,
-1996,president,55568,1,55568,True,arlingtonelections2021 p.82,,,,,,,152952,derived,75376,derived
-1997,governor,94264,2,47132,True,arlingtonelections2021 p.85,,,,,,,154267,derived,,
-1998,midterm,45961,1,45961,True,arlingtonelections2021 p.85,,,,,,,155583,derived,,
-1999,delegates,69232,2,34616,True,arlingtonelections2021 p.88,,,,,,,156898,derived,,
-2000,president,75500,1,75500,True,arlingtonelections2021 p.89,,,,,158214,censusapi censusapi_dec_sf1_P005_race_18_and_over_virginia_counties.csv,158214,derived,83416,derived
-2001,governor,49564,1,49564,True,arlingtonelections2021 p.91,,,,,,,159893,derived,,
-2002,midterm,55447,1,55447,True,arlingtonelections2021 p.91,,,,,,,161571,derived,,
-2003,delegates,60913,2,30456,True,arlingtonelections2021 p.94,,,,,,,163250,derived,,
-2004,president,83494,1,83494,True,arlingtonelections2021 p.95,,,,,,,164929,derived,94296,derived
-2005,governor,45174,1,45174,True,arlingtonelections2021 p.97,,,,,,,166608,derived,,
-2006,midterm,65856,1,65856,True,arlingtonelections2021 p.97,,,,,,,168286,derived,,
-2007,delegates,58332,2,29166,True,arlingtonelections2021 p.100,,,,,,,169965,derived,,
-2008,president,92164,1,92164,True,arlingtonelections2021 p.101,,,,,,,171644,derived,109852,derived
-2009,governor,47278,1,47278,True,arlingtonelections2021 p.103,,,,,,,173322,derived,,
-2010,midterm,57308,1,57308,True,arlingtonelections2021 p.103,,132583,145701,"varegistration 2010/10, as of 2010-11-05",175001,censusapi censusapi_dec_sf1_P10_race_18_and_over_virginia_counties.csv,175001,derived,,
-2011,delegates,58803,2,29402,True,arlingtonelections2021 p.106,,135595,150993,"varegistration 2011/10, as of 2011-11-05",,,177157,derived,,
-2012,president,98906,1,98906,True,arlingtonelections2021 p.107,,139740,168768,"varegistration 2012/10, as of 2012-11-01",,,179313,derived,117412,derived
-2013,governor,57611,1,57611,True,arlingtonelections2021 p.109,,136410,159776,varegistration 2013/10,,,181470,derived,,
-2014,midterm,62661,1,62661,True,arlingtonelections2021 p.110,,141085,161860,varegistration 2014/10,,,183626,derived,,
-2015,delegates,67251,2,33626,True,arlingtonelections2021 p.112,,134772,151273,varegistration 2015/10,,,185782,derived,,
-2016,president,102491,1,102491,True,arlingtonelections2021 p.114,,148032,169213,varegistration 2016/10,,,187938,derived,119442,derived
-2017,governor,73741,1,73741,True,arlingtonelections2021 p.116,,145880,163258,varegistration 2017/10,,,190094,derived,,
-2018,midterm,100502,1,100502,True,arlingtonelections2021 p.116,,150820,170583,varegistration 2018/10,,,192251,derived,,
-2019,delegates,100958,2,50479,True,arlingtonelections2021 p.118,,152092,166241,varegistration 2019/10,,,194407,derived,,
-2020,president,114900,1,114900,True,arlingtonelections2021 p.120,,166415,178428,"varegistration 2020/10, as of 2020-11-01",196563,censusapi censusapi_dec_pl_P3_race_18_and_over_virginia_counties.csv,196563,derived,129498,derived
-2021,governor,84847,1,84847,True,arlingtonelections2021 p.122,,154781,169647,"varegistration 2021/10, as of 2021-11-01",,,196563,derived,,
-2022,midterm,86976,1,86976,True,vaelections contest 156359,,157160,175478,"varegistration 2022/10, as of 2022-11-01",,,196563,derived,,
-2023,delegates,117675,2,58838,True,vaelections contest 163432,,153805,175797,"varegistration 2023/10, as of 2023-11-01",,,196563,derived,,
-2024,president,113209,1,113209,True,vaelections contest 161309,,164865,187091,"varegistration 2024/10, as of 2024-11-01",,,196563,derived,128362,derived
-2025,governor,91548,1,91548,True,vaelections contest 165040,,167699,181532,"varegistration 2025/10, as of 2025-11-01",,,196563,derived,,
+year,cycle,board_votes,board_seats,board_voters,board_complete,board_source,board_note,registered,registered_all,registered_source,voting_age,voting_age_source,voting_age_21,voting_age_21_source,voting_age_est,voting_age_est_source,president_votes,president_source
+1872,,,,,,,,,,,,,,,,,580,derived
+1876,,,,,,,,,,,,,,,,,824,derived
+1880,,,,,,,,,,,,,,,,,721,derived
+1884,,,,,,,,,,,,,,,,,772,derived
+1888,,,,,,,,,,,,,,,,,721,derived
+1892,,,,,,,,,,,,,,,,,764,derived
+1900,,,,,,,,,,,,,,,,,826,derived
+1907,,756,3,252,True,oleary2010 p.25,"one seat per district, so one vote per voter",,,,,,,,,,,
+1912,,,,,,,,,,,,,,,,,485,derived
+1915,,876,3,292,True,oleary2010 p.27,"one seat per district, so one vote per voter",,,,,,,,,,,
+1916,,,,,,,,,,,,,,,,,804,derived
+1920,,,,,,,,,,,,,,,,,1831,derived
+1924,,,,,,,,,,,,,,,,,2921,derived
+1928,,,,,,,,,,,,,,,,,5718,derived
+1931,delegates,9760,5,1952,False,arlingtonelections2021 p.6,(others not mentioned),,,,,,,,,,,
+1932,president,,,,,,,,,,,,,,,,6234,derived
+1935,delegates,15869,5,3174,True,arlingtonelections2021 p.10,,,,,,,,,,,,
+1936,president,,,,,,,,,,,,,,,,7835,derived
+1939,delegates,33689,5,6738,True,arlingtonelections2021 p.12,,,,,,,,,,,,
+1940,president,9666,1,9666,True,arlingtonelections2021 p.12,,,,,,,,,,,9862,derived
+1941,governor,2797,1,2797,True,arlingtonelections2021 p.12,,,,,,,,,,,,
+1942,midterm,0,1,0,False,arlingtonelections2021 p.13,no vote count for campbell,,,,,,,,,,,
+1943,delegates,16715,2,8358,True,arlingtonelections2021 p.13,,,,,,,,,,,,
+1944,president,13156,1,13156,True,arlingtonelections2021 p.14,,,,,,,,,,,15499,derived
+1945,governor,5461,1,5461,True,arlingtonelections2021 p.14,,,,,,,,,,,,
+1946,midterm,10532,1,10532,True,arlingtonelections2021 p.14,,,,,,,,,,,,
+1947,delegates,13849,2,6924,False,arlingtonelections2021 p.15,no vote count for frisbie,,,,,,,,,,,
+1948,president,19585,1,19585,True,arlingtonelections2021 p.18,,,,,,,,,,,20111,derived
+1949,governor,0,1,0,False,arlingtonelections2021 p.18,"no vote count for bechtel, cox, delashmutt",,,,,,,,,,,
+1950,midterm,16477,1,16477,True,arlingtonelections2021 p.19,,,,,,,,,,,,
+1951,delegates,30738,2,15369,True,arlingtonelections2021 p.21,,,,,,,,,,,,
+1952,president,128686,4,32172,True,arlingtonelections2021 p.22,,,,,,,,,,,36380,derived
+1953,governor,19066,1,19066,True,arlingtonelections2021 p.25,,,,,,,,,,,,
+1954,midterm,24322,1,24322,True,arlingtonelections2021 p.26,,,,,,,,,,,,
+1955,delegates,38295,2,19148,True,arlingtonelections2021 p.28,,,,,,,,,,,,
+1956,president,35807,1,35807,True,arlingtonelections2021 p.30,,,,,,,,,,,39725,derived
+1957,governor,25575,1,25575,True,arlingtonelections2021 p.31,,,,,,,,,,,,
+1958,midterm,29013,1,29013,True,arlingtonelections2021 p.33,,,,,,,,,,,,
+1959,delegates,27934,2,13967,True,arlingtonelections2021 p.34,,,,,,,,,,,,
+1960,president,42573,2,21286,True,arlingtonelections2021 p.36,,,,,,,,,,,45977,derived
+1961,governor,19835,1,19835,True,arlingtonelections2021 p.37,,,,,,,,,,,,
+1962,midterm,29092,1,29092,True,arlingtonelections2021 p.38,,,,,,,,,,,,
+1963,delegates,43204,2,21602,True,arlingtonelections2021 p.40,,,,,,,,,,,,
+1964,president,40727,1,40727,True,arlingtonelections2021 p.41,,,,,,,,,,,54363,derived
+1965,governor,23256,1,23256,True,arlingtonelections2021 p.43,,,,,,,,,,,,
+1966,midterm,37330,1,37330,True,arlingtonelections2021 p.44,,,,,,,,,,,,
+1967,delegates,55806,2,27903,True,arlingtonelections2021 p.46,,,,,,,,,,,,
+1968,president,50772,1,50772,True,arlingtonelections2021 p.47,,,,,,,,,,,61326,derived
+1969,governor,32126,1,32126,True,arlingtonelections2021 p.49,,,,,,,,,,,,
+1970,midterm,42355,1,42355,True,arlingtonelections2021 p.50,,,,,132720,census1970va table 35 p.48-122,123459,census1970va table 35 p.48-122,123459,derived,,
+1971,delegates,61238,2,30619,True,arlingtonelections2021 p.52,,,,,,,,,132211,derived,,
+1972,president,60316,1,60316,True,arlingtonelections2021 p.54,,,,,,,,,131702,derived,66383,derived
+1973,governor,35092,1,35092,True,arlingtonelections2021 p.55,,,,,,,,,131193,derived,,
+1974,midterm,42122,1,42122,True,arlingtonelections2021 p.56,,,,,,,,,130684,derived,,
+1975,delegates,55041,2,27520,True,arlingtonelections2021 p.57,,,,,,,,,130175,derived,,
+1976,president,59547,1,59547,True,arlingtonelections2021 p.59,,,,,,,,,129666,derived,64599,derived
+1977,governor,33154,1,33154,True,arlingtonelections2021 p.61,,,,,,,,,129157,derived,,
+1978,midterm,41493,1,41493,True,arlingtonelections2021 p.62,,,,,,,,,128648,derived,,
+1979,delegates,60151,2,30076,True,arlingtonelections2021 p.63,,,,,,,,,128139,derived,,
+1980,president,45882,1,45882,True,arlingtonelections2021 p.64,,,,,127630,census1980stf1a stf1a_table10_age_virginia_counties.csv,,,127630,derived,66861,derived
+1981,governor,42377,1,42377,True,arlingtonelections2021 p.65,,,,,,,,,129373,derived,,
+1982,midterm,48572,1,48572,True,arlingtonelections2021 p.66,,,,,,,,,131116,derived,,
+1983,delegates,66166,2,33083,True,arlingtonelections2021 p.68,,,,,,,,,132858,derived,,
+1984,president,59521,1,59521,True,arlingtonelections2021 p.68,,,,,,,,,134601,derived,72242,derived
+1985,governor,37104,1,37104,True,arlingtonelections2021 p.70,,,,,,,,,136344,derived,,
+1986,midterm,37743,1,37743,True,arlingtonelections2021 p.70,,,,,,,,,138087,derived,,
+1987,delegates,73549,2,36774,True,arlingtonelections2021 p.71,,,,,,,,,139830,derived,,
+1988,president,69529,1,69529,True,arlingtonelections2021 p.72,,,,,,,,,141572,derived,75365,derived
+1989,governor,49216,1,49216,True,arlingtonelections2021 p.73,,,,,,,,,143315,derived,,
+1990,midterm,44105,1,44105,True,arlingtonelections2021 p.74,,,,,145058,census1990stf1a stf1a_age_virginia_counties.csv,,,145058,derived,,
+1991,delegates,57804,2,28902,True,arlingtonelections2021 p.76,,,,,,,,,146374,derived,,
+1992,president,74177,1,74177,True,arlingtonelections2021 p.76,,,,,,,,,147689,derived,82584,derived
+1993,governor,48800,1,48800,True,arlingtonelections2021 p.78,,,,,,,,,149005,derived,,
+1994,midterm,63277,1,63277,True,arlingtonelections2021 p.79,,,,,,,,,150320,derived,,
+1995,delegates,73964,2,36982,True,arlingtonelections2021 p.81,,,,,,,,,151636,derived,,
+1996,president,55568,1,55568,True,arlingtonelections2021 p.82,,,,,,,,,152952,derived,75376,derived
+1997,governor,94264,2,47132,True,arlingtonelections2021 p.85,,,,,,,,,154267,derived,,
+1998,midterm,45961,1,45961,True,arlingtonelections2021 p.85,,,,,,,,,155583,derived,,
+1999,delegates,69232,2,34616,True,arlingtonelections2021 p.88,,,,,,,,,156898,derived,,
+2000,president,75500,1,75500,True,arlingtonelections2021 p.89,,,,,158214,censusapi censusapi_dec_sf1_P005_race_18_and_over_virginia_counties.csv,,,158214,derived,83416,derived
+2001,governor,49564,1,49564,True,arlingtonelections2021 p.91,,,,,,,,,159893,derived,,
+2002,midterm,55447,1,55447,True,arlingtonelections2021 p.91,,,,,,,,,161571,derived,,
+2003,delegates,60913,2,30456,True,arlingtonelections2021 p.94,,,,,,,,,163250,derived,,
+2004,president,83494,1,83494,True,arlingtonelections2021 p.95,,,,,,,,,164929,derived,94296,derived
+2005,governor,45174,1,45174,True,arlingtonelections2021 p.97,,,,,,,,,166608,derived,,
+2006,midterm,65856,1,65856,True,arlingtonelections2021 p.97,,,,,,,,,168286,derived,,
+2007,delegates,58332,2,29166,True,arlingtonelections2021 p.100,,,,,,,,,169965,derived,,
+2008,president,92164,1,92164,True,arlingtonelections2021 p.101,,,,,,,,,171644,derived,109852,derived
+2009,governor,47278,1,47278,True,arlingtonelections2021 p.103,,,,,,,,,173322,derived,,
+2010,midterm,57308,1,57308,True,arlingtonelections2021 p.103,,132583,145701,"varegistration 2010/10, as of 2010-11-05",175001,censusapi censusapi_dec_sf1_P10_race_18_and_over_virginia_counties.csv,,,175001,derived,,
+2011,delegates,58803,2,29402,True,arlingtonelections2021 p.106,,135595,150993,"varegistration 2011/10, as of 2011-11-05",,,,,177157,derived,,
+2012,president,98906,1,98906,True,arlingtonelections2021 p.107,,139740,168768,"varegistration 2012/10, as of 2012-11-01",,,,,179313,derived,117412,derived
+2013,governor,57611,1,57611,True,arlingtonelections2021 p.109,,136410,159776,varegistration 2013/10,,,,,181470,derived,,
+2014,midterm,62661,1,62661,True,arlingtonelections2021 p.110,,141085,161860,varegistration 2014/10,,,,,183626,derived,,
+2015,delegates,67251,2,33626,True,arlingtonelections2021 p.112,,134772,151273,varegistration 2015/10,,,,,185782,derived,,
+2016,president,102491,1,102491,True,arlingtonelections2021 p.114,,148032,169213,varegistration 2016/10,,,,,187938,derived,119442,derived
+2017,governor,73741,1,73741,True,arlingtonelections2021 p.116,,145880,163258,varegistration 2017/10,,,,,190094,derived,,
+2018,midterm,100502,1,100502,True,arlingtonelections2021 p.116,,150820,170583,varegistration 2018/10,,,,,192251,derived,,
+2019,delegates,100958,2,50479,True,arlingtonelections2021 p.118,,152092,166241,varegistration 2019/10,,,,,194407,derived,,
+2020,president,114900,1,114900,True,arlingtonelections2021 p.120,,166415,178428,"varegistration 2020/10, as of 2020-11-01",196563,censusapi censusapi_dec_pl_P3_race_18_and_over_virginia_counties.csv,,,196563,derived,129498,derived
+2021,governor,84847,1,84847,True,arlingtonelections2021 p.122,,154781,169647,"varegistration 2021/10, as of 2021-11-01",,,,,196563,derived,,
+2022,midterm,86976,1,86976,True,vaelections contest 156359,,157160,175478,"varegistration 2022/10, as of 2022-11-01",,,,,196563,derived,,
+2023,delegates,117675,2,58838,True,vaelections contest 163432,,153805,175797,"varegistration 2023/10, as of 2023-11-01",,,,,196563,derived,,
+2024,president,113209,1,113209,True,vaelections contest 161309,,164865,187091,"varegistration 2024/10, as of 2024-11-01",,,,,196563,derived,128362,derived
+2025,governor,91548,1,91548,True,vaelections contest 165040,,167699,181532,"varegistration 2025/10, as of 2025-11-01",,,,,196563,derived,,

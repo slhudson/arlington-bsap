@@ -9,8 +9,12 @@ One row per year in which any of these is measured, 1872-2025:
                    exactly for one seat and a lower bound for two or more
   registered       Arlington's active registered voters at that November's
                    election, from 2010; registered_all adds the inactive
-  voting_age       the population 18 and over in a census year, from 1980,
-                   and voting_age_est the same carried between censuses
+  voting_age       the population 18 and over in a census year, from 1970
+  voting_age_21    the population 21 and over in a census year, 1930-1970
+  voting_age_est   the population old enough to vote that November: 21 and
+                   over through 1970, 18 and over from 1971, when the
+                   Twenty-sixth Amendment took effect; carried between
+                   censuses
   president_votes  the county's presidential vote, from voters.csv
   cycle            what else the November ballot carried, from 1931
 
@@ -46,6 +50,13 @@ VOTING_AGE = {
     2020: ("2020/censusapi_dec_pl_P3_race_18_and_over_virginia_counties.csv", ["P3_001N"]),
 }
 VOTING_AGE_SOURCE = {1980: citekeys.CENSUS_1980_STF1A, 1990: citekeys.CENSUS_1990_STF1A}
+# 1930-1970, printed lines of the census volume's county age table, which
+# residents.volume_table() checks: the population 21 and over, and in 1970
+# the population 18 and over, read from the single years.
+VOLUME_VOTING_AGE_21 = {1970: ["21 years and over"]}
+VOLUME_VOTING_AGE = {1970: ["18 years", "19 years", "20 years", "21 years and over"]}
+# The first November at which 18-year-olds voted.
+VOTE_AT_18 = 1971
 # The year's place in Virginia's four-year cycle, by year mod 4.
 CYCLE = {0: "president", 1: "governor", 2: "midterm", 3: "delegates"}
 
@@ -126,18 +137,39 @@ def voting_age() -> pd.DataFrame:
         rows.append({"year": year, "voting_age": int(r[cols].sum()),
                      "voting_age_source": f"{VOTING_AGE_SOURCE.get(year, citekeys.CENSUS_DATA_FILE)} "
                                           f"{file.split('/')[1]}"})
+    for year, lines in VOLUME_VOTING_AGE.items():
+        t = residents.volume_table(year)
+        rows.append({"year": year, "voting_age": int(t.loc[lines, "total"].sum()),
+                     "voting_age_source": "; ".join(t.loc[lines, "cite"].unique())})
     return pd.DataFrame(rows)
 
 
-def between_censuses(d: pd.DataFrame) -> pd.Series:
-    """The voting-age population in every year from the first census that
-    reports it: a straight line between censuses, the last carried forward."""
-    known = d.dropna(subset=["voting_age"]).set_index("year").voting_age
+def voting_age_21() -> pd.DataFrame:
+    rows = []
+    for year, lines in VOLUME_VOTING_AGE_21.items():
+        t = residents.volume_table(year)
+        rows.append({"year": year, "voting_age_21": int(t.loc[lines, "total"].sum()),
+                     "voting_age_21_source": "; ".join(t.loc[lines, "cite"].unique())})
+    return pd.DataFrame(rows)
+
+
+def carried(d: pd.DataFrame, col: str) -> pd.Series:
+    """A census count in every year from the first census that reports it:
+    a straight line between censuses, the last carried forward."""
+    known = d.dropna(subset=[col]).set_index("year")[col]
     est = pd.Series(index=d.year.to_numpy(), dtype=float)
     est.loc[known.index] = known.to_numpy(dtype=float)
     est = est.interpolate(method="index").ffill()
     est[est.index < known.index.min()] = float("nan")
-    return est.to_numpy()
+    return est
+
+
+def between_censuses(d: pd.DataFrame) -> pd.Series:
+    """The population old enough to vote each November: 21 and over through
+    1970, carried between the censuses that print it, and 18 and over from
+    1971, carried from 1970 on."""
+    under_21, from_18 = carried(d, "voting_age_21"), carried(d, "voting_age")
+    return under_21.where(under_21.index < VOTE_AT_18, from_18).to_numpy()
 
 
 def president() -> pd.DataFrame:
@@ -158,7 +190,7 @@ def build() -> pd.DataFrame:
     board["board_voters"] = (board.board_votes / board.board_seats).round().astype(int)
 
     d = board
-    for part in (registration(), voting_age(), president()):
+    for part in (registration(), voting_age(), voting_age_21(), president()):
         d = d.merge(part, on="year", how="outer")
     d = d.sort_values("year").reset_index(drop=True)
     d["cycle"] = [CYCLE[y % 4] if y >= 1931 else "" for y in d.year]
@@ -166,9 +198,10 @@ def build() -> pd.DataFrame:
     d["voting_age_est_source"] = [citekeys.DERIVED if pd.notna(v) else "" for v in d.voting_age_est]
 
     # Two independent reads of the same figure. voting_age comes from each
-    # census's race-by-18-and-over table; residents.csv builds the adult
-    # population by summing six age bands out of the sex-by-age table. They
-    # are different tables of the same census and must agree exactly.
+    # census's race-by-18-and-over table, and in 1970 from the printed single
+    # years; residents.csv builds the adult population by summing six age
+    # bands out of the sex-by-age table, and in 1970 out of the printed
+    # five-year groups. They must agree exactly.
     bands = read("residents").set_index("year")[list(residents.ADULT_BANDS)]
     adults = bands.dropna().sum(axis=1)
     for year, here in d.dropna(subset=["voting_age"]).set_index("year").voting_age.items():
@@ -186,13 +219,15 @@ def build() -> pd.DataFrame:
         assert over.empty, f"{what} in {list(over.year)}"
 
     for c in ("board_votes", "board_seats", "board_voters", "registered", "registered_all",
-              "voting_age", "voting_age_est", "president_votes"):
+              "voting_age", "voting_age_21", "voting_age_est", "president_votes"):
         d[c] = d[c].round().astype("Int64")
-    for c in ("board_source", "board_note", "registered_source", "voting_age_source", "president_source"):
+    for c in ("board_source", "board_note", "registered_source", "voting_age_source",
+              "voting_age_21_source", "president_source"):
         d[c] = d[c].fillna("")
     cols = ["year", "cycle", "board_votes", "board_seats", "board_voters", "board_complete", "board_source",
             "board_note", "registered", "registered_all", "registered_source",
-            "voting_age", "voting_age_source", "voting_age_est", "voting_age_est_source",
+            "voting_age", "voting_age_source", "voting_age_21", "voting_age_21_source",
+            "voting_age_est", "voting_age_est_source",
             "president_votes", "president_source"]
     return d[cols]
 

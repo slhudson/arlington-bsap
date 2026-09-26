@@ -1,7 +1,7 @@
 """Census population by year -> data/clean/residents.csv
 
 One row per census, 1870-2020: the total, four race categories, the county
-in seven age bands from 1980, the seats the Board had, and residents per
+in seven age bands from 1930, the seats the Board had, and residents per
 seat. `total_source`, `race_source` and `age_source` name the document each
 came from.
 
@@ -14,11 +14,13 @@ came from.
                race, the other three are non-Hispanic, and the five groups
                partition the county exactly
 
+    1930-1970  seven age bands, from the census volume's county age table,
+               keyed in by hand
     1980-      seven age bands, from each census's own age table
 
 The fifth crossed group, non-Hispanic other and multiracial, is not a
-column: a figure takes it as total minus the four. `hisp` and the age bands
-are blank before 1980. The seven bands sum to `total`, and the adult
+column: a figure takes it as total minus the four. `hisp` is blank before 1980
+and the age bands before 1930. The seven bands sum to `total`, and the adult
 population is the six of them above `ageunder18`; neither has a column of
 its own. docs/residents.md says what backs each year and why.
 """
@@ -78,6 +80,39 @@ FEMALE_OFFSET = 24
 API_AGE_TABLE = {2000: ("P012", "P012001", "P012{:03d}".format),
                  2010: ("P12", "P012001", "P012{:03d}".format),
                  2020: ("P12", "P12_001N", "P12_{:03d}N".format)}
+
+
+# 1930-1970: the census volumes' county tables, keyed in under
+# data/transcribed/by_claude/us_census_bureau/, one file per printed table.
+# A year may stack two tables; a label then names one printed line of the
+# year, and no label may repeat.
+VOLUME_AGE_TABLES = {
+    1970: ["1970/00496492v1p48ch03_p48-122_table35_virginia_arlington.csv"],
+}
+# The line that prints the county's total.
+VOLUME_TOTAL_LINE = {1970: "All ages"}
+_SINGLE_1970 = ["Under 1 year", "1 year", *[f"{a} years" for a in range(2, 21)]]
+_FIVE_1970 = ["Under 5 years", *[f"{a} to {a + 4} years" for a in range(5, 85, 5)],
+              "85 years and over"]
+# Runs of printed lines that must sum to the same number: a distribution the
+# table prints in full against the county total, or two tables' counts of
+# the same ages. A misread digit breaks one of them.
+VOLUME_AGE_RUNS = {
+    1970: [(_SINGLE_1970 + ["21 years and over"], ["All ages"]),
+           (_FIVE_1970, ["All ages"])],
+}
+# Which printed lines each band is summed from.
+VOLUME_AGE_LINES = {
+    1970: {"ageunder18": ["Under 5 years", "5 to 9 years", "10 to 14 years",
+                          "15 years", "16 years", "17 years"],
+           "age18to24": ["18 years", "19 years", "20 to 24 years"],
+           "age25to34": ["25 to 29 years", "30 to 34 years"],
+           "age35to44": ["35 to 39 years", "40 to 44 years"],
+           "age45to54": ["45 to 49 years", "50 to 54 years"],
+           "age55to64": ["55 to 59 years", "60 to 64 years"],
+           "age65plus": ["65 to 69 years", "70 to 74 years", "75 to 79 years",
+                         "80 to 84 years", "85 years and over"]},
+}
 
 
 def table(path):
@@ -160,6 +195,56 @@ def early_years() -> pd.DataFrame:
                 f"{int(r.year)}: white {r.white:,.0f} + black {r.black:,.0f} leaves "
                 f"{gap:,.0f} of a total of {r.total:,.0f} unaccounted.")
     return d
+
+
+def volume_table(year) -> pd.DataFrame:
+    """The year's keyed-in age tables stacked, one row per printed line,
+    indexed by its label; `cite` is the source cell with the page. Where a
+    line prints male and female, the two must make its total: a digit
+    misread in one column shows there."""
+    parts = []
+    for path in VOLUME_AGE_TABLES[year]:
+        t = table(path)
+        page = t["page"].map(lambda p: f"{p:.0f}" if isinstance(p, float) else p)
+        t["cite"] = t["source"] + " p." + page
+        parts.append(t)
+    t = pd.concat(parts, ignore_index=True)
+    twice = sorted(t.label[t.label.duplicated()])
+    assert not twice, f"{year}: a label names two printed lines: {twice}"
+    counts = t[~t.label.str.lower().str.startswith("median")]
+    both = counts.dropna(subset=["male", "female"])
+    off = both[both.male + both.female != both.total]
+    assert off.empty, (
+        f"{year}: male and female do not make the printed total on "
+        f"{list(off.label)}; a line is misread")
+    return t.set_index("label")
+
+
+def volume_ages(year):
+    """The seven bands from a census volume's printed age lines, and the
+    citation for them. Every run the table prints in full must sum to what
+    it is printed against, and the bands must account for the county's
+    printed total: a misread digit, or a line put in two bands or none,
+    stops the build."""
+    t = volume_table(year)
+    for lines, against in VOLUME_AGE_RUNS[year]:
+        got, want = t.loc[lines, "total"].sum(), t.loc[against, "total"].sum()
+        if got != want:
+            raise AssertionError(
+                f"{year}: the printed lines {lines[0]!r} to {lines[-1]!r} sum to "
+                f"{got:,.0f}, but {' + '.join(against)} prints {want:,.0f}. The "
+                f"transcription misreads a number; read the page again.")
+    bands = VOLUME_AGE_LINES[year]
+    named = [line for lines in bands.values() for line in lines]
+    twice = sorted({line for line in named if named.count(line) > 1})
+    assert not twice, f"{year}: printed lines named in more than one band: {twice}"
+    out = {band: int(t.loc[lines, "total"].sum()) for band, lines in bands.items()}
+    printed = int(t.loc[VOLUME_TOTAL_LINE[year], "total"])
+    if sum(out.values()) != printed:
+        raise AssertionError(
+            f"{year}: the bands account for {sum(out.values()):,} of a printed "
+            f"total of {printed:,}; a line is missing or counted twice")
+    return out, printed, "; ".join(t.cite.unique())
 
 
 def stf1a(year, table):
@@ -314,10 +399,17 @@ def build() -> pd.DataFrame:
         "no race source for "
         f"{[int(y) for y in d.loc[d.race_source == '', 'year']]}")
 
-    # The county in seven age bands, from 1980. Each census's age table must
+    # The county in seven age bands, from 1930. Each census's age table must
     # account for the same county the total column does.
     d["age_source"] = ""
-    ages = {}
+    ages, age_source = {}, {}
+    for year in VOLUME_AGE_TABLES:
+        ages[year], printed, age_source[year] = volume_ages(year)
+        total = int(d.loc[d["year"] == year, "total"].iloc[0])
+        if printed != total:
+            raise AssertionError(
+                f"{year}: the age table prints a county of {printed:,}; the total "
+                f"column holds {total:,}")
     for year, age_table in ((1980, "table10_age"), (1990, "age")):
         ages[year], counted = stf1a_ages(year, age_table)
         total = int(d.loc[d["year"] == year, "total"].iloc[0])
@@ -331,7 +423,7 @@ def build() -> pd.DataFrame:
         m = d["year"] == year
         for col, value in bands.items():
             d.loc[m, col] = value
-        d.loc[m, "age_source"] = (
+        d.loc[m, "age_source"] = age_source.get(year) or (
             {1980: citekeys.CENSUS_1980_STF1A,
              1990: citekeys.CENSUS_1990_STF1A}.get(year, citekeys.CENSUS_DATA_FILE))
 

@@ -171,6 +171,35 @@ def test_the_two_counts_of_the_adult_population_must_agree():
     assert err and "the age bands in residents.csv give" in err, f"not caught: {err}"
 
 
+
+def misread(line, by, columns):
+    """A mangle for residents.table: one printed line of the 1970 age table
+    read `by` too high in each of `columns`."""
+    def mangle(orig):
+        def patched(path):
+            d = orig(path)
+            if "table35" in path:
+                d = d.copy()
+                for c in columns:
+                    d.loc[d.label == line, c] += by
+            return d
+        return patched
+    return mangle
+
+
+def test_a_transcribed_age_table_that_does_not_sum_to_its_total_is_refused():
+    """A digit misread the same way in the total and male columns, so the
+    line still cross-foots and the county total is untouched: only the
+    printed lines summing to "All ages" can see it."""
+    err = breaks(residents, "table", misread("35 to 39 years", 10, ["total", "male"]))
+    assert err and "The transcription misreads a number" in err, f"not caught: {err}"
+
+
+def test_an_age_line_whose_sexes_do_not_make_its_total_is_refused():
+    """A digit misread in the total column alone."""
+    err = breaks(residents, "table", misread("19 years", 100, ["total"]))
+    assert err and "male and female do not make the printed total" in err, f"not caught: {err}"
+
 # --- guards on the Board files ----------------------------------------------
 
 def test_race_and_gender_must_account_for_the_same_seats():
