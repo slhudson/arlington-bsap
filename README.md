@@ -74,8 +74,8 @@ bash run.sh
 
 `bash run.sh residents_per` rebuilds only matching figures. Invoke through
 `bash`, not `./run.sh` — `run.sh` says why at the top. `code/transcribe/` and
-`code/fetch/` need `pymupdf` as well, and the OCR needs a Mac; neither is needed to
-rebuild.
+`code/fetch/` need `pymupdf` as well, `code/fetch/ipums.py` needs `ipumspy`, and the
+OCR needs a Mac; none of it is needed to rebuild.
 
 ## Writing
 

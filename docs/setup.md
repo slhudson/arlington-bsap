@@ -98,7 +98,8 @@ writes which file — while `CLAUDE.md` holds the working rules.
 
    A worktree has no `.venv` of its own; a symlink to the primary
    checkout's works, and pymupdf there renders page clips (`pdftoppm` is
-   not installed).
+   not installed). `code/fetch/ipums.py` needs `ipumspy` as well; like
+   pymupdf it is installed into that same venv and no figure reads it.
 
 5. **A successful build.** `bash run.sh` from the repository folder should
    print the tests, a build step, one line per figure, and a line about

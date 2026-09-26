@@ -211,8 +211,9 @@ bash run.sh residents_per # build, then only matching figures
 ```
 
 Invoke through `bash`, not `./run.sh` — the reason is at the top of `run.sh`.
-`code/fetch/` and `code/transcribe/` also need `pymupdf`; the OCR needs a Mac. Neither
-is required to rebuild.
+`code/fetch/` and `code/transcribe/` also need `pymupdf`, and
+`code/fetch/ipums.py` needs `ipumspy`; the OCR needs a Mac. None of it is
+required to rebuild.
 
 ## Questions and decisions
 
