@@ -37,8 +37,6 @@ are explained in `code/citekeys.py`, and what is still open is in
   starts in 1932.
 - 1912–1931 names five terms and no more; the seats for those years are
   assumed, not counted from them.
-- The November 1903 winners are seated in January on sec. 112 without the
-  Schedule having been read (`schedule-1902`).
 - From 1907 O'Leary's surnames are not joined to earlier full names
   (`surnames-from-1907`).
 - 23 terms from 1932 carry no party, three labels are unresolved, and no
@@ -126,13 +124,16 @@ elections to November and seated their winners on 1 January following (sec.
 112, `vaconstitution1902`), so from the November 1903 election a term runs
 January to January; the County Manager plan seats members on 1 January too,
 so the convention is unbroken from 1904 on. The Schedule of the 1902
-constitution, which would say how the first election under it was treated,
-is not in the copy held (`vaconstitution1902` stops at sec. 136; the Library
-of Virginia has a scan behind a viewer), so whether the November 1903 winners
-fell under sec. 112 or a transitional provision is unconfirmed; the build
-seats them in January on the reading that the section is the operative rule
-and an exception has to be shown (Sally, 24 September 2026). It moves one
-handover by two months in a stretch where every member is coded a white man.
+constitution governs the first election held under it, and confirms this: its
+sec. 10 holds the first election of county and district officers "under this
+Constitution" on the Tuesday after the first Monday in November 1903, terms
+"to begin on the first day of January, next after their election" - the same
+rule sec. 112 states for every later election. Sec. 10's second paragraph
+names "supervisors of the several counties" among the offices whose sitting
+holders are continued only "until January the first, nineteen hundred and
+four", so the incoming November 1903 winners are seated then and not before.
+The November 1903 handover therefore falls in January 1904 like every other,
+in a stretch where every member is coded a white man.
 
 The same convention is why the Arlington Historical Society's roster dates
 Newman 1987, Monroe 1999, Dorsey 2015 and Spain 2024 where this one seats them
