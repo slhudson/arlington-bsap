@@ -75,8 +75,11 @@ export PYTHONPATH="$PWD/code"
 # the build stage is skipped, its tables are from the run the stamp records.
 if [ "$build" = yes ]; then
   export RUN_STARTED=$(date +%s)
-  # data/built/ is not committed, so it is made before anything reads it.
+  # data/built/ is not committed, so it is made before anything reads it, and
+  # emptied first: a table left by a step that no longer exists would fail the
+  # inventory test in any checkout that had built before.
   echo "build"
+  rm -f data/built/*.csv
   for s in "${BUILD[@]}"; do
     (cd code/build && ../../"$PY" "$s.py")
   done
