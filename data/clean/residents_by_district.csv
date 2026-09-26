@@ -2,15 +2,15 @@ year,district,total,white,black,other,total_source,race_source
 1870,Arlington,1374,517,857,,walker1872 p.279,walker1872 p.279
 1870,Jefferson,1256,383,873,,walker1872 p.279,walker1872 p.279
 1870,Washington,555,275,280,,walker1872 p.279,walker1872 p.279
-1880,Arlington,1754,,,,census1880 p.356,
-1880,Jefferson,1319,,,,census1880 p.356,
-1880,Washington,814,,,,census1880 p.356,
+1880,Arlington,1754,766,988,0,census1880 p.356,ipumsfullcount
+1880,Jefferson,1319,459,861,0,census1880 p.356,ipumsfullcount
+1880,Washington,814,471,343,0,census1880 p.356,ipumsfullcount
 1890,Arlington,2013,,,,census1890 p.346,
 1890,Jefferson,1303,,,,census1890 p.346,
 1890,Washington,942,,,,census1890 p.346,
 1900,Arlington,3200,,,,census1900v1 p.396,
-1900,Jefferson,1913,,,,census1900v1 p.396,
-1900,Washington,1317,,,,census1900v1 p.396,
+1900,Jefferson,1913,838,1075,0,census1900v1 p.396,ipumsfullcount
+1900,Washington,1317,883,434,0,census1900v1 p.396,ipumsfullcount
 1910,Arlington,5850,4635,1206,0,census1910v3 p.920,ipumsfullcount; nara1910eds
 1910,Jefferson,2672,1572,1030,0,census1910v3 p.920,ipumsfullcount; nara1910eds
 1910,Washington,1709,1265,369,0,census1910v3 p.920,ipumsfullcount; nara1910eds

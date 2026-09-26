@@ -22,7 +22,12 @@ def shares() -> pd.DataFrame:
     d = pd.read_csv(paths.RESIDENTS_BY_DISTRICT)
     d["counted"] = d[["white", "black", "other"]].sum(axis=1)
 
-    county = d.groupby("year")[["black", "counted"]].sum().assign(district=COUNTY).reset_index()
+    # The county is the three districts added up, so it is only a county
+    # where all three have a race split: in 1900 the schedules are short of
+    # Arlington district and two districts are not the county.
+    whole = d.groupby("year").black.count() == d.groupby("year").district.count()
+    county = (d[d.year.isin(whole[whole].index)].groupby("year")[["black", "counted"]].sum()
+              .assign(district=COUNTY).reset_index())
     both = pd.concat([d, county], ignore_index=True)
     both["share"] = 100 * both.black / both.counted
     wide = both.pivot(index="year", columns="district", values="share")

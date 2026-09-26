@@ -224,7 +224,8 @@ def test_a_tolerance_too_wide_to_catch_a_move_is_refused():
     stopped doing anything, which nothing else would notice."""
     started = os.environ.pop("RUN_STARTED", None)
     try:
-        err = breaks(residents_by_district, "TOO_FAR", lambda orig: 0.9)
+        err = breaks(residents_by_district, "TOO_FAR",
+                     lambda orig: {y: 0.9 for y in orig})
     finally:
         if started:
             os.environ["RUN_STARTED"] = started

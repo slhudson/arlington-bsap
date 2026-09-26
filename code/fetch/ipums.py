@@ -53,10 +53,28 @@ RAW = paths.RAW / "ipums"
 # count is checked against. The total is the one in data/clean/residents.csv,
 # repeated here so the check does not reach across stages.
 CENSUSES = {
-    # 1900 is not here: its 100% database holds 5,931 of the county's 6,430
-    # people, 499 of them missing from Arlington district alone, and numbers
-    # the enumeration districts differently from the descriptions. See
-    # docs/residents.md.
+    # 1880's census county is the three districts and Alexandria city
+    # together - the city became independent of it for census purposes only
+    # in 1900 - so this extract is checked against the county including the
+    # city, and code/clean/ drops the city's enumeration districts.
+    1880: {
+        "sample": "us1880e",              # 1880 100% database
+        "state": "51",                    # Virginia
+        "county": "0130",                 # Arlington/Alexandria, ICPSR
+        "county_in_year": "Alexandria County, with Alexandria city",
+        "published_total": 17_546,
+    },
+    # 1900's database is short of the volume by 499 people, all of them in
+    # Arlington district, so it is allowed a shortfall the others are not and
+    # code/clean/ writes no race split for that district. See docs/residents.md.
+    1900: {
+        "sample": "us1900m",              # 1900 100% database
+        "state": "51",
+        "county": "0130",
+        "county_in_year": "Alexandria County",
+        "published_total": 6_430,
+        "short_by": 0.10,
+    },
     1910: {
         "sample": "us1910m",              # 1910 100% database
         "state": "51",                    # Virginia
@@ -81,7 +99,8 @@ VARIABLES = ["STATEFIP", "COUNTYICP", "ENUMDIST",
 
 # A head count this far from the published total is refused: the wrong county,
 # the wrong sample, or a truncated download, any of which would otherwise
-# reach code/clean/ looking like a finding about the census.
+# reach code/clean/ looking like a finding about the census. A census whose
+# database is known to be short says so, and by how much, in "short_by".
 TOLERANCE = 0.05
 
 
@@ -134,7 +153,7 @@ def census(client, year, spec):
 
         people = head_count(data)
         published = spec["published_total"]
-        if abs(people - published) > TOLERANCE * published:
+        if abs(people - published) > spec.get("short_by", TOLERANCE) * published:
             raise SystemExit(
                 f"{year}: the extract holds {people:,} people and the published "
                 f"{spec['county_in_year']} total is {published:,}, a difference of "

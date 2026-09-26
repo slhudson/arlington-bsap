@@ -46,8 +46,17 @@ CENSUS_TWPS0076 = "censusbureau1990twps76"
 CENSUS_GAZETTEER_2020 = "censusgazetteer2020"
 # The 1920 full count, and the enumeration district descriptions that say
 # which magisterial district each of its six districts covers.
-IPUMS = {1910: "ipumsfullcount", 1920: "ipumsfullcount"}
+IPUMS_FULL_COUNT = "ipumsfullcount"
+# The enumeration district descriptions, where they place the districts. 1880's
+# carry no text and 1900's cannot be matched to the extract by number, so those
+# two censuses cite the schedules alone.
 NARA_EDS = {1910: "nara1910eds", 1920: "nara1920eds"}
+
+
+def race_source(year):
+    """What a district's race split for `year` rests on."""
+    eds = NARA_EDS.get(year)
+    return f"{IPUMS_FULL_COUNT}; {eds}" if eds else IPUMS_FULL_COUNT
 
 
 def keys():

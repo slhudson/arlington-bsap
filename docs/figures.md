@@ -379,18 +379,19 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
 - **residents_by_district_race.** The Black share of each magisterial
   district over the censuses that give race below the county, with the county
   behind them. Lines, because the points are observations one per census, and
-  the line breaks between 1870 and 1910 rather than being drawn through
-  1880, 1890 and 1900, which report no race below the county: the gap is half
-  the panel and it is the state of the evidence, not a fault in the drawing.
-  1870 is therefore four unconnected dots, and the caption says why. The
-  county line is the three districts added together rather than the county row
-  of `residents.csv`, so every line on the figure is the same arithmetic on
-  the same count; in 1920 that puts it 0.3 points above the published county
-  share, because the schedules record 2,559 Black residents where the volume
-  prints 2,507. Each share divides by the people its own count records in that
-  place, not by the volume's total, for the same reason. The axis stops at
-  1920 rather than running on to 1930, whose districts have no race split.
-  `docs/residents.md` has the mapping the 1910 and 1920 points rest on.
+  a line breaks wherever a census has nothing rather than being drawn through
+  it: 1890, whose schedules burned, for every line, and 1900 for Arlington,
+  whose schedules are short of that district by one resident in six. The
+  county line is the three districts added together, so it breaks at 1900
+  too — two districts are not a county. That it is the districts added up
+  rather than the county row of `residents.csv` means every line on the
+  figure is the same arithmetic on the same count; in 1920 it puts the county
+  0.4 points above the published share, because the schedules record 2,559
+  Black residents where the volume prints 2,507. Each share divides by the
+  people its own count records in that place, for the same reason. The axis
+  stops at 1920 rather than running on to 1930, whose districts have no race
+  split. `docs/residents.md` has what places each census's enumeration
+  districts.
 
 - **board_race, board_gender, board_party.** Seat counts rather than
   shares, so the 1932 expansion is legible on the axis. All bands are drawn,

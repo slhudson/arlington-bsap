@@ -36,30 +36,50 @@ TABLES = {
 
 # The censuses whose race split is counted from the schedules rather than
 # printed in the volume.
-FROM_THE_SCHEDULES = (1910, 1920)
+FROM_THE_SCHEDULES = (1880, 1900, 1910, 1920)
 
-# Every enumeration district but one names its magisterial district. The
-# exception both censuses share is the Fort Myer Military Reservation, whose
-# description names none: it is what the Arlington district descriptions say
-# they exclude, so it is the part of Arlington they were carved around and its
-# people are Arlington's. The numbering is each census's own, so this is keyed
-# by census as well as district. docs/residents.md has the checks it rests on.
-ED_WITHOUT_A_DISTRICT = {1910: {"10": "Arlington"},
-                         1920: {"11": "Arlington"}}
+# Where an enumeration district's own description does not place it, or where
+# the census's descriptions cannot be matched to the extract at all. The
+# numbering is each census's own, so this is keyed by census. None means the
+# district is outside the county the Board governed and its people are not
+# counted: in 1880 Alexandria city is still inside the census county.
+# docs/residents.md has the evidence for each reading.
+#
+#   1880  the transcribed descriptions carry no text, so the three
+#         magisterial districts are the three enumeration districts whose
+#         head counts are the three the volume prints, and the other five are
+#         the city's four wards
+#   1900  IPUMS numbers the districts differently from the descriptions,
+#         which run 1, 2, 3 and 99, so none of them can be joined by number
+#   1910  Fort Myer, which the Arlington descriptions say they exclude
+#   1920  the same, under a different number
+ED_READ_BY_HAND = {
+    1880: {"1": None, "2": None, "3": None, "4": None, "5": None,
+           "6": "Arlington", "7": "Jefferson", "8": "Washington"},
+    1900: {"1": "Arlington", "15": "Arlington", "16": "Arlington",
+           "2": "Jefferson", "3": "Washington"},
+    1910: {"10": "Arlington"},
+    1920: {"11": "Arlington"},
+}
+
+# A district whose head count in the extract is known to be short of the
+# volume's, so no race split is written for it and the figure's line breaks
+# there. 1900's database is missing 499 of Arlington district's 3,200 people.
+INCOMPLETE = {1900: ("Arlington",)}
 
 # IPUMS race codes, as the codebooks in data/raw/ipums/ list them, read into
 # the columns this table carries. Code 3 is American Indian.
 RACE_CODES = {"1": "white", "2": "black", "3": "other"}
 
-# The schedules and the volume are two counts of the same population and do
-# not agree exactly: 1920's extract holds three people more than the volume's
-# county total and 1910's holds 154 fewer. A district further than this from
-# the total the volume prints for it is refused. The figure is a share of the
-# district, not a count, so what matters is that the geography is right, and
-# TOO_FAR is checked against that directly below: it must be tight enough that
-# moving any one enumeration district into another magisterial district would
-# break it.
-TOO_FAR = 0.10
+# How far a district's head count in the schedules may be from the total the
+# volume prints for it. The schedules and the volume are two counts of the
+# same population and the gap between them is a property of each census's
+# database, not a single allowance: 1880, 1900 and 1920 tie to within a
+# handful of people, and 1910's database is up to seventy-five short of a
+# district. A tolerance is only worth having if it is still tight enough to
+# catch an enumeration district in the wrong magisterial district, and
+# identified() checks each of these against that directly.
+TOO_FAR = {1880: 0.01, 1900: 0.01, 1910: 0.05, 1920: 0.01}
 
 
 def table(path):
@@ -76,12 +96,17 @@ def placed(year):
         raise AssertionError(f"data/built/ipums.csv holds no {year}")
 
     ed = d.ed.astype(str)
-    named = d.district.where(d.district.notna(), ed.map(ED_WITHOUT_A_DISTRICT[year]))
-    if named.isna().any():
+    by_hand = ED_READ_BY_HAND.get(year, {})
+    named = d.district.where(d.district.notna(), ed.map(by_hand))
+    unplaced = sorted(set(ed[named.isna() & ~ed.isin(by_hand)]))
+    if unplaced:
         raise AssertionError(
-            f"{year}: enumeration district(s) {sorted(set(ed[named.isna()]))} have no "
-            f"magisterial district. The description names none, so the reading belongs "
-            f"in ED_WITHOUT_A_DISTRICT with its reason in docs/residents.md.")
+            f"{year}: enumeration district(s) {unplaced} have no magisterial district. "
+            f"Nothing places them, so the reading belongs in ED_READ_BY_HAND with its "
+            f"evidence in docs/residents.md.")
+    # An enumeration district read as outside the county is dropped here.
+    keep = ~(named.isna() & ed.isin([e for e, v in by_hand.items() if v is None]))
+    d, named = d[keep], named[keep]
     if not set(named) <= set(DISTRICTS):
         raise AssertionError(f"{year}: {sorted(set(named) - set(DISTRICTS))} is no district")
     return d, named
@@ -123,12 +148,12 @@ def identified(year, published: pd.Series):
     first."""
     d, named = placed(year)
     apart = far(d.groupby(named).people.sum(), published)
-    if (apart > TOO_FAR).any():
+    if (apart > TOO_FAR[year]).any():
         raise AssertionError(
             f"{year}: the schedules and the volume disagree about a district by more "
-            f"than {TOO_FAR:.0%} - " + ", ".join(f"{k} {v:.1%}" for k, v in apart.items())
+            f"than {TOO_FAR[year]:.0%} - " + ", ".join(f"{k} {v:.1%}" for k, v in apart.items())
             + ". An enumeration district is in the wrong magisterial district: check "
-            "ED_WITHOUT_A_DISTRICT and the `district` column of the transcribed "
+            "ED_READ_BY_HAND and the `district` column of the transcribed "
             "descriptions against the totals the volume prints.")
 
     ed = d.ed.astype(str)
@@ -138,12 +163,12 @@ def identified(year, published: pd.Series):
             if (named[moved] == elsewhere).all():
                 continue
             other = named.mask(moved, elsewhere)
-            if (far(d.groupby(other).people.sum(), published) <= TOO_FAR).all():
+            if (far(d.groupby(other).people.sum(), published) <= TOO_FAR[year]).all():
                 raise AssertionError(
                     f"{year}: enumeration district {one} would pass the check in "
                     f"{elsewhere} as well as where its description puts it, so the "
                     f"published district totals do not identify the mapping. TOO_FAR "
-                    f"of {TOO_FAR:.0%} is too wide for this census to police itself.")
+                    f"of {TOO_FAR[year]:.0%} is too wide for this census to police itself.")
 
 
 def districts(year) -> pd.DataFrame:
@@ -165,11 +190,16 @@ def districts(year) -> pd.DataFrame:
         d["white"], d["black"] = lines.white, lines.colored
         d["race_source"] = d.total_source
     elif year in FROM_THE_SCHEDULES:
+        # A district the database is short of is left blank rather than given
+        # a share of a population that is missing people of unknown race.
+        short = INCOMPLETE.get(year, ())
+        whole = ~d.district.isin(short)
         counted = enumeration_districts(year).reindex(d.district.to_numpy())
         for column, values in counted.items():
             d[column] = values.to_numpy()
-        d["race_source"] = f"{citekeys.IPUMS[year]}; {citekeys.NARA_EDS[year]}"
-        identified(year, d.set_index("district").total)
+            d.loc[~whole, column] = pd.NA
+        d.loc[whole, "race_source"] = citekeys.race_source(year)
+        identified(year, d[whole].set_index("district").total)
     return d
 
 
