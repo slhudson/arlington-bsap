@@ -188,7 +188,8 @@ is no row.
 **Guards that prevent silent wrongness get a test.** `code/tests.py` reintroduces
 the specific mistake each guard exists to catch and asserts the build refuses,
 so editing `code/build/` or `code/clean/` cannot quietly disable a check.
-`bash run.sh` runs it after the build stage; it takes about five seconds.
+`bash run.sh` runs it after the build stage on a full run, about ten seconds;
+a filtered run (`bash run.sh <figure>`) is for the figures and skips it.
 
 Only silent failures are worth this. A figure script saving under the wrong
 name halts the build with an error in your face; the Freedman village check
@@ -206,8 +207,8 @@ figure it is named for.
 
 ```bash
 python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflakes
-bash run.sh               # build, then every figure
-bash run.sh residents_per # build, then only matching figures
+bash run.sh               # build, test, then every figure
+bash run.sh residents_per # only matching figures; build and clean only if their inputs changed, no tests
 ```
 
 Invoke through `bash`, not `./run.sh` — the reason is at the top of `run.sh`.
