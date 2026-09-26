@@ -57,8 +57,9 @@ BIO_TITLE = re.compile(r"Chair, Arlington County Board|\bbiography\b", re.I)
 CAMPAIGN_ORG = re.compile(r"campaign|candidate|Vote Smart", re.I)
 
 # A filed copy is any quoted filename in an entry's annotation: the "Filed in
-# Drive as" name, and for a census record the sheet image beside it.
-FILED = re.compile(r'"([^"]*?\.(?:pdf|jpe?g|png))"', re.S)
+# Drive as" name, and for a census record the sheet image beside it. A table
+# saved as published keeps its own extension.
+FILED = re.compile(r'"([^"]*?\.(?:pdf|jpe?g|png|xlsx?|csv|txt))"', re.S)
 
 
 # Titles and entry types that make a source law rather than a report.

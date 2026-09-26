@@ -28,6 +28,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import textwrap
 from datetime import date
 from pathlib import Path
 
@@ -88,7 +89,11 @@ def entry_text(a, filename, kind):
                               + f" on {today}")]
     lines = [f"@{a.type}{{{a.key},"]
     for name, value in fields:
-        lines.append(f"  {name:<11} = {{{value}}},")
+        # Wrapped as the file's other entries are, the continuation under the brace.
+        wrapped = textwrap.wrap(value, 62) if name in ("note", "annotation") else [value]
+        lines.append(f"  {name:<11} = {{{wrapped[0]}")
+        lines += [" " * 17 + w for w in wrapped[1:]]
+        lines[-1] += "},"
     return "\n".join(lines) + "\n}\n"
 
 
