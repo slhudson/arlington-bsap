@@ -13,8 +13,6 @@ spike: the figure shows the size of the Board, not who sat.
 
 ## What rests on an assumption
 
-- Retrocession is dated 1846 or 1847 depending on the source; the report has
-  to pick one (`retrocession-date`).
 - The age bands start at 1980, because nothing earlier is held in a
   machine-readable form (`adults-before-1980`).
 
@@ -41,6 +39,14 @@ and census treatment all changed across the period:
 |---|---|---|
 | to 1846 | Alexandria County, D.C. | part of the District of Columbia |
 | 1847–1919 | Alexandria County, Virginia | the three districts **and** Alexandria city |
+
+Retrocession has two dates and the prose names the event each time rather
+than picking a year (Sally, 26 September 2026): Congress passed the act to
+retrocede the county on 9 July 1846 and the residents voted for it that
+September, and Virginia's General Assembly accepted the county on 13 March
+1847, when the handover took effect. "Retroceded in 1846" is the residents'
+choice; "part of Virginia from 1847" is the transfer. Neither act is yet
+cited from the document (`retrocession-acts`).
 | 1920– | Arlington County, Virginia | the three districts only |
 
 Two dates do the work. **In 1900** Alexandria city became independent of the
