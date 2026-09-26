@@ -63,10 +63,6 @@ sits on the Board in a year), is read by the Board figures.
 both data stages. Each stage has a `paths.py` that maps
 its data folders, and `code/clean/paths.py` maps nothing above `data/built/`.
 
-Twelve figures build. Four are in the paper so far, `residents_per_seat`,
-`residents_by_race`, `board_gender` and `board_race`; the rest are built
-and waiting on the outline.
-
 ## Rebuilding
 
 ```bash
