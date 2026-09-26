@@ -379,6 +379,38 @@ seats filled. Where a seat sat empty, each serving member represented more
 people than the figure shows. Whether to divide by the filled count instead,
 which would make the growth figure depend on the roster, is open.
 
+## Where members lived
+
+`data/clean/board_residence.csv` holds one row per claim about a member's
+home: the place as the source names it, how exactly (`precision`: a street
+address, a street name, a neighborhood, a side of the County or a
+magisterial district), the year the source gives, and the source. Nothing is
+coded North or South and no claim is chosen over another; the coverage
+figure takes each member's most exact dated place in each year.
+
+**How much is known, for the 75 members first seated from 1932 on**
+(recomputed from the clean tables on 26 September 2026; the earlier count in
+the tracker row agreed on every address and differed by one or two in the
+lesser kinds, from where "within five years" was measured):
+
+| Most exact place held | Dated during service | Within 5 years of it | 6 or more years from it | Undated | Members |
+|---|---|---|---|---|---|
+| Street address | 14 | 18 | 8 | 0 | 40 |
+| Street name | 2 | 0 | 1 | 0 | 3 |
+| Neighborhood | 10 | 1 | 4 | 2 | 17 |
+| Side of the County | 0 | 0 | 0 | 2 | 2 |
+| Nothing | | | | | 13 |
+
+So 40 of the 75 have a street address and 62 have a place of some kind,
+but only 26 of the 62 are placed by a source dated to their service. The
+sources found online give a place at the time of writing, an obituary's
+address is where the person died, and a candidate profile's is where they
+lived when they ran; County records may give an address at taking office
+(`residence-county-records`). Whether a place dated after service should
+count, and within what window, is `residence-after-service`; the coverage
+figure counts any dated place, since it shows the state of the evidence,
+and the window matters to the neighborhood analysis, which is not yet built.
+
 ## Census records
 
 A census listing names a person, not a Board member, and gives several
