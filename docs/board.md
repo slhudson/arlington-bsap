@@ -563,6 +563,46 @@ Street are both real and both in North Arlington, so this is a different
 house, not a different side. Neither changes what the build does: it carries
 every claim with its source and chooses none.
 
+**The pre-1912 sheets, read twice (26 September 2026).** Six fields the
+rows mark as uncertain are read a second time off the filed sheet images,
+each enlarged with its column heading and set against the same enumerator's
+hand elsewhere on the sheet: Grunwell's initials (1880, page 451D, line 23),
+Schutt's surname (1880, page 457B, line 34), Torreyson's given name (1900,
+sheet 20B, line 89), William Duncan's age (1900, sheet 13A, line 49),
+Phillips's middle initial (1900, sheet 10A, line 40) and Corbett's age
+(1910, sheet 6B, line 52). The second reading was made with the first in
+view, so it checks the reading rather than repeating it blind. Five agree.
+Grunwell's **A. B.** and Schutt's double t, under one cross-stroke, are
+firm. Duncan's **40** is firm, its second digit an oval like the
+enumerator's 0 in the 40 on line 21 and unlike his 8, so its disagreement
+with an August 1854 birth is the sheet's own. Torreyson's **A. Duke**
+agrees: the initial sits under a later pencil mark, and the D is the
+enumerator's D in *Daughter*, not his H. Corbett's age agrees with the row
+that it is not legible: a 5, then a second digit written over. One
+disagrees. Phillips's middle initial reads **A** on the second reading,
+the shape of the A in *Andw* on line 43, where the row reads H; the letter
+sits under a later pencil mark, and this enumerator's H in *Head* is
+pointed too, so neither reading is firm and the row stands
+(`pre-1932-spot-check`). Two more 1900 fields the rows mark are then read
+again, Darby's given name (sheet 22B, line 87), **Rezin**, and Costello's
+street label (sheet 9A, lines 5–8), **Cherrydale**, and both agree. Seven
+of eight agree, and none of the eight moves a number: Duncan's and
+Corbett's birth years come from printed dates, not ages, and Phillips's
+initial bears only on the strength of his match, which rests on R. H. and
+is weaker than its `basis` says until a second source gives the middle
+name. The other pre-1912 readings stand as read.
+
+**Ames, 1940.** Sheet 21B, read again at full resolution on the same day,
+gives W. P. Ames's house no street. The label W. Lee, with an abbreviation
+of a looped capital (H, P or B) and one or two letters, is written against
+lines 72 to 76, and a heavy wavy rule crosses the location columns between
+lines 76 and 77. Ames is line 77, below the rule, where the street column is
+blank to the foot of the sheet; W. Lee is the label of the household above
+him, 3294 at line 74. His house number reads 68 and then a 5 or an 8, not
+the index's 436. Neither is firm, so the row keeps Clarendon, the
+unincorporated place in the sheet's heading, as its one firm place
+(`ames-residence`).
+
 ## Race, gender and birth year of Board members
 
 Birth years come from the same files as race and gender, one row per
