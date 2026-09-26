@@ -769,7 +769,11 @@ candidacies, has been matched to a census record or a press description for
 race, so 1932-1986 rests on Pratt's and Bestebreurtje's sentence that none
 ran, and the years from 1987 hold every run by a Black member and nobody
 else's (`black-losers-1932-on`). The check is bounded: the 1930-1950
-censuses for the early candidates, and candidate profiles for the rest.
+censuses for the early candidates, and candidate profiles for the rest. It
+cannot reach the nomination stage, though: a candidate who lost a
+Democratic primary never appeared on the general ballot, and the county's
+list records primaries only patchily from 1950, the state's fully from
+2007, and a caucus or convention nomination never.
 
 **The figure.** `board_candidacies` draws each candidacy in a regular or
 special election as a dot at its year, filled if won and a ring if lost,
