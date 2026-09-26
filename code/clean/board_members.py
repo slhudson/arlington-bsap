@@ -34,10 +34,11 @@ import pandas as pd
 
 import board_census
 import board_roster
+import board_terms
 import citekeys
 import elections
 import paths
-from board_roster import AT_LARGE_FROM
+from board_terms import AT_LARGE_FROM
 from elections import PARTIES
 from paths import write
 
@@ -123,7 +124,7 @@ def party_attributions() -> pd.DataFrame:
 def election_year(t) -> int:
     """The election that seated a term: a January start follows a November
     election; a special election or an appointment seats at once."""
-    if t.seated_by == board_roster.SPECIAL_ELECTION or t.start_month != 1:
+    if t.seated_by == board_terms.SPECIAL_ELECTION or t.start_month != 1:
         return int(t.start_year)
     return int(t.start_year) - 1
 
@@ -227,7 +228,7 @@ def build() -> pd.DataFrame:
     for _, t in d.iterrows():
         row = dict(t)
         row["election_year"] = (election_year(t) if t.seated_by in
-                                (board_roster.ELECTION, board_roster.SPECIAL_ELECTION) else "")
+                                (board_terms.ELECTION, board_terms.SPECIAL_ELECTION) else "")
         row["party"], row["party_source"], row["party_note"] = (
             party_of(t, labels, state, parties) if t.start_year >= AT_LARGE_FROM else ("", "", ""))
         att = a.loc[t["name"]] if t["name"] in a.index else None

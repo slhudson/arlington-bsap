@@ -52,8 +52,10 @@ layers above, and `data/clean/` is the layer worth pulling across people.
 | `code/analysis/<figure>.py` | `figures/pdf/<figure>.pdf`, `figures/png/<figure>.png` | its own docstring |
 | `code/archive.py` | `index.md` at the top of the Drive documents folder, and the zip the County receives | `CLAUDE.md` |
 
-Four clean modules write nothing and are read by the steps above:
-`code/clean/board_roster.py` (who held each seat and when),
+Clean modules that write nothing, read by the steps above:
+`code/clean/board_roster.py` (who held each seat and when, assembled from
+one module per source, `board_roster_oleary.py`, `board_roster_novack.py`
+and `board_roster_results.py`, on the terms `board_terms.py` defines),
 `code/clean/elections.py` (an office's contests, selected from the built
 table), `code/clean/census.py` (a census table in its own shape, from the
 built cells) and `code/clean/board_census.py` (the census rows of the built

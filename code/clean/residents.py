@@ -26,7 +26,7 @@ import pandas as pd
 
 import census
 import citekeys
-from board_roster import seats
+from board_terms import seats
 from paths import write
 
 # The county in seven age bands. Every cut is one all five censuses from

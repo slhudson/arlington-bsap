@@ -34,6 +34,9 @@ sys.path.insert(0, str(ROOT / "code" / "clean"))
 import board_members  # noqa: E402
 import paths  # noqa: E402
 import board_roster  # noqa: E402
+import board_roster_oleary  # noqa: E402
+import board_roster_results  # noqa: E402
+import board_terms  # noqa: E402
 import board_seats  # noqa: E402
 import residents  # noqa: E402
 import turnout  # noqa: E402
@@ -189,7 +192,7 @@ def test_a_wrong_term_length_is_rejected():
             d.loc[at_large, "end_year"] += 1
             return d
         return patched
-    err = breaks(board_roster, "election_terms", mangle, build=board_roster.build)
+    err = breaks(board_roster_results, "terms", mangle, build=board_roster.build)
     assert err and "at large" in err, f"not caught: {err}"
 
 
@@ -201,7 +204,7 @@ def test_the_seat_table_before_1932_does_not_depend_on_the_roster():
     read as unfilled and this member would appear in the race, gender
     and party columns."""
     stated = list(board_seats.NO_ROSTER_YEARS)
-    assert stated == list(range(1912, board_roster.AT_LARGE_FROM)), f"stated years are {stated[0]}-{stated[-1]}"
+    assert stated == list(range(1912, board_terms.AT_LARGE_FROM)), f"stated years are {stated[0]}-{stated[-1]}"
     real = board_seats.build()
     read = board_seats.read
 
@@ -232,7 +235,7 @@ def test_a_term_that_does_not_say_how_it_began_is_rejected():
                   "seated_by"] = "Elected"
             return d
         return patched
-    err = breaks(board_roster, "election_terms", mangle, build=board_roster.build)
+    err = breaks(board_roster_results, "terms", mangle, build=board_roster.build)
     assert err and "seated_by must be one of" in err, f"not caught: {err}"
 
 
@@ -245,7 +248,7 @@ def test_prose_in_the_name_column_is_rejected():
                     row = dict(row, name="A. D. Torreyson elected, but contested")
                 yield row
         return patched
-    err = breaks(board_roster, "oleary_terms", mangle, build=board_roster.build)
+    err = breaks(board_roster_oleary, "terms", mangle, build=board_roster.build)
     assert err and "prose" in err, f"not caught: {err}"
 
 

@@ -11,7 +11,7 @@ which is twelve for every year but 1870. docs/board.md, Seat-years.
 import pandas as pd
 
 import citekeys
-from board_roster import AT_LARGE_FROM, PRESENT, SEATS_DISTRICT, seats
+from board_terms import AT_LARGE_FROM, PRESENT, SEATS_DISTRICT, seats
 from paths import read, write
 
 COLUMNS = ["year", "white", "black", "hisp", "aapi", "men", "women"]
