@@ -57,11 +57,10 @@ are explained in `code/citekeys.py`, and what is still open is in
   from the office, source `derived`, and 1912–1931, where no roster exists,
   the figure counts the Board's three seats at district precision. Both rest
   on the assumption that a supervisor lived in the district he represented
-  (`code/clean/residence_district.py`). Sec. 32 of the 1902 constitution
-  requires it from 1903; the 1869 constitution's Art. I sec. 2 makes every
-  voter eligible to any office "within the gift of the people" with no
-  residence clause, and the 1873 Code has not been read
-  (`residence-district`).
+  (`code/clean/residence_district.py`). No instrument required it before
+  1903, so for the 47 members seated before 1932 the assumption is the
+  project's, not the law's (`residence-district`). See "Residence in the
+  district" below.
 - Where members lived is transcribed but not yet coded, and the 1973 Post map
   that places a whole Board at once has not been seen (`mathews1973-map`);
   two of the 37 members first seated 1932–1962 have none
@@ -83,6 +82,78 @@ Each is a row in `docs/questions.csv`, with an owner and what would settle it.
 The two Dillon's Rule opinions the paper's local legal authority section
 cites, `commonwealthvarlington1977` and `arlingtonvwhite2000`, are both held,
 read from CourtListener and filed in Drive under `legal/`.
+
+### Residence in the district
+
+A supervisor is required to live in the district he represents only from
+1903, by sec. 32 of the 1902 constitution. Nothing before that requires it.
+
+The 1869 constitution creates the office without a residence qualification.
+Art. VII sec. 2, under the running head "Townships", provides that "In each
+township there shall be elected annually: one Supervisor", and that "The
+Supervisors of each township shall constitute the Board of Supervisors for
+that county" (`vaconstitution1869`). Where the same constitution does speak
+to who may hold office, it points the other way: Art. III, headed "Elective
+Franchise and Qualifications for Office", makes the residence a voter needs
+twelve months in the state and three months in "the county, city or town in
+which he shall offer to vote" (sec. 1), and then provides that "all persons
+entitled to vote shall be eligible to any office within the gift of the
+people, except as restricted in this Constitution" (sec. 2). Eligibility
+follows the vote, the vote is seated in the county, and the exceptions are
+reserved to the constitution itself.
+
+The statutes keep the office as the constitution left it. Ch. 76 of the acts
+of 1874-5, approved 5 February 1875, declares the townships as they stood on
+3 November 1874 to be "the magisterial districts into which the counties are
+directed to be distracted" [sic], carrying over their boundaries, names and
+voting places; it renames the unit and says nothing about the officer.
+Ch. 158 sec. 4, approved 8 March 1875, provides that "In each magisterial
+district of the commonwealth there shall be chosen by the qualified voters of
+the same, respectively... one supervisor, one constable, three justices, and
+one overseer of the poor" (`vaacts1875`). The Code of 1887 carries this
+forward in ch. 9 sec. 96 in the same terms (`vacode1887`). In each the
+district names the electorate, not a qualification on the candidate.
+
+The Code of 1873 settles it by contrast, because it states a district
+residence requirement for other offices in the same breath and not for this
+one. Ch. 6 sec. 9 provides that "In each township of the commonwealth there
+shall be chosen by the qualified voters of the townships respectively...
+one supervisor, one assessor, one township clerk, one collector, one
+commissioner of roads, and one Overseer of the poor". Sec. 10, the next
+section on the same page, elects "one overseer of roads, who shall be a
+resident of the road district". Ch. 33 sec. 2 provides that "Each assessor
+and commissioner shall reside in the township, city or town for which he was
+elected, and his removal therefrom shall vacate his office"
+(`vacode1873`). In 1546 pages the phrase "resident of the township" occurs
+once, of the registrar, and "reside in the township" once, of the assessor.
+Neither reaches the supervisor. The Code of 1887 is the same: "resident of
+the district" does not occur in it at all, and the one office tied to
+residence in a district is the road surveyor, whom sec. 963 requires to be
+"a resident and voter thereof" (`vacode1887`).
+
+Nothing local supplies what the general law omits. The office is created by
+the constitution and filled under general law, qualifications for it are
+reserved to the constitution by Art. III sec. 2, and a Virginia county in
+this period holds only the powers the General Assembly grants it
+(`commonwealthvarlington1977`), so the instrument that could carry a local
+rule is a special act for Alexandria County rather than an order of the
+Board. The 1869-70 and 1874-5 session volumes carry no such act; the
+remaining sessions to 1902 have not been searched one by one.
+
+The 1888 proceeding against Tibbett Allen does not corroborate a rule for the
+Board seat. The Alexandria Gazette of 3 September 1888 reports that "A rule
+was issued against Tibbett Allen to show cause why he should not be removed
+as supervisor of roads Jefferson District on account of non-residence"
+(`hjerpe2021`). "Supervisor of roads" is the Gazette's phrase, not the
+Code's: the Code of 1887 in force that year ties district residence to the
+road surveyor (sec. 963) and not to the Board seat (ch. 9 sec. 96), so the
+rule is at least as consistent with a road office as with the seat, and
+Hjerpe records that Allen resigned the following month rather than being
+removed. The episode does not corroborate a residence rule for the seat.
+
+So the 49 derived rows of `data/clean/board_residence.csv` rest on a custom
+that the law did not require, not on the law. Whether to keep them is open;
+the County Attorney owns `residence-district`.
 
 ---
 
@@ -113,7 +184,7 @@ something read out of the note.
 constitution framed in 1868 and ratified in 1869 divides every county into not
 fewer than three townships, has one supervisor elected annually in each, and
 provides that "The Supervisors of each township shall constitute the Board of
-Supervisors for that county" (art. VII sec. 2, `vaconstitution1868`). The
+Supervisors for that county" (art. VII sec. 2, `vaconstitution1869`). The
 mechanism is the constitution itself, not an enabling act; prose should say so
 rather than "under the post-Civil War constitution". Three acts of the 1869–70
 session then made it exist in fact: ch. 39, approved 2 April 1870, has the
