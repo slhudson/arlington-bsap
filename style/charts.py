@@ -4,18 +4,21 @@ A figure script supplies data and says which chart it wants; it does not
 set a colour, a size, a legend position or a margin. The reasoning behind
 each placement is in docs/figures.md.
 
+    figure()        one panel; panels() two side by side
     series()        a {label: (values, colour)} from a table and a frame
-    lines()         a series over time
+    lines()         a series over time; off_scale() marks where one leaves the axis
     stacked_bars()  composition at intervals
-    stacked_steps() composition over continuous years, with gaps preserved
-    panels()        two of the above, side by side
-    legend()        one legend for the figure, one row, below the axes
-    rule()          a dated vertical rule with its note above the frame
+    stacked_steps() composition over continuous years; runs() finds the gaps
+    age_band()      youngest to oldest as a band; strokes() draws tenures over it
     scatter()       one scatter, squarer than a time series
     broken_scatter() the same with a broken x axis; break_x() draws the break
     dots()          a scatter, dot area from dot_area(), named by dot_label()
-    dot_legend()    one dot per colour, one row, below the axes
-    fit()           the figure's size and margins, called by paths.save()
+    legend()        one legend for the figure, one row, below the axes
+    dot_legend()    the same with a dot per colour
+    rule()          a dated vertical rule with its note above the frame
+    years() counts() comma_axis() ages() shares() seats()   the axes
+    fit()           the figure's size and margins, called by paths.save();
+                    place_labels() then sets every name beside its dot
 """
 import numpy as np
 from matplotlib import pyplot as plt
@@ -54,10 +57,10 @@ def series(frame, table, keys=None):
             if keys is None or k in keys}
 
 
-def lines(ax, x, series, marker=True):
-    """One line per series. series is an ordered {label: (values, colour)}.
-    A marker on every point unless marker=False."""
-    for label, (values, color) in series.items():
+def lines(ax, x, entries, marker=True):
+    """One line per entry of an ordered {label: (values, colour)}. A marker
+    on every point unless marker=False."""
+    for label, (values, color) in entries.items():
         ax.plot(x, values, color=color, marker="o" if marker else None, zorder=3, label=label)
 
 
@@ -77,11 +80,11 @@ def strokes(ax, segments, color, alpha=1.0):
         ax.plot([x0, x1], [y0, y1], color=color, alpha=alpha, solid_capstyle="butt", zorder=3)
 
 
-def stacked_bars(ax, x, series, width=7):
-    """Stacked bars. series is an ordered {label: (values, colour)} from the
-    axis upward. No texture."""
+def stacked_bars(ax, x, entries, width=7):
+    """Stacked bars, one per entry of an ordered {label: (values, colour)},
+    from the axis upward. No texture."""
     bottom = np.zeros(len(x))
-    for label, (values, color) in series.items():
+    for label, (values, color) in entries.items():
         v = np.asarray(values, dtype=float)
         ax.bar(x, v, bottom=bottom, width=width, color=color, label=label)
         bottom = bottom + v
@@ -116,11 +119,12 @@ def runs(reported):
     return out
 
 
-def stacked_steps(ax, years, series, spans):
-    """Stacked step-area; each year's value spans [year, year + 1)."""
+def stacked_steps(ax, years, entries, spans):
+    """Stacked step-area, one band per entry of an ordered {label: (values,
+    colour)}; each year's value spans [year, year + 1)."""
     years = np.asarray(years)
     cum = np.zeros(len(years))
-    for label, (values, color) in series.items():
+    for label, (values, color) in entries.items():
         top = cum + np.asarray(values, dtype=float)
         for n, (a, b) in enumerate(spans):
             xs = np.append(years[a:b + 1], years[b] + 1)
@@ -195,10 +199,8 @@ def fit(fig, profile=style.DEFAULT_PROFILE):
         for ax, b in boxes:
             ax.set_position([b.x0, y0 + (b.y0 - y0) * k, b.width, b.height * k])
 
-    # Re-place the legend under the plot at its final size: centred on the
-    # plot region, not on the canvas. Centring on the canvas counts the
-    # y-axis label and tick labels as part of what to centre under, which
-    # pushes the legend left of the bars it names.
+    # Re-place the legend under the plot at its final size, centred on the
+    # plot region rather than the canvas (docs/figures.md, Legend).
     if fig.legends:
         fig.canvas.draw()
         r = fig.canvas.get_renderer()
@@ -264,11 +266,15 @@ def broken_scatter(profile=style.DEFAULT_PROFILE):
     return fig, (near, far)
 
 
-def break_x(near, far, label):
+def break_x(near, far, label, far_limits, far_tick):
     """The break between the two sides of a broken x axis: the facing
     spines hidden and a short slash across the axis line on each side,
-    and the axis label under the near side, which holds the data."""
+    and the axis label under the near side, which holds the data. The far
+    side runs over `far_limits` with one labelled tick at `far_tick`."""
     near.set_xlabel(label)
+    far.set_xlim(*far_limits)
+    far.xaxis.set_major_locator(FixedLocator([far_tick]))
+    far.xaxis.set_major_formatter(THOUSANDS)
     near.spines["right"].set_visible(False)
     far.spines["left"].set_visible(False)
     far.tick_params(axis="y", left=False, labelleft=False)
@@ -502,10 +508,7 @@ def years(ax, first, last, step=10, label="census year", minor=10, through=None,
 def counts(ax, top, step, label="residents", minor=None):
     """A count axis from 0 to `top`, labelled every `step`, with a lighter
     gridline every `minor` if given."""
-    ax.set_ylim(0, top)
-    ax.yaxis.set_major_locator(MultipleLocator(step))
-    ax.yaxis.set_major_formatter(THOUSANDS)
-    ax.set_ylabel(label)
+    comma_axis(ax.yaxis, top, step, label)
     if minor:
         ax.yaxis.set_minor_locator(MultipleLocator(minor))
         ax.grid(axis="y", which="minor", color=plt.rcParams["grid.color"],
