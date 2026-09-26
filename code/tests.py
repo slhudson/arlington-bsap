@@ -262,23 +262,56 @@ def test_an_attributed_name_that_misses_the_roster_is_rejected():
     assert err and "not in the roster" in err, f"not caught: {err}"
 
 
+def test_words_with_no_category_are_refused():
+    """A race, gender or party as a source words it that clean has no
+    category for: the transcribed files keep the words, so a new phrasing has
+    to be decided in code/clean/board_members.py before it counts."""
+    def novel(d):
+        d.loc[d.name == "William A. Rowe", "race_words"] = "a man of color"
+        return d
+    err = breaks(paths, "built", patch_claims("demographics", novel), build=board_members.build)
+    assert err and "no single category" in err, f"not caught: {err}"
+
+
 def test_two_sources_disagreeing_on_race_is_a_finding():
     """Two sources naming a different race for one person."""
     def contradict(d):
         extra = d[d.name == "William A. Rowe"].iloc[[0]].copy()
-        extra["race"] = "White"
+        extra["race_words"] = "former confederate soldier"
         return pd.concat([d, extra], ignore_index=True)
     err = breaks(paths, "built", patch_claims("demographics", contradict), build=board_members.build)
     assert err and "disagree" in err, f"not caught: {err}"
 
 
-def test_a_birth_year_after_the_seating_is_rejected():
-    """A birth year that makes a member a child when first seated."""
+def test_an_age_that_makes_a_child_a_member_is_rejected():
+    """A misread age (39 read as 10) that makes a member a child when first
+    seated. The birth year is worked out in the clean stage, from the age
+    and the date it was stated, so the check has to see it there."""
     def misread(d):
-        d.loc[d.name == "Harold J. Casto", "birth_year"] = "1953"
+        d.loc[(d.name == "Harold J. Casto") & (d.age != ""), "age"] = "10"
         return d
-    err = breaks(paths, "built", patch_claims(None, misread), build=board_members.build)
+    err = breaks(paths, "built", patch_claims("demographics", misread), build=board_members.build)
     assert err and "age when first seated" in err, f"not caught: {err}"
+
+
+def test_an_age_without_the_date_it_was_stated_is_rejected():
+    """An age is only a birth year with a date beside it; the transcribed
+    file gives both and this stage does the subtraction."""
+    def undated(d):
+        d.loc[d.name == "Harold J. Casto", "age_date"] = ""
+        return d
+    err = breaks(paths, "built", patch_claims("demographics", undated), build=board_members.build)
+    assert err and "no year in its date" in err, f"not caught: {err}"
+
+
+def test_a_birth_year_written_beside_an_age_is_rejected():
+    """The transcribed file records what was printed. A birth year worked
+    out by the reader and keyed beside the age it came from is refused."""
+    def worked_out(d):
+        d.loc[d.name == "Harold J. Casto", "birth_year"] = "1924"
+        return d
+    err = breaks(paths, "built", patch_claims("demographics", worked_out), build=board_members.build)
+    assert err and "both a birth year and an age" in err, f"not caught: {err}"
 
 
 def test_a_census_row_that_does_not_name_what_was_checked_is_refused():
@@ -406,7 +439,7 @@ def test_reporting_cannot_overrule_a_party_the_county_prints():
     """Reporting that contradicts a party the county prints."""
     def contradict(d):
         extra = d.iloc[[0]].copy()
-        extra["name"], extra["start_year"], extra["party"] = "Mary Margaret Whipple", "1983", "Republican"
+        extra["name"], extra["start_year"], extra["party_words"] = "Mary Margaret Whipple", "1983", "Republicans"
         return pd.concat([d, extra], ignore_index=True)
     err = breaks(paths, "built", patch_claims("party", contradict), build=board_members.build)
     assert err and "county lists (D)" in err, f"not caught: {err}"

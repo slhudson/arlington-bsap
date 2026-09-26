@@ -108,7 +108,8 @@ def state_parties() -> dict:
 def party_attributions() -> pd.DataFrame:
     """One row per (name, term start year) from the sourced file. Two sources
     disagreeing stops the build."""
-    a = claims("party", ["name", "start_year", "party", "basis", "source", "quote"])
+    a = claims("party", ["name", "start_year", "party_words", "basis", "source", "quote"])
+    a["party"] = decode(a.party_words, PARTY_WORDS, "party")
     a["start_year"] = a.start_year.astype(int)
 
     def fold(rows):
@@ -180,11 +181,97 @@ def held(terms: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame({"held_from": start.astype(int), "held_to": pd.Series(stop, index=terms.index).astype(int)})
 
 
+# What the words a source uses mean. board_demographics.csv and
+# board_party.csv keep the words as printed (`race_words`, `gender_words`,
+# `party_words`); the category is decided here, in the open. A word this does
+# not list stops the build.
+GENDER_WORDS = {"he": "man", "his": "man", "him": "man", "mr.": "man",
+                "she": "woman", "her": "woman", "mrs.": "woman", "ms.": "woman"}
+RACE_WORDS = {
+    "black": "Black", "african american": "Black", "african americans": "Black",
+    "black community": "Black", "black people i know, i among them": "Black",
+    # As the census's Mulatto is coded (board_census.py).
+    "mixed race": "Black",
+    "latin american heritage": "Hispanic",
+    # A description that implies a race the source does not state: a
+    # Confederate soldier of the period was White; breaking the all-white
+    # pattern was the first Black member.
+    "former confederate soldier": "White",
+    "all-white pattern": "Black",
+    # A count of the members of color, not a claim about the named member;
+    # the person's own rows carry the race.
+    "3 black men, one hispanic man": "",
+}
+# A party is what the source calls the member, except that an independent
+# with the formal backing of a party's committee is coded to that party
+# (the coding rule: Dugan 1947, Vihstadt 2014-15), and where a source calls
+# a member independent but another calls him a Democrat, Democratic (Fisher
+# 1968, from the 1971 source).
+PARTY_WORDS = {
+    "independents": "independent",
+    "democrat": "Democratic", "democrats": "Democratic",
+    "democratic party nominee": "Democratic",
+    "republicans": "Republican",
+    "candidate of abc": "ABC", "endorsee of abc": "ABC",
+    "democratic-leaning independent": "independent",
+    "democrat (though nominally an independent)": "Democratic",
+    "democrat-cum-independent": "Democratic",
+    "independent; endorsed by the republican committee": "Republican",
+    "independent; formal backing of the republican committee": "Republican",
+    "independent; supported by abc and democrats": "Democratic",
+}
+
+
+def decode(words: pd.Series, table: dict, what: str) -> pd.Series:
+    """A column of words as the category each means, blank for blank. Gender
+    words may be several, joined with ", " (`Mr., his`); they must agree."""
+    def one(w):
+        if w == "":
+            return ""
+        parts = [p.strip().lower() for p in w.split(", ")] if what == "gender" else [w.lower()]
+        missing = [p for p in parts if p not in table]
+        found = {table[p] for p in parts if p in table}
+        if missing or len(found) != 1:
+            raise ValueError(f"{what} words with no single category here: {w!r}; "
+                             f"add them to the table in board_members.py or fix the reading")
+        return found.pop()
+    return words.map(one)
+
+
+BORN_BY_AGE = "; the year is the year of the date less the age given, so within a year"
+
+
+def birth_years_from_ages(a: pd.DataFrame) -> pd.DataFrame:
+    """A source that states an age gives the age and the date it was stated
+    (`age`, `age_date`, as printed); the birth year is decided here, the
+    same way board_census.py does it for a census record. A row gives a
+    birth year or an age, and an age needs its date."""
+    aged = a.age != ""
+    if (aged & (a.birth_year != "")).any():
+        raise ValueError("a claim row gives both a birth year and an age:\n"
+                         + "\n".join(f"  {n}" for n in a.name[aged & (a.birth_year != "")]))
+    years = a.age_date.str.findall(r"\d{4}").str[-1]
+    undated = aged & years.isna()
+    if undated.any():
+        raise ValueError("an age with no year in its date:\n"
+                         + "\n".join(f"  {n}: {d!r}" for n, d in zip(a.name[undated], a.age_date[undated])))
+    if ((~aged) & (a.age_date != "")).any():
+        raise ValueError("a date with no age beside it")
+    a = a.copy()
+    a.loc[aged, "birth_year"] = (years[aged].astype(int) - a.age[aged].astype(int)).astype(str)
+    a.loc[aged, "basis"] = a.basis[aged] + BORN_BY_AGE
+    return a.drop(columns=["age", "age_date"])
+
+
 def attributions() -> pd.DataFrame:
     """One row per person from the claim file and the census records: race,
     gender and birth year, each with every source and note joined. Two
     sources disagreeing stops the build."""
-    a = claims("demographics", ["name", *ATTRIBUTED, "basis", "source", "quote"])
+    a = claims("demographics", ["name", "race_words", "gender_words", "birth_year", "age",
+                                "age_date", "basis", "source", "quote"])
+    a["race"] = decode(a.race_words, RACE_WORDS, "race")
+    a["gender"] = decode(a.gender_words, GENDER_WORDS, "gender")
+    a = birth_years_from_ages(a.drop(columns=["race_words", "gender_words"]))
     missing = [f for f in ATTRIBUTED if f not in a.columns]
     if missing:
         raise ValueError(f"board_demographics.csv has no {', '.join(missing)} column")

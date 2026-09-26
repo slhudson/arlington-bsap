@@ -27,11 +27,13 @@ def keyed_terms():
     read them, and states the 1912-1931 seats itself. docs/board.md."""
     d = listing("terms")
     for _, r in d.iterrows():
+        # The county prints the election and no start or end: a November
+        # winner takes his seat the following January (board_roster.py),
+        # and the end is unrecorded.
         yield {"name": r["name"], "district": r.district,
-               "start_year": int(r.start_year), "start_month": int(r.start_month),
-               "end_year": int(r.end_year) if r.end_year else float("nan"),
-               "end_month": int(r.end_month) if r.end_month else float("nan"),
-               "seated_by": r.seated_by, "source": r.source, "note": r.note}
+               "start_year": int(r.election_date[-4:]) + 1, "start_month": 1,
+               "end_year": float("nan"), "end_month": float("nan"),
+               "seated_by": ELECTION, "source": r.source, "note": r.note}
 
 
 def board_elections():

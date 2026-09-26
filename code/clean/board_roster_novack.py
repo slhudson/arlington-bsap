@@ -90,7 +90,9 @@ def _spans():
     specials = results.special_candidates()
     d = listing("novack")
     for _, r in d.iterrows():
-        name = str(r["name"]).strip()
+        # Novack prints Jr and Sr without the period; the rest of the
+        # project's names have it.
+        name = re.sub(r"\b(Jr|Sr)$", r"\1.", str(r["name"]).strip())
         last = surname(name)
         found = list(events(r.notes))
         parts = [p for p in str(r.term).split(";") if YEAR_RE.search(p)]

@@ -294,6 +294,21 @@ less the age, and the note on it says which. The place joins the claims in
 `data/clean/board_residence.csv`, one row per claim, none chosen over
 another and nothing coded.
 
+The claim files keep words, not categories. `board_demographics.csv` has
+`race_words` and `gender_words` (the pronoun, honorific or description as
+the source prints it), and `board_party.csv` has `party_words`; the tables
+that say what each means are `RACE_WORDS`, `GENDER_WORDS` and `PARTY_WORDS`
+in `code/clean/board_members.py`, where a word not listed stops the build.
+`board_terms.csv` keeps the election date the county prints; the January
+start, the missing end and the election as how the seat was gained are
+`code/clean/board_roster_results.py`'s. A press or obituary age is keyed the
+same way: `board_demographics.csv` has
+`age` and `age_date` (as printed: "25 April 2019", "1960"), and
+`birth_year` only where a source prints a birth date or year. The transcriber
+never subtracts. `code/clean/board_members.py` takes the year of the date
+less the age, refuses an age with no year in its date, and refuses a row that
+gives both a birth year and an age.
+
 Three records read on 25 September 2026 are filed and cited but kept out of
 the table, since each gives a birth year that disagrees with the member's
 other record and the build stops on two sources disagreeing: W. N. Febrey's

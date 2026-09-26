@@ -38,12 +38,6 @@ FIELDS = {
 # A birth date the record prints, as opposed to the index's "abt" estimate.
 BIRTH = re.compile(r"(?:Birth Date|Birth Year|Estimated Birth Year) (?!abt|Abt)(?:\w+ )?(\d{4})")
 
-# How the claim rows coded what the index prints; the build codes the same
-# way (code/clean/board_census.py) and a pair not listed stops this script.
-CODED = {("gender", "Male"): "man", ("gender", "Female"): "woman",
-         ("race", "White"): "White", ("race", "Black"): "Black",
-         ("race", "Mulatto"): "Black"}
-
 SHEET_AGREES = "read against the sheet, which agrees"
 INDEX_ONLY = "the index only"
 
@@ -72,8 +66,9 @@ def parse(quote):
 def record(key, demo, resi):
     """One table row from the claim rows that cite one record."""
     name, source = key
-    claims = [r for r in demo if r.get("race") or r.get("gender")]
-    silent = [r for r in demo if not (r.get("race") or r.get("gender") or r.get("birth_year"))]
+    claims = [r for r in demo if r.get("race_words") or r.get("gender_words")]
+    silent = [r for r in demo if not (r.get("race_words") or r.get("gender_words")
+                                      or r.get("birth_year") or r.get("age"))]
     for r in claims[1:]:
         if (r["basis"], r["quote"]) != (claims[0]["basis"], claims[0]["quote"]):
             raise ValueError(f"{name} {source}: two claim rows state the match differently")
@@ -84,23 +79,6 @@ def record(key, demo, resi):
     if demo:
         lead = (claims or demo)[0]
         row.update(basis=lead["basis"], quote=lead["quote"], **parse(lead["quote"]))
-
-    for field in ("race", "gender") if claims else ():
-        claimed = {r[field] for r in claims if r.get(field)}
-        printed = row[field]
-        want = {CODED[(field, printed)]} if printed and (field, printed) in CODED else set()
-        if printed and not want:
-            raise ValueError(f"{name} {source}: no coding for {field} {printed!r}; add it to CODED "
-                             f"here and in code/clean/board_census.py")
-        if claimed != want:
-            raise ValueError(f"{name} {source}: the rows claim {field} {sorted(claimed)}, the "
-                             f"index prints {printed!r}")
-    for r in demo:
-        if r.get("birth_year"):
-            derived = row["birth_year"] or str(int(row["year"]) - int(row["age"] or 0))
-            if r["birth_year"] != derived:
-                raise ValueError(f"{name} {source}: the row claims birth year {r['birth_year']}, "
-                                 f"the record gives {derived}")
 
     checked = [SHEET_AGREES] if SHEET_AGREES in row["basis"] else []
     for r in resi:

@@ -37,9 +37,9 @@ FILES = {"demographics": BY_CLAUDE / "board_demographics.csv",
 # A census record's citekey, census<year><surname>, unlike a volume's (census1880).
 CENSUS_RECORD = re.compile(r"census\d{4}[a-z]+")
 
-COLUMNS = ["name", "claim", "year", "start_year", "start_month", "end_year", "end_month",
-           "district", "seated_by", "term", "race", "gender", "birth_year", "age", "birthplace",
-           "occupation", "place", "party", "basis", "checked", "source", "page", "quote",
+COLUMNS = ["name", "claim", "year", "start_year", "start_month", "election_date", "end_year", "end_month",
+           "district", "seated_by", "term", "race", "gender", "race_words", "gender_words", "party_words", "birth_year", "age", "age_date", "birthplace",
+           "occupation", "place", "basis", "checked", "source", "page", "quote",
            "sheet", "notes", "note"]
 
 
