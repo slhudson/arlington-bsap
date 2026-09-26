@@ -116,7 +116,9 @@ def entries(text):
             while depth:
                 depth += {"{": 1, "}": -1}.get(body[i], 0)
                 i += 1
-            e[f.group(1).lower()] = body[f.end():i - 1]
+            # A `type` field (a thesis's "PhD dissertation") is biblatex's
+            # subtype; the entry type kind() reads is the one after the @.
+            e["subtype" if f.group(1).lower() == "type" else f.group(1).lower()] = body[f.end():i - 1]
         out.append(e)
     return out
 
