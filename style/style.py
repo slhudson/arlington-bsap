@@ -65,11 +65,11 @@ AGE_COVERAGE = {
     "known":   ("with a birth year", SAND),
     "unknown": ("without", UNRECORDED),
 }
-# The sitting Board's ages: the envelope in the stroke neutral, the median dark.
-AGES = {
-    "oldest":   ("oldest", SAND_LINE),
-    "median":   ("median", DARK),
-    "youngest": ("youngest", SAND_LINE),
+# The sitting Board's ages on a Lexis diagram: the span from youngest to
+# oldest in the near-neutral, each member's tenure a stroke in the dark grey.
+AGE_SPAN = {
+    "band":   ("youngest to oldest sitting", SAND),
+    "member": ("member", DARK),
 }
 # The sitting Board by age band, youngest at the base; the members with no
 # birth year in the no-evidence grey on top.

@@ -26,9 +26,9 @@ are explained in `code/build/citekeys.py`, and what is still open is in
   in no census (B. M. Smith, H. L. Brown Jr, T. W. Richards, R. L. Lowry).
 - Birth years, for 88 of 119 members, rest on the census listings' ages and
   on an age stated in an obituary or a profile, each right to within a
-  year, and the sitting-age figure draws a year only when all but at most
-  one sitting member has one. The figure is not in the paper yet, and its
-  lines start in 1932 on an axis that still runs from 1870.
+  year, and the age figure draws a year only when all but at most
+  one sitting member has one. The figure is not in the paper yet, and it
+  starts in 1932.
 - 1912–1931 names five terms and no more; the seats for those years are
   assumed, not counted from them.
 - The November 1903 winners are seated in January on sec. 112 without the
