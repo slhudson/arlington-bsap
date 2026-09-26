@@ -155,6 +155,8 @@ settle a question — a boundary history, a news article, a methods note — is
 cited in `paper/sources.bib` and filed in the project's Drive folder, not
 downloaded into `data/raw/`.
 The test is whether a figure derives from it.
+`code/cite.py` fetches such a source, files it and writes its bib entry in one
+step; the note, what the document says, is still written by the reader.
 
 **The Drive folder is filed by kind, and its index is generated.**
 `code/archive.py` files the documents folder into `legal`, `reports`, `books`, `bios`,

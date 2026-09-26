@@ -13,8 +13,6 @@ spike: the figure shows the size of the Board, not who sat.
 
 ## What rests on an assumption
 
-- Retrocession is dated 1846 or 1847 depending on the source; the report has
-  to pick one (`retrocession-date`).
 - The age bands start at 1980, because nothing earlier is held in a
   machine-readable form (`adults-before-1980`).
 
@@ -41,6 +39,14 @@ and census treatment all changed across the period:
 |---|---|---|
 | to 1846 | Alexandria County, D.C. | part of the District of Columbia |
 | 1847–1919 | Alexandria County, Virginia | the three districts **and** Alexandria city |
+
+Retrocession has two dates and the prose names the event each time rather
+than picking a year (Sally, 26 September 2026): Congress passed the act to
+retrocede the county on 9 July 1846 and the residents voted for it that
+September, and Virginia's General Assembly accepted the county on 13 March
+1847, when the handover took effect. "Retroceded in 1846" is the residents'
+choice; "part of Virginia from 1847" is the transfer. Neither act is yet
+cited from the document (`retrocession-acts`).
 | 1920– | Arlington County, Virginia | the three districts only |
 
 Two dates do the work. **In 1900** Alexandria city became independent of the
@@ -181,7 +187,14 @@ ASCII at www2.census.gov, cut to Virginia's county rows for size); 2000–2020
 from the API. 1980's "Spanish origin" is the same question. In 1980 the file
 does not split American Indian from Asian among persons of Spanish origin, so
 the two are subtracted together and carried in `nh_aapi` rather than split on
-an assumption.
+an assumption. The 1980 `aapi` band therefore holds the county's 384
+American Indian, Eskimo and Aleut residents of all origins beside its 6,792
+Asian and Pacific Islanders, where 1990 and later put them in the residual;
+the point is about five per cent high on that band, once. It stays as the
+source prints it and the caption says so, rather than being corrected from
+a second table that is not crossed with Spanish origin (Sally, 26 September
+2026): the figure keeps fidelity to the table it reads and states the
+grouping, instead of a quiet adjustment that mixes two tables.
 
 **The Hispanic series begins in 1980**, the first census to ask the question
 of everyone (decided by Sally, 24 September 2026). Before 1970 the question
@@ -224,6 +237,17 @@ per cent). Units rose while population fell, so the decade's loss is people
 per household falling faster than the county could add units to hold them,
 not a shrinking housing stock — the pattern of the era's inner-ring suburbs
 generally, not something particular to Arlington.
+
+The story behind the arithmetic is the baby boom growing up. Nationally the
+average household fell from 3.14 people in 1970 to 2.76 in 1980, and almost
+all of the fall is children: members under 18 per household went from 1.09
+to 0.79 while adults per household barely moved (`censushh6`). The children
+born to the young families who filled Arlington in the 1940s and 50s turned
+18 across the 1970s and left, to careers and households of their own, and
+fewer were born behind them. A built-out inner suburb of small units feels
+that hardest. The Arlington-specific evidence, the under-18 count in the
+1970 and 1980 census age tables, is what `adults-before-1980` in
+docs/questions.csv would also transcribe.
 
 ### What the Black share shows
 

@@ -39,7 +39,7 @@ CENSUS_RECORD = re.compile(r"census\d{4}[a-z]+")
 
 COLUMNS = ["name", "claim", "year", "start_year", "start_month", "election_date", "end_year", "end_month",
            "district", "seated_by", "term", "race", "gender", "race_words", "gender_words", "party_words", "birth_year", "age", "age_date", "birthplace",
-           "occupation", "place", "basis", "checked", "source", "page", "quote",
+           "occupation", "place", "basis", "match", "checked", "source", "page", "quote",
            "sheet", "notes", "note"]
 
 

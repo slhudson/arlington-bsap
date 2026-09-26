@@ -419,12 +419,21 @@ columns:
 | `name`, `source` | the roster name and the record's citekey, `census<year><surname>` |
 | `year` | the census year |
 | `basis` | what ties the record to the member, stated once: the name, the place, and an occupation, a spouse or a house number where one agrees; where the index misreads a name, what it reads |
+| `match` | what ties the record to the member besides the name, from a fixed list, several joined with `; `: `district` (the district he sat for), `occupation`, `household` (a spouse or child another source names), `address` (a house or street a newspaper also prints), `unique` (the only person of the name in the county's index that year), or `none`. Blank where no one has yet read the record for a tie |
 | `checked` | what was read against the image: `read against the sheet, which agrees`, or what the sheet gives where it differs from the index. Every row names the sheet; see "Reading an image" |
 | `gender`, `race`, `age`, `birthplace`, `occupation` | as the index prints them: `Male`, `Mulatto`, `39` |
 | `birth_year` | a birth year the index prints as a date rather than as its `abt` estimate from the age (the 1900 schedule records a month and year); blank otherwise |
 | `place` | the street and house number as read for residence, from the sheet where the sheet was read; blank where no one has read it for that purpose |
 | `quote` | the index listing verbatim |
 | `sheet` | the sheet's lines verbatim, where they were read |
+
+A name alone with nothing else in agreement is no match. A row whose
+`match` is `none` stays in the table, so that the search and the reading are
+on record, and gives the member nothing: no birth year, race, gender or
+place, which then fall to the default or to the member's other sources
+(Sally, 26 September 2026). A blank `match` has not been read for a tie
+and stands until it is; which rows are blank, and the revisit once the age
+and neighborhood analyses are settled, are `census-match-quality`.
 
 `code/clean/board_census.py` codes the printed values: `Male` a man,
 `Female` a woman, `White` White, and both `Black` and `Mulatto` Black, as
