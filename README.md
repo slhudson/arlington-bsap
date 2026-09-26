@@ -104,6 +104,7 @@ silently go stale.
 | `docs/residents.md`, `docs/board.md`, `docs/voters.md` | What each number is, what backs it, what is assumed, and why; one per subject |
 | `docs/questions.csv` | What is still open: one row per item with an owner, what it bites and what would settle it |
 | `docs/setup.md` | Getting a machine set up to build; written for a collaborator joining |
+| `docs/web_access.md` | The websites the sources come from: what each needs from this machine, and what it refuses |
 | `paper/sources.bib` | Every source, cited by key from both the prose and `data/clean/`; each entry's `annotation` says what the copy held supports and where it is filed |
 | Drive, `sources/documents` | Copies of the sources no number is taken from, filed by kind, with an `index.md` that `code/archive.py` writes: <https://drive.google.com/drive/folders/10SGuURB-ldC1AzM3ClsdL_tAiWeFIZB4> |
 
