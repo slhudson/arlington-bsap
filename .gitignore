@@ -20,7 +20,7 @@ paper/*.run.xml
 # belong to whoever is at the keyboard rather than to the project.
 .claude/settings.local.json
 
-# Six census scans the build never reads, 50MB, fetched on demand by
+# Ten census scans the build never reads, 120MB, fetched on demand by
 # code/fetch/census_volumes.py and checked against data/contents.csv.
 data/raw/us_census_bureau/1880/1880_v1-12.pdf
 data/raw/us_census_bureau/1880/1880_v1-13.pdf
@@ -28,6 +28,10 @@ data/raw/us_census_bureau/1890/1890a_v1-11.pdf
 data/raw/us_census_bureau/1890/1890a_v1-12.pdf
 data/raw/us_census_bureau/1890/1890a_v1-13.pdf
 data/raw/us_census_bureau/1890/1890a_v1-14.pdf
+data/raw/us_census_bureau/1900/volume-1-p8.pdf
+data/raw/us_census_bureau/1910/volume-3-p8.pdf
+data/raw/us_census_bureau/1920/41084484v1ch5.pdf
+data/raw/us_census_bureau/1930/03815512v1ch10.pdf
 
 # Worktrees the desktop app and subagents make for their own sessions.
 .claude/worktrees/
