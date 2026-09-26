@@ -102,6 +102,10 @@ nothing shares a colour with anything it appears beside.
   "other" in the independents' grey. The County Board vote has the seat
   chart's bands in the seat chart's order, with "other" where "independent"
   stands there.
+- **Peers.** Cities dark grey, counties the sand stroke, Arlington the
+  per-seat vermilion. The two neutrals are close on purpose: the kind of
+  government is context, and a second saturated hue would compete with
+  Arlington, which is what the figure is for.
 
 ## Stacking order
 
@@ -432,6 +436,22 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
   the table and not drawn: the registration series is fifteen years long,
   and the prose can state it in a sentence. The share panel starts where its
   denominator does, so its frame is not half empty.
+- **board_peers_residents, board_peers_density.** Arlington beside every
+  Virginia city and county of 100,000 or more, two separate figures rather
+  than panels, because each answers a different question about who
+  Arlington's peers are: places its size, and places as dense. Both axes
+  start at zero; the residents axis breaks so that Fairfax, at 1.15
+  million, stays in view without pressing the other seventeen into a third
+  of the width. Squarer than the time series (`style.SQUARE`), since both
+  axes are measures and neither is time. Dots are one size: area was tried
+  for population and for density, and in both a reader could not read the
+  third measure off it. Residents per member rather than members per
+  resident, to match residents_per_seat. Names are placed by
+  `charts.place_labels()`: every name sits nearer its own dot than half the
+  distance to any other, touches nothing, and a name beside a dot is
+  centred on it at three or nine o'clock; each cluster carries at least one
+  name, and a dot too crowded to name beside it (Alexandria, on the
+  7-member row) is named with a short leader.
 
 ## Output
 

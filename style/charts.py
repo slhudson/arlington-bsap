@@ -12,11 +12,17 @@ each placement is in docs/figures.md.
     end_label()     a line named at its last point, inside the axes
     legend()        one legend for the figure, one row, below the axes
     rule()          a dated vertical rule with its note above the frame
+    scatter()       one scatter, squarer than a time series
+    broken_scatter() the same with a broken x axis; break_x() draws the break
+    dots()          a scatter, dot area from dot_area(), named by dot_label()
+    dot_legend()    one dot per colour, one row, below the axes
     fit()           the figure's size and margins, called by paths.save()
 """
 import numpy as np
 from matplotlib import pyplot as plt
+from matplotlib.lines import Line2D
 from matplotlib.patches import Patch
+from matplotlib.text import Text
 from matplotlib.ticker import (FixedLocator, FuncFormatter, MultipleLocator,
                                PercentFormatter)
 
@@ -25,11 +31,13 @@ import style
 THOUSANDS = FuncFormatter(lambda v, _: f"{int(v):,}")
 
 
-def figure(profile=style.DEFAULT_PROFILE, of_width=1.0):
+def figure(profile=style.DEFAULT_PROFILE, of_width=1.0, aspect=None):
     """One panel at this profile's width. The height is solved by fit().
     `of_width` is the fraction of that width to take, for the few figures
-    too narrow to fill the page; pass a name from style, never a number."""
+    too narrow to fill the page, and `aspect` replaces the profile's for
+    the few that are not time series; pass names from style, never numbers."""
     fig, ax = plt.subplots(figsize=style.figsize(profile, of_width))
+    fig.plot_aspect = aspect
     return fig, ax
 
 
@@ -147,7 +155,7 @@ def fit(fig, profile=style.DEFAULT_PROFILE):
     plot is the profile's aspect times as wide as tall, and style.MARGIN of
     white surrounds the ink on all four sides. Iterated, because the height
     depends on furniture that is only measurable once drawn."""
-    aspect = style.PROFILES[profile]["aspect"]
+    aspect = getattr(fig, "plot_aspect", None) or style.PROFILES[profile]["aspect"]
 
     def ink(fig):
         """The drawn extent in figure fractions, from the rendered pixels."""
@@ -244,6 +252,9 @@ def fit(fig, profile=style.DEFAULT_PROFILE):
             lg.set_bbox_to_anchor((b.x0, b.y0 * k + rise, b.width, b.height * k),
                                   transform=fig.transFigure)
 
+    # Names beside dots are placed last, against the final geometry.
+    place_labels(fig)
+
 
 def legend(fig, entries, ncol=None):
     """One legend for the whole figure, below it, one row unless ncol is
@@ -252,6 +263,225 @@ def legend(fig, entries, ncol=None):
     colors = [v if isinstance(v, str) else v[1] for v in entries.values()]
     fig.legend(handles=[Patch(facecolor=c) for c in colors], labels=list(entries),
                loc="outside lower center", ncol=ncol or len(entries))
+
+
+def scatter(profile=style.DEFAULT_PROFILE):
+    """One scatter, squarer than a time series."""
+    return figure(profile, aspect=style.SQUARE)
+
+
+def broken_scatter(profile=style.DEFAULT_PROFILE):
+    """One scatter whose x axis is broken so that one far point stays in
+    view: the near and far sides as two axes sharing y. break_x() draws
+    the break once both sides have their limits."""
+    fig, (near, far) = plt.subplots(1, 2, sharey=True, figsize=style.figsize(profile),
+                                    gridspec_kw={"width_ratios": style.BROKEN})
+    # The two sides sit close, as one axis with a gap, not two panels.
+    fig.get_layout_engine().set(w_pad=0.02, wspace=0.0)
+    fig.plot_aspect = style.SQUARE
+    return fig, (near, far)
+
+
+def break_x(near, far, label):
+    """The break between the two sides of a broken x axis: the facing
+    spines hidden and a short slash across the axis line on each side,
+    and the axis label under the near side, which holds the data."""
+    near.set_xlabel(label)
+    near.spines["right"].set_visible(False)
+    far.spines["left"].set_visible(False)
+    far.tick_params(axis="y", left=False, labelleft=False)
+    ratio = style.BROKEN[0] / style.BROKEN[1]
+    for ax, x, dx in ((near, 1, 0.012), (far, 0, 0.012 * ratio)):
+        ax.plot([x - dx, x + dx], [-0.02, 0.02], transform=ax.transAxes,
+                color=plt.rcParams["axes.edgecolor"], lw=plt.rcParams["axes.linewidth"],
+                clip_on=False)
+
+
+def dot_area(highlight=False, profile=style.DEFAULT_PROFILE):
+    """A scatter dot's area in points squared, stepped up with the
+    profile's type."""
+    return (style.DOT_HIGHLIGHT if highlight else style.DOT) * style.PROFILES[profile]["scale"] ** 2
+
+
+def dots(ax, x, y, area, colors):
+    """One dot per point, area as given (one value or one per point).
+    Every dot is remembered, so that place_labels() can keep names off it."""
+    area = np.broadcast_to(np.asarray(area, dtype=float), np.shape(np.asarray(x)))
+    ax.scatter(x, y, s=area, c=list(colors), edgecolors="white", linewidths=0.8,
+               zorder=3, clip_on=False)
+    if not hasattr(ax, "dots_drawn"):
+        ax.dots_drawn = []
+    ax.dots_drawn += list(zip(np.asarray(x, dtype=float), np.asarray(y, dtype=float), area))
+
+
+# Where a name may sit beside its dot, in order of preference: offsets in
+# units of the gap, and the text's alignment.
+PLACES = {
+    "right":       (1, 0, "left", "baseline"),
+    "left":        (-1, 0, "right", "baseline"),
+    "above":       (0, 1, "center", "bottom"),
+    "below":       (0, -1, "center", "top"),
+    "above right": (0.7, 0.7, "left", "bottom"),
+    "above left":  (-0.7, 0.7, "right", "bottom"),
+    "below right": (0.7, -0.7, "left", "top"),
+    "below left":  (-0.7, -0.7, "right", "top"),
+}
+
+
+# A name belongs to its dot only if every other dot is at least this many
+# times as far from it.
+CLEAR = 2.0
+# The white between a dot's edge and its name, as a fraction of the type
+# size: across, and up or down, where the text's own line box already
+# carries some.
+GAP_ACROSS = 0.2
+GAP_UPDOWN = 0.05
+# How much farther a name with a leader stands off, in type sizes.
+LEADER = 1.2
+# Half the height of a capital, in type sizes: a name beside its dot drops
+# its baseline by this much, so the letters, not the line box with its
+# descenders, are centred on the dot.
+HALF_CAP = 0.36
+
+
+def dot_label(ax, x, y, text, area, color="black", bold=False, first=None, leader=False):
+    """Name a dot. Where the name goes is chosen by place_labels() once the
+    figure's size is final; `first` is a place from PLACES to try before
+    the rest. `leader` stands the name off and draws a short line to the
+    dot, for a dot in a row too tight to name beside it."""
+    line = dict(arrowstyle="-", color=style.GREY, lw=plt.rcParams["axes.linewidth"],
+                shrinkA=1, shrinkB=np.sqrt(area) / 2 + 1) if leader else None
+    ann = ax.annotate(text, (x, y), xytext=(0, 0), textcoords="offset points",
+                      color=color, fontweight="bold" if bold else "normal",
+                      fontsize=plt.rcParams["font.size"], arrowprops=line)
+    if not hasattr(ax, "dot_labels"):
+        ax.dot_labels = []
+    ax.dot_labels.append((ann, x, y, area, first, bold, leader))
+
+
+def place_labels(fig):
+    """Put every name from dot_label() in the first place, in PLACES order,
+    where it touches no dot and no other name, stays inside the frame, and
+    sits nearer its own dot than any other. Bold names choose first, then
+    the most crowded. A name with no such place stops the build."""
+    fig.canvas.draw()
+    r = fig.canvas.get_renderer()
+    px = fig.dpi / 72
+    pad = plt.rcParams["font.size"] * 0.15 * px
+    for ax in fig.axes:
+        labels = getattr(ax, "dot_labels", [])
+        if not labels:
+            continue
+        frame = ax.get_window_extent(r)
+        dots = [(*ax.transData.transform((x, y)), np.sqrt(a) / 2 * px)
+                for x, y, a in getattr(ax, "dots_drawn", [])]
+
+        def crowd(item):
+            _, x, y, _, _, bold, _ = item
+            cx, cy = ax.transData.transform((x, y))
+            return (not bold, -sum(np.hypot(cx - dx, cy - dy) < 60 * px for dx, dy, _ in dots))
+
+        def attempt(queue):
+            """Place the names in this order; the index and reasons of the
+            first that finds no place, or None if all do."""
+            placed = []
+            for k, (ann, x, y, area, first, bold, leader) in enumerate(queue):
+                cx, cy = ax.transData.transform((x, y))
+                size = plt.rcParams["font.size"]
+                stand = LEADER * size if leader else 0
+                across = np.sqrt(area) / 2 + GAP_ACROSS * size + stand
+                updown = np.sqrt(area) / 2 + GAP_UPDOWN * size + stand
+                why = {}
+                for place in ([first] if first else []) + [p for p in PLACES if p != first]:
+                    ux, uy, ha, va = PLACES[place]
+                    drop = HALF_CAP * size if va == "baseline" else 0
+                    ann.set_position((ux * across, uy * updown - drop))
+                    ann.set_ha(ha)
+                    ann.set_va(va)
+                    # The text alone: an annotation's own extent includes its leader.
+                    b = Text.get_window_extent(ann, r)
+                    box = (b.x0 - pad, b.y0 - pad, b.x1 + pad, b.y1 + pad)
+                    inside = (b.x0 >= frame.x0 and b.x1 <= frame.x1
+                              and b.y0 >= frame.y0 and b.y1 <= frame.y1)
+                    # Distances to the text itself, not its padded box.
+                    dist = [_to_box(dx, dy, (b.x0, b.y0, b.x1, b.y1)) - rad for dx, dy, rad in dots]
+                    own = int(np.argmin([np.hypot(dx - cx, dy - cy) for dx, dy, _ in dots]))
+                    hit = [p[4] for p in placed if _overlap(box, p)]
+                    if not inside:
+                        why[place] = "leaves the frame"
+                    elif hit:
+                        why[place] = f"touches {hit[0]!r}"
+                    elif any(d < 0 for i, d in enumerate(dist) if i != own):
+                        why[place] = "covers another dot"
+                    # A leader may start inside a dot that overlaps its own;
+                    # past that it must clear every dot.
+                    elif leader and any(_to_segment(dx, dy, (cx, cy), _nearest(cx, cy, b)) < rad + pad
+                                        for i, (dx, dy, rad) in enumerate(dots)
+                                        if i != own and np.hypot(dx - cx, dy - cy) > rad + dots[own][2]):
+                        why[place] = "its leader crosses another dot"
+                    elif not leader and min((d for i, d in enumerate(dist) if i != own),
+                                            default=np.inf) < CLEAR * max(dist[own], pad):
+                        why[place] = "sits too near another dot"
+                    else:
+                        placed.append((*box, ann.get_text()))
+                        break
+                else:
+                    return k, why
+            return None
+
+        # A name that finds no place moves to the front and every name is
+        # placed again, until all fit or the order has been tried enough.
+        queue = sorted(labels, key=crowd)
+        for _ in range(3 * len(queue)):
+            failed = attempt(queue)
+            if failed is None:
+                break
+            k, why = failed
+            queue.insert(0, queue.pop(k))
+        else:
+            raise AssertionError(
+                f"no clear place beside its dot for the name {queue[0][0].get_text()!r}: "
+                + "; ".join(f"{p} {w}" for p, w in why.items()))
+
+
+def _overlap(a, b):
+    return a[0] < b[2] and b[0] < a[2] and a[1] < b[3] and b[1] < a[3]
+
+
+def _to_box(x, y, box):
+    """Distance from a point to a box, zero inside it."""
+    return np.hypot(max(box[0] - x, 0, x - box[2]), max(box[1] - y, 0, y - box[3]))
+
+
+def _nearest(x, y, b):
+    """The point of the text's box nearest (x, y)."""
+    return min(max(x, b.x0), b.x1), min(max(y, b.y0), b.y1)
+
+
+def _to_segment(x, y, a, b):
+    """Distance from a point to the segment from a to b."""
+    a, b, p = np.asarray(a), np.asarray(b), np.asarray((x, y))
+    t = np.clip(np.dot(p - a, b - a) / max(np.dot(b - a, b - a), 1e-9), 0, 1)
+    return float(np.hypot(*(p - (a + t * (b - a)))))
+
+
+def dot_legend(fig, entries, profile=style.DEFAULT_PROFILE):
+    """One legend below the figure, one row, a dot per colour in
+    `entries` ({label: colour}), drawn at the scatter's own size."""
+    size = float(np.sqrt(dot_area(profile=profile)))
+    fig.legend(handles=[Line2D([], [], marker="o", ls="", color=c, markersize=size, label=k)
+                        for k, c in entries.items()],
+               loc="outside lower center", ncol=len(entries), handletextpad=0.3)
+
+
+def comma_axis(axis, top, step, label):
+    """A count axis from 0 to `top`, labelled every `step` with thousands
+    separators. `axis` is ax.xaxis or ax.yaxis."""
+    ax = axis.axes
+    (ax.set_xlim if axis is ax.xaxis else ax.set_ylim)(0, top)
+    axis.set_major_locator(MultipleLocator(step))
+    axis.set_major_formatter(THOUSANDS)
+    axis.set_label_text(label)
 
 
 def rule(ax, year=style.EXPANSION_YEAR, note=style.EXPANSION_NOTE):

@@ -72,6 +72,16 @@ BOARD_VOTE = {**{k: PARTY[k] for k in ("dem", "abc", "unrecorded")},
               "other": ("other", GREY), "rep": PARTY["rep"]}
 POPULATION = ("total population", DARK)
 PER_SEAT = ("residents per seat", OKABE_ITO["vermilion"])
+# Arlington beside Virginia's other governing bodies: the others in two
+# neutrals, Arlington in the per-seat vermilion. See docs/figures.md.
+PEERS = {
+    "city":   ("city", DARK),
+    "county": ("county", SAND_LINE),
+}
+ARLINGTON = OKABE_ITO["vermilion"]
+# A scatter's dot, in points squared at scale 1; Arlington's a little larger.
+DOT = 40
+DOT_HIGHLIGHT = 70
 # Which sitting members have a birth year: the mass in sand, none in the
 # no-evidence grey.
 AGE_COVERAGE = {
@@ -111,6 +121,8 @@ DEFAULT_PROFILE = "print"
 # Each profile's "aspect" is how many times as wide as tall its plot is;
 # charts.fit() solves the height from it. See docs/figures.md, Size and margins.
 NARROW = 0.7          # the fraction of the profile's width a few-category figure takes; see docs/figures.md
+SQUARE = 1.2          # the aspect of a scatter, whose two axes are both measures; see docs/figures.md
+BROKEN = (5, 1)       # widths of the two sides of a broken x axis, near and far
 MARGIN = 0.037        # white on all four sides, as a fraction of the width, measured to ink
 LEGEND_GAP = 0.2      # inches between the lowest ink of the plot and the legend
 

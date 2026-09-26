@@ -506,7 +506,7 @@ def test_docs_name_only_paths_that_exist():
             if not (ROOT / token).exists():
                 missing.append(f"{doc.relative_to(ROOT)}: `{token}`")
     for doc in [ROOT / "paper" / "sources.bib", ROOT / "paper" / "arlington-bsap.tex"]:
-        for m in re.finditer(r"\b(?:code|data|docs|figures|paper|style)/[\w./-]+", doc.read_text()):
+        for m in re.finditer(r"(?<![\w/.-])(?:code|data|docs|figures|paper|style)/[\w./-]+", doc.read_text()):
             token = m.group(0).rstrip(".,;)}")
             if any(c in token for c in "*<>{}"):
                 continue
