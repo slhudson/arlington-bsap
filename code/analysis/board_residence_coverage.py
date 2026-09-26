@@ -5,8 +5,9 @@ A stacked step area of the members sitting on 1 July of each year, by the
 most exact place any source gives for them, darkest for a house on a street
 and lightest for a side of the County or a magisterial district of
 Alexandria County, with the 1932 rule. Years with no roster are filled from
-the seat table: the Board had three seats, and nobody is known to sit in
-them, so they count as no location. A place is counted whenever it is
+the seat table: the Board had three seats, one per magisterial district,
+and nobody is known to sit in them, so they count at district precision
+(residence-district in docs/questions.csv). A place is counted whenever it is
 dated, so a member whose only place comes from after their service still
 counts.
 """
@@ -38,7 +39,7 @@ for year, s in members.by_year():
     found = s.name.map(best).fillna("none")
     row = {"year": year, **{k: int((found == k).sum()) for k in ORDER + ["none"]}}
     if s.empty:
-        row["none"] = int(seats.get(year, 0))
+        row["district"] = int(seats.get(year, 0))
     rows.append(row)
 graded = pd.DataFrame(rows)
 d = pd.DataFrame({"year": graded.year, **{k: graded[cols].sum(axis=1) for k, cols in SHOWN.items()}})

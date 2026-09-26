@@ -61,6 +61,15 @@ are explained in `code/citekeys.py`, and what is still open is in
   Two of the 34 are weak matches, Roach and R. Henry Phillips, flagged in
   their rows. Seven have no record in the 1870–1920 indexes under any
   spelling tried (`residence-pre-1932`).
+- Every member seated for a magisterial district also has a district claim
+  from the office, source `derived`, and 1912–1931, where no roster exists,
+  the figure counts the Board's three seats at district precision. Both rest
+  on the assumption that a supervisor lived in the district he represented
+  (`code/clean/residence_district.py`). Sec. 32 of the 1902 constitution
+  requires it from 1903; the 1869 constitution's Art. I sec. 2 makes every
+  voter eligible to any office "within the gift of the people" with no
+  residence clause, and the 1873 Code has not been read
+  (`residence-district`).
 - Where members lived is transcribed but not yet coded, and the 1973 Post map
   that places a whole Board at once has not been seen (`mathews1973-map`);
   two of the 37 members first seated 1932–1962 have none
