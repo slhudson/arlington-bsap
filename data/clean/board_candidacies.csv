@@ -1,0 +1,31 @@
+claim,name,year,month,through,election,office,seats,votes,winning_votes,won,party,race_words,source,election_source,note
+candidacy,William A. Rowe,1871,,,regular,"Board of Supervisors, Jefferson District",1.0,,,True,,black,hjerpe2021 p.2,oleary2010 p.9,O'Leary records the winner and no count
+candidacy,John B. Syphax,1872,,,regular,"Board of Supervisors, Arlington District",1.0,,,True,,black,hjerpe2021 p.2,oleary2010 p.10,O'Leary records the winner and no count
+candidacy,William A. Rowe,1872,,,regular,"Board of Supervisors, Jefferson District",1.0,,,True,,black,hjerpe2021 p.2,oleary2010 p.10,O'Leary records the winner and no count
+candidacy,William A. Rowe,1873,,,regular,"Board of Supervisors, Jefferson District",1.0,,,True,,black,hjerpe2021 p.2,oleary2010 p.10,O'Leary records the winner and no count
+candidacy,William A. Rowe,1874,,,regular,"Board of Supervisors, Jefferson District",1.0,,,True,,black,hjerpe2021 p.2,oleary2010 p.11,O'Leary records the winner and no count
+candidacy,William A. Rowe,1875,,,regular,"Board of Supervisors, Jefferson District",1.0,,,True,,black,hjerpe2021 p.2,oleary2010 p.12,O'Leary records the winner and no count
+candidacy,William A. Rowe,1877,,,regular,"Board of Supervisors, Jefferson District",1.0,,,True,,black,hjerpe2021 p.2,oleary2010 p.13,O'Leary records the winner and no count
+candidacy,William A. Rowe,1879,,,regular,"Board of Supervisors, Arlington District",1.0,,,True,,black,hjerpe2021 p.2,oleary2010 p.14,O'Leary records the winner and no count
+candidacy,Travis B. Pinn,1879,,,regular,"Board of Supervisors, Jefferson District",1.0,,,True,,black,hjerpe2021 p.2,oleary2010 p.14,O'Leary records the winner and no count
+candidacy,William A. Rowe,1881,,,regular,"Board of Supervisors, Arlington District",1.0,,,True,,black,hjerpe2021 p.2,oleary2010 p.14,O'Leary records the winner and no count
+candidacy,Travis B. Pinn,1881,,,regular,"Board of Supervisors, Jefferson District",1.0,,,True,,black,hjerpe2021 p.2,oleary2010 p.14,O'Leary records the winner and no count
+candidacy,John W. Pendleton,1883,,,regular,"Board of Supervisors, Jefferson District",1.0,,,True,,black,hjerpe2021 p.2,oleary2010 p.15,O'Leary records the winner and no count
+candidacy,Tibbett Allen,1887,,,regular,"Board of Supervisors, Jefferson District",1.0,,,True,,black,hjerpe2021 p.2,oleary2010 p.17,O'Leary records the winner and no count
+candidacy,"Harris, Mrs. Mary B.",1931,11.0,,regular,County Board,5.0,,1456.0,False,,Col; African American,anderson1958 p.67; bestebreurtje2017 p.215,anderson1958 p.67; arlingtonelections2021 p.6,"on the county's list, not among the 6 it prints with a count, so fewer than 1,177 votes"
+candidacy,"Morton, Dr. E. T.",1931,11.0,,regular,County Board,5.0,,1456.0,False,,Col; African American,anderson1958 p.67; bestebreurtje2017 p.215,anderson1958 p.67; arlingtonelections2021 p.6,"on the county's list, not among the 6 it prints with a count, so fewer than 1,177 votes"
+candidacy,"Moseley, C. H.",1931,11.0,,regular,County Board,5.0,,1456.0,False,,Col; African American,anderson1958 p.67; bestebreurtje2017 p.215,anderson1958 p.67; arlingtonelections2021 p.6,"on the county's list, not among the 6 it prints with a count, so fewer than 1,177 votes"
+candidacy,"William T. Newman, Jr.",1987,11.0,,regular,County Board,2.0,18970.0,18970.0,True,Democratic,African American,ahs2026newman,arlingtonelections2021 p.71,
+candidacy,"William T. Newman, Jr.",1991,11.0,,regular,County Board,2.0,17357.0,17357.0,True,Democratic,African American,ahs2026newman,arlingtonelections2021 p.76,
+candidacy,Charles P. Monroe,1999,4.0,,special,County Board,1.0,9361.0,9530.0,False,Democratic,African American,ahs2026newman,arlingtonelections2021 p.86,
+candidacy,Charles P. Monroe,1999,11.0,,regular,County Board,2.0,18720.0,18720.0,True,Democratic,African American,ahs2026newman,arlingtonelections2021 p.88,
+candidacy,Christian E. Dorsey,2015,6.0,,primary,County Board,2.0,4420.0,4420.0,True,,African American,ahs2026newman,arlingtonelections2021 p.111,
+candidacy,Christian E. Dorsey,2015,11.0,,regular,County Board,2.0,24013.0,23159.0,True,Democratic,African American,ahs2026newman,arlingtonelections2021 p.112,
+candidacy,Christian E. Dorsey,2019,11.0,,regular,County Board,2.0,38015.0,38015.0,True,Democratic,African American,ahs2026newman,arlingtonelections2021 p.118,
+candidacy,"Julius D. Spain, Sr",2023,6.0,,primary,County Board,2.0,4749.0,,False,Democratic,African American,ahs2026newman,vaelections contest 160326,ranked-choice primary; votes are first choices; outcome from arlnow2023coffeyprimary
+candidacy,"Julius D. ""JD"" Spain, Sr.",2024,6.0,,primary,County Board,1.0,6540.0,,True,Democratic,African American,ahs2026newman,vaelections contest 161227,ranked-choice primary; votes are first choices; outcome from arlnow2024spain
+candidacy,"Julius D. ""JD"" Spain, Sr.",2024,11.0,,regular,County Board,1.0,65635.0,65635.0,True,,African American,ahs2026newman,vaelections contest 161309,
+none,,1889,,1930.0,,County Board,,,,,,black candidates,hjerpe2021 p.3,,"stated directly; the record she cites for the period, O'Leary's, names winners and seldom anyone who lost"
+none,,1904,,1930.0,,any county office,,,,,,black candidates,bestebreurtje2017 p.215,,stated directly: the last Black candidacy before 1931 was in 1903; the source names no 1903 candidate or office
+none,,1932,,1986.0,,County Board,,,,,,Black,pratt1995 p.22-23,,"stated directly for any office; the one exception, note 7, is Arthur W. Walls, defeated for the House of Delegates in 1969, not a county office"
+none,,1932,,1980.0,,any office,,,,,,African American,bestebreurtje2017 p.217-218,,"stated directly, as fifty years from November 1931; the end of the span is the source's round number"

@@ -13,8 +13,9 @@ each placement is in docs/figures.md.
     scatter()       one scatter, squarer than a time series
     broken_scatter() the same with a broken x axis; break_x() draws the break
     dots()          a scatter, dot area from dot_area(), named by dot_label()
+    events()        a timeline strip: a dot per event at its year, filled or a ring
     legend()        one legend for the figure, one row, below the axes
-    dot_legend()    the same with a dot per colour
+    dot_legend()    the same with a dot per colour, or a ring
     rule()          a dated vertical rule with its note above the frame
     years() counts() comma_axis() ages() shares() seats()   the axes
     fit()           the figure's size and margins, called by paths.save();
@@ -25,6 +26,7 @@ from matplotlib import pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib.patches import Patch
 from matplotlib.text import Text
+from matplotlib.transforms import ScaledTranslation
 from matplotlib.ticker import (FixedLocator, FuncFormatter, MultipleLocator,
                                PercentFormatter)
 
@@ -455,12 +457,46 @@ def _to_segment(x, y, a, b):
 
 
 def dot_legend(fig, entries, profile=style.DEFAULT_PROFILE):
-    """One legend below the figure, one row, a dot per colour in
-    `entries` ({label: colour}), drawn at the scatter's own size."""
+    """One legend below the figure, one row, a dot per entry in `entries`
+    ({label: colour}, or {label: (colour, filled)} where some are rings),
+    drawn at the scatter's own size."""
     size = float(np.sqrt(dot_area(profile=profile)))
-    fig.legend(handles=[Line2D([], [], marker="o", ls="", color=c, markersize=size, label=k)
-                        for k, c in entries.items()],
+
+    def handle(label, v):
+        colour, filled = (v, True) if isinstance(v, str) else v
+        ring = {} if filled else dict(markerfacecolor="white",
+                                      markeredgewidth=RING * style.PROFILES[profile]["scale"])
+        return Line2D([], [], marker="o", ls="", color=colour, markersize=size, label=label, **ring)
+    fig.legend(handles=[handle(k, v) for k, v in entries.items()],
                loc="outside lower center", ncol=len(entries), handletextpad=0.3)
+
+
+# An open ring's stroke, in points before the profile's scale.
+RING = 1.2
+
+
+def events(ax, x, filled, colour, profile=style.DEFAULT_PROFILE):
+    """A timeline strip: one dot per event at its x, in the order given,
+    events at the same x stacked dot on dot upward from the axis. A filled
+    dot, or an open ring where `filled` is false. The y axis carries no
+    measure, so it is hidden; the stack is measured in points, so it holds
+    its shape whatever height fit() gives the plot. A filled dot has no
+    white edge: events a year apart overlap, and an edge would cut the
+    overlap into crescents that read as rings. Dots sit over a rule."""
+    area = dot_area(profile=profile)
+    step = 2 * np.sqrt(area / np.pi) / 72            # a dot's diameter, in inches
+    ring = RING * style.PROFILES[profile]["scale"]
+    level = {}
+    for xi, f in zip(x, filled):
+        k = level.get(xi, 0)
+        level[xi] = k + 1
+        lift = ScaledTranslation(0, (k + 0.6) * step, ax.figure.dpi_scale_trans)
+        ax.scatter([xi], [0], s=area, transform=ax.transData + lift, zorder=6, clip_on=False,
+                   facecolors=colour if f else "white", edgecolors=colour,
+                   linewidths=0.0 if f else ring)
+    ax.set_ylim(0, 1)
+    ax.yaxis.set_visible(False)
+    ax.grid(False, axis="y")
 
 
 def comma_axis(axis, top, step, label):

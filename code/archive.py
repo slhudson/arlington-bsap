@@ -3,7 +3,7 @@
     .venv/bin/python code/archive.py            # dry run: report, move nothing
     .venv/bin/python code/archive.py --apply    # file the folder, write index.md, build the zip
 
-The archive is the repository at HEAD, the six census scans data/contents.csv
+The archive is the repository at HEAD, the census scans data/contents.csv
 marks in_git = no, and the Drive documents folder: a copy of every source the
 report cites that no number is taken from. Its index is generated from
 paper/sources.bib and data/contents.csv, never written by hand, so it cannot
@@ -116,7 +116,9 @@ def entries(text):
             while depth:
                 depth += {"{": 1, "}": -1}.get(body[i], 0)
                 i += 1
-            e[f.group(1).lower()] = body[f.end():i - 1]
+            # A `type` field (a thesis's "PhD dissertation") is biblatex's
+            # subtype; the entry type kind() reads is the one after the @.
+            e["subtype" if f.group(1).lower() == "type" else f.group(1).lower()] = body[f.end():i - 1]
         out.append(e)
     return out
 

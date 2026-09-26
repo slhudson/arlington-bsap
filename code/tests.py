@@ -31,6 +31,7 @@ sys.path.remove(str(ROOT / "code" / "build"))
 del sys.modules["paths"]
 
 sys.path.insert(0, str(ROOT / "code" / "clean"))
+import board_candidacies  # noqa: E402
 import board_census  # noqa: E402
 import board_members  # noqa: E402
 import paths  # noqa: E402
@@ -88,6 +89,30 @@ def patch_claims(kind, change):
             return d
         return patched
     return mangle
+
+
+def patch_built(stem, change):
+    """A mangle for the clean stage's paths.built: `change` is applied to
+    data/built/<stem>.csv as read."""
+    def mangle(orig):
+        def patched(name):
+            d = orig(name)
+            return change(d.copy()) if name == stem else d
+        return patched
+    return mangle
+
+
+def candidacies_with(change):
+    """The error board_candidacies.build() raises with the built candidacy
+    table changed, or None. The tests run before the clean stage, so the
+    board_members.csv it reads is last run's: the run's start is set aside."""
+    started = os.environ.pop("RUN_STARTED", None)
+    try:
+        return breaks(paths, "built", patch_built("board_candidacies", change),
+                      build=board_candidacies.build)
+    finally:
+        if started:
+            os.environ["RUN_STARTED"] = started
 
 
 def bib_entries():
@@ -170,6 +195,51 @@ def test_the_two_counts_of_the_adult_population_must_agree():
     err = breaks(turnout, "read", mangle)
     assert err and "the age bands in residents.csv give" in err, f"not caught: {err}"
 
+
+
+def misread(line, by, columns):
+    """A mangle for residents.table: one printed line of the 1970 age table
+    read `by` too high in each of `columns`."""
+    def mangle(orig):
+        def patched(path):
+            d = orig(path)
+            if "table35" in path:
+                d = d.copy()
+                for c in columns:
+                    d.loc[d.label == line, c] += by
+            return d
+        return patched
+    return mangle
+
+
+def test_a_transcribed_age_table_that_does_not_sum_to_its_total_is_refused():
+    """A digit misread the same way in the total and male columns, so the
+    line still cross-foots and the county total is untouched: only the
+    printed lines summing to "All ages" can see it."""
+    err = breaks(residents, "table", misread("35 to 39 years", 10, ["total", "male"]))
+    assert err and "The transcription misreads a number" in err, f"not caught: {err}"
+
+
+def test_a_misread_adult_count_cannot_move_into_the_children_in_1930():
+    """1930's under-18 band is the county less those 18 and over, so a
+    misread count of men 21 and over moves people into the children and
+    the county total still ties. The 1940 volume's own 1930 column prints
+    21 and over again, and the two readings must agree."""
+    def mangle(orig):
+        def patched(path):
+            d = orig(path)
+            if "table13" in path:
+                d = d.copy()
+                d.loc[d.label == "Males 21 years old and over", "total"] += 100
+            return d
+        return patched
+    err = breaks(residents, "table", mangle)
+    assert err and "The transcription misreads a number" in err, f"not caught: {err}"
+
+def test_an_age_line_whose_sexes_do_not_make_its_total_is_refused():
+    """A digit misread in the total column alone."""
+    err = breaks(residents, "table", misread("19 years", 100, ["total"]))
+    assert err and "male and female do not make the printed total" in err, f"not caught: {err}"
 
 # --- guards on the Board files ----------------------------------------------
 
@@ -540,6 +610,42 @@ def test_registration_refuses_a_locality_total_that_is_not_its_precincts():
     except SystemExit as e:
         err = str(e)
     assert err and "sum of Arlington's precincts" in err, f"not caught: {err}"
+
+
+# --- guards on Black candidacies ----------------------------------------------
+
+def test_a_candidacy_that_matches_no_election_is_refused():
+    """Monroe's special election keyed a year early. With no guard the
+    figure would draw a loss in 1998, a year no record has him standing."""
+    def move(d):
+        d.loc[(d.name == "Charles P. Monroe") & (d.election == "special"), "year"] = "1998"
+        return d
+    err = candidacies_with(move)
+    assert err and "matches no election record" in err, f"not caught: {err}"
+
+
+def test_a_black_members_election_with_no_candidacy_is_refused():
+    """Pendleton's 1883 row left out: his seat would still count in
+    board_race, and this figure would show 1883 as a year nobody ran."""
+    err = candidacies_with(lambda d: d[d.name != "John W. Pendleton"])
+    assert err and "a term, no candidacy" in err, f"not caught: {err}"
+
+
+def test_a_candidacy_inside_a_period_a_source_says_none_ran_is_refused():
+    """Hjerpe's period keyed from 1880: it would then contain five
+    elections Black members won, and the two claims cannot both stand."""
+    def widen(d):
+        d.loc[(d.name == "") & (d.source == "hjerpe2021"), "year"] = "1880"
+        return d
+    err = candidacies_with(widen)
+    assert err and "says no Black candidate ran" in err, f"not caught: {err}"
+
+
+def test_a_candidate_the_1931_list_marks_is_not_left_out():
+    """Moseley's rows left out, which no count would notice: the list still
+    marks him "(Col)", so the build stops."""
+    err = candidacies_with(lambda d: d[~((d.claim == "candidacy") & (d.name == "Moseley, C. H."))])
+    assert err and "the 1931 list marks" in err, f"not caught: {err}"
 
 
 # --- the documentation names real files ---------------------------------------

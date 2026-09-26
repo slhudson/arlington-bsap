@@ -90,6 +90,10 @@ neither repeats the reasons.
   `residents_by_age` is the standing example. The height still comes from
   `style.PLOT_ASPECT`, so the plot keeps its shape.
 
+- **A timeline of events, whose y axis carries no measure, takes
+  `style.STRIP`** through `charts.figure(profile, aspect=style.STRIP)` and
+  draws with `charts.events()`. `board_candidacies` is the example.
+
 ## Axes
 
 - The y-axis ends on a round tick, not just clear of the data.
@@ -138,7 +142,8 @@ neither repeats the reasons.
 - **Where a category's definition changes mid-figure, the legend does not
   relabel silently.** `residents_by_race` says "not Hispanic" (`style.RESIDENTS_CROSSED`)
   and rules off 1980; `board_race` keeps `style.RACE`.
-- **No textures.** Distinguish with colour.
+- **No textures.** Distinguish with colour. A filled dot against an open
+  ring of the same colour is a fill, not a texture: `style.CANDIDACY`.
 - **Name a residual for what is in it.** Check the data before writing the
   label. `Other, multiracial or unreported` was wrong: nothing in that band
   is unreported. `style.RESIDUAL` carries the current name; `docs/figures.md` its basis.

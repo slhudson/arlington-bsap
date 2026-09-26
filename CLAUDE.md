@@ -134,7 +134,7 @@ key, no connection. And an API can change its answer, so a live call could move
 a figure between runs with nothing in the repo to explain it; a committed file
 is the same evidence standard as a scanned page.
 
-The one exception is six census scans the build never reads, 50MB that
+The one exception is sixteen census scans the build never reads, 175MB that
 would push Overleaf past its ceiling. They are marked `in_git = no` in
 `data/contents.csv` with their URL and checksum; `code/fetch/census_volumes.py`
 fetches them and refuses a byte that differs, and `run.sh` says at the end of
@@ -163,7 +163,7 @@ step; the note, what the document says, is still written by the reader.
 `campaign websites`, `press`, `obituaries` and `census`, the kind being a rule on the
 bib entry; writes `index.md` at its top from `paper/sources.bib` and
 `data/contents.csv`, so the index cannot drift from either; and builds the
-zip the County receives, the repository at HEAD with the six on-demand
+zip the County receives, the repository at HEAD with the on-demand
 scans and the folder. Without `--apply` it only reports. It refuses to act
 while a name the bib says is filed is not in the folder, and deletes
 nothing: a file no entry names goes to `unplaced/`.

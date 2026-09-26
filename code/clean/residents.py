@@ -1,7 +1,7 @@
 """Census population by year -> data/clean/residents.csv
 
 One row per census, 1870-2020: the total, four race categories, the county
-in seven age bands from 1980, the seats the Board had, and residents per
+in seven age bands from 1930, the seats the Board had, and residents per
 seat. `total_source`, `race_source` and `age_source` name the document each
 came from.
 
@@ -14,11 +14,14 @@ came from.
                race, the other three are non-Hispanic, and the five groups
                partition the county exactly
 
+    1930-1970  seven age bands, from the census volume's county age tables,
+               keyed in by hand; 1930 prints 14 people of unknown age, who
+               are `ageunknown`
     1980-      seven age bands, from each census's own age table
 
 The fifth crossed group, non-Hispanic other and multiracial, is not a
-column: a figure takes it as total minus the four. `hisp` and the age bands
-are blank before 1980. The seven bands sum to `total`, and the adult
+column: a figure takes it as total minus the four. `hisp` is blank before 1980
+and the age bands before 1930. The seven bands and `ageunknown` sum to `total`, and the adult
 population is the six of them above `ageunder18`; neither has a column of
 its own. docs/residents.md says what backs each year and why.
 """
@@ -36,7 +39,7 @@ from paths import write
 AGE_BANDS = ("ageunder18", "age18to24", "age25to34", "age35to44", "age45to54",
              "age55to64", "age65plus")
 ADULT_BANDS = AGE_BANDS[1:]
-COLUMNS = ["year", "total", "white", "black", "hisp", "aapi", *AGE_BANDS,
+COLUMNS = ["year", "total", "white", "black", "hisp", "aapi", *AGE_BANDS, "ageunknown",
            "board_seats", "residents_per_seat"]
 CENSUSES = range(1870, 2021, 10)
 # Which document each year's total comes from.
@@ -78,6 +81,128 @@ FEMALE_OFFSET = 24
 API_AGE_TABLE = {2000: ("P012", "P012001", "P012{:03d}".format),
                  2010: ("P12", "P012001", "P012{:03d}".format),
                  2020: ("P12", "P12_001N", "P12_{:03d}N".format)}
+
+
+# 1930-1970: the census volumes' county tables, keyed in under
+# data/transcribed/by_claude/us_census_bureau/, one file per printed table.
+# A year may stack two tables, and a table that prints two censuses serves
+# both; a label names one printed line of the year, and no label may repeat.
+VOLUME_AGE_TABLES = {
+    1930: ["1930/10612982v3p2ch10_p1150_table11_virginia_arlington.csv",
+           "1930/10612982v3p2ch10_p1161_table13_virginia_arlington.csv",
+           "1940/33973538v2p7ch3_p173_table22_virginia_arlington.csv"],
+    1940: ["1940/33973538v2p7ch3_p173_table22_virginia_arlington.csv",
+           "1940/33973538v2p7ch3_p164_table21_virginia_arlington.csv"],
+    1950: ["1950/37784122v2p46ch3_p46-74_table41_virginia_arlington.csv"],
+    1960: ["1960/09768066v1p48ch3_p48-76_table27_virginia_arlington.csv"],
+    1970: ["1970/00496492v1p48ch03_p48-122_table35_virginia_arlington.csv"],
+}
+# The line that prints the county's total.
+VOLUME_TOTAL_LINE = {1930: "Arlington Co.", 1940: "ARLINGTON", 1950: "All ages", 1960: "ALL AGES", 1970: "All ages"}
+_SINGLE_1970 = ["Under 1 year", "1 year", *[f"{a} years" for a in range(2, 21)]]
+_FIVE_1970 = ["Under 5 years", *[f"{a} to {a + 4} years" for a in range(5, 85, 5)],
+              "85 years and over"]
+_GROUPS_1930 = ["Under 5", "5 to 9", "10 to 14", "15 to 19", "20 to 24", "25 to 29",
+                "30 to 34", "35 to 44", "45 to 54", "55 to 64", "65 to 74", "75 and over"]
+# 1930's age table has no line at 18 or 21; Table 13 prints the population
+# 18 to 20 and 21 and over, which cut there. Everyone of known age is under
+# 18, 18 to 20 or 21 and over, so the two younger bands are what is left.
+_ADULTS_1930 = ["Males 21 years old and over", "Females 21 years old and over"]
+_18TO20_1930 = "Total 18 to 20 years, inclusive"
+_FIVE_1940 = ["Under 5 years", *[f"{a} to {a + 4} years" for a in range(5, 75, 5)],
+              "75 years and over"]
+# 1940's age table has no line at 18; Table 21 prints the population by
+# school ages from 5 to 24, which does.
+_SCHOOL_1940 = [f"Persons {a} years old" for a in
+                ("5 and 6", "7 to 13", "14 and 15", "16 and 17", "18 to 20", "21 to 24")]
+_FIVE_1950 = ["Under 5 years", *[f"{a} to {a + 4} years" for a in range(5, 75, 5)],
+              "75 to 84 years", "85 years and over"]
+_SINGLE_1960 = ["UNDER 1 YEAR", "1 YEAR", *[f"{a} YEARS" for a in range(2, 21)]]
+_FIVE_1960 = ["UNDER 5 YEARS", *[f"{a} TO {a + 4} YEARS" for a in range(5, 85, 5)],
+              "85 AND OVER"]
+# Runs of printed lines that must sum to the same number: a distribution the
+# table prints in full against the county total, or two tables' counts of
+# the same ages. A misread digit breaks one of them.
+VOLUME_AGE_RUNS = {
+    1930: [(_GROUPS_1930 + ["Unknown"], ["Arlington Co."]),
+           (["Total population"], ["Arlington Co."]),
+           # The 1940 volume prints the 1930 county again, beside 1940.
+           (["ARLINGTON"], ["Arlington Co."]),
+           (_ADULTS_1930, ["21 years and over"])],
+    1940: [(_FIVE_1940, ["ARLINGTON"]),
+           (["Under 5 years", *_SCHOOL_1940[:5], "21 years and over"], ["ARLINGTON"]),
+           (_SCHOOL_1940, ["5 to 9 years", "10 to 14 years", "15 to 19 years", "20 to 24 years"]),
+           (["Male, 21 years old and over", "Female, 21 years old and over"], ["21 years and over"]),
+           (["Total population"], ["ARLINGTON"])],
+    1950: [(_FIVE_1950, ["All ages"]),
+           (["Under 1 year", "1 and 2 years", "3 and 4 years"], ["Under 5 years"]),
+           (["5 years", "6 years", "7 to 9 years"], ["5 to 9 years"]),
+           (["10 to 13 years", "14 years"], ["10 to 14 years"]),
+           (["15 years", "16 and 17 years", "18 and 19 years"], ["15 to 19 years"])],
+    1960: [(_SINGLE_1960 + ["21 AND OVER"], ["ALL AGES"]),
+           (_FIVE_1960, ["ALL AGES"])],
+    1970: [(_SINGLE_1970 + ["21 years and over"], ["All ages"]),
+           (_FIVE_1970, ["All ages"])],
+}
+# Which printed lines each band is summed from.
+VOLUME_AGE_LINES = {
+    1930: {"ageunder18": ["Arlington Co."],
+           "age18to24": [_18TO20_1930, *_ADULTS_1930],
+           "age25to34": ["25 to 29", "30 to 34"],
+           "age35to44": ["35 to 44"],
+           "age45to54": ["45 to 54"],
+           "age55to64": ["55 to 64"],
+           "age65plus": ["65 to 74", "75 and over"]},
+    1940: {"ageunder18": ["Under 5 years", *_SCHOOL_1940[:4]],
+           "age18to24": _SCHOOL_1940[4:],
+           "age25to34": ["25 to 29 years", "30 to 34 years"],
+           "age35to44": ["35 to 39 years", "40 to 44 years"],
+           "age45to54": ["45 to 49 years", "50 to 54 years"],
+           "age55to64": ["55 to 59 years", "60 to 64 years"],
+           "age65plus": ["65 to 69 years", "70 to 74 years", "75 years and over"]},
+    1950: {"ageunder18": ["Under 5 years", "5 to 9 years", "10 to 14 years",
+                          "15 years", "16 and 17 years"],
+           "age18to24": ["18 and 19 years", "20 to 24 years"],
+           "age25to34": ["25 to 29 years", "30 to 34 years"],
+           "age35to44": ["35 to 39 years", "40 to 44 years"],
+           "age45to54": ["45 to 49 years", "50 to 54 years"],
+           "age55to64": ["55 to 59 years", "60 to 64 years"],
+           "age65plus": ["65 to 69 years", "70 to 74 years", "75 to 84 years",
+                         "85 years and over"]},
+    1960: {"ageunder18": ["UNDER 5 YEARS", "5 TO 9 YEARS", "10 TO 14 YEARS",
+                          "15 YEARS", "16 YEARS", "17 YEARS"],
+           "age18to24": ["18 YEARS", "19 YEARS", "20 TO 24 YEARS"],
+           "age25to34": ["25 TO 29 YEARS", "30 TO 34 YEARS"],
+           "age35to44": ["35 TO 39 YEARS", "40 TO 44 YEARS"],
+           "age45to54": ["45 TO 49 YEARS", "50 TO 54 YEARS"],
+           "age55to64": ["55 TO 59 YEARS", "60 TO 64 YEARS"],
+           "age65plus": ["65 TO 69 YEARS", "70 TO 74 YEARS", "75 TO 79 YEARS",
+                         "80 TO 84 YEARS", "85 AND OVER"]},
+    1970: {"ageunder18": ["Under 5 years", "5 to 9 years", "10 to 14 years",
+                          "15 years", "16 years", "17 years"],
+           "age18to24": ["18 years", "19 years", "20 to 24 years"],
+           "age25to34": ["25 to 29 years", "30 to 34 years"],
+           "age35to44": ["35 to 39 years", "40 to 44 years"],
+           "age45to54": ["45 to 49 years", "50 to 54 years"],
+           "age55to64": ["55 to 59 years", "60 to 64 years"],
+           "age65plus": ["65 to 69 years", "70 to 74 years", "75 to 79 years",
+                         "80 to 84 years", "85 years and over"]},
+}
+
+
+# The lines a band subtracts, where the table has no line that cuts at 18.
+VOLUME_AGE_LESS = {
+    1930: {"ageunder18": ["Unknown", _18TO20_1930, *_ADULTS_1930],
+           "age18to24": _GROUPS_1930[5:]},
+}
+# A band made by subtraction must lie between the printed groups either
+# side of its cut: (lines it must exceed, lines it must not exceed).
+VOLUME_AGE_BOUNDS = {
+    1930: {"ageunder18": (_GROUPS_1930[:3], _GROUPS_1930[:4]),
+           "age18to24": (["20 to 24"], ["15 to 19", "20 to 24"])},
+}
+# The line of people whose age the census did not record.
+VOLUME_UNKNOWN_LINE = {1930: "Unknown"}
 
 
 def table(path):
@@ -160,6 +285,77 @@ def early_years() -> pd.DataFrame:
                 f"{int(r.year)}: white {r.white:,.0f} + black {r.black:,.0f} leaves "
                 f"{gap:,.0f} of a total of {r.total:,.0f} unaccounted.")
     return d
+
+
+def volume_table(year) -> pd.DataFrame:
+    """The year's keyed-in age tables stacked, one row per printed line,
+    indexed by its label; `cite` is the source cell with the page. Where a
+    line prints male and female, the two must make its total: a digit
+    misread in one column shows there."""
+    parts = []
+    for path in VOLUME_AGE_TABLES[year]:
+        t = table(path)
+        t = t[t.year == year].copy()
+        page = t["page"].map(lambda p: p if isinstance(p, str) else f"{p:.0f}")
+        t["cite"] = t["source"] + " p." + page
+        parts.append(t)
+    t = pd.concat(parts, ignore_index=True)
+    twice = sorted(t.label[t.label.duplicated()])
+    assert not twice, f"{year}: a label names two printed lines: {twice}"
+    counts = t[~t.label.str.lower().str.startswith("median")]
+    both = counts.dropna(subset=["male", "female"])
+    off = both[both.male + both.female != both.total]
+    assert off.empty, (
+        f"{year}: male and female do not make the printed total on "
+        f"{list(off.label)}; a line is misread")
+    # Where a school-age line prints how many attend and what per cent that
+    # is, the three must agree: a second reading of the line's count.
+    if "percent_attending" in t:
+        school = t.dropna(subset=["percent_attending"])
+        off = school[(100 * school.attending / school.total).round(1) != school.percent_attending]
+        assert off.empty, (
+            f"{year}: the number attending school is not the printed per cent of "
+            f"{list(off.label)}; a count is misread")
+    return t.set_index("label")
+
+
+def volume_ages(year):
+    """The seven bands from a census volume's printed age lines, and the
+    citation for them. Every run the table prints in full must sum to what
+    it is printed against, and the bands must account for the county's
+    printed total: a misread digit, or a line put in two bands or none,
+    stops the build."""
+    t = volume_table(year)
+    for lines, against in VOLUME_AGE_RUNS[year]:
+        got, want = t.loc[lines, "total"].sum(), t.loc[against, "total"].sum()
+        if got != want:
+            raise AssertionError(
+                f"{year}: the printed lines {lines[0]!r} to {lines[-1]!r} sum to "
+                f"{got:,.0f}, but {' + '.join(against)} prints {want:,.0f}. The "
+                f"transcription misreads a number; read the page again.")
+    bands = VOLUME_AGE_LINES[year]
+    named = [line for lines in bands.values() for line in lines]
+    twice = sorted({line for line in named if named.count(line) > 1})
+    assert not twice, f"{year}: printed lines named in more than one band: {twice}"
+    less = VOLUME_AGE_LESS.get(year, {})
+    out = {band: int(t.loc[lines, "total"].sum() - t.loc[less.get(band, []), "total"].sum())
+           for band, lines in bands.items()}
+    for band, (low, high) in VOLUME_AGE_BOUNDS.get(year, {}).items():
+        lo, hi = t.loc[low, "total"].sum(), t.loc[high, "total"].sum()
+        if not lo <= out[band] <= hi:
+            raise AssertionError(
+                f"{year}: {band} comes to {out[band]:,}, outside the printed groups "
+                f"either side of its cut ({lo:,.0f} to {hi:,.0f}); a line it is "
+                f"made from is misread")
+    unknown = int(t.loc[VOLUME_UNKNOWN_LINE[year], "total"]) if year in VOLUME_UNKNOWN_LINE else 0
+    printed = int(t.loc[VOLUME_TOTAL_LINE[year], "total"])
+    if sum(out.values()) + unknown != printed:
+        raise AssertionError(
+            f"{year}: the bands account for {sum(out.values()):,} and {unknown:,} of "
+            f"unknown age, of a printed total of {printed:,}; a line is missing or "
+            f"counted twice")
+    read = [*named, *(line for lines in less.values() for line in lines)]
+    return out, unknown, printed, "; ".join(t.loc[read, "cite"].unique())
 
 
 def stf1a(year, table):
@@ -314,10 +510,17 @@ def build() -> pd.DataFrame:
         "no race source for "
         f"{[int(y) for y in d.loc[d.race_source == '', 'year']]}")
 
-    # The county in seven age bands, from 1980. Each census's age table must
+    # The county in seven age bands, from 1930. Each census's age table must
     # account for the same county the total column does.
     d["age_source"] = ""
-    ages = {}
+    ages, age_source, unknown = {}, {}, {}
+    for year in VOLUME_AGE_TABLES:
+        ages[year], unknown[year], printed, age_source[year] = volume_ages(year)
+        total = int(d.loc[d["year"] == year, "total"].iloc[0])
+        if printed != total:
+            raise AssertionError(
+                f"{year}: the age table prints a county of {printed:,}; the total "
+                f"column holds {total:,}")
     for year, age_table in ((1980, "table10_age"), (1990, "age")):
         ages[year], counted = stf1a_ages(year, age_table)
         total = int(d.loc[d["year"] == year, "total"].iloc[0])
@@ -331,7 +534,8 @@ def build() -> pd.DataFrame:
         m = d["year"] == year
         for col, value in bands.items():
             d.loc[m, col] = value
-        d.loc[m, "age_source"] = (
+        d.loc[m, "ageunknown"] = unknown.get(year, 0)
+        d.loc[m, "age_source"] = age_source.get(year) or (
             {1980: citekeys.CENSUS_1980_STF1A,
              1990: citekeys.CENSUS_1990_STF1A}.get(year, citekeys.CENSUS_DATA_FILE))
 
@@ -339,7 +543,7 @@ def build() -> pd.DataFrame:
     # Int64 keeps a blank blank.
     d["year"] = d["year"].astype(int)
     for col in ("total", "white", "black", "hisp", "aapi", "board_seats",
-                *AGE_BANDS):
+                *AGE_BANDS, "ageunknown"):
         d[col] = d[col].astype("Int64")
     return d
 

@@ -35,8 +35,10 @@ are explained in `code/citekeys.py`, and what is still open is in
   (`surnames-from-1907`).
 - 23 terms from 1932 carry no party, three labels are unresolved, and no
   party is attempted before 1932 (`party-unlabelled`, `party-before-1932`).
-- The 1930 candidacies of Harris, Morton and Mosley rest on a page nobody has
-  read (`bestebreurtje-p215`).
+- A Black candidate who lost is recorded only in 1931 and after 1987, and
+  only for the four Black members after 1987: before 1931 the election record
+  names winners (`black-losers-1870-1930`), and no source gives the race of
+  a candidate who lost and never served (`black-losers-1988-on`).
 - Each place carries a precision, from the place's own words by rules in
   `code/clean/board_residence.py`: a house number with a street is an address;
   a street with no number, a street; a neighborhood, civic association or
@@ -155,7 +157,7 @@ Walker; on 3 October it reports that "Judge Chichester yesterday, before the
 adjournment of the County Court, appointed Mr. Frank Hume supervisor of
 Jefferson district, in place of Tibbett Allen, resigned"
 (`alexandriagazette1888rule`, `alexandriagazette1888hume`). Allen was the
-last Black member of the Board until 1986. Schutt and Rowe went on their own
+last Black member of the Board until Newman was seated in 1988. Schutt and Rowe went on their own
 and no process issued against either.
 
 Three things the record does not support, each of which it would be easy to
@@ -565,6 +567,46 @@ Street are both real and both in North Arlington, so this is a different
 house, not a different side. Neither changes what the build does: it carries
 every claim with its source and chooses none.
 
+**The pre-1912 sheets, read twice (26 September 2026).** Six fields the
+rows mark as uncertain are read a second time off the filed sheet images,
+each enlarged with its column heading and set against the same enumerator's
+hand elsewhere on the sheet: Grunwell's initials (1880, page 451D, line 23),
+Schutt's surname (1880, page 457B, line 34), Torreyson's given name (1900,
+sheet 20B, line 89), William Duncan's age (1900, sheet 13A, line 49),
+Phillips's middle initial (1900, sheet 10A, line 40) and Corbett's age
+(1910, sheet 6B, line 52). The second reading was made with the first in
+view, so it checks the reading rather than repeating it blind. Five agree.
+Grunwell's **A. B.** and Schutt's double t, under one cross-stroke, are
+firm. Duncan's **40** is firm, its second digit an oval like the
+enumerator's 0 in the 40 on line 21 and unlike his 8, so its disagreement
+with an August 1854 birth is the sheet's own. Torreyson's **A. Duke**
+agrees: the initial sits under a later pencil mark, and the D is the
+enumerator's D in *Daughter*, not his H. Corbett's age agrees with the row
+that it is not legible: a 5, then a second digit written over. One
+disagrees. Phillips's middle initial reads **A** on the second reading,
+the shape of the A in *Andw* on line 43, where the row reads H; the letter
+sits under a later pencil mark, and this enumerator's H in *Head* is
+pointed too, so neither reading is firm and the row stands
+(`pre-1932-spot-check`). Two more 1900 fields the rows mark are then read
+again, Darby's given name (sheet 22B, line 87), **Rezin**, and Costello's
+street label (sheet 9A, lines 5–8), **Cherrydale**, and both agree. Seven
+of eight agree, and none of the eight moves a number: Duncan's and
+Corbett's birth years come from printed dates, not ages, and Phillips's
+initial bears only on the strength of his match, which rests on R. H. and
+is weaker than its `basis` says until a second source gives the middle
+name. The other pre-1912 readings stand as read.
+
+**Ames, 1940.** Sheet 21B, read again at full resolution on the same day,
+gives W. P. Ames's house no street. The label W. Lee, with an abbreviation
+of a looped capital (H, P or B) and one or two letters, is written against
+lines 72 to 76, and a heavy wavy rule crosses the location columns between
+lines 76 and 77. Ames is line 77, below the rule, where the street column is
+blank to the foot of the sheet; W. Lee is the label of the household above
+him, 3294 at line 74. His house number reads 68 and then a 5 or an 8, not
+the index's 436. Neither is firm, so the row keeps Clarendon, the
+unincorporated place in the sheet's heading, as its one firm place
+(`ames-residence`).
+
 ## Race, gender and birth year of Board members
 
 Birth years come from the same files as race and gender, one row per
@@ -606,8 +648,12 @@ each period:
 |---|---|---|
 | 1870–1888 | Five Black members named by Hjerpe (2021): Rowe, Syphax, Pinn, Pendleton, Allen. Pinn, Pendleton and Allen each rest on a reproduced 1880 census image; Rowe and Allen on narrative statements in her paper; Syphax on O'Leary, who writes that his photograph shows he was African American. The sentence naming the five as a group sits in her own list of open inquiries, and the file records it as such. O'Leary adds that "a majority of the early office holders" were probably African-American but cannot name them. Nobody on our side has checked the census linking. | Names in O'Leary, but seven members before 1912 appear by initials only (`gender-1870-1912`). |
 | 1889–1930 | One collective sentence: the board "became and remained all white for the duration of this system" (Hjerpe 2021, p.4), sourced to the county's election records. No per-person evidence. | Names in O'Leary; initials only before 1912. No source names a first woman member, so "all men before Magruder (1932)" is assumed. |
-| 1931–1986 | Nothing per-person from any source. The default rests on Newman (1987) being described as the first Black member since Reconstruction. About 280 person-years. **The weakest stretch.** | Census listing or a press honorific or pronoun for all but B. M. Smith (1933). |
+| 1931–1986 | Nothing per-person from any source, except that the county's list of the November 1931 candidates marks three of its 51 names "(Col)" and none of the five elected (see "Black candidacies"). The default rests on Newman (1987) being described as the first Black member since Reconstruction. About 280 person-years. **The weakest stretch.** | Census listing or a press honorific or pronoun for all but B. M. Smith (1933). |
 | 1987–present | Per-person: Newman (1987), Monroe (1999), Dorsey (2015), Spain (2024), and Tejada as the first Latino member (Hjerpe 2021). The Arlington Historical Society's Newman entry names Newman, Monroe and Dorsey as African American members, and its Center for Local History entry gives Tejada's Latin American heritage; Monroe also rests on the Arlington NAACP president's words at his death, and Dorsey on his own statement (2020). | A press pronoun or honorific for every member. |
+
+In November 1931 three Black candidates ran for the Board and all lost; who
+they were, and every other Black candidacy, is under "Black candidacies"
+below.
 
 None of the three roster sources states anyone's race or gender. Race comes
 from Hjerpe and O'Leary; gender comes from a census listing or from the
@@ -640,6 +686,96 @@ would make it "virtually impossible for a woman to be elected to the board"
 Arlington County objected to the ballot's wording (`sun1938womenvoters`).
 Florence E. Cannon is elected parliamentarian of the Organised Women Voters
 in the second notice and sits on the Board from 1948 to 1951.
+
+## Black candidacies
+
+`data/clean/board_candidacies.csv` holds one row per candidacy a source says
+was a Black candidate's for the Board, joined to the election it was in, and
+one row per period in which a source says no Black candidate ran. The claims
+are keyed in `data/transcribed/by_claude/board_candidacies.csv`, one row per
+source, in the source's words, with the name as the election record prints
+it; a race is never read off a name or a neighborhood. A candidacy is matched
+on surname, year and kind of election (regular, special or primary): before
+1931 to the term the roster holds for that election, in 1931 to the county's
+contest and its list of candidates, and from 1932 to the county's candidate
+history through 2021 and the state's database after. Each row carries the
+seats, the candidate's votes, the fewest votes that won a seat, whether the
+candidate won (for a primary, the nomination) and the party the record
+prints. A candidacy that matches no election stops the build, and so do a
+Black member's election with no candidacy, a candidacy inside a period a
+source says none ran, and a name the 1931 list marks "(Col)" with no
+candidacy. The table holds 26 candidacies by twelve people.
+
+**1871–1887.** Thirteen candidacies, all won, by the five members Hjerpe
+highlights in her Table 1 (`hjerpe2021` p.2): Jefferson District elects a
+Black member at ten of its eleven elections, every one but 1885's, and
+Syphax (1872) and Rowe (1879, 1881) win Arlington District. Hjerpe's table
+sets some names against the wrong years, so the year and district of each
+are O'Leary's. His record names each district's winner and, before 1907,
+nobody who lost, so no loss by a Black candidate can appear in these years:
+the absence is the record's, not a finding.
+
+**1888–1930.** Allen resigns in 1888 ("Residence in the district", above).
+Hjerpe writes that "no black candidates were recorded as running for the
+county board again until after 1930" (p.3), on the same record of winners.
+Bestebreurtje (`bestebreurtje2017` p.215) has Black candidates running in
+1931 "for the first time since 1903", and names no 1903 candidate or office.
+The two agree that none ran from 1904 and differ at most on 1889–1903; the
+Alexandria Gazette's returns would settle both (`black-losers-1870-1930`).
+
+**1931.** The county's list of the 51 candidates for the first at-large
+election, 3 November 1931, which its candidate history points to rather
+than prints and Anderson reprints (`anderson1958` p.67), marks three
+"(Col)": Mrs. Mary B. Harris of Nauck Station, Dr. E. T. Morton and C. H.
+Moseley of Halls Hill. It is keyed in full in
+`data/transcribed/by_claude/arlington_historical_magazine/anderson_candidates_1931.csv`.
+None of the five elected is marked. The county prints the top six with their
+votes and "others not mentioned": the fifth seat went to Kelly with 1,456
+and McShea ran sixth with 1,177, so each of the three had fewer than 1,177.
+Bestebreurtje names the same three, spelling Moseley "Mosley". George
+Vollin, Jr. of Queen City ran for sheriff and lost (Bestebreurtje p.215;
+Pratt p.22); a sheriff's race is not a Board candidacy and is not in the
+table. Pratt's four are the three and Vollin, and ARLnow's "four for the
+Board" (Lyon's Legacy V) is the count that is off. Hjerpe dates the four to 1930,
+the year of the referendum, citing Bestebreurtje p.215, which says November
+1931, and the county's list is of the 1931 ballot.
+
+**1932–1986.** No Black candidate for the Board, as two sources state it.
+Pratt: after 1931 "only one other Black candidate ever bothered to file for
+office" until Newman, and his note 7 names him, Arthur W. Walls, defeated for
+the House of Delegates in 1969 (`pratt1995` pp.22–23, 35). Bestebreurtje:
+"It would be fifty years before another African American candidate ran for
+office in Arlington" (pp.217–218). The county's history names every
+candidate in these years and gives no race, so the negative is the two
+sources'. For why, Pratt reports the 1974 testimony of Vollin and Harrison
+Douglas: that after 1931 Black Arlingtonians thought running at large an
+exercise in futility.
+
+**1987 on.** Ten candidacies by the four Black members, from the county's
+and the state's records. Newman wins in 1987 and 1991. Monroe loses the April
+1999 special election, the one-seat contest, to Lane by 169 votes and wins
+the two-seat general that November ("Race, gender and birth year of Board
+members", above). Dorsey wins the June 2015 primary and the generals of 2015
+and 2019. Spain loses the Democratic primary of June 2023 and wins the
+primary and the general of 2024; both primaries were ranked-choice, the
+state's file carries first choices and flags more winners than seats, so the
+outcome of each is the press's (`arlnow2023coffeyprimary`,
+`arlnow2024spain`). Dorsey also sought the Democratic nomination in 2002,
+at a party caucus rather than on a public ballot (`connection2002`), so it
+is not a candidacy here. No source in hand gives the race of anyone who lost
+and never served, about 60 people since 1987, so these years hold every run
+by a Black member and nobody else's (`black-losers-1988-on`).
+
+**The figure.** `board_candidacies` draws each candidacy in a regular or
+special election as a dot at its year, filled if won and a ring if lost,
+with runs in the same year stacked; primaries are in the table and not
+drawn. It shows a win at every Jefferson election but one from 1871 to
+1887; nothing from 1888 to 1930; three losses at the first at-large election
+in 1931; nothing for the next 55 years; and from 1987 wins, the one loss
+being Monroe's in the one-seat special. Where a year is empty the sources
+say different things, and this section says which: from 1932 to 1986 two
+sources state that no Black candidate ran; before 1931 and after 1987 the
+records cannot show a loss by anyone but a member.
 
 ## Party of Board members
 
