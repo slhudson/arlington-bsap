@@ -220,6 +220,19 @@ PARTY_WORDS = {
     "independent; endorsed by the republican committee": "Republican",
     "independent; formal backing of the republican committee": "Republican",
     "independent; supported by abc and democrats": "Democratic",
+    "independent; backed by abc and the democratic party": "Democratic",
+    "democratic incumbent": "Democratic",
+    "no opposition in the forthcoming democratic primary": "Democratic",
+    "won the democratic nomination": "Democratic",
+    "a member of the democratic party": "Democratic",
+    "member of the arlington democratic executive committee": "Democratic",
+    "a democrat, previously elected to the board on the party ticket": "Democratic",
+    "a democrat": "Democratic",
+    "independent candidates": "independent",
+    "represent the abc political coalition": "ABC",
+    # AIM, the Arlington Independent Movement, is coded independent: docs/board.md.
+    "candidate of the arlington independent movement (aim)": "independent",
+    "nominee of arlington independent movement": "independent",
 }
 
 
