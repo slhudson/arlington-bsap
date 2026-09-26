@@ -519,6 +519,19 @@ def test_a_census_match_with_no_category_is_refused():
     assert err and "match with no category" in err, f"not caught: {err}"
 
 
+def test_a_misreported_age_no_census_row_uses_is_refused():
+    """A citekey in members_census.AGE_MISREPORTED that no census row cites.
+    The list stops a misreported age from becoming a birth year, and a key
+    that matches nothing would drop nothing and say nothing."""
+    kept = members_census.AGE_MISREPORTED
+    members_census.AGE_MISREPORTED = kept + ("census1910nobody",)
+    try:
+        err = breaks(paths, "built", lambda orig: orig, build=members.build)
+    finally:
+        members_census.AGE_MISREPORTED = kept
+    assert err and "AGE_MISREPORTED names a record" in err, f"not caught: {err}"
+
+
 def test_a_category_merged_in_the_build_stage_is_refused():
     """Two census race categories collapsed into one by a build step. That
     is a decision, and the stage refuses it; the same collapse in
@@ -729,6 +742,74 @@ def test_a_source_we_cannot_fully_cite_is_logged_as_a_question():
         f"{', '.join(unlogged)}: the annotation says the entry is provisional, "
         f"but docs/questions.csv never names it. Log it as a question with an "
         f"owner, or finish the entry and drop the word.")
+
+
+def residence_coverage():
+    """The coverage table docs/members.md prints: for the members first seated
+    from 1932 on, the most exact kind of place any source gives each, and how
+    close to his service the best-dated row of that kind is. The rule is the
+    one the write-up states beside the table."""
+    members = list(csv.DictReader((ROOT / "data/clean/members.csv").open(newline="")))
+    places = list(csv.DictReader((ROOT / "data/clean/members_residence.csv").open(newline="")))
+    terms, first = {}, {}
+    for m in members:
+        start, end = int(m["start_year"]), int(m["end_year"] or m["start_year"])
+        terms.setdefault(m["name"], []).append((start, end))
+        first[m["name"]] = min(first.get(m["name"], start), start)
+    rows = {}
+    for r in places:
+        rows.setdefault(r["name"], []).append(r)
+
+    order = ("address", "street", "neighborhood", "side", "district")
+    when = ("Dated during service", "Within 5 years of it",
+            "6 or more years from it", "Undated")
+
+    def dating(name, row):
+        if not row["year"]:
+            return when[3]
+        y = int(row["year"])
+        if any(a <= y <= b for a, b in terms[name]):
+            return when[0]
+        off = min(min(abs(y - a), abs(y - b)) for a, b in terms[name])
+        return when[1] if off <= 5 else when[2]
+
+    table, nothing = {k: dict.fromkeys(when, 0) for k in order}, 0
+    for name, start in first.items():
+        if start < 1932:
+            continue
+        mine = rows.get(name, [])
+        if not mine:
+            nothing += 1
+            continue
+        kind = order[min(order.index(r["precision"]) for r in mine)]
+        best = min((dating(name, r) for r in mine if r["precision"] == kind),
+                   key=when.index)
+        table[kind][best] += 1
+    return {k: [v[w] for w in when] for k, v in table.items() if any(v.values())}, nothing
+
+
+def test_the_residence_coverage_table_in_the_write_up_is_current():
+    """The table in docs/members.md, "Where members lived", counted by hand.
+    Every census read moves it, and a stale table is the kind of wrongness
+    nothing else would announce: the numbers read as current and no build
+    step touches them. So the count lives here and the build does it."""
+    labels = {"Street address": "address", "Street name": "street",
+              "Neighborhood": "neighborhood", "Side of the County": "side",
+              "Magisterial district": "district"}
+    text = (ROOT / "docs" / "members.md").read_text()
+    body = text.split("| Most exact place held |", 1)[1].split("\n\n", 1)[0]
+    printed, printed_nothing = {}, None
+    for line in body.splitlines()[2:]:
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if cells[0] == "Nothing":
+            printed_nothing = int(cells[-1])
+        elif cells[0] in labels:
+            printed[labels[cells[0]]] = [int(c) for c in cells[1:5]]
+    counted, nothing = residence_coverage()
+    assert printed == counted and printed_nothing == nothing, (
+        "docs/members.md, \"Where members lived\", no longer counts what the clean "
+        f"tables hold.\n  table says: {printed}, nothing {printed_nothing}\n"
+        f"  clean says: {counted}, nothing {nothing}")
 
 
 def test_every_bib_entry_closes_before_the_next():

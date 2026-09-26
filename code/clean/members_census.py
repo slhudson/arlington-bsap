@@ -20,6 +20,13 @@ RACE = {"White": "White", "Black": "Black", "Mulatto": "Black"}
 MATCH = ("district", "occupation", "household", "address", "unique", "none", "")
 WEAK = "none"
 
+# Records whose age the sheet misreports, so no birth year is read from them.
+# The member's birth year comes from the record that gives a date instead;
+# docs/members.md, "Census records", says which record and why. A key here that
+# no census row uses would drop nothing and say nothing, so records() refuses
+# one.
+AGE_MISREPORTED = ("census1910febrey", "census1920febrey")
+
 # How a birth year was had from the record, added to the basis of its claim.
 BIRTH_PRINTED = "; the birth year as the census recorded it"
 BIRTH_BY_AGE = "; the year is the census year less the age given, so within a year"
@@ -37,6 +44,10 @@ def records() -> pd.DataFrame:
         raise ValueError("census match with no category here: "
                          + ", ".join(f"{s} {v!r}" for s, v in zip(unknown.source, unknown.match)))
     r = r[r.match != WEAK].reset_index(drop=True)
+    missing = [s for s in AGE_MISREPORTED if s not in set(r.source)]
+    if missing:
+        raise ValueError("AGE_MISREPORTED names a record no census row uses: "
+                         + ", ".join(missing))
     for field, codes in (("gender", GENDER), ("race", RACE)):
         unknown = r[(r[field] != "") & ~r[field].isin(list(codes))]
         if len(unknown):
@@ -62,6 +73,7 @@ def claims() -> pd.DataFrame:
                          "basis": r.basis + printed.map({True: BIRTH_PRINTED, False: BIRTH_BY_AGE}),
                          "birth_year_precision": printed.map({True: "exact", False: "within a year"}),
                          "source": r.source, "quote": r.quote})
+    born = born[~r.source.isin(AGE_MISREPORTED)]
     return pd.concat([traits, born], ignore_index=True)
 
 

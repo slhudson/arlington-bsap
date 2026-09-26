@@ -24,7 +24,7 @@ _SIDE = re.compile(r"^(North|South) Arlington$|northernmost section", re.I)
 _HOUSE = re.compile(r"^\d{3,5}\s|house number \d+|, number \d+")
 _UNREAD = re.compile(r"abbreviation unread")
 _HOOD_WORDS = re.compile(r"neighborhood|civic association|\barea\b|subdivision|community|^off ", re.I)
-_STREET_WORDS = re.compile(r"\b(street|st\.?|road|rd\.?|blvd\.?|drive|avenue|ave\.?|pike)\b", re.I)
+_STREET_WORDS = re.compile(r"\b(street|st\.?|road|rd\.?|blvd\.?|drive|avenue|ave\.?|pike|lane|ln\.?)\b", re.I)
 _HOODS = re.compile(r"^(Clarendon|Fairlington|Lyon Park|Aurora Hills|Livingstone Heights|"
                     r"East Falls Church|Dominion Hills|Donaldson Run|Tara-Leeway Heights|Cherrydale)(,|$)", re.I)
 _DISTRICT = re.compile(r"^(Arlington|Jefferson|Washington)( Magisterial)?( District| Township)?( \((P|p)art( of)?\))?$")
