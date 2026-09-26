@@ -302,8 +302,9 @@ included, is a separate claim and stays in `board_demographics.csv` or
 `board_residence.csv`. `code/transcribe/board_census.py` moves any row that
 cites a census record out of those two files and into the table, merging
 it with the record's row where there is one, and stops where the two
-disagree. A new record is keyed into the table directly; the script is
-re-run whenever a row citing a census record lands in either claim file.
+disagree. A new record is keyed into the table directly, and the build
+refuses a row citing a census record in either claim file, so the script
+is run when it does.
 
 ### Reading an image
 

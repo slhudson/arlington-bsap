@@ -58,6 +58,16 @@ nothing shares a colour with anything it appears beside.
   than reddish purple because the reddish purple carries women on the
   gender chart, and the two should not read as the same category across a
   section.
+- **Age.** The county's seven age bands are ordered, and seven unrelated
+  hues would say they were not: a reader would have to consult the legend
+  to know which band sits next to which. They take one hue that darkens
+  with age, `#DEDBEF` to `#332B62`, the way the residence diagnostic takes
+  one green that darkens as the place is named more exactly. The hue is
+  indigo because no other subject uses it: age is the only figure in the
+  report where a band is neither a race, a party nor a gender, and it
+  should not be mistaken for one. The near-neutral rule is set aside, as it
+  is for party: there is no largest group holding the mass here, since the
+  bands are of comparable size and the darkest is not the biggest.
 - **Gender.** Women reddish purple, men sand. Urban's guide says: "Urban
   tries not to use color palettes that reinforce gender or racial
   stereotypes (e.g., pink for women and blue for men)." Half the pairing
@@ -109,6 +119,11 @@ other way, alphabetically say, would put men first here and leave race
 ordered the other way, so the two demographic figures would stop reading as
 one pair.
 
+Age: youngest at the base, children first, so the stack runs the way the
+axis does and the band a reader is looking for is where its number puts it.
+With the hue darkening as the band ages, the stack also runs light at the
+floor to dark at the ceiling, which is the order a reader expects of a ramp.
+
 Party: Democratic, ABC, not recorded, independent, Republican. The two
 parties take the two edges of the frame, so each category keeps one place
 on the page for the whole run and a majority reads as the block that crosses
@@ -150,9 +165,21 @@ and so on, and the caption says so.
 One legend for the whole figure, built from patches rather than collected
 from the axes, so a figure with two panels showing the same groups gets one
 legend rather than two. One row, in stacking order, which is the order Urban
-asks a legend to follow. Wrapped onto more rows only where five long
-category names in a row would be read by scanning a line of text rather than
-glanced at.
+asks a legend to follow. Wrapped onto more rows where a single row would be
+read by scanning a line of text rather than glanced at: five long category
+names, or more entries than a row can hold at all, which is what seven age
+bands on a narrow figure are. Two rows of four and three is a shape the eye
+takes in at once; seven entries edge to edge is a sentence. The type is
+never shrunk to buy the row back, because the legend is the one part of a
+figure a reader has to read rather than see.
+
+The legend is centred on the plot region rather than on the canvas. Centring
+on the canvas counts the y-axis label and the tick labels as part of what to
+centre under, and since both sit on the left, the legend lands left of the
+marks it names — far enough on a narrow figure to read as a mistake. The
+plot's own span is what a reader sees as the figure, so that is what the
+legend is hung beneath. `charts.fit()` places it, after the plot is sized,
+because the plot's position is not known until then.
 
 No legend where the lines can be labelled directly. A direct label sits
 beside the point it names, at that point's height, inside the axes. Urban
@@ -170,6 +197,18 @@ long line, because a long line is read rather than glanced at.
 Every figure is exactly the profile's width: 6.25 inches for the memo's PDF,
 Urban's full-width figure, and 10 inches for the deck's PNG, with every type
 size stepped up by 1.45 so the type holds the same proportion to the frame.
+
+One exception, added when `residents_by_age` was drawn. A figure whose axis
+carries only a few categories — five censuses of stacked bars — looks
+wrong at full width: the bars become slabs with as much white between them
+as ink in them, and the figure reads as though a series has been left out
+of it rather than as though it is complete. Such a figure takes
+`style.NARROW`, 0.7 of the profile's width. The fraction is a name in
+`style` rather than a number in the figure script, so that the narrow
+figures stay one size as a set the way the full-width ones do, and the
+plot's shape is still solved from `PLOT_ASPECT`, so it is the same plot,
+smaller. Two sizes is a set; a size per figure is not, and the rule stays
+that a figure takes the full width unless it is one of these.
 
 Three things want to be constant across the figures and only two can be:
 the canvas width, the margin of white around the edge, and the plot region.
@@ -207,7 +246,13 @@ panel needs to be taller than it is wide when its early values are small.
 **Stacked bars** for composition at intervals, at a width about twice the
 gap between bars, which is Urban's rule. No band is textured: a single
 hatched band among flat ones reads as emphasis, and a residual is the last
-thing that should be emphasised.
+thing that should be emphasised. The axis clears half a bar at each end, so
+that the first and last bars are drawn whole: a bar centred on the first or
+last year is otherwise sliced by the frame, and a sliced bar reads as a
+narrower category rather than as a clipped one. It only bites on a short
+series — over 150 years the ordinary padding is already wider than half a
+bar — which is why `residents_by_age` found it and the others did not.
+`charts.years(..., bars=...)` takes the width and widens the limits.
 
 **Stacked step areas** for composition over continuous years, each year's
 value spanning the year, filled run by run so a year the source does not
@@ -256,6 +301,37 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
   basis: the change is real but small, and a rule across the figure claims
   more visual importance for it than it has; the caption carries it, and
   the labels are the same either side.
+- **residents_by_age.** One panel of stacked bars, shares rather than
+  counts. A counts panel was drawn first and dropped: once the shares are
+  seen to be nearly flat, the counts panel only restates the growth that
+  `residents_per_seat` already shows, and a second panel that repeats a
+  figure the reader has met is worse than no second panel. Six lines were
+  tried before the stack and fail for a different reason: the bands are of
+  comparable size, so five of them run together in a band a few thousand
+  people deep, and a ramp chosen so that neighbouring bands read as
+  neighbours is exactly the wrong palette for lines that cross.
+
+  Children are a band, though they cannot vote. They are a seventh of the
+  county and no one on the Board represents them in the sense the rest of
+  this section measures, so leaving them out would make the figure a
+  picture of the electorate when what the section is about is the county.
+  For the same reason the denominator is every resident, not every adult.
+
+  It begins at 1980 while the Board figures begin at 1870, and the two are
+  not drawn on a shared range. Nothing is lost by that. The Board series
+  reaches back to 1870 because a Board member is one person whose birth
+  year can be found in a census sheet or an obituary; a county age
+  distribution has to come from a published table, and the Bureau's
+  machine-readable county tables begin with the 1980 Summary Tape File.
+  Earlier censuses did print county age tables, but only in the bound
+  volumes, so carrying the series back would mean keying them in the way
+  the 1870-1890 totals were keyed in. That is a job the report has not
+  asked for; `adults-before-1980` in `docs/questions.csv` holds it, for
+  this figure and for the turnout one. The figure is a benchmark for the
+  residents section and is never put on a panel with the Board's ages:
+  there is no defensible right age for a Board member, and a shared panel
+  would imply there is. Two figures in two sections, each on the range its
+  own sources support.
 - **board_race, board_gender, board_party.** Seat counts rather than
   shares, so the 1932 expansion is legible on the axis. All bands are drawn,
   men and White included: they are the denominator, and without them two

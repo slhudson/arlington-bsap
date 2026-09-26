@@ -33,3 +33,15 @@ def table(name):
     wide = wide.loc[sorted(wide.index, key=int), list(d.column.unique())]
     wide.columns.name = None
     return paths.typed(wide.reset_index(drop=True))
+
+
+def row(pattern):
+    """The one row of the county-level table matching a glob: Arlington's,
+    since code/build/census.py keeps no other row of those files."""
+    hits = names(pattern)
+    if len(hits) != 1:
+        raise FileNotFoundError(f"expected one table matching {pattern}, found {len(hits)}")
+    t = table(hits[0])
+    if len(t) != 1:
+        raise AssertionError(f"{hits[0]}: expected Arlington's one row, found {len(t)}")
+    return t.iloc[0]

@@ -27,11 +27,12 @@ import re
 
 import pandas as pd
 
-import board_roster
+import board_terms
 import census
 import citekeys
 import elections
 import paths
+import residents
 from elections import COUNTY_HISTORY_THROUGH
 from paths import read, write
 
@@ -52,9 +53,9 @@ CYCLE = {0: "president", 1: "governor", 2: "midterm", 3: "delegates"}
 def seats_filled(roster: pd.DataFrame, year: int) -> int:
     """Seats the November election of `year` filled: terms an election
     seated the next January, or a special election seated that November."""
-    regular = ((roster.seated_by == board_roster.ELECTION)
+    regular = ((roster.seated_by == board_terms.ELECTION)
                & (roster.start_year == year + 1) & (roster.start_month == 1))
-    special = ((roster.seated_by == board_roster.SPECIAL_ELECTION)
+    special = ((roster.seated_by == board_terms.SPECIAL_ELECTION)
                & (roster.start_year == year) & (roster.start_month == 11))
     n = int((regular | special).sum())
     if not 1 <= n <= 5:
@@ -92,7 +93,7 @@ def board_districts() -> pd.DataFrame:
     d = elections.oleary(elections.SUPERVISORS)
     rows = []
     for year, g in d.groupby("year"):
-        counts =[re.findall(r"(\d[\d,]*)(?=\s|$)", e) for e in g.entry]
+        counts = [re.findall(r"(\d[\d,]*)(?=\s|$)", e) for e in g.entry]
         if not all(counts) or len(g) != 3:
             continue
         total = sum(int(n.replace(",", "")) for c in counts for n in c)
@@ -117,15 +118,12 @@ def registration() -> pd.DataFrame:
 def voting_age() -> pd.DataFrame:
     rows = []
     for year, (file, cols) in VOTING_AGE.items():
-        t = census.table("raw/us_census_bureau/" + file)
-        name = "NAME" if "NAME" in t.columns else "name"
-        arl = t[t[name].str.upper().str.startswith("ARLINGTON")]   # the STF names are upper case
-        assert len(arl) == 1, f"{file}: {len(arl)} Arlington rows"
+        r = census.row("raw/us_census_bureau/" + file)
         if cols == "from 18":
-            ages = list(t.columns[3:])
+            ages = list(r.index[3:])
             cols = ages[ages.index("18"):]
             assert ages[0] == "under_1" and cols[-1] == "85_over", ages
-        rows.append({"year": year, "voting_age": int(arl[cols].iloc[0].sum()),
+        rows.append({"year": year, "voting_age": int(r[cols].sum()),
                      "voting_age_source": f"{VOTING_AGE_SOURCE.get(year, citekeys.CENSUS_DATA_FILE)} "
                                           f"{file.split('/')[1]}"})
     return pd.DataFrame(rows)
@@ -155,7 +153,7 @@ def build() -> pd.DataFrame:
     # The whole Board was elected every fourth year until terms were
     # staggered from 1940; from then on a seat is filled every November.
     years = list(board[board.year >= 1931].year)
-    assert years == [1931, 1935, 1939] + list(range(1940, board_roster.PRESENT)), \
+    assert years == [1931, 1935, 1939] + list(range(1940, board_terms.PRESENT)), \
         f"a November Board contest is missing or extra: {years}"
     board["board_voters"] = (board.board_votes / board.board_seats).round().astype(int)
 
@@ -166,6 +164,19 @@ def build() -> pd.DataFrame:
     d["cycle"] = [CYCLE[y % 4] if y >= 1931 else "" for y in d.year]
     d["voting_age_est"] = between_censuses(d)
     d["voting_age_est_source"] = [citekeys.DERIVED if pd.notna(v) else "" for v in d.voting_age_est]
+
+    # Two independent reads of the same figure. voting_age comes from each
+    # census's race-by-18-and-over table; residents.csv builds the adult
+    # population by summing six age bands out of the sex-by-age table. They
+    # are different tables of the same census and must agree exactly.
+    bands = read("residents").set_index("year")[list(residents.ADULT_BANDS)]
+    adults = bands.dropna().sum(axis=1)
+    for year, here in d.dropna(subset=["voting_age"]).set_index("year").voting_age.items():
+        there = adults.get(year)
+        assert there is not None and int(here) == int(there), (
+            f"{year}: the 18-and-over table gives {int(here):,} adults and the "
+            f"age bands in residents.csv give "
+            f"{'no row' if there is None else format(int(there), ',')}")
 
     for a, b, what in (("board_voters", "registered", "more Board voters than registered voters"),
                        ("board_voters", "president_votes", "more Board voters than presidential voters"),

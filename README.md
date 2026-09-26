@@ -52,18 +52,18 @@ layers above, and `data/clean/` is the layer worth pulling across people.
 | `code/analysis/<figure>.py` | `figures/pdf/<figure>.pdf`, `figures/png/<figure>.png` | its own docstring |
 | `code/archive.py` | `index.md` at the top of the Drive documents folder, and the zip the County receives | `CLAUDE.md` |
 
-Four clean modules write nothing and are read by the steps above:
-`code/clean/board_roster.py` (who held each seat and when),
+Clean modules that write nothing, read by the steps above:
+`code/clean/board_roster.py` (who held each seat and when, assembled from
+one module per source, `board_roster_oleary.py`, `board_roster_novack.py`
+and `board_roster_results.py`, on the terms `board_terms.py` defines),
 `code/clean/elections.py` (an office's contests, selected from the built
 table), `code/clean/census.py` (a census table in its own shape, from the
 built cells) and `code/clean/board_census.py` (the census rows of the built
-claims, coded). `code/citekeys.py` (the citekeys `paper/sources.bib`
-defines) is read by both data stages. Each stage has a `paths.py` that maps
+claims, coded), and one analysis module, `code/analysis/members.py` (who
+sits on the Board in a year), is read by the Board figures.
+`code/citekeys.py` (the citekeys `paper/sources.bib` defines) is read by
+both data stages. Each stage has a `paths.py` that maps
 its data folders, and `code/clean/paths.py` maps nothing above `data/built/`.
-
-Eleven figures build. Four are in the paper so far, `residents_per_seat`,
-`residents_by_race`, `board_gender` and `board_race`; the rest are built
-and waiting on the outline.
 
 ## Rebuilding
 
@@ -106,6 +106,7 @@ silently go stale.
 | `docs/residents.md`, `docs/board.md`, `docs/voters.md` | What each number is, what backs it, what is assumed, and why; one per subject |
 | `docs/questions.csv` | What is still open: one row per item with an owner, what it bites and what would settle it |
 | `docs/setup.md` | Getting a machine set up to build; written for a collaborator joining |
+| `docs/web_access.md` | The websites the sources come from: what each needs from this machine, and what it refuses |
 | `paper/sources.bib` | Every source, cited by key from both the prose and `data/clean/`; each entry's `annotation` says what the copy held supports and where it is filed |
 | Drive, `sources/documents` | Copies of the sources no number is taken from, filed by kind, with an `index.md` that `code/archive.py` writes: <https://drive.google.com/drive/folders/10SGuURB-ldC1AzM3ClsdL_tAiWeFIZB4> |
 

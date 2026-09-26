@@ -34,6 +34,9 @@ sys.path.insert(0, str(ROOT / "code" / "clean"))
 import board_members  # noqa: E402
 import paths  # noqa: E402
 import board_roster  # noqa: E402
+import board_roster_oleary  # noqa: E402
+import board_roster_results  # noqa: E402
+import board_terms  # noqa: E402
 import board_seats  # noqa: E402
 import residents  # noqa: E402
 import turnout  # noqa: E402
@@ -125,6 +128,47 @@ def test_race_split_must_account_for_its_total():
     assert err and "unaccounted" in err, f"not caught: {err}"
 
 
+def test_an_age_group_left_out_of_every_band_is_refused():
+    """A Summary Tape File group that no band claims. The county total would
+    still tie, because the missing people are simply never counted, so only
+    the partition check sees it."""
+    err = breaks(residents, "STF_AGE_GROUPS",
+                 lambda orig: {**orig, 1980: {**orig[1980], "age25to34": ["25_29"]}})
+    assert err and "do not cover the age groups exactly" in err, f"not caught: {err}"
+
+
+def test_an_age_group_claimed_by_two_bands_is_refused():
+    """The same group summed into two bands, which would inflate the adults."""
+    err = breaks(residents, "STF_AGE_GROUPS",
+                 lambda orig: {**orig, 1990: {**orig[1990],
+                                              "age35to44": ["35_39", "40_44", "45_49"]}})
+    assert err and "named in more than one band" in err, f"not caught: {err}"
+
+
+def test_a_wrong_sex_by_age_cell_number_is_refused():
+    """A cell dropped from the API's sex-by-age table. The bands must name
+    every age cell the table has, 3 to 25; the tie to the table's own total
+    stands behind that and would catch a cell counted as the wrong sex."""
+    err = breaks(residents, "API_AGE_CELLS",
+                 lambda orig: {**orig, "age25to34": [12]})
+    assert err and "the table's age cells are 3 to 25" in err, f"not caught: {err}"
+
+
+def test_the_two_counts_of_the_adult_population_must_agree():
+    """residents.csv sums six bands out of the sex-by-age table; turnout.csv
+    reads the 18-and-over table. Different tables, same census, same figure."""
+    def mangle(orig):
+        def patched(stem):
+            d = orig(stem)
+            if stem == "residents":
+                d = d.copy()
+                d.loc[d.year == 2020, "age65plus"] = 0
+            return d
+        return patched
+    err = breaks(turnout, "read", mangle)
+    assert err and "the age bands in residents.csv give" in err, f"not caught: {err}"
+
+
 # --- guards on the Board files ----------------------------------------------
 
 def test_race_and_gender_must_account_for_the_same_seats():
@@ -148,7 +192,7 @@ def test_a_wrong_term_length_is_rejected():
             d.loc[at_large, "end_year"] += 1
             return d
         return patched
-    err = breaks(board_roster, "election_terms", mangle, build=board_roster.build)
+    err = breaks(board_roster_results, "terms", mangle, build=board_roster.build)
     assert err and "at large" in err, f"not caught: {err}"
 
 
@@ -160,7 +204,7 @@ def test_the_seat_table_before_1932_does_not_depend_on_the_roster():
     read as unfilled and this member would appear in the race, gender
     and party columns."""
     stated = list(board_seats.NO_ROSTER_YEARS)
-    assert stated == list(range(1912, board_roster.AT_LARGE_FROM)), f"stated years are {stated[0]}-{stated[-1]}"
+    assert stated == list(range(1912, board_terms.AT_LARGE_FROM)), f"stated years are {stated[0]}-{stated[-1]}"
     real = board_seats.build()
     read = board_seats.read
 
@@ -191,7 +235,7 @@ def test_a_term_that_does_not_say_how_it_began_is_rejected():
                   "seated_by"] = "Elected"
             return d
         return patched
-    err = breaks(board_roster, "election_terms", mangle, build=board_roster.build)
+    err = breaks(board_roster_results, "terms", mangle, build=board_roster.build)
     assert err and "seated_by must be one of" in err, f"not caught: {err}"
 
 
@@ -204,7 +248,7 @@ def test_prose_in_the_name_column_is_rejected():
                     row = dict(row, name="A. D. Torreyson elected, but contested")
                 yield row
         return patched
-    err = breaks(board_roster, "oleary_terms", mangle, build=board_roster.build)
+    err = breaks(board_roster_oleary, "terms", mangle, build=board_roster.build)
     assert err and "prose" in err, f"not caught: {err}"
 
 
@@ -260,6 +304,20 @@ def test_a_place_read_only_from_the_index_is_refused():
                  patch_source(lambda d: "checked" in d.columns, index_only),
                  build=board_claims.build)
     assert err and "without the sheet read" in err, f"not caught: {err}"
+
+
+def test_a_census_record_keyed_into_a_claim_file_is_refused():
+    """A demographics row citing a census record. The record belongs in
+    board_census.csv as one row, and left in the claim file it would count
+    beside the record's own row as a second source."""
+    def stray(d):
+        extra = d.iloc[[0]].copy()
+        extra["source"] = "census1950tillema"
+        return pd.concat([d, extra], ignore_index=True)
+    err = breaks(board_claims, "source",
+                 patch_source(lambda d: "birth_year" in d.columns and "checked" not in d.columns, stray),
+                 build=board_claims.build)
+    assert err and "belongs in board_census.csv" in err, f"not caught: {err}"
 
 
 def test_a_census_race_with_no_category_is_refused():
@@ -485,6 +543,37 @@ def test_every_data_file_is_inventoried():
              and hashlib.sha256((ROOT / p).read_bytes()).hexdigest()[:16] != r["sha256"]]
     assert not moved, ("raw files whose checksum does not match data/contents.csv - data/raw/ "
                        "is never edited:\n  " + "\n  ".join(moved))
+
+
+def test_the_inventory_names_what_reads_each_table():
+    """A built or clean table whose read_by in data/contents.csv is not the
+    scripts that read it: a clean step's built("x") or read("x"), or an
+    analysis script's paths.NAME where code/analysis/paths.py maps NAME to
+    x.csv. The inventory is the only place a reader is written down, and
+    nothing else notices when one is added or dropped."""
+    mapped = {m.group(2): m.group(1) for m in re.finditer(
+        r'^(\w+) = CLEAN / "(\w+)\.csv"', (ROOT / "code" / "analysis" / "paths.py").read_text(), re.M)}
+
+    def readers(layer, stem):
+        found = []
+        for script in sorted((ROOT / "code" / "clean").glob("*.py")):
+            text = script.read_text()
+            if (layer == "built" and f'built("{stem}")' in text) or (layer == "clean" and f'read("{stem}")' in text):
+                found.append(str(script.relative_to(ROOT)))
+        if layer == "clean":
+            for script in sorted((ROOT / "code" / "analysis").glob("*.py")):
+                if f"paths.{mapped[stem]}" in script.read_text():
+                    found.append(str(script.relative_to(ROOT)))
+        return "; ".join(found)
+
+    problems = []
+    for r in csv.DictReader((ROOT / "data" / "contents.csv").open()):
+        if r["layer"] not in ("built", "clean"):
+            continue
+        got = readers(r["layer"], Path(r["path"]).stem)
+        if got != r["read_by"]:
+            problems.append(f"{r['path']}: read_by says {r['read_by']!r}; the scripts that read it: {got!r}")
+    assert not problems, "data/contents.csv is out of date:\n  " + "\n  ".join(problems)
 
 
 def test_docs_agree_with_run_sh():

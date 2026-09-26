@@ -1,8 +1,9 @@
 """Census population by year -> data/clean/residents.csv
 
-One row per census, 1870-2020: the total, four race categories, the seats
-the Board had, and residents per seat. `total_source` and `race_source`
-name the document each came from.
+One row per census, 1870-2020: the total, four race categories, the county
+in seven age bands from 1980, the seats the Board had, and residents per
+seat. `total_source`, `race_source` and `age_source` name the document each
+came from.
 
     1870-1890  derived from the census volumes: Alexandria city sat inside
                the county, so the Board's territory is county minus city
@@ -13,19 +14,30 @@ name the document each came from.
                race, the other three are non-Hispanic, and the five groups
                partition the county exactly
 
+    1980-      seven age bands, from each census's own age table
+
 The fifth crossed group, non-Hispanic other and multiracial, is not a
-column: a figure takes it as total minus the four. `hisp` is blank before
-1980. docs/residents.md says what backs each year and why.
+column: a figure takes it as total minus the four. `hisp` and the age bands
+are blank before 1980. The seven bands sum to `total`, and the adult
+population is the six of them above `ageunder18`; neither has a column of
+its own. docs/residents.md says what backs each year and why.
 """
 import pandas as pd
 
 import census
 import citekeys
-from board_roster import seats
+from board_terms import seats
 from paths import write
 
-COLUMNS = ["year", "total", "white", "black", "hisp", "aapi", "board_seats",
-           "residents_per_seat"]
+# The county in seven age bands. Every cut is one all five censuses from
+# 1980 share: 1980 prints 35 to 44, 45 to 54, 65 to 74 and 75 to 84 as
+# single groups, so no cut at 40, 50, 70 or 80 exists to take.
+# docs/residents.md has the reasoning.
+AGE_BANDS = ("ageunder18", "age18to24", "age25to34", "age35to44", "age45to54",
+             "age55to64", "age65plus")
+ADULT_BANDS = AGE_BANDS[1:]
+COLUMNS = ["year", "total", "white", "black", "hisp", "aapi", *AGE_BANDS,
+           "board_seats", "residents_per_seat"]
 CENSUSES = range(1870, 2021, 10)
 # Which document each year's total comes from.
 TOTAL_SOURCE = {1870: citekeys.CENSUS_1870, 1880: citekeys.CENSUS_1880, 1890: citekeys.CENSUS_1890,
@@ -34,6 +46,38 @@ TOTAL_SOURCE = {1870: citekeys.CENSUS_1870, 1880: citekeys.CENSUS_1880, 1890: ci
 # The crossed census groups, 1980 on, and the column each one fills.
 CENSUS_BASIS = {"hisp": "hispanic", "white": "nh_white",
                 "black": "nh_black", "aapi": "nh_aapi"}
+
+# Which of an age table's groups each band is summed from. The Summary Tape
+# Files name their groups; the API's sex-by-age table numbers them, and the
+# numbers below are the male cells, with the female cell 24 further on.
+STF_AGE_GROUPS = {
+    1980: {"ageunder18": ["under_1", "1_2", "3_4", "5", "6", "7_9", "10_13",
+                          "14", "15", "16", "17"],
+           "age18to24": ["18", "19", "20", "21", "22_24"],
+           "age25to34": ["25_29", "30_34"],
+           "age35to44": ["35_44"],
+           "age45to54": ["45_54"],
+           "age55to64": ["55_59", "60_61", "62_64"],
+           "age65plus": ["65_74", "75_84", "85_over"]},
+    1990: {"ageunder18": ["under_1", "1_2", "3_4", "5", "6", "7_9", "10_11",
+                          "12_13", "14", "15", "16", "17"],
+           "age18to24": ["18", "19", "20", "21", "22_24"],
+           "age25to34": ["25_29", "30_34"],
+           "age35to44": ["35_39", "40_44"],
+           "age45to54": ["45_49", "50_54"],
+           "age55to64": ["55_59", "60_61", "62_64"],
+           "age65plus": ["65_69", "70_74", "75_79", "80_84", "85_over"]},
+}
+API_AGE_CELLS = {"ageunder18": [3, 4, 5, 6],
+                 "age18to24": [7, 8, 9, 10], "age25to34": [11, 12],
+                 "age35to44": [13, 14], "age45to54": [15, 16],
+                 "age55to64": [17, 18, 19],
+                 "age65plus": [20, 21, 22, 23, 24, 25]}
+FEMALE_OFFSET = 24
+# (age table, its total cell, how a cell number is written) per census.
+API_AGE_TABLE = {2000: ("P012", "P012001", "P012{:03d}".format),
+                 2010: ("P12", "P012001", "P012{:03d}".format),
+                 2020: ("P12", "P12_001N", "P12_{:03d}N".format)}
 
 
 def table(path):
@@ -65,14 +109,7 @@ def twps0076() -> dict:
 
 def arlington(year, table):
     """Arlington's row from a Census data file, by the table's Census code."""
-    hits = census.names(f"raw/us_census_bureau/{year}/censusapi_*_{table}_*_virginia_counties.csv")
-    if len(hits) != 1:
-        raise FileNotFoundError(f"expected one {table} file for {year}, found {len(hits)}")
-    d = census.table(hits[0])
-    row = d[d.NAME.str.startswith("Arlington")]
-    if len(row) != 1:
-        raise AssertionError(f"{hits[0]}: expected one Arlington row, found {len(row)}")
-    return row.iloc[0]
+    return census.row(f"raw/us_census_bureau/{year}/censusapi_*_{table}_*_virginia_counties.csv")
 
 
 def early_years() -> pd.DataFrame:
@@ -126,13 +163,53 @@ def early_years() -> pd.DataFrame:
 
 
 def stf1a(year, table):
-    """A row of one archived Summary Tape File extract, for Arlington."""
-    path = f"raw/us_census_bureau/{year}/stf1a_{table}_virginia_counties.csv"
-    d = census.table(path)
-    row = d[d.name.str.strip().str.upper().str.startswith("ARLINGTON COUNTY")]
-    if len(row) != 1:
-        raise AssertionError(f"{path}: expected one Arlington row, found {len(row)}")
-    return row.iloc[0]
+    """Arlington's row of one archived Summary Tape File extract."""
+    return census.row(f"raw/us_census_bureau/{year}/stf1a_{table}_virginia_counties.csv")
+
+
+def partition(bands, groups, year):
+    """Every group of an age table belongs to exactly one band. A group named
+    twice, or left out, is a mis-mapping the county total would not catch on
+    its own: left out, the people are simply never counted."""
+    named = [g for named_ in bands.values() for g in named_]
+    twice = sorted({g for g in named if named.count(g) > 1})
+    assert not twice, f"{year}: age groups named in more than one band: {twice}"
+    assert set(named) == set(groups), (
+        f"{year}: the bands do not cover the age groups exactly - "
+        f"missing {sorted(set(groups) - set(named))}, "
+        f"unknown {sorted(set(named) - set(groups))}")
+
+
+def stf1a_ages(year, table):
+    """The seven bands from an archived Summary Tape File's age table, and
+    everyone the table counts."""
+    row = stf1a(year, table)
+    groups = [c for c in row.index if c not in ("name", "state", "county")]
+    partition(STF_AGE_GROUPS[year], groups, year)
+    out = {band: int(sum(row[g] for g in named))
+           for band, named in STF_AGE_GROUPS[year].items()}
+    return out, sum(out.values())
+
+
+def api_ages(year) -> dict:
+    """The seven bands from a census's sex-by-age table, men and women
+    summed, checked against the table's own total."""
+    table, total_cell, cell = API_AGE_TABLE[year]
+    row = arlington(year, table)
+    cells_ = [n for named in API_AGE_CELLS.values() for n in named]
+    partition(API_AGE_CELLS, cells_, year)
+    assert sorted(cells_) == list(range(3, 26)), (
+        f"{year}: the bands name cells {sorted(cells_)}; the table's age cells "
+        f"are 3 to 25")
+    out = {band: int(sum(int(row[cell(n)]) + int(row[cell(n + FEMALE_OFFSET)])
+                         for n in named))
+           for band, named in API_AGE_CELLS.items()}
+    got, want = sum(out.values()), int(row[total_cell])
+    if got != want:
+        raise AssertionError(
+            f"{year}: the age cells account for {got:,} but {total_cell} states "
+            f"{want:,} - check the cell numbers in API_AGE_CELLS")
+    return out
 
 
 def census_basis() -> dict:
@@ -237,10 +314,32 @@ def build() -> pd.DataFrame:
         "no race source for "
         f"{[int(y) for y in d.loc[d.race_source == '', 'year']]}")
 
+    # The county in seven age bands, from 1980. Each census's age table must
+    # account for the same county the total column does.
+    d["age_source"] = ""
+    ages = {}
+    for year, age_table in ((1980, "table10_age"), (1990, "age")):
+        ages[year], counted = stf1a_ages(year, age_table)
+        total = int(d.loc[d["year"] == year, "total"].iloc[0])
+        if counted != total:
+            raise AssertionError(
+                f"{year}: the age bands account for {counted:,} but the county "
+                f"total is {total:,}; a group is missing or counted twice")
+    for year in (2000, 2010, 2020):
+        ages[year] = api_ages(year)
+    for year, bands in ages.items():
+        m = d["year"] == year
+        for col, value in bands.items():
+            d.loc[m, col] = value
+        d.loc[m, "age_source"] = (
+            {1980: citekeys.CENSUS_1980_STF1A,
+             1990: citekeys.CENSUS_1990_STF1A}.get(year, citekeys.CENSUS_DATA_FILE))
+
     d["residents_per_seat"] = d["total"] / d["board_seats"]
     # Int64 keeps a blank blank.
     d["year"] = d["year"].astype(int)
-    for col in ("total", "white", "black", "hisp", "aapi", "board_seats"):
+    for col in ("total", "white", "black", "hisp", "aapi", "board_seats",
+                *AGE_BANDS):
         d[col] = d[col].astype("Int64")
     return d
 
