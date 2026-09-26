@@ -295,22 +295,18 @@ def test_a_category_merged_in_the_build_stage_is_refused():
     assert err and "'race'" in err and "Mulatto" in err, f"not caught: {err}"
 
 
-def test_the_clean_stage_reads_only_the_sources_it_lists():
-    """A clean step reading a source its paths.py does not name; and the
-    list disagreeing with what data/contents.csv says clean steps read."""
-    try:
-        paths.source(ROOT / "data" / "transcribed" / "by_claude" / "board_census.csv")
-        err = None
-    except PermissionError as e:
-        err = str(e)
-    assert err and "no route" in err, f"not caught: {err}"
-    listed = {str(p.relative_to(ROOT)) for p in paths.SOURCES}
-    inventoried = {r["path"] for r in csv.DictReader((ROOT / "data" / "contents.csv").open())
-                   if r["layer"] in ("raw", "transcribed/by_claude") and "code/clean/" in r["read_by"]}
-    assert listed == inventoried, (
-        "code/clean/paths.py and data/contents.csv disagree on what the clean stage reads directly:\n"
-        + "\n".join(f"  listed, not inventoried as read by clean: {p}" for p in sorted(listed - inventoried))
-        + "\n".join(f"  inventoried as read by clean, not listed: {p}" for p in sorted(inventoried - listed)))
+def test_the_clean_stage_has_no_route_above_built():
+    """A name in code/clean/paths.py that points under data/raw/ or
+    data/transcribed/, or an inventory row saying a clean step reads a file
+    there. A source reaches the clean stage through a build step or not at all."""
+    above = (ROOT / "data" / "raw", ROOT / "data" / "transcribed")
+    routes = [n for n, v in vars(paths).items()
+              if isinstance(v, Path) and any(v == a or a in v.parents for a in above)]
+    assert not routes, f"code/clean/paths.py maps a path above data/built/: {routes}"
+    direct = [r["path"] for r in csv.DictReader((ROOT / "data" / "contents.csv").open())
+              if r["layer"] not in ("built", "clean") and "code/clean/" in r["read_by"]]
+    assert not direct, ("data/contents.csv says a clean step reads these directly; give each a "
+                        "build step:\n  " + "\n  ".join(direct))
 
 
 def test_party_must_account_for_the_same_seats():

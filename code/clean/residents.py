@@ -19,9 +19,10 @@ column: a figure takes it as total minus the four. `hisp` is blank before
 """
 import pandas as pd
 
+import census
 import citekeys
 from board_roster import seats
-from paths import CENSUS, CENSUS_BY_CLAUDE, source, write
+from paths import write
 
 COLUMNS = ["year", "total", "white", "black", "hisp", "aapi", "board_seats",
            "residents_per_seat"]
@@ -36,9 +37,9 @@ CENSUS_BASIS = {"hisp": "hispanic", "white": "nh_white",
 
 
 def table(path):
-    """Read a transcribed census table by its path under
+    """A transcribed census table by its path under
     data/transcribed/by_claude/us_census_bureau/."""
-    return source(CENSUS_BY_CLAUDE / path)
+    return census.table("transcribed/by_claude/us_census_bureau/" + path)
 
 
 def twps0076() -> dict:
@@ -64,13 +65,13 @@ def twps0076() -> dict:
 
 def arlington(year, table):
     """Arlington's row from a Census data file, by the table's Census code."""
-    hits = sorted((CENSUS / str(year)).glob(f"censusapi_*_{table}_*_virginia_counties.csv"))
+    hits = census.names(f"raw/us_census_bureau/{year}/censusapi_*_{table}_*_virginia_counties.csv")
     if len(hits) != 1:
         raise FileNotFoundError(f"expected one {table} file for {year}, found {len(hits)}")
-    d = source(hits[0])
+    d = census.table(hits[0])
     row = d[d.NAME.str.startswith("Arlington")]
     if len(row) != 1:
-        raise AssertionError(f"{hits[0].name}: expected one Arlington row, found {len(row)}")
+        raise AssertionError(f"{hits[0]}: expected one Arlington row, found {len(row)}")
     return row.iloc[0]
 
 
@@ -126,11 +127,11 @@ def early_years() -> pd.DataFrame:
 
 def stf1a(year, table):
     """A row of one archived Summary Tape File extract, for Arlington."""
-    path = CENSUS / str(year) / f"stf1a_{table}_virginia_counties.csv"
-    d = source(path)
+    path = f"raw/us_census_bureau/{year}/stf1a_{table}_virginia_counties.csv"
+    d = census.table(path)
     row = d[d.name.str.strip().str.upper().str.startswith("ARLINGTON COUNTY")]
     if len(row) != 1:
-        raise AssertionError(f"{path.name}: expected one Arlington row, found {len(row)}")
+        raise AssertionError(f"{path}: expected one Arlington row, found {len(row)}")
     return row.iloc[0]
 
 

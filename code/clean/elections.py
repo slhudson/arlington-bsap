@@ -29,6 +29,7 @@ COUNTY_HISTORY_THROUGH = 2021
 
 BOARD = re.compile(r"^(Member, )?County Board\b")      # a contest heading, any qualifier after
 PRESIDENT = re.compile(r"^President")
+SUPERVISORS = re.compile(r"^Board of Supervisors$")     # O'Leary's district listings, 1870-1920
 
 MONTHS = {m: i for i, m in enumerate(
     ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -124,7 +125,7 @@ def _typed(e: pd.DataFrame) -> pd.DataFrame:
     e["year"] = e.year.astype(int)
     e["kind"] = e.election_kind
     e["month"] = pd.to_numeric(e.month)
-    e["seats"] = e.seats.astype(int)
+    e["seats"] = pd.to_numeric(e.seats).astype(int)
     e["votes"] = pd.to_numeric(e.votes)
     for c in FLAGS:
         e[c] = e[c] == "True"
@@ -136,9 +137,11 @@ def _typed(e: pd.DataFrame) -> pd.DataFrame:
 
 
 def _selected(e: pd.DataFrame, office) -> pd.Series:
-    """The rows for `office`. "County Board Candidates" heads a pointer to
-    an article, not a contest."""
-    return e.office.str.match(office) & ~e.office.str.startswith("County Board Candidates")
+    """The county's and the state's rows for `office`; O'Leary's entries have
+    oleary(). "County Board Candidates" heads a pointer to an article, not
+    a contest."""
+    return ((e.record != "oleary") & e.office.str.match(office)
+            & ~e.office.str.startswith("County Board Candidates"))
 
 
 def contests(office=BOARD) -> pd.DataFrame:
@@ -151,3 +154,12 @@ def county_history(office=BOARD) -> pd.DataFrame:
     """The county's candidate history for `office`, typed."""
     e = paths.built("elections")
     return _typed(e[(e.record == "county") & _selected(e, office)])
+
+
+def oleary(office) -> pd.DataFrame:
+    """O'Leary's entries for `office`, as printed: year and page as numbers,
+    the entry and the district as text."""
+    e = paths.built("elections")
+    o = e[(e.record == "oleary") & e.office.str.match(office)]
+    o = o[["page", "year", "election_date", "district", "entry"]].reset_index(drop=True)
+    return o.astype({"page": int, "year": int})

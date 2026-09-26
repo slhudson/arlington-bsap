@@ -1,14 +1,17 @@
 """Every claim about a Board member, one row each -> data/built/board_claims.csv
 
-The four claim files under data/transcribed/by_claude/ stacked into one
-table, each cell as keyed in, with `claim` saying which file a row came
-from: `demographics` (race, gender or a birth year a source states),
-`party` (a term's party, keyed on the term's start year), `residence` (a
-dated place) and `census` (one record, with what the index prints and
-what the sheet gives). A field a row does not carry is blank. Nothing is
-coded, matched or chosen here; code/clean/board_census.py reads the census
-rows into claims and code/clean/board_members.py and board_residence.py
-resolve them. docs/board.md, "Census records", has what each column holds.
+Six files under data/transcribed/by_claude/ stacked into one table, each
+cell as keyed in, with `claim` saying which file a row came from:
+`demographics` (race, gender or a birth year a source states), `party` (a
+term's party, keyed on the term's start year), `residence` (a dated
+place), `census` (one record, with what the index prints and what the
+sheet gives), `novack` (a member's whole service as Novack prints it, the
+`term` string and `notes`) and `terms` (a term keyed in from the county's
+candidate history, with its dates and `note`). A field a row does not
+carry is blank. Nothing is coded, matched or chosen here;
+code/clean/board_roster.py reads the terms, code/clean/board_census.py the
+census rows, and code/clean/board_members.py and board_residence.py resolve
+the rest. docs/board.md, "Census records", has what each column holds.
 
 Two rows are refused. A census row that does not say what was read against
 the image, the sheet or the index; and a place on a census row the sheet
@@ -22,11 +25,14 @@ from paths import BY_CLAUDE, source, write
 FILES = {"demographics": BY_CLAUDE / "board_demographics.csv",
          "party": BY_CLAUDE / "board_party.csv",
          "residence": BY_CLAUDE / "board_residence.csv",
-         "census": BY_CLAUDE / "board_census.csv"}
+         "census": BY_CLAUDE / "board_census.csv",
+         "novack": BY_CLAUDE / "arlington_historical_magazine" / "novack_terms_1930-1994.csv",
+         "terms": BY_CLAUDE / "board_terms.csv"}
 
-COLUMNS = ["name", "claim", "year", "start_year", "race", "gender", "birth_year", "age",
-           "birthplace", "occupation", "place", "party", "basis", "checked", "source",
-           "quote", "sheet"]
+COLUMNS = ["name", "claim", "year", "start_year", "start_month", "end_year", "end_month",
+           "district", "seated_by", "term", "race", "gender", "birth_year", "age", "birthplace",
+           "occupation", "place", "party", "basis", "checked", "source", "page", "quote",
+           "sheet", "notes", "note"]
 
 
 def census_records(r: pd.DataFrame) -> pd.DataFrame:

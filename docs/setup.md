@@ -52,8 +52,8 @@ code, each writing one folder of data:
   `data/built/` — stacks the claim files, puts both election records in one
   table — and decides nothing. A step is refused if a value its inputs
   carry is missing from its output.
-- `code/clean/` turns those, and the few sources it still reads directly,
-  into the clean tables in `data/clean/`. This is where every decision about
+- `code/clean/` turns those into the clean tables in `data/clean/`, and can
+  read nothing above `data/built/`. This is where every decision about
   what a number *is* gets made — what a blank means, which of two
   conflicting figures to trust, whether a census line is the Board member.
 - `code/analysis/` draws the figures from `data/clean/` into `figures/`. One

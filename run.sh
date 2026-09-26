@@ -19,11 +19,11 @@ PY=.venv/bin/python
 
 # Stage 1: data/raw/ and data/transcribed/ -> data/built/. Reshaping only;
 # each step is refused if a value its inputs carry is missing from its output.
-BUILD=(elections board_claims)
+BUILD=(elections board_claims census registration)
 
-# Stage 2: data/built/, and the sources code/clean/paths.py still names,
-# -> data/clean/. Every decision about what a number is. Each step is named
-# for the file it writes, and later steps read what earlier ones wrote.
+# Stage 2: data/built/ -> data/clean/. Every decision about what a number
+# is. Each step is named for the file it writes, and later steps read what
+# earlier ones wrote.
 CLEAN=(residents board_members board_residence board_seats voters turnout)
 
 # Stage 3: data/clean/ -> figures/. Each step is named for the figure it
@@ -34,20 +34,21 @@ echo "lint"
 "$PY" -m pyflakes code style || { echo "  pyflakes: fix the above"; exit 1; }
 echo "  clean"
 
-# The tests prove the build's guards still fire. About five seconds.
-echo "tests"
-"$PY" code/tests.py | sed 's/^/  /'
-
 # paths.read() refuses a built or clean table older than this.
 export RUN_STARTED=$(date +%s)
 
 # Both data stages read `import citekeys` from here; nothing else is on the path.
 export PYTHONPATH="$PWD/code"
 
+# data/built/ is not committed, so it is made before anything reads it.
 echo "build"
 for s in "${BUILD[@]}"; do
   (cd code/build && ../../"$PY" "$s.py")
 done
+
+# The tests prove the guards still fire. About five seconds.
+echo "tests"
+"$PY" code/tests.py | sed 's/^/  /'
 
 echo "clean"
 for s in "${CLEAN[@]}"; do

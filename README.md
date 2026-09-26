@@ -21,10 +21,11 @@ style/                             how they are shown: conventions, palette, fon
 paper/                             the prose and sources.bib, via Overleaf
 ```
 
-`bash run.sh` runs the tests, then `code/build/`, `code/clean/` and
+`bash run.sh` runs `code/build/`, the tests, `code/clean/` and
 `code/analysis/`. The first two folders run on demand and their output is
 committed, so anyone can rebuild without a network connection, an API key,
-or a Mac.
+or a Mac. `data/built/` is not committed: it rebuilds in seconds from the
+layers above, and `data/clean/` is the layer worth pulling across people.
 
 | Script | Writes | Explained in |
 |---|---|---|
@@ -40,6 +41,8 @@ or a Mac.
 | `code/transcribe/novack_terms.py` | `data/transcribed/by_claude/arlington_historical_magazine/novack_terms_1930-1994.csv` | `data/contents.csv` |
 | `code/build/elections.py` | `data/built/elections.csv` | its own docstring |
 | `code/build/board_claims.py` | `data/built/board_claims.csv` | `docs/board.md` |
+| `code/build/census.py` | `data/built/census.csv` | its own docstring |
+| `code/build/registration.py` | `data/built/registration.csv` | its own docstring |
 | `code/clean/residents.py` | `data/clean/residents.csv` | `docs/residents.md` |
 | `code/clean/voters.py` | `data/clean/voters.csv` | `docs/voters.md` |
 | `code/clean/board_members.py` | `data/clean/board_members.csv` | `docs/board.md` |
@@ -49,14 +52,14 @@ or a Mac.
 | `code/analysis/<figure>.py` | `figures/pdf/<figure>.pdf`, `figures/png/<figure>.png` | its own docstring |
 | `code/archive.py` | `index.md` at the top of the Drive documents folder, and the zip the County receives | `CLAUDE.md` |
 
-Three clean modules write nothing and are read by the steps above:
+Four clean modules write nothing and are read by the steps above:
 `code/clean/board_roster.py` (who held each seat and when),
 `code/clean/elections.py` (an office's contests, selected from the built
-table) and `code/clean/board_census.py` (the census rows of the built claims,
-coded). `code/citekeys.py` (the citekeys `paper/sources.bib` defines) is
-read by both data stages. Each stage has a `paths.py` that maps its data
-folders; `code/clean/paths.py` also lists the sources the clean stage
-still reads directly.
+table), `code/clean/census.py` (a census table in its own shape, from the
+built cells) and `code/clean/board_census.py` (the census rows of the built
+claims, coded). `code/citekeys.py` (the citekeys `paper/sources.bib`
+defines) is read by both data stages. Each stage has a `paths.py` that maps
+its data folders, and `code/clean/paths.py` maps nothing above `data/built/`.
 
 Eleven figures build. Four are in the paper so far, `residents_per_seat`,
 `residents_by_race`, `board_gender` and `board_race`; the rest are built

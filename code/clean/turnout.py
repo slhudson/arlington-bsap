@@ -28,10 +28,12 @@ import re
 import pandas as pd
 
 import board_roster
+import census
 import citekeys
 import elections
+import paths
 from elections import COUNTY_HISTORY_THROUGH
-from paths import CENSUS, OLEARY_BOARD, REGISTRATION, read, source, write
+from paths import read, write
 
 # The population 18 and over: from 2000 a table whose first cell is the
 # total; 1980 and 1990 the age distribution summed from the "18" cell on.
@@ -87,7 +89,7 @@ def board_votes(roster) -> pd.DataFrame:
 def board_districts() -> pd.DataFrame:
     """1870-1915: the elections for which O'Leary reports a count in every
     district."""
-    d = source(OLEARY_BOARD)
+    d = elections.oleary(elections.SUPERVISORS)
     rows = []
     for year, g in d.groupby("year"):
         counts =[re.findall(r"(\d[\d,]*)(?=\s|$)", e) for e in g.entry]
@@ -105,7 +107,7 @@ def board_districts() -> pd.DataFrame:
 
 
 def registration() -> pd.DataFrame:
-    r = source(REGISTRATION)
+    r = paths.typed(paths.built("registration"))
     return pd.DataFrame({
         "year": r.year, "registered": r.active, "registered_all": r["all"],
         "registered_source": [f"{citekeys.VA_REGISTRATION} {rep}" + (f", as of {d}" if isinstance(d, str) else "")
@@ -115,7 +117,7 @@ def registration() -> pd.DataFrame:
 def voting_age() -> pd.DataFrame:
     rows = []
     for year, (file, cols) in VOTING_AGE.items():
-        t = source(CENSUS / file)
+        t = census.table("raw/us_census_bureau/" + file)
         name = "NAME" if "NAME" in t.columns else "name"
         arl = t[t[name].str.upper().str.startswith("ARLINGTON")]   # the STF names are upper case
         assert len(arl) == 1, f"{file}: {len(arl)} Arlington rows"

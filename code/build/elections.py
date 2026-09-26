@@ -1,13 +1,17 @@
-"""The two election records as one table -> data/built/elections.csv
+"""The election records as one table -> data/built/elections.csv
 
 One row per candidate per contest, every office, both records, with the
-contest's own facts on each row. Nothing is chosen: every row of the
-county's candidate history is here, prose and write-ins included, and
-every candidate in the state's files, their precinct rows summed.
+contest's own facts on each row; and, for 1870-1920, one row per entry
+O'Leary prints, the Board of Supervisors by district and the presidential
+returns. Nothing is chosen: every row of the county's candidate history is
+here, prose and write-ins included, every candidate in the state's files,
+their precinct rows summed, and every line of O'Leary's as transcribed.
 code/clean/elections.py selects from it.
 
-    record      "county" (arlingtonelections2021, to 2021) or "state"
-                (vaelections, 2000 on)
+    record      "county" (arlingtonelections2021, to 2021), "state"
+                (vaelections, 2000 on) or "oleary" (oleary2010, 1870-1920)
+    entry       O'Leary's printed line, unparsed; `district` the magisterial
+                district it is listed under
     contest     an id shared by the contest's rows: for the county, the
                 year, date and heading without its qualifier
     office      the heading as printed, qualifier included
@@ -41,6 +45,9 @@ from paths import BY_CLAUDE, RAW, source, write
 COUNTY = BY_CLAUDE / "arlington_county" / "candidate_history_1920-present.csv"
 STATE = (RAW / "va_dept_of_elections" / "county_board_2000-2026.csv.gz",
          RAW / "va_dept_of_elections" / "president_1924-2024.csv")
+# O'Leary's listings, and the office each is of.
+OLEARY = {BY_CLAUDE / "arlington_county" / "board_1870-1920.csv": "Board of Supervisors",
+          BY_CLAUDE / "arlington_county" / "president_1872-1920.csv": "President"}
 
 NAMED = re.compile(r"^[*A-Z]")                          # a row naming a candidate
 # The qualifiers a contest heading carries.
@@ -109,13 +116,27 @@ def state(path) -> pd.DataFrame:
         "source": citekeys.VA_ELECTIONS + " contest " + g.contest_id.astype(str)})
 
 
-COLUMNS = ["record", "contest", "office", "year", "election_date", "election_kind", "page",
-           "month", "november", "primary", "special", "seats", "fills", "candidate", "name",
-           "votes", "person", "writein", "prose", "party", "primary_party", "is_winner", "source"]
+def oleary(path, office) -> pd.DataFrame:
+    """Every entry of one of O'Leary's listings, one row each, as printed."""
+    o = source(path, dtype=str).fillna("")
+    o["record"] = "oleary"
+    o["office"] = office
+    o["contest"] = o.year + " " + o.election_date + " " + office
+    o["month"] = o.election_date.str[:3].map(MONTHS)
+    o["november"] = o.election_date.str.startswith("November")
+    o["source"] = citekeys.OLEARY + " p." + o.page
+    return o
+
+
+COLUMNS = ["record", "contest", "office", "district", "year", "election_date", "election_kind",
+           "page", "month", "november", "primary", "special", "seats", "fills", "candidate",
+           "name", "entry", "votes", "person", "writein", "prose", "party", "primary_party",
+           "is_winner", "source"]
 
 
 def build() -> pd.DataFrame:
-    d = pd.concat([county()] + [state(p) for p in STATE], ignore_index=True)
+    d = pd.concat([county()] + [state(p) for p in STATE]
+                  + [oleary(p, office) for p, office in OLEARY.items()], ignore_index=True)
     return d[COLUMNS]
 
 

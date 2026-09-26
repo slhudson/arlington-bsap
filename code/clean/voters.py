@@ -29,7 +29,7 @@ import board_roster
 import citekeys
 import elections
 from elections import COUNTY_HISTORY_THROUGH
-from paths import OLEARY_PRESIDENT, source, write
+from paths import write
 
 # The major-party nominees, (Democratic, Republican), as O'Leary spells them.
 NOMINEES = {
@@ -52,7 +52,7 @@ BAND = {"Democratic": "dem", "Republican": "rep", "ABC": "abc",
 
 
 def oleary() -> pd.DataFrame:
-    d = source(OLEARY_PRESIDENT)
+    d = elections.oleary(elections.PRESIDENT)
     rows = []
     for year, g in d.groupby("year"):
         dem, rep = NOMINEES[int(year)]
