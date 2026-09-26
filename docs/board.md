@@ -419,11 +419,14 @@ magisterial district), the year the source gives, and the source. Nothing is
 coded North or South and no claim is chosen over another; the coverage
 figure takes each member's most exact dated place in each year.
 
-**How much is known, for the 75 members first seated from 1932 on**
-(recomputed from the clean tables on 26 September 2026). A member is counted
-under the most exact kind of place any source gives him, and dated by the
-best-dated row of that kind: during service if the row's year falls inside a
-term, otherwise by the distance to the nearest term's ends.
+**How much is known, for the 75 members first seated from 1932 on.** A member
+is counted under the most exact kind of place any source gives him, and dated
+by the best-dated row of that kind: during service if the row's year falls
+inside a term, otherwise by the distance to the nearest term's ends. Every
+census read moves these numbers, so the count is not kept by hand:
+`test_the_residence_coverage_table_in_the_write_up_is_current` in
+`code/tests.py` recomputes it from the clean tables on every build and fails
+with both sets of figures when the table below no longer matches.
 
 | Most exact place held | Dated during service | Within 5 years of it | 6 or more years from it | Undated | Members |
 |---|---|---|---|---|---|
@@ -534,6 +537,15 @@ district in 1872-73. For the members seated 1870–1911 the 1880, 1900 and 1910
 sheets name a magisterial district at the head of each page and, outside
 the towns, leave the street column blank, so the district is the place
 recorded, in the sheet's own words.
+
+The filed copy of each record's Ancestry page is written by
+`code/ancestry.py` from the row's own `quote`, since Ancestry refuses an
+automated request and the page cannot be fetched by anyone reading this
+repository. The page says on its face that it is derived. The copies filed
+before that script also carry a sentence saying Ancestry states the facts in
+the collection were found using artificial intelligence and may contain
+errors; the 1930 and 1940 census record pages carry no such statement, and
+the script does not repeat it.
 
 Only the census record itself goes in this table. What a newspaper, an
 obituary or a secondary source says, Hjerpe's reading of an 1880 record
