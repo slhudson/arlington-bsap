@@ -58,14 +58,35 @@ before it has nothing to reach with. `code/tests.py` checks both.
 ## Naming
 
 **A file is named after what it produces.** `code/clean/residents.py` writes
-`data/clean/residents.csv`. `code/analysis/board_race.py` writes
-`figures/pdf/board_race.pdf` and `figures/png/board_race.png`. No `make_`
+`data/clean/residents.csv`. `code/analysis/members_race.py` writes
+`figures/pdf/members_race.pdf` and `figures/png/members_race.png`. No `make_`
 prefixes, no `_chart` suffixes: the directory says what the stage does, the
 filename says which thing. `run.sh` checks this after every figure, and warns
 about figures in `figures/` that no step produces.
 
-**Three subjects: `residents`, `voters` and `board`.** Everything is Arlington,
-so nothing is prefixed `arlington_`.
+**A name's first word is the population the file is about; the rest says how
+that population is cut or what about it is measured.** There are five:
+`residents`, the county's people; `voters`, its electorate; `members`, the
+people who have served on the Board; `candidates`, the people who have run for
+it; and `localities`, the Virginia jurisdictions Arlington is set against.
+Then `residents_by_district`, `members_race`, `voters_turnout`,
+`localities_density`. Everything here is Arlington and everything is about the
+Board, so nothing is prefixed `arlington_` and nothing is prefixed `board_`.
+
+**The rows are the test of the first word, not its definition.**
+`residents.csv` is one row per census year with residents in the columns, and
+`members_by_year.csv` is one row per year with members in them; neither holds
+a row per person, and both are named for the population they count. What the
+test catches is a file whose rows are a population its name does not mention.
+A table of peer localities is `localities`, because no row in it is a member, a
+seat or a year of Arlington's Board.
+
+**Three suffixes are not attributes.** `_by_year` and `_by_district` mark an
+aggregate cut of a population whose detail is the bare name. `_coverage` marks
+how much of something is known rather than what it is:
+`members_residence_coverage` shows how many members have a residence, not
+where they lived. And where a third word names a source it reads
+`members_roster_novack` — the population, the thing, then who published it.
 
 **If you can run it, it lives with the code. If you can only read it, it lives
 in `docs/`.** The reasoning behind a decision is in the subject's write-up
