@@ -39,7 +39,7 @@ for profile in style.PROFILES:
     charts.shares(b, label="share of adults")
     b.set_title("(b) share of adults")
     charts.years(a, 1930, 2020, step=20, label="November election", through=2028)
-    charts.years(b, 1980, 2020, step=20, label="November election", through=2028)
+    charts.years(b, 1930, 2020, step=20, label="November election", through=2028)
 
     charts.legend(fig, dict([style.PRESIDENT, *style.CYCLE.values()]), ncol=3)
     paths.save(fig, "turnout", profile)

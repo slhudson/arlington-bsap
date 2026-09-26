@@ -13,8 +13,8 @@ history. The placeholders in the `source` columns are explained in
   found (`referendum-1938-margin`).
 - The presidential figure stacks three bands, and the pre-1924 nominees are a
   table in the build (`president-figure-form`).
-- Turnout's denominators: adults before 1980 (`adults-before-1980`), adults
-  after 2020 carried forward (`adults-after-2020`), registration before 2010
+- Turnout's denominators: adults after 2020 carried forward
+  (`adults-after-2020`), registration before 2010
   (`registration-before-2010`), and votes per seat standing in for ballots
   cast (`ballots-cast`).
 
@@ -133,12 +133,20 @@ voters are the Department of Elections' monthly locality report for October
 of each year from 2010 (`varegistration`), dated in the first days of
 November, which is as the books stood for the election; nothing earlier is
 online. The active list is `registered` and the inactive list is added in
-`registered_all`. The population 18 and over is the census: the 1980 and 1990
-Summary Tape Files' age tables and the API's tables for 2000–2020, all checked
-against the county total on every fetch, and carried between censuses on a
-straight line for the figure's share panel (`voting_age_est`, marked
-`derived`); after 2020 the 2020 count is carried forward, which overstates
-the 2021–25 shares a little. The presidential vote is `voters.csv`'s and is
+`registered_all`. The adults are the census's count of the people old enough
+to vote: 21 and over through 1970 (`voting_age_21`) and 18 and over from 1971,
+when the Twenty-sixth Amendment took effect (`voting_age`). 1930 to 1970 are
+the census volumes' county tables, keyed in and tied out as
+`docs/residents.md` describes; 1970 prints both ages. 1980 and 1990 are the
+Summary Tape Files' age tables and 2000–2020 the API's tables, all checked
+against the county total on every fetch. `voting_age_est` carries them between
+censuses on a straight line for the figure's share panel, marked `derived`:
+the 21-and-over counts through the November 1970 election, and from 1971 the
+18-and-over counts from 1970's 132,720; after 2020 the 2020 count is carried
+forward, which overstates the 2021–25 shares a little. The change of age adds
+9,261 people aged 18 to 20 to the 1970 denominator, and no series on the
+share panel steps at 1971: the presidential-year Board vote is 42 per cent of
+adults in 1968 and 46 per cent in 1972. The presidential vote is `voters.csv`'s and is
 marked `derived`. Three guards: the Board's voters can never exceed the
 registered voters, nor the presidential vote of the same year, and the
 registered can never exceed the adults.
@@ -154,18 +162,16 @@ else the November ballot carried (the `cycle` column: president, governor,
 midterm, delegates), because drawn as one line it is a sawtooth whose teeth
 are the ballot and not the Board. In a presidential year about nine in ten of
 the county's presidential voters also vote for the Board. As a share of the
-county's adults, the presidential-year Board vote rose from about a third in
-1980 to 57 per cent in 2024; the House of Delegates years, when the Board tops
+county's adults, the presidential-year Board vote was about a quarter from
+1940 to 1948, a third in 1952 and 1956, and rose to 42 per cent by 1968; it
+was about a third again in 1980 and 57 per cent in 2024; the House of Delegates years, when the Board tops
 the ballot, from a fifth to 30 per cent in 2023; and the midterm and
 governor's years sat at a third for decades and have converged on the
 presidential-year level since 2017. In November 2024: 196,563 adults (the 2020
 count), 164,865 active registered voters, 128,362 who voted for President and
 113,209 for the County Board.
 
-**What the denominators do not reach.** Adults before 1980: the 1930–1970
-censuses printed the county's population 21 and over (18 and over from 1970)
-in the state volumes, none of which is in `data/raw/`; with them the share
-panel would reach 1931, with a note at the 1971 change of age. Registration
+**What the denominators do not reach.** Registration
 before 2010 exists in the State Board of Elections' printed annual reports
 and nowhere online found. "Eligible" is not one series: citizenship by county
 exists only in the ACS from 2005, and before 1966 the poll tax and before 1920

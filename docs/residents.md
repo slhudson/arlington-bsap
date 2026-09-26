@@ -15,8 +15,6 @@ spike: the figure shows the size of the Board, not who sat.
 
 - Retrocession is dated 1846 or 1847 depending on the source; the report has
   to pick one (`retrocession-date`).
-- The age bands start at 1980, because nothing earlier is held in a
-  machine-readable form (`adults-before-1980`).
 
 Each is a row in `docs/questions.csv`, with an owner and what would settle it.
 
@@ -232,9 +230,9 @@ to 0.79 while adults per household barely moved (`censushh6`). The children
 born to the young families who filled Arlington in the 1940s and 50s turned
 18 across the 1970s and left, to careers and households of their own, and
 fewer were born behind them. A built-out inner suburb of small units feels
-that hardest. The Arlington-specific evidence, the under-18 count in the
-1970 and 1980 census age tables, is what `adults-before-1980` in
-docs/questions.csv would also transcribe.
+that hardest. Arlington's own age bands show it: residents under 18 fell from
+41,564 in 1970 to 24,969 in 1980, from 24 to 16 per cent of the county, while
+those 18 and over fell only from 132,720 to 127,630.
 
 ### What the Black share shows
 
@@ -255,21 +253,60 @@ How much of this the prose says is an open question.
 
 ---
 
-## Age, 1980 onward
+## Age, 1930 onward
 
-`residents.csv` carries the county in seven age bands from 1980: `ageunder18`,
+`residents.csv` carries the county in seven age bands from 1930: `ageunder18`,
 `age18to24`, `age25to34`, `age35to44`, `age45to54`, `age55to64` and
-`age65plus`. They sum to `total` at every census, and `residents_by_age`
-draws them as shares of it. There is no `adults` column: the adult
+`age65plus`. With `ageunknown` they sum to `total` at every census, and
+`residents_by_age` draws them as shares of it. `ageunknown` is the 14 people
+whose age the 1930 census did not record; from 1940 the Bureau's tables print
+no such line, and the column is 0. There is no `adults` column: the adult
 population is the six bands above `ageunder18`, summed where something needs
 it.
 
-**The cuts are the ones every census from 1980 shares.** 1980's Summary Tape
-File prints 35 to 44, 45 to 54, 65 to 74 and 75 to 84 as single groups, so
-no cut at 40, 50, 70 or 80 exists to take without splitting a published
-group, which would mean inventing a number. Every cut the bands do use — 18,
-25, 35, 45, 55, 65 — is a boundary printed in all five censuses, so no year
-is interpolated and the bands are the same object in 1980 as in 2020.
+**The cuts are the ones every census from 1930 shares.** 1930 prints 35 to
+44, 45 to 54, 55 to 64 and 65 to 74 as single groups, and 1980 does the same
+for 35 to 44, 45 to 54, 65 to 74 and 75 to 84, so no cut at 40, 50, 70 or 80
+exists to take without splitting a published group, which would mean
+inventing a number. Every cut the bands do use — 18, 25, 35, 45, 55, 65 — is
+a boundary printed for all ten censuses, so no year is interpolated and the
+bands are the same object in 1930 as in 2020.
+
+**1930 to 1970 are keyed in from the census volumes**, one file per printed
+table under `data/transcribed/by_claude/us_census_bureau/`, every line of
+Arlington's block as printed. Each was read off the rendered page and ties
+out: every run of lines the table prints in full sums to the county total it
+is printed against, and that total is the one the `total` column already
+holds.
+
+| Year | Age from | Tables |
+|---|---|---|
+| 1930 | `census1930v3p2` | Table 11, age, p.1150; Table 13, composition, p.1161 |
+| 1940 | `census1940v2p7` | Table 22, age, p.173; Table 21, composition, p.164 |
+| 1950 | `census1950va` | Table 41, age, p.46-74 |
+| 1960 | `census1960va` | Table 27, age, p.48-76 |
+| 1970 | `census1970va` | Table 35, age, p.48-122 |
+
+1950 to 1970 print a line at 18 in the age table itself: single years to 20
+in 1960 and 1970, and "16 and 17" and "18 and 19" beneath 15 to 19 in 1950.
+1930 and 1940 do not; their age tables run in five-year groups, and 15 to 19
+crosses 18. Each volume's composition table prints the population at the
+ages that cut there, so no band is estimated:
+
+- **1940.** Table 21 prints the persons 5 and 6, 7 to 13, 14 and 15, 16 and
+  17, 18 to 20, and 21 to 24 years old. `ageunder18` is Table 22's under 5
+  and Table 21's four groups to 17; `age18to24` is Table 21's 18 to 20 and
+  21 to 24. The two tables agree: Table 21's six groups make Table 22's 5
+  to 24, 16,730, and the 1950 volume's 1940 column prints 16 and 17 as 1,463,
+  as Table 21 does.
+- **1930.** Table 13 prints the persons 18 to 20 and the men and women 21 and
+  over. Everyone of known age is under 18, 18 to 20, or 21 and over, so
+  `ageunder18` is the county less the 14 of unknown age and those two
+  counts, and `age18to24` is 18 to 20 and 21 and over less Table 11's groups
+  from 25. Each is checked to lie between the printed groups either side of
+  its cut. The two counts each have a second reading: 18 to 20 against the
+  number attending school and the per cent printed beneath it, and 21 and
+  over against the 1940 volume's 1930 column, which prints 16,443.
 
 **Where each census's ages come from.** 1980 and 1990 from the archived
 Summary Tape Files, which name their age groups; 2000, 2010 and 2020 from
@@ -287,24 +324,24 @@ Both are `censusapi`.
 | 2010 | `censusapi` | SF1 P12, sex by age |
 | 2020 | `censusapi` | DHC P12, sex by age |
 
-**Three guards, because a mis-mapped band would be silent.** The bands must
+**Four guards, because a misread or mis-mapped band would be silent.** A
+keyed-in table whose printed runs do not sum to their totals, or a line whose
+men and women do not make it, is a misreading and stops the build. The bands must
 name every age group the source table has, exactly once — a group left out
 of all seven would simply never be counted, and the county total would still
 tie. The bands must then sum to the same county total the `total` column
 carries. And `turnout.csv`, which counts adults from a different table
 altogether (race by 18 and over), must agree exactly with the six adult
-bands summed; it does, at all five censuses. `code/tests.py` reintroduces
-each mistake and asserts the build refuses.
+bands summed; it does, at all five censuses from 1980, and in 1970, where
+the one reads the single years and the other the five-year groups.
+`code/tests.py` reintroduces each mistake and asserts the build refuses.
 
 **Children are counted.** They cannot vote, and the report's other age
 figure is about people who can serve, but a seventh of Arlington is under 18
 and the section is about the county rather than the electorate.
 `docs/figures.md` carries that reasoning and the rest of the figure's form.
 
-The series starts at 1980 because the Bureau's machine-readable county
-tables do. Earlier censuses printed county age tables in the bound volumes,
-and carrying the series back would mean keying them in by hand
-(`adults-before-1980`, which the turnout figure shares).
+The series starts at 1930, the earliest census whose volume is keyed in.
 
 ---
 
@@ -334,3 +371,11 @@ prod2/decennial/documents/ still serves the older 19-chunk run, and the three
 held files match it byte for byte. `code/fetch/census_volumes.py` therefore
 checks them against that path like any other chunk, and a full checkout is a
 provenance audit that downloads nothing.
+
+**The 1930 to 1970 volumes** are ten more PDFs, none committed: for each
+census the Bureau's front-matter file, on which the bibliography entry rests,
+and the chapter holding Arlington's age tables, 127MB between them. They are
+fetched and checked the same way. None has a text layer and none is OCR'd;
+each table was found by rendering the chapter's page headers and read off
+the page at 200 dpi. `data/raw/us_census_bureau/README.md` lists all sixteen
+files fetched on demand.
