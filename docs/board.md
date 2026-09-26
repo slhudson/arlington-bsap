@@ -444,9 +444,9 @@ and the window matters to the neighborhood analysis, which is not yet built.
 A census listing names a person, not a Board member, and gives several
 traits at once, so each record matched to a member is one row of
 `data/transcribed/by_claude/board_census.csv`, and the build derives each
-trait from it rather than each trait being keyed separately. 72 records, for
-68 members, from the 1880, 1900, 1910, 1930, 1940 and 1950 schedules. The
-columns:
+trait from it rather than each trait being keyed separately. 74 records, for
+68 members, from the 1870, 1880, 1900, 1910, 1920, 1930, 1940 and 1950
+schedules. The columns:
 
 | Column | Holds |
 |---|---|
@@ -495,16 +495,32 @@ never subtracts. `code/clean/board_members.py` takes the year of the date
 less the age, refuses an age with no year in its date, and refuses a row that
 gives both a birth year and an age.
 
-Three records read on 25 September 2026 are filed and cited but kept out of
-the table, since each gives a birth year that disagrees with the member's
-other record and the build stops on two sources disagreeing: W. N. Febrey's
-1900 and 1920 records (`census1900febrey`, `census1920febrey`, one
-household, born 1851 or 1854, against the 1910 record's 1859, a second
-William N. Febrey household) and William Duncan's 1910 record
-(`census1910duncanwilliam`, 1857 against the 1900 record's August 1854).
-Which household is Febrey and which year is Duncan's are open
-(`febrey-birth-year`, `duncan-birth-year`); the rows are added when it is
-settled. For the members seated 1870–1911 the 1880, 1900 and 1910
+One record read on 25 September 2026 is filed and cited but kept out of the
+table, since it gives a birth year that disagrees with the member's other
+record and the build stops on two sources disagreeing: William Duncan's 1910
+record (`census1910duncanwilliam`, 1857 against the 1900 record's August
+1854). Which year is Duncan's is open (`duncan-birth-year`); the row is added
+when it is settled.
+
+**W. N. Febrey is one household, born November 1851.** The county's 1900,
+1910 and 1920 schedules hold one William N. Febrey household, not two. All
+three give the same marriage year, 1882 — eighteen years married in 1900,
+twenty-eight in 1910 — and a wife born in the District of Columbia about
+1860; the daughter is Annie L. in 1900, Louise E. in 1910 and Annie E.,
+married to Ira H. Arnold, in 1920, whose son is entered Walter Febrey
+Arnold; the son Henry W., born July 1891, keeps his own house in the same
+district by 1910. No second household of the name stands beside them in
+1900, 1910, 1920 or 1930: the wife is Eliza F. in 1900 and 1920 and Fannie
+N. in 1910, and the two names are never in the same year. The 1910 sheet's
+wife's given name and its age of 51 are that sheet's own errors, as are the
+ages of 66 in 1920 and about 78 in 1930.
+
+His birth year is the one the 1900 schedule records as a date, **November
+1851**; the ages in the later records would give 1859, 1854 and 1852, and
+`AGE_MISREPORTED` in `code/clean/board_census.py` names the records no birth
+year is read from. He is the William, 29, that the 1880 sheet enters in
+Henry W. Febrey's household, and Henry W. Febrey sat for the same Washington
+district in 1872-73. For the members seated 1870–1911 the 1880, 1900 and 1910
 sheets name a magisterial district at the head of each page and, outside
 the towns, leave the street column blank, so the district is the place
 recorded, in the sheet's own words.

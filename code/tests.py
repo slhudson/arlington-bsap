@@ -480,6 +480,19 @@ def test_a_census_match_with_no_category_is_refused():
     assert err and "match with no category" in err, f"not caught: {err}"
 
 
+def test_a_misreported_age_no_census_row_uses_is_refused():
+    """A citekey in board_census.AGE_MISREPORTED that no census row cites.
+    The list stops a misreported age from becoming a birth year, and a key
+    that matches nothing would drop nothing and say nothing."""
+    kept = board_census.AGE_MISREPORTED
+    board_census.AGE_MISREPORTED = kept + ("census1910nobody",)
+    try:
+        err = breaks(paths, "built", lambda orig: orig, build=board_members.build)
+    finally:
+        board_census.AGE_MISREPORTED = kept
+    assert err and "AGE_MISREPORTED names a record" in err, f"not caught: {err}"
+
+
 def test_a_category_merged_in_the_build_stage_is_refused():
     """Two census race categories collapsed into one by a build step. That
     is a decision, and the stage refuses it; the same collapse in
