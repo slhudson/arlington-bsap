@@ -44,13 +44,14 @@ KINDS = ("legal", "reports", "books", "bios", "campaign websites", "press",
 UNPLACED = "unplaced"
 
 # Web outlets whose pages are press when read online; see kind().
-PAPERS = ("ARLnow", "InsideNoVa", "Sun Gazette", "Connection", "Washington Post", "Patch")
+PAPERS = ("ARLnow", "InsideNoVa", "Sun Gazette", "Connection", "Washington Post", "Patch",
+          "Blue Virginia")
 
 # Magazines are press, like papers. A historical society's magazine is scholarship: books.
 MAGAZINES = ("Arlington Magazine",)
 
 # Biography pages by publisher, and campaign material by publisher or title.
-BIO_ORG = re.compile(r"County Board Members|Senate of Virginia|Library of Virginia|"
+BIO_ORG = re.compile(r"County Board Members|Arlington Historical Society|Center for Local History|Senate of Virginia|Library of Virginia|"
                      r"Dictionary of Virginia Biography|OutHistory", re.I)
 BIO_TITLE = re.compile(r"Chair, Arlington County Board|\bbiography\b", re.I)
 CAMPAIGN_ORG = re.compile(r"campaign|candidate|Vote Smart", re.I)
