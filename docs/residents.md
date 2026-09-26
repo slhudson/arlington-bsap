@@ -38,13 +38,16 @@ and census treatment all changed across the period:
 | to 1846 | Alexandria County, D.C. | part of the District of Columbia |
 | 1847–1919 | Alexandria County, Virginia | the three districts **and** Alexandria city |
 
-Retrocession has two dates and the prose names the event each time rather
-than picking a year (Sally, 26 September 2026): Congress passed the act to
-retrocede the county on 9 July 1846 and the residents voted for it that
-September, and Virginia's General Assembly accepted the county on 13 March
-1847, when the handover took effect. "Retroceded in 1846" is the residents'
-choice; "part of Virginia from 1847" is the transfer. Neither act is yet
-cited from the document (`retrocession-acts`).
+Retrocession has several dates and the prose names the event each time
+rather than picking a year (Sally, 26 September 2026). Virginia accepted the
+county in advance by an act of 3 February 1846; Congress passed the act to
+retrocede it on 9 July 1846, effective "with the assent of the people of
+the county and town of Alexandria", and the residents voted for it that
+September (`usstat1846retrocession`, 9 Stat. 35, which recites the Virginia
+act); Virginia extended her laws over the county by an act of 13 March
+1847, when the transfer took effect. "Retroceded in 1846" is Congress and
+the residents' choice; "part of Virginia from 1847" is the transfer. The
+two Virginia acts are not yet cited from the document (`retrocession-acts`).
 | 1920– | Arlington County, Virginia | the three districts only |
 
 Two dates do the work. **In 1900** Alexandria city became independent of the

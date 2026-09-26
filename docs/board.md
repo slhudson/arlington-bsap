@@ -35,8 +35,6 @@ are explained in `code/citekeys.py`, and what is still open is in
   (`surnames-from-1907`).
 - 23 terms from 1932 carry no party, three labels are unresolved, and no
   party is attempted before 1932 (`party-unlabelled`, `party-before-1932`).
-- The 1930 candidacies of Harris, Morton and Mosley rest on a page nobody has
-  read (`bestebreurtje-p215`).
 - Each place carries a precision, from the place's own words by rules in
   `code/clean/board_residence.py`: a house number with a street is an address;
   a street with no number, a street; a neighborhood, civic association or
@@ -608,6 +606,14 @@ each period:
 | 1889–1930 | One collective sentence: the board "became and remained all white for the duration of this system" (Hjerpe 2021, p.4), sourced to the county's election records. No per-person evidence. | Names in O'Leary; initials only before 1912. No source names a first woman member, so "all men before Magruder (1932)" is assumed. |
 | 1931–1986 | Nothing per-person from any source. The default rests on Newman (1987) being described as the first Black member since Reconstruction. About 280 person-years. **The weakest stretch.** | Census listing or a press honorific or pronoun for all but B. M. Smith (1933). |
 | 1987–present | Per-person: Newman (1987), Monroe (1999), Dorsey (2015), Spain (2024), and Tejada as the first Latino member (Hjerpe 2021). The Arlington Historical Society's Newman entry names Newman, Monroe and Dorsey as African American members, and its Center for Local History entry gives Tejada's Latin American heritage; Monroe also rests on the Arlington NAACP president's words at his death, and Dorsey on his own statement (2020). | A press pronoun or honorific for every member. |
+
+In November 1931 three Black candidates ran for the Board, Mary B. Harris of
+Green Valley, Dr. Edward T. Morton and C. H. Mosley of Hall's Hill, and
+George Vollin, Jr. of Queen City for sheriff, and all lost. The page is read:
+`bestebreurtje2017` p. 215, whose note 544 cites the county's own
+"Candidates for County Board", November 1931. That agrees with Pratt and
+Hjerpe that three ran for the Board; Pratt's four counts the sheriff's race,
+and ARLnow's "four for the Board" is the count that is off.
 
 None of the three roster sources states anyone's race or gender. Race comes
 from Hjerpe and O'Leary; gender comes from a census listing or from the
