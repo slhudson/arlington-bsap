@@ -3,7 +3,7 @@
 Two panels. (a) Counts, one line per group with a marker per census; White
 is clipped at TOP and marked where it leaves the axis. (b) Shares, as
 stacked bars, the residual between the counted groups and White. One
-legend for both. Both draw from style.RESIDENTS_CROSSED_CROSSED, so Black and White
+legend for both. Both draw from style.RESIDENTS_CROSSED, so Black and White
 read "not Hispanic"; that is true only from style.CROSSED_YEAR, before which
 the census asked no Hispanic-origin question, so a dashed rule marks the year
 the definition changes.

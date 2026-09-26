@@ -272,9 +272,6 @@ def attributions() -> pd.DataFrame:
     a["race"] = decode(a.race_words, RACE_WORDS, "race")
     a["gender"] = decode(a.gender_words, GENDER_WORDS, "gender")
     a = birth_years_from_ages(a.drop(columns=["race_words", "gender_words"]))
-    missing = [f for f in ATTRIBUTED if f not in a.columns]
-    if missing:
-        raise ValueError(f"board_demographics.csv has no {', '.join(missing)} column")
     # Where a gender came from: a row of the claim file is a press reading
     # (the pronoun or honorific a paper uses), a census claim is a record.
     census = board_census.claims()
