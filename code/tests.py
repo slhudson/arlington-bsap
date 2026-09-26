@@ -538,6 +538,15 @@ def test_a_source_we_cannot_fully_cite_is_logged_as_a_question():
         f"owner, or finish the entry and drop the word.")
 
 
+def test_every_bib_entry_closes_before_the_next():
+    """An entry whose closing brace is missing swallows the entry after it.
+    bib_entries() still finds every key, so the other bib tests pass on a file
+    code/archive.py refuses to parse; this is the check that would have
+    caught the merge that dropped one."""
+    swallowed = [key for key, body in bib_entries() if re.search(r"^@\w+\{", body, re.M)]
+    assert not swallowed, f"no closing brace before the next entry: {swallowed}"
+
+
 def test_every_source_with_a_url_is_filed():
     """A bib entry with a url that names no copy on file ("Filed in Drive
     as", or a path under data/raw/); or one that says it is not filed.
