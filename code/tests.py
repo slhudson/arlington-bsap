@@ -522,12 +522,15 @@ def test_a_source_we_cannot_fully_cite_is_logged_as_a_question():
 
 def test_every_source_with_a_url_is_filed():
     """A bib entry with a url that names no copy on file ("Filed in Drive
-    as", or a path under data/raw/) and is not a logged question; or one
-    that says it is not filed."""
+    as", or a path under data/raw/); or one that says it is not filed.
+    Either is allowed only while docs/questions.csv names the key, so an
+    entry that admits to holding no copy is tracked rather than rewritten
+    into a claim that it is filed."""
     problems = []
     for key, body in bib_entries():
-        if re.search(r"not\s+(?:yet\s+)?filed", body, re.I):
-            problems.append(f"{key}: says it is not filed - file it in Drive and say so")
+        if re.search(r"not\s+(?:yet\s+)?filed", body, re.I) and key not in questions():
+            problems.append(f"{key}: says it is not filed - file it in Drive and say so, "
+                            f"or log a question naming the key")
         has_url = re.search(r"^\s*url\s*=", body, re.M)
         held = "Filed in Drive as" in body or "data/raw/" in body
         if has_url and not held and key not in questions():
