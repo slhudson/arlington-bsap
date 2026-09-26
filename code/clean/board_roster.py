@@ -55,17 +55,19 @@ TERM_YEARS = 4
 MONTH_NAMES = {v: k for k, v in MONTHS.items()}
 
 
-def listing(kind) -> pd.DataFrame:
-    """The rows of one term listing, from data/built/board_claims.csv, every
-    cell as keyed in and a blank a blank."""
-    c = paths.built("board_claims")
-    return c[c.claim == kind].reset_index(drop=True)
 MONTH = rf"({'|'.join(MONTHS)})[a-z]*\.?"          # "Dec", "December", "Dec."
 NAME = r"([A-Z][A-Za-z.'’\- ]+?)"
 MONTH_RE = re.compile(r"\b" + MONTH, re.I)
 YEAR_RE = re.compile(r"\b((?:18|19|20)\d\d)\b")
 # "Corbett 213 Hagen 189" - a name followed by its vote count, repeated
 CANDIDATE_VOTES = re.compile(r"([A-Z][A-Za-z.'’\- ]*?)\s+([\d,]+)(?=\s|$)")
+
+
+def listing(kind) -> pd.DataFrame:
+    """The rows of one term listing, from data/built/board_claims.csv, every
+    cell as keyed in and a blank a blank."""
+    c = paths.built("board_claims")
+    return c[c.claim == kind].reset_index(drop=True)
 
 
 def month_of(text):
@@ -200,7 +202,7 @@ def special_candidates():
 def general_winners():
     """Regular County Board elections: year -> surnames who won."""
     out = {}
-    for c in contests():
+    for c in outcomes():
         if not c["special"]:
             out.setdefault(c["year"], set()).update(surname(w) for w in c["winners"])
     return out
@@ -404,9 +406,9 @@ def _span_segments(name, page, span, bounds, last, stood, winners, specials) -> 
     return segments
 
 
-def contests():
+def outcomes():
     """Every County Board general election from 1931, from both records: who
-    won, how many seats. Both records hold 2021 and must name the same
+    won, who stood, how many seats. Both records hold 2021 and must name the same
     winner there."""
     c = elections.contests()
     c = c[c.person & ~c.primary]
@@ -435,7 +437,7 @@ def election_terms(earlier: pd.DataFrame):
     Novack spells them where the surname matches, otherwise as the county
     spells them the first time they win.
     """
-    rows = list(contests())
+    rows = list(outcomes())
     known = {surname(n): n for n in earlier.name}
 
     def canonical(n):

@@ -1,6 +1,7 @@
 """The registry of sources, read from paper/sources.bib.
 
-Every `source` cell in data/clean/ holds a citekey from the bibliography.
+Every `source` cell in data/built/ and data/clean/ holds a citekey from the
+bibliography.
 This module reads the keys out of the .bib and offers them as named
 constants. A module, not a step.
 

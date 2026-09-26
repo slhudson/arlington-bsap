@@ -109,14 +109,7 @@ def twps0076() -> dict:
 
 def arlington(year, table):
     """Arlington's row from a Census data file, by the table's Census code."""
-    hits = census.names(f"raw/us_census_bureau/{year}/censusapi_*_{table}_*_virginia_counties.csv")
-    if len(hits) != 1:
-        raise FileNotFoundError(f"expected one {table} file for {year}, found {len(hits)}")
-    d = census.table(hits[0])
-    row = d[d.NAME.str.startswith("Arlington")]
-    if len(row) != 1:
-        raise AssertionError(f"{hits[0]}: expected one Arlington row, found {len(row)}")
-    return row.iloc[0]
+    return census.row(f"raw/us_census_bureau/{year}/censusapi_*_{table}_*_virginia_counties.csv")
 
 
 def early_years() -> pd.DataFrame:
@@ -170,13 +163,8 @@ def early_years() -> pd.DataFrame:
 
 
 def stf1a(year, table):
-    """A row of one archived Summary Tape File extract, for Arlington."""
-    path = f"raw/us_census_bureau/{year}/stf1a_{table}_virginia_counties.csv"
-    d = census.table(path)
-    row = d[d.name.str.strip().str.upper().str.startswith("ARLINGTON COUNTY")]
-    if len(row) != 1:
-        raise AssertionError(f"{path}: expected one Arlington row, found {len(row)}")
-    return row.iloc[0]
+    """Arlington's row of one archived Summary Tape File extract."""
+    return census.row(f"raw/us_census_bureau/{year}/stf1a_{table}_virginia_counties.csv")
 
 
 def partition(bands, groups, year):

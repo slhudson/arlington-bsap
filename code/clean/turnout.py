@@ -93,7 +93,7 @@ def board_districts() -> pd.DataFrame:
     d = elections.oleary(elections.SUPERVISORS)
     rows = []
     for year, g in d.groupby("year"):
-        counts =[re.findall(r"(\d[\d,]*)(?=\s|$)", e) for e in g.entry]
+        counts = [re.findall(r"(\d[\d,]*)(?=\s|$)", e) for e in g.entry]
         if not all(counts) or len(g) != 3:
             continue
         total = sum(int(n.replace(",", "")) for c in counts for n in c)
@@ -118,15 +118,12 @@ def registration() -> pd.DataFrame:
 def voting_age() -> pd.DataFrame:
     rows = []
     for year, (file, cols) in VOTING_AGE.items():
-        t = census.table("raw/us_census_bureau/" + file)
-        name = "NAME" if "NAME" in t.columns else "name"
-        arl = t[t[name].str.upper().str.startswith("ARLINGTON")]   # the STF names are upper case
-        assert len(arl) == 1, f"{file}: {len(arl)} Arlington rows"
+        r = census.row("raw/us_census_bureau/" + file)
         if cols == "from 18":
-            ages = list(t.columns[3:])
+            ages = list(r.index[3:])
             cols = ages[ages.index("18"):]
             assert ages[0] == "under_1" and cols[-1] == "85_over", ages
-        rows.append({"year": year, "voting_age": int(arl[cols].iloc[0].sum()),
+        rows.append({"year": year, "voting_age": int(r[cols].sum()),
                      "voting_age_source": f"{VOTING_AGE_SOURCE.get(year, citekeys.CENSUS_DATA_FILE)} "
                                           f"{file.split('/')[1]}"})
     return pd.DataFrame(rows)

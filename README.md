@@ -57,11 +57,13 @@ Four clean modules write nothing and are read by the steps above:
 `code/clean/elections.py` (an office's contests, selected from the built
 table), `code/clean/census.py` (a census table in its own shape, from the
 built cells) and `code/clean/board_census.py` (the census rows of the built
-claims, coded). `code/citekeys.py` (the citekeys `paper/sources.bib`
-defines) is read by both data stages. Each stage has a `paths.py` that maps
+claims, coded), and one analysis module, `code/analysis/members.py` (who
+sits on the Board in a year), is read by the Board figures.
+`code/citekeys.py` (the citekeys `paper/sources.bib` defines) is read by
+both data stages. Each stage has a `paths.py` that maps
 its data folders, and `code/clean/paths.py` maps nothing above `data/built/`.
 
-Eleven figures build. Four are in the paper so far, `residents_per_seat`,
+Twelve figures build. Four are in the paper so far, `residents_per_seat`,
 `residents_by_race`, `board_gender` and `board_race`; the rest are built
 and waiting on the outline.
 

@@ -13,13 +13,18 @@ code/clean/board_roster.py reads the terms, code/clean/board_census.py the
 census rows, and code/clean/board_members.py and board_residence.py resolve
 the rest. docs/board.md, "Census records", has what each column holds.
 
-Two rows are refused. A census row that does not say what was read against
-the image, the sheet or the index; and a place on a census row the sheet
-was never read against, since a street is the field the index gets wrong
-(docs/board.md, "Reading an image").
+Three rows are refused. A census row that does not say what was read
+against the image, the sheet or the index; a place on a census row the
+sheet was never read against, since a street is the field the index gets
+wrong (docs/board.md, "Reading an image"); and a demographics or residence
+row citing a census record, which belongs in the census file, one row per
+record, where code/transcribe/board_census.py moves it.
 """
+import re
+
 import pandas as pd
 
+import citekeys
 from paths import BY_CLAUDE, source, write
 
 FILES = {"demographics": BY_CLAUDE / "board_demographics.csv",
@@ -28,6 +33,9 @@ FILES = {"demographics": BY_CLAUDE / "board_demographics.csv",
          "census": BY_CLAUDE / "board_census.csv",
          "novack": BY_CLAUDE / "arlington_historical_magazine" / "novack_terms_1930-1994.csv",
          "terms": BY_CLAUDE / "board_terms.csv"}
+
+# A census record's citekey, census<year><surname>, unlike a volume's (census1880).
+CENSUS_RECORD = re.compile(r"census\d{4}[a-z]+")
 
 COLUMNS = ["name", "claim", "year", "start_year", "start_month", "end_year", "end_month",
            "district", "seated_by", "term", "race", "gender", "birth_year", "age", "birthplace",
@@ -51,12 +59,26 @@ def census_records(r: pd.DataFrame) -> pd.DataFrame:
     return r
 
 
+def not_census(r: pd.DataFrame, claim) -> pd.DataFrame:
+    """A demographics or residence file, refused if a row cites a census
+    record: the record is one row of board_census.csv, and each claim is
+    derived from it there."""
+    stray = r[[bool(CENSUS_RECORD.fullmatch(citekeys.key_of(s))) for s in r.source]]
+    if len(stray):
+        raise ValueError(f"{claim} rows citing a census record, which belongs in board_census.csv "
+                         f"(code/transcribe/board_census.py moves it):\n"
+                         + "\n".join(f"  {n} {s}" for n, s in zip(stray.name, stray.source)))
+    return r
+
+
 def build() -> pd.DataFrame:
     parts = []
     for claim, path in FILES.items():
         d = source(path, dtype=str).fillna("")
         if claim == "census":
             d = census_records(d)
+        elif claim in ("demographics", "residence"):
+            d = not_census(d, claim)
         parts.append(d.assign(claim=claim))
     return pd.concat(parts, ignore_index=True).reindex(columns=COLUMNS).fillna("")
 

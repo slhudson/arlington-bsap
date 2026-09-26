@@ -303,6 +303,20 @@ def test_a_place_read_only_from_the_index_is_refused():
     assert err and "without the sheet read" in err, f"not caught: {err}"
 
 
+def test_a_census_record_keyed_into_a_claim_file_is_refused():
+    """A demographics row citing a census record. The record belongs in
+    board_census.csv as one row, and left in the claim file it would count
+    beside the record's own row as a second source."""
+    def stray(d):
+        extra = d.iloc[[0]].copy()
+        extra["source"] = "census1950tillema"
+        return pd.concat([d, extra], ignore_index=True)
+    err = breaks(board_claims, "source",
+                 patch_source(lambda d: "birth_year" in d.columns and "checked" not in d.columns, stray),
+                 build=board_claims.build)
+    assert err and "belongs in board_census.csv" in err, f"not caught: {err}"
+
+
 def test_a_census_race_with_no_category_is_refused():
     """A race the index prints that the build has no category for, which
     would otherwise drop the claim and leave the member to the default."""
@@ -526,6 +540,37 @@ def test_every_data_file_is_inventoried():
              and hashlib.sha256((ROOT / p).read_bytes()).hexdigest()[:16] != r["sha256"]]
     assert not moved, ("raw files whose checksum does not match data/contents.csv - data/raw/ "
                        "is never edited:\n  " + "\n  ".join(moved))
+
+
+def test_the_inventory_names_what_reads_each_table():
+    """A built or clean table whose read_by in data/contents.csv is not the
+    scripts that read it: a clean step's built("x") or read("x"), or an
+    analysis script's paths.NAME where code/analysis/paths.py maps NAME to
+    x.csv. The inventory is the only place a reader is written down, and
+    nothing else notices when one is added or dropped."""
+    mapped = {m.group(2): m.group(1) for m in re.finditer(
+        r'^(\w+) = CLEAN / "(\w+)\.csv"', (ROOT / "code" / "analysis" / "paths.py").read_text(), re.M)}
+
+    def readers(layer, stem):
+        found = []
+        for script in sorted((ROOT / "code" / "clean").glob("*.py")):
+            text = script.read_text()
+            if (layer == "built" and f'built("{stem}")' in text) or (layer == "clean" and f'read("{stem}")' in text):
+                found.append(str(script.relative_to(ROOT)))
+        if layer == "clean":
+            for script in sorted((ROOT / "code" / "analysis").glob("*.py")):
+                if f"paths.{mapped[stem]}" in script.read_text():
+                    found.append(str(script.relative_to(ROOT)))
+        return "; ".join(found)
+
+    problems = []
+    for r in csv.DictReader((ROOT / "data" / "contents.csv").open()):
+        if r["layer"] not in ("built", "clean"):
+            continue
+        got = readers(r["layer"], Path(r["path"]).stem)
+        if got != r["read_by"]:
+            problems.append(f"{r['path']}: read_by says {r['read_by']!r}; the scripts that read it: {got!r}")
+    assert not problems, "data/contents.csv is out of date:\n  " + "\n  ".join(problems)
 
 
 def test_docs_agree_with_run_sh():

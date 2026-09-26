@@ -5,7 +5,6 @@ Every source a build step reads comes through source(), which remembers
 it, and write() then refuses an output that lost a value: this stage
 reshapes and never decides.
 """
-import os
 from pathlib import Path
 
 import pandas as pd
@@ -28,21 +27,6 @@ def source(path, **kw):
     Keyword arguments go to pandas; the remembered copy is read as printed."""
     _INPUTS.append((path, pd.read_csv(path, dtype=str, keep_default_na=False)))
     return pd.read_csv(path, **kw)
-
-
-def read(stem):
-    """Read a table another build step wrote this run, remembered like a
-    source. run.sh exports RUN_STARTED, and a table older than that is
-    refused; run by hand, with no RUN_STARTED, the check is skipped."""
-    path = BUILT / f"{stem}.csv"
-    if not path.exists():
-        raise FileNotFoundError(f"{path} missing - a step that writes it must run first")
-    started = os.environ.get("RUN_STARTED")
-    if started and path.stat().st_mtime < float(started):
-        raise AssertionError(
-            f"{path.name} is older than this run: the step that writes it has not "
-            f"run yet. Check the order of BUILD in run.sh.")
-    return source(path)
 
 
 def _parsed(values: pd.Series) -> bool:

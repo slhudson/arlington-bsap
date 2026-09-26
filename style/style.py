@@ -84,14 +84,6 @@ AGE_SPAN = {
     "band":   ("youngest to oldest sitting", SAND),
     "member": ("member", DARK),
 }
-# The sitting Board by age band, youngest at the base; the members with no
-# birth year in the no-evidence grey on top.
-AGE_BANDS = {
-    "under40": ("under 40", OKABE_ITO["bluish_green"]),
-    "40to59":  ("40 to 59", SAND),
-    "60plus":  ("60 and over", OKABE_ITO["orange"]),
-    "unknown": ("no birth year", UNRECORDED),
-}
 # How exactly the sitting Board's homes are known: one hue, darker the more
 # exactly the place is named, and the no-evidence grey for no place at all.
 RESIDENCE = {
