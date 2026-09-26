@@ -47,7 +47,12 @@ September (`usstat1846retrocession`, 9 Stat. 35, which recites the Virginia
 act); Virginia extended her laws over the county by an act of 13 March
 1847, when the transfer took effect. "Retroceded in 1846" is Congress and
 the residents' choice; "part of Virginia from 1847" is the transfer. The
-two Virginia acts are not yet cited from the document (`retrocession-acts`).
+acceptance act is read but not yet filed: ch. 64 of the acts of the
+1845-46 session, "An act accepting by the state of Virginia the county of
+Alexandria, in the District of Columbia, when the same shall be re-ceded by
+the congress of the United States", passed 3 February 1846, pp. 50-51 of
+the session volume (HathiTrust uva.x030211322, pages 56-57 of the scan).
+Neither Virginia act is yet cited (`retrocession-acts`).
 | 1920– | Arlington County, Virginia | the three districts only |
 
 Two dates do the work. **In 1900** Alexandria city became independent of the
