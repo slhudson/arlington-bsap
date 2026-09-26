@@ -86,6 +86,14 @@ Each is a row in `docs/questions.csv`, with an owner and what would settle it.
 
 ---
 
+## Local legal authority
+
+The two Dillon's Rule opinions the paper's local legal authority section
+cites, `commonwealthvarlington1977` and `arlingtonvwhite2000`, are both held,
+read from CourtListener and filed in Drive under `legal/`.
+
+---
+
 ## The roster
 
 `data/clean/board_members.csv` holds one row per person per term: name, term
