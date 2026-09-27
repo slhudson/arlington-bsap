@@ -34,7 +34,7 @@ neither repeats the reasons.
   Urban's rule for PDF products.
 - No value labels on bars.
 - Do not re-raise what is already written down: a decision in
-  `docs/residents.md`, `docs/board.md` or `docs/voters.md`, or a row in
+  `docs/residents.md`, `docs/members.md` or `docs/voters.md`, or a row in
   `docs/questions.csv` with an owner.
   The vote-per-seat denominator on `turnout` is the standing example.
 
@@ -92,7 +92,7 @@ neither repeats the reasons.
 
 - **A timeline of events, whose y axis carries no measure, takes
   `style.STRIP`** through `charts.figure(profile, aspect=style.STRIP)` and
-  draws with `charts.events()`. `board_candidacies` is the example.
+  draws with `charts.events()`. `candidates` is the example.
 
 ## Axes
 
@@ -141,7 +141,7 @@ neither repeats the reasons.
   and residence coverage are ordered. Never define a ramp in a figure.
 - **Where a category's definition changes mid-figure, the legend does not
   relabel silently.** `residents_by_race` says "not Hispanic" (`style.RESIDENTS_CROSSED`)
-  and rules off 1980; `board_race` keeps `style.RACE`.
+  and rules off 1980; `members_race` keeps `style.RACE`.
 - **No textures.** Distinguish with colour. A filled dot against an open
   ring of the same colour is a fill, not a texture: `style.CANDIDACY`.
 - **A series the sources report at some censuses and not others breaks**

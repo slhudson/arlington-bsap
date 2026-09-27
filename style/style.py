@@ -91,7 +91,7 @@ POPULATION = ("total population", DARK)
 PER_SEAT = ("residents per seat", OKABE_ITO["vermilion"])
 # Arlington beside Virginia's other governing bodies: the others in two
 # neutrals, Arlington in the per-seat vermilion. See docs/figures.md.
-PEERS = {
+LOCALITIES = {
     "city":   ("city", DARK),
     "county": ("county", SAND_LINE),
 }

@@ -1121,7 +1121,7 @@
 % Party has never been printed on the County Board ballot, so where the county's
 % own candidate history prints no party or "(I)", a member's party comes from
 % reporting. These are the pieces cited in
-% data/transcribed/by_claude/board_party.csv. Each is filed in Drive as a
+% data/transcribed/by_claude/members_party.csv. Each is filed in Drive as a
 % print of the page, dated in its annotation.
 
 @online{mccaffrey2009,
@@ -1268,7 +1268,7 @@
 }
 
 % ------------------------------------------------ residence of Board members
-% Where each member lived, for data/transcribed/by_claude/board_residence.csv.
+% Where each member lived, for data/transcribed/by_claude/members_residence.csv.
 % Each is filed in Drive in the "residence" subfolder of the documents folder,
 % as a print of the page dated in its annotation.
 
@@ -2021,7 +2021,7 @@
 }
 
 % ------------------- residence of Board members, election coverage 1952-1975
-% Newspaper pages read for the members data/transcribed/by_claude/board_residence.csv
+% Newspaper pages read for the members data/transcribed/by_claude/members_residence.csv
 % had no row for. The Evening Star from the Library of Congress's Chronicling
 % America scans; the Northern Virginia Sun from the Library of Virginia's
 % Virginia Chronicle, whose page PDFs need a (free) account.
@@ -2284,7 +2284,7 @@
 }
 
 % ------------------------- census records, Board members' race and gender
-% Index records read on Ancestry for data/transcribed/by_claude/board_demographics.csv,
+% Index records read on Ancestry for data/transcribed/by_claude/members_demographics.csv,
 % one entry per record, each filed as the residence section's census entries are: the
 % printed record and the sheet image in the Drive residence subfolder. The index is
 % Ancestry's machine reading of the sheet and can err; the sheet is the evidence.
@@ -2342,10 +2342,13 @@
                  match to the Board member: the index reads the surname as Detweiler, where the sheet spells it Detwiler as the Board member does; matched on the name and Arlington; the household
                  and age are in the row's quote. Read against the sheet on 25
                  September 2026: it gives the birthplace as Minnesota where the
-                 index reads Wisconsin, and its own number as 63A or 67A where
-                 the index and the filed name say 62A (`detwiler-sheet-number`). Filed in Drive as
+                 index reads Wisconsin, and its own number as 63A, the 3
+                 written over a 7, where the index reads 62A. The sheet is
+                 63A: in enumeration district 7-13 the images run 62A (NARA
+                 stamp 222), 62B, this sheet (stamp 223) and 63B, so 62A is
+                 the sheet before it. Filed in Drive as
                  "census/Ancestry/1940/Ancestry 1940 - Robert H. Detwiler in the 1940 United States Federal Census (record 16671752).pdf", the index record as displayed on 25 September 2026,
-                 with the sheet image "census/US Census/1940/US Census 1940 - Arlington VA, sheet 62A (Robert H Detweiler).jpg" downloaded from Ancestry's viewer},
+                 with the sheet image "census/US Census/1940/US Census 1940 - Arlington VA, sheet 63A (Robert H Detweiler).jpg" downloaded from Ancestry's viewer},
 }
 
 @misc{census1940dugan,
@@ -2636,8 +2639,11 @@
   url         = {https://www.ancestry.com/search/collections/7884/records/29043354},
   urldate     = {2026-09-25},
   annotation  = {The enumeration sheet and Ancestry's index of it. The
-                 match to the Board member: the index reads the name as William N Foberg, with William W Febery as an alternative; matched on the initials, the surname and Alexandria County; the household
-                 and age are in the row's quote. Filed in Drive as
+                 match to the Board member: the index reads the name as William N Foberg, with William W Febery as an alternative, where the sheet reads Febrey, William N.; matched on the initials, the surname and the Washington district; the same household as census1900febrey and census1920febrey, married in 1882 in all three; the household
+                 and age are in the row's quote. The sheet gives the wife as
+                 Fannie N. and the head's age as 51, against Eliza F. and a
+                 birth of November 1851 in 1900, so no birth year is read from
+                 this record (code/clean/members_census.py, AGE_MISREPORTED). Filed in Drive as
                  "census/Ancestry/1910/Ancestry 1910 - W. N. Febrey County in the 1910 United States Federal Census (record 29043354).pdf", the index record as displayed on 25 September 2026,
                  with the sheet image "census/US Census/1910/US Census 1910 - Alexandria County VA, ED 14, sheet 15A (William N Febrey).jpg" downloaded from Ancestry's viewer},
 }
@@ -2884,8 +2890,15 @@
   url         = {https://www.ancestry.com/search/collections/7602/records/71171912},
   urldate     = {2026-09-25},
   annotation  = {The enumeration sheet and Ancestry's index of it. The
-                 match to the Board member: matched on the initials, the surname and the Washington district, the district he sat for in 1904-08; the 1910 record for the same member gives the age as 51, a birth of 1859, where this gives 48 and November 1851, and a wife Fannie N. where this gives Eliza F., both born in the District of Columbia within a year of each other, so the two are taken as one household with the ages misreported in one year or the other; the household
-                 and age are in the row's quote. Filed in Drive as
+                 match to the Board member: matched on the initials, the surname and the Washington district, the district he sat for in 1904-08; the one William N. Febrey household in the county, whose 1910 and 1920 records are census1910febrey and census1920febrey and whose 1880 line is the William, 29, of census1880febrey; the household
+                 and age are in the row's quote. Read against the sheet on 26
+                 September 2026: it gives the household as Febrey, William N.,
+                 head, born November 1851, Eliza F., wife, April 1860, born in
+                 the District of Columbia, married eighteen years, Henry W.,
+                 son, July 1891, and Annie L., daughter, February 1895, on
+                 lines 74-77 of sheet 3B; the filed image's left edge cuts the
+                 street column, where the index reads Brown Avenue, so no
+                 street is read from it. Filed in Drive as
                  "census/Ancestry/1900/Ancestry 1900 - W. N. Febrey County in the 1900 United States Federal Census (record 71171912).pdf", the index record as displayed on 25 September 2026,
                  with the sheet image "census/US Census/1900/US Census 1900 - Alexandria County VA, ED 3, sheet 3B (William N Febrey).jpg" downloaded from Ancestry's viewer},
 }
@@ -2923,8 +2936,13 @@
   url         = {https://www.ancestry.com/search/collections/6061/records/23074584},
   urldate     = {2026-09-25},
   annotation  = {The enumeration sheet and Ancestry's index of it. The
-                 match to the Board member: the household of the 1900 record census1900febrey twenty years on, wife Eliza F. and the daughter Annie of 1900 married to Arnold; the sheet reads William N. where the index reads William W; filed for the question of which William N. Febrey the member is, and kept out of the table while it is open; the household
-                 and age are in the row's quote. Filed in Drive as
+                 match to the Board member: the household of the 1900 record census1900febrey twenty years on, wife Eliza F. and the daughter Annie of 1900 married to Arnold; the sheet reads William N. where the index reads William W; the household
+                 and age are in the row's quote. The sheet's heading gives
+                 Clarendon in the Arlington magisterial district, the street is
+                 written down the left margin, Villa Road, and the house number
+                 reads 108. Its age of 66 does not agree with a birth of
+                 November 1851, so no birth year is read from this record
+                 (code/clean/members_census.py, AGE_MISREPORTED). Filed in Drive as
                  "census/Ancestry/1920/Ancestry 1920 - W. N. Febrey County in the 1920 United States Federal Census (record 23074584).pdf", the index record as displayed on 25 September 2026,
                  with the sheet image "census/US Census/1920/US Census 1920 - Alexandria County VA, ED 10, sheet 32A (William N Febrey).jpg" downloaded from Ancestry's viewer},
 }
@@ -2971,7 +2989,7 @@
 
 % ------------------------------------- birth years of Board members, 1960 on
 % Obituaries and profiles that state a birth date or an age on a date, for
-% the birth_year rows of data/transcribed/by_claude/board_demographics.csv.
+% the birth_year rows of data/transcribed/by_claude/members_demographics.csv.
 % Members seated before 1960 take their birth year from the census records
 % above. Each is filed in Drive in the documents folder as a print of the
 % page dated in its annotation.
@@ -4299,4 +4317,408 @@
                  Archives and Records Administration 1910 - Descriptions of
                  Census Enumeration Districts, 1910- Virginia, Alexandria
                  County.pdf", printed from the page on 2026-09-26},
+}
+
+% ------------------------- party of Board members 1932-1967, election coverage
+% Newspaper pages read for data/transcribed/by_claude/members_party.csv. The
+% Sun, the Daily Sun and the Northern Virginia Sun from the Library of
+% Virginia's Virginia Chronicle, whose page PDFs need a (free) account; the
+% Evening Star from the Library of Congress's Chronicling America scans.
+
+@article{sun1941delashmutt,
+  author      = {{The Sun}},
+  title       = {G.O.P. Convention Wednesday, July 30},
+  journaltitle = {The Sun},
+  location    = {Arlington, Virginia},
+  date        = {1941-07-25},
+  pages       = {1},
+  url         = {https://virginiachronicle.com/?a=d&d=TSU19410725.1.1},
+  urldate     = {2026-09-26},
+  annotation  = {Front-page notice of the Republican convention, which says
+                 that Basil M. DeLashmutt, Democratic incumbent, is unopposed
+                 for the county board and that William C. Ayres will probably
+                 be named by the Republicans to oppose him. Read on 26
+                 September 2026 against the page image, from the Library of
+                 Virginia's Virginia Chronicle scan. Filed in Drive as
+                 "press/The Sun 1941 - G.O.P. Convention Wednesday, July 30 (25 July 1941, p. 1).pdf",
+                 the page PDF Virginia Chronicle serves},
+}
+
+@article{sun1942campbell,
+  author      = {{The Sun}},
+  title       = {G.O.P. Opposition For County Board},
+  journaltitle = {The Sun},
+  location    = {Arlington, Virginia},
+  date        = {1942-06-12},
+  pages       = {1},
+  url         = {https://virginiachronicle.com/?a=d&d=TSU19420612.1.1},
+  urldate     = {2026-09-26},
+  annotation  = {Says Edmund D. Campbell had no opposition in the Democratic
+                 primary when the filing deadline passed, and that the
+                 Republicans will oppose him. Read on 26 September 2026 against
+                 the page image, from the Library of Virginia's Virginia
+                 Chronicle scan. Filed in Drive as
+                 "press/The Sun 1942 - G.O.P. Opposition For County Board (12 June 1942, p. 1).pdf",
+                 the page PDF Virginia Chronicle serves},
+}
+
+@article{sun1944lloyd,
+  author      = {{The Sun}},
+  title       = {Lloyd Nominated For Board Seat: Incumbent Wins Over Uilton and
+                 Beard; 2,082 Vote},
+  journaltitle = {The Sun},
+  location    = {Arlington, Virginia},
+  date        = {1944-08-04},
+  pages       = {1},
+  url         = {https://virginiachronicle.com/?a=d&d=TSU19440804.1.1},
+  urldate     = {2026-09-26},
+  annotation  = {Reports that Leo Lloyd, incumbent, won the Democratic
+                 nomination for the County Board and will face the Republican
+                 committee's nominee in November. Read on 26 September 2026
+                 against the page image, from the Library of Virginia's
+                 Virginia Chronicle scan. Filed in Drive as
+                 "press/The Sun 1944 - Lloyd Nominated For Board Seat, Incumbent Wins Over Uilton and Beard; 2,082 Vote (4 August 1944, p. 1).pdf",
+                 the page PDF Virginia Chronicle serves},
+}
+
+@article{sun1947cuppett,
+  author      = {{The Sun}},
+  title       = {Cuppett Will Run For Board; Ball, Jr., O. Lewis Announce},
+  journaltitle = {The Sun},
+  location    = {Arlington, Virginia},
+  date        = {1947-05-23},
+  pages       = {1},
+  url         = {https://virginiachronicle.com/?a=d&d=TSU19470523.1.1},
+  urldate     = {2026-09-26},
+  annotation  = {Says the newly appointed Harry W. Cuppett will seek election
+                 in November and describes him as a member of the Democratic
+                 Party who belongs to the Arlington Democratic Club. Read on 26
+                 September 2026 against the page image, from the Library of
+                 Virginia's Virginia Chronicle scan. Filed in Drive as
+                 "press/The Sun 1947 - Cuppett Will Run For Board; Ball, Jr., O. Lewis Announce (23 May 1947, p. 1).pdf",
+                 the page PDF Virginia Chronicle serves},
+}
+
+@article{sun1947politics,
+  author      = {{The Sun}},
+  title       = {Politics},
+  journaltitle = {The Sun},
+  location    = {Arlington, Virginia},
+  date        = {1947-10-17},
+  pages       = {2},
+  url         = {https://virginiachronicle.com/?a=d&d=TSU19471017.1.2},
+  urldate     = {2026-09-26},
+  annotation  = {The paper's political column, continued from page 1. Reports
+                 Clyde B. Stovall's statement that George P. Grove, Democratic
+                 nominee for treasurer, urged the election of two independent
+                 candidates, Mrs. Florence Cannon and T. Oscar Smith, and says
+                 of Freeland Chew that he is a Democrat previously elected on
+                 the party ticket. The column has no title of its own; the
+                 heading is the one the page prints over its continuation. Read
+                 on 26 September 2026 against the page image, from the Library
+                 of Virginia's Virginia Chronicle scan. Filed in Drive as
+                 "press/The Sun 1947 - Politics (17 October 1947, p. 2).pdf",
+                 the page PDF Virginia Chronicle serves},
+}
+
+@article{sun1947frisbie,
+  author      = {{The Sun}},
+  title       = {New Member Takes Seat Tomorrow: Appointment of A. E. Frisbie
+                 To County Board Protested},
+  journaltitle = {The Sun},
+  location    = {Arlington, Virginia},
+  date        = {1947-12-05},
+  pages       = {3},
+  url         = {https://virginiachronicle.com/?a=d&d=TSU19471205.1.3},
+  urldate     = {2026-09-26},
+  annotation  = {Says the appointee Alfred E. Frisbie is a member of the
+                 Arlington Democratic Executive Committee. Read on 26 September
+                 2026 against the page image, from the Library of Virginia's
+                 Virginia Chronicle scan. Filed in Drive as
+                 "press/The Sun 1947 - New Member Takes Seat Tomorrow, Appointment of A. E. Frisbie To County Board Protested (5 December 1947, p. 3).pdf",
+                 the page PDF Virginia Chronicle serves},
+}
+
+@article{sun1948potter,
+  author      = {{The Sun}},
+  title       = {School Committee Endorses Potter; Howe Is Rebuffed},
+  journaltitle = {The Sun},
+  location    = {Arlington, Virginia},
+  date        = {1948-08-13},
+  pages       = {1},
+  url         = {https://virginiachronicle.com/?a=d&d=TSU19480813.1.1},
+  urldate     = {2026-09-26},
+  annotation  = {Says three independent candidates will oppose Alfred E.
+                 Frisbie, incumbent, who won the Democratic nomination this
+                 month. Read on 26 September 2026 against the page image, from
+                 the Library of Virginia's Virginia Chronicle scan.
+                 Filed in Drive as
+                 "press/The Sun 1948 - School Committee Endorses Potter; Howe Is Rebuffed (13 August 1948, p. 1).pdf",
+                 the page PDF Virginia Chronicle serves},
+}
+
+@article{dailysun1955abc,
+  author      = {Mitchell, Lynn C.},
+  title       = {Higher Tax Advocates Nominated By ABC},
+  journaltitle = {The Daily Sun},
+  location    = {Arlington, Virginia},
+  date        = {1955-05-25},
+  pages       = {1},
+  url         = {https://virginiachronicle.com/?a=d&d=TDS19550525.1.1},
+  urldate     = {2026-09-26},
+  annotation  = {Reports that David L. Krupsaw and Ralph Kaul were elected on
+                 the first ballot to represent the ABC political coalition at a
+                 meeting at Wakefield School. Read on 26 September 2026 against
+                 the page image, from the Library of Virginia's Virginia
+                 Chronicle scan. Filed in Drive as
+                 "press/Daily Sun 1955 - Higher Tax Advocates Nominated By ABC (25 May 1955, p. 1).pdf",
+                 the page PDF Virginia Chronicle serves},
+}
+
+@article{dailysun1956blevins,
+  author      = {{The Daily Sun}},
+  title       = {County Board Rivals Meet Next Tuesday},
+  journaltitle = {The Daily Sun},
+  location    = {Arlington, Virginia},
+  date        = {1956-09-19},
+  pages       = {1},
+  url         = {https://virginiachronicle.com/?a=d&d=TDS19560919.1.1},
+  urldate     = {2026-09-26},
+  annotation  = {Names Dr. L. H. Blevins as the candidate of the Arlington
+                 Independent Movement (AIM) and Curtis E. Tuthill as the
+                 nominee of Arlingtonians for a Better County (ABC) for the
+                 1956 County Board election. Read on 26 September 2026 against
+                 the page image, from the Library of Virginia's Virginia
+                 Chronicle scan. Filed in Drive as
+                 "press/Daily Sun 1956 - County Board Rivals Meet Next Tuesday (19 September 1956, p. 1).pdf",
+                 the page PDF Virginia Chronicle serves},
+}
+
+@article{nvs1967casto,
+  author      = {Griffee, Carol},
+  title       = {Casto Blasts School Officials on `False' Bus Stop Information},
+  journaltitle = {Northern Virginia Sun},
+  location    = {Arlington, Va.},
+  date        = {1967-09-06},
+  pages       = {1},
+  url         = {https://virginiachronicle.com/?a=d&d=NVS19670906.1.1},
+  urldate     = {2026-09-26},
+  annotation  = {Names Joseph L. Fisher and Jay Ricks as running as
+                 Independents with the backing of Arlingtonians for a Better
+                 County and the Democratic party, in a report of the Civic
+                 Federation's campaign kickoff. Read on 26 September 2026
+                 against the page image, from the Library of Virginia's
+                 Virginia Chronicle scan. Filed in Drive as
+                 "press/Northern Virginia Sun 1967 - Casto Blasts School Officials on 'False' Bus Stop Information (6 September 1967, p. 1).pdf",
+                 the page PDF Virginia Chronicle serves},
+}
+
+
+@article{star1933garnett,
+  author      = {{The Evening Star}},
+  title       = {Arlington Board Member Resigns: Christopher B. Garrett Is
+                 Named to Post by Judge McCarthy},
+  journaltitle = {The Evening Star},
+  location    = {Washington, D.C.},
+  date        = {1933-12-10},
+  pages       = {B-4},
+  url         = {https://www.loc.gov/resource/sn83045462/1933-12-10/ed-1/?sp=20},
+  urldate     = {2026-09-26},
+  annotation  = {By a staff correspondent. Reports that Fred A. Gosnell, only
+                 Republican member of the County Board, resigned and that Judge
+                 McCarthy appointed Christopher B. Garnett, a Democrat and
+                 former State official, in his place. The headline spells the
+                 name Garrett; the story spells it Garnett. It also says the
+                 first resignation from the board was John C. Gall's. Read on
+                 26 September 2026 against the page image, from the Library of
+                 Congress's Chronicling America scan, image 20 of the issue.
+                 Filed in Drive as
+                 "press/Evening Star 1933 - Arlington Board Member Resigns, Christopher B. Garrett Is Named to Post by Judge McCarthy (10 December 1933, p. B-4).pdf",
+                 the page PDF the Library serves},
+}
+
+@article{star1954buchholz,
+  author      = {{The Evening Star}},
+  title       = {Margin of 159 Votes Re-elects Mrs. Buchholz: Arlington Gives
+                 Broyhill 13,775 To Webb's 10,657},
+  journaltitle = {The Evening Star},
+  location    = {Washington, D.C.},
+  date        = {1954-11-03},
+  pages       = {A-29},
+  url         = {https://www.loc.gov/resource/sn83045462/1954-11-03/ed-1/?sp=29},
+  urldate     = {2026-09-26},
+  annotation  = {No byline read off the page. State Edition. Reports the re-
+                 election of the board chairman, Mrs. Leone Buchholz, nominee
+                 of the Arlington Independent Movement, over Ivan A. Booker,
+                 non-partisan, Brian Bell, Democrat, and Daniel A. Dugan,
+                 independent. Read on 26 September 2026 against the page image,
+                 from the Library of Congress's Chronicling America scan, image
+                 29 of the issue. Filed in Drive as
+                 "press/Evening Star 1954 - Margin of 159 Votes Re-elects Mrs. Buchholz, Arlington Gives Broyhill 13,775 To Webb's 10,657 (3 November 1954, p. A-29).pdf",
+                 the page PDF the Library serves},
+}
+
+@article{alexandriagazette1907election,
+  author      = {{Alexandria Gazette}},
+  title       = {The County Election},
+  organization = {Alexandria Gazette},
+  date        = {1907-11-06},
+  url         = {https://www.loc.gov/resource/sn85025007/1907-11-06/ed-1/?sp=2},
+  urldate     = {2026-09-26},
+  note        = {P. 2, on the election of 5 November 1907: "In Washington
+                 district, W. N. Febrey defeated G. W. Donaldson and C. J.
+                 Costello for the board of supervisors," with the vote
+                 "Donaldson, 73; Febrey, 98; Costello, 22". The paper names the
+                 winner W. N. Febrey where the county list of 1870-1920 gives
+                 W. M. Febrey and the same three tallies (febrey-one-member-or-
+                 two). The sentence and the tallies were read off the page
+                 image, not its OCR. Read from the Library of Congress scan,
+                 image 2 of the issue},
+  annotation  = {Read 2026-09-26. Filed in Drive as "press/Alexandria Gazette
+                 1907 - The County Election.pdf", a copy printed in Sally's own
+                 browser on 2026-09-26},
+}
+
+@article{star1940febrey,
+  author      = {{The Evening Star}},
+  title       = {Deaths},
+  organization = {The Evening Star},
+  date        = {1940-01-23},
+  url         = {https://www.loc.gov/resource/sn83045462/1940-01-23/ed-1/?sp=10},
+  urldate     = {2026-09-26},
+  note        = {Death notices, p. 10: "FEBREY, WILLIAM N. On Monday, January
+                 22, 1940, WILLIAM N. FEBREY, beloved father of Henry W. Febrey
+                 and Mrs. Annie Louise Arnold. Remains resting at the Ives
+                 funeral home, 2847 Wilson blvd., Arlington, Va. ... Interment
+                 Oakwood Cemetery, Falls Church, Va." A paid notice, which
+                 names no office; it gives the death date and the two children
+                 of the household of census1900febrey, the daughter by her
+                 married name. Read off the page image, not its OCR},
+  annotation  = {Read 2026-09-26. Filed in Drive as "press/The Evening Star
+                 1940 - Deaths.pdf", a copy printed in Sally's own browser on
+                 2026-09-26},
+}
+
+@misc{census1930smith,
+  author      = {{U.S. Bureau of the Census}},
+  title       = {Benjamin M. Smith in the 1930 United States Federal Census, Arlington County, Virginia},
+  howpublished = {Ancestry.com, 1930 United States Federal Census [database on-line], record 97270312},
+  date        = {1930-04-01},
+  url         = {https://www.ancestry.com/search/collections/6224/records/97270312},
+  urldate     = {2026-09-26},
+  annotation  = {The enumeration sheet and Ancestry's index of it. The
+                 match to the Board member: matched on the initials, Arlington and the
+                 trade, the Evening Star's B. M. Smith being a real-estate
+                 dealer with an office at 443 Columbia Pike; this man is a
+                 real-estate salesman on his own account living at 439 Columbia
+                 Pike, and the only B. M. Smith in the county's 1930 index in
+                 the trade; the household and age are in the row's quote. Read
+                 against the sheet on 26 September 2026, which agrees: the
+                 street is written across the lines in the left margin,
+                 Columbia Pike, the house number reads 439, and the occupation
+                 columns read Salesman, Real Estate. Filed in Drive as
+                 "census/Ancestry/1930/Ancestry 1930 - Benjamin M. Smith in the 1930 United States Federal Census (record 97270312).pdf", the index record as the row's quote holds it, set on a plain page by code/ancestry.py,
+                 with the sheet image "census/US Census/1930/US Census 1930 - Arlington VA, ED 14, sheet 4B (Benjamin M Smith).jpg" downloaded from Ancestry's viewer},
+}
+
+@misc{census1940smith,
+  author      = {{U.S. Bureau of the Census}},
+  title       = {B. M. Smith in the 1940 United States Federal Census, Arlington County, Virginia},
+  howpublished = {Ancestry.com, 1940 United States Federal Census [database on-line], record 16919198},
+  date        = {1940-04-01},
+  url         = {https://www.ancestry.com/search/collections/2442/records/16919198},
+  urldate     = {2026-09-26},
+  annotation  = {The enumeration sheet and Ancestry's index of it. The
+                 match to the Board member: the household of census1930smith ten
+                 years on, the same wife and children, matched on the initials,
+                 the trade and the street; the household and age are in the
+                 row's quote. Read against the sheet on 26 September 2026,
+                 which agrees: the street is written across the lines in the
+                 left margin, Columbia Pike, the house number reads 2908, the
+                 occupation columns read Broker, Real Estate, on own account,
+                 and the residence column for 1 April 1935 reads same house,
+                 which dates the address inside his term. Filed in Drive as
+                 "census/Ancestry/1940/Ancestry 1940 - B. M. Smith in the 1940 United States Federal Census (record 16919198).pdf", the index record as the row's quote holds it, set on a plain page by code/ancestry.py,
+                 with the sheet image "census/US Census/1940/US Census 1940 - Arlington VA, sheet 9B (B M Smith).jpg" downloaded from Ancestry's viewer},
+}
+
+@misc{census1870boyd,
+  author      = {{U.S. Bureau of the Census}},
+  title       = {S. B. Boyd in the 1870 United States Federal Census, Alexandria County, Virginia},
+  howpublished = {Ancestry.com, 1870 United States Federal Census [database on-line], record 40126966},
+  date        = {1870-06-01},
+  url         = {https://www.ancestry.com/search/collections/7163/records/40126966},
+  urldate     = {2026-09-26},
+  annotation  = {The enumeration sheet and Ancestry's index of it. The
+                 match to the Board member: matched on the surname, the initial S. and
+                 the Jefferson township, the district he sat for in 1870; the
+                 sheet gives the middle initial as B, a letter with two bowls,
+                 where the roster gives V, so the initial is not in agreement
+                 and the match rests on the district; the household and age are
+                 in the row's quote. Read against the sheet on 26 September
+                 2026, which agrees. Filed in Drive as
+                 "census/Ancestry/1870/Ancestry 1870 - S. B. Boyd in the 1870 United States Federal Census (record 40126966).pdf", the index record as the row's quote holds it, set on a plain page by code/ancestry.py,
+                 with the sheet image "census/US Census/1870/US Census 1870 - Alexandria County VA, Jefferson Township, page 16 (S B Boyd).jpg" downloaded from Ancestry's viewer},
+}
+
+@misc{census1920duncan,
+  author      = {{U.S. Bureau of the Census}},
+  title       = {Edward Duncan in the 1920 United States Federal Census, Alexandria County, Virginia},
+  howpublished = {Ancestry.com, 1920 United States Federal Census [database on-line], record 23080718},
+  date        = {1920-01-01},
+  url         = {https://www.ancestry.com/search/collections/6061/records/23080718},
+  urldate     = {2026-09-26},
+  annotation  = {The enumeration sheet and Ancestry's index of it. The
+                 match to the Board member: the household of census1910duncan ten
+                 years on, the same son Morton, the same trade, engineer on the
+                 railroad, and Irish parents, in the Jefferson district he sat
+                 for; the only Edward Duncan in the county that year; the
+                 household and age are in the row's quote. Read against the
+                 sheet on 26 September 2026, which agrees: the street is
+                 written down the left margin, Duncan Lane, and the widow
+                 Amelia Duncan, born New York, is four lines above on the same
+                 lane, the Emelia of census1900duncan. Filed in Drive as
+                 "census/Ancestry/1920/Ancestry 1920 - Edward Duncan in the 1920 United States Federal Census (record 23080718).pdf", the index record as the row's quote holds it, set on a plain page by code/ancestry.py,
+                 with the sheet image "census/US Census/1920/US Census 1920 - Alexandria County VA, ED 13, sheet 7B (Edward Duncan).jpg" downloaded from Ancestry's viewer},
+}
+
+@misc{census1920ingram,
+  author      = {{U.S. Bureau of the Census}},
+  title       = {William J. Ingram in the 1920 United States Federal Census, Alexandria County, Virginia},
+  howpublished = {Ancestry.com, 1920 United States Federal Census [database on-line], record 23074490},
+  date        = {1920-01-01},
+  url         = {https://www.ancestry.com/search/collections/6061/records/23074490},
+  urldate     = {2026-09-26},
+  annotation  = {The enumeration sheet and Ancestry's index of it. The
+                 match to the Board member: the index reads the surname as Ingrim,
+                 where the sheet reads Ingram; matched on the initials, the
+                 surname and the Arlington district, the district he sat for in
+                 1924; the only W. J. Ingram in the county, and the household
+                 his widow Julia keeps in 1930 with their son William; the
+                 household and age are in the row's quote. Read against the
+                 sheet on 26 September 2026, which agrees: the street band
+                 holding his line reads Virginia Ave and the house number reads
+                 204. Filed in Drive as
+                 "census/Ancestry/1920/Ancestry 1920 - William J. Ingram in the 1920 United States Federal Census (record 23074490).pdf", the index record as the row's quote holds it, set on a plain page by code/ancestry.py,
+                 with the sheet image "census/US Census/1920/US Census 1920 - Alexandria County VA, ED 10, sheet 31A (William J Ingram).jpg" downloaded from Ancestry's viewer},
+}
+
+@misc{census1920thornburke,
+  author      = {{U.S. Bureau of the Census}},
+  title       = {Eugene C. Turnburke in the 1920 United States Federal Census, Alexandria County, Virginia},
+  howpublished = {Ancestry.com, 1920 United States Federal Census [database on-line], record 23085071},
+  date        = {1920-01-01},
+  url         = {https://www.ancestry.com/search/collections/6061/records/23085071},
+  urldate     = {2026-09-26},
+  annotation  = {The enumeration sheet and Ancestry's index of it. The
+                 match to the Board member: the index and the sheet read the surname
+                 Turnburke, where the county's list of 1870-1920 reads
+                 Thornburke; matched on the initials, the surname and the
+                 Washington district, the district he sat for in 1924-28; the
+                 only E. C. Turnburke in the county; the household and age are
+                 in the row's quote. Read against the sheet on 26 September
+                 2026, which agrees: the street band holding his line reads
+                 Preston Avenue and the house number reads 35. Filed in Drive as
+                 "census/Ancestry/1920/Ancestry 1920 - Eugene C. Turnburke in the 1920 United States Federal Census (record 23085071).pdf", the index record as the row's quote holds it, set on a plain page by code/ancestry.py,
+                 with the sheet image "census/US Census/1920/US Census 1920 - Alexandria County VA, ED 15, sheet 14A (Eugene C Turnburke).jpg" downloaded from Ancestry's viewer},
 }
