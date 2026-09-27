@@ -204,6 +204,76 @@ Alexandria County court order book for 1888, which would carry the rule and
 its disposition, and the Board's own minute books; neither is online
 (`allen-1888`).
 
+### Hume's two dates
+
+The rule against Allen and Hume's appointment are two events three weeks
+apart; Hume's first appearance in the record is a third, six weeks after
+that. The Gazette of 3 October reports the appointment as made "yesterday",
+2 October. `arlhist1967officials` opens Hume's term on 13 November, and the
+Gazette's own Local Matters column of that evening, reporting the Board's
+session "to-day", lists him for the first time among the supervisors
+present: "the Board of Supervisors were in session at the County... to-day;
+present, A. B. Grunwell, chairman, and Messrs. Frank Hume [and] Horatio
+Ball" (`alexandriagazette1888supervisors`). This is the same convention the
+Historical Society used for Saulisbury below: the article dates a term from
+the minute books' first record of a man sitting, not from the instrument
+that named him. Nothing here says what Hume did between 2 October and 13
+November; only that the roster's start date and the court's appointment
+date answer different questions.
+
+### Pendleton to Saulisbury, November 1884
+
+Between Pendleton's second term beginning 1 April 1884 and Saulisbury's
+first recorded appearance on 15 November, `arlhist1967officials` states
+only that "[n]othing in the record shows why Saulisbury took Pendleton's
+place, nor exactly when." The Gazette was searched for Pendleton, for
+Saulisbury (and the more common spelling "Salisbury"), and for "Board of
+Supervisors" across the weeks bracketing 15 November 1884, with no report
+of a resignation, a court action or a Board seating found. The paper
+covered Allen's removal because a court rule made it news; whatever moved
+Pendleton out generated none. This is a negative result, not an absence of
+searching (`saulisbury-1884`).
+
+### Pinn to Mills, August 1881
+
+Pinn resigned 15 August 1881 in Virginia's Readjuster year, replaced the
+same day by Francis M. Mills; O'Leary gives him the whole term and Mills no
+part of it. Twelve days before the resignation, the Gazette covered a
+"Republican Convention - A 'Split'" at Alexandria's Colored Odd Fellows'
+Hall on 3 August: forty-five delegates met to choose delegates to the
+Republican state convention, called to order by William A. Rowe (himself a
+supervisor, above); a Mahone Readjuster faction walked out, and the
+remaining "Straightout" convention heard speeches from Benjamin Austin,
+T. B. Pinn and Van Miller "declaring that the boast of the Mahone
+readjuster leaders that they had captured the republicans of this city and
+county of Alexandria was false in every particular"
+(`alexandriagazette1881split`). Pinn was a Straightout Republican leader in
+active opposition to the Readjuster coalition twelve days before he left
+the Board; the Gazette was then searched for the resignation itself, for
+Mills's appointment, and for "Board of Supervisors" through early September
+1881, with nothing found naming a reason. The convention speech establishes
+where Pinn stood, not why he left; the two are offered together because the
+timing invites the connection and the record does not make it
+(`pinn-1881`).
+
+### Squier, the control
+
+The same roster prints a fourth Jefferson-adjacent departure the same year
+as Pendleton's: Perkin W. Squier, Arlington district, whose term
+`arlhist1967officials`'s own footnote explains without ambiguity -
+"Postmaster of Alexandria City. Court declared seat vacant under the
+Virginia law prohibiting Federal employees from holding office in the
+State, and appointed a successor." Squier was White. Where Allen's rule
+alleged non-residence and was never brought to a disposition, Squier's
+removal named a statute and Squier held a second public office the statute
+reached; the Historical Society's own record, not a newspaper search, is
+what settles this one. The Gazette was searched regardless, for "Squier"
+and for the postmastership around 1 April 1884, and turned up nothing
+beyond the compilation's own footnote. Nothing here is open: the county
+court removed a White supervisor on a stated legal ground in the same
+window it moved against Allen on an unresolved one, and that contrast is
+the finding, not a gap waiting on more searching.
+
 ---
 
 ## The roster
