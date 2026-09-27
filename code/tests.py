@@ -857,6 +857,42 @@ def residence_coverage():
     return {k: [v[w] for w in when] for k, v in table.items() if any(v.values())}, nothing
 
 
+def district_shares():
+    """The table docs/residents.md prints: each magisterial district's Black
+    share at every census that gives race below the county, and the county's
+    own from residents.csv. A district with no race split that year has no
+    cell."""
+    def share(row):
+        return round(int(row["black"]) / int(row["total"]) * 100) if row["black"] else None
+    out = {}
+    for r in csv.DictReader((ROOT / "data/clean/residents_by_district.csv").open(newline="")):
+        out[(r["district"], int(r["year"]))] = share(r)
+    for r in csv.DictReader((ROOT / "data/clean/residents.csv").open(newline="")):
+        out[("The county", int(r["year"]))] = share(r)
+    return out
+
+
+def test_the_district_share_table_in_the_write_up_is_current():
+    """The table in docs/residents.md, "Race by district", read by hand off
+    the clean tables. Two of its cells once disagreed with them, which nothing
+    announced: a share in prose reads as current however old it is. So the
+    build recomputes it, here, the way it does the residence coverage table."""
+    text = (ROOT / "docs" / "residents.md").read_text()
+    body = text.split("| District | 1870 |", 1)[1].split("\n\n", 1)[0]
+    years = [int(y) for y in body.splitlines()[0].strip().strip("|").split("|") if y.strip()]
+    years = [1870, *years]
+    counted, printed, wrong = district_shares(), {}, []
+    for line in body.splitlines()[2:]:
+        cells = [c.strip(" *") for c in line.strip().strip("|").split("|")]
+        for year, cell in zip(years, cells[1:]):
+            printed[(cells[0], year)] = None if cell == "—" else int(cell.rstrip("%"))
+    for key, value in printed.items():
+        if counted.get(key) != value:
+            wrong.append(f"{key[0]} {key[1]}: table {value}, clean {counted.get(key)}")
+    assert printed and not wrong, ("docs/residents.md, \"Race by district\", does not "
+                                  "match the clean tables:\n  " + "\n  ".join(wrong))
+
+
 def test_the_residence_coverage_table_in_the_write_up_is_current():
     """The table in docs/members.md, "Where members lived", counted by hand.
     Every census read moves it, and a stale table is the kind of wrongness
