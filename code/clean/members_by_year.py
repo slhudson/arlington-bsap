@@ -67,18 +67,20 @@ def build() -> pd.DataFrame:
     assert years == list(range(1870, PRESENT + 1)), f"years are not 1870-{PRESENT} without gaps: {years[:3]}..{years[-3:]}"
 
     # Seats held never exceed the seats that exist, and fall short only in
-    # the four recorded vacancies: the Washington seat from July to November
-    # 1873, the Jefferson seat from April to June 1879 after William A. Rowe
-    # resigned it (members_roster.VACANT_1879), the Washington seat from 1
-    # January 1920 until Frank Upman was appointed to it
-    # (members_roster.VACANT_1920), and 1990.
+    # the five recorded vacancies: the Jefferson seat from July to August 1870,
+    # whose elected supervisor never qualified (members_roster.VACANT_1870),
+    # the Washington seat from July to November 1873, the Jefferson seat from
+    # April to June 1879 after William A. Rowe resigned it
+    # (members_roster.VACANT_1879), the Washington seat from 1 January 1920
+    # until Frank Upman was appointed to it (members_roster.VACANT_1920),
+    # and 1990.
     exist = d.year.map(seats)
     by_race = d[["white", "black", "hisp", "aapi"]].sum(axis=1)
     over = d.loc[by_race - exist > 1e-9, "year"]
     assert over.empty, f"more seat-years than seats in {list(over)}"
     short = d.loc[(exist - by_race > 1e-9) & (d.source == citekeys.DERIVED), "year"]
-    assert list(short) == [1873, 1879, 1920, 1990], \
-        f"seats fall short in {list(short)}; expected only 1873, 1879, 1920, 1990"
+    assert list(short) == [1870, 1873, 1879, 1920, 1990], \
+        f"seats fall short in {list(short)}; expected only 1870, 1873, 1879, 1920, 1990"
 
     # Race, gender and party are three splits of the same seats.
     by_gender = d[["men", "women"]].sum(axis=1)

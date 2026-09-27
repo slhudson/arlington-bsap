@@ -175,6 +175,32 @@ VACATED = {
         "him (Sally, 27 September 2026; docs/members.md).",
 }
 
+# The two seats the article gives to someone other than the man another
+# source seats, keyed on the roster's name, his district and the term's start
+# year: the man the article seats instead, or VACANT where it seats nobody,
+# and what settled it. The roster records who held a seat rather than who won
+# it - the rule Torreyson's fourteen weeks in 1897 settled - and an election
+# return names the winner while the minute books name the man who sat, so
+# where the two disagree about occupancy the minute books answer the question
+# the roster asks (Sally, 27 September 2026; docs/members.md).
+SEATED = {
+    ("Storm V. Boyd", "Jefferson", 1870): (VACANT,
+        "The article prints the Jefferson seat empty from 1 July 1870 and the "
+        "reason: the supervisor elected for the township, Boyd, failed to "
+        "qualify. O'Leary gives him the seat from May to September on the "
+        "election alone. He never sat, so the seat stands vacant until James "
+        "C. Roach's appointment that September; his 1870 census record "
+        "(census1870boyd) places the man and says nothing about the office "
+        "(Sally, 27 September 2026)."),
+    ("A. B. Grunwell", "Washington", 1897):
+        ("George N. Saegmuller",
+        "The article puts Saegmuller in the Washington seat from 1 July 1897, "
+        "where O'Leary keeps Grunwell to 1899. Grunwell's service therefore "
+        "ends with his 1895-97 term and Saegmuller's begins two years earlier "
+        "than the roster had it (Sally, 27 September 2026)."),
+}
+
+
 CUT_NOTE = (
     "The end is the article's, from the Board's minute books, which put "
     "{who} in this district from the same date; O'Leary records no departure "
@@ -323,6 +349,55 @@ def early_blocks():
     return out
 
 
+def empty_months(seq, i):
+    """The whole months a vacancy block leaves the seat empty. A block ending
+    in the month the next one begins hands over rather than standing empty
+    that month, the rule members.held() applies to a term."""
+    first, last = month(seq[i]["start"]), month(seq[i]["end"])
+    if i + 1 < len(seq) and month(seq[i + 1]["start"]) == last:
+        last -= 1
+    return range(first, last + 1)
+
+
+def unseated():
+    """Every month a seat stands empty because the article seats nobody where
+    another source seats a man, as members_roster.py lists the vacancies."""
+    printed = early_blocks()
+    out = []
+    for (who, district, year), (now, _) in SEATED.items():
+        if now != VACANT:
+            continue
+        seq = printed[district]
+        i = next((j for j, b in enumerate(seq)
+                  if b["name"] == VACANT and who in b["note"]), None)
+        if i is None:
+            raise ValueError(f"the article has no empty {district} block naming {who!r}")
+        out += [(district, *pair(m)) for m in empty_months(seq, i)]
+    return out
+
+
+def seated(d):
+    """`d` with each SEATED term given to the man the article seats, or
+    dropped where it seats nobody. Exactly one roster term must match, or the
+    reading is keyed to a seat that has moved and the build stops."""
+    d = d.copy()
+    drop = []
+    for (who, district, year), (now, note) in SEATED.items():
+        hit = (d.name == who) & (d.district == district) & (d.start_year == year)
+        if hit.sum() != 1:
+            raise ValueError(f"SEATED matches {hit.sum()} roster terms, expected one: "
+                             f"{who!r} {district} {year}")
+        i = d.index[hit][0]
+        page = early_blocks()[district][0]["page"]
+        if now == VACANT:
+            drop.append(i)
+            continue
+        d.loc[i, "name"] = now
+        d.loc[i, "source"] = f"{d.loc[i, 'source']}; {citekeys.ARLHIST_OFFICIALS} p.{page}"
+        d.loc[i, "note"] = " ".join(filter(None, [d.loc[i, "note"], note]))
+    return d.drop(index=drop).reset_index(drop=True)
+
+
 def vacated():
     """One entry per VACATED term: where the article ends it, and the months
     the seat then stands empty. Both are read off the article - the block the
@@ -339,11 +414,9 @@ def vacated():
         if i is None:
             raise ValueError(f"the article has no {district} block for {who!r} "
                              "followed by one naming nobody")
-        empty = seq[i + 1]
         out[key] = {"ends": seq[i]["end"], "note": note,
                     "page": seq[i]["page"],
-                    "empty": [(district, *pair(m)) for m in
-                              range(month(empty["start"]), month(empty["end"]) + 1)]}
+                    "empty": [(district, *pair(m)) for m in empty_months(seq, i + 1)]}
     return out
 
 
@@ -377,7 +450,7 @@ def early(earlier: pd.DataFrame) -> pd.DataFrame:
     the one the article prints, or the reading is keyed to a seat that has
     moved and the build stops.
     """
-    d = earlier.copy()
+    d = seated(earlier)
     printed = early_blocks()
     for (who, district, year), v in vacated().items():
         hit = (d.name == who) & (d.district == district) & (d.start_year == year)

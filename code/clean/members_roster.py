@@ -169,6 +169,13 @@ VACANT_1873 = [("Washington", 1873, month) for month in range(7, 12)]
 # meet them, so the two cannot drift apart.
 VACANT_1879 = arlhist.vacancies()
 
+# Jefferson from July to August 1870: the supervisor elected for the township,
+# Storm V. Boyd, failed to qualify and never sat, so the seat the roster once
+# gave him on O'Leary's election return stands empty until James C. Roach's
+# appointment that September. The months are the article's own block, read in
+# members_roster_arlhist.unseated().
+VACANT_1870 = arlhist.unseated()
+
 # Each recorded vacancy as the district and the first month with no holder,
 # counted from year 0. A term ending in one of these ends into the vacancy:
 # the seat leaves its holder that month though nobody takes it, so the month
@@ -177,17 +184,18 @@ VACANT_1879 = arlhist.vacancies()
 # it, and they are the only two places the rule is written.
 VACANT_FROM = {(district, year * 12 + month)
                for district, year, month in
-               [min(VACANT_1873), min(VACANT_1879), ("Washington",) + VACANT_1920]}
+               [min(VACANT_1870), min(VACANT_1873), min(VACANT_1879),
+                ("Washington",) + VACANT_1920]}
 
 
 def check_district_seats(d: pd.DataFrame, first=1870, last=arlhist.LAST_YEAR):
     """Each of the three magisterial districts has exactly one member in
     every month from 1870 to 1931, save the months named above: the six
-    before the Board sat and the three recorded vacancies.
+    before the Board sat and the four recorded vacancies.
 
     The exceptions are the point. A gap that appears anywhere else stops the
     build, and so does filling one of these - a missing supervisor reads like
-    a data error, and these four are claims with sources behind them.
+    a data error, and these five are claims with sources behind them.
 
     What the earlier coverage rests on differs from 1912-1931's. Before 1912
     the seats run continuously partly because a term with no recorded end is
@@ -213,7 +221,8 @@ def check_district_seats(d: pd.DataFrame, first=1870, last=arlhist.LAST_YEAR):
                 empty = ((year, month) < BOARD_FROM
                          or (district, year, month) == ("Washington",) + VACANT_1920
                          or (district, year, month) in VACANT_1873
-                         or (district, year, month) in VACANT_1879)
+                         or (district, year, month) in VACANT_1879
+                         or (district, year, month) in VACANT_1870)
                 expected = 0 if empty else 1
                 if len(held) != expected:
                     raise ValueError(

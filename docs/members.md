@@ -631,14 +631,22 @@ should have been. Recording title instead would either seat two men in one
 seat for fourteen weeks, which `members_by_year.py` refuses, or delete a
 member the minute books show sitting.
 
-**What the article disagrees about and nobody has ruled on.** Two seats are
-held by different men and both are left as O'Leary has them
-(`arlhist-seats-1870-1911`): Storm V. Boyd, whom O'Leary seats in Jefferson
-from May to September 1870, is printed as elected but having failed to
-qualify, and the Washington seat of 1897–99 is Saegmuller's in the article
-where O'Leary keeps Grunwell in it to 1899. Neither changes a race or a
-gender, and both would move a seat-month, so neither is taken on this
-reading's authority alone. The article's William N. Febrey of 1892–93 is
+**Two seats go to the man the minute books show sitting.** The article gives
+two seats to someone other than the man O'Leary seats, and the roster now
+follows it in both (`SEATED` in `code/clean/members_roster_arlhist.py`). The
+Jefferson seat of 1870 is empty rather than Storm V. Boyd's: the article
+prints the supervisor elected for the township as having failed to qualify,
+and O'Leary gives him the seat on the election return alone, so the seat
+stands vacant from 1 July until James C. Roach's appointment that September.
+The Washington seat of 1897–99 is George N. Saegmuller's, not A. B.
+Grunwell's, so Grunwell's service ends with his 1895–97 term. The ground is
+the one Torreyson's fourteen weeks settled: an election return names the
+winner and the minute books name the man who sat, and the roster records who
+held a seat, so where the two disagree about occupancy the minute books
+answer the question the roster asks (Sally, 27 September 2026). Boyd's 1870
+census record (`census1870boyd`, read 26 September 2026) is no longer carried
+as a claim about a member, since he never was one. The article's William N.
+Febrey of 1892–93 is
 also carried as his own person, not joined to the W. N. Febrey of 1904–11
 (`febrey-1892-one-member-or-two`); there are three Febreys in the roster and
 the article distinguishes these two only typographically.
@@ -1068,8 +1076,10 @@ the years each served were searched for the members whose gender rested on
 the default. Five gained a record, and with it a gender, a race and a birth
 year read from a source rather than assumed: **B. M. Smith** (below),
 **Storm V. Boyd**, a farmer in the Jefferson township in 1870 whose sheet
-gives the middle initial as B where the roster gives V, so the match rests
-on the district; **Duncan** of 1916–20, the Edward Duncan of Duncan Lane in
+gives the middle initial as B where the roster gives V, so the match rested
+on the district — and whose record left the file on 27 September 2026 with
+his seat, the article showing he never qualified for it; **Duncan** of
+1916–20, the Edward Duncan of Duncan Lane in
 the Jefferson district, the household of `census1910duncan` ten years on by
 his son Morton, his trade and his Irish parents; **W. J. Ingram**, a
 hardware salesman at 204 Virginia Ave in the Arlington district in 1920,
