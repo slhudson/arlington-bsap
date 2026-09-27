@@ -42,12 +42,13 @@ VACANT = "(vacancy)"
 # here; the reading itself is in READING_NOTES below.
 SPELLINGS = {"turnburke": "thornburke"}
 
-# The three readings this source forces that no source settles, by the term
-# each lands on: (the roster's name, the term's start year). Each is a row in
-# docs/questions.csv under the slug its sentence ends with, and each is
-# written onto the term so that members.csv carries it. None changes a
-# figure: the seat is filled either way, and every member of this era
-# defaults to White and man (docs/members.md, default-1931-1986).
+# What this source forces the roster to say about a person that the source
+# does not say itself, by the term each lands on: (the roster's name, the
+# term's start year). Each is written onto the term so that members.csv
+# carries it, and none changes a figure - the seat is filled either way, and
+# every member of this era defaults to White and man (docs/members.md,
+# default-1931-1986). A reading still open ends with its slug in
+# docs/questions.csv; a settled one states what settled it.
 READING_NOTES = {
     ("Walker", 1916):
         "The resignation and its date are the article's, from the Board's minute "
@@ -63,9 +64,11 @@ READING_NOTES = {
         "the county's open-ended term rather than standing beside it as a second "
         "man (roster-turnburke-spelling).",
     ("Thomas J. DeLashmutt", 1920):
-        "Carried as a different man from the Basil M. DeLashmutt of the 1932-62 "
-        "cohort, on the given names alone; nothing here joins or separates them "
-        "(roster-delashmutt-one-man-or-two).",
+        "A different man from the Basil M. DeLashmutt of the 1932-62 cohort, and "
+        "his father: his 1920 household holds a son, Basil N., 17, born about "
+        "1903, the birth year of that cohort's 1930 match "
+        "(census1930delashmutt), whose row cites the household as well as the "
+        "occupation. docs/members.md.",
 }
 
 

@@ -51,11 +51,12 @@ are explained in `code/citekeys.py`, and what is still open is in
   Jefferson and Washington, for all twenty years, with one vacancy in the
   Washington seat in early 1920 that the source itself states rather than
   leaves silent. `members_by_year.py` reads the roster for those years like
-  any other (below, "The roster names 1912 to 1931"). Three readings inside
-  the stretch are provisional: Walker's end date, the spelling Turnburke,
-  and whether the 1920–23 DeLashmutt is the one in the 1932–62 cohort
-  (`roster-walker-end-date`, `roster-turnburke-spelling`,
-  `roster-delashmutt-one-man-or-two`). None of the three changes a figure.
+  any other (below, "The roster names 1912 to 1931"). Two readings inside
+  the stretch are still provisional, Walker's end date and the spelling
+  Turnburke (`roster-walker-end-date`, `roster-turnburke-spelling`); the
+  third, whether the 1920–23 DeLashmutt is the one in the 1932–62 cohort, is
+  settled — he is that man's father (below). Neither of the two changes a
+  figure.
 - From 1907 O'Leary's surnames are not joined to earlier full names
   (`surnames-from-1907`).
 - 23 terms from 1932 carry no party, three labels are unresolved, and no
@@ -402,11 +403,14 @@ three districts has exactly one member in every month of 1912–1931, save
 Washington in January 1920. It is scoped to that stretch because the years
 before it still have seats no source names.
 
-**Three readings here are provisional.** Each is written onto the term it
+**Two readings here are provisional.** Each is written onto the term it
 lands on, in `READING_NOTES` in `members_roster_arlhist.py`, so the position
 `members.csv` takes is greppable; each has a row in `docs/questions.csv`; and
-none of the three changes a figure, since the seat is filled either way and
-every member of this era defaults to White and man.
+neither changes a figure, since the seat is filled either way and
+every member of this era defaults to White and man. A third, DeLashmutt, was
+settled the same day and is below; its note stays in `READING_NOTES`, saying
+what settled it, because the roster still has to say which man the term
+belongs to.
 
 - **Walker's end date** (`roster-walker-end-date`). The article has him
   resigning on 27 March 1919 to become the county's Sanitary Inspector, and
@@ -420,11 +424,6 @@ every member of this era defaults to White and man.
   same years, so the article closes the county's two open-ended terms rather
   than standing beside them as a second man. The 1920 census index and sheet
   read Turnburke too (`census1920thornburke`).
-- **DeLashmutt** (`roster-delashmutt-one-man-or-two`). Thomas J. DeLashmutt,
-  Arlington 1920–23, is carried as a different man from the Basil M.
-  DeLashmutt of the 1932–62 cohort, on the given names alone. Nothing joins
-  or separates them; the match that would have joined them is made on the
-  surname *and* the district, and Basil's seat is at large.
 
 **Four of the five 1912–1931 members new to this roster are settled to the
 census (27 September 2026).** Thomas J. DeLashmutt, Frank Upman and W. T.
