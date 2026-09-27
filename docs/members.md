@@ -40,13 +40,18 @@ are explained in `code/citekeys.py`, and what is still open is in
   year, and the age figure draws a year only when all but at most
   one sitting member has one. The figure is not in the paper yet, and it
   starts in 1932.
-- 1912–1931 named five terms and no more before 27 September 2026; the seats
-  for those years are assumed, not counted from them. Jefferson's is now an
-  exception: Edward Duncan's roster row (below) is sourced continuously
-  through the whole stretch, but `members_by_year.py` still states 1912–1931
-  itself and does not read the roster for those years by design ("So the
-  roster names almost nobody from 1912 to 1931," below), so the figure does
-  not yet reflect this and a decision is open on whether it should.
+- 1912–1931 named five terms and no more before 27 September 2026. Read
+  through that day for `arlhist1967officials`, the Historical Society's own
+  compilation from the Board's minute books, the stretch is now named almost
+  completely: all three magisterial seats, Arlington, Jefferson and
+  Washington, for all twenty years, with one seven-week vacancy in the
+  Washington seat in early 1920 that the source itself states rather than
+  leaves silent (below, "The roster now names nearly all of 1912 to 1931").
+  `members_by_year.py` still states 1912–1931 itself from the standing
+  assumption of three seats held by white men and does not read the roster
+  for those years by design, so the figure does not yet reflect any of this;
+  whether it should is the open decision (`roster-1912-1931`,
+  `docs/questions.csv`).
 - From 1907 O'Leary's surnames are not joined to earlier full names
   (`surnames-from-1907`).
 - 23 terms from 1932 carry no party, three labels are unresolved, and no
@@ -310,28 +315,62 @@ those seats next. The note on such a row says the end is the statute's; where
 the next listed election seats a successor on the same date the departure is
 sourced and carries no note.
 
-**So the roster names almost nobody from 1912 to 1931.** No source in hand
-records who served, and the seat counts for those years are an assumption,
-stated in `code/clean/members_by_year.py` and labelled `assumed`: three seats,
-filled, held by white men. `members_by_year` states those years itself and
-replaces whatever the roster holds for them, so a name added to the roster
-moves no seat-year; `code/tests.py` adds a member in 1925 and checks that
-the table for 1912–1931 does not change. Two elections inside the stretch are printed in the county's
-candidate history under the district headings rather than under "County
-Board": November 1923 (Ingram in Arlington, Duncan in Jefferson, Thornburke
-in Washington, each the only name listed) and November 1927 (Duncan and
-Thornburke, each with the highest vote). They are keyed in
+**"So the roster names almost nobody from 1912 to 1931," until 27 September
+2026.** Until that day, no source in hand recorded who served, and the seat
+counts for those years were an assumption, stated in
+`code/clean/members_by_year.py` and labelled `assumed`: three seats, filled,
+held by white men. Two elections inside the stretch were printed in the
+county's candidate history under the district headings rather than under
+"County Board": November 1923 (Ingram in Arlington, Duncan in Jefferson,
+Thornburke in Washington, each the only name listed) and November 1927
+(Duncan and Thornburke, each with the highest vote). They are keyed in
 `data/transcribed/by_claude/members_terms.csv`, page 2 and page 4, as five
-terms seated the following January, with no end: the county gives neither a
-start nor an end, so the January start is the build's rule for a November
-winner and each term holds to the end of its first year (1924 and 1928).
-Ingram and Thornburke appear in no other source; both are marked "(inc.)" in
-1923, so they were elected at one of the unrecorded elections after 1915,
-and the Alexandria Gazette and the Washington Star are where to look for the
-rest. Jefferson's "Duncan" is Edward Duncan, resolved (`duncan-one-member-or-
-three`, 27 September 2026): not the William Duncan who held Jefferson from
-1895, but the same man as the roster's earlier "E. Duncan" (1908–12) and
-"Duncan" (1916–20), one continuous term from 1908 to 1932 (below).
+terms seated the following January, with no end recorded: the county gives
+neither a start nor an end, so the January start was the build's rule for a
+November winner and each term held to the end of its first year (1924 and
+1928). Jefferson's "Duncan" is Edward Duncan, resolved
+(`duncan-one-member-or-three`, 27 September 2026): not the William Duncan who
+held Jefferson from 1895, but the same man as the roster's earlier "E. Duncan"
+(1908–12) and "Duncan" (1916–20), one continuous term from 1908 to 1932
+(below).
+
+**The roster now names nearly all of 1912 to 1931 (27 September 2026).**
+`arlhist1967officials`, the Historical Society's "County Officials in
+Arlington, 1870-1960," gives Board membership by magisterial district, term
+by term, compiled from the Board's own minute books; it was read for four
+individual questions on 26 September 2026 (below) and read through for this
+stretch the next day. It covers 1908 through 1931 without a gap, in the
+overlapping term-blocks the source itself prints, keyed in
+`data/transcribed/by_claude/arlington_historical_magazine/arlhist_terms_1912-1931.csv`.
+Of the sixty seat-years the three districts hold across those twenty years,
+every one is now named by this source or by `members_terms.csv` above, save a
+single vacancy: the Washington seat sat empty from 1 January to 20 February
+1920, after Clarence R. Ahalt, elected to it, moved from the district before
+the term began — the source states the vacancy rather than falling silent
+about it, so it is recorded as one, not left as an unknown. Arlington runs W.
+C. Wibirt (1912–19, joining the term already keyed above), Thomas J.
+DeLashmutt (1920–23), W. J. Ingram (1924–27, closing the open end above) and
+B. M. Hedrick (1928–31); Washington runs Robert L. Walker (1912 to his
+resignation 27 March 1919), Clarence R. Ahalt (appointed to the rest of
+1919), the seven-week vacancy, Frank Upman and W. T. Weaver (both appointed,
+in quick succession, to the balance of the 1920–23 term) and E. C.
+Turnburke — printed that way in the article, "Thornburke" in
+`arlingtonelections2021` and in Novack, so read as the same misprint the
+county's own records do not repeat — for 1924–27 and 1928–31, closing the
+open end above; Jefferson is Edward Duncan throughout, as already sourced.
+The article gives no race for any of them, so a member drawn from this
+listing defaults to White and man like the rest of the era
+(`default-1931-1986`, above) rather than being looked into on its own: the
+all-White coding of 1889–1986 is a separate question waiting on the County,
+and this reading does not reopen it.
+
+`members_by_year.py` has not been changed to read either file: it still
+states 1912–1931 itself, by design, so the seat table and the figure built
+from it show the same three assumed seats they showed before this reading.
+Whether it should now change, and how a year that is part sourced and part
+assumed would be represented for the seven weeks in 1920, is the decision
+that follows from this count, tracked as `roster-1912-1931` in
+`docs/questions.csv`.
 
 **Mid-term handovers are terms like any other.** O'Leary records them as
 prose beside the elected member ("Replaced by H. Dwight Smith in Dec.;
@@ -376,12 +415,13 @@ five members at large, six only in a month a special election changed hands.
 The county and state sources both hold the 2021 election, and the build
 insists they name the same winner there before using the second.
 
-**Recorded vacancies.** Two in the whole period a roster covers, found by
-counting the months each term covers against the seats that existed: the
-Washington district seat from the May 1873 election until Samuel Titus was
-appointed that December, and March and April 1990 between Milliken's
-resignation and Hunter's special election. 1912–1931 is the only stretch not
-swept, since there is no roster to sweep.
+**Recorded vacancies.** Found by counting the months each term covers against
+the seats that existed: the Washington district seat from the May 1873
+election until Samuel Titus was appointed that December, March and April 1990
+between Milliken's resignation and Hunter's special election, and the
+Washington seat again from 1 January to 20 February 1920 (above). 1912–1931
+is otherwise not swept this way, since `members_by_year.py` does not read the
+roster for those years (above).
 
 ## Seat-years
 
