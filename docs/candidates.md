@@ -49,7 +49,7 @@ search (the Gazette's returns) from either.
   2025 have not been matched to a census record or a press description for
   race (`black-losers-1932-on`), so "none ran 1932-1986" is two authors'
   sentences, not a check of the list.
-Each is a row in `docs/questions.csv`, with an owner and what would settle it.
+Each is a row in `docs/questions.csv`, with whose court it waits in and what would settle it.
 
 ---
 

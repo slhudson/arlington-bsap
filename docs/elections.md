@@ -18,7 +18,7 @@ history. The placeholders in the `source` columns are explained in
   (`registration-before-2010`), and votes per seat standing in for ballots
   cast (`ballots-cast`).
 
-Each is a row in `docs/questions.csv`, with an owner and what would settle it.
+Each is a row in `docs/questions.csv`, with whose court it waits in and what would settle it.
 
 ---
 

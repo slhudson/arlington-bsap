@@ -14,7 +14,7 @@ spike: the figure shows the size of the Board, not who sat.
 ## What rests on an assumption
 
 
-Each is a row in `docs/questions.csv`, with an owner and what would settle it.
+Each is a row in `docs/questions.csv`, with whose court it waits in and what would settle it.
 
 ---
 

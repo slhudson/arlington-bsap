@@ -229,11 +229,22 @@ each number is, what backs it, what is assumed where nothing does, and why,
 in the present tense, ending with a list of what still rests on an
 assumption. `paper/sources.bib` is the registry of sources, and each entry's
 `annotation` holds the notes on it. `docs/questions.csv` is the tracker: one row per open item, with a
-stable slug for an id, its kind, an owner, the figure or table it bites, the
-question in a sentence, and what would settle it. Three kinds: `source`, a
+stable slug for an id, its kind, whose court it waits in, the figure or table
+it bites, the question in a sentence, and what would settle it. Three kinds: `source`, a
 document to find or read; `decision`, a choice about how a number is built
 or shown; and `scope`, a proposal for analysis the report does not yet do,
-such as comparing Arlington's Board to peer localities. A row is something
+such as comparing Arlington's Board to peer localities.
+
+`waiting_on` names who owes the next move, not who would do the work. Five
+courts: `Sally`; `County` for anything the County meeting or its staff would
+answer, which includes every figure on turnout, party or the presidential
+vote and anything where County records may hold better data; `Claude` for
+what a session can reach from here; `RA` for an archive or a paywalled
+database it cannot; and `closeout` for what cannot move until the end of the
+project. An ask Sally makes whose answer is the County's waits on the
+County. How the work gets done is in `settles`, so no column repeats it.
+
+A row is something
 that would change a number, a citation or a figure's form, or add an
 analysis, once answered; meeting logistics and what to bring to whom are not
 tracked here. Nor is whether the report uses a figure that exists: the

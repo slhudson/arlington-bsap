@@ -74,8 +74,7 @@ are explained in `code/citekeys.py`, and what is still open is in
   places (`thomas-residence`). Tillema's and Massey's two sources also
   differ, but which each source says is settled; see "Reading an image".
 
-Each is a row in `docs/questions.csv`, with an owner and what would settle it.
-Each is a row in `docs/questions.csv`, with an owner and what would settle it.
+Each is a row in `docs/questions.csv`, with whose court it waits in and what would settle it.
 
 ---
 ## Local legal authority
