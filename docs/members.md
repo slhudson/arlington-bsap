@@ -683,7 +683,7 @@ pre-1912 readings stand as read.
 
 **Phillips's household is his father's (27 September 2026).** A second
 source was sought for the 1900 household rather than a third reading of the
-same smudge (`pre-1932-spot-check`): an 80-year-old father-in-law named
+same smudge: an 80-year-old father-in-law named
 Andrew Barbour and a daughter Margueritte born about 1889 are unusual
 enough to search on directly. WikiTree's profile for Robert Augustus
 Phillips (`wikitreephillips2024`), compiled from Find A Grave and the
