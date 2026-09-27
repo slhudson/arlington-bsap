@@ -24,9 +24,10 @@ point of this subject. Coverage, era by era (27 September 2026):
   candidates ran, all lost.
 - **1932–1986**: the claim at stake is two historians' sentences, not a
   check of the list (`black-losers-1932-on`). 1932–1950 (19 of the 55 years)
-  is now race-matched against the census, and it found one likely
-  exception, pending a second check against the sheet ("1932-1950,
-  race-matched against the census," below). **1950–1986, 36 years, is
+  is now race-matched against the census; a candidate who looked like an
+  exception on the index turned out, once the sheet was read, not to be one
+  ("1932-1950, race-matched against the census," below), so the census
+  check of this span found no Black candidacy. **1950–1986, 36 years, is
   entirely unstarted.**
 - **1987–2025**: the four Black members' own runs are tracked in full.
   Whether any *other* candidate in these 38 years was Black has not been
@@ -143,6 +144,53 @@ cannot reach the nomination stage, though: a candidate who lost a
 Democratic primary never appeared on the general ballot, and the county's
 list records primaries only patchily from 1950, the state's fully from
 2007, and a caucus or convention nomination never.
+
+**1932-1950, race-matched against the census.** Of the losing candidacies
+in this span, thirty-three distinct people have been checked against the
+1930-1950 census on Ancestry, each row logged in
+`data/transcribed/by_claude/candidates_census.csv` in the shape of
+`members_census.csv`, whether found or not. Fourteen are people who also
+served on the Board and already had a census record in
+`members_census.csv`; that record is reused here rather than re-searched.
+Twelve more are newly matched, each tied by `unique` - the only person of
+that name in Arlington in the census year searched - since no second source
+was in hand to try `occupation`, `household` or `address`. Seven were
+searched and not found under the name the election record gives.
+
+One of the twelve new matches, **William C. Ayres**, who lost County Board
+races in 1941 and 1943, looked at first like the only Black losing
+candidacy found in the 1932-1986 span the two sources' sentence covers:
+Ancestry's index transcribed the 1940 census as Negro (Black). The sheet
+itself, read on 27 September 2026, does not agree - it reads W (White) for
+Ayres, his wife and his mother-in-law alike, and Ancestry's own index
+carried White as an unfollowed bracketed alternate. The index's
+transcription was wrong; `census1940ayres` is corrected to White, and none
+of the twelve new matches is a Black candidacy.
+
+Two known oddities from the dedup thread bear on this slice. Five names the
+county's history prints only in a narrative block dated 1935, with no
+matching results-table row, are the same four people as four already-served
+members (Magruder, B. M. Smith, Lyman Kelley and Edmund Campbell) plus one
+non-candidacy (an appointment, "Judge McCarthy appointed" - not a person
+running, and not a row in `candidates_census.csv`); this confirms the
+mistagging is real rather than five new candidates. And the likely OCR
+duplicate "Dr. Victor Myers" / "Dr. Victoria Meyers" (1939) could not be
+resolved either way: neither spelling turns up an Arlington match in the
+1940 census index.
+
+The source citekeys for the twelve new matches (`census1940windridge`,
+`census1940ayres`, `census1940carretta`, `census1950divine`,
+`census1950gaines`, `census1950wimberly`, `census1950smith`,
+`census1950clair`, `census1950potter`, `census1950bach`,
+`census1940gordon`, `census1940donaldson`) are now entries in
+`paper/sources.bib`, each filed in Drive with its sheet image
+(`code/ancestry.py`, which now takes a `--file` naming a census-shaped table
+other than `members_census.csv`). Only `census1940ayres`'s sheet has been read for
+verification; the other eleven carry the index's transcription unread
+against the image, the same open state `census-match-quality` describes for
+`members_census.csv`. A clean-stage script to read this table into a figure
+is still unwritten. 1950-2025 press-based matching is a separate, later
+slice.
 
 **The figure.** `candidates` draws each candidacy in a regular or
 special election as a dot at its year, filled if won and a ring if lost,

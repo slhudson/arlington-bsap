@@ -138,12 +138,15 @@ def main():
                          "`all` rebuilds every one, which is how a change to the page "
                          "itself reaches the pages already filed")
     ap.add_argument("--documents", type=Path, default=archive.DOCUMENTS)
+    ap.add_argument("--file", type=Path, default=CENSUS,
+                    help="the census-shaped transcribed csv to file pages for "
+                         "(default: members_census.csv)")
     a = ap.parse_args()
 
     if not a.documents.is_dir():
         sys.exit(f"the Drive documents folder is not mounted at {a.documents}")
-    with CENSUS.open(newline="") as f:
-        rows = list(csv.DictReader(f))
+    with a.file.open(newline="") as f:
+        rows = [r for r in csv.DictReader(f) if r["source"] not in ("", "unsourced")]
     bib = archive.BIB.read_text()
 
     unnamed, todo, named = [], [], set()
