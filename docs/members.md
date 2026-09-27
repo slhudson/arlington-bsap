@@ -12,12 +12,13 @@ are explained in `code/citekeys.py`, and what is still open is in
 - 1889–1986 is coded all-White on the "first since Reconstruction" framing,
   and the five Reconstruction-era members rest on Hjerpe's census linking
   (`default-1931-1986`).
-- Gender rests on the default (man) for nine members: six seated before 1912
-  (H. Dwight Smith, Crocker, Schutt, Robinson, Willson and W. M. Febrey) and
-  the three of 1916–28 (Wibirt, Walker and Edward Duncan). The other 113 have
-  a census listing (70) or a pronoun or honorific in the press (40; three have
-  both).
-  `gender_evidence` in `members.csv` says which (`gender-from-names`).
+- Gender rests on the default (man) for seven members: five seated before 1912
+  (H. Dwight Smith, Crocker, Schutt, Robinson and Willson) and the two of
+  1916–28 (Wibirt and Walker). W. M. Febrey and Edward Duncan left this list
+  once joined to their census-sourced terms (`febrey-one-member-or-two`,
+  `duncan-one-member-or-three`, 27 September 2026). The other 115 have a
+  census listing or a pronoun or honorific in the press. `gender_evidence` in
+  `members.csv` says which (`gender-from-names`).
 - For the 40 members first seated 1932–1966 and the 38 first seated
   1870–1904, race and gender come from 75 census records covering 68 of the
   78, each index reading checked against the sheet where the row could be
@@ -31,8 +32,13 @@ are explained in `code/citekeys.py`, and what is still open is in
   year, and the age figure draws a year only when all but at most
   one sitting member has one. The figure is not in the paper yet, and it
   starts in 1932.
-- 1912–1931 names five terms and no more; the seats for those years are
-  assumed, not counted from them.
+- 1912–1931 named five terms and no more before 27 September 2026; the seats
+  for those years are assumed, not counted from them. Jefferson's is now an
+  exception: Edward Duncan's roster row (below) is sourced continuously
+  through the whole stretch, but `members_by_year.py` still states 1912–1931
+  itself and does not read the roster for those years by design ("So the
+  roster names almost nobody from 1912 to 1931," below), so the figure does
+  not yet reflect this and a decision is open on whether it should.
 - From 1907 O'Leary's surnames are not joined to earlier full names
   (`surnames-from-1907`).
 - 23 terms from 1932 carry no party, three labels are unresolved, and no
@@ -307,13 +313,14 @@ Thornburke, each with the highest vote). They are keyed in
 `data/transcribed/by_claude/members_terms.csv`, page 2 and page 4, as five
 terms seated the following January, with no end: the county gives neither a
 start nor an end, so the January start is the build's rule for a November
-winner and each term holds to the end of its first year (1924 and 1928). Ingram and Thornburke appear in no
-other source; both are marked "(inc.)" in 1923, so they were elected at one
-of the unrecorded elections after 1915, and the Alexandria Gazette and the
-Washington Star are where to look for the rest. Duncan is very likely the
-Duncan who held Jefferson from 1895 in O'Leary, which would make the gap two
-seats wide rather than three; the roster does not join him to "E. Duncan"
-(see the surnames row below).
+winner and each term holds to the end of its first year (1924 and 1928).
+Ingram and Thornburke appear in no other source; both are marked "(inc.)" in
+1923, so they were elected at one of the unrecorded elections after 1915,
+and the Alexandria Gazette and the Washington Star are where to look for the
+rest. Jefferson's "Duncan" is Edward Duncan, resolved (`duncan-one-member-or-
+three`, 27 September 2026): not the William Duncan who held Jefferson from
+1895, but the same man as the roster's earlier "E. Duncan" (1908–12) and
+"Duncan" (1916–20), one continuous term from 1908 to 1932 (below).
 
 **Mid-term handovers are terms like any other.** O'Leary records them as
 prose beside the elected member ("Replaced by H. Dwight Smith in Dec.;
@@ -532,6 +539,46 @@ district in 1872-73. For the members seated 1870–1911 the 1880, 1900 and 1910
 sheets name a magisterial district at the head of each page and, outside
 the towns, leave the street column blank, so the district is the place
 recorded, in the sheet's own words.
+
+**Edward Duncan held Jefferson continuously from 1908 to 1932, one term, not
+four.** The roster previously carried him as four separate rows across three
+names, "E. Duncan" (1908–12), "Duncan" (1916–20) and "Edward Duncan" (1924–28,
+two terms): O'Leary's and the county's own records give an election for 1908,
+1916, 1920 and 1924, but nothing for the two four-year cycles between them,
+1912–16 and 1920–24. The Alexandria Gazette fills both gaps: he is named
+chairman of the board of supervisors in three pieces spanning May 1913 to
+December 1915 (`alexandriagazette1913duncan`, `alexandriagazette1914duncan`,
+`alexandriagazette1915duncan`), an explicit December 1919 notice re-elects him
+for a term starting January 1920 (`alexandriagazette1919duncan`), and an
+October 1921 piece still names him a sitting member, with leadership by then
+rotated to Frank Ballenger (`alexandriagazette1921duncan`). He did not run
+again in November 1931: a Washington Times election wrap-up has him a distant
+third in the sheriff's race, "considered [the] most formidable rival because
+of his 24 years' experience on the county board of supervisors"
+(`washingtontimes1931duncan`), naming the same 24 years as his October 1938
+obituary (read in prose, not yet filed with a citekey). Twenty-four years
+back from a term ending January 1932 is 1908 — his first election. Sally
+decided (27 September 2026) to record this as one term rather than one row
+per election: 1908, 1916, 1920 and 1924 are each a sourced election win;
+1912 and 1928 are known only because he is shown in office both before and
+after each, not by a recorded win in either year, so the roster cannot say
+those two renewals were contested (`duncan-one-member-or-three`).
+
+The two census records that place him, `census1910duncan` (Jefferson, an
+engineer, a one-year-old son Morton) and `census1920duncan` (the same
+household ten years on, Morton now ten, the same trade and Irish parents,
+"the only Edward Duncan in the county that year"), independently confirm one
+man rather than three: race and gender attach from both records once the
+roster carries one name across the whole term. They disagree on his birth
+year, though — 1872 by the 1910 sheet's age, "abt 1870" by the 1920 sheet's,
+neither a printed date — so both are named in `AGE_MISREPORTED` and he has no
+birth year in the table (`duncan-edward-birth-year`).
+
+**`members_by_year.py` does not yet reflect this.** It states 1912–1931
+itself, from the standing assumption of three seats held by white men, and
+does not read the roster for those years by design (above); Edward Duncan's
+now-continuous term does not change what that table or the figure built from
+it shows. Whether it should is an open decision, not yet made.
 
 The filed copy of each record's Ancestry page is written by
 `code/ancestry.py` from the row's own `quote`, since Ancestry refuses an
