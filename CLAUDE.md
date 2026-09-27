@@ -25,8 +25,8 @@ The five data layers are sorted by how the numbers were produced — published,
 read by software, keyed in by a person, reshaped, or decided here. Which
 folder something belongs in depends on that, not on what it is about. Inside
 `raw/`, folders are named for who published the material, not its subject.
-`data/contents.csv` is the inventory: one row per file, with its layer, what
-produced it, its source, what reads it, and for `raw/` a checksum;
+`data/contents.csv` is the inventory: one row per file, with its layer, its
+source, and for `raw/` a checksum;
 `code/tests.py` refuses a file with no row and a raw file whose checksum has
 moved.
 
@@ -296,13 +296,14 @@ second session can check. Branches are invisible until pushed and can be
 renamed, so a gate on "has that branch merged" passes for the wrong reason.
 Push a branch the moment it is created, so that others can see it exists.
 
-**Each session works in its own worktree** (`git worktree list`). Two
-sessions sharing one checkout once produced committed figures built against
-uncommitted edits, so `figures/` no longer matched `data/clean/` beside it.
-A session hook in `.claude/settings.json` reminds an agent that starts in the
-main checkout to offer a worktree when others may be working, and to check the
-branch name fits the task. It advises; it never blocks, since collaborators
-may be new to Git.
+**One session in a checkout works on main; two at once each take a
+worktree on a branch** (`git worktree list`). Two sessions sharing one
+checkout once produced committed figures built against uncommitted edits, so
+`figures/` no longer matched `data/clean/` beside it. Collaborators each work
+in their own clone and meet only at push: a rejected push means pull, run the
+build again, push. A session hook in `.claude/settings.json` says which case
+applies at the start of every session, in plain words. It advises; it never
+blocks, since collaborators may be new to Git.
 The build itself is reproducible: the same sources in a fresh virtualenv give
 byte-identical figures.
 

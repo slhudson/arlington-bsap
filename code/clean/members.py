@@ -173,8 +173,8 @@ def held(terms: pd.DataFrame) -> pd.DataFrame:
     exclusive. An unrecorded end holds to the end of its first year, and a
     term ending in the month another term in the same district begins
     yields that month to the incoming member."""
-    end_year = terms.end_year.fillna(terms.start_year)
-    end_month = terms.end_month.fillna(12)
+    end_year = pd.to_numeric(terms.end_year).fillna(terms.start_year)
+    end_month = pd.to_numeric(terms.end_month).fillna(12)
     start = terms.start_year * 12 + terms.start_month - 1
     stop = end_year * 12 + end_month
     starts = terms.assign(start=start).groupby("district").start.apply(set)

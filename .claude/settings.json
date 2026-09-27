@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "[ \"$(git rev-parse --git-dir)\" = \"$(git rev-parse --git-common-dir)\" ] && echo \"Note: this session is in the main checkout, not a worktree. If another agent may be working in this repo, offer to work in a worktree on a new branch (EnterWorktree) so edits do not mix; if the user is working alone, carry on. Either way, check that the current branch ($(git branch --show-current)) fits this task before committing, and explain any git step in plain words.\" || true"
+            "command": "if [ \"$(git rev-parse --git-dir 2>/dev/null)\" = \"$(git rev-parse --git-common-dir 2>/dev/null)\" ]; then if [ \"$(git worktree list | wc -l)\" -gt 1 ]; then echo \"Note: this is the main checkout and other worktrees exist, so other sessions may be working in this repository. Offer to work in a worktree on a new branch (EnterWorktree) so edits do not mix, and check that the current branch ($(git branch --show-current)) fits this task before committing. Explain any git step in plain words.\"; else echo \"Note: this is the only session in this checkout. Work on main. Commit and push when a full 'bash run.sh' passes; if the push is rejected because someone else pushed first, pull, run 'bash run.sh' again, then push. Explain any git step in plain words.\"; fi; fi; true"
           }
         ]
       }

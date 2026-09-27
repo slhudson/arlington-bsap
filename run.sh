@@ -161,15 +161,12 @@ fi
 # read by the build.
 missing=$("$PY" -c '
 import csv, pathlib
-for r in csv.DictReader(open("data/contents.csv")):
-    if r["in_git"] == "no" and not pathlib.Path(r["path"]).exists():
-        print(r["path"])')
-if [ -n "$missing" ]; then
+print(sum(1 for r in csv.DictReader(open("data/contents.csv"))
+          if r["in_git"] == "no" and not pathlib.Path(r["path"]).exists()))')
+if [ "$missing" -gt 0 ]; then
   echo
-  echo "not on disk, and not needed to build:"
-  printf '%s\n' "$missing" | sed 's/^/  /'
-  echo "  scans: .venv/bin/python code/fetch/census_volumes.py"
-  echo "  OCR text under data/transcribed/by_ocr/ (a Mac): .venv/bin/python code/transcribe/census.py"
+  echo "$missing census scans and OCR files are not on disk; the build never reads them."
+  echo "  to fetch the scans: .venv/bin/python code/fetch/census_volumes.py; the OCR (a Mac): .venv/bin/python code/transcribe/census.py"
 fi
 
 # Overleaf's limits on the files it syncs: 100MB in all, 7MB of editable

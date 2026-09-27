@@ -4,6 +4,11 @@ Historical and descriptive-representation analysis for Arlington County's Board
 Structure and Performance study. National Civic League (prime), with Sally
 Hudson (Ranked Choice Virginia) and Alex Keena (VCU).
 
+**Joining?** `docs/setup.md` is written to be pasted into a Claude
+conversation and walks through getting set up. Day to day: ask Claude Code
+for the change, `bash run.sh <figure>` shows one figure in seconds, a full
+`bash run.sh` before you commit, and commit and push on main.
+
 **Start with `CLAUDE.md`.** It holds the working rules and explains the one
 idea everything else follows: `code/build/` reshapes the sources without
 deciding anything, `code/clean/` decides what a number *is*, `code/analysis/`
@@ -103,7 +108,7 @@ silently go stale.
 | File | What it holds |
 |---|---|
 | `CLAUDE.md` | Working rules; the build/clean/analysis split; naming |
-| `data/contents.csv` | Every data folder and file: where it came from, what reads it |
+| `data/contents.csv` | Every data folder and file, and where it came from |
 | `docs/residents.md`, `docs/voters.md`, `docs/members.md`, `docs/candidates.md`, `docs/localities.md` | What each number is, what backs it, what is assumed, and why; one per population |
 | `docs/questions.csv` | What is still open: one row per item with an owner, what it bites and what would settle it |
 | `docs/setup.md` | Getting a machine set up to build; written for a collaborator joining |

@@ -593,16 +593,12 @@ def test_a_category_merged_in_the_build_stage_is_refused():
 
 def test_the_clean_stage_has_no_route_above_built():
     """A name in code/clean/paths.py that points under data/raw/ or
-    data/transcribed/, or an inventory row saying a clean step reads a file
-    there. A source reaches the clean stage through a build step or not at all."""
+    data/transcribed/. A source reaches the clean stage through a build step
+    or not at all."""
     above = (ROOT / "data" / "raw", ROOT / "data" / "transcribed")
     routes = [n for n, v in vars(paths).items()
               if isinstance(v, Path) and any(v == a or a in v.parents for a in above)]
     assert not routes, f"code/clean/paths.py maps a path above data/built/: {routes}"
-    direct = [r["path"] for r in csv.DictReader((ROOT / "data" / "contents.csv").open())
-              if r["layer"] not in ("built", "clean") and "code/clean/" in r["read_by"]]
-    assert not direct, ("data/contents.csv says a clean step reads these directly; give each a "
-                        "build step:\n  " + "\n  ".join(direct))
 
 
 def test_party_must_account_for_the_same_seats():
@@ -933,37 +929,6 @@ def test_every_data_file_is_inventoried():
              and hashlib.sha256((ROOT / p).read_bytes()).hexdigest()[:16] != r["sha256"]]
     assert not moved, ("raw files whose checksum does not match data/contents.csv - data/raw/ "
                        "is never edited:\n  " + "\n  ".join(moved))
-
-
-def test_the_inventory_names_what_reads_each_table():
-    """A built or clean table whose read_by in data/contents.csv is not the
-    scripts that read it: a clean step's built("x") or read("x"), or an
-    analysis script's paths.NAME where code/analysis/paths.py maps NAME to
-    x.csv. The inventory is the only place a reader is written down, and
-    nothing else notices when one is added or dropped."""
-    mapped = {m.group(2): m.group(1) for m in re.finditer(
-        r'^(\w+) = CLEAN / "(\w+)\.csv"', (ROOT / "code" / "analysis" / "paths.py").read_text(), re.M)}
-
-    def readers(layer, stem):
-        found = []
-        for script in sorted((ROOT / "code" / "clean").glob("*.py")):
-            text = script.read_text()
-            if (layer == "built" and f'built("{stem}")' in text) or (layer == "clean" and f'read("{stem}")' in text):
-                found.append(str(script.relative_to(ROOT)))
-        if layer == "clean":
-            for script in sorted((ROOT / "code" / "analysis").glob("*.py")):
-                if re.search(rf"paths\.{mapped[stem]}\b", script.read_text()):
-                    found.append(str(script.relative_to(ROOT)))
-        return "; ".join(found)
-
-    problems = []
-    for r in csv.DictReader((ROOT / "data" / "contents.csv").open()):
-        if r["layer"] not in ("built", "clean"):
-            continue
-        got = readers(r["layer"], Path(r["path"]).stem)
-        if got != r["read_by"]:
-            problems.append(f"{r['path']}: read_by says {r['read_by']!r}; the scripts that read it: {got!r}")
-    assert not problems, "data/contents.csv is out of date:\n  " + "\n  ".join(problems)
 
 
 def test_docs_agree_with_run_sh():

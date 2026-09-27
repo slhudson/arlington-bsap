@@ -188,6 +188,11 @@ revisit.
   about five seconds. It skips the tests and the data stages when nothing
   they depend on has changed. The full `bash run.sh`, about a minute, is for
   once before a commit, and after any change to the style layer.
+- **A request that is a choice is answered with both pictures.** "Start it
+  in 1950 instead of 1930" is a decision the person asking wants to make by
+  looking. Build the alternative, copy its png out of `figures/` to a
+  scratch path, put the script back, and show the committed version and the
+  alternative side by side. Change what is committed only after they choose.
 - Render the figure, look at the image, and show it, before saying anything
   about it. Check it against this file first. Every rule above has been broken at least once by
   not looking.
