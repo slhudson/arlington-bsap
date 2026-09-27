@@ -195,9 +195,9 @@ SEATED = {
     ("A. B. Grunwell", "Washington", 1897):
         ("George N. Saegmuller",
         "The article puts Saegmuller in the Washington seat from 1 July 1897, "
-        "where O'Leary keeps Grunwell to 1899. Grunwell's service therefore "
-        "ends with his 1895-97 term and Saegmuller's begins two years earlier "
-        "than the roster had it (Sally, 27 September 2026)."),
+        "where O'Leary keeps Grunwell to 1899. The minute books name the man "
+        "who sat, so Grunwell's service ends with his 1895-97 term and "
+        "Saegmuller holds the seat from July 1897 (Sally, 27 September 2026)."),
 }
 
 

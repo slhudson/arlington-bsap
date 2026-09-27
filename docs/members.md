@@ -50,12 +50,14 @@ are explained in `code/citekeys.py`, and what is still open is in
 - 1870–1911 rests on O'Leary's electoral history and the same article
   together: the article settles seven names, the July–June term year and
   five terms O'Leary does not record (below, "The article corrects and adds
-  for 1870 to 1911"). Three things about that stretch are open and
+  for 1870 to 1911"). Two things about that stretch are open and
   change no value in the meantime: two spellings
-  (`arlhist-birch-perkin-spellings`), two seats the article gives to a
-  different man (`arlhist-seats-1870-1911`), and whether the 1892 William N.
+  (`arlhist-birch-perkin-spellings`) and whether the 1892 William N.
   Febrey is the W. N. Febrey of 1904–11 (`febrey-1892-one-member-or-two`).
   The statute behind the July seating is uncited (`may-election-seating`).
+  The two seats the article gives to a different man are settled, and the
+  roster follows it in both: see "Two seats go to the man the minute books
+  show sitting" below.
 - 23 terms from 1932 carry no party, three labels are unresolved, and no
   party is attempted before 1932 (`party-unlabelled`, `party-before-1932`).
 - Each place carries a precision, from the place's own words by rules in
@@ -395,8 +397,7 @@ Thornburke in Washington, each the only name listed) and November 1927
 terms seated the following January, with no end recorded: the county gives
 neither a start nor an end, so the January start was the build's rule for a
 November winner and each term held to the end of its first year (1924 and
-1928). Jefferson's "Duncan" is Edward Duncan
-(`duncan-one-member-or-three`): not the William Duncan who
+1928). Jefferson's "Duncan" is Edward Duncan: not the William Duncan who
 held Jefferson from 1895, but the same man as the roster's "E. Duncan"
 (1908–12) and "Duncan" (1916–20), one continuous term from 1908 to 1932
 (below).
@@ -949,7 +950,7 @@ term rather than one row per election (Sally, 27 September 2026):
 1908, 1916, 1920 and 1924 are each a sourced election win;
 1912 and 1928 are known only because he is shown in office both before and
 after each, not by a recorded win in either year, so the roster cannot say
-those two renewals were contested (`duncan-one-member-or-three`).
+those two renewals were contested.
 
 The two census records that place him, `census1910duncan` (Jefferson, an
 engineer, a one-year-old son Morton) and `census1920duncan` (the same

@@ -28,7 +28,7 @@ APPOINTED_AFTER_VACANCY = re.compile(
 # ways; the Alexandria Gazette's independent read of the 1907 vote count
 # agrees with the county list on all three tallies but gives the winner's
 # middle initial as N, not M, so both are read as one man (docs/members.md,
-# febrey-one-member-or-two).
+# "W. N. Febrey is one household").
 NAME_CORRECTIONS = {
     (1903, "W. N. Febrey County"): "W. N. Febrey",
     (1907, "W.M. Febrey"): "W. N. Febrey",
@@ -37,7 +37,7 @@ NAME_CORRECTION_NOTES = {
     (1907, "W. N. Febrey"): "The county's list names this term's winner "
         "W.M. Febrey; the Alexandria Gazette's independent read of the same "
         "three vote tallies gives W. N. Febrey (alexandriagazette1907election), "
-        "read as one man with the 1904-08 term (febrey-one-member-or-two).",
+        "read as one man with the 1904-08 term (docs/members.md).",
 }
 
 
