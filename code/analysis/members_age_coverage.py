@@ -2,8 +2,8 @@
 -> figures/members_age_coverage.pdf, .png
 
 A stacked step area of the members sitting on 1 July of each year, those
-with a birth year and those without, with the 1932 rule. Years with no
-roster are gaps.
+with a birth year and those without, with the 1932 rule. A year the roster
+names nobody in is a gap.
 """
 import pandas as pd
 
