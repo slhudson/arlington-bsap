@@ -899,7 +899,9 @@ def test_every_source_with_a_url_is_filed():
             problems.append(f"{key}: says it is not filed - file it in Drive and say so, "
                             f"or log a question naming the key")
         has_url = re.search(r"^\s*url\s*=", body, re.M)
-        held = "Filed in Drive as" in body or "data/raw/" in body
+        # Whitespace-tolerant: biblatex wraps an annotation anywhere, so a
+        # literal match would fail an entry that names its copy across a line.
+        held = re.search(r"Filed\s+in\s+Drive\s+as", body) or "data/raw/" in body
         if has_url and not held and key not in questions():
             problems.append(f"{key}: has a url but names no copy - add 'Filed in Drive as \"...\"' "
                             f"or the path under data/raw/, or log a question naming the key")
