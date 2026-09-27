@@ -694,16 +694,20 @@ year; its own sources cite this same 1900 record, roll 1698, page 10,
 ED 3, as his. The household is his, and the second reading, **A**, is
 right. It is not the member's: Robert Augustus had an elder son by an
 earlier marriage, a distinct man named Robert Henry Phillips (1865–1942),
-who does not appear in the 1900 household. Nothing ties Robert Augustus,
-a Washington, D.C. household in 1900 and buried there in 1912, to the
-Board or to Arlington. `census1900phillips`'s match is withdrawn (`match`
+who does not appear in the 1900 household. The sheet puts Robert Augustus
+in the Washington district of Alexandria County, the district the member
+sat for, which is why the match looked right for as long as it did; what
+separates the two men is the roster's middle name, Henry, against the
+sheet's A. He married in Washington, D.C. in 1880 and died there in 1912.
+`census1900phillips`'s match is withdrawn (`match`
 set to `none`) and it gives R. Henry Phillips, the member of 1893–95,
 nothing: his race (**White**) now rests on the default, as it does for
 every member before 1912 except Roach, and he has no residence claim at
 all, joining the seven members with no census record found
 (`residence-pre-1932`). No record of Robert Henry Phillips himself in
 Alexandria County or Arlington was found in this search; if one turns up
-later, it is the one to try.
+later, it is the one to try, and his father's household in the Washington
+district is a reason to look there.
 
 **Five members off the assumed list (26 September 2026).** The censuses of
 the years each served were searched for the members whose gender rested on
