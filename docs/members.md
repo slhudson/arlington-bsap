@@ -434,17 +434,18 @@ where Novack and the county's candidate history already name the Board.
 Across all 180 rows the three agree on membership: the same members in the
 same seats, so nothing there moves a seat-month and no figure turns on it.
 Six particulars differ, and they matter because the roster is itself a work
-product the County receives, not only an input to the figures. One is
-settled: the article and Novack give Harry W. Cuppett's given name as Harry
-and the county's history gives Henry, and the 1950 census index and sheet
+product the County receives, not only an input to the figures. Two are facts
+about a man and both are settled. Harry W. Cuppett's given name is Harry, as
+the article and Novack give it against the county's Henry: the 1950 census
+index and sheet
 read Harry W Cuppett, as do the Daily Sun and the Sun of 1947 printing his
 house at 1011 North Stafford Street (`census1950cuppett`, `tad1947cuppett`,
-`sun1947candidates`), so Harry is the name and Henry a variant of it. One is
-open and is a fact about a man rather than a label: the article prints John
-C. Gall as having resigned on 31 May 1933 where the county's history has him
-die in office (`arlhist-vs-novack-1932-1960`). The remaining four are labels
-nothing here reads — two dates, a chairmanship the roster does not record,
-and a one-block misprint of Lloyd as Loyd.
+`sun1947candidates`), so Henry is a variant of it. And John C. Gall resigned
+on 31 May 1933 rather than dying in office as the county's history has it
+(below). The remaining four are labels nothing here reads — two dates, a
+chairmanship the roster does not record, and a one-block misprint of Lloyd as
+Loyd — and whether the County's copy should follow either date is
+`arlhist-vs-novack-1932-1960`.
 
 **How the article is read.** The article prints the Board in blocks, each
 block one stretch with a settled membership and a named chairman, so a block
@@ -711,16 +712,16 @@ appointment is dated and no departure accounts for it, the one member whose
 span ends that year undated left in the month of the appointment; more than
 one candidate stops the build.
 
-**Gall resigned; he did not die in office (27 September 2026).** The
+**Gall resigned; he did not die in office.** The
 Historical Society's article for 1932-1960
 (`arlington_historical_magazine/arlhist_terms_1932-1960.csv`, keyed the same
-way as the 1912-1931 stretch above but not yet read into the roster) and
+way as the 1912-1931 stretch above but not read into the roster) and
 Novack both print John C. Gall's term as ending in a resignation, 31 May
-1933; the county's candidate history alone calls it a death in office
-(`arlhist-vs-novack-1932-1960`). The two agreeing sources are the Board's own
-minute books; the roster already carries the resignation
-(`novack1994`, source column), so this is a check of a value already right
-rather than a change to one. Searched and found nothing: the Evening Star
+1933; the county's candidate history alone calls it a death in office. The
+two agreeing sources are the Board's own
+minute books, and the roster carries the resignation from Novack
+(`novack1994`, source column), so no value in `members.csv` rests on the
+county's version. Searched and found nothing: the Evening Star
 (Chronicling America) around his departure and later in 1933 prints no
 obituary, death notice or successor-appointment story naming him, under
 several searches on his name, "Aurora Hills" and Benjamin M. Smith's
