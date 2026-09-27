@@ -16,6 +16,10 @@ their types, and reads the county's labels.
 
 The county's candidate history (arlingtonelections2021) runs to the 2021
 election; the state's database (vaelections) is read from 2000.
+
+A County Board candidacy the county's history prints on a second page, in
+another format, is collapsed to one row before anything else reads it:
+_dedup_board_pages() (docs/candidates.md, "Duplicate pages").
 """
 import re
 
@@ -116,6 +120,62 @@ def contest_rows(g):
     return named, not (missing or partial), note
 
 
+def _dedup_board_pages(e: pd.DataFrame) -> pd.DataFrame:
+    """One row per County Board candidacy per contest.
+
+    The county's candidate history sometimes prints a contest twice: a
+    results table, with vote counts, and a narrative of the board's
+    turnover (holdovers, incumbents, an appointment), without. The two can
+    even disagree on the contest's exact date. Within a year, office and
+    kind of election (regular, special or primary - not the printed date,
+    which the two pages need not share), a candidate named on more than one
+    page keeps the row with a vote count, or the first row if neither page
+    has one; a second table transcribed twice collapses to whichever copy
+    is read first. The narrative's own words for the candidate survive in
+    `status`; if the kept row carries no party label and a dropped one
+    carries exactly one, it moves onto the kept row so label_of() still
+    finds it. Two pages
+    naming the same candidate with two different counts is not this
+    pattern, and stops the build.
+
+    Rows for every other office pass through unchanged, `status` blank.
+    """
+    board = (e.record == "county") & e.office.str.match(BOARD)
+    rest = e[~board].assign(status="")
+    if not board.any():
+        return rest
+    b = e[board].copy()
+    b["_votes"] = pd.to_numeric(b.votes.str.replace(",", ""), errors="coerce")
+    b["_surname"] = b.candidate.map(surname)
+    b["_base"] = b.office.str.replace(r"\s*\(.*", "", regex=True).str.strip()
+    b["status"] = ""
+    kept = []
+    for key, g in b.groupby(["year", "_base", "primary", "special"], sort=False):
+        named = g[g.person == "True"]
+        for _, rows in named.groupby("_surname", sort=False):
+            if len(rows) == 1:
+                kept.append(rows)
+                continue
+            with_votes = rows[rows._votes.notna()]
+            if with_votes._votes.nunique() > 1:
+                raise ValueError(
+                    f"{key[0]} {key[1]}: {rows.candidate.iloc[0]!r} and "
+                    f"{rows.candidate.iloc[-1]!r} carry different vote counts across pages "
+                    f"{sorted(rows.page.unique())} - not the same candidacy twice, or a real "
+                    f"disagreement to resolve by hand")
+            keep = (with_votes if len(with_votes) else rows).iloc[[0]].copy()
+            others = [t for t in rows.candidate if t != keep.candidate.iloc[0]]
+            keep["status"] = "; ".join(others)
+            if not labels_on(keep.candidate.iloc[0]):
+                found = {l for t in others for l in labels_on(t)}
+                if len(found) == 1:
+                    keep["candidate"] = keep.candidate + f" ({found.pop()})"
+            kept.append(keep)
+        kept.append(g[g.person != "True"])
+    b = pd.concat(kept).drop(columns=["_votes", "_surname", "_base"])
+    return pd.concat([rest, b]).sort_index()
+
+
 def _typed(e: pd.DataFrame) -> pd.DataFrame:
     """The built rows with their types: years and counts as numbers, flags
     as booleans, and the state's blank party as missing rather than ""."""
@@ -146,13 +206,13 @@ def _selected(e: pd.DataFrame, office) -> pd.Series:
 
 def contests(office=BOARD) -> pd.DataFrame:
     """Both records' rows for `office`, typed, county rows first."""
-    e = paths.built("elections")
+    e = _dedup_board_pages(paths.built("elections"))
     return _typed(e[_selected(e, office)])
 
 
 def county_history(office=BOARD) -> pd.DataFrame:
     """The county's candidate history for `office`, typed."""
-    e = paths.built("elections")
+    e = _dedup_board_pages(paths.built("elections"))
     return _typed(e[(e.record == "county") & _selected(e, office)])
 
 

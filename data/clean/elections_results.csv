@@ -39,7 +39,7 @@ year,office,dem,rep,abc,other,unrecorded,total,complete,source,note
 2020,president,105344,22318,0,1836,0,129498,True,vaelections contest 144567,
 2024,president,100446,25223,0,2693,0,128362,True,vaelections contest 161256,
 1931,county board,0,2088,0,0,7672,9760,False,arlingtonelections2021 p.6,(others not mentioned)
-1935,county board,0,0,0,0,15869,15869,True,arlingtonelections2021 p.10,
+1935,county board,0,2890,0,0,12979,15869,True,arlingtonelections2021 p.10,
 1939,county board,25597,8092,0,0,0,33689,True,arlingtonelections2021 p.12,
 1940,county board,5538,4128,0,0,0,9666,True,arlingtonelections2021 p.12,
 1941,county board,0,0,0,0,2797,2797,True,arlingtonelections2021 p.12,
