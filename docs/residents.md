@@ -48,8 +48,8 @@ act); Virginia extended her laws over the county by an act of 13 March
 1847, when the transfer took effect. "Retroceded in 1846" is Congress and
 the residents' choice; "part of Virginia from 1847" is the transfer. The
 acceptance act is `vaacts1846acceptance`, ch. 64 of the 1845-46 session,
-passed 3 February 1846. The 13 March 1847 act is not yet cited
-(`retrocession-acts`).
+passed 3 February 1846. The extending act is `vaacts1847`, ch. 53 of the
+1846-47 session, passed 13 March 1847, effective 20 March 1847.
 | 1920– | Arlington County, Virginia | the three districts only |
 
 Two dates do the work. **In 1900** Alexandria city became independent of the

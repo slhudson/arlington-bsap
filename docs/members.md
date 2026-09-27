@@ -227,15 +227,18 @@ name it can sue and be sued by (`vaacts1870`). That order is why the roster
 starts at the May 1870 election and not at ratification.
 
 **Townships became magisterial districts in 1875, without a change of unit.**
-An amendment to art. VII respecting county organization was ratified on 3
-November 1874, and ch. 76 of the 1874–75 session, approved 5 February 1875,
-declares the townships as they stood on that date to be the magisterial
-districts the amendment directs, keeping their boundaries, names and voting
-places; ch. 69, approved 2 February 1875, makes "township" in any earlier
-statute read as those districts (`vaacts1875`). The conversion renames units
-Alexandria County already had, which is why the roster shows no seat-count
-change at that point. The amendment's own text has not been read: both
-chapters describe it and date its ratification, and that is what is cited.
+The amendment to art. VII respecting county organization, agreed to 31
+March 1873 and ratified by the people 3 November 1874, struck the section
+dividing counties into townships and inserted one dividing them into
+magisterial districts instead, each electing one supervisor, three
+justices, one constable and one overseer of the poor (`vaacts1873amendment`,
+ch. 301 of the 1872–73 session). Ch. 76 of the 1874–75 session, approved 5
+February 1875, then declares the townships as they stood on the date of
+ratification to be the magisterial districts the amendment directs, keeping
+their boundaries, names and voting places; ch. 69, approved 2 February
+1875, makes "township" in any earlier statute read as those districts
+(`vaacts1875`). The conversion renames units Alexandria County already had,
+which is why the roster shows no seat-count change at that point.
 
 **Before 1870 the county court governed, and its justices were elected by
 district from 1852.** The 1851 constitution puts a County Court in each
