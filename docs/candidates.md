@@ -111,6 +111,46 @@ Democratic primary never appeared on the general ballot, and the county's
 list records primaries only patchily from 1950, the state's fully from
 2007, and a caucus or convention nomination never.
 
+**1932-1950, race-matched against the census.** Of the losing candidacies
+in this span, thirty-three distinct people have been checked against the
+1930-1950 census on Ancestry, each row logged in
+`data/transcribed/by_claude/candidates_census.csv` in the shape of
+`members_census.csv`, whether found or not. Fourteen are people who also
+served on the Board and already had a census record in
+`members_census.csv`; that record is reused here rather than re-searched.
+Twelve more are newly matched, each tied by `unique` - the only person of
+that name in Arlington in the census year searched - since no second source
+was in hand to try `occupation`, `household` or `address`. Seven were
+searched and not found under the name the election record gives.
+
+One of the twelve new matches is **William C. Ayres**, who lost County
+Board races in 1941 and 1943: the 1940 census records him as Negro (Black),
+head of household at 1635 North Wood Street, Freight Agent, wife Dorothy V.
+(`census1940ayres`). This is the only Black losing candidacy found in the
+1932-1986 span the two sources' sentence covers, and Sally has not yet
+reviewed the record.
+
+Two known oddities from the dedup thread bear on this slice. Five names the
+county's history prints only in a narrative block dated 1935, with no
+matching results-table row, are the same four people as four already-served
+members (Magruder, B. M. Smith, Lyman Kelley and Edmund Campbell) plus one
+non-candidacy (an appointment, "Judge McCarthy appointed" - not a person
+running, and not a row in `candidates_census.csv`); this confirms the
+mistagging is real rather than five new candidates. And the likely OCR
+duplicate "Dr. Victor Myers" / "Dr. Victoria Meyers" (1939) could not be
+resolved either way: neither spelling turns up an Arlington match in the
+1940 census index.
+
+The source citekeys for the twelve new matches (`census1940windridge`,
+`census1940ayres`, `census1940carretta`, `census1950divine`,
+`census1950gaines`, `census1950wimberly`, `census1950smith`,
+`census1950clair`, `census1950potter`, `census1950bach`,
+`census1940gordon`, `census1940donaldson`) are not yet entries in
+`paper/sources.bib` or filed to Drive; that is the next step before a
+clean-stage script could read this file the way `code/clean/members_census.py`
+reads `members_census.csv`. 1950-2025 press-based matching is a separate,
+later slice.
+
 **The figure.** `candidates` draws each candidacy in a regular or
 special election as a dot at its year, filled if won and a ring if lost,
 with runs in the same year stacked; primaries are in the table and not
