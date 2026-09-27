@@ -34,7 +34,7 @@ neither repeats the reasons.
   Urban's rule for PDF products.
 - No value labels on bars.
 - Do not re-raise what is already written down: a decision in
-  `docs/residents.md`, `docs/members.md` or `docs/voters.md`, or a row in
+  `docs/residents.md`, `docs/members.md` or `docs/elections.md`, or a row in
   `docs/questions.csv` with an owner.
   The vote-per-seat denominator on `turnout` is the standing example.
 

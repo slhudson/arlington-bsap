@@ -84,7 +84,7 @@ PARTY = {
     "ind":        ("independent", GREY),
     "rep":        ("Republican", OKABE_ITO["vermilion"]),
 }
-VOTERS = {"dem": PARTY["dem"], "other": ("other", GREY), "rep": PARTY["rep"]}
+ELECTIONS_RESULTS = {"dem": PARTY["dem"], "other": ("other", GREY), "rep": PARTY["rep"]}
 BOARD_VOTE = {**{k: PARTY[k] for k in ("dem", "abc", "unrecorded")},
               "other": ("other", GREY), "rep": PARTY["rep"]}
 POPULATION = ("total population", DARK)

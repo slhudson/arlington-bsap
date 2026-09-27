@@ -487,11 +487,11 @@ there the labels can be shortened and here the years cannot.
   the seat and a figure about running and losing cannot leave Spain's 2023
   loss out (Sally, 26 September 2026). The 1932 rule is drawn, since the three losses of 1931
   are the first at-large election. One legend, won and lost, below.
-- **voters_president.** Stacked bars, because an election is a point in
+- **elections_president.** Stacked bars, because an election is a point in
   time; a step would claim the share held for four years. Incomplete years
   are left out rather than drawn short.
-- **voters_board.** A step area, because the series is annual. A separate
-  figure from voters_president rather than a panel, because they are not the
+- **elections_board.** A step area, because the series is annual. A separate
+  figure from elections_president rather than a panel, because they are not the
   same voters and a shared frame would say they were.
 - **turnout.** The Board's voters as four series, one per place in the
   four-year cycle, each every fourth year. Drawn as one annual line the

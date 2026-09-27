@@ -64,29 +64,32 @@ prefixes, no `_chart` suffixes: the directory says what the stage does, the
 filename says which thing. `run.sh` checks this after every figure, and warns
 about figures in `figures/` that no step produces.
 
-**A name's first word is the population the file is about; the rest says how
-that population is cut or what about it is measured.** There are five:
-`residents`, the county's people; `voters`, its electorate; `members`, the
-people who have served on the Board; `candidates`, the people who have run for
-it; and `localities`, the Virginia jurisdictions Arlington is set against.
-Then `residents_by_district`, `members_race`, `voters_turnout`,
-`localities_density`. Everything here is Arlington and everything is about the
+**A name's first word is the subject the file is about; the rest says how that
+subject is cut or what about it is measured.** There are five: `residents`, the
+county's people; `elections`, the contests they vote in; `members`, the people
+who have served on the Board; `candidates`, the people who have run for it; and
+`localities`, the Virginia jurisdictions Arlington is set against. Then
+`residents_by_district`, `members_race`, `elections_turnout`,
+`localities_density`. A subject is whatever a file is about, so people, places
+and events all qualify; nothing is gained by forcing them into one word. Everything here is Arlington and everything is about the
 Board, so nothing is prefixed `arlington_` and nothing is prefixed `board_`.
 
 **The rows are the test of the first word, not its definition.**
 `residents.csv` is one row per census year with residents in the columns, and
 `members_by_year.csv` is one row per year with members in them; neither holds
-a row per person, and both are named for the population they count. What the
-test catches is a file whose rows are a population its name does not mention.
+a row per person, and both are named for the subject they count. What the
+test catches is a file whose rows are a subject its name does not mention.
 A table of peer localities is `localities`, because no row in it is a member, a
-seat or a year of Arlington's Board.
+seat or a year of Arlington's Board. And a table of votes by contest is
+`elections_results` rather than `voters`: what it counts is votes, and a voter
+appears in it once per contest.
 
 **Three suffixes are not attributes.** `_by_year` and `_by_district` mark an
-aggregate cut of a population whose detail is the bare name. `_coverage` marks
+aggregate cut of a subject whose detail is the bare name. `_coverage` marks
 how much of something is known rather than what it is:
 `members_residence_coverage` shows how many members have a residence, not
 where they lived. And where a third word names a source it reads
-`members_roster_novack` — the population, the thing, then who published it.
+`members_roster_novack` — the subject, the thing, then who published it.
 
 **If you can run it, it lives with the code. If you can only read it, it lives
 in `docs/`.** The reasoning behind a decision is in the subject's write-up
@@ -244,8 +247,8 @@ required to rebuild.
 
 ## Questions and decisions
 
-One write-up per population, and one tracker. `docs/residents.md`,
-`docs/voters.md`, `docs/members.md`, `docs/candidates.md` and
+One write-up per subject, and one tracker. `docs/residents.md`,
+`docs/elections.md`, `docs/members.md`, `docs/candidates.md` and
 `docs/localities.md` hold what is settled about each: what
 each number is, what backs it, what is assumed where nothing does, and why,
 in the present tense, ending with a list of what still rests on an

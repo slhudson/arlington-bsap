@@ -49,11 +49,11 @@ layers above, and `data/clean/` is the layer worth pulling across people.
 | `code/build/census.py` | `data/built/census.csv` | its own docstring |
 | `code/build/registration.py` | `data/built/registration.csv` | its own docstring |
 | `code/clean/residents.py` | `data/clean/residents.csv` | `docs/residents.md` |
-| `code/clean/voters.py` | `data/clean/voters.csv` | `docs/voters.md` |
+| `code/clean/elections_results.py` | `data/clean/elections_results.csv` | `docs/elections.md` |
 | `code/clean/members.py` | `data/clean/members.csv` | `docs/members.md` |
 | `code/clean/members_residence.py` | `data/clean/members_residence.csv` | `docs/members.md` |
 | `code/clean/members_by_year.py` | `data/clean/members_by_year.csv` | `docs/members.md` |
-| `code/clean/voters_turnout.py` | `data/clean/voters_turnout.csv` | `docs/voters.md` |
+| `code/clean/elections_turnout.py` | `data/clean/elections_turnout.csv` | `docs/elections.md` |
 | `code/analysis/<figure>.py` | `figures/pdf/<figure>.pdf`, `figures/png/<figure>.png` | its own docstring |
 | `code/archive.py` | `index.md` at the top of the Drive documents folder, and the zip the County receives | `CLAUDE.md` |
 
@@ -109,7 +109,7 @@ silently go stale.
 |---|---|
 | `CLAUDE.md` | Working rules; the build/clean/analysis split; naming |
 | `data/contents.csv` | Every data folder and file, and where it came from |
-| `docs/residents.md`, `docs/voters.md`, `docs/members.md`, `docs/candidates.md`, `docs/localities.md` | What each number is, what backs it, what is assumed, and why; one per population |
+| `docs/residents.md`, `docs/elections.md`, `docs/members.md`, `docs/candidates.md`, `docs/localities.md` | What each number is, what backs it, what is assumed, and why; one per population |
 | `docs/questions.csv` | What is still open: one row per item with an owner, what it bites and what would settle it |
 | `docs/setup.md` | Getting a machine set up to build; written for a collaborator joining |
 | `docs/web_access.md` | The websites the sources come from: what each needs from this machine, and what it refuses |

@@ -42,8 +42,8 @@ import members_terms  # noqa: E402
 import members_by_year  # noqa: E402
 import residents  # noqa: E402
 import residents_by_district  # noqa: E402
-import voters_turnout  # noqa: E402
-import voters  # noqa: E402
+import elections_turnout  # noqa: E402
+import elections_results  # noqa: E402
 
 # The fetch stage has a paths.py of its own too.
 del sys.modules["paths"]
@@ -259,7 +259,7 @@ def test_a_wrong_sex_by_age_cell_number_is_refused():
 
 
 def test_the_two_counts_of_the_adult_population_must_agree():
-    """residents.csv sums six bands out of the sex-by-age table; voters_turnout.csv
+    """residents.csv sums six bands out of the sex-by-age table; elections_turnout.csv
     reads the 18-and-over table. Different tables, same census, same figure."""
     def mangle(orig):
         def patched(stem):
@@ -269,7 +269,7 @@ def test_the_two_counts_of_the_adult_population_must_agree():
                 d.loc[d.year == 2020, "age65plus"] = 0
             return d
         return patched
-    err = breaks(voters_turnout, "read", mangle)
+    err = breaks(elections_turnout, "read", mangle)
     assert err and "the age bands in residents.csv give" in err, f"not caught: {err}"
 
 
@@ -425,16 +425,16 @@ def test_a_candidate_party_word_with_no_category_is_refused():
     """A press or campaign source's own words for a County Board candidate's
     party since 2023 that CANDIDATE_PARTY_WORDS has no category for: the
     transcribed file keeps the words, so a new phrasing has to be decided in
-    code/clean/voters.py before it counts."""
+    code/clean/elections_results.py before it counts."""
     def mangle(orig):
         def patched(stem):
             d = orig(stem)
-            if stem == "voters_party":
+            if stem == "candidates_party":
                 d = d.copy()
                 d.loc[d.name == "Bob Cambridge", "party_words"] = "Libertarian"
             return d
         return patched
-    err = breaks(paths, "built", mangle, build=voters.build)
+    err = breaks(paths, "built", mangle, build=elections_results.build)
     assert err and "no category here" in err, f"not caught: {err}"
 
 
@@ -663,7 +663,7 @@ def test_more_board_voters_than_registered_voters_is_rejected():
             r.loc[r.year == 2020, "registered"] = 100000
             return r
         return patched
-    err = breaks(voters_turnout, "registration", mangle)
+    err = breaks(elections_turnout, "registration", mangle)
     assert err and "registered" in err and "2020" in err, f"not caught: {err}"
 
 
@@ -675,7 +675,7 @@ def test_more_board_voters_than_presidential_voters_is_rejected():
             b.loc[b.year == 1972, "board_votes"] *= 2
             return b
         return patched
-    err = breaks(voters_turnout, "board_votes", mangle)
+    err = breaks(elections_turnout, "board_votes", mangle)
     assert err and "presidential" in err and "1972" in err, f"not caught: {err}"
 
 
