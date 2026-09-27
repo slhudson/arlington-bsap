@@ -63,7 +63,7 @@ a rank. A figure never defines a ramp of its own.
   (how exactly a home is named). Both draw from the one ramp, so they read as
   a pair; the no-evidence grey stays outside it, since an absence is not a
   step on the scale.
-- Unordered, Okabe-Ito: `members_race`, `members_gender`, `residents_by_race`,
+- Unordered, Okabe-Ito: `members_by_race`, `members_by_gender`, `residents_by_race`,
   and the party and growth figures.
 
 - **Race.** Black orange, Hispanic or Latino bluish green, Asian and Pacific
@@ -186,7 +186,7 @@ Black and White are everyone in the race, Hispanic or not. So on
 `residents_by_race` alone the legend says "Black, not Hispanic" and "White,
 not Hispanic" (`style.RESIDENTS_CROSSED`), and a dashed rule at 1980 marks
 where the definition changes; the caption says what the series before it
-are. `members_race` keeps "Black" and "White" (`style.RACE`): the Board's race
+are. `members_by_race` keeps "Black" and "White" (`style.RACE`): the Board's race
 is not a census crosstab, and Hispanic there is from published research, not
 a cell.
 
@@ -404,7 +404,7 @@ there the labels can be shortened and here the years cannot.
   split. `docs/residents.md` has what places each census's enumeration
   districts.
 
-- **members_race, members_gender, members_party.** Seat counts rather than
+- **members_by_race, members_by_gender, members_by_party.** Seat counts rather than
   shares, so the 1932 expansion is legible on the axis. All bands are drawn,
   men and White included: they are the denominator, and without them two
   seats of five and two of three look the same. A category holding no seat

@@ -1,7 +1,7 @@
-"""Board seats by race/ethnicity, 1870-2026 -> figures/members_race.pdf, .png
+"""Board seats by race/ethnicity, 1870-2026 -> figures/members_by_race.pdf, .png
 
 A stacked step area of seat-years in style.RACE, on the same frame
-as members_gender, with the 1932 rule. Blank years are gaps. A category with
+as members_by_gender, with the 1932 rule. Blank years are gaps. A category with
 no seat in any year gets no band and no legend entry.
 """
 import pandas as pd
@@ -26,4 +26,4 @@ for profile in style.PROFILES:
     charts.years(ax, 1870, 2020, step=20, label="year", through=members.LAST + 1)
     charts.rule(ax)
     charts.legend(fig, series)
-    paths.save(fig, "members_race", profile)
+    paths.save(fig, "members_by_race", profile)

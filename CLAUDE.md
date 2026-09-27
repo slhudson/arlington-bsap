@@ -58,8 +58,8 @@ before it has nothing to reach with. `code/tests.py` checks both.
 ## Naming
 
 **A file is named after what it produces.** `code/clean/residents.py` writes
-`data/clean/residents.csv`. `code/analysis/members_race.py` writes
-`figures/pdf/members_race.pdf` and `figures/png/members_race.png`. No `make_`
+`data/clean/residents.csv`. `code/analysis/members_by_race.py` writes
+`figures/pdf/members_by_race.pdf` and `figures/png/members_by_race.png`. No `make_`
 prefixes, no `_chart` suffixes: the directory says what the stage does, the
 filename says which thing. `run.sh` checks this after every figure, and warns
 about figures in `figures/` that no step produces.
@@ -69,7 +69,7 @@ subject is cut or what about it is measured.** There are five: `residents`, the
 county's people; `elections`, the contests they vote in; `members`, the people
 who have served on the Board; `candidates`, the people who have run for it; and
 `localities`, the Virginia jurisdictions Arlington is set against. Then
-`residents_by_district`, `members_race`, `elections_turnout`,
+`residents_by_district`, `members_by_race`, `elections_turnout`,
 `localities_density`. A subject is whatever a file is about, so people, places
 and events all qualify; nothing is gained by forcing them into one word. Everything here is Arlington and everything is about the
 Board, so nothing is prefixed `arlington_` and nothing is prefixed `board_`.
@@ -83,6 +83,13 @@ A table of peer localities is `localities`, because no row in it is a member, a
 seat or a year of Arlington's Board. And a table of votes by contest is
 `elections_results` rather than `voters`: what it counts is votes, and a voter
 appears in it once per contest.
+
+**`_by_` means grouped and counted.** `residents_by_age`, `members_by_race`:
+the subject is sorted into categories and the figure shows how many are in
+each. A bare attribute means the attribute shown per individual, ungrouped, so
+`members_age` is a Lexis diagram with one diagonal per member and
+`localities_density` is one dot per locality. Both say what the figure is
+about; only the first says it is a breakdown.
 
 **Three suffixes are not attributes.** `_by_year` and `_by_district` mark an
 aggregate cut of a subject whose detail is the bare name. `_coverage` marks

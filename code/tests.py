@@ -712,7 +712,7 @@ def test_a_candidacy_that_matches_no_election_is_refused():
 
 def test_a_black_members_election_with_no_candidacy_is_refused():
     """Pendleton's 1883 row left out: his seat would still count in
-    members_race, and this figure would show 1883 as a year nobody ran."""
+    members_by_race, and this figure would show 1883 as a year nobody ran."""
     err = candidacies_with(lambda d: d[d.name != "John W. Pendleton"])
     assert err and "a term, no candidacy" in err, f"not caught: {err}"
 
