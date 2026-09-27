@@ -427,12 +427,12 @@ with both sets of figures when the table below no longer matches.
 |---|---|---|---|---|---|
 | Street address | 14 | 19 | 8 | 0 | 41 |
 | Street name | 2 | 0 | 1 | 0 | 3 |
-| Neighborhood | 10 | 1 | 4 | 2 | 17 |
+| Neighborhood | 10 | 0 | 4 | 2 | 16 |
 | Side of the County | 1 | 1 | 0 | 0 | 2 |
-| Nothing | | | | | 12 |
+| Nothing | | | | | 13 |
 
-So 41 of the 75 have a street address and 63 have a place of some kind,
-but only 27 of the 63 are placed by a source dated to their service. The
+So 41 of the 75 have a street address and 62 have a place of some kind,
+but only 27 of the 62 are placed by a source dated to their service. The
 sources found online give a place at the time of writing, an obituary's
 address is where the person died, and a candidate profile's is where they
 lived when they ran; County records may give an address at taking office
