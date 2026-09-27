@@ -1,19 +1,20 @@
 """Every claim about a Board member, one row each -> data/built/members_claims.csv
 
-Seven files under data/transcribed/by_claude/ stacked into one table, each
-cell as keyed in, with `claim` saying which file a row came from:
+Eight files under data/transcribed/by_claude/ stacked into one table, each
+cell as keyed in, with `claim` saying which source a row came from:
 `demographics` (race, gender or a birth year a source states), `party` (a
 term's party, keyed on the term's start year), `residence` (a dated
 place), `census` (one record, with what the index prints and what the
 sheet gives), `novack` (a member's whole service as Novack prints it, the
 `term` string and `notes`), `arlhist` (one district seat for one of the
-article's term blocks, 1912-1931, with the block's `term` string, who
-chaired and a `note`) and `terms` (a term keyed in from the county's
-candidate history, with its dates and `note`). A field a row does not
-carry is blank. Nothing is coded, matched or chosen here;
-code/clean/members_roster.py reads the terms, code/clean/members_census.py the
-census rows, and code/clean/members.py and members_residence.py resolve
-the rest. docs/members.md, "Census records", has what each column holds.
+article's term blocks, 1870-1931, its two printed stretches stacked, with
+the block's `term` string, who chaired and a `note`) and `terms`
+(a term keyed in from the county's candidate history, with its dates and
+`note`). A field a row does not carry is blank. Nothing is coded, matched
+or chosen here; code/clean/members_roster.py reads the terms,
+code/clean/members_census.py the census rows, and code/clean/members.py
+and members_residence.py resolve the rest. docs/members.md, "Census
+records", has what each column holds.
 
 Three rows are refused. A census row that does not say what was read
 against the image, the sheet or the index; a place on a census row the
@@ -34,7 +35,8 @@ FILES = {"demographics": BY_CLAUDE / "members_demographics.csv",
          "residence": BY_CLAUDE / "members_residence.csv",
          "census": BY_CLAUDE / "members_census.csv",
          "novack": BY_CLAUDE / "arlington_historical_magazine" / "novack_terms_1930-1994.csv",
-         "arlhist": BY_CLAUDE / "arlington_historical_magazine" / "arlhist_terms_1912-1931.csv",
+         "arlhist": (BY_CLAUDE / "arlington_historical_magazine" / "arlhist_terms_1870-1911.csv",
+                     BY_CLAUDE / "arlington_historical_magazine" / "arlhist_terms_1912-1931.csv"),
          "terms": BY_CLAUDE / "members_terms.csv"}
 
 # A census record's citekey, census<year><surname>, unlike a volume's (census1880).
@@ -76,8 +78,11 @@ def not_census(r: pd.DataFrame, claim) -> pd.DataFrame:
 
 def build() -> pd.DataFrame:
     parts = []
-    for claim, path in FILES.items():
-        d = source(path, dtype=str).fillna("")
+    for claim, where in FILES.items():
+        # A claim read from more than one file - the article, printed in two
+        # stretches - stacks them; `claim` says which source, not which file.
+        files = where if isinstance(where, tuple) else (where,)
+        d = pd.concat([source(p, dtype=str) for p in files], ignore_index=True).fillna("")
         if claim == "census":
             d = census_records(d)
         elif claim in ("demographics", "residence"):

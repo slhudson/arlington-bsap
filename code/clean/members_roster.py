@@ -151,38 +151,58 @@ def apply_duncan_join(d: pd.DataFrame) -> pd.DataFrame:
 # February. Months are the grain, so the seven weeks count as January alone.
 VACANT_1920 = (1920, 1)
 
-# The Board's first month: it did not exist before May 1870, so the three
-# seats are empty for four months no vacancy accounts for.
-BOARD_FROM = (1870, 5)
+# The Board's first month: elected in May 1870, it sat from 1 July
+# (arlhist1967officials p.39), so the three seats are empty for six months no
+# vacancy accounts for.
+BOARD_FROM = (1870, 7)
 
-# Washington's other recorded vacancy, June to November 1873: Samuel Titus
-# takes the seat that December.
-VACANT_1873 = [("Washington", 1873, month) for month in range(6, 12)]
+# Washington's other recorded vacancy, July to November 1873: the May
+# election seated nobody, Henry W. Febrey's term ran out with the Board's
+# year on 30 June, and Samuel Titus took the seat that December. The
+# article's blocks give the same five months (arlhist1967officials p.40).
+VACANT_1873 = [("Washington", 1873, month) for month in range(7, 12)]
+
+# Jefferson from April to June 1879: William A. Rowe resigned the seat on 2
+# April, having moved into the Arlington District, and it stood empty until
+# Travis B. Pinn's term began on 1 July. The months are the article's own
+# block, read in members_roster_arlhist.vacated(), which cuts Rowe's term to
+# meet them, so the two cannot drift apart.
+VACANT_1879 = arlhist.vacancies()
+
+# Each recorded vacancy as the district and the first month with no holder,
+# counted from year 0. A term ending in one of these ends into the vacancy:
+# the seat leaves its holder that month though nobody takes it, so the month
+# belongs to no one - the same rule as a term ending in the month its
+# successor begins. check_district_seats below and members.held() both apply
+# it, and they are the only two places the rule is written.
+VACANT_FROM = {(district, year * 12 + month)
+               for district, year, month in
+               [min(VACANT_1873), min(VACANT_1879), ("Washington",) + VACANT_1920]}
 
 
 def check_district_seats(d: pd.DataFrame, first=1870, last=arlhist.LAST_YEAR):
     """Each of the three magisterial districts has exactly one member in
-    every month from 1870 to 1931, save the months named above: the four
-    before the Board existed and the two recorded vacancies.
+    every month from 1870 to 1931, save the months named above: the six
+    before the Board sat and the three recorded vacancies.
 
     The exceptions are the point. A gap that appears anywhere else stops the
     build, and so does filling one of these - a missing supervisor reads like
-    a data error, and these three are claims with sources behind them.
+    a data error, and these four are claims with sources behind them.
 
     What the earlier coverage rests on differs from 1912-1931's. Before 1912
     the seats run continuously partly because a term with no recorded end is
     held to its statutory four years, not because a source names a man in
     every month, so this checks that the table is internally consistent, not
     that the record is complete. A term's end month belongs to the member
-    unless another term in the district begins in it, and an unrecorded end
-    holds to the end of its first year - the two rules members.py applies in
-    held().
+    unless another term in the district begins in it, or the seat stands
+    empty instead, and an unrecorded end holds to the end of its first year -
+    the three rules members.py applies in held().
     """
     d = d[d.district != "at large"]
     start = d.start_year * 12 + d.start_month
     end = (pd.to_numeric(d.end_year).fillna(d.start_year) * 12
            + pd.to_numeric(d.end_month).fillna(12)).astype(int)
-    begins = set(zip(d.district, start))
+    begins = set(zip(d.district, start)) | VACANT_FROM
     spans = [(dd, lo, hi - 1 if (dd, hi) in begins else hi, n)
              for dd, lo, hi, n in zip(d.district, start, end, d.name)]
     for year in range(first, last + 1):
@@ -192,7 +212,8 @@ def check_district_seats(d: pd.DataFrame, first=1870, last=arlhist.LAST_YEAR):
                 held = [n for dd, lo, hi, n in spans if dd == district and lo <= m <= hi]
                 empty = ((year, month) < BOARD_FROM
                          or (district, year, month) == ("Washington",) + VACANT_1920
-                         or (district, year, month) in VACANT_1873)
+                         or (district, year, month) in VACANT_1873
+                         or (district, year, month) in VACANT_1879)
                 expected = 0 if empty else 1
                 if len(held) != expected:
                     raise ValueError(
@@ -202,6 +223,11 @@ def check_district_seats(d: pd.DataFrame, first=1870, last=arlhist.LAST_YEAR):
 
 def build() -> pd.DataFrame:
     d = pd.DataFrame(list(oleary.terms()) + list(results.keyed_terms()) + list(novack.terms()))
+    # The article settles what a member is called before anything matches on
+    # a name, then corrects 1870-1911, then supplies 1912-1931 outright.
+    d = arlhist.names(d)
+    d = arlhist.notes(d)
+    d = arlhist.early(d)
     d = arlhist.terms(d)
     d = apply_duncan_join(d)
     d = results.terms(d)

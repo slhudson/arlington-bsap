@@ -172,13 +172,16 @@ def held(terms: pd.DataFrame) -> pd.DataFrame:
     """held_from and held_to for every term: months from year 0, the end
     exclusive. An unrecorded end holds to the end of its first year, and a
     term ending in the month another term in the same district begins
-    yields that month to the incoming member."""
+    yields that month to the incoming member - or, where the seat stood
+    empty instead, to nobody (members_roster.VACANT_FROM)."""
     end_year = pd.to_numeric(terms.end_year).fillna(terms.start_year)
     end_month = pd.to_numeric(terms.end_month).fillna(12)
     start = terms.start_year * 12 + terms.start_month - 1
     stop = end_year * 12 + end_month
-    starts = terms.assign(start=start).groupby("district").start.apply(set)
-    stop = [s - 1 if (s - 1) in starts[d] else s for d, s in zip(terms.district, stop)]
+    starts = terms.assign(start=start).groupby("district").start.apply(set).to_dict()
+    for district, month in members_roster.VACANT_FROM:
+        starts.setdefault(district, set()).add(month - 1)
+    stop = [s - 1 if (s - 1) in starts.get(d, set()) else s for d, s in zip(terms.district, stop)]
     return pd.DataFrame({"held_from": start.astype(int), "held_to": pd.Series(stop, index=terms.index).astype(int)})
 
 
@@ -191,6 +194,8 @@ GENDER_WORDS = {"he": "man", "his": "man", "him": "man", "mr.": "man",
                 "she": "woman", "her": "woman", "mrs.": "woman", "ms.": "woman"}
 RACE_WORDS = {
     "black": "Black", "african american": "Black", "african americans": "Black",
+    # The word the 1875 Alexandria Gazette prints beside a member's name.
+    "colored": "Black",
     "black community": "Black", "black people i know, i among them": "Black",
     # As the census's Mulatto is coded (members_census.py).
     "mixed race": "Black",
