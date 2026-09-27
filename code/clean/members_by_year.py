@@ -25,12 +25,17 @@ NO_ROSTER_YEARS = range(1912, AT_LARGE_FROM)
 
 def months_held(members: pd.DataFrame) -> pd.DataFrame:
     """One row per term per calendar year: how many months of it were held,
-    from held_from and held_to."""
+    from held_from and held_to. A magisterial-district seat stopped existing
+    as such the moment the Board reorganized to at large, whatever a term's
+    own end date says, so none of it counts past the last month of 1931
+    (Edward Duncan's term, ending January 1932 on the usual "ends when the
+    next one starts" convention, is the first to reach that boundary)."""
     m = members
     rows = []
     for _, t in m.iterrows():
-        for year in range(t.held_from // 12, (t.held_to - 1) // 12 + 1):
-            lo, hi = max(t.held_from, year * 12), min(t.held_to, year * 12 + 12)
+        held_to = t.held_to if t.district == "at large" else min(t.held_to, AT_LARGE_FROM * 12)
+        for year in range(t.held_from // 12, (held_to - 1) // 12 + 1):
+            lo, hi = max(t.held_from, year * 12), min(held_to, year * 12 + 12)
             if hi > lo:
                 rows.append({"year": year, "months": hi - lo,
                              "race": RACE[t.race], "gender": GENDER[t.gender],

@@ -35,7 +35,7 @@ import pandas as pd
 import members_roster_novack as novack
 import members_roster_oleary as oleary
 import members_roster_results as results
-from members_terms import PRESENT, SEATED_BY, SPECIAL_ELECTION, UNRECORDED
+from members_terms import ELECTION, PRESENT, SEATED_BY, SPECIAL_ELECTION, UNRECORDED
 
 
 def check_five_seats(d: pd.DataFrame, first=1995, last=PRESENT):
@@ -80,8 +80,55 @@ def check_seated_by(d: pd.DataFrame):
                                      for _, r in unrecorded.iterrows()))
 
 
+# The Jefferson seat's four roster rows for 1908-28 are one man, Edward
+# Duncan, not up to three: the Alexandria Gazette shows him in office, as
+# chairman, from 1913 through 1915 and again 1919 through 1921, covering
+# both stretches the roster otherwise leaves blank between the four
+# recorded elections. He did not seek re-election in 1931, running instead
+# for sheriff and losing, in a piece giving the same "24 years" of board
+# service as his 1938 obituary (not yet filed): 1908 to 1932. Sally decided
+# to record this as one term rather than six or four (duncan-one-member-or-
+# three, 2026-09-27); the 1912 and 1928 renewals are known only by that
+# continuity, not by a recorded election win, unlike 1908, 1916, 1920 and
+# 1924. docs/members.md.
+DUNCAN_SOURCES = ("oleary2010 p.25", "alexandriagazette1913duncan",
+                   "alexandriagazette1914duncan", "oleary2010 p.27",
+                   "alexandriagazette1915duncan", "alexandriagazette1919duncan",
+                   "arlingtonelections2021 p.2", "alexandriagazette1921duncan",
+                   "arlingtonelections2021 p.4", "washingtontimes1930duncan",
+                   "washingtontimes1931duncan")
+DUNCAN_NOTE = (
+    "One continuous term, not four: the roster's E. Duncan (1908-12), Duncan "
+    "(1916-20) and Edward Duncan (1924-28, two terms) are one man. Elections "
+    "are recorded for 1908, 1916, 1920 and 1924; the Alexandria Gazette also "
+    "shows him in office, as chairman, from 1913 through 1915 and again from "
+    "1919 through 1921, covering both stretches the roster otherwise leaves "
+    "blank. He did not seek re-election in 1931, running instead for sheriff "
+    "and losing, in a piece giving the same 24 years' service as his 1938 "
+    "obituary (not yet filed): 1908 to 1932. The 1912 and 1928 renewals are "
+    "known only by that continuity, not by a recorded election win "
+    "(duncan-one-member-or-three)."
+)
+
+
+def apply_duncan_join(d: pd.DataFrame) -> pd.DataFrame:
+    """Collapse the Jefferson seat's four 1908-28 roster rows into Edward
+    Duncan's one continuous term. See the comment above and docs/members.md."""
+    duncan = ((d.district == "Jefferson") & d.name.isin(["E. Duncan", "Duncan", "Edward Duncan"])
+              & (d.start_year >= 1908) & (d.start_year <= 1928))
+    if duncan.sum() != 4:
+        raise ValueError(f"expected 4 Duncan rows to join into one term, found {duncan.sum()}")
+    joined = pd.DataFrame([{
+        "name": "Edward Duncan", "district": "Jefferson",
+        "start_year": 1908, "start_month": 1, "end_year": 1932, "end_month": 1,
+        "seated_by": ELECTION, "source": "; ".join(DUNCAN_SOURCES), "note": DUNCAN_NOTE,
+    }])
+    return pd.concat([d[~duncan], joined], ignore_index=True)
+
+
 def build() -> pd.DataFrame:
     d = pd.DataFrame(list(oleary.terms()) + list(results.keyed_terms()) + list(novack.terms()))
+    d = apply_duncan_join(d)
     d = results.terms(d)
     check_names(d)
     check_seated_by(d)

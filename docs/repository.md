@@ -71,6 +71,19 @@ worktree on a branch, and the hook in `.claude/settings.json` says at the
 start of a session which case applies. It advises and never blocks, since
 collaborators may be new to Git.
 
+**The hook once judged this by counting worktrees, which misses simultaneous
+starts.** `git worktree list` only grows once some session has already taken
+a worktree; it says nothing about how many sessions are live in the primary
+checkout before any of them has. Four sessions once started at once with
+none, so all four read "0 other worktrees" and all four worked directly in
+the primary checkout, which is the exact case the hook exists to prevent. The
+hook now writes its own liveness marker instead: a PID and a timestamp in
+`.claude/tmp/session.lock` (machine-local, gitignored), checked with `kill
+-0` against whatever PID it finds there, ignoring one it wrote itself or one
+past its shift. Two sessions starting in the same second each see the
+other's PID as soon as either has written it, which a static count of past
+worktrees cannot.
+
 Collaborators each work in their own clone, so they cannot share a checkout;
 they meet only at push, and a rejected push means pull, run the build again,
 push. The build itself is reproducible: the same sources in a fresh virtualenv

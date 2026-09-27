@@ -20,12 +20,14 @@ RACE = {"White": "White", "Black": "Black", "Mulatto": "Black"}
 MATCH = ("district", "occupation", "household", "address", "unique", "none", "")
 WEAK = "none"
 
-# Records whose age the sheet misreports, so no birth year is read from them.
-# The member's birth year comes from the record that gives a date instead;
-# docs/members.md, "Census records", says which record and why. A key here that
-# no census row uses would drop nothing and say nothing, so records() refuses
-# one.
-AGE_MISREPORTED = ("census1910febrey", "census1920febrey")
+# Records whose age the sheet misreports, or whose age-derived year disagrees
+# with another record with nothing to arbitrate between them, so no birth
+# year is read from them. Where a third record gives a printed date instead
+# (Febrey), the member still gets a birth year; where it does not (Duncan),
+# he gets none. docs/members.md, "Census records", says which record and why.
+# A key here that no census row uses would drop nothing and say nothing, so
+# records() refuses one.
+AGE_MISREPORTED = ("census1910febrey", "census1920febrey", "census1910duncan", "census1920duncan")
 
 # How a birth year was had from the record, added to the basis of its claim.
 BIRTH_PRINTED = "; the birth year as the census recorded it"
