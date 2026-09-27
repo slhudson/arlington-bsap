@@ -21,7 +21,7 @@ PY=.venv/bin/python
 
 # Stage 1: data/raw/ and data/transcribed/ -> data/built/. Reshaping only;
 # each step is refused if a value its inputs carry is missing from its output.
-BUILD=(elections members_claims candidates census registration localities voters_party)
+BUILD=(elections members_claims candidates census ipums registration localities voters_party)
 
 # Stage 2: data/built/ -> data/clean/. Every decision about what a number
 # is. Each step is named for the file it writes, and later steps read what
@@ -31,7 +31,7 @@ CLEAN=(residents residents_by_district members candidates members_residence memb
 # Stage 3: data/clean/ -> figures/. Each step is named for the figure it
 # writes. Five populations, alphabetical within each; last, the one step that
 # writes the numbers the prose cites, paper/body_text_numbers.tex, instead.
-FIGURES=(residents_by_age residents_by_race residents_per_seat voters_turnout voters_board voters_president members_age members_age_coverage candidates members_gender members_party localities_density localities_residents members_race members_residence_coverage body_text_numbers)
+FIGURES=(residents_by_age residents_by_district_race residents_by_race residents_per_seat voters_turnout voters_board voters_president members_age members_age_coverage candidates members_gender members_party localities_density localities_residents members_race members_residence_coverage body_text_numbers)
 
 echo "lint"
 "$PY" -m pyflakes code style || { echo "  pyflakes: fix the above"; exit 1; }
@@ -179,7 +179,7 @@ while IFS= read -r -d '' f; do
   [ -f "$f" ] || continue
   size=$(( $(stat -f%z "$f") / 1024 ))
   kb=$(( kb + size ))
-  case "$f" in *.pdf|*.png|*.ttf) ;; *) text_kb=$(( text_kb + size ));; esac
+  case "$f" in *.pdf|*.png|*.ttf|*.gz) ;; *) text_kb=$(( text_kb + size ));; esac
 done < <(git ls-files -z 2>/dev/null) || true
 if [ "$kb" -ge 81920 ]; then
   echo

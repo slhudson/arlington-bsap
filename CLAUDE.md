@@ -237,8 +237,9 @@ bash run.sh residents_per # only matching figures; build and clean only if their
 ```
 
 Invoke through `bash`, not `./run.sh` — the reason is at the top of `run.sh`.
-`code/fetch/` and `code/transcribe/` also need `pymupdf`; the OCR needs a Mac. Neither
-is required to rebuild.
+`code/fetch/` and `code/transcribe/` also need `pymupdf`, and
+`code/fetch/ipums.py` needs `ipumspy`; the OCR needs a Mac. None of it is
+required to rebuild.
 
 ## Questions and decisions
 
@@ -280,7 +281,8 @@ recommended 100MB in all, and a hard 7MB on editable (text) files, past
 which GitHub sync stops working. One repository was chosen because pushing
 figures across a repository boundary would undercut the case that this setup
 is simpler than emailing files. `run.sh` warns at 80MB and at 6MB of text, so
-revisiting does not depend on anyone remembering. The scans the build never
+revisiting does not depend on anyone remembering; a gzipped file is counted
+against the whole, not against the text, since it is not editable. The scans the build never
 reads are already fetched on demand rather than committed, and so is the
 OCR of the census volumes (`data/transcribed/by_ocr/`, regenerated on a Mac by
 `code/transcribe/census.py`), which took 1.8MB of the text cap. If the cap

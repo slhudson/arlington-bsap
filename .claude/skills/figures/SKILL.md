@@ -144,6 +144,11 @@ neither repeats the reasons.
   and rules off 1980; `members_race` keeps `style.RACE`.
 - **No textures.** Distinguish with colour. A filled dot against an open
   ring of the same colour is a fill, not a texture: `style.CANDIDACY`.
+- **A series the sources report at some censuses and not others breaks**
+  rather than being drawn across the censuses they are silent about. Keep the
+  silent years in the frame, empty: a line drawn through them asserts a path
+  nothing recorded. `residents_by_district_race` is the standing example, and
+  the caption says what the gap is.
 - **Name a residual for what is in it.** Check the data before writing the
   label. `Other, multiracial or unreported` was wrong: nothing in that band
   is unreported. `style.RESIDUAL` carries the current name; `docs/figures.md` its basis.

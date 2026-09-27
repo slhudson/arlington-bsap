@@ -119,6 +119,16 @@ RESIDENCE = dict(zip(
     zip(("street address", "street name", "neighborhood", "north/south side or district"),
         reversed(ramp(4)))))
 RESIDENCE["none"] = ("no location", UNRECORDED)
+# The three magisterial districts, with the county behind them as the
+# reference: three unordered places, so Okabe-Ito, and the county in the
+# reference neutral the growth and peer figures use. See docs/figures.md.
+DISTRICTS = {
+    "Arlington":  ("Arlington", OKABE_ITO["vermilion"]),
+    "Jefferson":  ("Jefferson", OKABE_ITO["blue"]),
+    "Washington": ("Washington", OKABE_ITO["reddish_purple"]),
+}
+WHOLE_COUNTY = ("the whole county", DARK)
+
 PRESIDENT = ("voted for President", DARK)
 CYCLE = {
     "president": ("presidential year", OKABE_ITO["vermilion"]),

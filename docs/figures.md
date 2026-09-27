@@ -116,6 +116,11 @@ a rank. A figure never defines a ramp of its own.
   a second hue: a second colour would read as a second group of people, and
   the palette's other oranges and greys already mean a party, the residual
   or no evidence.
+- **The magisterial districts.** Three unordered places, so Okabe-Ito:
+  Arlington vermilion, Jefferson blue, Washington reddish purple. The county
+  behind them takes the dark grey the growth and peer figures use for a
+  reference series, because it is not a fourth district but the thing the
+  three are being read against. `style.DISTRICTS` and `style.WHOLE_COUNTY`.
 - **Peers.** Cities dark grey, counties the sand stroke, Arlington the
   per-seat vermilion. The two neutrals are close on purpose: the kind of
   government is context, and a second saturated hue would compete with
@@ -371,6 +376,23 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
   there is no defensible right age for a Board member, and a shared panel
   would imply there is. Two figures in two sections, each on the range its
   own sources support.
+- **residents_by_district_race.** The Black share of each magisterial
+  district over the censuses that give race below the county, with the county
+  behind them. Lines, because the points are observations one per census, and
+  a line breaks wherever a census has nothing rather than being drawn through
+  it: 1890, whose schedules burned, for every line, and 1900 for Arlington,
+  whose schedules are short of that district by one resident in six. The
+  county line is the three districts added together, so it breaks at 1900
+  too — two districts are not a county. That it is the districts added up
+  rather than the county row of `residents.csv` means every line on the
+  figure is the same arithmetic on the same count; in 1920 it puts the county
+  0.4 points above the published share, because the schedules record 2,559
+  Black residents where the volume prints 2,507. Each share divides by the
+  people its own count records in that place, for the same reason. The axis
+  stops at 1920 rather than running on to 1930, whose districts have no race
+  split. `docs/residents.md` has what places each census's enumeration
+  districts.
+
 - **members_race, members_gender, members_party.** Seat counts rather than
   shares, so the 1932 expansion is legible on the axis. All bands are drawn,
   men and White included: they are the denominator, and without them two

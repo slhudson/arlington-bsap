@@ -6,7 +6,7 @@ holds letters only, and a value is printed as the paper prints a share: a
 whole number, with "per cent" left to the sentence.
 
     share<District><Year>       the district's share of the county, 1870-1930
-    blackShare<District><Year>  the Black share of the district, 1870
+    blackShare<District><Year>  the Black share of the district, 1870 and 1920
 
     Jefferson held \shareJeffersonEighteenSeventy{} per cent of the county.
 
@@ -34,8 +34,8 @@ def numbers() -> dict:
     for year, g in d.groupby("year"):
         for r in g.itertuples():
             out[f"share{r.district}{YEARS[year]}"] = per_cent(r.total, g.total.sum())
-    jefferson = d[(d.year == 1870) & (d.district == "Jefferson")].iloc[0]
-    out["blackShareJeffersonEighteenSeventy"] = per_cent(jefferson.black, jefferson.total)
+    for r in d[d.black.notna()].itertuples():
+        out[f"blackShare{r.district}{YEARS[r.year]}"] = per_cent(r.black, r.total)
     return out
 
 
