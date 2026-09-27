@@ -24,9 +24,10 @@ point of this subject. Coverage, era by era (27 September 2026):
   candidates ran, all lost.
 - **1932–1986**: the claim at stake is two historians' sentences, not a
   check of the list (`black-losers-1932-on`). 1932–1950 (19 of the 55 years)
-  is now race-matched against the census, and it found one likely
-  exception, pending a second check against the sheet ("1932-1950,
-  race-matched against the census," below). **1950–1986, 36 years, is
+  is now race-matched against the census; a candidate who looked like an
+  exception on the index turned out, once the sheet was read, not to be one
+  ("1932-1950, race-matched against the census," below), so the census
+  check of this span found no Black candidacy. **1950–1986, 36 years, is
   entirely unstarted.**
 - **1987–2025**: the four Black members' own runs are tracked in full.
   Whether any *other* candidate in these 38 years was Black has not been
@@ -156,12 +157,15 @@ that name in Arlington in the census year searched - since no second source
 was in hand to try `occupation`, `household` or `address`. Seven were
 searched and not found under the name the election record gives.
 
-One of the twelve new matches is **William C. Ayres**, who lost County
-Board races in 1941 and 1943: the 1940 census records him as Negro (Black),
-head of household at 1635 North Wood Street, Freight Agent, wife Dorothy V.
-(`census1940ayres`). This is the only Black losing candidacy found in the
-1932-1986 span the two sources' sentence covers, and Sally has not yet
-reviewed the record.
+One of the twelve new matches, **William C. Ayres**, who lost County Board
+races in 1941 and 1943, looked at first like the only Black losing
+candidacy found in the 1932-1986 span the two sources' sentence covers:
+Ancestry's index transcribed the 1940 census as Negro (Black). The sheet
+itself, read on 27 September 2026, does not agree - it reads W (White) for
+Ayres, his wife and his mother-in-law alike, and Ancestry's own index
+carried White as an unfollowed bracketed alternate. The index's
+transcription was wrong; `census1940ayres` is corrected to White, and none
+of the twelve new matches is a Black candidacy.
 
 Two known oddities from the dedup thread bear on this slice. Five names the
 county's history prints only in a narrative block dated 1935, with no
@@ -178,11 +182,15 @@ The source citekeys for the twelve new matches (`census1940windridge`,
 `census1940ayres`, `census1940carretta`, `census1950divine`,
 `census1950gaines`, `census1950wimberly`, `census1950smith`,
 `census1950clair`, `census1950potter`, `census1950bach`,
-`census1940gordon`, `census1940donaldson`) are not yet entries in
-`paper/sources.bib` or filed to Drive; that is the next step before a
-clean-stage script could read this file the way `code/clean/members_census.py`
-reads `members_census.csv`. 1950-2025 press-based matching is a separate,
-later slice.
+`census1940gordon`, `census1940donaldson`) are now entries in
+`paper/sources.bib`, each filed in Drive with its sheet image
+(`code/ancestry.py`, which now takes a `--file` naming a census-shaped table
+other than `members_census.csv`). Only `census1940ayres`'s sheet has been read for
+verification; the other eleven carry the index's transcription unread
+against the image, the same open state `census-match-quality` describes for
+`members_census.csv`. A clean-stage script to read this table into a figure
+is still unwritten. 1950-2025 press-based matching is a separate, later
+slice.
 
 **The figure.** `candidates` draws each candidacy in a regular or
 special election as a dot at its year, filled if won and a ring if lost,
