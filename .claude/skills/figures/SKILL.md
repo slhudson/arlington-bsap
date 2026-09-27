@@ -106,6 +106,11 @@ neither repeats the reasons.
   6.25in, so name every twentieth year and let the minor ticks mark the rest.
   Prefer that to rotating the labels: rotated text is slower to read and it
   makes a panel look unlike its neighbour.
+- **Where the labels do fit, name them all.** A figure at `style.NARROW`, or
+  any axis with few enough years, takes `charts.years(..., dense=True)`,
+  which names every one at `style.DENSE_TICKS`. This is the only place type
+  is stepped down, and it is never a reason to shrink a legend.
+  `residents_by_age` is the standing example.
 - **Both panels of a figure label their axes the same way.** A bar panel does
   not need a label under every bar to be readable; the minor ticks locate the
   unlabelled ones.

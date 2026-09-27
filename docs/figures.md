@@ -325,6 +325,16 @@ once per figure even where the rule is on every panel.
 recent census is named, with an unlabelled tick at each census between.
 Decades collide at 6.25 inches, and rotated labels are slower to read.
 
+A figure narrow enough to hold every label names them all instead, at
+`style.DENSE_TICKS`, 0.85 of the profile's tick size, through
+`charts.years(dense=True)`. The general rule exists because decades collide
+at the full width; where they do not collide, an unnamed bar the reader has
+to count along to identify is the worse cost. The size is a fraction in the
+style layer rather than a point size in a figure script, so the dense axes
+stay one size as a set, and it is the one place type is stepped down: a
+legend that will not fit in one row is broken into two instead, because
+there the labels can be shortened and here the years cannot.
+
 ## Each figure
 
 - **residents_per_seat.** Two series on one linear axis. Both are counts of
@@ -368,8 +378,9 @@ Decades collide at 6.25 inches, and rotated labels are slower to read.
   reaches back to 1870 because a Board member is one person whose birth
   year can be found in a census sheet or an obituary; a county age
   distribution has to come from a published table, and 1930 is the
-  earliest census volume keyed in. Ten bars name every twentieth year, as
-  the other long census axes do. The 14 people of unknown age in 1930 are
+  earliest census volume keyed in. Ten bars at `style.NARROW` leave room to
+  name every census, so this axis is `dense` rather than every twentieth
+  year. The 14 people of unknown age in 1930 are
   in no band, so that bar stops 0.05 per cent short of the top, which no
   one can see and nothing marks. The figure is a benchmark for the
   residents section and is never put on a panel with the Board's ages:

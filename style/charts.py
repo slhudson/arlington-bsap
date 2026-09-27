@@ -524,12 +524,13 @@ def rule(ax, year=style.EXPANSION_YEAR, note=style.EXPANSION_NOTE):
 
 
 def years(ax, first, last, step=10, label="census year", minor=10, through=None,
-          bars=None):
+          bars=None, dense=False):
     """A year axis labelled every `step` years, anchored on `last`, with an
     unlabelled tick every `minor` years between. `through` is where the axis
     ends; otherwise a little clear of `last`. `bars` is the width the bars
     on this axis were drawn at: the limits then clear half a bar, so that
-    the first and last are drawn whole rather than sliced by the frame."""
+    the first and last are drawn whole rather than sliced by the frame.
+    `dense` names every year of a close sequence at style.DENSE_TICKS."""
     span = last - first
     pad = span * 0.03
     if bars:
@@ -540,6 +541,8 @@ def years(ax, first, last, step=10, label="census year", minor=10, through=None,
     if minor and minor < step:
         ax.xaxis.set_minor_locator(
             FixedLocator([y for y in range(first, last + 1, minor) if y not in major]))
+    if dense:
+        ax.tick_params(axis="x", labelsize=plt.rcParams["xtick.labelsize"] * style.DENSE_TICKS)
     ax.set_xlabel(label)
 
 

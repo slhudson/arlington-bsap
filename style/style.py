@@ -152,6 +152,7 @@ STRIP = 7.0           # the aspect of a timeline of events, whose y axis carries
 BROKEN = (5, 1)       # widths of the two sides of a broken x axis, near and far
 MARGIN = 0.037        # white on all four sides, as a fraction of the width, measured to ink
 LEGEND_GAP = 0.2      # inches between the lowest ink of the plot and the legend
+DENSE_TICKS = 0.85    # tick label size, as a fraction of the profile's, where an axis names every year of a close sequence; see docs/figures.md
 
 EXPANSION_YEAR = 1932
 EXPANSION_NOTE = "1932: Board expands from 3 to 5 seats"

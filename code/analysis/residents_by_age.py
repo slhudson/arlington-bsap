@@ -25,7 +25,7 @@ for profile in style.PROFILES:
     stacked = charts.series(shares, style.RESIDENT_AGES)
     charts.stacked_bars(ax, c["year"], stacked, width=BARS)
     charts.shares(ax)
-    charts.years(ax, FIRST, 2020, step=20, bars=BARS)
+    charts.years(ax, FIRST, 2020, step=10, bars=BARS, dense=True)
 
     charts.legend(fig, stacked, ncol=4)
     paths.save(fig, "residents_by_age", profile)
