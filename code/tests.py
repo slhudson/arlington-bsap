@@ -347,13 +347,13 @@ def test_a_wrong_term_length_is_rejected():
 
 
 def test_the_seat_table_reads_the_roster_for_1912_to_1931():
-    """1912-1931 was stated in members_by_year.py - three seats, held by
-    white men, `assumed` - until arlhist1967officials named all three
-    magisterial seats for all twenty years. The seat table now derives them
-    from the roster like every other year. The silent failure this guards
-    against is the assumption creeping back: a stretch no source names would
-    read as filled, and nobody would see it. So every one of those years
-    says `derived`, and a seat the roster stops naming stops the build."""
+    """The seat table derives 1912-1931 from the roster like every other year,
+    arlhist1967officials naming all three magisterial seats for all twenty
+    years. The silent failure this guards against is members_by_year.py
+    stating the stretch itself again - three seats, held by white men,
+    `assumed` - since a stretch no source names would then read as filled and
+    nobody would see it. So every one of those years says `derived`, and a
+    seat the roster stops naming stops the build."""
     stated = members_by_year.build()
     era = stated[stated.year.between(members_roster_arlhist.FIRST_YEAR,
                                      members_roster_arlhist.LAST_YEAR)]
@@ -876,7 +876,7 @@ def test_the_residence_coverage_table_in_the_write_up_is_current():
             printed[labels[cells[0]]] = [int(c) for c in cells[1:5]]
     counted, nothing = residence_coverage()
     assert printed == counted and printed_nothing == nothing, (
-        "docs/members.md, \"Where members lived\", no longer counts what the clean "
+        "docs/members.md, \"Where members lived\", does not count what the clean "
         f"tables hold.\n  table says: {printed}, nothing {printed_nothing}\n"
         f"  clean says: {counted}, nothing {nothing}")
 

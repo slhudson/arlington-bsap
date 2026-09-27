@@ -217,7 +217,7 @@ Every figure is exactly the profile's width: 6.25 inches for the memo's PDF,
 Urban's full-width figure, and 10 inches for the deck's PNG, with every type
 size stepped up by 1.45 so the type holds the same proportion to the frame.
 
-One exception, added when `residents_by_age` was drawn. A figure whose axis
+One exception. A figure whose axis
 carries only a few categories — five censuses of stacked bars — looks
 wrong at full width: the bars become slabs with as much white between them
 as ink in them, and the figure reads as though a series has been left out
@@ -242,7 +242,7 @@ The plot's shape is fixed per profile: 2.2 times as wide as tall for the
 memo, 3.0 for the deck. Its height is
 solved from that rather than set, because a figure's height is its plot plus
 whatever a title, a legend and an axis label need, which differs per figure.
-Fixed heights went stale as figures were added. Equal plots, not equal
+A fixed height goes stale as soon as a figure is added. Equal plots, not equal
 canvases, are what a reader sees: on a slide a figure with a taller plot
 fits by height and is letterboxed beside its neighbours.
 
@@ -433,11 +433,9 @@ there the labels can be shortened and here the years cannot.
   figure reads them as one and drops a step from the ramp. A member counts
   at the most exact place any source gives, whenever dated, so it can show a
   member as known from a source written after their service
-  (`residence-after-service`). 1912 to 1931 used to take its three seats
-  from the seat table, since the roster named almost nobody in it; the
-  Historical Society's article named those years on 27 September 2026 and
-  the figure reads them like any other, so the five members it added show
-  as no place found until someone looks for them.
+  (`residence-after-service`). 1912 to 1931 reads the roster like every other
+  stretch; nobody has looked for a place for the five members the Historical
+  Society's article names there, so they draw as no location found.
 - **members_age.** A Lexis diagram, age against year, the standard demographic
   form for it. Behind, the youngest-to-oldest span of the members sitting
   on 1 July of each year, as a step area; over it, one diagonal per member
@@ -458,8 +456,7 @@ there the labels can be shortened and here the years cannot.
   year alone puts the birthday at mid-year, and the band's edges are
   measured the same way, so the youngest and oldest strokes run along the
   band's edges and the band moves only when the Board changes (Sally, 26
-  September 2026; it had stepped each January, which put an edge stroke up
-  to half a year off the band). There is no legend: the caption names the
+  September 2026). There is no legend: the caption names the
   band and the strokes (same decision).
   The figure starts in 1932. Before it the Board has three seats, the rule
   is met in eight scattered years and 40 percent of member-years in 1900-31
