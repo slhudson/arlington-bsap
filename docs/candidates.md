@@ -94,8 +94,14 @@ state's file carries first choices and flags more winners than seats, so the
 outcome of each is the press's (`arlnow2023coffeyprimary`,
 `arlnow2024spain`). Dorsey also sought the Democratic nomination in 2002,
 at a party caucus rather than on a public ballot (`connection2002`), so it
-is not a candidacy here. No losing candidate since 1932, about 400
-candidacies, has been matched to a census record or a press description for
+is not a candidacy here. The county's and the state's records hold 436
+candidacies for the Board from 1932 through 2025, 271 of them losing (a
+County Board candidacy is one row of `elections.contests()`, one page
+collapsed into another where the county's history prints it twice -
+`elections._dedup_board_pages()`; a candidate's outcome where the state's
+own record does not say, in a ranked-choice contest, is the top-`seats` by
+first choice, for eighteen contests where no source has settled it). None of
+the 271 has been matched to a census record or a press description for
 race, so 1932-1986 rests on Pratt's and Bestebreurtje's sentence that none
 ran, and the years from 1987 hold every run by a Black member and nobody
 else's (`black-losers-1932-on`). The check is bounded: the 1930-1950

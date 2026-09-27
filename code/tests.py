@@ -44,6 +44,7 @@ import residents  # noqa: E402
 import residents_by_district  # noqa: E402
 import elections_turnout  # noqa: E402
 import elections_results  # noqa: E402
+import elections  # noqa: E402
 
 # The fetch stage has a paths.py of its own too.
 del sys.modules["paths"]
@@ -436,6 +437,43 @@ def test_a_candidate_party_word_with_no_category_is_refused():
         return patched
     err = breaks(paths, "built", mangle, build=elections_results.build)
     assert err and "no category here" in err, f"not caught: {err}"
+
+
+def test_a_candidacy_on_two_source_pages_collapses_to_one_row():
+    """The county's candidate history can print a County Board candidacy
+    twice: a narrative of holdovers and incumbents, with no vote count, and
+    a results table, with one - 1935's Chew, McShea, Yeatman and Ames are
+    all printed both ways, and the two pages even disagree on the contest's
+    exact date. Reintroducing that shape on a contest with no such
+    duplicate today must still read as one candidacy, with the table's
+    vote count, not two."""
+    def duplicate(d):
+        base = d[(d.year == "1989") & d.candidate.str.contains("Bozman")].iloc[0].to_dict()
+        narrative = dict(base, page="999", election_date="November 6",
+                         votes="", candidate="*Ellen Bozman (holdover)")
+        return pd.concat([d, pd.DataFrame([narrative])], ignore_index=True)
+    original = paths.built
+    paths.built = patch_built("elections", duplicate)(original)
+    try:
+        c = elections.contests()
+    finally:
+        paths.built = original
+    rows = c[(c.year == 1989) & (c.surname == "bozman")]
+    assert len(rows) == 1, f"one candidacy on two pages became {len(rows)} rows: {list(rows.candidate)}"
+    assert rows.votes.iloc[0] == 31780, f"the table's vote count was not kept: {rows.votes.iloc[0]}"
+    assert "holdover" in rows.status.iloc[0], "the narrative page's own words were dropped"
+
+
+def test_two_pages_disagreeing_on_a_candidacys_votes_is_refused():
+    """Two pages naming the same candidate in the same contest with two
+    different vote counts is not the same candidacy printed twice; it is a
+    real disagreement, and nothing here should guess which page is right."""
+    def contradict(d):
+        base = d[(d.year == "1989") & d.candidate.str.contains("Bozman")].iloc[0].to_dict()
+        second = dict(base, page="999", votes="1")
+        return pd.concat([d, pd.DataFrame([second])], ignore_index=True)
+    err = breaks(paths, "built", patch_built("elections", contradict), build=elections.contests)
+    assert err and "different vote counts" in err, f"not caught: {err}"
 
 
 def test_two_sources_disagreeing_on_race_is_a_finding():
