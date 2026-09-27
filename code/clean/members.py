@@ -187,6 +187,7 @@ def held(terms: pd.DataFrame) -> pd.DataFrame:
 # `party_words`); the category is decided here, in the open. A word this does
 # not list stops the build.
 GENDER_WORDS = {"he": "man", "his": "man", "him": "man", "mr.": "man",
+                "captain": "man",
                 "she": "woman", "her": "woman", "mrs.": "woman", "ms.": "woman"}
 RACE_WORDS = {
     "black": "Black", "african american": "Black", "african americans": "Black",
