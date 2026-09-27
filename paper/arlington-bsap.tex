@@ -397,9 +397,9 @@ seating --- and the two years are not a discrepancy.
   which the person sitting in it can be placed: darkest a street address,
   palest a magisterial district or a side of the County, grey no location at
   all. Census records carry street addresses through the mid-twentieth century.
-  Before 1932 members were elected by magisterial district and each is placed
-  in the district he represented. More recent members are located largely by
-  neighborhood mentions in the press and in public profiles.}
+  Before 1932 a member is placed by his census sheet, which outside the towns
+  names a magisterial district and no street. More recent members are located
+  largely by neighborhood mentions in the press and in public profiles.}
   \label{fig:board-residence}
 \end{figure}
 
@@ -410,15 +410,17 @@ seventy-two years and the directories stop being published --- and nothing
 public replaces them. Since 2000 the best available unit is a neighborhood
 drawn from press coverage.
 
-The pre-1932 stretch is coarse rather than missing. Members were elected by
-district, so the roster itself places each one roughly, including 1912 to 1931,
-where who was sitting is unknown but the three districts each had someone in
-them. That placement assumes a member lived in the district he represented. The
-question of whether residence was required or merely customary before 1903 is
-open, logged as \texttt{residence-district} in \texttt{docs/questions.csv}, and
-the assumption is applied by a named function in \texttt{code/clean/} so that
-which figures take the position is greppable. If it was only custom, the
-derived claims come out.
+The pre-1932 stretch is coarse rather than missing. The censuses of those years
+place a member in a magisterial district and seldom closer, because outside the
+towns the street column on the sheet is blank: of the fifty-three claims before
+1932, thirty-four name a district and nothing finer. The seat itself places
+nobody. Nothing before 1903 required a supervisor to live in the district he
+represented --- the 1869 constitution creates the office with no residence
+qualification, and the statutes that renamed the townships districts spoke to
+the electorate and not to the candidate --- so the placements this project once
+derived from the office have been withdrawn, and a member is located only where
+a record locates him. Who was sitting is no longer the question it was: the
+Board's own minute books name all three seats in every year from 1870 to 1931.
 
 The gap is where the request below falls: two of the five seats have no
 location at all for much of 1972 to 2012. That is the modern County's own
