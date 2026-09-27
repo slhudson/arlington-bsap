@@ -65,11 +65,12 @@ VACANT = "(vacancy)"
 # which reading is greppable.
 #
 # The table is the mechanism and each entry is a ruling, so a variant that is
-# not here has not been ruled on. Two of this shape are open and stay open:
-# the article's Birch for O'Leary's Birth (Arlington, 1891-93) and its Perkin
-# for his Perkins (Arlington, 1883-84), both with a press thread
-# (arlhist-birch-perkin-spellings in docs/questions.csv). Settling either is
-# one entry here.
+# not here has not been ruled on. Two rulings leave no entry, because the
+# roster already holds the spelling they settle: the article's Perkin for
+# O'Leary's Perkins (Arlington, 1883-84), where the 1880 census sheet reads
+# Perkins with O'Leary, and its Costolow for his Costello, which its own 1881
+# footnote calls the proper form and which appears only in a block outside the
+# terms read here (Sally, 27 September 2026).
 NAMES = {
     ("Roach", "Jefferson"): ("James C. Roach",
         "Named in full by the article, from the Board's minute books, where "
@@ -93,6 +94,10 @@ NAMES = {
         "Spelled Saegmuller by the article, from the Board's minute books, and "
         "by the 1880 and 1900 census sheets; O'Leary's triple l is a typo on "
         "its face (Sally, 27 September 2026)."),
+    ("Millard F. Birth", "Arlington"): ("Millard F. Birch",
+        "Spelled Birch by the article, from the Board's minute books, and by "
+        "both the 1900 census index and its sheet (census1900birth); O'Leary "
+        "alone reads Birth (Sally, 27 September 2026)."),
     ("Wibirt", "Arlington"): ("W. C. Wibirt",
         "Named in full by the article, from the Board's minute books, where "
         "O'Leary gives the surname alone (Sally, 27 September 2026)."),
