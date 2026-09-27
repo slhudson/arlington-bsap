@@ -12,16 +12,18 @@ are explained in `code/citekeys.py`, and what is still open is in
 - 1889–1986 is coded all-White on the "first since Reconstruction" framing,
   and the five Reconstruction-era members rest on Hjerpe's census linking
   (`default-1931-1986`).
-- Gender rests on the default (man) for six members: R. Henry Phillips,
-  Robinson and Willson, seated before 1912; Wibirt and Walker, of 1916–20;
-  and W. P. Ames, whose 1940 record is matched on the name alone and feeds
-  nothing. W. M. Febrey and Edward Duncan left this list once joined to their
-  census-sourced terms (`febrey-one-member-or-two`,
-  `duncan-one-member-or-three`, 27 September 2026); H. Dwight Smith, Crocker
-  and Schutt left it on a press honorific the day the Alexandria Gazette was
-  searched for all seven (27 September 2026, below); and Phillips joined it
-  when the record read against him proved to be his father's. The other 113
-  have a census listing or a pronoun or honorific in the press.
+- Gender rests on the default (man) for four members: R. Henry Phillips,
+  Robinson and Willson, seated before 1912; and W. P. Ames, whose 1940
+  record is matched on the name alone and feeds nothing. W. M. Febrey and
+  Edward Duncan left this list once joined to their census-sourced terms
+  (`febrey-one-member-or-two`, `duncan-one-member-or-three`, 27 September
+  2026); H. Dwight Smith, Crocker and Schutt left it on a press honorific the
+  day the Alexandria Gazette was searched for all seven (27 September 2026,
+  below); Wibirt and Walker left it the same day, joined to a 1920 census
+  record each by the full name that same Gazette search gave them (below);
+  and Phillips joined it when the record read against him proved to be his
+  father's. The other 115 have a census listing or a pronoun or honorific in
+  the press.
   `gender_evidence` in `members.csv` says which (`gender-from-names`).
 - For the 40 members first seated 1932–1966 and the 38 first seated
   1870–1904, race and gender come from 74 census records covering 67 of the
@@ -729,10 +731,12 @@ Turnburke, a house painter at 35 Preston Avenue in the Washington district.
 Nine members keep the default, and the searches that found nothing are in
 `gender-from-names` so that nobody repeats them. Two are worth stating
 here. **Wibirt** has two households in the Arlington district in 1920,
-William C. and Clarence, and nothing chooses between them, so neither is a
-row. **Edward Duncan** of 1924–28 has no record of his own: Arlington
-County holds no Duncan of his age in 1930, and the 1920 record above is
-entered against the roster's Duncan of 1916–20, the term its year falls in.
+William C. and Clarence, and this search alone found nothing to choose
+between them, so neither is a row (below, "Wibirt and Walker settled by the
+Gazette and the census," has what settled it the next day). **Edward
+Duncan** of 1924–28 has no record of his own: Arlington County holds no
+Duncan of his age in 1930, and the 1920 record above is entered against the
+roster's Duncan of 1916–20, the term its year falls in.
 
 **Three more off the assumed list, from the press (27 September 2026).**
 The census route being exhausted for the seven members named in
@@ -750,25 +754,38 @@ read against the only Schutt household the county's 1880 census holds
 (`census1880schutt`), the same one the roster's Francis D. Schutt of
 1873–74 and Francis G. Schutt of 1874–81 are already read against.
 
-Four remain on the assumed list, and are not settled by this search.
+Two remain on the assumed list, and are not settled by this search.
 **William H. Robinson** appears once, named plainly among the Board of
 Supervisors of 18 September 1878, with no pronoun or honorific attached to
 him; every other Robinson the Gazette prints in his years (a Richmond coal
 committee, a King George visitor, a deceased tailor) is a different man.
 **Walter G. Willson** turns up only as a Harvey Willson unrelated to him,
 and as bare initials in an 1889 road-fund ledger; nothing ties a Gazette
-pronoun to him. **Wibirt** is now more precisely placed: the Gazette
-consistently calls the Arlington-district supervisor "W. C." or "William
-C. Wibirt" — a nominee for the seat in October 1915, a pallbearer in 1918,
-and the county's assessor of 1910 named again in 1921 — which is the older
-of the two 1920 households (William C., born about 1855) and not
-Clarence's, though no piece attaches a pronoun or honorific to him
-specifically. **Walker** gains a full name this way: the Alexandria
-Gazette's election notice of 30 October 1915 lists "Washington district,
-W. T. Weaver, Robert L. Walker" among the nominees for supervisor, which
-is the initials the tracker asked for, but again with no pronoun or
-honorific attached. The searches themselves, and what each found, are kept
-in `gender-from-names` rather than repeated here.
+pronoun to him. **Wibirt** and **Walker** are placed more precisely by this
+search, which is what let the census settle them the same day (below): the
+Gazette consistently calls the Arlington-district supervisor "W. C." or
+"William C. Wibirt" — a nominee for the seat in October 1915, a pallbearer
+in 1918, and the county's assessor of 1910 named again in 1921 — and its
+election notice of 30 October 1915 gives Walker's full name, "Washington
+district, W. T. Weaver, Robert L. Walker," among the nominees for
+supervisor. Neither piece attaches a pronoun or honorific to either man.
+The searches themselves, and what each found, are kept in
+`gender-from-names` rather than repeated here.
+
+**Wibirt and Walker settled by the Gazette and the census (27 September
+2026).** The 1915 election notice above (`gazette1915wibirtwalker`) gives
+both men full names for the first time, and the census, retried against
+those names, now ties a record to each: **William C. Wibirt**, the older of
+the Arlington district's two 1920 Wibirt households (born about 1855,
+against Clarence's born about 1865), alone in his household, his
+occupation reading "none" on the sheet, so nothing beyond the name and the
+district favors the assessor of `gazette1873smith`-style press mentions
+over any other William C. Wibirt (`census1920wibirt`); and **Robert L.
+Walker**, the only Robert L. Walker keeping house in the Washington
+district that year, an inspector in the sanitary trade, with his wife Annie
+and six children (`census1920walker`). Both leave `gender-from-names` a
+man, a race (White) and a birth year (1855, 1876) from the census rather
+than the default.
 
 **B. M. Smith, 1930 and 1940.** The member appointed in June 1933 is
 **Benjamin M. Smith**, a real-estate salesman in 1930 and a broker in 1940,
