@@ -442,12 +442,12 @@ local) is recorded so a later thread does not repeat it.
 
 Thomas J. DeLashmutt's household carries a son, **Basil N. Delashmutt, 17**,
 born about 1903 — the same birth year as the **Basil M. DeLashmutt** of the
-1932–1962 cohort's weak 1930 match (`census1930delashmutt`, `residence-1932-1962`),
-a 27-year-old civil engineer. The census supports the two Basils being the
-same man: Thomas J. DeLashmutt's son, not the 1920–23 Arlington member
-himself under a variant reading. Whether that changes how
-`residence-1932-1962` treats him is Sally's call, tracked as
-`delashmutt-basil-kinship` in `docs/questions.csv`.
+1932–1962 cohort's 1930 match (`census1930delashmutt`, `residence-1932-1962`),
+a 27-year-old civil engineer. Sally confirmed the two Basils as the same man
+(27 September 2026): Thomas J. DeLashmutt's son, not the 1920–23 Arlington
+member himself under a variant reading. The census row's `basis` and match
+now carry the family tie (`occupation; household`), so `residence-1932-1962`
+no longer counts him among its weak matches.
 
 **Mid-term handovers are terms like any other.** O'Leary records them as
 prose beside the elected member ("Replaced by H. Dwight Smith in Dec.;
