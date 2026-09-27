@@ -6,15 +6,48 @@ where nothing does, and why. Present tense; how a decision was reached is in
 the git history. The placeholders in the `source` columns are explained in
 `code/citekeys.py`, and what is still open is in `docs/questions.csv`.
 
+## The question this subject exists to answer
+
+Whether a Black candidate ran and lost, or did not run at all, in each
+period the report covers. A "no ring" year on the `candidates` figure means
+one of two very different things — nobody ran, or somebody ran and the
+record of it hasn't been checked — and telling them apart is the whole
+point of this subject. Coverage, era by era (27 September 2026):
+
+- **1871–1887**: answered, and closed for good. O'Leary's record names only
+  winners before 1907, so a loss cannot appear in it; the absence is the
+  record's limit, not a finding.
+- **1888–1930**: fully open. No candidate list exists for these 42 years at
+  all; nobody has searched the Alexandria Gazette's returns yet
+  (`black-losers-1870-1930`).
+- **1931**: answered. A complete candidate list survives; three Black
+  candidates ran, all lost.
+- **1932–1986**: the claim at stake is two historians' sentences, not a
+  check of the list (`black-losers-1932-on`). 1932–1950 (19 of the 55 years)
+  is now race-matched against the census, and it found one likely
+  exception, pending a second check against the sheet ("1932-1950,
+  race-matched against the census," below). **1950–1986, 36 years, is
+  entirely unstarted.**
+- **1987–2025**: the four Black members' own runs are tracked in full.
+  Whether any *other* candidate in these 38 years was Black has not been
+  checked either — `black-losers-1932-on` runs through 2025, not just to
+  1986, and this stretch is as open as 1950–1986 is.
+
+The 1888–1930 gap and the 1950–2025 gap are each larger than what has been
+checked so far; a full answer is not close. Each era above is free to
+become its own thread — the census-matching approach used for 1932–1950
+does not extend past 1950 (contemporaneous newspaper profiles take over;
+`black-losers-1932-on` says which), and 1888–1930 is a different kind of
+search (the Gazette's returns) from either.
 
 ## What rests on an assumption
 
 - A Black candidate who lost is recorded only in 1931 and, after 1987, only
   for the four Black members: before 1931 the election record names winners
-  (`black-losers-1870-1930`), and the 400 or so losing candidates since 1932
-  have not been matched to a census record or a press description for race
-  (`black-losers-1932-on`), so "none ran 1932-1986" is two authors' sentences,
-  not a check of the list.
+  (`black-losers-1870-1930`), and 271 losing candidacies from 1932 through
+  2025 have not been matched to a census record or a press description for
+  race (`black-losers-1932-on`), so "none ran 1932-1986" is two authors'
+  sentences, not a check of the list.
 Each is a row in `docs/questions.csv`, with an owner and what would settle it.
 
 ---
