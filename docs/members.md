@@ -447,6 +447,25 @@ listing defaults to White and man like the rest of the era
 all-White coding of 1889–1986 is a separate question waiting on the County,
 and this reading does not reopen it.
 
+**The article over 1932–1960, where three sources overlap.** The same
+compilation covers 1932 through 1960, keyed in
+`data/transcribed/by_claude/arlington_historical_magazine/arlhist_terms_1932-1960.csv`,
+where Novack and the county's candidate history already name the Board.
+Across all 180 rows the three agree on membership: the same members in the
+same seats, so nothing there moves a seat-month and no figure turns on it.
+Six particulars differ, and they matter because the roster is itself a work
+product the County receives, not only an input to the figures. One is
+settled: the article and Novack give Harry W. Cuppett's given name as Harry
+and the county's history gives Henry, and the 1950 census index and sheet
+read Harry W Cuppett, as do the Daily Sun and the Sun of 1947 printing his
+house at 1011 North Stafford Street (`census1950cuppett`, `tad1947cuppett`,
+`sun1947candidates`), so Harry is the name and Henry a variant of it. One is
+open and is a fact about a man rather than a label: the article prints John
+C. Gall as having resigned on 31 May 1933 where the county's history has him
+die in office (`arlhist-vs-novack-1932-1960`). The remaining four are labels
+nothing here reads — two dates, a chairmanship the roster does not record,
+and a one-block misprint of Lloyd as Loyd.
+
 **How the article is read.** The article prints the Board in blocks, each
 block one stretch with a settled membership and a named chairman, so a block
 is not a term: the 1916–19 term is three blocks in the Washington seat,
