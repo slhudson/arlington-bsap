@@ -138,10 +138,14 @@ ADDED = {
     ("Curtis B. Graham, Jr.", "Arlington"): "",
     ("George W. Saulisbury", "Jefferson"): "",
     ("Frank Hume", "Jefferson"):
-        " The start is contested: this block begins 13 November 1888, where "
-        "the county court's order has Hume appointed on 2 October 1888 "
-        "(allen-1888 in docs/questions.csv). The article's date is carried "
-        "until a press notice settles it.",
+        " The county court appointed him on 2 October 1888 "
+        "(alexandriagazette1888hume); 13 November is the first record of him "
+        "sitting, and the Gazette's Local Matters column of that evening "
+        "lists him among the supervisors present "
+        "(alexandriagazette1888supervisors). The article dates a term from "
+        "the minute books' first record of a man sitting, not from the "
+        "instrument that named him, so the two dates answer different "
+        "questions (docs/members.md).",
     ("William N. Febrey", "Washington"): "",
 }
 ADDED_NOTE = (
