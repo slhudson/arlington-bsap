@@ -184,8 +184,12 @@ revisit.
 
 ## Process
 
-- Render the figure, look at the image, and check it against this file before
-  showing Sally anything. Every rule above has been broken at least once by
+- **While editing one figure, run only that figure:** `bash run.sh <figure>`,
+  about five seconds. It skips the tests and the data stages when nothing
+  they depend on has changed. The full `bash run.sh`, about a minute, is for
+  once before a commit, and after any change to the style layer.
+- Render the figure, look at the image, and show it, before saying anything
+  about it. Check it against this file first. Every rule above has been broken at least once by
   not looking.
 - After any change to the style layer, rebuild every figure and look at all of
   them. A change to a shared colour, size or placement is never local to the

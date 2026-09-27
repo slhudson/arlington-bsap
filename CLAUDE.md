@@ -113,7 +113,8 @@ search; it does not do the reading.
 
 **Everything is built by `bash run.sh`.** One entry point, no exceptions. If a
 figure cannot be produced by running that from a clean checkout, it is not
-finished.
+finished. While editing one figure, `bash run.sh <figure>` rebuilds only it, in
+seconds; the full run is for once before a commit.
 
 **Never hand-edit `data/clean/` or `figures/`.** Both are generated and the
 next run overwrites them. A change you want to keep is a change to a script.
