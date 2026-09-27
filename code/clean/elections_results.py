@@ -1,4 +1,4 @@
-"""Arlington's vote by party, for President and for the County Board -> data/clean/voters.csv
+"""Arlington's vote by party, for President and for the County Board -> data/clean/elections_results.csv
 
 One row per election and office: votes for Democratic, Republican, ABC and
 other candidates, votes for candidates the source gives no label, the total,
@@ -8,7 +8,7 @@ or "county board" (every year from 1931).
 A County Board candidate is counted under the label the county's record
 prints after their name, not under the party members.csv attaches to
 the winner. A year whose returns are not the county's whole vote is marked
-incomplete, on the rule in elections.contest_rows(). docs/voters.md has
+incomplete, on the rule in elections.contest_rows(). docs/elections.md has
 the reasoning.
 
 Two sources for the presidential vote, joined at 1924:
@@ -51,10 +51,10 @@ BANDS = ["dem", "rep", "abc", "other", "unrecorded"]
 BAND = {"Democratic": "dem", "Republican": "rep", "ABC": "abc",
         "independent": "other", "other": "other", "": "unrecorded"}
 
-# The words data/transcribed/by_claude/voters_party.csv carries for a
+# The words data/transcribed/by_claude/candidates_party.csv carries for a
 # non-Democratic County Board candidate since 2023, the state record's first
 # year with no party on a candidate who did not win a Democratic primary; a
-# word not listed here stops the build. docs/voters.md, voters-2023-labels.
+# word not listed here stops the build. docs/elections.md, voters-2023-labels.
 CANDIDATE_PARTY_WORDS = {
     "independent": "independent",
     "independent; running under the banner of the forward party": "independent",
@@ -120,23 +120,23 @@ def county_check(d: pd.DataFrame):
     off = both[((both.dem - both.dem_county).abs() / both.dem > TOLERANCE)
                | ((both.rep - both.rep_county).abs() / both.rep > TOLERANCE)]
     if not off.empty:
-        print("  voters.csv: county and state disagree by more than "
+        print("  elections_results.csv: county and state disagree by more than "
               f"{TOLERANCE:.0%} in {list(off.index)} (state figures kept)")
 
 
 def candidate_parties() -> dict:
     """(year, surname) -> (band, source, note) for a County Board
     general-election candidate the state record carries no party for, from
-    data/built/voters_party.csv: the party a press or campaign source gives,
+    data/built/candidates_party.csv: the party a press or campaign source gives,
     decoded through CANDIDATE_PARTY_WORDS."""
-    a = paths.built("voters_party")
+    a = paths.built("candidates_party")
     out = {}
     for _, r in a.iterrows():
         word = r.party_words.strip().lower()
         if word not in CANDIDATE_PARTY_WORDS:
             raise ValueError(f"{r['name']} {r.year}: party words with no category here: "
                              f"{r.party_words!r}; add them to CANDIDATE_PARTY_WORDS in "
-                             f"voters.py or fix the reading")
+                             f"elections_results.py or fix the reading")
         key = (int(r.year), elections.surname(r["name"]))
         out[key] = (BAND[CANDIDATE_PARTY_WORDS[word]], r.source,
                     f"{r.basis}: {r.quote}" if r.quote else r.basis)
@@ -220,4 +220,4 @@ def build() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    write(build(), "voters")
+    write(build(), "elections_results")

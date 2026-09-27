@@ -1,7 +1,7 @@
-# Voters
+# Elections
 
-Who voted, for whom, and how many: what each number in `data/clean/voters.csv`
-and `data/clean/voters_turnout.csv` is, what backs it, what is assumed where nothing
+Who voted, for whom, and how many: what each number in `data/clean/elections_results.csv`
+and `data/clean/elections_turnout.csv` is, what backs it, what is assumed where nothing
 does, and why. Present tense; how a decision was reached is in the git
 history. The placeholders in the `source` columns are explained in
 `code/citekeys.py`, and what is still open is in `docs/questions.csv`.
@@ -22,9 +22,9 @@ Each is a row in `docs/questions.csv`, with an owner and what would settle it.
 
 ---
 
-## Voters
+## Results
 
-`data/clean/voters.csv` is Arlington's vote by party for two offices, one row
+`data/clean/elections_results.csv` is Arlington's vote by party for two offices, one row
 per election and office.
 
 **For President**, every fourth year from 1872. Virginia has no party
@@ -35,7 +35,7 @@ constitution allowed, poll tax and literacy test, and before 1920 it was men.
 The comparison the figures invite is therefore the Board against the people
 who were allowed to vote, which the file name and axis label say so that no
 caption has to. 1872–1920 is O'Leary's compilation of the Alexandria Gazette,
-transcribed verbatim and parsed in `code/clean/voters.py`. Party before 1924
+transcribed verbatim and parsed in `code/clean/elections_results.py`. Party before 1924
 is the nominee's, named in the build, since O'Leary prints it for 1912 only;
 a name the build does not know stops it rather than falling into "other".
 Three elections are kept and marked incomplete, and the figure leaves them
@@ -77,8 +77,8 @@ general and special contest in a year summed; 2022 on is the state database,
 which names a party on the 2022 general and none after, so from 2023 a
 Democratic primary winner is Democratic. Every other general-election
 candidate since 2023 is read from a press or campaign source, quoted in
-`data/transcribed/by_claude/voters_party.csv` and decoded in
-`code/clean/voters.py`'s `CANDIDATE_PARTY_WORDS`: Fierro (2023, 2024) and
+`data/transcribed/by_claude/candidates_party.csv` and decoded in
+`code/clean/elections_results.py`'s `CANDIDATE_PARTY_WORDS`: Fierro (2023, 2024) and
 Cambridge (2025) are Republican, named by the county Republican committee;
 Clement (2023–2025), Granger (2024, running under the Forward Party's
 banner) and De Castro Pretelt and Olmack (2025) are independent, so in
@@ -95,7 +95,7 @@ ABC) and 2003 (one Republican).
 
 ## Turnout
 
-`data/clean/voters_turnout.csv` puts four measures side by side, one row per year:
+`data/clean/elections_turnout.csv` puts four measures side by side, one row per year:
 votes cast in the November County Board contests and the seats they filled;
 the people that represents; registered voters; the population 18 and over;
 and the presidential vote. Each measure has its own source column, because a
@@ -119,7 +119,7 @@ it.
 
 **Which years are not the county's vote.** The county's own page says its
 tallies are complete only from 1971. One rule, in `code/clean/elections.py`,
-decides for `voters.csv` and `voters_turnout.csv` alike. A year is marked incomplete and not drawn
+decides for `elections_results.csv` and `elections_turnout.csv` alike. A year is marked incomplete and not drawn
 where a named candidate has no count (1942, 1949, and Frisbie in 1947, whose
 page also says its totals are from 8 of 11 precincts) or where the page says
 others ran who are not listed (1931). Before 1932 the Board was elected by
@@ -146,7 +146,7 @@ the 21-and-over counts through the November 1970 election, and from 1971 the
 forward, which overstates the 2021–25 shares a little. The change of age adds
 9,261 people aged 18 to 20 to the 1970 denominator, and no series on the
 share panel steps at 1971: the presidential-year Board vote is 42 per cent of
-adults in 1968 and 46 per cent in 1972. The presidential vote is `voters.csv`'s and is
+adults in 1968 and 46 per cent in 1972. The presidential vote is `elections_results.csv`'s and is
 marked `derived`. Three guards: the Board's voters can never exceed the
 registered voters, nor the presidential vote of the same year, and the
 registered can never exceed the adults.

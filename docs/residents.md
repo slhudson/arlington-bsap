@@ -478,7 +478,7 @@ men and women do not make it, is a misreading and stops the build. The bands mus
 name every age group the source table has, exactly once — a group left out
 of all seven would simply never be counted, and the county total would still
 tie. The bands must then sum to the same county total the `total` column
-carries. And `voters_turnout.csv`, which counts adults from a different table
+carries. And `elections_turnout.csv`, which counts adults from a different table
 altogether (race by 18 and over), must agree exactly with the six adult
 bands summed; it does, at all five censuses from 1980, and in 1970, where
 the one reads the single years and the other the five-year groups.

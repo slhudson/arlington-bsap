@@ -1,4 +1,4 @@
-"""Who votes for the County Board, year by year -> data/clean/voters_turnout.csv
+"""Who votes for the County Board, year by year -> data/clean/elections_turnout.csv
 
 One row per year in which any of these is measured, 1872-2025:
 
@@ -15,13 +15,13 @@ One row per year in which any of these is measured, 1872-2025:
                    over through 1970, 18 and over from 1971, when the
                    Twenty-sixth Amendment took effect; carried between
                    censuses
-  president_votes  the county's presidential vote, from voters.csv
+  president_votes  the county's presidential vote, from elections_results.csv
   cycle            what else the November ballot carried, from 1931
 
 Each measure has its own `_source` column. The seats an election filled
 are counted from the roster: terms an election seated the next January, or
 a special election that November. A year is marked incomplete on the rule
-in elections.contest_rows(). docs/voters.md has the reasoning.
+in elections.contest_rows(). docs/elections.md has the reasoning.
 
 Three guards: the Board's voters never exceed the registered voters, nor
 the presidential vote of the same year, and the registered never exceed
@@ -174,7 +174,7 @@ def between_censuses(d: pd.DataFrame) -> pd.Series:
 
 
 def president() -> pd.DataFrame:
-    v = read("voters")
+    v = read("elections_results")
     v = v[(v.office == "president") & v.complete]
     return pd.DataFrame({"year": v.year, "president_votes": v.total,
                          "president_source": citekeys.DERIVED})
@@ -234,4 +234,4 @@ def build() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    write(build(), "voters_turnout")
+    write(build(), "elections_turnout")
