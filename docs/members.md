@@ -12,21 +12,24 @@ are explained in `code/citekeys.py`, and what is still open is in
 - 1889–1986 is coded all-White on the "first since Reconstruction" framing,
   and the five Reconstruction-era members rest on Hjerpe's census linking
   (`default-1931-1986`).
-- Gender rests on the default (man) for seven members: five seated before 1912
-  (H. Dwight Smith, Crocker, Schutt, Robinson and Willson) and the two of
-  1916–28 (Wibirt and Walker). W. M. Febrey and Edward Duncan left this list
-  once joined to their census-sourced terms (`febrey-one-member-or-two`,
+- Gender rests on the default (man) for eight members: six seated before 1912
+  (H. Dwight Smith, Crocker, Schutt, Robinson, Willson and R. Henry Phillips,
+  whose census record turned out to be his father's, 27 September 2026) and
+  the two of 1916–28 (Wibirt and Walker). W. M. Febrey and Edward Duncan left
+  this list once joined to their census-sourced terms (`febrey-one-member-or-two`,
   `duncan-one-member-or-three`, 27 September 2026). The other 115 have a
   census listing or a pronoun or honorific in the press. `gender_evidence` in
   `members.csv` says which (`gender-from-names`).
 - For the 40 members first seated 1932–1966 and the 38 first seated
-  1870–1904, race and gender come from 75 census records covering 68 of the
+  1870–1904, race and gender come from 74 census records covering 67 of the
   78, each index reading checked against the sheet where the row could be
   found on it; the match to the member rests on the name, the district he sat
   for or Arlington, and, where the record gives one, an occupation, a
   household or a street. Ten of those 78 were found in no census: Casto,
   H. L. Brown Jr, Fisher, Lowry and T. W. Richards of the later era, and
-  H. Dwight Smith, Crocker, Schutt, Robinson and Willson of the earlier.
+  H. Dwight Smith, Crocker, Schutt, Robinson and Willson of the earlier. One
+  more, R. Henry Phillips, was found and then withdrawn: the household read
+  against his row is his father's, not his (below).
 - Birth years, for 88 of 119 members, rest on the census listings' ages and
   on an age stated in an obituary or a profile, each right to within a
   year, and the age figure draws a year only when all but at most
@@ -51,14 +54,15 @@ are explained in `code/citekeys.py`, and what is still open is in
   County, Arlington, Jefferson or Washington, as the 1880–1910 census sheets
   head each page, a district. A place no rule reads stops the build. A house
   number whose street is unread (Ames) counts as a neighborhood.
-- Before 1932 the only places are the census sheets' own: 34 of the 41
-  members seated 1870–1911 have a record, and for 29 of them the sheet gives
+- Before 1932 the only places are the census sheets' own: 33 of the 41
+  members seated 1870–1911 have a record, and for 28 of them the sheet gives
   a magisterial district and nothing finer, since the street column is blank
   outside the towns; Cherrydale, Washington Avenue, Old Glebe Road and
   Saegmuller's Maryland Avenue house in Washington City are the exceptions.
-  Two of the 34 are weak matches, Roach and R. Henry Phillips, flagged in
-  their rows. Seven have no record in the 1870–1920 indexes under any
-  spelling tried (`residence-pre-1932`).
+  One of the 33 is a weak match, Roach, flagged in his row. Eight have no
+  record in the 1870–1920 indexes under any spelling tried, R. Henry
+  Phillips among them since the record once matched to him is his father's
+  (`residence-pre-1932`).
 - Before 1932 a member seated for a magisterial district has no claim from
   the office, and 1912–1931, where no roster exists, the figure counts no
   seats. Both once rested on the assumption that a supervisor lived in the
@@ -669,15 +673,37 @@ that it is not legible: a 5, then a second digit written over. One
 disagrees. Phillips's middle initial reads **A** on the second reading,
 the shape of the A in *Andw* on line 43, where the row reads H; the letter
 sits under a later pencil mark, and this enumerator's H in *Head* is
-pointed too, so neither reading is firm and the row stands
-(`pre-1932-spot-check`). Two more 1900 fields the rows mark are then read
-again, Darby's given name (sheet 22B, line 87), **Rezin**, and Costello's
-street label (sheet 9A, lines 5–8), **Cherrydale**, and both agree. Seven
-of eight agree, and none of the eight moves a number: Duncan's and
-Corbett's birth years come from printed dates, not ages, and Phillips's
-initial bears only on the strength of his match, which rests on R. H. and
-is weaker than its `basis` says until a second source gives the middle
-name. The other pre-1912 readings stand as read.
+pointed too, so neither reading was firm on its own and a source outside
+the sheet was sought (below). Two more 1900 fields the rows mark are then
+read again, Darby's given name (sheet 22B, line 87), **Rezin**, and
+Costello's street label (sheet 9A, lines 5–8), **Cherrydale**, and both
+agree. Seven of eight agree, and none of the eight moves a number: Duncan's
+and Corbett's birth years come from printed dates, not ages. The other
+pre-1912 readings stand as read.
+
+**Phillips's household is his father's (27 September 2026).** A second
+source was sought for the 1900 household rather than a third reading of the
+same smudge (`pre-1932-spot-check`): an 80-year-old father-in-law named
+Andrew Barbour and a daughter Margueritte born about 1889 are unusual
+enough to search on directly. WikiTree's profile for Robert Augustus
+Phillips (`wikitreephillips2024`), compiled from Find A Grave and the
+census, gives a birth of 14 Jul 1833 in Dryden, Tompkins Co., NY, matching
+the sheet's birth date and birthplace exactly, and a marriage to Mary
+Imogene Barbour on 27 Dec 1880, matching the sheet's spouse and marriage
+year; its own sources cite this same 1900 record, roll 1698, page 10,
+ED 3, as his. The household is his, and the second reading, **A**, is
+right. It is not the member's: Robert Augustus had an elder son by an
+earlier marriage, a distinct man named Robert Henry Phillips (1865–1942),
+who does not appear in the 1900 household. Nothing ties Robert Augustus,
+a Washington, D.C. household in 1900 and buried there in 1912, to the
+Board or to Arlington. `census1900phillips`'s match is withdrawn (`match`
+set to `none`) and it gives R. Henry Phillips, the member of 1893–95,
+nothing: his race (**White**) now rests on the default, as it does for
+every member before 1912 except Roach, and he has no residence claim at
+all, joining the seven members with no census record found
+(`residence-pre-1932`). No record of Robert Henry Phillips himself in
+Alexandria County or Arlington was found in this search; if one turns up
+later, it is the one to try.
 
 **Five members off the assumed list (26 September 2026).** The censuses of
 the years each served were searched for the members whose gender rested on
