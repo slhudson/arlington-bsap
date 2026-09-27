@@ -372,6 +372,29 @@ assumed would be represented for the seven weeks in 1920, is the decision
 that follows from this count, tracked as `roster-1912-1931` in
 `docs/questions.csv`.
 
+**Four of the five 1912–1931 members new to this roster are settled to the
+census (27 September 2026).** Thomas J. DeLashmutt, Frank Upman and W. T.
+Weaver each match a single, unique household in the right district in the
+1920 census, read off the sheet (`census1920delashmutt`, `census1920upman`,
+`census1920weaver`); B. M. Hedrick, whose term runs 1928–31, is **Benjamin M.
+Hedrick**, an attorney in the Glenarlyn subdivision of the Arlington district
+in the 1930 census (`census1930hedrick`) and is in no 1920 index for the
+county under that name. All four read White and male from the sheet, so they
+no longer rest on the era default (`default-1931-1986`). **Clarence R.
+Ahalt** is in no 1920 census index for the former Alexandria County under
+that name or a close spelling; he still defaults to White and man like the
+rest of the era, and the county-wide search (32 nationwide results, none
+local) is recorded so a later thread does not repeat it.
+
+Thomas J. DeLashmutt's household carries a son, **Basil N. Delashmutt, 17**,
+born about 1903 — the same birth year as the **Basil M. DeLashmutt** of the
+1932–1962 cohort's weak 1930 match (`census1930delashmutt`, `residence-1932-1962`),
+a 27-year-old civil engineer. The census supports the two Basils being the
+same man: Thomas J. DeLashmutt's son, not the 1920–23 Arlington member
+himself under a variant reading. Whether that changes how
+`residence-1932-1962` treats him is Sally's call, tracked as
+`delashmutt-basil-kinship` in `docs/questions.csv`.
+
 **Mid-term handovers are terms like any other.** O'Leary records them as
 prose beside the elected member ("Replaced by H. Dwight Smith in Dec.;
 replaced by Lott W. Crocker in March 1873, replaced by Francis D. Schutt in
