@@ -32,7 +32,7 @@ for profile in style.PROFILES:
         charts.lines(ax, president.year, {label: (president[col], colour)})
         for cycle, (label, colour) in style.CYCLE.items():
             part = board[board.cycle == cycle]
-            charts.lines(ax, part.year, {label: (part[col], colour)}, marker=False)
+            charts.lines(ax, part.year, {label: (part[col], colour)})
 
     charts.counts(a, 150000, 50000, label="people", minor=25000)
     a.set_title("(a) people")
