@@ -146,7 +146,7 @@ neither repeats the reasons.
   and residence coverage are ordered. Never define a ramp in a figure.
 - **Where a category's definition changes mid-figure, the legend does not
   relabel silently.** `residents_by_race` says "not Hispanic" (`style.RESIDENTS_CROSSED`)
-  and rules off 1980; `members_race` keeps `style.RACE`.
+  and rules off 1980; `members_by_race` keeps `style.RACE`.
 - **No textures.** Distinguish with colour. A filled dot against an open
   ring of the same colour is a fill, not a texture: `style.CANDIDACY`.
 - **A series the sources report at some censuses and not others breaks**

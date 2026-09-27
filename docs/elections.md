@@ -71,7 +71,7 @@ electorate did with the candidates it was offered, and it is not coded the
 same way as the roster: a candidate is counted under the label the county
 prints after their name, not under the party reporting later attached to the
 winner. Votes for Dorothy Grotos in 1975 sit in "other" here while her seat
-is Republican in `members_party`, deliberately; one figure is the choice on the
+is Republican in `members_by_party`, deliberately; one figure is the choice on the
 ballot, the other who sat. 1931–2021 is the county's candidate history, every
 general and special contest in a year summed; 2022 on is the state database,
 which names a party on the 2022 general and none after, so from 2023 a

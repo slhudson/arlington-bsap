@@ -1,4 +1,4 @@
-"""Board seats by gender, 1870-2026 -> figures/members_gender.pdf, .png
+"""Board seats by gender, 1870-2026 -> figures/members_by_gender.pdf, .png
 
 A stacked step area of seat-years, women then men, with the 1932 rule.
 Blank years are gaps.
@@ -23,4 +23,4 @@ for profile in style.PROFILES:
     charts.years(ax, 1870, 2020, step=20, label="year", through=members.LAST + 1)
     charts.rule(ax)
     charts.legend(fig, series)
-    paths.save(fig, "members_gender", profile)
+    paths.save(fig, "members_by_gender", profile)
