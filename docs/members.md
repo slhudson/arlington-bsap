@@ -549,6 +549,34 @@ appointment is dated and no departure accounts for it, the one member whose
 span ends that year undated left in the month of the appointment; more than
 one candidate stops the build.
 
+**Gall resigned; he did not die in office (27 September 2026).** The
+Historical Society's article for 1932-1960
+(`arlington_historical_magazine/arlhist_terms_1932-1960.csv`, keyed the same
+way as the 1912-1931 stretch above but not yet read into the roster) and
+Novack both print John C. Gall's term as ending in a resignation, 31 May
+1933; the county's candidate history alone calls it a death in office
+(`arlhist-vs-novack-1932-1960`). The two agreeing sources are the Board's own
+minute books; the roster already carries the resignation
+(`novack1994`, source column), so this is a check of a value already right
+rather than a change to one. Searched and found nothing: the Evening Star
+(Chronicling America) around his departure and later in 1933 prints no
+obituary, death notice or successor-appointment story naming him, under
+several searches on his name, "Aurora Hills" and Benjamin M. Smith's
+appointment to the seat; the Washington Post for the same weeks is ProQuest,
+which neither Claude nor Sally can reach. What settles it instead is that he
+is demonstrably alive afterward. A ship's manifest has him landing in New
+York on 28 November 1934, married, eighteen months after the county's dated
+death (`passenger1934gall`); a Fairfax County World War II draft card
+registers him at 41 on 16 February 1942, next of kin "Elsie J Gall"
+(`draft1942gall`); and a Find a Grave index entry gives his death as 13
+December 1957, at Ivy Hill Cemetery in Upperville, Fauquier County
+(`findagrave1957gall`). The three share his exact birth date, 1 February
+1901, with `census1940gall`, and the draft card and the grave record share
+his parents' and his wife's names with a 1924 Herndon marriage record
+(`marriage1924gall`): John (Jacob) Gall and Bertha Gall, and Elsie
+G. Rosenberger / Elsie Grafton Gall. The county's own work product, not the
+Board's minute books, is the one in error.
+
 **From 1995 a term is built from election results.** A November win starts a
 four-year term the following January. A special election fills the rest of a
 term that ended early: the member who left is closed at that month, the winner
