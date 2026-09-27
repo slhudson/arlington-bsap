@@ -14,11 +14,14 @@ are explained in `code/citekeys.py`, and what is still open is in
   (`default-1931-1986`).
 - Gender rests on the default (man) for nine members: R. Henry Phillips,
   Robinson and Willson, seated before 1912; W. P. Ames, whose 1940
-  record is matched on the name alone and feeds nothing; and the five the
-  Historical Society's article added on 27 September 2026, Clarence R.
-  Ahalt, Thomas J. DeLashmutt, Frank Upman, W. T. Weaver and B. M. Hedrick,
-  for whom no census or press reading has been looked for yet
-  (`gender-from-names`). W. M. Febrey and
+  record is matched on the name alone and feeds nothing; Clarence R. Ahalt,
+  who is a recorded negative rather than an unsearched name, appearing
+  nowhere in the 1920 census; and the four the Historical Society's 1870–1911
+  reading added on 27 September 2026, Francis M. Mills, Curtis B. Graham,
+  Jr., George W. Saulisbury and William N. Febrey, for whom no census or
+  press reading has been looked for yet (`gender-from-names`). DeLashmutt,
+  Upman, Weaver and Hedrick left this list the same day on a census sheet
+  each (below). W. M. Febrey and
   Edward Duncan left this list once joined to their census-sourced terms
   (`febrey-one-member-or-two`, `duncan-one-member-or-three`, 27 September
   2026); H. Dwight Smith, Crocker and Schutt left it on a press honorific the
@@ -51,14 +54,21 @@ are explained in `code/citekeys.py`, and what is still open is in
   Jefferson and Washington, for all twenty years, with one vacancy in the
   Washington seat in early 1920 that the source itself states rather than
   leaves silent. `members_by_year.py` reads the roster for those years like
-  any other (below, "The roster names 1912 to 1931"). Two readings inside
-  the stretch are still provisional, Walker's end date and the spelling
-  Turnburke (`roster-walker-end-date`, `roster-turnburke-spelling`); the
-  third, whether the 1920–23 DeLashmutt is the one in the 1932–62 cohort, is
-  settled — he is that man's father (below). Neither of the two changes a
-  figure.
-- From 1907 O'Leary's surnames are not joined to earlier full names
-  (`surnames-from-1907`).
+  any other (below, "The roster names 1912 to 1931"). One reading inside
+  the stretch is still provisional, Walker's end date
+  (`roster-walker-end-date`), and it changes no figure; the other two, the
+  spelling Turnburke and whether the 1920–23 DeLashmutt is the one in the
+  1932–62 cohort, were settled on 27 September 2026 (below).
+- 1870–1911 no longer rests on O'Leary alone. The same article was read
+  through for it on 27 September 2026 and now settles seven names, the
+  July–June term year and five terms it adds, which together take Black
+  seat-months in the period from 247 to 203 (below, "The article corrects and
+  adds for 1870 to 1911"). Three things about that stretch are still open and
+  change no value in the meantime: two spellings
+  (`arlhist-birch-perkin-spellings`), two seats the article gives to a
+  different man (`arlhist-seats-1870-1911`), and whether the 1892 William N.
+  Febrey is the W. N. Febrey of 1904–11 (`febrey-1892-one-member-or-two`).
+  The statute behind the July seating is uncited (`may-election-seating`).
 - 23 terms from 1932 carry no party, three labels are unresolved, and no
   party is attempted before 1932 (`party-unlabelled`, `party-before-1932`).
 - Each place carries a precision, from the place's own words by rules in
@@ -281,9 +291,9 @@ the finding, not a gap waiting on more searching.
 `data/clean/members.csv` holds one row per person per term: name, term
 number, district, when service began and ended (to the month), the months the
 term held (`held_from` and `held_to`, counted from year 0, the end exclusive),
-how the term began, and a source per row. 226 terms, 1870 through 2026, from four sources
+how the term began, and a source per row. 231 terms, 1870 through 2026, from four sources
 in sequence: O'Leary's electoral history to 1915, the Historical Society's
-article for 1912–1931, Novack's roster from 1932 to
+article for 1870–1931, Novack's roster from 1932 to
 1994, and election results after that, the county's candidate history to 2021
 and the state's elections database from 2022.
 
@@ -356,8 +366,9 @@ name, the at-large method and the five seats therefore arrive together, and
 prose should not carry one back across 1932 without the others.
 
 **When a term begins depends on the constitution in force.** Under the
-magisterial system elections were held in May and the board took office then,
-so those terms run May to May. The 1902 constitution moved county and district
+magisterial system elections were held in May and the winners took office on
+1 July following, so those terms run July to June (below). The 1902
+constitution moved county and district
 elections to November and seated their winners on 1 January following (sec.
 112, `vaconstitution1902`), so from the November 1903 election a term runs
 January to January; the County Manager plan seats members on 1 January too,
@@ -428,10 +439,8 @@ B. M. Hedrick (1928–31); Washington runs Robert L. Walker (1912 to his
 resignation 27 March 1919), Clarence R. Ahalt (appointed to the rest of
 1919), the seven-week vacancy, Frank Upman and W. T. Weaver (both appointed,
 in quick succession, to the balance of the 1920–23 term) and E. C.
-Turnburke — printed that way in the article, "Thornburke" in
-`arlingtonelections2021` and in Novack, so read as the same misprint the
-county's own records do not repeat — for 1924–27 and 1928–31, closing the
-open end above; Jefferson is Edward Duncan throughout, as already sourced.
+Turnburke — printed that way in the article, and the name the roster now
+carries (below) — for 1924–27 and 1928–31, closing the open end above; Jefferson is Edward Duncan throughout, as already sourced.
 The article gives no race for any of them, so a member drawn from this
 listing defaults to White and man like the rest of the era
 (`default-1931-1986`, above) rather than being looked into on its own: the
@@ -452,14 +461,16 @@ the rule in "Seat-years" below. The article records no election, so a term
 begins `unrecorded` unless its note says the member was appointed.
 
 Four of the terms were already in the roster from another source — Wibirt's
-and Walker's 1916 terms from O'Leary, Ingram's 1924 and Thornburke's 1924
+and Walker's 1916 terms from O'Leary, Ingram's 1924 and Turnburke's 1924
 and 1928 from the county's candidate history — so the article merges into
 those rows rather than adding a second one, taking the end date none of the
 other sources records and dropping O'Leary's sentence about a departure he
-does not record. A person another source already names is named as that
-source names them, since the census records and the attributions are keyed
-on the roster's spelling: the article's "W. C. Wibirt" is O'Leary's
-"Wibirt". Jefferson is Edward Duncan throughout and his rows are emitted
+does not record. A person another source already names is matched to them by
+surname; which spelling the roster then carries is settled first, in `NAMES`
+in the same module, and the census records and the attributions are keyed on
+it. Where the article prints a full name another source leaves short, the
+full name wins: O'Leary's "Wibirt" and "Walker" become the article's "W. C.
+Wibirt" and "Robert L. Walker". Jefferson is Edward Duncan throughout and his rows are emitted
 like any other; `apply_duncan_join` collapses them with the rest of his
 service, and now checks that the rows it joins reach 1908 to 1932 without a
 gap rather than counting them, since four sources name overlapping stretches
@@ -469,18 +480,177 @@ of the one seat.
 the twenty years it used to state itself are gone from that script, and
 1920 now counts 2 + 11/12 seats rather than three.
 `members_roster.check_district_seats` holds the reading in place: each of the
-three districts has exactly one member in every month of 1912–1931, save
-Washington in January 1920. It is scoped to that stretch because the years
-before it still have seats no source names.
+three districts has exactly one member in every month from 1870 to 1931, save
+the six months before the Board sat and the three recorded vacancies —
+Washington from July to November 1873, Jefferson from April to June 1879, and
+Washington in January 1920. The exceptions are the point: a gap anywhere else
+stops the build, and so does filling one of these.
 
-**Two readings here are provisional.** Each is written onto the term it
+**The article corrects and adds for 1870 to 1911 (27 September 2026).** The
+same compilation covers 1870 onward, keyed in
+`data/transcribed/by_claude/arlington_historical_magazine/arlhist_terms_1870-1911.csv`,
+but here O'Leary's elections already sit underneath it, so it is read a
+second way: `names()`, `notes()` and `early()` in `members_roster_arlhist.py`
+correct what a member is called, write onto a term what the article says
+about it, and add the terms no other source records. O'Leary is an electoral
+history. He lists elections and their winners and names a departure only
+where his prose happens to, recording five handovers in the 1870s and not one
+from 1880 through 1911, which cannot be what happened; where the article
+names a supervisor he does not, he is silent rather than contradicting
+(Sally, 27 September 2026).
+
+**The article dates a term from the first record of a man sitting**, not from
+the instrument that named him — the minute books record meetings, not
+appointments. "Hume's two dates" above works this out on the one case where
+both dates survive, and Saulisbury's footnote states it outright: "[n]othing
+in the record shows why Saulisbury took Pendleton's place, nor exactly when;
+the meeting of 11/15/84 is the first in which he is shown as 'present.'" It
+is a property of every date the article gives, not a fact about either man.
+
+**The Board's year ran 1 July to 30 June through 1901.** Elected in November,
+start in January; elected in May, start in July.
+`members_roster_oleary.seated()` already carried the November half with its
+citation (`vaconstitution1902` sec. 112) and simply never applied the same
+reasoning — that being elected is not taking office — to the May half, which
+had never had a citation at all. The minute books supply it: every term block
+the article prints for 1870–1901 runs 1 July to 30 June. Its own footnote at
+1901 corroborates the arithmetic. The 1902 constitution moved the Board to
+four-year calendar terms, and "the extra six months of this Board covered the
+transition period" — a term running 1 July 1901 to 31 December 1903, which is
+thirty months on a July–June year and thirty-two on a May one. `BOARD_FROM`
+moves with it: the Board elected in May 1870 first sat on 1 July, so the three
+seats are empty for six months of 1870, not four.
+
+The article prints "township" through the block ending 30 June 1874 and
+"district" from 1 July 1874 on, four months before the amendment was ratified.
+The roster says districts throughout, and that is correct rather than a
+simplification: ch. 76 sec. 1 of the 1874–75 acts, approved 5 February 1875,
+declares the townships as they stood on 3 November 1874 to be the magisterial
+districts, keeping their boundaries, names and voting places, and ch. 69 sec.
+1 directs that "township" in any earlier statute be read as the district
+(`vaacts1875`). Same lines, same three names. The townships began with the
+1869 constitution and did not predate 1870, so nothing is carried back across
+a boundary change that never happened.
+
+**Names the article settles.** Each is an entry in `NAMES` in
+`members_roster_arlhist.py`, applied before anything matches on a name, and
+the renamed rows carry a note saying what settled it. A variant not in that
+table has not been ruled on.
+
+- **Frederick S. Corbett**, one man and five terms (`surnames-from-1907`,
+  settled 27 September 2026). O'Leary gives surnames only from 1907, so the
+  Arlington member of 1908–11 stood apart from the Frederick S. Corbett of
+  1889–91, 1895–97, October 1897–99 and 1899–1901. The article gives all five
+  the same full name from the minute books, and the censuses agree on a birth
+  year: the 1880 sheet an age of 24, the 1910 sheet 1856. No figure moves — a
+  White man either way, and `members_age` starts at 1932 — but his term count
+  becomes five, and the two census rows keyed "Corbett" and "Frederick S.
+  Corbett" now describe one man and agree on the year.
+- **Francis G. Schutt**, one man. Three sources give three middle initials — D
+  in O'Leary, G in the minute books, C in the Alexandria Gazette of 6 December
+  1875 (`gazette1875schutt`) — and an initial that unstable cannot be what
+  distinguishes two people. The seat passes from his July 1873 appointment to
+  his May 1874 election with no gap, and his is the only Schutt household in
+  the county in 1880 (`census1880schutt`). The 1873–74 Arlington terms stop
+  carrying race `assumed` and inherit the census match: two seat-years off the
+  era default.
+- **James C. Roach** (Jefferson, 1870), **W. C. Wibirt** and **Robert L.
+  Walker**: a bare surname in O'Leary, named in full by the minute books.
+- **Saegmuller**, not Saegmulller. The article, the 1880 sheet and the 1900
+  sheet all spell it with two; O'Leary's third l is a typo on its face.
+- **Turnburke**, not Thornburke (`roster-turnburke-spelling`, settled 27
+  September 2026). The Gazette prints "Turnburke" in 1923 and no "Thornburke"
+  anywhere in its run (`gazette1923turnburke`), agreeing with the minute books
+  and the 1920 census index and sheet against the county's candidate history
+  and Novack. Those two print a recorded variant of the name rather than the
+  name. His identity was never in doubt: read as two men the Washington seat
+  double-fills and `check_district_seats` refuses the build.
+
+Two spellings of the same shape are **not** settled and stay open: the
+article's Birch for O'Leary's Birth (Arlington, 1891–93) and its Perkin for
+his Perkins (Arlington, 1883–84), both with a press thread
+(`arlhist-birch-perkin-spellings`). Settling either is one entry in `NAMES`.
+
+**Five terms the article adds**, taken as one set with the five it supplies
+for 1912–1931 — Sally, 27 September 2026, "make the most of these new data."
+Each is an entry in `ADDED`, and every date is read off the article's blocks
+rather than written into the table: the term begins with the first block
+naming the man, runs to the end of the last block he holds without a break or
+to the month the roster's next term in that seat begins, whichever is first,
+and the man whose block precedes his has his own term cut to that block's
+printed end.
+
+| member | district | from | O'Leary gives the term to |
+| --- | --- | --- | --- |
+| Francis M. Mills | Jefferson | 15 August 1881 | Travis B. Pinn |
+| Curtis B. Graham, Jr. | Arlington | 1 April 1884 | Perkins W. Squier |
+| George W. Saulisbury | Jefferson | 15 November 1884 | John W. Pendleton |
+| Frank Hume | Jefferson | 13 November 1888 | Tibbett Allen |
+| William N. Febrey | Washington | 1 July 1892 | Walter G. Willson |
+
+A sixth departure the article states is the same ruling applied to a
+vacancy rather than a successor: **William A. Rowe resigned the Jefferson
+seat on 2 April 1879**, having moved into the Arlington District, and it
+stood empty until Travis B. Pinn's term began on 1 July. That is `VACATED`
+in the same module, and `members_roster.VACANT_1879` reads the empty months
+straight off it, so the cut and the vacancy cannot drift apart. The article
+also opens blocks of a few days between an outgoing and an incoming member —
+Arlington, 5 to 25 June 1877 — and on a month grain those are one handover,
+not a vacancy; the month stays the unit, and no member's whole service in the
+article is shorter than a month.
+
+**What this does to the central figure.** Black seat-months from 1870 to
+1911, out of 36 a year, fall from **247 to 203**, measured off `members.csv`,
+in three steps that do not overlap:
+
+- **The five added terms, 33 months.** Pinn's 1881 term ends after three
+  months instead of twenty-four (21), and Pendleton's and Allen's each end
+  mid-term instead of running out (6 each).
+- **The July term year, 8 months.** It bites in four years only — 1871,
+  1872, 1879 and 1887, the years a Black member's service begins — where a
+  start moving from May to July drops two months off the front. Inside a
+  continuous term both ends shift together, so nothing else moves.
+- **Rowe's April 1879 resignation, 3 months**, the Jefferson seat standing
+  empty from April to June.
+
+Year by year the fall is 1871 8→6, 1872 19→17, 1879 20→15, 1881 24→19, 1882
+24→12, 1883 16→12, 1884 12→10, 1887 8→6, 1888 12→10 and 1889 4→0; every other
+year holds.
+
+**A contested election seats the man who sat.** The Arlington District
+election of 1897 gave A. D. Torreyson and Frederick S. Corbett 209 votes each
+on the first count; the county court found for Corbett and declared him a
+member from 1 July, by which time Torreyson had been sitting, and he sat on
+until 11 October (`arlhist1967officials` p.42). Both men have a claim on the
+same fourteen weeks, the only term of its kind in the roster. The roster
+records who held a seat, not who held title to it, so Torreyson holds it to
+11 October 1897 and Corbett from then, and the court's finding is a note on
+both rows rather than a second term (Sally, 27 September 2026). A man who sat
+and voted on the Board was a member of it whatever a later judgment says he
+should have been. Recording title instead would either seat two men in one
+seat for fourteen weeks, which `members_by_year.py` refuses, or delete a
+member the minute books show sitting.
+
+**What the article disagrees about and nobody has ruled on.** Two seats are
+held by different men and both are left as O'Leary has them
+(`arlhist-seats-1870-1911`): Storm V. Boyd, whom O'Leary seats in Jefferson
+from May to September 1870, is printed as elected but having failed to
+qualify, and the Washington seat of 1897–99 is Saegmuller's in the article
+where O'Leary keeps Grunwell in it to 1899. Neither changes a race or a
+gender, and both would move a seat-month, so neither is taken on this
+reading's authority alone. The article's William N. Febrey of 1892–93 is
+also carried as his own person, not joined to the W. N. Febrey of 1904–11
+(`febrey-1892-one-member-or-two`); there are three Febreys in the roster and
+the article distinguishes these two only typographically.
+
+**One reading here is provisional.** It is written onto the term it
 lands on, in `READING_NOTES` in `members_roster_arlhist.py`, so the position
-`members.csv` takes is greppable; each has a row in `docs/questions.csv`; and
-neither changes a figure, since the seat is filled either way and
-every member of this era defaults to White and man. A third, DeLashmutt, was
-settled the same day and is below; its note stays in `READING_NOTES`, saying
-what settled it, because the roster still has to say which man the term
-belongs to.
+`members.csv` takes is greppable; it has a row in `docs/questions.csv`; and
+it changes no figure, since the seat is filled either way and every member of
+this era defaults to White and man. Two more, DeLashmutt and the spelling
+Turnburke, were settled on 27 September 2026 and are below; DeLashmutt's note
+stays in `READING_NOTES`, saying what settled it, because the roster still
+has to say which man the term belongs to.
 
 - **Walker's end date** (`roster-walker-end-date`). The article has him
   resigning on 27 March 1919 to become the county's Sanitary Inspector, and
@@ -489,11 +659,6 @@ belongs to.
   the minute books and names the day, so its date is taken. Wibirt's term is
   the same shape a month apart: the article closes it 31 December 1919 where
   O'Leary's statute would close it that January.
-- **The spelling Turnburke** (`roster-turnburke-spelling`). Read as the
-  Thornburke the county's history and Novack print for the same seat in the
-  same years, so the article closes the county's two open-ended terms rather
-  than standing beside them as a second man. The 1920 census index and sheet
-  read Turnburke too (`census1920thornburke`).
 
 **Four of the five 1912–1931 members new to this roster are settled to the
 census (27 September 2026).** Thomas J. DeLashmutt, Frank Upman and W. T.

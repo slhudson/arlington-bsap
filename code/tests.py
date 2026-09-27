@@ -384,12 +384,15 @@ def test_a_term_that_does_not_say_how_it_began_is_rejected():
 
 
 def test_prose_in_the_name_column_is_rejected():
-    """A sentence carried through the name column as a person."""
+    """A sentence carried through the name column as a person. The member
+    mangled is one no reading in members_roster_arlhist.py is keyed to, so
+    what this catches is check_names and not a reading looking for a term
+    that has moved."""
     def mangle(orig):
         def patched():
             for row in orig():
-                if row["name"] == "A. D. Torreyson":
-                    row = dict(row, name="A. D. Torreyson elected, but contested")
+                if row["name"] == "Horatio Ball":
+                    row = dict(row, name="Horatio Ball elected, but contested")
                 yield row
         return patched
     err = breaks(members_roster_oleary, "terms", mangle, build=members_roster.build)

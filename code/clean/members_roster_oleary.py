@@ -48,12 +48,27 @@ STATUTORY_END = ("Term ends by statute (Va. Const. 1902 sec. 112); no source "
                  "records the departure.")
 
 
+# The month a term begins where the election is not the November one: the
+# Board's year ran 1 July to 30 June through 1901, and every election
+# O'Leary lists before the Constitution of 1902 is a May one.
+TERM_BEGINS = 7
+
+
 def seated(year, election_date):
-    """When an election's winners take office: (year, month). A May election
-    seats in May; a November election seats on 1 January following (Va.
-    Const. 1902; schedule-1902 in docs/questions.csv)."""
+    """When an election's winners take office: (year, month). A November
+    election seats on 1 January following (Va. Const. 1902; schedule-1902 in
+    docs/questions.csv); a May election seats on 1 July, the start of the
+    Board's year.
+
+    Being elected is not taking office, and that held both halves of the
+    period, not only the later one. The Board's own minute books date every
+    term block of 1870-1901 from 1 July to 30 June (arlhist1967officials
+    pp.39-42), and the article's footnote at 1901 corroborates it: the 1902
+    Constitution moved the Board to four-year calendar terms, and "the extra
+    six months of this Board covered the transition period" - thirty months
+    on a July-June year, thirty-two on a May one. docs/members.md."""
     month = month_of(election_date)
-    return (year + 1, 1) if month == 11 else (year, month)
+    return (year + 1, 1) if month == 11 else (year, TERM_BEGINS)
 
 
 def succession(entry, start_year, start_month):
