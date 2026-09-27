@@ -24,6 +24,22 @@ SUCCESSION = re.compile(
 APPOINTED_AFTER_VACANCY = re.compile(
     rf"{NAME}\s+appointed\s+in\s+{MONTH}(?:\s+((?:18|19)\d\d))?", re.I)
 
+# The Washington district seat's 1903 and 1907 entries name its holder two
+# ways; the Alexandria Gazette's independent read of the 1907 vote count
+# agrees with the county list on all three tallies but gives the winner's
+# middle initial as N, not M, so both are read as one man (docs/members.md,
+# febrey-one-member-or-two).
+NAME_CORRECTIONS = {
+    (1903, "W. N. Febrey County"): "W. N. Febrey",
+    (1907, "W.M. Febrey"): "W. N. Febrey",
+}
+NAME_CORRECTION_NOTES = {
+    (1907, "W. N. Febrey"): "The county's list names this term's winner "
+        "W.M. Febrey; the Alexandria Gazette's independent read of the same "
+        "three vote tallies gives W. N. Febrey (alexandriagazette1907election), "
+        "read as one man with the 1904-08 term (febrey-one-member-or-two).",
+}
+
 
 def seated(year, election_date):
     """When an election's winners take office: (year, month). A May election
@@ -68,6 +84,7 @@ def terms():
                 name = max(paired, key=lambda p: int(p[1].replace(",", "")))[0].strip()
             else:
                 name = re.split(r"\s*[(–]|\s+elected\b", entry, maxsplit=1)[0].strip(" -,")
+            name = NAME_CORRECTIONS.get((int(year), name), name)
 
             start_year, start_month = seated(int(year), r.election_date)
             statutory = ((start_year + TERM_YEARS, start_month)
@@ -91,6 +108,8 @@ def terms():
                 elif "contested" in entry:
                     parts.append("Election successfully contested; the seat passed to "
                                  f"{holders[1][0]}.")
+                if i == 0 and (int(year), who) in NAME_CORRECTION_NOTES:
+                    parts.append(NAME_CORRECTION_NOTES[int(year), who])
                 if last and end_unrecorded:
                     parts.append("End of service not recorded; O'Leary's "
                                  "listings stop at 1915.")
