@@ -129,13 +129,10 @@ seconds; the full run is for once before a commit.
 **Never hand-edit `data/clean/` or `figures/`.** Both are generated and the
 next run overwrites them. A change you want to keep is a change to a script.
 
-**`data/clean/` is committed even though it is generated.** The usual rule is the
-opposite, and we follow it elsewhere. These are small CSVs, and committing them
-means a cleaning decision shows up as a reviewable diff — you can see exactly
-which numbers moved and by how much. That matters while those are open.
-`data/built/` is not committed: it holds no decisions, rebuilds in seconds
-from the layers above, and would add 1.6MB to the text Overleaf syncs.
-`bash run.sh` makes it before anything reads it.
+**`data/clean/` is committed even though it is generated**, so a cleaning
+decision shows up as a reviewable diff. `data/built/` is not: it holds no
+decisions and `bash run.sh` makes it before anything reads it.
+`docs/repository.md` has the reasoning.
 
 **Visual conventions live in `style/`, not in `code/analysis/`.** Colors,
 fonts, chart types and figure dimensions are imported, never redeclared, so a
@@ -148,30 +145,16 @@ reach a column has nothing to reach with. `run.sh` puts that folder on the path
 for the analysis stage, so a figure script reads `import style` and
 `import charts` and nothing else.
 
-The conventions themselves are the Urban Institute's data visualization style
-guide, loaded from `style/urban.mplstyle` and cited there. Where this project
-departs from Urban, the departure and its reason are in `docs/figures.md`,
-which holds the reasoning behind every visual convention; the style layer
-states the values.
-
-`style/` sits outside `code/` because most of it cannot be executed: a typeface
-and a table of rcParams. `code/` is for things you can run.
+The conventions are the Urban Institute's, loaded from `style/urban.mplstyle`;
+`docs/figures.md` holds the reasoning behind every visual convention and every
+departure from Urban. The `figures` skill has the rules for editing one.
 
 **`run.sh` never touches the network.** Fetching a source is `code/fetch/`, run on
 demand, which saves into `data/raw/` and commits the file. The build then
 reads only what is committed.
 
-Two reasons. Anyone who clones the repository can build it — no account, no API
-key, no connection. And an API can change its answer, so a live call could move
-a figure between runs with nothing in the repo to explain it; a committed file
-is the same evidence standard as a scanned page.
-
-The one exception is twenty-four census scans the build never reads, about
-250MB that would push Overleaf past its ceiling. They are marked `in_git = no` in
-`data/contents.csv` with their URL and checksum; `code/fetch/census_volumes.py`
-fetches them and refuses a byte that differs, and `run.sh` says at the end of
-every build if they are missing. A raw file the build reads is always
-committed.
+A raw file the build reads is always committed; the census scans it never
+reads are fetched on demand (`docs/repository.md`).
 
 **Each code folder writes one data layer.** `code/fetch/` writes `data/raw/`,
 `code/transcribe/` writes `data/transcribed/`, `code/build/` writes
@@ -189,23 +172,8 @@ named for what it produces: `code/fetch/elections.py`,
 settle a question — a boundary history, a news article, a methods note — is
 cited in `paper/sources.bib` and filed in the project's Drive folder, not
 downloaded into `data/raw/`.
-The test is whether a figure derives from it.
-`code/cite.py` fetches such a source, files it and writes its bib entry in one
-step; the note, what the document says, is still written by the reader.
-`code/ancestry.py` does the filing for a census record, whose page is behind a
-sign-in and cannot be fetched at all: it sets the record out on a plain page
-from the row that already holds it, so the filed copy follows the row rather
-than being made by hand.
-
-**The Drive folder is filed by kind, and its index is generated.**
-`code/archive.py` files the documents folder into `legal`, `reports`, `books`, `bios`,
-`campaign websites`, `press`, `obituaries` and `census`, the kind being a rule on the
-bib entry; writes `index.md` at its top from `paper/sources.bib` and
-`data/contents.csv`, so the index cannot drift from either; and builds the
-zip the County receives, the repository at HEAD with the on-demand
-scans and the folder. Without `--apply` it only reports. It refuses to act
-while a name the bib says is filed is not in the folder, and deletes
-nothing: a file no entry names goes to `unplaced/`.
+The test is whether a figure derives from it. The `sources` skill has the
+tools for fetching, citing and filing one.
 
 **Every source column holds a citekey from `paper/sources.bib`.** One registry
 for the prose and the data, so a footnote in the report and a cell in a table
@@ -285,37 +253,19 @@ is deleted. None is in force.
 
 ## Repository decisions
 
-**One repository, with `paper/` inside it.** Overleaf syncs a whole
-repository and cannot be scoped to `paper/` and `figures/`, so it carries the
-data too. Its limits are on the files it syncs, not on git history: a
-recommended 100MB in all, and a hard 7MB on editable (text) files, past
-which GitHub sync stops working. One repository was chosen because pushing
-figures across a repository boundary would undercut the case that this setup
-is simpler than emailing files. `run.sh` warns at 80MB and at 6MB of text, so
-revisiting does not depend on anyone remembering; a gzipped file is counted
-against the whole, not against the text, since it is not editable. The scans the build never
-reads are already fetched on demand rather than committed, and so is the
-OCR of the census volumes (`data/transcribed/by_ocr/`, regenerated on a Mac by
-`code/transcribe/census.py`), which took 1.8MB of the text cap. If the cap
-trips again, the candidate is the state's 2MB election CSV.
-
-**A job that depends on another waits for its tracker row, not its branch.**
-A project is finished when its row leaves `docs/questions.csv` on `main`;
-that is what settling a question means here, and it is the only signal a
-second session can check. Branches are invisible until pushed and can be
-renamed, so a gate on "has that branch merged" passes for the wrong reason.
-Push a branch the moment it is created, so that others can see it exists.
+**One repository, with `paper/` inside it**, because Overleaf syncs a whole
+repository. `run.sh` warns at 80MB in all and at 6MB of text, Overleaf's
+limits; `docs/repository.md` says why one repository and what to move if a
+warning fires.
 
 **One session in a checkout works on main; two at once each take a
-worktree on a branch** (`git worktree list`). Two sessions sharing one
-checkout once produced committed figures built against uncommitted edits, so
-`figures/` no longer matched `data/clean/` beside it. Collaborators each work
-in their own clone and meet only at push: a rejected push means pull, run the
+worktree on a branch** (`git worktree list`). Collaborators each work in
+their own clone and meet only at push: a rejected push means pull, run the
 build again, push. A session hook in `.claude/settings.json` says which case
-applies at the start of every session, in plain words. It advises; it never
-blocks, since collaborators may be new to Git.
-The build itself is reproducible: the same sources in a fresh virtualenv give
-byte-identical figures.
+applies at the start of every session, in plain words; it advises and never
+blocks. A job that depends on another session's waits for its row to leave
+`docs/questions.csv` on `main`, not for its branch. `docs/repository.md` has
+the incident behind the rule and the reasoning.
 
 **Figure formatting is not pinned.** Rebuilt figures may differ from earlier
 renders by a few pixels with a newer matplotlib. Regression checks target the
