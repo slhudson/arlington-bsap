@@ -41,6 +41,13 @@ NAME_CORRECTION_NOTES = {
 }
 
 
+# What a row says where O'Leary's listings do not record the end of a term.
+# A later source that gives the end drops these (members_roster_arlhist.py).
+UNRECORDED_END = "End of service not recorded; O'Leary's listings stop at 1915."
+STATUTORY_END = ("Term ends by statute (Va. Const. 1902 sec. 112); no source "
+                 "records the departure.")
+
+
 def seated(year, election_date):
     """When an election's winners take office: (year, month). A May election
     seats in May; a November election seats on 1 January following (Va.
@@ -111,11 +118,9 @@ def terms():
                 if i == 0 and (int(year), who) in NAME_CORRECTION_NOTES:
                     parts.append(NAME_CORRECTION_NOTES[int(year), who])
                 if last and end_unrecorded:
-                    parts.append("End of service not recorded; O'Leary's "
-                                 "listings stop at 1915.")
+                    parts.append(UNRECORDED_END)
                 elif last and statutory_end:
-                    parts.append("Term ends by statute (Va. Const. 1902 "
-                                 "sec. 112); no source records the departure.")
+                    parts.append(STATUTORY_END)
                 yield {"name": who, "district": r.district,
                        "start_year": y0, "start_month": m0,
                        "end_year": y1, "end_month": m1, "seated_by": how,

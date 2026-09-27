@@ -433,9 +433,11 @@ there the labels can be shortened and here the years cannot.
   figure reads them as one and drops a step from the ramp. A member counts
   at the most exact place any source gives, whenever dated, so it can show a
   member as known from a source written after their service
-  (`residence-after-service`). Years with no roster, 1912 to 1931, take
-  their three seats from the seat table and count as no place found, so the
-  Board's size is unbroken.
+  (`residence-after-service`). 1912 to 1931 used to take its three seats
+  from the seat table, since the roster named almost nobody in it; the
+  Historical Society's article named those years on 27 September 2026 and
+  the figure reads them like any other, so the five members it added show
+  as no place found until someone looks for them.
 - **members_age.** A Lexis diagram, age against year, the standard demographic
   form for it. Behind, the youngest-to-oldest span of the members sitting
   on 1 July of each year, as a step area; over it, one diagonal per member

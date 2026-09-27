@@ -28,6 +28,7 @@ PLACEHOLDERS = (UNSOURCED, ASSUMED, DERIVED)
 
 OLEARY = "oleary2010"
 NOVACK = "novack1994"
+ARLHIST_OFFICIALS = "arlhist1967officials"
 ARLINGTON_ELECTIONS = "arlingtonelections2021"
 VA_ELECTIONS = "vaelections"
 VA_REGISTRATION = "varegistration"

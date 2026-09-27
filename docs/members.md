@@ -12,9 +12,13 @@ are explained in `code/citekeys.py`, and what is still open is in
 - 1889–1986 is coded all-White on the "first since Reconstruction" framing,
   and the five Reconstruction-era members rest on Hjerpe's census linking
   (`default-1931-1986`).
-- Gender rests on the default (man) for four members: R. Henry Phillips,
-  Robinson and Willson, seated before 1912; and W. P. Ames, whose 1940
-  record is matched on the name alone and feeds nothing. W. M. Febrey and
+- Gender rests on the default (man) for nine members: R. Henry Phillips,
+  Robinson and Willson, seated before 1912; W. P. Ames, whose 1940
+  record is matched on the name alone and feeds nothing; and the five the
+  Historical Society's article added on 27 September 2026, Clarence R.
+  Ahalt, Thomas J. DeLashmutt, Frank Upman, W. T. Weaver and B. M. Hedrick,
+  for whom no census or press reading has been looked for yet
+  (`gender-from-names`). W. M. Febrey and
   Edward Duncan left this list once joined to their census-sourced terms
   (`febrey-one-member-or-two`, `duncan-one-member-or-three`, 27 September
   2026); H. Dwight Smith, Crocker and Schutt left it on a press honorific the
@@ -40,18 +44,18 @@ are explained in `code/citekeys.py`, and what is still open is in
   year, and the age figure draws a year only when all but at most
   one sitting member has one. The figure is not in the paper yet, and it
   starts in 1932.
-- 1912–1931 named five terms and no more before 27 September 2026. Read
-  through that day for `arlhist1967officials`, the Historical Society's own
-  compilation from the Board's minute books, the stretch is now named almost
-  completely: all three magisterial seats, Arlington, Jefferson and
-  Washington, for all twenty years, with one seven-week vacancy in the
+- 1912–1931 no longer rests on an assumption. It named five terms and no
+  more before 27 September 2026; read through that day for
+  `arlhist1967officials`, the Historical Society's own compilation from the
+  Board's minute books, it now names all three magisterial seats, Arlington,
+  Jefferson and Washington, for all twenty years, with one vacancy in the
   Washington seat in early 1920 that the source itself states rather than
-  leaves silent (below, "The roster now names nearly all of 1912 to 1931").
-  `members_by_year.py` still states 1912–1931 itself from the standing
-  assumption of three seats held by white men and does not read the roster
-  for those years by design, so the figure does not yet reflect any of this;
-  whether it should is the open decision (`roster-1912-1931`,
-  `docs/questions.csv`).
+  leaves silent. `members_by_year.py` reads the roster for those years like
+  any other (below, "The roster names 1912 to 1931"). Three readings inside
+  the stretch are provisional: Walker's end date, the spelling Turnburke,
+  and whether the 1920–23 DeLashmutt is the one in the 1932–62 cohort
+  (`roster-walker-end-date`, `roster-turnburke-spelling`,
+  `roster-delashmutt-one-man-or-two`). None of the three changes a figure.
 - From 1907 O'Leary's surnames are not joined to earlier full names
   (`surnames-from-1907`).
 - 23 terms from 1932 carry no party, three labels are unresolved, and no
@@ -74,8 +78,7 @@ are explained in `code/citekeys.py`, and what is still open is in
   Phillips among them since the record once matched to him is his father's
   (`residence-pre-1932`).
 - Before 1932 a member seated for a magisterial district has no claim from
-  the office, and 1912–1931, where no roster exists, the figure counts no
-  seats. Both once rested on the assumption that a supervisor lived in the
+  the office. That once rested on the assumption that a supervisor lived in the
   district he represented; no instrument required that before 1903, so the
   assumption was the project's rather than the law's and the 49 derived rows
   are gone. See "Residence in the district" below.
@@ -207,11 +210,11 @@ its disposition, and the Board's own minute books; neither is online
 `data/clean/members.csv` holds one row per person per term: name, term
 number, district, when service began and ended (to the month), the months the
 term held (`held_from` and `held_to`, counted from year 0, the end exclusive),
-how the term began, and a source per row. 222 terms, 1870 through 2026, from three sources
-in sequence: O'Leary's electoral history to 1915, Novack's roster from 1932 to
+how the term began, and a source per row. 226 terms, 1870 through 2026, from four sources
+in sequence: O'Leary's electoral history to 1915, the Historical Society's
+article for 1912–1931, Novack's roster from 1932 to
 1994, and election results after that, the county's candidate history to 2021
-and the state's elections database from 2022. Nothing covers 1912–1931 except
-the two elections named below.
+and the state's elections database from 2022.
 
 A term is the natural unit: person-years fall out of it, while a term starting
 in May or ending in February cannot be recovered from a list of years. A
@@ -310,8 +313,8 @@ when it is held.
 makes it four years, so a November win closes four years on. O'Leary lists the
 board in 1907 and in 1915 and not in 1911; reading the 1907 winners through to
 1915 would put three named men in a seat for eight years on a source that
-speaks to four. Their terms close in January 1912, and nothing names who held
-those seats next. The note on such a row says the end is the statute's; where
+speaks to four. Their terms close in January 1912, where the Historical
+Society's article picks the seats up (below). The note on such a row says the end is the statute's; where
 the next listed election seats a successor on the same date the departure is
 sourced and carries no note.
 
@@ -334,7 +337,7 @@ held Jefferson from 1895, but the same man as the roster's earlier "E. Duncan"
 (1908–12) and "Duncan" (1916–20), one continuous term from 1908 to 1932
 (below).
 
-**The roster now names nearly all of 1912 to 1931 (27 September 2026).**
+**The roster names 1912 to 1931 (27 September 2026).**
 `arlhist1967officials`, the Historical Society's "County Officials in
 Arlington, 1870-1960," gives Board membership by magisterial district, term
 by term, compiled from the Board's own minute books; it was read for four
@@ -364,13 +367,64 @@ listing defaults to White and man like the rest of the era
 all-White coding of 1889–1986 is a separate question waiting on the County,
 and this reading does not reopen it.
 
-`members_by_year.py` has not been changed to read either file: it still
-states 1912–1931 itself, by design, so the seat table and the figure built
-from it show the same three assumed seats they showed before this reading.
-Whether it should now change, and how a year that is part sourced and part
-assumed would be represented for the seven weeks in 1920, is the decision
-that follows from this count, tracked as `roster-1912-1931` in
-`docs/questions.csv`.
+**How the article is read.** The article prints the Board in blocks, each
+block one stretch with a settled membership and a named chairman, so a block
+is not a term: the 1916–19 term is three blocks in the Washington seat,
+because the seat changed hands twice inside it. `members_roster_arlhist.py`
+merges the blocks where the same person holds a district across them and
+cuts the result at the statutory four-year boundaries the article's own
+year-blocks follow, January 1912, 1916, 1920, 1924 and 1928. A bare year
+closing a block is the following January, the month the next term begins; a
+printed date is its own month, so Walker's term closes in March 1919 and
+Ahalt's opens there, and the handover month goes to the incoming member by
+the rule in "Seat-years" below. The article records no election, so a term
+begins `unrecorded` unless its note says the member was appointed.
+
+Four of the terms were already in the roster from another source — Wibirt's
+and Walker's 1916 terms from O'Leary, Ingram's 1924 and Thornburke's 1924
+and 1928 from the county's candidate history — so the article merges into
+those rows rather than adding a second one, taking the end date none of the
+other sources records and dropping O'Leary's sentence about a departure he
+does not record. A person another source already names is named as that
+source names them, since the census records and the attributions are keyed
+on the roster's spelling: the article's "W. C. Wibirt" is O'Leary's
+"Wibirt". Jefferson is Edward Duncan throughout and his rows are emitted
+like any other; `apply_duncan_join` collapses them with the rest of his
+service, and now checks that the rows it joins reach 1908 to 1932 without a
+gap rather than counting them, since four sources name overlapping stretches
+of the one seat.
+
+`members_by_year.py` reads the roster for these years like every other year;
+the twenty years it used to state itself are gone from that script, and
+1920 now counts 2 + 11/12 seats rather than three.
+`members_roster.check_district_seats` holds the reading in place: each of the
+three districts has exactly one member in every month of 1912–1931, save
+Washington in January 1920. It is scoped to that stretch because the years
+before it still have seats no source names.
+
+**Three readings here are provisional.** Each is written onto the term it
+lands on, in `READING_NOTES` in `members_roster_arlhist.py`, so the position
+`members.csv` takes is greppable; each has a row in `docs/questions.csv`; and
+none of the three changes a figure, since the seat is filled either way and
+every member of this era defaults to White and man.
+
+- **Walker's end date** (`roster-walker-end-date`). The article has him
+  resigning on 27 March 1919 to become the county's Sanitary Inspector, and
+  Ahalt appointed to the rest of the term. O'Leary records no departure, so
+  his 1916 term otherwise runs to January 1920 by statute. The article is
+  the minute books and names the day, so its date is taken. Wibirt's term is
+  the same shape a month apart: the article closes it 31 December 1919 where
+  O'Leary's statute would close it that January.
+- **The spelling Turnburke** (`roster-turnburke-spelling`). Read as the
+  Thornburke the county's history and Novack print for the same seat in the
+  same years, so the article closes the county's two open-ended terms rather
+  than standing beside them as a second man. The 1920 census index and sheet
+  read Turnburke too (`census1920thornburke`).
+- **DeLashmutt** (`roster-delashmutt-one-man-or-two`). Thomas J. DeLashmutt,
+  Arlington 1920–23, is carried as a different man from the Basil M.
+  DeLashmutt of the 1932–62 cohort, on the given names alone. Nothing joins
+  or separates them; the match that would have joined them is made on the
+  surname *and* the district, and Basil's seat is at large.
 
 **Mid-term handovers are terms like any other.** O'Leary records them as
 prose beside the elected member ("Replaced by H. Dwight Smith in Dec.;
@@ -419,17 +473,16 @@ insists they name the same winner there before using the second.
 the seats that existed: the Washington district seat from the May 1873
 election until Samuel Titus was appointed that December, March and April 1990
 between Milliken's resignation and Hunter's special election, and the
-Washington seat again from 1 January to 20 February 1920 (above). 1912–1931
-is otherwise not swept this way, since `members_by_year.py` does not read the
-roster for those years (above).
+Washington seat again from 1 January to 20 February 1920 (above). The month
+is the unit, so the seven weeks of the last count as January alone, and 1920
+holds 2 + 11/12 seat-years.
 
 ## Seat-years
 
 `data/clean/members_by_year.csv` is one row per year, 1870 through 2026: seats
 held by each race, each gender and (from 1932) each party, in seat-years, so
-a member who sat for four months of a year counts 4/12. It is computed from
-`members.csv` for every year but 1912–1931, which are the assumption
-above whatever the roster holds for them. Days are not recorded consistently, Novack giving some and the election
+a member who sat for four months of a year counts 4/12. Every year is
+computed from `members.csv`. Days are not recorded consistently, Novack giving some and the election
 dates others, so the month is the unit, and **the handover month belongs to
 the incoming member** (Sally, 22 September 2026). An end no source records
 holds to the end of the term's first year. Both rules are applied once, in
@@ -625,11 +678,10 @@ year, though — 1872 by the 1910 sheet's age, "abt 1870" by the 1920 sheet's,
 neither a printed date — so both are named in `AGE_MISREPORTED` and he has no
 birth year in the table (`duncan-edward-birth-year`).
 
-**`members_by_year.py` does not yet reflect this.** It states 1912–1931
-itself, from the standing assumption of three seats held by white men, and
-does not read the roster for those years by design (above); Edward Duncan's
-now-continuous term does not change what that table or the figure built from
-it shows. Whether it should is an open decision, not yet made.
+The Historical Society's article, read through the day after, names him in
+the Jefferson seat in every one of the article's blocks from 1912 to 1931,
+which is the independent confirmation of the continuity the Gazette pieces
+were standing in for; it is cited on the joined term with the rest.
 
 The filed copy of each record's Ancestry page is written by
 `code/ancestry.py` from the row's own `quote`, since Ancestry refuses an

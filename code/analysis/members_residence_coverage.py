@@ -4,10 +4,7 @@
 A stacked step area of the members sitting on 1 July of each year, by the
 most exact place any source gives for them, darkest for a house on a street
 and lightest for a side of the County or a magisterial district of
-Alexandria County, with the 1932 rule. Years with no roster are filled from
-the seat table: the Board had three seats, one per magisterial district,
-and nobody is known to sit in them, so they count at district precision
-(docs/members.md, Residence in the district). A place is counted whenever it is
+Alexandria County, with the 1932 rule. A place is counted whenever it is
 dated, so a member whose only place comes from after their service still
 counts.
 """
@@ -31,16 +28,10 @@ claims = pd.read_csv(paths.BOARD_RESIDENCE, dtype=str).fillna("")
 exactness = claims.precision.map(ORDER.index)
 best = exactness.groupby(claims.name).min().map(lambda r: ORDER[int(r)])
 
-seats = pd.read_csv(paths.MEMBERS_BY_YEAR).set_index("year")
-seats = (seats.men + seats.women).fillna(0).astype(int)
-
 rows = []
 for year, s in members.by_year():
     found = s.name.map(best).fillna("none")
-    row = {"year": year, **{k: int((found == k).sum()) for k in ORDER + ["none"]}}
-    if s.empty:
-        row["district"] = int(seats.get(year, 0))
-    rows.append(row)
+    rows.append({"year": year, **{k: int((found == k).sum()) for k in ORDER + ["none"]}})
 graded = pd.DataFrame(rows)
 d = pd.DataFrame({"year": graded.year, **{k: graded[cols].sum(axis=1) for k, cols in SHOWN.items()}})
 if d[PLACED].sum().sum() == 0:

@@ -15,23 +15,29 @@ Sources, in sequence, one module each:
 
   oleary2010       1870-1915  members_roster_oleary.py    who held each magisterial
                                                         district, by election
+  arlhist1967off.  1912-1931  members_roster_arlhist.py   the Board block by
+                                                        block, from its minute
+                                                        books
   novack1994       1932-1994  members_roster_novack.py    terms of service, with
                                                         mid-term departures
   election results 1995-      members_roster_results.py   the county's candidate
                                                         history to 2021, the
                                                         state's database from 2022
 
-1912-1931 names almost nobody: O'Leary's last listed election is 1915, and
-its winners' four-year terms end in January 1912. The county's candidate
-history prints the district races of November 1923 and 1927, keyed in
-members_terms.csv and read by members_roster_results.py. What a term is, the
-seats that exist, how a term begins, the readers the sources share, is
+O'Leary's last listed election is 1915 and Novack begins in 1930, so
+1912-1931 rests on the Historical Society's article, which names all three
+magisterial seats for all twenty years save one Washington vacancy it
+states. The county's candidate history prints the district races of
+November 1923 and 1927, keyed in members_terms.csv and read by
+members_roster_results.py; the article closes those terms. What a term is,
+the seats that exist, how a term begins, the readers the sources share, is
 members_terms.py.
 """
 import re
 
 import pandas as pd
 
+import members_roster_arlhist as arlhist
 import members_roster_novack as novack
 import members_roster_oleary as oleary
 import members_roster_results as results
@@ -91,7 +97,8 @@ def check_seated_by(d: pd.DataFrame):
 # three, 2026-09-27); the 1912 and 1928 renewals are known only by that
 # continuity, not by a recorded election win, unlike 1908, 1916, 1920 and
 # 1924. docs/members.md.
-DUNCAN_SOURCES = ("oleary2010 p.25", "alexandriagazette1913duncan",
+DUNCAN_SOURCES = ("oleary2010 p.25", "arlhist1967officials p.42-43",
+                   "alexandriagazette1913duncan",
                    "alexandriagazette1914duncan", "oleary2010 p.27",
                    "alexandriagazette1915duncan", "alexandriagazette1919duncan",
                    "arlingtonelections2021 p.2", "alexandriagazette1921duncan",
@@ -116,8 +123,20 @@ def apply_duncan_join(d: pd.DataFrame) -> pd.DataFrame:
     Duncan's one continuous term. See the comment above and docs/members.md."""
     duncan = ((d.district == "Jefferson") & d.name.isin(["E. Duncan", "Duncan", "Edward Duncan"])
               & (d.start_year >= 1908) & (d.start_year <= 1928))
-    if duncan.sum() != 4:
-        raise ValueError(f"expected 4 Duncan rows to join into one term, found {duncan.sum()}")
+    # Four sources name stretches of the same seat and they overlap, so what
+    # matters is not how many rows there are but that together they reach
+    # from 1908 to 1932 without a gap. A gap would mean a stretch nobody
+    # records, which is a term of someone else's, not part of this one.
+    rows = d[duncan].sort_values(["start_year", "start_month"])
+    covered = 1908 * 12            # the month before the first, as a month from year 0
+    for _, t in rows.iterrows():
+        if t.start_year * 12 + t.start_month > covered + 1:
+            raise ValueError("the Jefferson rows joined into Edward Duncan's term leave a gap "
+                             f"before {t.start_year}-{t.start_month:02d}:\n{rows.to_string()}")
+        covered = max(covered, int(t.end_year) * 12 + int(t.end_month))
+    if covered != 1932 * 12 + 1:
+        raise ValueError(f"Edward Duncan's joined term reaches {(covered - 1) // 12}-"
+                         f"{(covered - 1) % 12 + 1:02d}, not 1932-01:\n{rows.to_string()}")
     joined = pd.DataFrame([{
         "name": "Edward Duncan", "district": "Jefferson",
         "start_year": 1908, "start_month": 1, "end_year": 1932, "end_month": 1,
@@ -126,13 +145,51 @@ def apply_duncan_join(d: pd.DataFrame) -> pd.DataFrame:
     return pd.concat([d[~duncan], joined], ignore_index=True)
 
 
+# The one seat-month in 1912-1931 that nobody held: the Washington seat
+# from 1 January 1920, after Clarence R. Ahalt, elected to it, moved from the
+# district before the term began, until Frank Upman was appointed on 20
+# February. Months are the grain, so the seven weeks count as January alone.
+VACANT_1920 = (1920, 1)
+
+
+def check_district_seats(d: pd.DataFrame, first=arlhist.FIRST_YEAR, last=arlhist.LAST_YEAR):
+    """Each of the three magisterial districts has exactly one member in
+    every month of 1912-1931, save the one vacancy the source states.
+
+    Only this stretch: the years before it still have seats no source
+    names, and the roster leaves those blank rather than filling them. A
+    term's end month belongs to the member unless another term in the
+    district begins in it, and an unrecorded end holds to the end of its
+    first year - the two rules members.py applies in held().
+    """
+    d = d[d.district != "at large"]
+    start = d.start_year * 12 + d.start_month
+    end = (pd.to_numeric(d.end_year).fillna(d.start_year) * 12
+           + pd.to_numeric(d.end_month).fillna(12)).astype(int)
+    begins = set(zip(d.district, start))
+    spans = [(dd, lo, hi - 1 if (dd, hi) in begins else hi, n)
+             for dd, lo, hi, n in zip(d.district, start, end, d.name)]
+    for year in range(first, last + 1):
+        for month in range(1, 13):
+            m = year * 12 + month
+            for district in sorted(set(d.district)):
+                held = [n for dd, lo, hi, n in spans if dd == district and lo <= m <= hi]
+                expected = 0 if (district, year, month) == ("Washington",) + VACANT_1920 else 1
+                if len(held) != expected:
+                    raise ValueError(
+                        f"{year}-{month:02d} {district}: {len(held)} members hold the "
+                        f"seat, expected {expected}: {held}")
+
+
 def build() -> pd.DataFrame:
     d = pd.DataFrame(list(oleary.terms()) + list(results.keyed_terms()) + list(novack.terms()))
+    d = arlhist.terms(d)
     d = apply_duncan_join(d)
     d = results.terms(d)
     check_names(d)
     check_seated_by(d)
     check_five_seats(d)
+    check_district_seats(d)
     # A blank end is missing, not a float: the columns stay whole numbers.
     d[["end_year", "end_month"]] = d[["end_year", "end_month"]].astype("Int64")
     d = d.sort_values(["name", "start_year", "start_month"]).reset_index(drop=True)

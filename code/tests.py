@@ -36,9 +36,9 @@ import members_census  # noqa: E402
 import members  # noqa: E402
 import paths  # noqa: E402
 import members_roster  # noqa: E402
+import members_roster_arlhist  # noqa: E402
 import members_roster_oleary  # noqa: E402
 import members_roster_results  # noqa: E402
-import members_terms  # noqa: E402
 import members_by_year  # noqa: E402
 import residents  # noqa: E402
 import residents_by_district  # noqa: E402
@@ -346,34 +346,28 @@ def test_a_wrong_term_length_is_rejected():
     assert err and "at large" in err, f"not caught: {err}"
 
 
-def test_the_seat_table_before_1932_does_not_depend_on_the_roster():
-    """A member with a term in the middle of the years no source names.
-    members_by_year states those years itself, so adding people to the roster
-    for them (members_terms.csv) must not move a seat-year. If the stated
-    years were read from the roster instead, the surrounding years would
-    read as unfilled and this member would appear in the race, gender
-    and party columns."""
-    stated = list(members_by_year.NO_ROSTER_YEARS)
-    assert stated == list(range(1912, members_terms.AT_LARGE_FROM)), f"stated years are {stated[0]}-{stated[-1]}"
-    real = members_by_year.build()
-    read = members_by_year.read
+def test_the_seat_table_reads_the_roster_for_1912_to_1931():
+    """1912-1931 was stated in members_by_year.py - three seats, held by
+    white men, `assumed` - until arlhist1967officials named all three
+    magisterial seats for all twenty years. The seat table now derives them
+    from the roster like every other year. The silent failure this guards
+    against is the assumption creeping back: a stretch no source names would
+    read as filled, and nobody would see it. So every one of those years
+    says `derived`, and a seat the roster stops naming stops the build."""
+    stated = members_by_year.build()
+    era = stated[stated.year.between(members_roster_arlhist.FIRST_YEAR,
+                                     members_roster_arlhist.LAST_YEAR)]
+    assert len(era) == 20 and (era.source == citekeys.DERIVED).all(), \
+        f"1912-1931 is not derived from the roster: {sorted(set(era.source))}"
 
-    def with_a_member(name):
-        members = read(name)
-        if name != "members":
-            return members
-        extra = members.iloc[[0]].copy()
-        extra["held_from"], extra["held_to"] = 1925 * 12, 1926 * 12
-        extra["race"], extra["gender"], extra["party"] = "Black", "woman", "Democratic"
-        return pd.concat([members, extra], ignore_index=True)
-
-    members_by_year.read = with_a_member
-    try:
-        changed = members_by_year.build()
-    finally:
-        members_by_year.read = read
-    before, after = (t[t.year.isin(stated)].reset_index(drop=True) for t in (real, changed))
-    pd.testing.assert_frame_equal(before, after)
+    def mangle(orig):        # the Arlington seat loses its 1928-31 holder, so
+        # Ingram's term ends in January 1928 and February names nobody
+        def patched():
+            return [r for r in orig()
+                    if not (r["district"] == "Arlington" and r["start_year"] == 1928)]
+        return patched
+    err = breaks(members_roster_arlhist, "rows", mangle, build=members_roster.build)
+    assert err and "1928-02 Arlington" in err, f"not caught: {err}"
 
 
 def test_a_term_that_does_not_say_how_it_began_is_rejected():
