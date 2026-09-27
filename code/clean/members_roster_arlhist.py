@@ -35,8 +35,9 @@ Jefferson is Edward Duncan throughout; his rows are emitted like any other
 and members_roster.apply_duncan_join collapses them with the rest of his
 service.
 
-Three readings here are provisional; docs/members.md and docs/questions.csv
-have each. They are marked below.
+One reading here is provisional, Walker's end date; docs/members.md and
+docs/questions.csv have it. The readings this source forces onto a term,
+settled or not, are marked below in READING_NOTES.
 """
 import pandas as pd
 
