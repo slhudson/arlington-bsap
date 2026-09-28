@@ -290,8 +290,12 @@ warning fires.
 worktree on a branch** (`git worktree list`). Collaborators each work in
 their own clone and meet only at push: a rejected push means pull, run the
 build again, push. A session hook in `.claude/settings.json` says which case
-applies at the start of every session, in plain words; it advises and never
-blocks. A job that depends on another session's waits for its row to leave
+applies at the start of every session, in plain words. It advises and never
+blocks, but `.githooks/pre-commit` does block: a commit in the primary checkout
+is refused while more than one session is live there, because a broad `git add`
+in a shared checkout commits whatever anyone else has in flight. Take a
+worktree, or `git commit --no-verify` if you mean it. `run.sh` installs the
+hook. A job that depends on another session's waits for its row to leave
 `docs/questions.csv` on `main`, not for its branch. `docs/repository.md` has
 the incident behind the rule and the reasoning.
 

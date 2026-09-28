@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Refuse a commit in the primary checkout while more than one session is live.
+#
+# Installed by run.sh, which points core.hooksPath here. Not active in a
+# worktree: a worktree has its own working tree, so its commits can only hold
+# its own edits, which is the whole point of taking one.
+#
+# The incident: two sessions worked in the shared checkout at once, and a
+# `git add -A` in one of them swept up the other's unstaged edits - a paragraph
+# in docs/members.md and a deleted row in docs/questions.csv - into a commit
+# whose message described neither. Nothing was lost, but the history now
+# describes work it does not mention, and the next reader of that commit is
+# owed an explanation nobody can give.
+#
+# Staging explicit paths avoids it, but only while everyone remembers to. This
+# makes the shared checkout refuse instead, so the fix is structural: take a
+# worktree and the edits cannot mix.
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+
+[ -f .claude/sessions.sh ] || exit 0
+
+live=$(bash .claude/sessions.sh others | wc -l | tr -d ' ')
+[ "$live" -le 1 ] && exit 0
+
+cat >&2 <<EOF
+
+Refusing this commit: $live Claude sessions are live in this checkout.
+
+A commit here would carry whatever anyone else has in flight, under your
+message. That has happened (docs/repository.md).
+
+Work on a branch in a worktree instead, where nobody else is editing:
+
+    git worktree add .claude/worktrees/<name> -b <branch>
+
+Then commit there. To commit here anyway, knowing the diff may hold another
+session's edits:
+
+    git commit --no-verify
+
+EOF
+exit 1

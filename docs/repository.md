@@ -84,6 +84,36 @@ past its shift. Two sessions starting in the same second each see the
 other's PID as soon as either has written it, which a static count of past
 worktrees cannot.
 
+**Advice was not enough, so the shared checkout now refuses.** The hook above
+speaks once, at the start of a session, and a commit comes hours later. Two
+sessions worked in the primary checkout at the same time and a broad `git add`
+in one of them swept the other's unstaged edits - a paragraph in
+`docs/members.md` and a deleted row in `docs/questions.csv` - into a commit
+whose message described neither. Nothing was lost; the cost is a commit whose
+diff and message disagree, which the next reader cannot reconcile.
+
+Staging explicit paths avoids that, but only for as long as everyone remembers
+to, which is a mechanism where an invariant is available. `.githooks/pre-commit`
+refuses a commit in the primary checkout while more than one session is live,
+and names `git worktree add` in the refusal; `git commit --no-verify` is the
+way past it for anyone who means it. A worktree has its own working tree, so
+its commits can only hold its own edits, and the hook stays silent there.
+
+This also changed how liveness is recorded. The single
+`.claude/tmp/session.lock` held one pid, which each new session overwrote, so
+it could answer "was anyone here when I started" and never "how many are here
+now" - and a commit needs the second question. `.claude/tmp/sessions/` now
+holds one file per session, named for the pid, and `.claude/sessions.sh` prunes
+the files whose process has gone or whose shift has ended. Both the
+SessionStart hook and the commit hook read it through that one script, so they
+cannot drift apart.
+
+The hook is committed under `.githooks/` rather than left in `.git/hooks/`,
+where it would be invisible to review and absent from a fresh clone. `run.sh`
+points `core.hooksPath` at it and restores the executable bit, so no
+collaborator has to install anything, and Overleaf stripping that bit does not
+disarm it.
+
 Collaborators each work in their own clone, so they cannot share a checkout;
 they meet only at push, and a rejected push means pull, run the build again,
 push. The build itself is reproducible: the same sources in a fresh virtualenv

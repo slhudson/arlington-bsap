@@ -11,6 +11,7 @@ import csv
 import hashlib
 import os
 import re
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -1011,7 +1012,12 @@ def test_every_source_with_a_url_is_filed():
 def test_docs_name_only_paths_that_exist():
     """A path named in the docs, the skill, sources.bib or the paper that
     does not exist. Markdown names paths in backticks; the bib and the
-    .tex as bare words. Globs and placeholders are skipped."""
+    .tex as bare words. Globs and placeholders are skipped.
+
+    So are paths git ignores. The docs name generated files on purpose -
+    paper/arlington-bsap.pdf, the latexmk record beside it - and none of them
+    exists in a fresh clone until something builds it. What this test is for is
+    a path typed wrong or left behind by a rename, and those are tracked."""
     tops = ("code/", "data/", "docs/", "figures/", "paper/", "style/")
     missing = []
     for doc in [*ROOT.glob("*.md"), *ROOT.glob("docs/*.md"), *ROOT.glob(".claude/skills/*/SKILL.md")]:
@@ -1028,6 +1034,14 @@ def test_docs_name_only_paths_that_exist():
                 continue
             if not (ROOT / token).exists():
                 missing.append(f"{doc.relative_to(ROOT)}: {token}")
+    # Drop the ones git ignores, in one call rather than one per path.
+    if missing:
+        names = [m.split(": ", 1)[1].strip("`") for m in missing]
+        ignored = subprocess.run(
+            ["git", "check-ignore", "--stdin"], cwd=ROOT, text=True,
+            input="\n".join(names), capture_output=True).stdout.split()
+        missing = [m for m in missing
+                   if m.split(": ", 1)[1].strip("`") not in set(ignored)]
     assert not missing, "documentation names paths that do not exist:\n  " + "\n  ".join(missing)
 
 

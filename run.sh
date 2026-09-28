@@ -16,6 +16,15 @@ if [ "$(git rev-parse --git-dir 2>/dev/null)" = ".git" ] && [ "$(git branch --sh
   echo "WARNING: this is the primary checkout on branch $(git branch --show-current); work on a branch in a worktree (git worktree add .claude/worktrees/<name> <branch>)"
 fi
 
+# The commit guard lives in .githooks/ so it is committed and reviewable, which
+# .git/hooks/ is not. Pointing at it is a local setting, so it is set here
+# rather than asked of each collaborator, and the executable bit is restored
+# because Overleaf strips it (above).
+if [ "$(git config core.hooksPath 2>/dev/null)" != ".githooks" ]; then
+  git config core.hooksPath .githooks && echo "installed the commit guard (.githooks)"
+fi
+chmod +x .githooks/* 2>/dev/null || true
+
 PY=.venv/bin/python
 [ -x "$PY" ] || { echo "no venv: python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflakes"; exit 1; }
 
