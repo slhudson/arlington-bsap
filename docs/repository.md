@@ -89,3 +89,59 @@ they meet only at push, and a rejected push means pull, run the build again,
 push. The build itself is reproducible: the same sources in a fresh virtualenv
 give byte-identical figures, so two people who pull the same commit hold the
 same `figures/`.
+
+## Why the paper compiles with lualatex, and the two ways it fails
+
+`paper/arlington-bsap.tex` sets its body text in Lato, the typeface
+`style/urban.mplstyle` gives the figures, so the report and the charts inside
+it read as one document. Choosing a typeface by name needs `fontspec`, and
+`fontspec` runs only under lualatex or xelatex, never under pdflatex. Both
+authors and Overleaf therefore have to use the same engine, and the file says
+which in its first line:
+
+```
+% !TeX program = lualatex
+```
+
+That is a magic comment. Overleaf and latexmk both read it and switch engines
+on their own, which is why it lives in the file instead of in an Overleaf
+project setting only one author can see.
+
+The four Lato faces are committed under `style/fonts/` rather than installed,
+so the fonts travel with the repository to Overleaf and to the other author's
+machine. All four are declared in the preamble: an undeclared face is
+substituted silently, which is the second failure below.
+
+**Compiling with pdflatex stops with a fatal fontspec error**, naming the
+engine it wants:
+
+```
+Fatal Package fontspec Error: The fontspec package requires either
+XeTeX or LuaTeX.
+```
+
+This failure is loud and costs nothing. Compile with `latexmk -pdflua
+arlington-bsap.tex` from `paper/`, or let an editor read the magic comment.
+
+**A stale `paper/arlington-bsap.fdb_latexmk` silently drops every citation.**
+That file is latexmk's record of which tools it ran last time. The paper uses
+biblatex with `backend=biber`; if the record holds bibtex from an earlier
+build, latexmk keeps calling bibtex, which finds no citations in a biblatex
+document and reports errors most editors bury. The PDF still builds, and every
+footnote citation and every `\ref` to a figure comes out undefined. It is the
+dangerous failure, because a report that is missing its sources looks finished
+at a glance.
+
+The cure is to clear latexmk's record once, after any engine change:
+
+```
+cd paper && latexmk -C && latexmk -pdflua arlington-bsap.tex
+```
+
+On Overleaf the same staleness is cleared by *Recompile from scratch*, under
+the Recompile dropdown.
+
+A good build reports no font warnings and no undefined references. If the log
+says `Font shape ... undefined, defaults substituted`, a face is missing from
+`style/fonts/` or from the `\setmainfont` declaration; if it says citations
+are undefined, biber did not run.

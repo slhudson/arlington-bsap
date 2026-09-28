@@ -220,6 +220,20 @@ Invoke through `bash`, not `./run.sh` — the reason is at the top of `run.sh`.
 `code/fetch/ipums.py` needs `ipumspy`; the OCR needs a Mac. None of it is
 required to rebuild.
 
+**The paper compiles with lualatex, not pdflatex**, because its body text is
+set in Lato and `fontspec` runs under no other engine. `run.sh` does not
+compile it; Overleaf does, and locally it is:
+
+```bash
+cd paper && latexmk -C && latexmk -pdflua arlington-bsap.tex
+```
+
+The `-C` clears latexmk's record of which tools it ran last. Without it, a
+record left from an earlier build calls bibtex where this paper needs biber,
+and the PDF comes out with every citation and cross-reference undefined and no
+error a reader would notice. `docs/repository.md` has both failure modes, what
+each looks like in the log, and the Overleaf equivalent.
+
 ## Questions and decisions
 
 One write-up per subject, and one tracker. `docs/residents.md`,
