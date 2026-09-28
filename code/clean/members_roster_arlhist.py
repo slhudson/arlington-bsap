@@ -35,8 +35,9 @@ Jefferson is Edward Duncan throughout; his rows are emitted like any other
 and members_roster.apply_duncan_join collapses them with the rest of his
 service.
 
-Three readings here are provisional; docs/members.md and docs/questions.csv
-have each. They are marked below.
+One reading here is provisional, Walker's end date; docs/members.md and
+docs/questions.csv have it. The readings this source forces onto a term,
+settled or not, are marked below in READING_NOTES.
 """
 import pandas as pd
 
@@ -195,9 +196,9 @@ SEATED = {
     ("A. B. Grunwell", "Washington", 1897):
         ("George N. Saegmuller",
         "The article puts Saegmuller in the Washington seat from 1 July 1897, "
-        "where O'Leary keeps Grunwell to 1899. Grunwell's service therefore "
-        "ends with his 1895-97 term and Saegmuller's begins two years earlier "
-        "than the roster had it (Sally, 27 September 2026)."),
+        "where O'Leary keeps Grunwell to 1899. The minute books name the man "
+        "who sat, so Grunwell's service ends with his 1895-97 term and "
+        "Saegmuller holds the seat from July 1897 (Sally, 27 September 2026)."),
 }
 
 

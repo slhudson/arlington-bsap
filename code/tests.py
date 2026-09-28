@@ -347,13 +347,13 @@ def test_a_wrong_term_length_is_rejected():
 
 
 def test_the_seat_table_reads_the_roster_for_1912_to_1931():
-    """1912-1931 was stated in members_by_year.py - three seats, held by
-    white men, `assumed` - until arlhist1967officials named all three
-    magisterial seats for all twenty years. The seat table now derives them
-    from the roster like every other year. The silent failure this guards
-    against is the assumption creeping back: a stretch no source names would
-    read as filled, and nobody would see it. So every one of those years
-    says `derived`, and a seat the roster stops naming stops the build."""
+    """The seat table derives 1912-1931 from the roster like every other year,
+    arlhist1967officials naming all three magisterial seats for all twenty
+    years. The silent failure this guards against is members_by_year.py
+    stating the stretch itself again - three seats, held by white men,
+    `assumed` - since a stretch no source names would then read as filled and
+    nobody would see it. So every one of those years says `derived`, and a
+    seat the roster stops naming stops the build."""
     stated = members_by_year.build()
     era = stated[stated.year.between(members_roster_arlhist.FIRST_YEAR,
                                      members_roster_arlhist.LAST_YEAR)]
@@ -857,6 +857,42 @@ def residence_coverage():
     return {k: [v[w] for w in when] for k, v in table.items() if any(v.values())}, nothing
 
 
+def district_shares():
+    """The table docs/residents.md prints: each magisterial district's Black
+    share at every census that gives race below the county, and the county's
+    own from residents.csv. A district with no race split that year has no
+    cell."""
+    def share(row):
+        return round(int(row["black"]) / int(row["total"]) * 100) if row["black"] else None
+    out = {}
+    for r in csv.DictReader((ROOT / "data/clean/residents_by_district.csv").open(newline="")):
+        out[(r["district"], int(r["year"]))] = share(r)
+    for r in csv.DictReader((ROOT / "data/clean/residents.csv").open(newline="")):
+        out[("The county", int(r["year"]))] = share(r)
+    return out
+
+
+def test_the_district_share_table_in_the_write_up_is_current():
+    """The table in docs/residents.md, "Race by district", read by hand off
+    the clean tables. Two of its cells once disagreed with them, which nothing
+    announced: a share in prose reads as current however old it is. So the
+    build recomputes it, here, the way it does the residence coverage table."""
+    text = (ROOT / "docs" / "residents.md").read_text()
+    body = text.split("| District | 1870 |", 1)[1].split("\n\n", 1)[0]
+    years = [int(y) for y in body.splitlines()[0].strip().strip("|").split("|") if y.strip()]
+    years = [1870, *years]
+    counted, printed, wrong = district_shares(), {}, []
+    for line in body.splitlines()[2:]:
+        cells = [c.strip(" *") for c in line.strip().strip("|").split("|")]
+        for year, cell in zip(years, cells[1:]):
+            printed[(cells[0], year)] = None if cell == "—" else int(cell.rstrip("%"))
+    for key, value in printed.items():
+        if counted.get(key) != value:
+            wrong.append(f"{key[0]} {key[1]}: table {value}, clean {counted.get(key)}")
+    assert printed and not wrong, ("docs/residents.md, \"Race by district\", does not "
+                                  "match the clean tables:\n  " + "\n  ".join(wrong))
+
+
 def test_the_residence_coverage_table_in_the_write_up_is_current():
     """The table in docs/members.md, "Where members lived", counted by hand.
     Every census read moves it, and a stale table is the kind of wrongness
@@ -876,7 +912,7 @@ def test_the_residence_coverage_table_in_the_write_up_is_current():
             printed[labels[cells[0]]] = [int(c) for c in cells[1:5]]
     counted, nothing = residence_coverage()
     assert printed == counted and printed_nothing == nothing, (
-        "docs/members.md, \"Where members lived\", no longer counts what the clean "
+        "docs/members.md, \"Where members lived\", does not count what the clean "
         f"tables hold.\n  table says: {printed}, nothing {printed_nothing}\n"
         f"  clean says: {counted}, nothing {nothing}")
 

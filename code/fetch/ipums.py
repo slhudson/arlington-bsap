@@ -15,7 +15,8 @@ codebook without an IPUMS account.
 
 Why an extract at all: race below the county is published for 1870 alone,
 so the districts at the end of the period can only be counted from the
-manuscript schedules (docs/residents.md, `race-by-district-after-1870`).
+manuscript schedules (docs/residents.md, "Race by district, counted from
+the schedules").
 
 Each census is one county's worth of people. Case selection is on the
 state and the county, and the county is the ICPSR code, which is the

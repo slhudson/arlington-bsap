@@ -114,7 +114,7 @@ DUNCAN_NOTE = (
     "and losing, in a piece giving the same 24 years' service as his 1938 "
     "obituary (not yet filed): 1908 to 1932. The 1912 and 1928 renewals are "
     "known only by that continuity, not by a recorded election win "
-    "(duncan-one-member-or-three)."
+    "(docs/members.md)."
 )
 
 

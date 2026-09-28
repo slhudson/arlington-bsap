@@ -109,14 +109,20 @@ off a page. 1920 is, below.
 
 Race below the county is printed in one volume only, 1870's. For 1880, 1900,
 1910 and 1920 it is counted person by person out of the full-count schedules
-instead, and `residents_by_district.csv` carries all five. The figure is
-`residents_by_district_race`.
+instead, and `residents_by_district.csv` carries all five censuses. The figure
+is `residents_by_district_race`. Two cells are empty, each for a reason below:
+every district in 1890, whose schedules burned, and Arlington in 1900, which
+the database is short of by one resident in six.
+
+The Black share of each district, and of the county from `residents.csv`.
+`test_the_district_share_table_in_the_write_up_is_current` recomputes it from
+the clean tables on every build, so it cannot drift from them:
 
 | District | 1870 | 1880 | 1890 | 1900 | 1910 | 1920 |
 |---|---|---|---|---|---|---|
 | Arlington | 62% | 56% | — | — | 21% | 12% |
-| Jefferson | **70%** | **65%** | — | **56%** | 40% | 27% |
-| Washington | 51% | 42% | — | 33% | 23% | 14% |
+| Jefferson | **70%** | **65%** | — | **56%** | 39% | 27% |
+| Washington | 50% | 42% | — | 33% | 22% | 14% |
 | The county | 63% | 56% | 50% | 38% | 26% | 16% |
 
 Jefferson is the concentration the district argument rests on, and it holds:
@@ -124,9 +130,9 @@ the district with the largest Black share in 1870 is still the only
 majority-Black district thirty years later, and still the largest share fifty
 years later at nearly twice the county's. Washington fell below half in the
 1870s and Arlington in the 1880s or 1890s, but Jefferson was still 56 per cent
-Black in 1900 and 40 per cent by 1910. **The decade in which Black residents
+Black in 1900 and 39 per cent by 1910. **The decade in which Black residents
 became a minority of every magisterial district is therefore the 1900s**, and
-that does not depend on the two cells the table is missing.
+that does not depend on either empty cell.
 
 **The extracts.** `code/fetch/ipums.py` asks IPUMS USA for the 100 per cent
 database of a census, case-selected to Virginia and to the ICPSR county code

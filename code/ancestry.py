@@ -38,11 +38,10 @@ CENSUS = archive.ROOT / "data" / "transcribed" / "by_claude" / "members_census.c
 
 # The provenance sentence every filed page carries, under the record's url.
 # It says what the page is, because the page is derived and a reader who
-# takes it for a copy of Ancestry's own would be misled. The pages filed
-# before this script said instead that Ancestry states the facts in the
-# collection were found using artificial intelligence and may contain errors;
-# the 1930 and 1940 census record pages carry no such statement, so it is not
-# repeated here.
+# takes it for a copy of Ancestry's own would be misled. It does not repeat
+# Ancestry's statement that the facts in the collection were found using
+# artificial intelligence and may contain errors: the 1930 and 1940 census
+# record pages carry no such statement.
 HEADER = ('{howpublished}, read in the browser on {read}. This is not the page Ancestry '
           'serves: Ancestry refuses an automated request, so the record is set out here '
           "as the repository's own row holds it, field for field. The census sheet "
