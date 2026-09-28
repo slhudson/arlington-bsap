@@ -193,7 +193,7 @@ is no row.
 **Guards that prevent silent wrongness get a test.** `code/tests.py` reintroduces
 the specific mistake each guard exists to catch and asserts the build refuses,
 so editing `code/build/` or `code/clean/` cannot quietly disable a check.
-`bash run.sh` runs it after the build stage on a full run, about ten seconds;
+`bash run.sh` runs it after the build stage on a full run, about thirty seconds;
 a filtered run (`bash run.sh <figure>`) is for the figures and skips it.
 
 Only silent failures are worth this. A figure script saving under the wrong

@@ -1155,6 +1155,18 @@ read against the only Schutt household the county's 1880 census holds
 (`census1880schutt`), the same one the roster's Francis D. Schutt of
 1873–74 and Francis G. Schutt of 1874–81 are read against.
 
+The same line swaps both men's districts: it puts Schutt in Jefferson and
+Rowe in Arlington where the minute books and O'Leary both have Schutt in
+Arlington and Rowe in Jefferson through 1877. It is read as a transposition
+and yields no residence claim. The reading that would rescue it — that the
+paper named where each man lived rather than the seat he held — asks both
+men to have moved years before the Board acted, and the Board did not wait:
+it took Rowe's resignation on 2 April 1879, the day it recorded his move
+from Jefferson to Arlington, and Schutt's in June 1877 on the notation that
+he had moved from Arlington District. Each was still living in the district
+the roster gives him in December 1875. Where the two men lived is a claim
+those notations can carry, and this line cannot (Sally, 28 September 2026).
+
 **Wibirt and Walker take a census record once the Gazette gives their full
 names.** The Gazette calls the Arlington-district supervisor "W. C." or
 "William C. Wibirt" — a nominee for the seat in October 1915, a pallbearer in
