@@ -813,6 +813,66 @@ def test_a_source_we_cannot_fully_cite_is_logged_as_a_question():
         f"owner, or finish the entry and drop the word.")
 
 
+def tracker_rows():
+    """docs/questions.csv as dictionaries, one per open question."""
+    return list(csv.DictReader((ROOT / "docs" / "questions.csv").open(newline="")))
+
+
+def slug_references():
+    """Every place outside the tracker that names a row, as (slug, file).
+
+    A write-up names one in backticks. Code names one in a parenthesis or
+    ahead of "in docs/questions.csv", and that narrower shape is what keeps
+    the census's own sex-by-age and race-by-18-and-over tables from reading
+    as slugs."""
+    slug = r"[a-z][a-z0-9]*(?:-[a-z0-9]+){2,}"
+    found = []
+    for path in sorted((ROOT / "docs").glob("*.md")):
+        found += [(t, f"docs/{path.name}")
+                  for t in re.findall(rf"`({slug})`", path.read_text())]
+    for path in sorted((ROOT / "code").rglob("*.py")):
+        found += [(t, f"code/{path.name}") for t in re.findall(
+            rf"({slug})(?=\)| in docs/questions\.csv)", path.read_text())]
+    return found
+
+
+def test_a_row_that_closes_takes_its_references_with_it():
+    """A slug named in docs/ or code/ that no row answers to.
+
+    Closing a row deletes it, and the prose pointing at it sits in another
+    file. docs/members.md went on calling two spellings unsettled for a day
+    after the row tracking them had been rewritten to settle one, because
+    the commit that rewrote the row never opened the write-up."""
+    rows = {r["id"] for r in tracker_rows()}
+    dangling = sorted({f"{slug} in {where}" for slug, where in slug_references()
+                       if slug not in rows})
+    assert not dangling, (
+        "no row in docs/questions.csv answers to:\n  " + "\n  ".join(dangling) +
+        "\nA row that closes leaves its prose behind. Say in the write-up what "
+        "settled the question, or put the row back.")
+
+
+def test_a_row_does_not_describe_work_in_flight():
+    """A row reporting a search under way rather than what would settle it.
+
+    A thread ends and the row outlives it. roster-walker-end-date said the
+    Alexandria Gazette was "being searched for in another thread" for a day
+    after that search had finished and filed two citekeys, so the next
+    session read finished work as still running."""
+    flight = re.compile(r"being searched|in another thread|in progress|under ?way",
+                        re.I)
+    stale = []
+    for row in tracker_rows():
+        hit = flight.search(" ".join(v for v in row.values() if v))
+        if hit:
+            stale.append(f'{row["id"]}: "{hit.group(0)}"')
+    assert not stale, (
+        "docs/questions.csv describes work in flight:\n  " + "\n  ".join(stale) +
+        "\nA row says what would settle the question and what has already been "
+        "searched and come back empty. Who is doing it now belongs nowhere: "
+        "the thread ends and the row stays.")
+
+
 def residence_coverage():
     """The coverage table docs/members.md prints: for the members first seated
     from 1932 on, the most exact kind of place any source gives each, and how
