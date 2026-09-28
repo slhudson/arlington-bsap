@@ -13,18 +13,21 @@ still open.
 Reconstruction" framing. The five Reconstruction-era members rest on Hjerpe's
 census linking (`default-1931-1986`).
 
-**Gender.** Nine members rest on the default, man (`gender-from-names`). Three
+**Gender.** Five members rest on the default, man (`gender-from-names`). Three
 were seated before 1912 and have each been searched without settling:
 R. Henry Phillips, whose only census household is his father's; and William H.
 Robinson and Walter G. Willson, whom the Alexandria Gazette names with no
 pronoun or honorific attached (both below). W. P. Ames has a 1940 record
 matched on the name alone, which feeds nothing. Clarence R. Ahalt is a recorded
 negative rather than an unsearched name: he appears nowhere in the 1920 census.
-The remaining four are the members the Historical Society's article adds for
-1870–1911 — Francis M. Mills, Curtis B. Graham, Jr., George W. Saulisbury and
-William N. Febrey — and no census or press reading has been looked for on any
-of them. The other 115 members have a census listing or a pronoun or honorific
-in the press, and `gender_evidence` in `members.csv` says which each rests on.
+The four members the Historical Society's article adds for 1870–1911 — Francis
+M. Mills, Curtis B. Graham, Jr., George W. Saulisbury and William N. Febrey —
+were settled on 28 September 2026: each of the first three is a census record
+matched to the district he sat for (`census1880mills`, `census1880graham`,
+`census1880salisbury`), and Febrey by the honorific in an 1893 Gazette piece on
+a Republican committee vote (`gazette1893febrey`). The other 119 members have a
+census listing or a pronoun or honorific in the press, and `gender_evidence` in
+`members.csv` says which each rests on.
 
 **Race and gender from the census.** For the 40 members first seated 1932–1966
 and the 38 first seated 1870–1904, race and gender come from 74 census records
