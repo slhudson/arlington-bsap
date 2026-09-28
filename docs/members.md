@@ -318,8 +318,7 @@ constitution framed in 1868 and ratified in 1869 divides every county into not
 fewer than three townships, has one supervisor elected annually in each, and
 provides that "The Supervisors of each township shall constitute the Board of
 Supervisors for that county" (art. VII sec. 2, `vaconstitution1869`). The
-mechanism is the constitution itself, not an enabling act; prose should say so
-rather than "under the post-Civil War constitution". Three acts of the 1869–70
+mechanism is the constitution itself, not an enabling act. Three acts of the 1869–70
 session then made it exist in fact: ch. 39, approved 2 April 1870, has the
 governor appoint five commissioners in each county to lay it off into
 townships; ch. 76 sec. 14, approved 11 May 1870, has one supervisor chosen in
@@ -366,8 +365,7 @@ Corbett's 1910 census occupation is "Supervisor, County". Arlington adopted the
 County Manager Plan by referendum in 1930 and has operated under it since 1932;
 samuel2026 note 8 records that the Plan "appears to be the only county form of
 government that does not refer to its Board members as 'supervisors'". The
-name, the at-large method and the five seats therefore arrive together, and
-prose should not carry one back across 1932 without the others.
+name, the at-large method and the five seats therefore arrive together.
 
 **When a term begins depends on the constitution in force.** Under the
 magisterial system elections were held in May and the winners took office on

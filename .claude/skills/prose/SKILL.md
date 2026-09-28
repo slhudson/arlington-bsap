@@ -143,6 +143,24 @@ genuinely uncertain, name the uncertainty once and move on.
 **A list pretending to be a sentence.** Three clauses joined by semicolons
 usually want to be three sentences, or a list the reader can see.
 
+## Two things this subject is easy to say wrongly
+
+Both are settled in `docs/members.md`, which has the sources; what follows is
+how to put them in a sentence.
+
+**The Board was created by the constitution, not under it.** Virginia's 1869
+constitution constitutes the board of supervisors itself; no enabling act
+stands between. "Under the post-Civil War constitution" reads as though some
+statute did the work, so say the constitution created it, and let the three
+acts of the 1869-70 session do what they did, which is stand it up in fact.
+
+**The 1932 changes arrive as a package.** Five seats in place of three,
+at-large election in place of districts, and members who stop being
+supervisors: one referendum, one date. Carrying any one of them back across
+1932 without the others describes a Board that never existed - a sentence about
+"supervisors" in 1935, or about at-large election in 1920, is wrong in the same
+way.
+
 ## Reading it back
 
 Read the passage aloud. Where you stumble, the reader stops. That test finds
