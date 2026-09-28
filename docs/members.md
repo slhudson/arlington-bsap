@@ -54,10 +54,10 @@ changes no figure.
 **1870–1911 rests on O'Leary's electoral history and the same article
 together.** The article settles seven names, the July–June term year, and five
 terms O'Leary does not record (below, "The article corrects and adds for 1870
-to 1911"). Two questions about the stretch are open, and neither changes a
-value in the meantime: two spellings (`arlhist-birch-perkin-spellings`), and
-whether the 1892 William N. Febrey is the W. N. Febrey of 1904–11
-(`febrey-1892-one-member-or-two`). The statute behind the July seating is
+to 1911"). One question about the stretch is open, and it changes no value in
+the meantime: whether the 1892 William N. Febrey is the W. N. Febrey of
+1904–11 (`febrey-1892-one-member-or-two`). The statute behind the July
+seating is
 uncited (`may-election-seating`). Two seats that the article gives to a
 different man are settled, and the roster follows the article in both: see "Two
 seats go to the man the minute books show sitting" below.
@@ -274,7 +274,7 @@ timing invites the connection and the record does not make it
 ### Squier, the control
 
 The same roster prints a fourth Jefferson-adjacent departure in Pendleton's
-year: Perkin W. Squier, Arlington district. A footnote in
+year: Perkins W. Squier, Arlington district. A footnote in
 `arlhist1967officials` explains his term without ambiguity —
 "Postmaster of Alexandria City. Court declared seat vacant under the
 Virginia law prohibiting Federal employees from holding office in the
@@ -585,10 +585,14 @@ table has not been ruled on.
   rather than the name. His identity is not in doubt: read as two men the
   Washington seat double-fills and `check_district_seats` refuses the build.
 
-Two spellings of the same shape are **not** settled and stay open: the
-article's Birch for O'Leary's Birth (Arlington, 1891–93) and its Perkin for
-his Perkins (Arlington, 1883–84), both with a press thread
-(`arlhist-birch-perkin-spellings`). Settling either is one entry in `NAMES`.
+Two spellings of the same shape are settled, and they fall opposite ways.
+**Birch**, not Birth: the article, the 1900 census index and its sheet all
+read Birch against O'Leary alone (Arlington, 1891–93), so `NAMES` carries the
+entry and the roster reads Millard F. Birch. **Perkins**, not Perkin: here
+O'Leary and the 1880 census sheet agree against the article, and the sheet
+ties to the man by his district and by the postmastership that cost him the
+seat (`census1880squier`), so the roster already spells him Perkins W. Squier
+and the ruling leaves no entry to make.
 
 **Five terms the article adds**, taken as one set with the five it supplies
 for 1912–1931 (Sally, 27 September 2026).
