@@ -161,7 +161,8 @@ reads are fetched on demand (`docs/repository.md`).
 `data/built/`, `code/clean/` writes `data/clean/`, `code/analysis/` writes
 `figures/` and, from `code/analysis/body_text_numbers.py`, the numbers the
 prose cites that no figure carries, as LaTeX commands in
-`paper/body_text_numbers.tex`. `run.sh` runs the last three every time; the
+`paper/body_text_numbers.tex`. `code/paper.py` sits outside the stages, like
+`code/tests.py`, and writes `paper/arlington-bsap.pdf` on demand. `run.sh` runs the last three every time; the
 first two run on demand — the network for one, a slow Mac-only OCR for the
 other — and their
 output is committed, so the build is reproducible without either. A script is
@@ -222,17 +223,19 @@ required to rebuild.
 
 **The paper compiles with lualatex, not pdflatex**, because its body text is
 set in Lato and `fontspec` runs under no other engine. `run.sh` does not
-compile it; Overleaf does, and locally it is:
+compile it — the figures build with no LaTeX installed, and Overleaf compiles
+the report for real. Locally:
 
 ```bash
-cd paper && latexmk -C && latexmk -pdflua arlington-bsap.tex
+.venv/bin/python code/paper.py   # writes paper/arlington-bsap.pdf
 ```
 
-The `-C` clears latexmk's record of which tools it ran last. Without it, a
-record left from an earlier build calls bibtex where this paper needs biber,
-and the PDF comes out with every citation and cross-reference undefined and no
-error a reader would notice. `docs/repository.md` has both failure modes, what
-each looks like in the log, and the Overleaf equivalent.
+That refuses a PDF whose log reports an undefined citation, an undefined
+cross-reference or a substituted font, because latexmk exits 0 on all three
+and a report missing its bibliography looks finished. The usual cause is a
+stale `paper/arlington-bsap.fdb_latexmk` calling bibtex where this paper needs
+biber, so a first failure is retried from clean before it is believed.
+`docs/repository.md` has both failure modes and the Overleaf equivalent.
 
 ## Questions and decisions
 

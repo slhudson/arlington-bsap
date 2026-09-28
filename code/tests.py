@@ -20,6 +20,7 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "code"))
 import citekeys  # noqa: E402
+import paper  # noqa: E402
 
 # Each data stage has its own paths.py. The build stage's modules load
 # first and keep theirs; the name is then cleared so the clean stage's can
@@ -1095,6 +1096,58 @@ def test_a_timeline_citation_reaches_the_footnote():
         f"has no \\makesavenoteenv{{tabular}}: those footnotes are dropped "
         f"silently. Add \\usepackage{{footnote}} and \\makesavenoteenv{{tabular}}, "
         f"or move the citations into the prose.")
+
+
+def test_an_unresolved_citation_fails_the_paper_build():
+    """A log with an undefined citation is a failed build, not a warning.
+
+    This is the silent failure the guard exists for: latexmk exits 0, the PDF
+    is written, and every footnote citation is gone because bibtex ran where
+    biber was needed. Reintroduce it by handing paper.problems() the log such
+    a build leaves behind.
+    """
+    log = ("LaTeX Warning: Citation 'samuel2026' on page 3 undefined on "
+           "input line 154.\n")
+    found = paper.problems(log)
+    assert found, ("a log reporting an undefined citation passed as a good "
+                   "build: the report would ship with no bibliography")
+    assert "samuel2026" in found[0], found
+
+
+def test_an_unresolved_reference_fails_the_paper_build():
+    log = ("LaTeX Warning: Reference `fig:board-gender' on page 6 undefined "
+           "on input line 286.\n")
+    found = paper.problems(log)
+    assert found, ("a log reporting an undefined reference passed as a good "
+                   "build: the prose would point at no figure")
+    assert "fig:board-gender" in found[0], found
+
+
+def test_a_substituted_font_fails_the_paper_build():
+    """The fault that shipped once: case names set in a substituted face.
+
+    style/fonts/ held Regular and Bold only, so every \\textit in the report -
+    which is almost all of it the case names - was silently substituted.
+    """
+    log = "LaTeX Font Warning: Font shape `TU/Lato(0)/m/it' undefined\n"
+    found = paper.problems(log)
+    assert found, ("a log reporting a substituted font passed as a good "
+                   "build: the case names would be set in the wrong face")
+    assert "style/fonts/" in found[0], found
+
+
+def test_a_clean_paper_log_passes():
+    """The guard has to stay quiet on a good build, or it will be ignored."""
+    log = ("This is LuaHBTeX, Version 1.18.0\nOutput written on "
+           "arlington-bsap.pdf (14 pages).\n")
+    assert paper.problems(log) == [], paper.problems(log)
+
+
+def test_each_paper_symptom_is_reported_once():
+    """One missing citation appears on every pass; report the name once."""
+    log = ("LaTeX Warning: Citation 'samuel2026' on page 3 undefined on "
+           "input line 154.\n") * 3
+    assert len(paper.problems(log)) == 1, paper.problems(log)
 
 
 if __name__ == "__main__":

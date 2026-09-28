@@ -132,16 +132,17 @@ footnote citation and every `\ref` to a figure comes out undefined. It is the
 dangerous failure, because a report that is missing its sources looks finished
 at a glance.
 
-The cure is to clear latexmk's record once, after any engine change:
+`code/paper.py` handles both. It compiles, then reads the log, and treats an
+undefined citation, an undefined cross-reference or a substituted font as a
+failed build however latexmk exited — deleting the PDF rather than leaving one
+that reads as finished. A stale record is the usual cause and clearing it is
+free, so a first failure is retried from clean before it is reported. The
+checking is a pure function over the log's text, `problems()`, which is why
+`code/tests.py` can reintroduce all three mistakes without a LaTeX
+installation.
 
-```
-cd paper && latexmk -C && latexmk -pdflua arlington-bsap.tex
-```
-
-On Overleaf the same staleness is cleared by *Recompile from scratch*, under
-the Recompile dropdown.
-
-A good build reports no font warnings and no undefined references. If the log
-says `Font shape ... undefined, defaults substituted`, a face is missing from
-`style/fonts/` or from the `\setmainfont` declaration; if it says citations
-are undefined, biber did not run.
+On Overleaf, where that script does not run, the same staleness is cleared by
+*Recompile from scratch*, under the Recompile dropdown. The symptoms to look
+for are the same: `Font shape ... undefined, defaults substituted` means a face
+is missing from `style/fonts/` or from the `\setmainfont` declaration, and
+undefined citations mean biber did not run.
