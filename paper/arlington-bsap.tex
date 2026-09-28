@@ -1,3 +1,4 @@
+% !TeX program = lualatex
 % Arlington County Board Structure and Performance study.
 %
 % Figures are NOT defined in this file. They are built from data/raw/ by run.sh and
@@ -8,6 +9,12 @@
 % The sections follow the working-session deck of 26 September 2026, one
 % section per topic, each holding its figures and then its timeline. County-level
 % context precedes the Board-level figure within a topic.
+%
+% Compiled with lualatex, not pdflatex: the body text uses Lato, the same
+% typeface urban.mplstyle sets for the figures, loaded via fontspec from
+% ../style/fonts/. The "!TeX program" line above is an Overleaf/latexmk
+% magic comment, so the engine travels with the file instead of living in a
+% project setting only one of us can see.
 \documentclass{article}
 
 \usepackage{graphicx}
@@ -15,6 +22,14 @@
 \input{body_text_numbers}  % numbers the prose cites, written by code/analysis/body_text_numbers.py
 \usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
+
+\usepackage{fontspec}
+\setmainfont{Lato}[
+  Path           = ../style/fonts/,
+  Extension      = .ttf,
+  UprightFont    = *-Regular,
+  BoldFont       = *-Bold,
+]
 
 % Chicago notes-bibliography: a superscript number in the sentence, the full
 % citation in a footnote, and the bibliography at the end. Chosen over
