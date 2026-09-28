@@ -188,14 +188,28 @@ reading that a description does not make for us.
   which the descriptions put at 99: 67 of their 211 people are men of
   nineteen to forty in group quarters.
 
-**Arlington district has no 1900 cell.** The 1900 database holds 5,931 of the
-county's 6,430 people, and the whole shortfall of 499 is in Arlington
-district, which it gives as 2,701 against a published 3,200 — one resident in
-six missing, with nothing to say what race they were. Jefferson and Washington
-tie exactly, so they are written and Arlington is not (`INCOMPLETE`), and the
-figure's Arlington line and its county line both break at 1900. The county
-line is the three districts added together, so two districts are not a county
-(`race-by-district-1900-arlington`).
+**Arlington district has no 1900 cell, and none is coming.** The 1900
+database holds 5,931 of the county's 6,430 people, and the whole shortfall of
+499 is in Arlington district, which it gives as 2,701 against a published
+3,200 — one resident in six missing, with nothing to say what race they were.
+Jefferson and Washington tie exactly, so they are written and Arlington is not
+(`INCOMPLETE`), and the figure's Arlington line and its county line both break
+at 1900. The county line is the three districts added together, so two
+districts are not a county.
+
+Two routes were checked before settling for that. IPUMS's Full Count Data is
+still at version 4.0, the version already in hand — its own revision history
+lists no later release of the 1900 database (checked 2026-09-28). And
+FamilySearch's own index of Enumeration District 1 (`familysearch1900ed1arlington`)
+— a second transcription of the same schedules, keyed by a different
+organization from a different scan of the microfilm — was read in full,
+image by image: it totals 2,535 people, 1,553 white and 936 Black, with 46
+too faint for its indexers to read. Add Fort Myer's 211 and Arlington district
+comes to 2,746 people on either digitization, 454 short of the volume. The
+same shortfall, on two independent readings of the schedules, means the
+missing people are not sitting on a page nobody has read yet — they are not
+on any surviving copy of the schedule. No reading recovers a race split for
+Arlington in 1900, so the cell stays blank.
 
 **1890 is empty and will stay empty.** The manuscript schedules burned, so
 there is no full count to extract and no prospect of one. The county's own
