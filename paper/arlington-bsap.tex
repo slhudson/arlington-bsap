@@ -24,11 +24,16 @@
 \usepackage{hyperref}
 
 \usepackage{fontspec}
+% All four faces are declared, because the report sets case names in italic
+% --- Bennett v. Garrett, Vollin v. Kimbel --- and an undeclared face is
+% substituted silently rather than raising.
 \setmainfont{Lato}[
   Path           = ../style/fonts/,
   Extension      = .ttf,
   UprightFont    = *-Regular,
   BoldFont       = *-Bold,
+  ItalicFont     = *-Italic,
+  BoldItalicFont = *-BoldItalic,
 ]
 
 % Chicago notes-bibliography: a superscript number in the sentence, the full
