@@ -1,11 +1,11 @@
 # Localities
 
-The governing body of every Virginia locality Arlington's Board is set beside,
-and how large each place is: what each number in `data/clean/localities.csv`
-is, what backs it, what is assumed where nothing does, and why. Present tense;
-how a decision was reached is in the git history. The placeholders in the
-`source` columns are explained in `code/citekeys.py`, and what is still open is
-in `docs/questions.csv`.
+This write-up covers the governing body of every Virginia locality Arlington's
+Board is set beside, and how large each place is: what each number in
+`data/clean/localities.csv` is, what backs it, and what is assumed where nothing
+does. How a decision was reached is in the git history rather than here.
+`code/citekeys.py` explains the placeholders in the `source` columns, and
+`docs/questions.csv` holds what is still open.
 
 
 ## What rests on an assumption

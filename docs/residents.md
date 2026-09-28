@@ -1,10 +1,10 @@
 # Residents
 
-Who lived in Arlington at each census, by what race and at what age: what each number in
-`data/clean/residents.csv` is, what backs it, what is assumed where nothing
-does, and why. Present tense; how a decision was reached is in the git
-history. The placeholders in the `source` columns are explained in
-`code/citekeys.py`, and what is still open is in `docs/questions.csv`.
+This write-up covers who lived in Arlington at each census, by what race and at
+what age: what each number in `data/clean/residents.csv` is, what backs it, and
+what is assumed where nothing does. How a decision was reached is in the git
+history rather than here. `code/citekeys.py` explains the placeholders in the
+`source` columns, and `docs/questions.csv` holds what is still open.
 
 
 `residents_per_seat` divides by the seats that exist, not the seats filled, and
@@ -13,8 +13,19 @@ spike: the figure shows the size of the Board, not who sat.
 
 ## What rests on an assumption
 
+- **Arlington district's 1900 race split is not written.** The 1900 IPUMS
+  database holds 2,701 of that district's 3,200 people, and the whole county's
+  shortfall of 499 falls there, so a Black share for it would rest on a
+  population missing one resident in six. Both its line and the county's break
+  at 1900 in `residents_by_district_race`
+  (`race-by-district-1900-arlington`). 1890 is a separate matter: its manuscript
+  schedules burned and the count is permanently gone.
 
-Each is a row in `docs/questions.csv`, with whose court it waits in and what would settle it.
+That row is in `docs/questions.csv`, with whose court it waits in and what would
+settle it. Every other number here is a figure the Census Bureau published or a
+subtraction between two of them. Where a source merges two categories, the
+figures carry the merge rather than splitting it on an assumption; the 1940 and
+1980 cases are below.
 
 ---
 
@@ -37,20 +48,21 @@ and census treatment all changed across the period:
 |---|---|---|
 | to 1846 | Alexandria County, D.C. | part of the District of Columbia |
 | 1847–1919 | Alexandria County, Virginia | the three districts **and** Alexandria city |
+| 1920– | Arlington County, Virginia | the three districts only |
 
-Retrocession has several dates and the prose names the event each time
-rather than picking a year (Sally, 26 September 2026). Virginia accepted the
-county in advance by an act of 3 February 1846; Congress passed the act to
-retrocede it on 9 July 1846, effective "with the assent of the people of
-the county and town of Alexandria", and the residents voted for it that
-September (`usstat1846retrocession`, 9 Stat. 35, which recites the Virginia
-act); Virginia extended her laws over the county by an act of 13 March
-1847, when the transfer took effect. "Retroceded in 1846" is Congress and
-the residents' choice; "part of Virginia from 1847" is the transfer. The
-acceptance act is `vaacts1846acceptance`, ch. 64 of the 1845-46 session,
+Retrocession has several dates, and the prose names the event each time rather
+than picking a year (Sally, 26 September 2026). Virginia accepted the county in
+advance by an act of 3 February 1846. Congress passed the act to retrocede it on
+9 July 1846, effective "with the assent of the people of the county and town of
+Alexandria", and the residents voted for it that September
+(`usstat1846retrocession`, 9 Stat. 35, which recites the Virginia act). Virginia
+extended her laws over the county by an act of 13 March 1847, and the transfer
+took effect then. So "retroceded in 1846" names Congress and the residents'
+choice, and "part of Virginia from 1847" names the transfer.
+
+The acceptance act is `vaacts1846acceptance`, ch. 64 of the 1845-46 session,
 passed 3 February 1846. The extending act is `vaacts1847`, ch. 53 of the
 1846-47 session, passed 13 March 1847, effective 20 March 1847.
-| 1920– | Arlington County, Virginia | the three districts only |
 
 Two dates do the work. **In 1900** Alexandria city became independent of the
 county for census purposes, so from that census onward the published county

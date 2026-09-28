@@ -1,18 +1,18 @@
 # Candidates
 
-Who ran for the Board and which of them a source says was Black: what each
-number in `data/clean/candidates.csv` is, what backs it, what is assumed
-where nothing does, and why. Present tense; how a decision was reached is in
-the git history. The placeholders in the `source` columns are explained in
-`code/citekeys.py`, and what is still open is in `docs/questions.csv`.
+This write-up covers who ran for the Board and which of them a source says was
+Black: what each number in `data/clean/candidates.csv` is, what backs it, and
+what is assumed where nothing does. How a decision was reached is in the git
+history rather than here. `code/citekeys.py` explains the placeholders in the
+`source` columns, and `docs/questions.csv` holds what is still open.
 
 ## The question this subject exists to answer
 
-Whether a Black candidate ran and lost, or did not run at all, in each
-period the report covers. A "no ring" year on the `candidates` figure means
-one of two very different things — nobody ran, or somebody ran and the
-record of it hasn't been checked — and telling them apart is the whole
-point of this subject. Coverage, era by era:
+This subject exists to establish whether a Black candidate ran and lost, or did
+not run at all, in each period the report covers. A "no ring" year on the
+`candidates` figure means one of two very different things: nobody ran, or
+somebody ran and the record of it has not been checked. Telling those apart is
+the whole point. Coverage runs era by era:
 
 - **1871–1887**: answered, and closed for good. O'Leary's record names only
   winners before 1907, so a loss cannot appear in it; the absence is the
@@ -49,7 +49,9 @@ search (the Gazette's returns) from either.
   2025 have not been matched to a census record or a press description for
   race (`black-losers-1932-on`), so "none ran 1932-1986" is two authors'
   sentences, not a check of the list.
-Each is a row in `docs/questions.csv`, with whose court it waits in and what would settle it.
+
+That row is in `docs/questions.csv`, with whose court it waits in and what would
+settle it.
 
 ---
 

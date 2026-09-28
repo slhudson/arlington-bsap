@@ -6,10 +6,10 @@ what happened where a rule came from an incident.
 
 ## Why `data/clean/` is committed and `data/built/` is not
 
-**`data/clean/` is committed even though it is generated.** The usual rule is the
-opposite, and we follow it elsewhere. These are small CSVs, and committing them
-means a cleaning decision shows up as a reviewable diff — you can see exactly
-which numbers moved and by how much. That matters while those are open.
+**`data/clean/` is committed even though it is generated.** The usual rule is
+the opposite, and this repository follows it everywhere else. These are small
+CSVs, and committing them means a cleaning decision shows up as a reviewable
+diff: a reader can see exactly which numbers moved and by how much. That matters while those are open.
 `data/built/` is not committed: it holds no decisions, rebuilds in seconds
 from the layers above, and would add 1.6MB to the text Overleaf syncs.
 `bash run.sh` makes it before anything reads it.

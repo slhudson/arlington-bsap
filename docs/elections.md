@@ -1,10 +1,11 @@
 # Elections
 
-Who voted, for whom, and how many: what each number in `data/clean/elections_results.csv`
-and `data/clean/elections_turnout.csv` is, what backs it, what is assumed where nothing
-does, and why. Present tense; how a decision was reached is in the git
-history. The placeholders in the `source` columns are explained in
-`code/citekeys.py`, and what is still open is in `docs/questions.csv`.
+This write-up covers who voted, for whom, and how many: what each number in
+`data/clean/elections_results.csv` and `data/clean/elections_turnout.csv` is,
+what backs it, and what is assumed where nothing does. How a decision was
+reached is in the git history rather than here. `code/citekeys.py` explains the
+placeholders in the `source` columns, and `docs/questions.csv` holds what is
+still open.
 
 
 ## What rests on an assumption
@@ -95,11 +96,12 @@ ABC) and 2003 (one Republican).
 
 ## Turnout
 
-`data/clean/elections_turnout.csv` puts four measures side by side, one row per year:
-votes cast in the November County Board contests and the seats they filled;
-the people that represents; registered voters; the population 18 and over;
-and the presidential vote. Each measure has its own source column, because a
-row draws on up to four documents at once.
+`data/clean/elections_turnout.csv` puts four measures side by side, one row per
+year: the votes cast in the November County Board contests, the registered
+voters, the population 18 and over, and the presidential vote. It also carries
+the seats those Board votes filled and the number of people the votes
+represent. Each of the four measures has its own source column, because a row
+draws on up to four documents at once.
 
 **Votes are not voters.** A Board ballot carries one vote per seat being
 filled, so `board_voters` divides the votes by the seats: exactly the number
@@ -161,13 +163,19 @@ years a precinct's row is repeated once per district it sits in.
 else the November ballot carried (the `cycle` column: president, governor,
 midterm, delegates), because drawn as one line it is a sawtooth whose teeth
 are the ballot and not the Board. In a presidential year about nine in ten of
-the county's presidential voters also vote for the Board. As a share of the
-county's adults, the presidential-year Board vote was about a quarter from
-1940 to 1948, a third in 1952 and 1956, and rose to 42 per cent by 1968; it
-was about a third again in 1980 and 57 per cent in 2024; the House of Delegates years, when the Board tops
-the ballot, from a fifth to 30 per cent in 2023; and the midterm and
-governor's years sat at a third for decades and have converged on the
-presidential-year level since 2017. In November 2024: 196,563 adults (the 2020
+the county's presidential voters also vote for the Board.
+
+As a share of the county's adults, the four series move differently:
+
+- **presidential years** ran about a quarter from 1940 to 1948, a third in 1952
+  and 1956, and rose to 42 per cent by 1968; about a third again in 1980, and
+  57 per cent in 2024;
+- **House of Delegates years**, when the Board tops the ballot, run from a
+  fifth to 30 per cent in 2023;
+- **midterm and governor's years** sat at a third for decades and have
+  converged on the presidential-year level since 2017.
+
+November 2024 gives the whole picture at one date: 196,563 adults (the 2020
 count), 164,865 active registered voters, 128,362 who voted for President and
 113,209 for the County Board.
 

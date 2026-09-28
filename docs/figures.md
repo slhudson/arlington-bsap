@@ -134,10 +134,10 @@ groups and White, because it is another kind of not-White and belongs with
 them. Above the sand it splits the non-White population in two and
 understates how much the county has diversified.
 
-Gender: women, then men. The same shape as race, and for the same reason:
-the category the sand marks - the majority - takes the ceiling, and the
-smaller category sits on the floor where its band is measured against the
-axis rather than floating on top of another band. Ordering the legend some
+**Gender runs women, then men**, which is the same shape as race and for the
+same reason. The category the sand marks — the majority — takes the ceiling,
+and the smaller category sits on the floor, where its band is measured against
+the axis rather than floating on top of another band. Ordering the legend some
 other way, alphabetically say, would put men first here and leave race
 ordered the other way, so the two demographic figures would stop reading as
 one pair.
@@ -217,9 +217,8 @@ Every figure is exactly the profile's width: 6.25 inches for the memo's PDF,
 Urban's full-width figure, and 10 inches for the deck's PNG, with every type
 size stepped up by 1.45 so the type holds the same proportion to the frame.
 
-One exception. A figure whose axis
-carries only a few categories — five censuses of stacked bars — looks
-wrong at full width: the bars become slabs with as much white between them
+One kind of figure is an exception. A figure whose axis carries only a few
+categories — five censuses of stacked bars — looks wrong at full width: the bars become slabs with as much white between them
 as ink in them, and the figure reads as though a series has been left out
 of it rather than as though it is complete. Such a figure takes
 `style.NARROW`, 0.7 of the profile's width. The fraction is a name in
