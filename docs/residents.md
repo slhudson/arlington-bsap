@@ -11,20 +11,13 @@ history rather than here. `code/citekeys.py` explains the placeholders in the
 says so in its label, "residents per seat". A vacant seat therefore adds no
 spike: the figure shows the size of the Board, not who sat.
 
-## What rests on an assumption
-
-- **Arlington district's 1900 race split is not written.** The 1900 IPUMS
-  database holds 2,701 of that district's 3,200 people, and the whole county's
-  shortfall of 499 falls there, so a Black share for it would rest on a
-  population missing one resident in six. Both its line and the county's break
-  at 1900 in `residents_by_district_race`. The gap is written off, for the
-  reasons below. 1890 is a separate matter: its manuscript schedules burned and
-  the count is permanently gone.
-
-Every other number here is a figure the Census Bureau published or a
-subtraction between two of them. Where a source merges two categories, the
-figures carry the merge rather than splitting it on an assumption; the 1940 and
-1980 cases are below.
+Nothing here rests on an assumption. Every number is a figure the Census
+Bureau published or a subtraction between two of them, or, for Arlington
+district's 1900 race split and every district's 1890 split, a gap that stays
+blank rather than resting on one ("Race by district, counted from the
+schedules", below). Where a source merges two categories, the figures carry
+the merge rather than splitting it on an assumption; the 1940 and 1980 cases
+are below.
 
 ---
 
