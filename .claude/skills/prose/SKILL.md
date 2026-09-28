@@ -242,6 +242,25 @@ nothing to say what the count cost. The census, the law and the minute books
 are now the subjects, and the count carries its consequence: the county had
 only three districts to name.
 
+**27 September 2026, length.** A first pass came back the same length, and she
+expected the voice to cut: "I'm surprised that you didn't cut more words." It
+had not padded — measured on prose words only, the eight files moved +0.6%, and
+most of that was one section that had been empty. The classical cutting tests
+(metadiscourse, expletive openings, *the fact that*, *in order to*, redundant
+pairs, stacked hedges, nominalisation-plus-*of*) find three hits in 33,000
+words. Earlier passes had already cut to the bone, which is why the prose read
+as dense: the fault was how much sat in each sentence, not how many words were
+in the file, and the cure - more sentences, visible lists, an actor per clause -
+costs words.
+
+What the pass did find was one construction doing all the contrastive work:
+"rather than" 121 times, always mid-sentence as a definition. The sample uses it
+sentence-initially, about a choice someone made ("Rather than pursue federal
+litigation, Charlottesville's local branch of the NAACP chose to lobby City
+Council directly"). 36 of the definitional ones became "not", which is shorter
+and lands harder; the rest stayed, because "not" 121 times is the same tic in a
+new coat.
+
 **27 September 2026, on hard rules.** Numeric limits were offered and
 declined: "I don't like the idea of like numeric hard rules for writing style.
 Like some some rules are meant to be broken." Hence Orwell's last rule above,

@@ -137,10 +137,9 @@ understates how much the county has diversified.
 **Gender runs women, then men**, which is the same shape as race and for the
 same reason. The category the sand marks — the majority — takes the ceiling,
 and the smaller category sits on the floor, where its band is measured against
-the axis rather than floating on top of another band. Ordering the legend some
-other way, alphabetically say, would put men first here and leave race
-ordered the other way, so the two demographic figures would stop reading as
-one pair.
+the axis instead of floating on top of another band. Ordering the legend some
+other way, alphabetically say, would put men first here and leave race ordered
+the other way, so the two demographic figures would stop reading as one pair.
 
 Age: youngest at the base, children first, so the stack runs the way the
 axis does and the band a reader is looking for is where its number puts it.
