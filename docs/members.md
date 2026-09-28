@@ -464,10 +464,14 @@ read Harry W Cuppett, as do the Daily Sun and the Sun of 1947 printing his
 house at 1011 North Stafford Street (`census1950cuppett`, `tad1947cuppett`,
 `sun1947candidates`), so Henry is a variant of it. And John C. Gall resigned
 on 31 May 1933 rather than dying in office as the county's history has it
-(below). The remaining four are labels nothing here reads — two dates, a
-chairmanship the roster does not record, and a one-block misprint of Lloyd as
-Loyd — and whether the County's copy should follow either date is
-`arlhist-vs-novack-1932-1960`.
+(below). The remaining four are labels the roster cannot state, so no source
+has to win. It records months, not days, and records no chairmanships at all:
+Magruder's seat ends in May 1947 whether she gave up the chair on 11 February
+or 11 March, Buchholz's term begins in November 1952 whether the election was
+the 4th or the 11th, B. M. Smith's 1934–35 chairmanship is absent whether or
+not Novack's Acting belongs on it, and Loyd is read as Lloyd. The County's
+copy follows the article for term blocks, as it does throughout, and claims
+none of the four (Sally, 28 September 2026).
 
 **How the article is read.** The article prints the Board in blocks, each
 block one stretch with a settled membership and a named chairman, so a block
