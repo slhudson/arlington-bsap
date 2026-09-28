@@ -50,9 +50,7 @@ Society's own compilation from the Board's minute books, names all three
 magisterial seats — Arlington, Jefferson and Washington — for all twenty years.
 It states the one vacancy, in the Washington seat in early 1920, rather than
 leaving it silent. `members_by_year.py` reads the roster for those years like
-any other (below, "The roster names 1912 to 1931"). One reading inside the
-stretch is provisional, Walker's end date (`roster-walker-end-date`), and it
-changes no figure.
+any other (below, "The roster names 1912 to 1931").
 
 **1870–1911 rests on O'Leary's electoral history and the same article
 together.** The article settles seven names, the July–June term year, and five
@@ -674,15 +672,13 @@ of 1892–93 is carried as his own person, not joined to the W. N. Febrey of
 1904–11 (`febrey-1892-one-member-or-two`); there are three Febreys in the
 roster and the article distinguishes these two only typographically.
 
-**One reading here is provisional.** It is written onto the term it
-lands on, in `READING_NOTES` in `members_roster_arlhist.py`, so the position
-`members.csv` takes is greppable; it has a row in `docs/questions.csv`; and
-it changes no figure, since the seat is filled either way and every member of
-this era defaults to White and man. `READING_NOTES` also carries which man
-the 1920–23 DeLashmutt term belongs to, settled below, because the roster has
-to say that on the term itself.
+**Two readings are written onto the terms they land on**, in `READING_NOTES`
+in `members_roster_arlhist.py`, because the roster has to say them on the term
+itself: Walker's end date, and which man the 1920–23 DeLashmutt term belongs
+to (below). Neither changes a figure, since the seat is filled either way and
+every member of this era defaults to White and man.
 
-- **Walker's end date** (`roster-walker-end-date`). The article has him
+- **Walker's end date.** The article has him
   resigning on 27 March 1919 to become the county's Sanitary Inspector, and
   Ahalt appointed to the rest of the term. O'Leary records no departure, so
   his 1916 term would otherwise run to January 1920 by statute. The article is
@@ -696,6 +692,8 @@ to say that on the term itself.
   New Year's Day (`alexandriagazette1919duncan`). Wibirt's term is
   the same shape a month apart: the article closes it 31 December 1919 where
   O'Leary's statute would close it that January.
+  The Washington Evening Star for spring 1919 has not been searched. It could
+  confirm the day but not move the seat, so the article's date is settled.
 
 **Four of the five 1912–1931 members the article adds are settled to the
 census.** Thomas J. DeLashmutt, Frank Upman and W. T. Weaver each match a

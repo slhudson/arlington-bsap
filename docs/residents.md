@@ -17,12 +17,11 @@ spike: the figure shows the size of the Board, not who sat.
   database holds 2,701 of that district's 3,200 people, and the whole county's
   shortfall of 499 falls there, so a Black share for it would rest on a
   population missing one resident in six. Both its line and the county's break
-  at 1900 in `residents_by_district_race`
-  (`race-by-district-1900-arlington`). 1890 is a separate matter: its manuscript
-  schedules burned and the count is permanently gone.
+  at 1900 in `residents_by_district_race`. The gap is written off, for the
+  reasons below. 1890 is a separate matter: its manuscript schedules burned and
+  the count is permanently gone.
 
-That row is in `docs/questions.csv`, with whose court it waits in and what would
-settle it. Every other number here is a figure the Census Bureau published or a
+Every other number here is a figure the Census Bureau published or a
 subtraction between two of them. Where a source merges two categories, the
 figures carry the merge rather than splitting it on an assumption; the 1940 and
 1980 cases are below.

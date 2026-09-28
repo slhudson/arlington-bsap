@@ -220,8 +220,9 @@ READING_NOTES = {
     ("Robert L. Walker", 1916):
         "The resignation and its date are the article's, from the Board's minute "
         "books; O'Leary records no departure, so this term would otherwise run to "
-        "January 1920 by statute and Ahalt's appointment would not exist "
-        "(roster-walker-end-date).",
+        "January 1920 by statute and Ahalt's appointment would not exist. His "
+        "1920 census sheet has him a sanitary inspector (census1920walker). "
+        "docs/members.md.",
     ("Thomas J. DeLashmutt", 1920):
         "A different man from the Basil M. DeLashmutt of the 1932-62 cohort, and "
         "his father: his 1920 household holds a son, Basil N., 17, born about "
