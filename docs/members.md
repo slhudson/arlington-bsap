@@ -679,7 +679,14 @@ to say that on the term itself.
   resigning on 27 March 1919 to become the county's Sanitary Inspector, and
   Ahalt appointed to the rest of the term. O'Leary records no departure, so
   his 1916 term would otherwise run to January 1920 by statute. The article is
-  the minute books and names the day, so its date is taken. Wibirt's term is
+  the minute books and names the day, so its date is taken. The reason is
+  corroborated: Walker's 1920 census sheet reads occupation Inspector, industry
+  Sanitary, on Chain Bridge Road in the Washington district
+  (`census1920walker`), so he did take the post. The day and the appointment
+  rest on the article alone. The Alexandria Gazette prints neither, though it
+  puts Ahalt in the district that year twice over — elected on 4 November over
+  W. H. Payne, 241 to 204 (`gazette1919ahaltelected`), and assuming office on
+  New Year's Day (`alexandriagazette1919duncan`). Wibirt's term is
   the same shape a month apart: the article closes it 31 December 1919 where
   O'Leary's statute would close it that January.
 
