@@ -217,8 +217,8 @@ Richmond Planet has one digitized issue in all of 1888 and it is silent, the
 People's Advocate had ceased publishing by 1884, and the National
 Republican's digitized run ends in May 1888. What would settle it is the
 Alexandria County court order book for 1888, which would carry the rule and
-its disposition, and the Board's own minute books; neither is online
-(`allen-1888`).
+its disposition and name the policemen removed at the same sitting, and the
+Board's own minute books; neither is online (`allen-1888`).
 
 ### Hume's two dates
 
