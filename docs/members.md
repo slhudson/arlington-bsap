@@ -112,6 +112,19 @@ County Attorney's report dates it 1985 in its list and 1984 in its discussion;
 the reported opinion decides it 26 April 1985, on a record filed in October
 1984.
 
+`bennettvgarrett1922` is quoted wrongly in the project's own earlier drafts.
+The phrase "one continuous, contiguous, and homogenous community" is not in the
+opinion; neither "homogenous" nor "homogeneous" nor "contiguous" occurs in it,
+and the court's words are "a part only of a thickly settled community". The
+phrase is Cornelia B. Rose, Jr.'s, from *Arlington County, Virginia: A History*
+(1976) p. 167, and it is about the 1930 change, not the 1922 case: Arlington's
+own County Manager Plan page quotes her for the proposition that with the
+magisterial districts abolished "the 'continuous, contiguous, and homogeneous'
+nature of Arlington had now found expression in its form of government", and
+`bestebreurtje2017` p. 217 quotes the same line in the same place. Rose's
+wording is unsettled between the two, and the book is not held
+(`rose1976-history`).
+
 ### Residence in the district
 
 A supervisor is required to live in the district he represents only from
