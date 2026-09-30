@@ -13,14 +13,19 @@ still open.
 Reconstruction" framing. The five Reconstruction-era members rest on Hjerpe's
 census linking (`default-1931-1986`).
 
-**Gender.** Five members rest on the default, man (`gender-from-names`). Three
-were seated before 1912 and have each been searched without settling:
-R. Henry Phillips, whose only census household is his father's; and William H.
-Robinson and Walter G. Willson, whom the Alexandria Gazette names with no
-pronoun or honorific attached (both below). W. P. Ames has a 1940 record
-matched on the name alone, which feeds nothing. Clarence R. Ahalt is a recorded
-negative rather than an unsearched name: he appears nowhere in the 1920 census.
-The four members the Historical Society's article adds for 1870–1911 — Francis
+**Gender.** Three members rest on the default, man (`gender-from-names`):
+William H. Robinson and Walter G. Willson, seated before 1912 and each
+searched without settling — the Alexandria Gazette names each with no
+pronoun or honorific attached (both below) — and Clarence R. Ahalt, a
+recorded negative rather than an unsearched name: he appears nowhere in the
+1920 census. R. Henry Phillips and W. P. Ames were settled on 30 September
+2026 by a press honorific: Phillips by an 1893 Gazette letter from the
+attorney general's office addressed "Mr. R. Henry Phillips, Supervisor"
+(`gazette1893phillips`), and Ames — whose only census record is a 1940 match
+on the name alone, which fed nothing — by a 1936 Sun graduation notice naming
+his daughter "Mary Farley Ames, daughter of Mr. and Mrs. W. P. Ames"
+(`sun1936ames`). The four members the Historical Society's article adds for
+1870–1911 — Francis
 M. Mills, Curtis B. Graham, Jr., George W. Saulisbury and William N. Febrey —
 were settled on 28 September 2026: each of the first three is a census record
 matched to the district he sat for (`census1880mills`, `census1880graham`,
