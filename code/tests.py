@@ -20,8 +20,10 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "code"))
+import archive  # noqa: E402
 import citekeys  # noqa: E402
 import paper  # noqa: E402
+import quotations  # noqa: E402
 
 # Each data stage has its own paths.py. The build stage's modules load
 # first and keep theirs; the name is then cleared so the clean stage's can
@@ -1007,6 +1009,49 @@ def test_every_source_with_a_url_is_filed():
             problems.append(f"{key}: has a url but names no copy - add 'Filed in Drive as \"...\"' "
                             f"or the path under data/raw/, or log a question naming the key")
     assert not problems, "sources with no copy on file:\n  " + "\n  ".join(problems)
+
+
+def a_legal_entry(key, annotation):
+    """A one-entry bib naming a copy that is really on file, so a test can
+    put words in its mouth. @jurisdiction is what archive.kind() files under
+    legal/, which is the only kind this check reads."""
+    return ("@jurisdiction{" + key + ",\n"
+            "  title       = {Bennett v. Garrett},\n"
+            "  annotation  = {" + annotation + "},\n}\n")
+
+
+BENNETT = 'Filed in Drive as "legal/Supreme Court of Appeals of Virginia 1922 - Bennett v. Garrett.pdf"'
+
+
+def test_a_quotation_the_document_does_not_contain_is_refused():
+    """The Bennett misattribution, reintroduced: Rose's phrase written as
+    the court's own. Nothing caught it for months because the opinion was
+    filed in Drive all along and no one compared the two."""
+    bib = a_legal_entry("planted", 'The court held that Arlington was "a continuous, '
+                                   'contiguous, and homogeneous community". ' + BENNETT)
+    missing, read = quotations.unsupported(bib)
+    assert [q for _, q in missing] == ["a continuous, contiguous, and homogeneous community"], \
+        f"a quotation that is not in the opinion was accepted: {missing}, {read} read"
+
+
+def test_a_quotation_the_document_does_contain_passes():
+    """The other half: the court's own words are not flagged, so the check
+    is not simply refusing everything."""
+    bib = a_legal_entry("planted", 'The court called Clarendon "a part only of a '
+                                   'thickly settled community". ' + BENNETT)
+    missing, read = quotations.unsupported(bib)
+    assert not missing and read == 1, f"{missing}, {read} read"
+
+
+def test_every_quotation_in_a_legal_source_is_in_the_copy_we_hold():
+    """Every legal entry in the real bib, against the real copies."""
+    missing, read = quotations.unsupported(archive.BIB.read_text())
+    assert not missing, "quotations not in the document they are attributed to:\n  " + \
+        "\n  ".join(f'{k}: "{q}"' for k, q in missing)
+    assert read >= quotations.FEWEST, (
+        f"only {read} quotations were read, fewer than the {quotations.FEWEST} this "
+        f"check is known to cover: the copies or the annotations are not being found")
+
 
 
 def test_docs_name_only_paths_that_exist():

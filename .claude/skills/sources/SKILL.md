@@ -46,3 +46,13 @@ to: `assumed`, `derived`, `unsourced`. Anything else in a source column must
 be an entry in `paper/sources.bib`, or the build stops. What is missing from
 the copy we hold goes in the entry's `annotation`, which biblatex does not
 print.
+
+## Quoting a legal source
+
+`code/quotations.py` checks every entry filed under `legal/` against its own
+copy: a quotation in the annotation that the filed document does not contain
+stops the build. Quote the document as it prints the words. Where the
+annotation quotes words for another reason - a recorded negative, a phrase
+another entry supplies, a passage on a page the OCR did not reach - declare
+it in `DECLARED` in that file with the reason. `code/tests.py` runs the check
+on every full `bash run.sh`.

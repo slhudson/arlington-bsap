@@ -184,6 +184,16 @@ biblatex does not print. Three values are not citekeys - `assumed`,
 `derived`, `unsourced` - and `code/citekeys.py` says what each one
 admits to. Anything else stops the build.
 
+**A quotation is checked against the copy it is attributed to.**
+`code/quotations.py` reads every entry `code/archive.py` files under
+`legal/` - the reporter scans and statute volumes, whose copies carry text -
+and refuses one whose annotation quotes words the filed document does not
+contain. Rose 1976 put a phrase in the Supreme Court of Appeals' mouth, the
+report repeated it onto a slide the County was sent, and the opinion had been
+in Drive the whole time. Not every quotation is the copy's own: a recorded
+negative, another entry's words, a page the OCR did not reach. Each of those
+is declared in that file with a reason a reader can check.
+
 **A row read from a census, a directory or a map states its match.** Those
 records name a person, not a Board member; that the two are the same is a
 decision. The `basis` column says what ties them - the name, the place,
