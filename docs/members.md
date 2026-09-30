@@ -13,26 +13,13 @@ still open.
 Reconstruction" framing. The five Reconstruction-era members rest on Hjerpe's
 census linking (`default-1931-1986`).
 
-**Gender.** Three members rest on the default, man (`gender-from-names`):
-William H. Robinson and Walter G. Willson, seated before 1912 and each
-searched without settling — the Alexandria Gazette names each with no
-pronoun or honorific attached (both below) — and Clarence R. Ahalt, a
-recorded negative rather than an unsearched name: he appears nowhere in the
-1920 census. R. Henry Phillips and W. P. Ames were settled on 30 September
-2026 by a press honorific: Phillips by an 1893 Gazette letter from the
-attorney general's office addressed "Mr. R. Henry Phillips, Supervisor"
-(`gazette1893phillips`), and Ames — whose only census record is a 1940 match
-on the name alone, which fed nothing — by a 1936 Sun graduation notice naming
-his daughter "Mary Farley Ames, daughter of Mr. and Mrs. W. P. Ames"
-(`sun1936ames`). The four members the Historical Society's article adds for
-1870–1911 — Francis
-M. Mills, Curtis B. Graham, Jr., George W. Saulisbury and William N. Febrey —
-were settled on 28 September 2026: each of the first three is a census record
-matched to the district he sat for (`census1880mills`, `census1880graham`,
-`census1880salisbury`), and Febrey by the honorific in an 1893 Gazette piece on
-a Republican committee vote (`gazette1893febrey`). The other 119 members have a
-census listing or a pronoun or honorific in the press, and `gender_evidence` in
-`members.csv` says which each rests on.
+**Gender.** Three members rest on the default, man (`gender-from-names`).
+William H. Robinson and Walter G. Willson sat before 1912 and are in no
+census, and the Alexandria Gazette names each with no pronoun or honorific
+attached (both below). Clarence R. Ahalt is a recorded negative rather than
+an unsearched name: he appears nowhere in the 1920 census. The other 122
+members have a census listing or a pronoun or honorific in the press, and
+`gender_evidence` in `members.csv` says which each rests on.
 
 **Race and gender from the census.** For the 40 members first seated 1932–1966
 and the 38 first seated 1870–1904, race and gender come from 74 census records
@@ -288,9 +275,7 @@ State, and appointed a successor." Squier was White. Where Allen's rule
 alleged non-residence and was never brought to a disposition, Squier's
 removal named a statute and Squier held a second public office the statute
 reached; the Historical Society's own record, not a newspaper search, is
-what settles this one. The Gazette was searched regardless, for "Squier"
-and for the postmastership around 1 April 1884, and turned up nothing
-beyond the compilation's own footnote. Nothing here is open: the county
+what settles this one. Nothing here is open: the county
 court removed a White supervisor on a stated legal ground in the same
 window it moved against Allen on an unresolved one, and that contrast is
 the finding, not a gap waiting on more searching.
@@ -475,7 +460,7 @@ or 11 March, Buchholz's term begins in November 1952 whether the election was
 the 4th or the 11th, B. M. Smith's 1934–35 chairmanship is absent whether or
 not Novack's Acting belongs on it, and Loyd is read as Lloyd. The County's
 copy follows the article for term blocks, as it does throughout, and claims
-none of the four (Sally, 28 September 2026).
+none of the four.
 
 **How the article is read.** The article prints the Board in blocks, each
 block one stretch with a settled membership and a named chairman, so a block
@@ -525,8 +510,7 @@ about it, and add the terms no other source records. O'Leary is an electoral
 history. He lists elections and their winners and names a departure only
 where his prose happens to, recording five handovers in the 1870s and not one
 from 1880 through 1911, which cannot be what happened; where the article
-names a supervisor he does not, he is silent rather than contradicting
-(Sally, 27 September 2026).
+names a supervisor he does not, he is silent rather than contradicting.
 
 **The article dates a term from the first record of a man sitting**, not from
 the instrument that named him — the minute books record meetings, not
@@ -603,7 +587,7 @@ seat (`census1880squier`), so the roster already spells him Perkins W. Squier
 and the ruling leaves no entry to make.
 
 **Five terms the article adds**, taken as one set with the five it supplies
-for 1912–1931 (Sally, 27 September 2026).
+for 1912–1931.
 Each is an entry in `ADDED`, and every date is read off the article's blocks
 rather than written into the table:
 
@@ -651,7 +635,7 @@ October (`arlhist1967officials` p.42). Both men have a claim on the same
 fourteen weeks, the only term of its kind in the roster. The roster records who
 held a seat, not who held title to it, so Torreyson holds it to 11 October 1897
 and Corbett from then, and the court's finding is a note on both rows, not a
-second term (Sally, 27 September 2026). A man who sat and voted on the Board
+second term. A man who sat and voted on the Board
 was a member of it whatever a later judgment says he should have been.
 Recording title instead would either seat two men in one seat for fourteen
 weeks, which `members_by_year.py` refuses, or delete a member the minute books
@@ -668,8 +652,7 @@ George N. Saegmuller's, not A. B. Grunwell's, so Grunwell's service ends with
 his 1895–97 term. The ground is the one Torreyson's fourteen weeks settled: an
 election return names the winner and the minute books name the man who sat, and
 the roster records who held a seat, so where the two disagree about occupancy
-the minute books answer the question the roster asks (Sally, 27 September
-2026). Boyd's 1870 census record (`census1870boyd`) places the man and is not a
+the minute books answer the question the roster asks. Boyd's 1870 census record (`census1870boyd`) places the man and is not a
 claim about a member, since he never was one. The article's William N. Febrey
 of 1892–93 is carried as his own person, not joined to the W. N. Febrey of
 1904–11 (`febrey-1892-one-member-or-two`); there are three Febreys in the
@@ -715,8 +698,8 @@ thread does not repeat it.
 Thomas J. DeLashmutt's household carries a son, **Basil N. Delashmutt, 17**,
 born about 1903 — the same birth year as the **Basil M. DeLashmutt** of the
 1932–1962 cohort's 1930 match (`census1930delashmutt`, `residence-1932-1962`),
-a 27-year-old civil engineer. The two Basils are the same man (Sally, 27
-September 2026): Thomas J. DeLashmutt's son, not the 1920–23 Arlington
+a 27-year-old civil engineer. The two Basils are the same man:
+Thomas J. DeLashmutt's son, not the 1920–23 Arlington
 member himself under a variant reading. The census row's `basis` and match
 carry the family tie (`occupation; household`), which is why
 `residence-1932-1962` does not count him among its weak matches.
@@ -815,7 +798,7 @@ held by each race, each gender and (from 1932) each party, in seat-years, so a
 member who sat for four months of a year counts 4/12. Every year is computed
 from `members.csv`. Days are not recorded consistently — Novack gives some and
 the election dates others — so the month is the unit, and **the handover month
-belongs to the incoming member** (Sally, 22 September 2026). An end no source
+belongs to the incoming member**. An end no source
 records holds to the end of the term's first year. Both rules are applied once,
 in `held_from` and `held_to` on `members.csv`; the seat-years and the figures
 of who was sitting on 1 July read those columns, not the dates.
@@ -909,7 +892,7 @@ A name alone with nothing else in agreement is no match. A row whose
 `match` is `none` stays in the table, so that the search and the reading are
 on record, and gives the member nothing: no birth year, race, gender or
 place, which then fall to the default or to the member's other sources
-(Sally, 26 September 2026). A blank `match` has not been read for a tie
+A blank `match` has not been read for a tie
 and stands until it is; which rows are blank, and the revisit once the age
 and neighborhood analyses are settled, are `census-match-quality`.
 
@@ -993,7 +976,7 @@ experience on the county board of supervisors" (`washingtontimes1931duncan`),
 naming the same 24 years as his October 1938 obituary (read in prose, not yet
 filed with a citekey). Twenty-four years back from a term ending January 1932
 is 1908 — his first election. This is one term, not one row per election
-(Sally, 27 September 2026): 1908, 1916, 1920 and 1924 are each a sourced
+1908, 1916, 1920 and 1924 are each a sourced
 election win; 1912 and 1928 are known only because he is shown in office both
 before and after each, not by a recorded win in either year, so the roster
 cannot say those two renewals were contested.
@@ -1169,7 +1152,7 @@ it took Rowe's resignation on 2 April 1879, the day it recorded his move
 from Jefferson to Arlington, and Schutt's in June 1877 on the notation that
 he had moved from Arlington District. Each was still living in the district
 the roster gives him in December 1875. Where the two men lived is a claim
-those notations can carry, and this line cannot (Sally, 28 September 2026).
+those notations can carry, and this line cannot.
 
 **Wibirt and Walker take a census record once the Gazette gives their full
 names.** The Gazette calls the Arlington-district supervisor "W. C." or
@@ -1251,7 +1234,7 @@ an age on a date, and the row's basis says which.
 `birth_year_precision` in `members.csv` records which case a row is, `exact` or
 `within a year`; 86 of 107 are within a year. The age figures draw both the
 same way, as a stroke assuming a mid-year birthday, because the half-year is
-below what a stroke can show (Sally, 26 September 2026). What the report
+below what a stroke can show. What the report
 does with such distinctions is the data appendix's to explain
 (`data-appendix`). For members
 seated 1960 on the sources are obituaries on legacy.com,
@@ -1341,7 +1324,7 @@ build has not been told what to record stops it too: `elections.LABELS` in
 `code/build/` maps every label a County Board candidate has carried, and a
 winner under a label only losers have carried is a decision, not a default.
 
-**The rule for reporting** (Sally, 23 September 2026): the party or coalition
+**The rule for reporting**: the party or coalition
 whose candidate the source says the member was, and a party's open
 endorsement makes someone its candidate whatever label they ran under. Dugan
 in 1946 and Vihstadt in 2014 are coded Republican with "ran as an independent"
