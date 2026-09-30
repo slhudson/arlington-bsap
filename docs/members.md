@@ -32,7 +32,7 @@ era, and H. Dwight Smith, Crocker, Schutt, Robinson and Willson of the earlier.
 R. Henry Phillips makes an eleventh, with a record whose household is his
 father's, not his own, so it gives him nothing (below).
 
-**Birth years.** Birth years are held for 88 of the 119 members, and they rest
+**Birth years.** Birth years are held for 115 of the 125 members, and they rest
 on the ages in census listings and on an age stated in an obituary or a
 profile. Each is right to within a year. The age figure draws a year only where
 all but at most one sitting member has a birth year, and it starts in 1932.
@@ -101,9 +101,16 @@ and what would settle it.
 ---
 ## Local legal authority
 
-The two Dillon's Rule opinions the paper's local legal authority section
-cites, `commonwealthvarlington1977` and `arlingtonvwhite2000`, are both held,
-read from CourtListener and filed in Drive under `legal/`.
+The three Dillon's Rule opinions the paper's local legal authority section
+cites, `commonwealthvarlington1977`, `brownvarlington1985` and
+`arlingtonvwhite2000`, are all held, read from CourtListener and filed in Drive
+under `legal/`. `brownvarlington1985` is the one that turns on the County
+Manager Plan: the Board approved a seventy-five-year ground lease of the
+courthouse parking lot and directed the Manager to sign, he refused, and the
+court held the County had no power to lease land already in public use. The
+County Attorney's report dates it 1985 in its list and 1984 in its discussion;
+the reported opinion decides it 26 April 1985, on a record filed in October
+1984.
 
 ### Residence in the district
 
