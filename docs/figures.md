@@ -453,8 +453,8 @@ there the labels can be shortened and here the years cannot.
   A stroke's age is the year less the birth year less a half, since a birth
   year alone puts the birthday at mid-year, and the band's edges are
   measured the same way, so the youngest and oldest strokes run along the
-  band's edges and the band moves only when the Board changes. There is no
-  legend: the caption names the
+  band's edges and the band moves only when the Board changes (Sally). There
+  is no legend: the caption names the
   band and the strokes (same decision).
   The figure starts in 1932. Before it the Board has three seats, the rule
   is met in eight scattered years and 40 percent of member-years in 1900-31
@@ -482,7 +482,7 @@ there the labels can be shortened and here the years cannot.
   stack as two runs for one seat; a primary the candidate lost is a run
   lost and is drawn, because in Arlington the Democratic primary decides
   the seat and a figure about running and losing cannot leave Spain's 2023
-  loss out. The 1932 rule is drawn, since the three losses of 1931
+  loss out (Sally). The 1932 rule is drawn, since the three losses of 1931
   are the first at-large election. One legend, won and lost, below.
 - **elections_president.** Stacked bars, because an election is a point in
   time; a step would claim the share held for four years. Incomplete years

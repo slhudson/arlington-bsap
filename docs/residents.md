@@ -43,7 +43,7 @@ and census treatment all changed across the period:
 | 1920– | Arlington County, Virginia | the three districts only |
 
 Retrocession has several dates, and the prose names the event each time rather
-than picking a year. Virginia accepted the county in
+than picking a year (Sally). Virginia accepted the county in
 advance by an act of 3 February 1846. Congress passed the act to retrocede it on
 9 July 1846, effective "with the assent of the people of the county and town of
 Alexandria", and the residents voted for it that September
@@ -349,12 +349,12 @@ American Indian, Eskimo and Aleut residents of all origins beside its 6,792
 Asian and Pacific Islanders, where 1990 and later put them in the residual;
 the point is about five per cent high on that band, once. It stays as the
 source prints it and the caption says so, rather than being corrected from
-a second table that is not crossed with Spanish origin: the figure keeps
-fidelity to the table it reads and states the
+a second table that is not crossed with Spanish origin (Sally): the figure
+keeps fidelity to the table it reads and states the
 grouping, instead of a quiet adjustment that mixes two tables.
 
 **The Hispanic series begins in 1980**, the first census to ask the question
-of everyone. Before 1970 the question
+of everyone (decided by Sally). Before 1970 the question
 did not exist and `white` means white; Hispanic residents were counted as
 white, so the step at 1980 is partly the question appearing rather than people
 arriving. At under one per cent of the county in 1970, barely.
