@@ -11,15 +11,18 @@ import csv
 import hashlib
 import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
+import time
 from pathlib import Path
 
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "code"))
+sys.path.insert(0, str(ROOT / "code" / "sources"))
 import archive  # noqa: E402
 import citekeys  # noqa: E402
 import clippings  # noqa: E402
@@ -991,7 +994,7 @@ def test_the_residence_coverage_table_in_the_write_up_is_current():
 def test_every_bib_entry_closes_before_the_next():
     """An entry whose closing brace is missing swallows the entry after it.
     bib_entries() still finds every key, so the other bib tests pass on a file
-    code/archive.py refuses to parse; this is the check that would have
+    code/sources/archive.py refuses to parse; this is the check that would have
     caught the merge that dropped one."""
     swallowed = [key for key, body in bib_entries() if re.search(r"^@\w+\{", body, re.M)]
     assert not swallowed, f"no closing brace before the next entry: {swallowed}"
@@ -1022,6 +1025,20 @@ def test_every_source_with_a_url_is_filed():
             problems.append(f"{key}: has a url but names no copy - add 'Filed in Drive as \"...\"' "
                             f"or the path under data/raw/, or log a question naming the key")
     assert not problems, "sources with no copy on file:\n  " + "\n  ".join(problems)
+
+
+def test_a_census_record_is_filed_as_one_whoever_indexed_it():
+    """The FamilySearch record, reintroduced: the rule looked for Ancestry by
+    name, so the one census page indexed elsewhere fell through to reports/
+    and would have been filed as though a number were not read off it."""
+    for who in ("Ancestry", "FamilySearch"):
+        e = {"type": "online", "key": "planted", "title": "United States, Census, 1900",
+             "organization": who}
+        assert archive.kind(e) == "census", f"a {who} census record filed as {archive.kind(e)}"
+        base = f"{who} 1900 - United States, Census, 1900.pdf"
+        assert archive.subfolder("census", base) == f"census/{who}/1900", \
+            f"{base} does not file by maker and year"
+
 
 
 def a_legal_entry(key, annotation):
@@ -1069,7 +1086,7 @@ def test_every_quotation_in_a_legal_source_is_in_the_copy_we_hold():
 
 # --- where a web print stops --------------------------------------------------
 
-# Pages of a press copy printed from a web page, as code/clippings.py reads
+# Pages of a press copy printed from a web page, as code/sources/clippings.py reads
 # them: the article, then the site's own furniture.
 ARTICLE = ("Zimmerman is the second-longest serving member of the board in the county's "
            "history, behind only Ellen Bozman, who served for 23 years.")
@@ -1108,6 +1125,64 @@ def test_an_event_promotion_is_not_the_article():
             "ARLnow.com Launched in January 2010, ARLnow.com is the place for the latest "
             "news, views and things to do around Arlington, Virginia.")
     assert clippings.article_pages([ARTICLE, page, FOOTER_HEAD]) == 1
+
+
+
+# --- how many sessions are live in this checkout ------------------------------
+
+def a_checkout_with_transcripts(tmp, fresh=(), stale=()):
+    """A throwaway repo carrying .claude/sessions.sh, and a directory of
+    session transcripts to ask it about. Not a worktree: the counter answers
+    only for a primary checkout, which is the only shared one."""
+    root, transcripts = Path(tmp) / "repo", Path(tmp) / "transcripts"
+    (root / ".claude").mkdir(parents=True)
+    transcripts.mkdir()
+    subprocess.run(["git", "init", "-q", "."], cwd=root, check=True)
+    shutil.copy(ROOT / ".claude" / "sessions.sh", root / ".claude" / "sessions.sh")
+    for name in fresh:
+        (transcripts / f"{name}.jsonl").touch()
+    for name in stale:
+        f = transcripts / f"{name}.jsonl"
+        f.touch()
+        old = time.time() - 60 * 60 * 24
+        os.utime(f, (old, old))
+    return root, transcripts
+
+
+def live_sessions(root, transcripts, stdin=None, arg="others"):
+    r = subprocess.run(["bash", ".claude/sessions.sh", arg], cwd=root, input=stdin or "",
+                       capture_output=True, text=True,
+                       env={**os.environ, "SESSIONS_DIR": str(transcripts)})
+    return r.returncode, r.stdout.split(), r.stderr
+
+
+def test_a_live_session_is_counted():
+    """The failure this counter had: it reported an empty checkout while
+    three sessions were working in it, so every SessionStart said nobody was
+    here and .githooks/pre-commit never refused a commit. Two sessions are
+    live here and one stopped yesterday."""
+    with tempfile.TemporaryDirectory() as tmp:
+        root, transcripts = a_checkout_with_transcripts(tmp, ("aaa", "bbb"), ("ccc",))
+        code, out, err = live_sessions(root, transcripts)
+        assert code == 0 and out == ["aaa", "bbb"], (code, out, err)
+
+
+def test_the_session_asking_is_not_one_of_the_others():
+    """SessionStart asks who else is here, and is handed its own id on
+    stdin."""
+    with tempfile.TemporaryDirectory() as tmp:
+        root, transcripts = a_checkout_with_transcripts(tmp, ("aaa", "bbb"))
+        code, out, err = live_sessions(root, transcripts, '{"session_id":"aaa"}', "register")
+        assert code == 0 and out == ["bbb"], (code, out, err)
+
+
+def test_transcripts_that_cannot_be_found_stop_the_counter():
+    """An empty answer and no answer must not look alike: that is how the old
+    design hid. A missing transcript directory fails loudly."""
+    with tempfile.TemporaryDirectory() as tmp:
+        root, _ = a_checkout_with_transcripts(tmp)
+        code, out, err = live_sessions(root, Path(tmp) / "gone")
+        assert code != 0 and "cannot be answered" in err, (code, out, err)
 
 
 

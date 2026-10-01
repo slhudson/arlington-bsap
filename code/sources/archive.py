@@ -1,7 +1,7 @@
 """Assemble the archive the County receives, and its index.
 
-    .venv/bin/python code/archive.py            # dry run: report, move nothing
-    .venv/bin/python code/archive.py --apply    # file the folder, write index.md, build the zip
+    .venv/bin/python code/sources/archive.py            # dry run: report, move nothing
+    .venv/bin/python code/sources/archive.py --apply    # file the folder, write index.md, build the zip
 
 The archive is the repository at HEAD, the census scans data/contents.csv
 marks in_git = no, and the Drive documents folder: a copy of every source the
@@ -29,7 +29,7 @@ import zipfile
 from datetime import date
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 BIB = ROOT / "paper" / "sources.bib"
 CONTENTS = ROOT / "data" / "contents.csv"
 
@@ -38,6 +38,15 @@ CONTENTS = ROOT / "data" / "contents.csv"
 DOCUMENTS = (Path.home() / "Library/CloudStorage/GoogleDrive-sally@rankedchoiceva.org"
              / ".shortcut-targets-by-id/1M4kZqG-XFRNQ9jele3PcD6mfZog7E5_Q/RCVa/research"
              / "Virginia/Arlington/2026 - Form of Government/team/sources/documents")
+
+# Who indexes the census schedules. Each keys the names off a scan of the same
+# NARA microfilm and serves them behind a sign-in, so what we file is a record
+# this session read and set out on a page of its own, not the page they serve.
+INDEXERS = ("ancestry", "familysearch")
+
+# The makers a census copy's name can begin with: an indexer's record, or the
+# Census Bureau's own sheet image. A census copy is filed by maker, then year.
+COPIED_BY = ("Ancestry", "FamilySearch", "US Census")
 
 KINDS = ("legal", "reports", "books", "bios", "campaign websites", "press",
          "obituaries", "census")
@@ -77,7 +86,8 @@ BOOK_TYPE = ("book", "inbook", "incollection", "thesis", "phdthesis", "mastersth
 
 def kind(e):
     """Which folder an entry's copy is filed in. The first rule that fits."""
-    if "ancestry" in e.get("howpublished", "").lower():
+    who = (e.get("howpublished", "") + " " + e.get("organization", "")).lower()
+    if any(i in who for i in INDEXERS):
         return "census"                                   # an index record and its sheet
     if re.search(r"\bobituary\b|\bdies\b", e["title"], re.I):
         return "obituaries"
@@ -170,7 +180,7 @@ def sha16(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()[:16]
 
 
-CENSUS_COPY = re.compile(r"^(Ancestry|US Census) (\d{4}) - ")
+CENSUS_COPY = re.compile(r"^(" + "|".join(COPIED_BY) + r") (\d{4}) - ")
 
 
 def subfolder(k, base):
@@ -254,7 +264,7 @@ def index_text(bib, claims, rows, unplaced, commit):
     out = [
         "# Arlington BSaP: sources archive",
         "",
-        f"Written by `code/archive.py` on {date.today().isoformat()} from commit {commit} of the "
+        f"Written by `code/sources/archive.py` on {date.today().isoformat()} from commit {commit} of the "
         "`slhudson/arlington-bsap` repository. Generated: rerun the script rather than edit it.",
         "",
         "- `repository/` is the repository at that commit. `bash run.sh` rebuilds every "
@@ -269,7 +279,7 @@ def index_text(bib, claims, rows, unplaced, commit):
         "## Documents",
         "",
         "One folder per kind. Which folder a copy belongs in is a rule on its bib entry, "
-        "`kind()` in `code/archive.py`: census: an Ancestry index record and the Census sheet image, in one folder each and then one per census year; "
+        "`kind()` in `code/sources/archive.py`: census: an Ancestry index record and the Census sheet image, in one folder each and then one per census year; "
         "press: a newspaper's or magazine's page or article, printed or read online; obituaries; "
         "bios: biography pages; campaign websites: candidate sites, "
         "questionnaires and campaign material; legal: constitutions, statutes and the like; "

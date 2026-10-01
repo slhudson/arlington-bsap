@@ -162,7 +162,13 @@ reads are fetched on demand (`docs/repository.md`).
 `figures/` and, from `code/analysis/body_text_numbers.py`, the numbers the
 prose cites that no figure carries, as LaTeX commands in
 `paper/body_text_numbers.tex`. `code/paper.py` sits outside the stages, like
-`code/tests.py`, and writes `paper/arlington-bsap.pdf` on demand. `run.sh` runs the last three every time; the
+`code/tests.py`, and writes `paper/arlington-bsap.pdf` on demand.
+`code/sources/` is outside them too, and writes no data layer: it holds the
+tools that serve `paper/sources.bib` and the Drive copies - fetching and
+entering a source, filing the archive, cutting a web print back to its
+article, checking a quotation against the copy it is attributed to. Only
+`code/citekeys.py` sits loose at the top beside those two, because every stage
+imports it. `run.sh` runs the last three every time; the
 first two run on demand — the network for one, a slow Mac-only OCR for the
 other — and their
 output is committed, so the build is reproducible without either. A script is
@@ -185,7 +191,7 @@ biblatex does not print. Three values are not citekeys - `assumed`,
 admits to. Anything else stops the build.
 
 **A quotation is checked against the copy it is attributed to.**
-`code/quotations.py` reads every entry `code/archive.py` files under
+`code/sources/quotations.py` reads every entry `code/sources/archive.py` files under
 `legal/` - the reporter scans and statute volumes, whose copies carry text -
 and refuses one whose annotation quotes words the filed document does not
 contain. Rose 1976 put a phrase in the Supreme Court of Appeals' mouth, the

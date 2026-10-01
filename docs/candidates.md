@@ -185,7 +185,7 @@ The source citekeys for the twelve new matches (`census1940windridge`,
 `census1950clair`, `census1950potter`, `census1950bach`,
 `census1940gordon`, `census1940donaldson`) are entries in
 `paper/sources.bib`, each filed in Drive with its sheet image
-(`code/ancestry.py`, which takes a `--file` naming a census-shaped table
+(`code/sources/ancestry.py`, which takes a `--file` naming a census-shaped table
 other than `members_census.csv`). Only `census1940ayres`'s sheet has been read for
 verification; the other eleven carry the index's transcription unread
 against the image, the same open state `census-match-quality` describes for
