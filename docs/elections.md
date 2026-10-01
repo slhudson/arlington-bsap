@@ -67,6 +67,17 @@ in Sec. 2773-F1 of the Code of Virginia", the Commonwealth's Attorney's office
 fielded calls from voters asking what it meant, and four of eleven precincts
 voted against.
 
+**What staggering meant in practice** is in the Historical Society's 1967
+compilation, not the ballot: "beginning with the County Board elected in 1939
+to take office in 1940, one member of the Board has been elected in each
+year and in the fourth year, two members are elected" (`arlhist1967officials`
+p.37). So 1938 left term length alone - four years, unchanged since the Plan
+took effect in 1932 - and changed only the cadence, from the whole five-member
+Board at once every four years to one seat most years and two in the fourth.
+That is the baseline the 1952 c. 591 referendum, never petitioned onto a
+ballot (`election-section-amendments`), would have replaced with elections
+in groups every two years instead of annually.
+
 **For County Board**, every year from 1931. This is what the smaller November
 electorate did with the candidates it was offered, and it is not coded the
 same way as the roster: a candidate is counted under the label the county
