@@ -309,6 +309,8 @@ district to Arlington at term 7.
 or unrecorded where O'Leary writes only that someone was replaced. Three builds
 select terms by it, so it is a column, not something read out of the note.
 
+### What the county's roll adds
+
 **Novack records service and election returns record contests**, and the
 county's roll records service too. That difference is why the roll is read.
 Novack writes a mid-term arrival or departure into his parentheticals, which
@@ -373,6 +375,8 @@ year after 1975 but 2023, and ARLnow reports the Board in February 2014
 operating "with four members until a special election is held"
 (`arlnow2014zimmerman`). Talento's is the only appointment to the Board
 since 1975.
+
+### What the law made the Board, and when a term ran
 
 **The constitution created the Board; the acts of 1870 stood it up.** The
 constitution framed in 1868 and ratified in 1869 divides every county into not
@@ -463,6 +467,8 @@ Society's article picks the seats up (below). The note on such a row says the en
 the next listed election seats a successor on the same date the departure is
 sourced and carries no note.
 
+### The roster names 1912 to 1931
+
 **Two elections of 1912 to 1931 come from the county's candidate history.** It
 prints them under the district headings, not under "County Board": November
 1923 (Ingram in Arlington, Duncan in Jefferson, Thornburke in Washington, each
@@ -476,8 +482,7 @@ November winner and each term held to the end of its first year (1924 and
 Jefferson from 1895, but the same man as the roster's "E. Duncan" (1908–12) and
 "Duncan" (1916–20), one continuous term from 1908 to 1932 (below).
 
-### The roster names 1912 to 1931
-
+**The article covers the whole era from the minute books.**
 `arlhist1967officials`, the Historical Society's "County Officials in
 Arlington, 1870-1960," gives Board membership by magisterial district, term
 by term, compiled from the Board's own minute books. It covers 1908 through 1931 without a gap, in the overlapping term-blocks the
@@ -508,6 +513,8 @@ defaults to White and man like the rest of the era (`default-1931-1986`, above)
 rather than being looked into on its own. The all-White coding of 1889–1986 is
 a separate question waiting on the County, and this reading does not reopen
 it.
+
+### The article as a source
 
 **The article over 1932–1960, where three sources overlap.** The same
 compilation covers 1932 through 1960, keyed in
@@ -714,7 +721,7 @@ Recording title instead would either seat two men in one seat for fourteen
 weeks, which `members_by_year.py` refuses, or delete a member the minute books
 show sitting.
 
-### Two seats go to the man the minute books show sitting
+#### Two seats go to the man the minute books show sitting
 
 The article gives
 two seats to someone other than the man O'Leary seats, and the roster follows
@@ -781,6 +788,8 @@ a 27-year-old civil engineer. The two Basils are the same man
 member himself under a variant reading. The census row's `basis` and match
 carry the family tie (`occupation; household`), which is why
 `residence-1932-1962` does not count him among its weak matches.
+
+### How each source is cut into terms
 
 **Mid-term handovers are terms like any other.** O'Leary records them as
 prose beside the elected member ("Replaced by H. Dwight Smith in Dec.;
