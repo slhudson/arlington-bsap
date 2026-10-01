@@ -1,9 +1,9 @@
 """A source the report cites but takes no numbers from: fetched, filed in
 the Drive documents folder and entered in paper/sources.bib, in one step.
 
-    .venv/bin/python code/cite.py KEY URL --author "Hanover County" \\
+    .venv/bin/python code/sources/cite.py KEY URL --author "Hanover County" \\
         --title "Board of Supervisors" --date 2026 --note "Seven members, ..."
-    .venv/bin/python code/cite.py KEY URL ... --copy ~/Downloads/page.pdf
+    .venv/bin/python code/sources/cite.py KEY URL ... --copy ~/Downloads/page.pdf
 
 A web page is printed to PDF with headless Chrome; a file the url names
 (.pdf, .xls, .xlsx, .csv) is saved as published. --copy takes a copy already
@@ -11,7 +11,7 @@ in hand instead, a page printed in Sally's own browser when a site refuses
 an automated request. The copy is filed under the kind archive.kind()
 assigns, named "<author> <year> - <title>", and the entry is appended to
 sources.bib with the url, today's urldate, the note given and an annotation
-naming the file, which is what code/tests.py and code/archive.py check.
+naming the file, which is what code/tests.py and code/sources/archive.py check.
 
 The note is the reader's: what the document says that the report relies on,
 built from the document in hand (CLAUDE.md). This script does not read the

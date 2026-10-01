@@ -22,6 +22,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "code"))
+sys.path.insert(0, str(ROOT / "code" / "sources"))
 import archive  # noqa: E402
 import citekeys  # noqa: E402
 import clippings  # noqa: E402
@@ -987,7 +988,7 @@ def test_the_residence_coverage_table_in_the_write_up_is_current():
 def test_every_bib_entry_closes_before_the_next():
     """An entry whose closing brace is missing swallows the entry after it.
     bib_entries() still finds every key, so the other bib tests pass on a file
-    code/archive.py refuses to parse; this is the check that would have
+    code/sources/archive.py refuses to parse; this is the check that would have
     caught the merge that dropped one."""
     swallowed = [key for key, body in bib_entries() if re.search(r"^@\w+\{", body, re.M)]
     assert not swallowed, f"no closing brace before the next entry: {swallowed}"
@@ -1008,6 +1009,12 @@ def test_every_source_with_a_url_is_filed():
         # Whitespace-tolerant: biblatex wraps an annotation anywhere, so a
         # literal match would fail an entry that names its copy across a line.
         held = re.search(r"Filed\s+in\s+Drive\s+as", body) or "data/raw/" in body
+        # A page cited only for a count keeps no copy, on purpose: what it said
+        # is keyed into data/transcribed/ with the date it was read, and that
+        # file is the source a reviewer reads. The keyed file must be named, so
+        # "no copy is kept" cannot stand on its own.
+        if re.search(r"no\s+copy\s+is\s+kept", body) and "data/transcribed/" in body:
+            held = True
         if has_url and not held and key not in questions():
             problems.append(f"{key}: has a url but names no copy - add 'Filed in Drive as \"...\"' "
                             f"or the path under data/raw/, or log a question naming the key")
@@ -1059,7 +1066,7 @@ def test_every_quotation_in_a_legal_source_is_in_the_copy_we_hold():
 
 # --- where a web print stops --------------------------------------------------
 
-# Pages of a press copy printed from a web page, as code/clippings.py reads
+# Pages of a press copy printed from a web page, as code/sources/clippings.py reads
 # them: the article, then the site's own furniture.
 ARTICLE = ("Zimmerman is the second-longest serving member of the board in the county's "
            "history, behind only Ellen Bozman, who served for 23 years.")

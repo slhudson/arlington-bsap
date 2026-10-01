@@ -994,7 +994,7 @@ of the continuity the Gazette pieces establish; it is cited on the joined term
 with the rest.
 
 The filed copy of each record's Ancestry page is written by
-`code/ancestry.py` from the row's own `quote`, since Ancestry refuses an
+`code/sources/ancestry.py` from the row's own `quote`, since Ancestry refuses an
 automated request and the page cannot be fetched by anyone reading this
 repository. The page says on its face that it is derived. It does not repeat
 Ancestry's statement that the facts in the collection were found using

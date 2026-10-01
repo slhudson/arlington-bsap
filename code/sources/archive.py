@@ -1,7 +1,7 @@
 """Assemble the archive the County receives, and its index.
 
-    .venv/bin/python code/archive.py            # dry run: report, move nothing
-    .venv/bin/python code/archive.py --apply    # file the folder, write index.md, build the zip
+    .venv/bin/python code/sources/archive.py            # dry run: report, move nothing
+    .venv/bin/python code/sources/archive.py --apply    # file the folder, write index.md, build the zip
 
 The archive is the repository at HEAD, the census scans data/contents.csv
 marks in_git = no, and the Drive documents folder: a copy of every source the
@@ -29,7 +29,7 @@ import zipfile
 from datetime import date
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 BIB = ROOT / "paper" / "sources.bib"
 CONTENTS = ROOT / "data" / "contents.csv"
 
@@ -54,6 +54,7 @@ PAPERS = ("ARLnow", "InsideNoVa", "Sun Gazette", "Connection", "Washington Post"
 
 # Magazines are press, like papers. A historical society's magazine is scholarship: books.
 MAGAZINES = ("Arlington Magazine",)
+JOURNALS = ("Arlington Historical Magazine",)
 
 # Biography pages by publisher, and campaign material by publisher or title.
 BIO_ORG = re.compile(r"County Board Members|Arlington Historical Society|Center for Local History|Senate of Virginia|Library of Virginia|"
@@ -83,6 +84,8 @@ def kind(e):
     if e["type"] == "article" and "pages" in e and "location" in e:
         return "press"                               # a printed page, scanned
     org = e.get("organization", "")
+    if any(j in org for j in JOURNALS):
+        return "books"                                    # a historical society's magazine
     if any(m in org for m in MAGAZINES):
         return "press"                                    # a magazine's article
     if e["type"] == "article" and "journaltitle" in e and "pages" not in e:
@@ -251,7 +254,7 @@ def index_text(bib, claims, rows, unplaced, commit):
     out = [
         "# Arlington BSaP: sources archive",
         "",
-        f"Written by `code/archive.py` on {date.today().isoformat()} from commit {commit} of the "
+        f"Written by `code/sources/archive.py` on {date.today().isoformat()} from commit {commit} of the "
         "`slhudson/arlington-bsap` repository. Generated: rerun the script rather than edit it.",
         "",
         "- `repository/` is the repository at that commit. `bash run.sh` rebuilds every "
@@ -266,7 +269,7 @@ def index_text(bib, claims, rows, unplaced, commit):
         "## Documents",
         "",
         "One folder per kind. Which folder a copy belongs in is a rule on its bib entry, "
-        "`kind()` in `code/archive.py`: census: an Ancestry index record and the Census sheet image, in one folder each and then one per census year; "
+        "`kind()` in `code/sources/archive.py`: census: an Ancestry index record and the Census sheet image, in one folder each and then one per census year; "
         "press: a newspaper's or magazine's page or article, printed or read online; obituaries; "
         "bios: biography pages; campaign websites: candidate sites, "
         "questionnaires and campaign material; legal: constitutions, statutes and the like; "

@@ -1,6 +1,6 @@
 """Every quotation in a legal source's annotation is in the copy we hold.
 
-    .venv/bin/python code/quotations.py
+    .venv/bin/python code/sources/quotations.py
 
 Rose 1976 p. 176 put "continuous, contiguous, and homogeneous community" in
 the Supreme Court of Appeals' mouth. The phrase reached a proposal, the
@@ -25,8 +25,8 @@ import re
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "code"))
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 import archive
 
 # A quotation shorter than this is a term of art, not a passage, and matching
