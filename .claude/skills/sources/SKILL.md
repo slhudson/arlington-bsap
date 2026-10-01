@@ -46,6 +46,20 @@ the document is — `opinions`, `statutes` or `constitutions`. A legal copy that
 is none of those three stops the run, because that folder holds primary law
 only: scholarship about law belongs in `books` and a legal memo in `reports`.
 
+Four press folders are one paper under four mastheads. It debuted in December
+1935 as the *Sun*; the separately published *Arlington Daily* (1939-51) merged
+into it to form the *Daily Sun*; new owners renamed it the *Northern Virginia
+Sun* in 1957; and it spent its last quarter-century as the weekly *Sun Gazette*,
+which stopped in February 2023, its staff going to the *GazetteLeader* and then
+to Local News Now, which publishes ARLnow. That is why one reporter's byline
+appears under both Sun Gazette and ARLnow. The folders stay separate, one per
+masthead, because a citation names the masthead a page was printed under and no
+document on the shelf asserts the corporate chain; the chain is recorded here
+instead. The *Arlington Daily* folder is a different paper, not an earlier name
+for this one. (Lineage from ARLnow, 12 December 2024, "Arlington print
+newspapers face thinning ranks after a vibrant history"; if the report comes to
+rely on it, it needs an entry in `paper/sources.bib` of its own.)
+
 A copy is named `<who> <year> - <title>.pdf`, and `archive.canonical()` decides
 the `<who>`, renaming a copy whose name does not match when it files it. Three
 rules, each from how its folder is read. A press copy leads with its outlet,

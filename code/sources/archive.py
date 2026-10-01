@@ -257,20 +257,29 @@ CENSUS_COPY = re.compile(r"^(" + "|".join(COPIED_BY) + r") (\d{4}) - ")
 
 # What a law is, from its title. A joint resolution proposing an amendment is
 # the legislature acting, so it is read before the constitution it would amend.
+# Whose law it is, from whoever enacted or decided it. Everything else here is
+# Virginia's.
+FEDERAL = re.compile(r"\bUnited States\b|\bU\.S\.\b|\bCongress\b|\bFederal\b", re.I)
+
 STATUTE = re.compile(r"\bAn act\b|\bActs (?:of|and)\b|\bJoint Resolutions\b|\bCode of Virginia\b", re.I)
 CONSTITUTION = re.compile(r"\bConstitution\b", re.I)
 
 
 def legal_subfolder(e, base):
-    """Which kind of law a filed copy is. Three, and a copy that is none of
-    them stops the run rather than landing wherever it fell: the folder holds
-    primary law only, so a fourth thing in it is a filing mistake."""
+    """Which kind of law a filed copy is, and whose. The report turns on which
+    sovereign acted - Virginia writes Arlington's form of government, Congress
+    retroceded the county - so the folder says, and a copy whose kind or
+    sovereign cannot be read stops the run rather than landing wherever it
+    fell: this folder holds primary law only, so anything else in it is a
+    filing mistake."""
+    whose = "federal" if FEDERAL.search(plain(e.get("author") or e.get("organization") or "")) \
+        else "state"
     if e["type"] == "jurisdiction" or " v. " in plain(e["title"]):
-        return "legal/opinions"
+        return f"legal/{whose} courts"
     if STATUTE.search(plain(e["title"])):
-        return "legal/statutes"
+        return f"legal/{whose} statutes"
     if CONSTITUTION.search(plain(e["title"])):
-        return "legal/constitutions"
+        return f"legal/{whose} constitutions"
     sys.exit(f'legal copy "{base}" is not an opinion, a statute or a constitution: '
              f'file it under another kind, or name what it is in archive.legal_subfolder()')
 

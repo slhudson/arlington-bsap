@@ -1054,16 +1054,21 @@ def test_press_files_by_outlet_and_legal_by_what_the_document_is():
          "organization": "Alexandria Gazette", "pages": "3", "location": "Alexandria"}
     assert archive.subfolder(e, "Alexandria Gazette 1873 - Arlington Republicans.pdf") == \
         "press/Alexandria Gazette"
-    for title, where in [("Bennett v. Garrett", "legal/opinions"),
-                         ("Code of Virginia", "legal/statutes"),
-                         ("An Act to Provide for the Method of Voting by Ballot", "legal/statutes"),
-                         # the legislature acting on the constitution is a statute
-                         ("Joint Resolutions Proposing Amendments to Article VII of the "
-                          "Constitution of Virginia", "legal/statutes"),
-                         ("Constitution of Virginia", "legal/constitutions")]:
-        e = {"type": "legislation", "key": "planted", "title": title}
-        assert archive.subfolder(e, f"Commonwealth of Virginia 1894 - {title}.pdf") == where, \
-            f"{title} filed in {archive.subfolder(e, title)}, not {where}"
+    for who, title, where in [
+            ("Supreme Court of Appeals of Virginia", "Bennett v. Garrett", "legal/state courts"),
+            ("Commonwealth of Virginia", "Code of Virginia", "legal/state statutes"),
+            ("Commonwealth of Virginia", "An Act to Provide for the Method of Voting by Ballot",
+             "legal/state statutes"),
+            # the legislature acting on the constitution is a statute
+            ("Commonwealth of Virginia", "Joint Resolutions Proposing Amendments to Article VII "
+             "of the Constitution of Virginia", "legal/state statutes"),
+            ("Commonwealth of Virginia", "Constitution of Virginia", "legal/state constitutions"),
+            # whose law it is: Congress retroceded the county, Virginia accepted it
+            ("United States", "An Act to retrocede the County of Alexandria",
+             "legal/federal statutes")]:
+        e = {"type": "legislation", "key": "planted", "title": title, "author": who}
+        got = archive.subfolder(e, f"{who} 1846 - {title}.pdf")
+        assert got == where, f"{who}, {title} filed in {got}, not {where}"
 
 
 def test_a_hyphen_is_not_crowded_against_the_word_before_it():
@@ -1137,7 +1142,7 @@ def a_legal_entry(key, annotation):
             "  annotation  = {" + annotation + "},\n}\n")
 
 
-BENNETT = ('Filed in Drive as "legal/opinions/Supreme Court of Appeals of Virginia 1922 - '
+BENNETT = ('Filed in Drive as "legal/state courts/Supreme Court of Appeals of Virginia 1922 - '
            'Bennett v. Garrett.pdf"')
 
 
