@@ -339,15 +339,23 @@ message.
 
 **The repository is not one of the four lines.** Branches, worktrees,
 uncommitted files, which session is behind which, a merge, a conflict, a
-rebase, a hook that refused a commit: the lead has delegated all of it and has
-nothing to add. Resolve it and say nothing. Commit and push before the status
-message instead of reporting where the work is saved, so the lead never has to
-ask whether it survived the session. A commit hash belongs on the sentence
-describing what changed, never in a sentence about the repository's state.
+rebase, a hook that refused a commit: the lead has delegated all of it, and
+not because it does not matter. She holds that it matters and expects it done
+carefully. She delegates it because a session can see the tree and she cannot,
+so there is nothing she can add - "I rarely have anything to add on top of what
+the agents can see and resolve themselves" (1 October 2026). Those are
+different instructions: one would mean hiding the work, this one means doing it
+without narrating it.
 
-The exception is narrow: the plumbing has stopped the work and only the lead
-can unstop it. Then one line saying what is blocked, in her terms - not the
-mechanics, and not a choice between git commands, which is ours to make.
+So commit and push before the status message rather than report where the work
+is saved, and keep a commit hash on the sentence describing what changed, never
+in a sentence about the repository's state. Taking the time is not the problem
+and asking for it is not either - "a repository thing needs a few minutes" is a
+better line than an unexplained gap. What is unwanted is the mechanics, and any
+choice between git commands, which is ours to make.
+
+The one thing worth her attention is plumbing that has stopped the work and
+only she can unstop. Then one line saying what is blocked, in her terms.
 
 ## Register
 
