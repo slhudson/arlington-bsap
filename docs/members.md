@@ -274,6 +274,22 @@ court removed a White supervisor on a stated legal ground in the same
 window it moved against Allen on an unresolved one, and that contrast is
 the finding, not a gap waiting on more searching.
 
+The statute the court applied is the one that empties three more seats
+seventy years later. Virginia barred holders of federal office from state
+and county office in 1788, and the General Assembly added the clause making
+acceptance of a federal post *ipso facto* vacate the Virginia one by Acts of
+1883-84, ch. 145, approved 22 February 1884 and in force from its passage —
+five weeks before the county court seated Squier's successor. The Supreme
+Court of Appeals upheld that provision, by then Code of 1950 sec. 2-27, in
+*Dean v. Paolicelli*, declaring Alan L. Dean's seat vacant from the first day
+of January 1952 because he held a post at the Bureau of the Budget, and
+restraining the treasurer from paying him (`paolicelli1952`). The decision
+took the Board's whole Non-Partisan majority at once — Dean, Robert W. Cox
+and Daniel A. Dugan — so Arlington held four County Board contests on 4
+November 1952, the three unexpired terms and the seat Alfred E. Frisbie was
+leaving on 31 December (`dailysun1952appointees`). One provision reaches the
+Board at both ends of the period this report covers.
+
 ---
 
 ## The roster
