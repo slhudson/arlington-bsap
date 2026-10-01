@@ -525,7 +525,7 @@ there the labels can be shortened and here the years cannot.
   for population and for density, and in both a reader could not read the
   third measure off it. Residents per member rather than members per
   resident, to match residents_per_seat. Names are placed by
-  `charts.place_labels()`: every name sits nearer its own dot than half the
+  `labels.place()`: every name sits nearer its own dot than half the
   distance to any other, touches nothing, and a name beside a dot is
   centred on it at three or nine o'clock; each cluster carries at least one
   name, and a dot too crowded to name beside it (Alexandria, on the

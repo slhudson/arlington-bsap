@@ -82,11 +82,6 @@ RACE_CODES = {"1": "white", "2": "black", "3": "other"}
 TOO_FAR = {1880: 0.01, 1900: 0.01, 1910: 0.05, 1920: 0.01}
 
 
-def table(path):
-    """One keyed-in census table, as data/built/census.csv holds it."""
-    return census.table("transcribed/by_claude/us_census_bureau/" + path)
-
-
 def placed(year):
     """The year's extract with every enumeration district placed in a
     magisterial district: the rows, and the district each row belongs to."""
@@ -175,7 +170,7 @@ def districts(year) -> pd.DataFrame:
     """The year's three districts, named by the first word of the printed
     line: "Jefferson district, including Potomac town" is Jefferson."""
     key, path, column = TABLES[year]
-    t = table(path)
+    t = census.keyed(path)
     lines = t[(t.level == 1) & (t.label != "Alexandria city")]
     d = pd.DataFrame({"year": year,
                       "district": lines.label.str.split().str[0].str.rstrip(","),

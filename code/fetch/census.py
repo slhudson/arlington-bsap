@@ -186,16 +186,6 @@ def archive_year(year, spec):
         print(f"  {dic.relative_to(ROOT)}  the Bureau's published record layout")
 
 
-def api_key():
-    env = ROOT / ".env"
-    if not env.exists():
-        raise SystemExit("no .env at the repository root; see this file's docstring")
-    for line in env.read_text().splitlines():
-        if line.startswith("CENSUS_API_KEY="):
-            return line.split("=", 1)[1].strip()
-    raise SystemExit("CENSUS_API_KEY not found in .env")
-
-
 def get(url):
     """Fetch and decode, surfacing the API's own error text rather than a stack trace."""
     try:
@@ -232,7 +222,7 @@ def main(years=None):
         if not years or year in years:
             archive_year(year, spec)
 
-    key = api_key()
+    key = paths.api_key("CENSUS_API_KEY")
     for year, releases in TABLES.items():
         if years and year not in years:
             continue

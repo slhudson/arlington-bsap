@@ -205,18 +205,12 @@ VOLUME_AGE_BOUNDS = {
 VOLUME_UNKNOWN_LINE = {1930: "Unknown"}
 
 
-def table(path):
-    """A transcribed census table by its path under
-    data/transcribed/by_claude/us_census_bureau/."""
-    return census.table("transcribed/by_claude/us_census_bureau/" + path)
-
-
 def twps0076() -> dict:
     """Arlington by race, 1900-1970, from POP-TWPS0076 Table 47: White, Black
     and Asian/Pacific Islander as printed, full count only. 1940 prints
     American Indian and Asian/Pacific Islander as one merged cell, so `aapi`
     is left empty that year."""
-    t = table("censusgov_pop-twps0076_p1_virginia_arlington.csv")
+    t = census.keyed("censusgov_pop-twps0076_p1_virginia_arlington.csv")
     t = t[(t.basis == "full count") & (t.year.between(1900, 1970))]
     parts = ["white", "black", "american_indian", "asian_pacific_islander",
              "american_indian_asian_pacific_islander", "other_race"]
@@ -241,13 +235,13 @@ def early_years() -> pd.DataFrame:
     """County population 1870-1890: the county minus Alexandria city, from
     the published volumes. Sums take `level` 1 rows only; a level-2 row is
     already inside the line above it."""
-    t5_1890 = table("1890/1890a_v1-11_p346_table5_virginia_alexandria.csv")
-    t2_1870 = table("1870/1870a-04_p69_table2_virginia_alexandria.csv").set_index("section")
-    t3_1870 = table("1870/1870a-09_p278_table3_virginia_alexandria.csv")
-    t5_1880 = table("1880/1880_v1-13_p412_table5_virginia_alexandria.csv")
-    t6_1880 = table("1880/1880_v1-13_p425_table6_virginia_alexandria.csv")
-    t22 = table("1890/1890a_v1-14_p520_table22_virginia_alexandria.csv").iloc[0]
-    t23 = table("1890/1890a_v1-14_p556_table23_virginia_alexandria.csv").iloc[0]
+    t5_1890 = census.keyed("1890/1890a_v1-11_p346_table5_virginia_alexandria.csv")
+    t2_1870 = census.keyed("1870/1870a-04_p69_table2_virginia_alexandria.csv").set_index("section")
+    t3_1870 = census.keyed("1870/1870a-09_p278_table3_virginia_alexandria.csv")
+    t5_1880 = census.keyed("1880/1880_v1-13_p412_table5_virginia_alexandria.csv")
+    t6_1880 = census.keyed("1880/1880_v1-13_p425_table6_virginia_alexandria.csv")
+    t22 = census.keyed("1890/1890a_v1-14_p520_table22_virginia_alexandria.csv").iloc[0]
+    t23 = census.keyed("1890/1890a_v1-14_p556_table23_virginia_alexandria.csv").iloc[0]
 
     rows = {}
     for year, col in ((1890, "pop_1890"), (1880, "pop_1880")):
@@ -294,7 +288,7 @@ def volume_table(year) -> pd.DataFrame:
     misread in one column shows there."""
     parts = []
     for path in VOLUME_AGE_TABLES[year]:
-        t = table(path)
+        t = census.keyed(path)
         t = t[t.year == year].copy()
         page = t["page"].map(lambda p: p if isinstance(p, str) else f"{p:.0f}")
         t["cite"] = t["source"] + " p." + page
@@ -473,7 +467,7 @@ def build() -> pd.DataFrame:
     d["board_seats"] = d["year"].map(seats)
     d["total_source"] = d["year"].map(TOTAL_SOURCE)
 
-    series = table("censusgov_pop1790-1990_p177_counties_virginia_arlington.csv").iloc[0]
+    series = census.keyed("censusgov_pop1790-1990_p177_counties_virginia_arlington.csv").iloc[0]
     for year in range(1900, 2000, 10):
         d.loc[d["year"] == year, "total"] = series[f"y{year}"]
     # (year, race table, its total variable) - all three differ by census.

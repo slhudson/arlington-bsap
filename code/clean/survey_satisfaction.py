@@ -21,6 +21,7 @@ workbook does not distinguish for us - a blank, an explicit decline, and
 import pandas as pd
 
 import paths
+from paths import write
 
 DECLINED = "declined"
 
@@ -98,7 +99,7 @@ def race(frame: pd.DataFrame) -> pd.Series:
     return out
 
 
-def clean() -> pd.DataFrame:
+def build() -> pd.DataFrame:
     sheet = paths.built("survey_satisfaction")
     out = pd.DataFrame({"respondent": range(len(sheet))})
     for name, phrase in ITEMS.items():
@@ -110,4 +111,4 @@ def clean() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    paths.write(clean(), "survey_satisfaction")
+    write(build(), "survey_satisfaction")

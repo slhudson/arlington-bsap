@@ -76,8 +76,10 @@ def quotations(annotation, filenames=()):
             if len(q.split()) >= SHORTEST and " ".join(q.split()) not in filenames]
 
 
-def plain(s):
-    """A string reduced to what OCR cannot get wrong: letters and digits."""
+def comparable(s):
+    """A string reduced to what OCR cannot get wrong - letters and digits -
+    so that a quotation and a scan can be compared at all. Not the same job
+    as archive.plain(), which renders a bib value for a reader."""
     s = s.replace("’", "'").replace("‘", "'")
     s = re.sub(r"[-‐-―]\s*", "", s)          # line-break hyphenation
     return re.sub(r"[^a-z0-9]+", "", s.lower())
@@ -94,7 +96,7 @@ def contains(text, quote):
     """
     at = 0
     for part in re.split(r"\.\s*\.\s*\.|…|\[[^\]]*\]", quote):
-        part = plain(part)
+        part = comparable(part)
         if not part:
             continue
         at = _find(text, part, at)
@@ -128,7 +130,7 @@ def text_of(path):
     """A filed copy's text, in reading order. Reporter scans are laid out in
     columns and come back shuffled without the sort."""
     import pymupdf
-    return plain(" ".join(p.get_text(sort=True) for p in pymupdf.open(path)))
+    return comparable(" ".join(p.get_text(sort=True) for p in pymupdf.open(path)))
 
 
 def unsupported(bib, documents=None):
