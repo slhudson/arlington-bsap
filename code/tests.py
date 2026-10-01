@@ -11,9 +11,11 @@ import csv
 import hashlib
 import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
+import time
 from pathlib import Path
 
 import pandas as pd
@@ -1096,6 +1098,64 @@ def test_an_event_promotion_is_not_the_article():
             "ARLnow.com Launched in January 2010, ARLnow.com is the place for the latest "
             "news, views and things to do around Arlington, Virginia.")
     assert clippings.article_pages([ARTICLE, page, FOOTER_HEAD]) == 1
+
+
+
+# --- how many sessions are live in this checkout ------------------------------
+
+def a_checkout_with_transcripts(tmp, fresh=(), stale=()):
+    """A throwaway repo carrying .claude/sessions.sh, and a directory of
+    session transcripts to ask it about. Not a worktree: the counter answers
+    only for a primary checkout, which is the only shared one."""
+    root, transcripts = Path(tmp) / "repo", Path(tmp) / "transcripts"
+    (root / ".claude").mkdir(parents=True)
+    transcripts.mkdir()
+    subprocess.run(["git", "init", "-q", "."], cwd=root, check=True)
+    shutil.copy(ROOT / ".claude" / "sessions.sh", root / ".claude" / "sessions.sh")
+    for name in fresh:
+        (transcripts / f"{name}.jsonl").touch()
+    for name in stale:
+        f = transcripts / f"{name}.jsonl"
+        f.touch()
+        old = time.time() - 60 * 60 * 24
+        os.utime(f, (old, old))
+    return root, transcripts
+
+
+def live_sessions(root, transcripts, stdin=None, arg="others"):
+    r = subprocess.run(["bash", ".claude/sessions.sh", arg], cwd=root, input=stdin or "",
+                       capture_output=True, text=True,
+                       env={**os.environ, "SESSIONS_DIR": str(transcripts)})
+    return r.returncode, r.stdout.split(), r.stderr
+
+
+def test_a_live_session_is_counted():
+    """The failure this counter had: it reported an empty checkout while
+    three sessions were working in it, so every SessionStart said nobody was
+    here and .githooks/pre-commit never refused a commit. Two sessions are
+    live here and one stopped yesterday."""
+    with tempfile.TemporaryDirectory() as tmp:
+        root, transcripts = a_checkout_with_transcripts(tmp, ("aaa", "bbb"), ("ccc",))
+        code, out, err = live_sessions(root, transcripts)
+        assert code == 0 and out == ["aaa", "bbb"], (code, out, err)
+
+
+def test_the_session_asking_is_not_one_of_the_others():
+    """SessionStart asks who else is here, and is handed its own id on
+    stdin."""
+    with tempfile.TemporaryDirectory() as tmp:
+        root, transcripts = a_checkout_with_transcripts(tmp, ("aaa", "bbb"))
+        code, out, err = live_sessions(root, transcripts, '{"session_id":"aaa"}', "register")
+        assert code == 0 and out == ["bbb"], (code, out, err)
+
+
+def test_transcripts_that_cannot_be_found_stop_the_counter():
+    """An empty answer and no answer must not look alike: that is how the old
+    design hid. A missing transcript directory fails loudly."""
+    with tempfile.TemporaryDirectory() as tmp:
+        root, _ = a_checkout_with_transcripts(tmp)
+        code, out, err = live_sessions(root, Path(tmp) / "gone")
+        assert code != 0 and "cannot be answered" in err, (code, out, err)
 
 
 
