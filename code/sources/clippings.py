@@ -1,7 +1,7 @@
 """Cut each filed web print down to where its article stops.
 
-    .venv/bin/python code/clippings.py            # dry run: report, cut nothing
-    .venv/bin/python code/clippings.py --apply    # cut the pages, rewrite the annotations
+    .venv/bin/python code/sources/clippings.py            # dry run: report, cut nothing
+    .venv/bin/python code/sources/clippings.py --apply    # cut the pages, rewrite the annotations
 
 A press copy printed from a web page carries the page's furniture after the
 article: event promotions, a newsletter box, the comment thread, a trending

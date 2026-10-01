@@ -55,7 +55,7 @@ layers above, and `data/clean/` is the layer worth pulling across people.
 | `code/clean/members_by_year.py` | `data/clean/members_by_year.csv` | `docs/members.md` |
 | `code/clean/elections_turnout.py` | `data/clean/elections_turnout.csv` | `docs/elections.md` |
 | `code/analysis/<figure>.py` | `figures/pdf/<figure>.pdf`, `figures/png/<figure>.png` | its own docstring |
-| `code/archive.py` | `index.md` at the top of the Drive documents folder, and the zip the County receives | `CLAUDE.md` |
+| `code/sources/archive.py` | `index.md` at the top of the Drive documents folder, and the zip the County receives | `CLAUDE.md` |
 
 Clean modules that write nothing, read by the steps above:
 `code/clean/members_roster.py` (who held each seat and when, assembled from
@@ -114,7 +114,7 @@ silently go stale.
 | `docs/setup.md` | Getting a machine set up to build; written for a collaborator joining |
 | `docs/web_access.md` | The websites the sources come from: what each needs from this machine, and what it refuses |
 | `paper/sources.bib` | Every source, cited by key from both the prose and `data/clean/`; each entry's `annotation` says what the copy held supports and where it is filed |
-| Drive, `sources/documents` | Copies of the sources no number is taken from, filed by kind, with an `index.md` that `code/archive.py` writes: <https://drive.google.com/drive/folders/10SGuURB-ldC1AzM3ClsdL_tAiWeFIZB4> |
+| Drive, `sources/documents` | Copies of the sources no number is taken from, filed by kind, with an `index.md` that `code/sources/archive.py` writes: <https://drive.google.com/drive/folders/10SGuURB-ldC1AzM3ClsdL_tAiWeFIZB4> |
 
 Open questions are logged as they arise and answered in place, so the reasoning
 survives alongside the fix.

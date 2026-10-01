@@ -1,8 +1,8 @@
 """The filed copy of an Ancestry index record, built from the row that cites it.
 
-    .venv/bin/python code/ancestry.py            # report what is missing
-    .venv/bin/python code/ancestry.py --apply
-    .venv/bin/python code/ancestry.py --apply --redo census1940detwiler
+    .venv/bin/python code/sources/ancestry.py            # report what is missing
+    .venv/bin/python code/sources/ancestry.py --apply
+    .venv/bin/python code/sources/ancestry.py --apply --redo census1940detwiler
 
 Every census row in data/transcribed/by_claude/members_census.csv cites a
 record on Ancestry, and the Drive folder keeps a copy of each beside the

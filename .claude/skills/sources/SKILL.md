@@ -20,9 +20,9 @@ says what each site needs from this machine.
 
 ## Citing and filing a source the prose reads
 
-`code/cite.py` fetches such a source, files it and writes its bib entry in one
+`code/sources/cite.py` fetches such a source, files it and writes its bib entry in one
 step; the note, what the document says, is still written by the reader.
-`code/ancestry.py` does the filing for a census record, whose page is behind a
+`code/sources/ancestry.py` does the filing for a census record, whose page is behind a
 sign-in and cannot be fetched at all: it sets the record out on a plain page
 from the row that already holds it, so the filed copy follows the row rather
 than being made by hand.
@@ -30,7 +30,7 @@ than being made by hand.
 ## The Drive folder
 
 The folder is filed by kind, and its index is generated.
-`code/archive.py` files the documents folder into `legal`, `reports`, `books`, `bios`,
+`code/sources/archive.py` files the documents folder into `legal`, `reports`, `books`, `bios`,
 `campaign websites`, `press`, `obituaries` and `census`, the kind being a rule on the
 bib entry; writes `index.md` at its top from `paper/sources.bib` and
 `data/contents.csv`, so the index cannot drift from either; and builds the
@@ -49,7 +49,7 @@ print.
 
 ## Quoting a legal source
 
-`code/quotations.py` checks every entry filed under `legal/` against its own
+`code/sources/quotations.py` checks every entry filed under `legal/` against its own
 copy: a quotation in the annotation that the filed document does not contain
 stops the build. Quote the document as it prints the words. Where the
 annotation quotes words for another reason - a recorded negative, a phrase
