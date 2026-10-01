@@ -323,10 +323,12 @@ winners of contests, so until the roll was read a term that ended early showed
 only in the win that filled it, and a seat filled without a contest showed not
 at all.
 
-Both things followed from that. Seven terms ran months longer than their
+Both things followed from that. Eight terms ran months longer than their
 holders served, because the roster ended each at its successor's seating for
 want of a record of the departure itself: Whipple, Hunter, Eisenberg, Monroe,
-Zimmerman, Gutshall and Cristol. And Tannia Talento, appointed on 15 July 2023
+Favola, Zimmerman, Gutshall and Cristol. The roll dates six of the eight; it
+leaves Milliken's 1990 departure and Favola's to Novack and to ARLnow
+(`members_roster_roll.DATED_ELSEWHERE`). And Tannia Talento, appointed on 15 July 2023
 to the rest of Cristol's term, was in the roster not at all, having won
 nothing. The roll dates every one of those departures and her arrival, and
 `members_roster_roll.py` applies them.
@@ -347,9 +349,9 @@ dates a departure and an arrival to the day; the roster counts whole months,
 and applies that rule in `members_roster_roll.py` rather than in any figure.
 A seat vacated on 14 December 1995 and filled on 30 January 1996 is therefore
 Whipple's in December and Zimmerman's in January, and no month stands empty.
-Where a gap does cover a whole month the seat was empty, and eight months
+Where a gap does cover a whole month the seat was empty, and ten months
 since 1932 were: March and April 1990, October 1997, March 1999, February
-2003, March 2014, and May and June 2020. Each is a seat Arlington left unfilled
+2003, January and February 2012, March 2014, and May and June 2020. Each is a seat Arlington left unfilled
 while a special election was called, the Board sitting with four members.
 `members_roster_roll.EMPTY` names the departure and the arrival that bracket
 each, read off the roll, and `check_seats` holds the roster to them: an
@@ -357,7 +359,7 @@ undeclared gap stops the build, and so does filling a declared one. Prorating
 within a month would be more exact and would make a seat-year a fraction of a
 month, which nothing else here counts below.
 
-**No one was appointed to any of those eight months.** That was worth
+**No one was appointed to any of those ten months.** That was worth
 establishing rather than assuming, since an interim appointee is exactly the
 member this roster could not see. The roll names an appointment in each of
 1933, 1934, 1947, 1952, 1960, 1975 and 2023 and in no year after 1975 but

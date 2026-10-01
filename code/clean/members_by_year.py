@@ -73,9 +73,9 @@ def build() -> pd.DataFrame:
     # 1873, the Jefferson seat from April to June 1879 after William A. Rowe
     # resigned it (members_roster.VACANT_1879), and the Washington seat from 1
     # January 1920 until Frank Upman was appointed (members_roster.VACANT_1920).
-    # Six are at large, each a seat the county's roll shows empty while a
-    # special election was called (members_roster_roll.EMPTY): two months in
-    # 1990, one each in 1997, 1999, 2003 and 2014, and two in 2020. A seat
+    # Seven are at large, each a seat left empty while a special election was
+    # called (members_roster_roll.EMPTY): two months in 1990, one each in
+    # 1997, 1999 and 2003, two in 2012, one in 2014 and two in 2020. A seat
     # nobody held counts towards nobody, which is why these years come to less
     # than five.
     exist = d.year.map(seats)
@@ -83,7 +83,7 @@ def build() -> pd.DataFrame:
     over = d.loc[by_race - exist > 1e-9, "year"]
     assert over.empty, f"more seat-years than seats in {list(over)}"
     short = d.loc[(exist - by_race > 1e-9) & (d.source == citekeys.DERIVED), "year"]
-    VACANT_YEARS = [1870, 1873, 1879, 1920, 1990, 1997, 1999, 2003, 2014, 2020]
+    VACANT_YEARS = [1870, 1873, 1879, 1920, 1990, 1997, 1999, 2003, 2012, 2014, 2020]
     assert list(short) == VACANT_YEARS, \
         f"seats fall short in {list(short)}; expected only {VACANT_YEARS}"
 
