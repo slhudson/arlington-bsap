@@ -83,7 +83,8 @@ are O'Leary's. His record names each district's winner and, before 1907,
 nobody who lost, so no loss by a Black candidate can appear in these years:
 the absence is the record's, not a finding.
 
-**1888–1930.** Allen resigns in 1888 ("Residence in the district", above).
+**1888–1930.** Allen resigns in 1888 (`docs/members.md`, "Residence in the
+district").
 Hjerpe writes that "no black candidates were recorded as running for the
 county board again until after 1930" (p.3), on the same record of winners.
 Bestebreurtje (`bestebreurtje2017` p.215) has Black candidates running in

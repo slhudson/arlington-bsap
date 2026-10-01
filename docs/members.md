@@ -219,9 +219,8 @@ present, A. B. Grunwell, chairman, and Messrs. Frank Hume [and] Horatio
 Ball" (`alexandriagazette1888supervisors`). This is the same convention the
 Historical Society used for Saulisbury below: the article dates a term from
 the minute books' first record of a man sitting, not from the instrument
-that named him. Nothing here says what Hume did between 2 October and 13 November. It says
-only that the roster's start date and the court's appointment date answer
-different questions.
+that named him. The roster's start date and the court's appointment date
+answer different questions.
 
 ### Pendleton to Saulisbury, November 1884
 
@@ -233,8 +232,7 @@ Saulisbury (and the more common spelling "Salisbury"), and for "Board of
 Supervisors" across the weeks bracketing 15 November 1884, with no report
 of a resignation, a court action or a Board seating found. The paper
 covered Allen's removal because a court rule made it news; whatever moved
-Pendleton out generated none. This is a negative result, not an absence of
-searching (`saulisbury-1884`).
+Pendleton out generated none (`saulisbury-1884`).
 
 ### Pinn to Mills, August 1881
 
@@ -254,9 +252,7 @@ active opposition to the Readjuster coalition twelve days before he left
 the Board; the Gazette was then searched for the resignation itself, for
 Mills's appointment, and for "Board of Supervisors" through early September
 1881, with nothing found naming a reason. The convention speech establishes
-where Pinn stood, not why he left; the two are offered together because the
-timing invites the connection and the record does not make it
-(`pinn-1881`).
+where Pinn stood, not why he left (`pinn-1881`).
 
 ### Squier, the control
 
@@ -269,10 +265,9 @@ State, and appointed a successor." Squier was White. Where Allen's rule
 alleged non-residence and was never brought to a disposition, Squier's
 removal named a statute and Squier held a second public office the statute
 reached; the Historical Society's own record, not a newspaper search, is
-what settles this one. Nothing here is open: the county
-court removed a White supervisor on a stated legal ground in the same
-window it moved against Allen on an unresolved one, and that contrast is
-the finding, not a gap waiting on more searching.
+what settles this one. The county court removed a White supervisor on a
+stated legal ground in the same window it moved against Allen on an
+unresolved one.
 
 The statute the court applied is the one that empties three more seats
 seventy years later. Virginia barred holders of federal office from state
@@ -372,13 +367,12 @@ undeclared gap stops the build, and so does filling a declared one. Prorating
 within a month would be more exact and would make a seat-year a fraction of a
 month, which nothing else here counts below.
 
-**No one was appointed to any of those ten months.** That was worth
-establishing rather than assuming, since an interim appointee is exactly the
-member this roster could not see. The roll names an appointment in each of
-1933, 1934, 1947, 1952, 1960, 1975 and 2023 and in no year after 1975 but
-2023, and ARLnow reports the Board in February 2014 operating "with four
-members until a special election is held" (`arlnow2014zimmerman`). Talento's
-is the only appointment to the Board since 1975.
+**No one was appointed to any of those ten months.** The roll names an
+appointment in each of 1933, 1934, 1947, 1952, 1960, 1975 and 2023 and in no
+year after 1975 but 2023, and ARLnow reports the Board in February 2014
+operating "with four members until a special election is held"
+(`arlnow2014zimmerman`). Talento's is the only appointment to the Board
+since 1975.
 
 **The constitution created the Board; the acts of 1870 stood it up.** The
 constitution framed in 1868 and ratified in 1869 divides every county into not
@@ -482,7 +476,8 @@ November winner and each term held to the end of its first year (1924 and
 Jefferson from 1895, but the same man as the roster's "E. Duncan" (1908–12) and
 "Duncan" (1916–20), one continuous term from 1908 to 1932 (below).
 
-**The roster names 1912 to 1931.**
+### The roster names 1912 to 1931
+
 `arlhist1967officials`, the Historical Society's "County Officials in
 Arlington, 1870-1960," gives Board membership by magisterial district, term
 by term, compiled from the Board's own minute books. It covers 1908 through 1931 without a gap, in the overlapping term-blocks the
@@ -576,8 +571,9 @@ Washington from July to November 1873, Jefferson from April to June 1879, and
 Washington in January 1920. The exceptions are the point: a gap anywhere else
 stops the build, and so does filling one of these.
 
-**The article corrects and adds for 1870 to 1911.** The
-same compilation covers 1870 onward, keyed in
+### The article corrects and adds for 1870 to 1911
+
+The same compilation covers 1870 onward, keyed in
 `data/transcribed/by_claude/arlington_historical_magazine/arlhist_terms_1870-1911.csv`,
 but here O'Leary's elections sit underneath it, so it is read a
 second way: `names()`, `notes()` and `early()` in `members_roster_arlhist.py`
@@ -718,7 +714,9 @@ Recording title instead would either seat two men in one seat for fourteen
 weeks, which `members_by_year.py` refuses, or delete a member the minute books
 show sitting.
 
-**Two seats go to the man the minute books show sitting.** The article gives
+### Two seats go to the man the minute books show sitting
+
+The article gives
 two seats to someone other than the man O'Leary seats, and the roster follows
 it in both (`SEATED` in `code/clean/members_roster_arlhist.py`). The Jefferson
 seat of 1870 is empty, not Storm V. Boyd's: the article prints the supervisor
@@ -1254,7 +1252,8 @@ sanitary trade, with his wife Annie and six children (`census1920walker`). Each
 gives a man, a race (White) and a birth year (1855, 1876) from the census, not
 the default.
 
-**The members that keep the default, and what has been searched for them.**
+### The members that keep the default, and what has been searched for them
+
 Two do, and both have been searched past the Gazette into every Virginia
 paper Chronicling America and Virginia Chronicle hold, so that nobody repeats
 the search. **William H. Robinson** appears in the Gazette once, named
@@ -1353,12 +1352,12 @@ each period:
 |---|---|---|
 | 1870–1888 | Five Black members named by Hjerpe (2021): Rowe, Syphax, Pinn, Pendleton, Allen. Pinn, Pendleton and Allen each rest on a reproduced 1880 census image; Rowe and Allen on narrative statements in her paper; Syphax on O'Leary, who writes that his photograph shows he was African American. The sentence naming the five as a group sits in her own list of open inquiries, and the file records it as such. O'Leary adds that "a majority of the early office holders" were probably African-American but cannot name them. Nobody on our side has checked the census linking. | Names in O'Leary; two before 1912, Robinson and Willson, still rest on the default (above, "What rests on an assumption"). |
 | 1889–1930 | One collective sentence: the board "became and remained all white for the duration of this system" (Hjerpe 2021, p.4), sourced to the county's election records. No per-person evidence. | Names in O'Leary; initials only before 1912. No source names a first woman member, so "all men before Magruder (1932)" is assumed. |
-| 1931–1986 | Nothing per-person from any source, except that the county's list of the November 1931 candidates marks three of its 51 names "(Col)" and none of the five elected (see "Black candidacies"). The default rests on Newman (1987) being described as the first Black member since Reconstruction. About 280 person-years. **The weakest stretch.** | Census listing or a press honorific or pronoun for all but B. M. Smith (1933). |
+| 1931–1986 | Nothing per-person from any source, except that the county's list of the November 1931 candidates marks three of its 51 names "(Col)" and none of the five elected (`docs/candidates.md`, "Black candidacies"). The default rests on Newman (1987) being described as the first Black member since Reconstruction. About 280 person-years. **The weakest stretch.** | Census listing or a press honorific or pronoun for all but B. M. Smith (1933). |
 | 1987–present | Per-person: Newman (1987), Monroe (1999), Dorsey (2015), Spain (2024), and Tejada as the first Latino member (Hjerpe 2021). The Arlington Historical Society's Newman entry names Newman, Monroe and Dorsey as African American members, and its Center for Local History entry gives Tejada's Latin American heritage; Monroe also rests on the Arlington NAACP president's words at his death, and Dorsey on his own statement (2020). | A press pronoun or honorific for every member. |
 
 In November 1931 three Black candidates ran for the Board and all lost; who
-they were, and every other Black candidacy, is under "Black candidacies"
-below.
+they were, and every other Black candidacy, is in `docs/candidates.md` under
+"Black candidacies".
 
 No roster source states anyone's race or gender. Race comes
 from Hjerpe and O'Leary; gender comes from a census listing or from the
