@@ -50,11 +50,9 @@ neither repeats the reasons.
   plain: `(a) number of residents`.
 - An explanatory note that belongs to a mark, such as the 1932 rule, appears
   once per figure and goes above the top of the frame; `charts.rule()` draws
-  it there. Once per *figure*, not once per section: the same
-  note on three figures is not repetition to remove, because a reader
-  arriving at the third one needs to reorient just as much as at the first.
-  Notes that belong to the document, such as sources, caveats and
-  definitions, go in the caption, not the image.
+  it there. Once per *figure*, not once per section: leave the same note on
+  every figure that carries the mark. Notes that belong to the document, such
+  as sources, caveats and definitions, go in the caption, not the image.
 
 ## Scatters
 
@@ -85,9 +83,7 @@ neither repeats the reasons.
   narrower than a single-panel chart's even though the frame is identical.
   That is the cost of panelling, not a bug to fix by widening the figure.
 - **A figure with few categories along the axis may take less than the full
-  width.** Five bars stretched across 6.25in are five slabs with white
-  between them, and the figure reads as though something is missing from it.
-  `charts.figure(profile, of_width=...)` takes the fraction, and the
+  width.** `charts.figure(profile, of_width=...)` takes the fraction, and the
   fraction is a name in `style` — `style.NARROW` — never a number in the
   figure script, so the narrow figures stay one size as a set.
   `residents_by_age` is the standing example. The height still comes from
@@ -100,15 +96,12 @@ neither repeats the reasons.
 ## Axes
 
 - The y-axis ends on a round tick, not just clear of the data.
-- **Every bar is drawn whole.** A bar centred on the first or last year is
-  half outside the frame unless the axis clears half a bar, and a sliced end
-  bar reads as a narrower category rather than as a clipped one. Pass the bar
-  width to `charts.years(..., bars=...)`, which widens the limits to fit.
+- **Every bar is drawn whole.** Pass the bar width to
+  `charts.years(..., bars=...)`, which widens the limits to clear half a bar
+  at each end.
 - No y-axis label that repeats the panel title.
-- Tick density has to be legible at the profile's width. Decades collide at
-  6.25in, so name every twentieth year and let the minor ticks mark the rest.
-  Prefer that to rotating the labels: rotated text is slower to read and it
-  makes a panel look unlike its neighbour.
+- Tick density has to be legible at the profile's width: name every twentieth
+  year and let the minor ticks mark the rest. Never rotate the labels.
 - **Where the labels do fit, name them all.** A figure at `style.NARROW`, or
   any axis with few enough years, takes `charts.years(..., dense=True)`,
   which names every one at `style.DENSE_TICKS`. This is the only place type
@@ -126,10 +119,8 @@ neither repeats the reasons.
 - One legend for the whole figure, not one per panel, where one is needed.
 - One row, in stacking order, below the figure and outside the axes.
   `charts.legend()` puts it there.
-- **Centred on the plot region, not on the canvas.** The y-axis label and
-  the tick labels are not part of what a legend sits under, and counting
-  them pushes it visibly left of the marks it names. `charts.fit()` does
-  this for every figure; nothing in a figure script sets it.
+- **Centred on the plot region, not on the canvas.** `charts.fit()` does this
+  for every figure; nothing in a figure script sets it.
 - **A wrapped legend reads left to right along each row**, not down each
   column, which is matplotlib's default. `charts.legend(fig, entries, ncol=)`
   does the reordering; nothing in a figure script arranges entries.
@@ -180,13 +171,11 @@ revisit.
 - **Axis labels and panel titles are lowercase**: `residents`, `census year`,
   `(a) number of residents`.
 - **No slashes in category names.** Use the Bureau's own wording: `Hispanic or
-  Latino`, `Asian & Pacific Islander`. The ampersand is for width, since the
-  legend is one row.
+  Latino`, `Asian & Pacific Islander`.
 - **State a qualifier once, in the caption, not in every key entry.** On the
   census basis every group except Hispanic or Latino is non-Hispanic; the
   legend says `Black`, `White` and so on, and the caption says "groups other
-  than Hispanic or Latino are non-Hispanic". Repeating it five times in the
-  legend is the thing to avoid.
+  than Hispanic or Latino are non-Hispanic".
 
 ## Process
 

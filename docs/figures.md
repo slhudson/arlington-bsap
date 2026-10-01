@@ -330,11 +330,15 @@ appears, with its note above the top of the frame: inside the axes it would
 sit on whatever the chart has drawn there, which on a filled seat chart is
 a solid band. On a 0-5 seat axis the note states the numbers, since the
 expansion is what the axis shows; elsewhere it is context. The note is drawn
-once per figure even where the rule is on every panel.
+once per figure even where the rule is on every panel, and once per figure
+rather than once per section of the report: a reader arriving at the third
+figure that carries it needs to reorient as much as at the first, so the
+repetition across figures is not repetition to remove.
 
 **Year axes** name every twentieth year, anchored on the last so the most
 recent census is named, with an unlabelled tick at each census between.
-Decades collide at 6.25 inches, and rotated labels are slower to read.
+Decades collide at 6.25 inches, and rotated labels are slower to read and
+make a panel look unlike its neighbour.
 
 A figure narrow enough to hold every label names them all instead, at
 `style.DENSE_TICKS`, 0.85 of the profile's tick size, through
