@@ -39,7 +39,7 @@ import members_terms
 import citekeys
 import elections
 import paths
-from members_terms import AT_LARGE_FROM
+from members_terms import AT_LARGE_FROM, APPOINTMENT, SPECIAL_ELECTION
 from elections import PARTIES
 from paths import write
 
@@ -171,14 +171,26 @@ def party_of(t, labels, state, att):
 def held(terms: pd.DataFrame) -> pd.DataFrame:
     """held_from and held_to for every term: months from year 0, the end
     exclusive. An unrecorded end holds to the end of its first year, and a
-    term ending in the month another term in the same district begins
-    yields that month to the incoming member - or, where the seat stood
-    empty instead, to nobody (members_roster.VACANT_FROM)."""
+    term ending in the month its successor in the same seat begins yields
+    that month to the incoming member - or, in a magisterial district where
+    the seat stood empty instead, to nobody (members_roster.VACANT_FROM).
+
+    A district holds one seat, so any term beginning there is the successor.
+    At large there are five, and nothing in a row says which, so the
+    successor is identified by how the term began: only an appointment or a
+    special election takes a seat mid-term, where a regular election in the
+    same month is another seat's four years starting. Without that, a member
+    who left in a January would hand the month to whoever was sworn in for an
+    unrelated seat - which is how Charles P. Monroe lost January 2003, the
+    month he died, to Christopher Zimmerman's new term.
+    """
     end_year = pd.to_numeric(terms.end_year).fillna(terms.start_year)
     end_month = pd.to_numeric(terms.end_month).fillna(12)
     start = terms.start_year * 12 + terms.start_month - 1
+    mid_term = terms.seated_by.isin([SPECIAL_ELECTION, APPOINTMENT])
+    succeeds = terms.assign(start=start)[mid_term | (terms.district != "at large")]
     stop = end_year * 12 + end_month
-    starts = terms.assign(start=start).groupby("district").start.apply(set).to_dict()
+    starts = succeeds.groupby("district").start.apply(set).to_dict()
     for district, month in members_roster.VACANT_FROM:
         starts.setdefault(district, set()).add(month - 1)
     stop = [s - 1 if (s - 1) in starts.get(d, set()) else s for d, s in zip(terms.district, stop)]
