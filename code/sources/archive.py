@@ -115,6 +115,36 @@ def kind(e):
 
 # --- reading ------------------------------------------------------------------
 
+# An outlet as a filename wants the paper, not how we reached it or where it
+# circulates: "Sun Gazette, via InsideNoVa" and "Patch, Arlington, VA" are the
+# Sun Gazette and Patch.
+OUTLET_TAIL = re.compile(r",\s*(?:via\b.*|Connection Newspapers|Arlington,\s*VA)$", re.I)
+
+# "<who> <year> - <title>", the shape every filed name has.
+FILED_NAME = re.compile(r"^(.*?) (\d{4}[a-z]?) - (.*)$", re.S)
+
+
+def outlet(e):
+    """The paper or magazine that published a press entry. A leading article
+    is dropped: the folder sorts by name, and a shelf of papers filed under
+    "The" tells a reader nothing."""
+    o = OUTLET_TAIL.sub("", plain(e.get("organization") or e.get("journaltitle") or "")).strip()
+    return re.sub(r"^The\s+", "", o)
+
+
+def canonical(e, base):
+    """What a filed copy is called. A press copy is named for its outlet and
+    not its byline: the folder is read by someone looking for what a paper
+    printed, who knows the Sun Gazette and not which of its reporters wrote
+    this. A scan of a printed page was always named this way; this is what
+    makes a page read online match it. Every other kind keeps the name it
+    was filed under, which is its author's."""
+    m = FILED_NAME.match(base)
+    if kind(e) != "press" or not m or not outlet(e):
+        return base
+    return f"{outlet(e)} {m.group(2)} - {m.group(3)}"
+
+
 def entries(text):
     """Every entry in the bib as a dict of its fields, with type, key and the
     span of the whole entry in the text. Field values keep their braces
@@ -231,6 +261,7 @@ def place(bib, documents):
             else:
                 missing.append((e["key"], name))
                 continue
+            base = canonical(e, base)
             target = f"{subfolder(kind(e), base)}/{base}"
             if current in claims and claims[current][0] != target:
                 sys.exit(f"\"{current}\" is claimed by {claims[current][1]['key']} as "

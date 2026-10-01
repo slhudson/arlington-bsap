@@ -117,12 +117,15 @@ def main():
     if not a.documents.is_dir():
         sys.exit(f"the Drive documents folder is not mounted at {a.documents}")
 
-    kind = archive.kind({"type": a.type, "key": a.key, "title": a.title,
-                         "organization": a.organization, "author": a.author})
+    entry = {"type": a.type, "key": a.key, "title": a.title,
+             "organization": a.organization, "author": a.author}
+    kind = archive.kind(entry)
     ext = a.copy.suffix.lower() if a.copy else next(
         (x for x in AS_PUBLISHED if a.url.lower().endswith(x)), ".pdf")
     year = a.date[:4]
-    stem = re.sub(r"[/:]", "-", f"{a.author} {year} - {a.title}")
+    # A press copy is named for its outlet, not its byline; archive.canonical()
+    # has the rule, so a copy is filed under the name the archive would give it.
+    stem = archive.canonical(entry, re.sub(r"[/:]", "-", f"{a.author} {year} - {a.title}"))
     filename = stem + ext
     target = a.documents / kind / filename
     if target.exists():

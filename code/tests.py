@@ -1046,6 +1046,29 @@ def test_a_census_record_is_filed_as_one_whoever_indexed_it():
 
 
 
+def test_a_press_copy_is_named_for_its_outlet():
+    """A filed article named for its byline. The folder is read by someone
+    looking for what a paper printed, and the scans were always named for the
+    paper, so a page read online that kept its reporter's name sorted away
+    from the rest of that paper's coverage."""
+    e = {"type": "article", "key": "planted", "title": "Arlington Board Is All-Democratic",
+         "author": "Hsu, Spencer", "organization": "The Washington Post",
+         "journaltitle": "The Washington Post"}
+    assert archive.canonical(e, "Hsu 1987 - Arlington Board Is All-Democratic.pdf") == \
+        "Washington Post 1987 - Arlington Board Is All-Democratic.pdf"
+
+
+def test_every_filed_press_copy_is_named_for_its_outlet():
+    """The real bib, so an entry filed under a byline cannot sit unnoticed."""
+    bib = archive.entries(archive.BIB.read_text())
+    wrong = [(n, archive.canonical(e, n)) for e in bib if archive.kind(e) == "press"
+             for n in (f.split("/")[-1] for f in archive.filed(e))
+             if archive.canonical(e, n) != n]
+    assert not wrong, "press copies not named for their outlet:\n  " + \
+        "\n  ".join(f"{a} -> {b}" for a, b in wrong)
+
+
+
 def a_legal_entry(key, annotation):
     """A one-entry bib naming a copy that is really on file, so a test can
     put words in its mouth. @jurisdiction is what archive.kind() files under
