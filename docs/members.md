@@ -13,13 +13,11 @@ still open.
 Reconstruction" framing. The five Reconstruction-era members rest on Hjerpe's
 census linking (`default-1931-1986`).
 
-**Gender.** Three members rest on the default, man (`gender-from-names`).
-William H. Robinson and Walter G. Willson sat before 1912 and are in no
-census, and the Alexandria Gazette names each with no pronoun or honorific
-attached (both below). Clarence R. Ahalt is a recorded negative rather than
-an unsearched name: he appears nowhere in the 1920 census. The other 122
-members have a census listing or a pronoun or honorific in the press, and
-`gender_evidence` in `members.csv` says which each rests on.
+**Gender.** Two members rest on the default, man: William H. Robinson and
+Walter G. Willson, both recorded negatives (below, "The members that keep
+the default"). The other 123 members have a census listing or a pronoun or
+honorific in the press, and `gender_evidence` in `members.csv` says which
+each rests on.
 
 **Race and gender from the census.** For the 40 members first seated 1932–1966
 and the 38 first seated 1870–1904, race and gender come from 74 census records
@@ -689,9 +687,11 @@ the Glenarlyn subdivision of the Arlington district in the 1930 census
 All four read White and male from the sheet, so they rest on a record, not on
 the era default (`default-1931-1986`). **Clarence R. Ahalt** is in no 1920
 census index for the former Alexandria County under that name or a close
-spelling; he defaults to White and man like the rest of the era, and the
-county-wide search (32 nationwide results, none local) is recorded so a later
-thread does not repeat it.
+spelling; he defaults to White like the rest of the era, and the county-wide
+search (32 nationwide results, none local) is recorded so a later thread
+does not repeat it. His gender rests on a press reading instead of the
+default: a 1933 letter to the editor calling him "Mr. Ahalt" (below, "The
+members that keep the default").
 
 Thomas J. DeLashmutt's household carries a son, **Basil N. Delashmutt, 17**,
 born about 1903 — the same birth year as the **Basil M. DeLashmutt** of the
@@ -1173,14 +1173,24 @@ gives a man, a race (White) and a birth year (1855, 1876) from the census, not
 the default.
 
 **The members that keep the default, and what has been searched for them.**
-The searches and what each found are in `gender-from-names`, so that nobody
-repeats them; three are worth stating here. **William H. Robinson** appears in
-the Gazette once, named plainly among the Board of Supervisors of 18 September
-1878, with no pronoun or honorific attached to him; every other Robinson the
-paper prints in his years (a Richmond coal committee, a King George visitor, a
-deceased tailor) is a different man. **Walter G. Willson** turns up only as a
-Harvey Willson unrelated to him, and as bare initials in an 1889 road-fund
-ledger; nothing ties a Gazette pronoun to him. **Edward Duncan** has no record
+Two do, and both have been searched past the Gazette into every Virginia
+paper Chronicling America and Virginia Chronicle hold, so that nobody repeats
+the search. **William H. Robinson** appears in the Gazette once, named
+plainly among the Board of Supervisors of 18 September 1878, with no pronoun
+or honorific attached to him; a full-text search of both sites for "William
+H. Robinson" in Virginia, 1877-79, turns up nothing else - every other
+Robinson the papers print in those years (a Richmond coal committee, a King
+George visitor, a deceased tailor) is a different man. **Walter G. Willson**
+turns up only as a Harvey Willson unrelated to him and, on the same two
+sites for 1888-94, as bare initials in a road-fund ledger line - "W G
+Willson as member road board," a fee paid, Alexandria Gazette, 22 October
+1891 - with no honorific attached. **Clarence R. Ahalt**, a third member
+once kept on the same default, is sourced instead: a 4 November 1933 letter
+to the editor in the *Commonwealth Monitor*, urging his election as
+Attorney General, calls him "Mr. Ahalt" three times and "an Arlington
+County man" (`commonwealthmonitor1933ahalt`). He remains a recorded
+negative in the 1920 census, 32 nationwide results checked, which the press
+reading now makes moot. **Edward Duncan** has no record
 after 1920: Arlington County holds no Duncan of his age in 1930, so the 1920
 sheet is the later of his two.
 
@@ -1259,7 +1269,7 @@ each period:
 
 | Period | Race | Gender |
 |---|---|---|
-| 1870–1888 | Five Black members named by Hjerpe (2021): Rowe, Syphax, Pinn, Pendleton, Allen. Pinn, Pendleton and Allen each rest on a reproduced 1880 census image; Rowe and Allen on narrative statements in her paper; Syphax on O'Leary, who writes that his photograph shows he was African American. The sentence naming the five as a group sits in her own list of open inquiries, and the file records it as such. O'Leary adds that "a majority of the early office holders" were probably African-American but cannot name them. Nobody on our side has checked the census linking. | Names in O'Leary, but seven members before 1912 appear by initials only (`gender-from-names`). |
+| 1870–1888 | Five Black members named by Hjerpe (2021): Rowe, Syphax, Pinn, Pendleton, Allen. Pinn, Pendleton and Allen each rest on a reproduced 1880 census image; Rowe and Allen on narrative statements in her paper; Syphax on O'Leary, who writes that his photograph shows he was African American. The sentence naming the five as a group sits in her own list of open inquiries, and the file records it as such. O'Leary adds that "a majority of the early office holders" were probably African-American but cannot name them. Nobody on our side has checked the census linking. | Names in O'Leary; two before 1912, Robinson and Willson, still rest on the default (above, "What rests on an assumption"). |
 | 1889–1930 | One collective sentence: the board "became and remained all white for the duration of this system" (Hjerpe 2021, p.4), sourced to the county's election records. No per-person evidence. | Names in O'Leary; initials only before 1912. No source names a first woman member, so "all men before Magruder (1932)" is assumed. |
 | 1931–1986 | Nothing per-person from any source, except that the county's list of the November 1931 candidates marks three of its 51 names "(Col)" and none of the five elected (see "Black candidacies"). The default rests on Newman (1987) being described as the first Black member since Reconstruction. About 280 person-years. **The weakest stretch.** | Census listing or a press honorific or pronoun for all but B. M. Smith (1933). |
 | 1987–present | Per-person: Newman (1987), Monroe (1999), Dorsey (2015), Spain (2024), and Tejada as the first Latino member (Hjerpe 2021). The Arlington Historical Society's Newman entry names Newman, Monroe and Dorsey as African American members, and its Center for Local History entry gives Tejada's Latin American heritage; Monroe also rests on the Arlington NAACP president's words at his death, and Dorsey on his own statement (2020). | A press pronoun or honorific for every member. |
