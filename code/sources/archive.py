@@ -49,7 +49,7 @@ INDEXERS = ("ancestry", "familysearch")
 COPIED_BY = ("Ancestry", "FamilySearch", "US Census")
 
 KINDS = ("legal", "reports", "books", "bios", "campaign websites", "press",
-         "obituaries", "census")
+         "obituaries", "census", "vital records")
 UNPLACED = "unplaced"
 
 # Web outlets whose pages are press when read online; see kind().
@@ -88,7 +88,10 @@ def kind(e):
     """Which folder an entry's copy is filed in. The first rule that fits."""
     who = (e.get("howpublished", "") + " " + e.get("organization", "")).lower()
     if any(i in who for i in INDEXERS):
-        return "census"                                   # an index record and its sheet
+        # What the record is, not who indexed it: the same indexers serve
+        # marriages, draft cards, passenger lists and graves, and a census
+        # folder is filed by census year, which those records do not have.
+        return "census" if re.search(r"\bcensus\b", plain(e["title"]), re.I) else "vital records"
     if re.search(r"\bobituary\b|\bdies\b", e["title"], re.I):
         return "obituaries"
     if e["type"] == "article" and "pages" in e and "location" in e:
@@ -365,6 +368,31 @@ def rewrite_bib(text, bib, claims):
     def sub(m):
         return '"' + new.get(" ".join(m.group(1).split()), m.group(1)) + '"'
     return FILED.sub(sub, text), len(new)
+
+
+def append_annotation(text, keys, phrase):
+    """The bib with `phrase` added to each named entry's annotation, where a
+    tool has changed the filed copy and the entry should say so. Returns the
+    new text and the keys it could not place, which are the annotations whose
+    last sentence is not the one about the copy."""
+    missed = []
+    for key in keys:
+        m = re.search(r"^@\w+\{" + re.escape(key) + r",", text, re.M)
+        end = re.compile(r"^\}", re.M).search(text, m.end()).start()
+        a = re.search(r"^(\s*annotation\s*=\s*\{)(.*?)(\},?\s*)$", text[m.end():end],
+                      re.S | re.M)
+        if not a or phrase.strip(", ") in a.group(2):
+            if not a:
+                missed.append(key)
+            continue
+        body = a.group(2).rstrip()
+        trail = a.group(2)[len(body):]
+        if not re.search(r"\d{4}$|article$|removed$|dpi$", body):
+            missed.append(key)
+            continue
+        i = m.end() + a.start(2)
+        text = text[:i] + body + phrase + trail + text[i + len(a.group(2)):]
+    return text, missed
 
 
 # --- the index ------------------------------------------------------------------
