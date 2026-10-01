@@ -335,8 +335,27 @@ Time: about N minutes, or "waiting on you" first if you need the lead
 The units are the ones the task is measured in: members read, rows written,
 sheets checked. Never a search term, a page id or an internal step. If the
 lead is needed (a sign-in, a click, a decision), say so at the top of the
-message. Say where the work is saved (branch and last commit) so nothing
-lives only in the session.
+message.
+
+**The repository is not one of the four lines.** Branches, worktrees,
+uncommitted files, which session is behind which, a merge, a conflict, a
+rebase, a hook that refused a commit: the lead has delegated all of it, and
+not because it does not matter. She holds that it matters and expects it done
+carefully. She delegates it because a session can see the tree and she cannot,
+so there is nothing she can add - "I rarely have anything to add on top of what
+the agents can see and resolve themselves" (1 October 2026). Those are
+different instructions: one would mean hiding the work, this one means doing it
+without narrating it.
+
+So commit and push before the status message rather than report where the work
+is saved, and keep a commit hash on the sentence describing what changed, never
+in a sentence about the repository's state. Taking the time is not the problem
+and asking for it is not either - "a repository thing needs a few minutes" is a
+better line than an unexplained gap. What is unwanted is the mechanics, and any
+choice between git commands, which is ours to make.
+
+The one thing worth her attention is plumbing that has stopped the work and
+only she can unstop. Then one line saying what is blocked, in her terms.
 
 ## Register
 

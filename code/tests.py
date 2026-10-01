@@ -11,6 +11,8 @@ import csv
 import hashlib
 import os
 import re
+import shutil
+import socket
 import subprocess
 import sys
 import tempfile
@@ -33,8 +35,13 @@ import quotations  # noqa: E402
 sys.path.insert(0, str(ROOT / "code" / "build"))
 import paths as build_paths  # noqa: E402
 import members_claims  # noqa: E402
+import residents_survey as build_residents_survey  # noqa: E402
 sys.path.remove(str(ROOT / "code" / "build"))
 del sys.modules["paths"]
+# Both stages have a step of this name, as they should: each is named for
+# what it writes. The build one is kept under its own name so the clean
+# one can load under the plain one.
+del sys.modules["residents_survey"]
 
 sys.path.insert(0, str(ROOT / "code" / "clean"))
 import candidates  # noqa: E402
@@ -51,6 +58,7 @@ import residents_by_district  # noqa: E402
 import elections_turnout  # noqa: E402
 import elections_results  # noqa: E402
 import elections  # noqa: E402
+import residents_survey as clean_residents_survey  # noqa: E402
 
 # The fetch stage has a paths.py of its own too.
 del sys.modules["paths"]
@@ -1019,6 +1027,20 @@ def test_every_source_with_a_url_is_filed():
     assert not problems, "sources with no copy on file:\n  " + "\n  ".join(problems)
 
 
+def test_a_census_record_is_filed_as_one_whoever_indexed_it():
+    """The FamilySearch record, reintroduced: the rule looked for Ancestry by
+    name, so the one census page indexed elsewhere fell through to reports/
+    and would have been filed as though a number were not read off it."""
+    for who in ("Ancestry", "FamilySearch"):
+        e = {"type": "online", "key": "planted", "title": "United States, Census, 1900",
+             "organization": who}
+        assert archive.kind(e) == "census", f"a {who} census record filed as {archive.kind(e)}"
+        base = f"{who} 1900 - United States, Census, 1900.pdf"
+        assert archive.subfolder("census", base) == f"census/{who}/1900", \
+            f"{base} does not file by maker and year"
+
+
+
 def a_legal_entry(key, annotation):
     """A one-entry bib naming a copy that is really on file, so a test can
     put words in its mouth. @jurisdiction is what archive.kind() files under
@@ -1104,6 +1126,105 @@ def test_an_event_promotion_is_not_the_article():
             "news, views and things to do around Arlington, Virginia.")
     assert clippings.article_pages([ARTICLE, page, FOOTER_HEAD]) == 1
 
+
+
+# --- how many other sessions are live in this checkout ------------------------
+
+def a_checkout_and_sockets(tmp):
+    """A throwaway repo carrying .claude/sessions.sh, and a directory to put
+    session sockets in. Not a worktree: the counter answers only for a
+    primary checkout, which is the only shared one."""
+    root, socks = Path(tmp) / "repo", Path(tmp) / "socks"
+    (root / ".claude").mkdir(parents=True)
+    socks.mkdir()
+    subprocess.run(["git", "init", "-q", "."], cwd=root, check=True)
+    shutil.copy(ROOT / ".claude" / "sessions.sh", root / ".claude" / "sessions.sh")
+    return root, socks
+
+
+def a_session(socks, cwd, keep):
+    """A process standing in for a Claude session working in cwd, with the
+    socket the app opens for it. Returns its pid."""
+    proc = subprocess.Popen(["sleep", "60"], cwd=cwd)
+    s = socket.socket(socket.AF_UNIX)
+    s.bind(str(Path(socks) / f"{proc.pid}.sock"))
+    keep.append((proc, s))
+    return proc.pid
+
+
+def a_dead_session(socks, keep):
+    """A socket left behind by a session that has gone."""
+    proc = subprocess.Popen(["true"])
+    proc.wait()
+    s = socket.socket(socket.AF_UNIX)
+    s.bind(str(Path(socks) / f"{proc.pid}.sock"))
+    keep.append((None, s))
+    return proc.pid
+
+
+def others_here(root, socks, cwd=None):
+    r = subprocess.run(["bash", ".claude/sessions.sh", "others"], cwd=cwd or root,
+                       capture_output=True, text=True,
+                       env={**os.environ, "CC_SOCKS": str(socks)})
+    return r.returncode, r.stdout.split(), r.stderr
+
+
+def close_all(keep):
+    for proc, s in keep:
+        s.close()
+        if proc is not None:
+            proc.kill()
+
+
+def test_only_live_sessions_in_this_checkout_are_counted():
+    """Both ways this counter has been wrong. It once reported nobody while
+    three sessions worked here, and then reported six where four were live,
+    because it read transcripts that outlast their session. A socket is held
+    by a process or it is not: here one session has gone, one is working in
+    another directory, and two are working in this checkout."""
+    keep = []
+    with tempfile.TemporaryDirectory() as tmp:
+        root, socks = a_checkout_and_sockets(tmp)
+        try:
+            here = sorted(str(a_session(socks, root, keep)) for _ in range(2))
+            a_session(socks, tmp, keep)          # live, working somewhere else
+            a_dead_session(socks, keep)          # gone, socket left behind
+            code, out, err = others_here(root, socks)
+            assert code == 0 and sorted(out) == here, (code, out, err, here)
+        finally:
+            close_all(keep)
+
+
+def test_the_session_that_asks_is_not_one_of_the_others():
+    """The hooks run as children of the session asking, which must not be
+    told about itself: SessionStart would warn about an empty checkout and
+    pre-commit would refuse every commit."""
+    keep = []
+    with tempfile.TemporaryDirectory() as tmp:
+        root, socks = a_checkout_and_sockets(tmp)
+        here = os.getcwd()
+        try:
+            # This test process stands in for the session: it owns a socket
+            # and, while chdir'd, is working in the checkout being asked about.
+            os.chdir(root)
+            s = socket.socket(socket.AF_UNIX)
+            s.bind(str(socks / f"{os.getpid()}.sock"))
+            keep.append((None, s))
+            other = str(a_session(socks, root, keep))
+            code, out, err = others_here(root, socks)
+            assert code == 0 and out == [other], (code, out, err, other)
+        finally:
+            os.chdir(here)
+            close_all(keep)
+
+
+def test_sockets_that_cannot_be_found_stop_the_counter():
+    """An empty answer and no answer must not look alike: that is how the
+    first design hid for a month."""
+    with tempfile.TemporaryDirectory() as tmp:
+        root, _ = a_checkout_and_sockets(tmp)
+        code, out, err = others_here(root, Path(tmp) / "gone")
+        assert code != 0 and "cannot be answered" in err, (code, out, err)
 
 
 def test_docs_name_only_paths_that_exist():
@@ -1237,6 +1358,69 @@ def test_a_clean_paper_log_passes():
     log = ("This is LuaHBTeX, Version 1.18.0\nOutput written on "
            "arlington-bsap.pdf (14 pages).\n")
     assert paper.problems(log) == [], paper.problems(log)
+
+
+def test_a_second_empty_row_among_the_survey_responses_is_refused():
+    """A blank row below the heading is a spacer; a second one is a
+    respondent whose answers went missing, and dropping both silently
+    would shorten the file by one with nothing to show for it."""
+    mangle = patch_source(lambda d: "language" in d.columns,
+                          lambda d: pd.concat([d, d.iloc[[0]]], ignore_index=True))
+    err = breaks(build_residents_survey, "source", mangle)
+    assert err and "expected one empty row" in err, f"not caught: {err}"
+
+
+def test_a_survey_file_of_the_wrong_length_is_refused():
+    """A response file that is not the one zilo2026 counts. Every topline
+    here is checked against the published report, so reading a different
+    extract would move every number with nothing to say it had."""
+    mangle = patch_source(lambda d: "language" in d.columns, lambda d: d.iloc[:-1])
+    err = breaks(build_residents_survey, "source", mangle)
+    assert err and "not the one the report describes" in err, f"not caught: {err}"
+
+
+def test_a_survey_item_matching_two_headings_is_refused():
+    """The instrument heads the race write-in and its comment field almost
+    alike, and six other questions repeat a stem. Matching an item on a
+    phrase that reaches two of them would read the wrong column and say
+    nothing."""
+    stem = "Which of the following best describes your race or ethnicity? "
+    frame = pd.DataFrame({stem + "8. Other (please specify)": [""],
+                          stem + "8. Other (please specify) Comments": [""]})
+    try:
+        clean_residents_survey.column(frame, "8. Other (please specify)")
+    except AssertionError as e:
+        assert "matches 2 headings" in str(e), e
+    else:
+        raise AssertionError("not caught: a phrase matching two headings was accepted")
+
+
+def test_a_hispanic_respondent_naming_another_race_stays_hispanic():
+    """The census publishes race and Hispanic origin crossed, Hispanic of
+    any race first, and data/clean/residents.csv carries that crossing
+    (docs/residents.md). Reading the boxes in instrument order instead
+    would put 42 of the survey's Hispanic respondents under another race
+    and leave the two tables uncomparable, with both still summing."""
+    stem = "Which of the following best describes your race or ethnicity? "
+    boxes = {stem + "1. Asian": "", stem + "2. Black or African American": "",
+             stem + "3. Hispanic or Latino": "", stem + "4. Native American or Alaska Native": "",
+             stem + "5. White": "", stem + "6. Native Hawaiian or Pacific Islander": "",
+             stem + "7. Prefer not to respond": "",
+             stem + "8. Other (please specify)": ""}
+    def respondent(**checked):
+        row = dict(boxes)
+        for k, v in checked.items():
+            row[[c for c in row if k in c][0]] = v
+        return row
+    frame = pd.DataFrame([
+        respondent(**{"3. Hispanic": "x", "5. White": "x"}),
+        respondent(**{"5. White": "x"}),
+        respondent(**{"2. Black": "x", "5. White": "x"}),
+        respondent(**{"7. Prefer not": "x"}),
+        respondent(),
+    ])
+    got = list(clean_residents_survey.race(frame))
+    assert got == ["hispanic", "white", "other_or_multiracial", "declined", ""], got
 
 
 if __name__ == "__main__":

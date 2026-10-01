@@ -22,11 +22,18 @@ BUILT = DATA / "built"
 _INPUTS = []
 
 
+def _reader(path):
+    """The pandas reader for a source, by extension. A workbook the County
+    publishes is read where it sits, like any other raw file."""
+    return pd.read_excel if str(path).endswith((".xlsx", ".xls")) else pd.read_csv
+
+
 def source(path, **kw):
     """Read a raw or transcribed table, and remember it for write()'s check.
     Keyword arguments go to pandas; the remembered copy is read as printed."""
-    _INPUTS.append((path, pd.read_csv(path, dtype=str, keep_default_na=False)))
-    return pd.read_csv(path, **kw)
+    read = _reader(path)
+    _INPUTS.append((path, read(path, dtype=str, keep_default_na=False)))
+    return read(path, **kw)
 
 
 def _parsed(values: pd.Series) -> bool:

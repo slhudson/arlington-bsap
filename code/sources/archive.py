@@ -39,6 +39,15 @@ DOCUMENTS = (Path.home() / "Library/CloudStorage/GoogleDrive-sally@rankedchoicev
              / ".shortcut-targets-by-id/1M4kZqG-XFRNQ9jele3PcD6mfZog7E5_Q/RCVa/research"
              / "Virginia/Arlington/2026 - Form of Government/team/sources/documents")
 
+# Who indexes the census schedules. Each keys the names off a scan of the same
+# NARA microfilm and serves them behind a sign-in, so what we file is a record
+# this session read and set out on a page of its own, not the page they serve.
+INDEXERS = ("ancestry", "familysearch")
+
+# The makers a census copy's name can begin with: an indexer's record, or the
+# Census Bureau's own sheet image. A census copy is filed by maker, then year.
+COPIED_BY = ("Ancestry", "FamilySearch", "US Census")
+
 KINDS = ("legal", "reports", "books", "bios", "campaign websites", "press",
          "obituaries", "census")
 UNPLACED = "unplaced"
@@ -77,7 +86,8 @@ BOOK_TYPE = ("book", "inbook", "incollection", "thesis", "phdthesis", "mastersth
 
 def kind(e):
     """Which folder an entry's copy is filed in. The first rule that fits."""
-    if "ancestry" in e.get("howpublished", "").lower():
+    who = (e.get("howpublished", "") + " " + e.get("organization", "")).lower()
+    if any(i in who for i in INDEXERS):
         return "census"                                   # an index record and its sheet
     if re.search(r"\bobituary\b|\bdies\b", e["title"], re.I):
         return "obituaries"
@@ -170,7 +180,7 @@ def sha16(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()[:16]
 
 
-CENSUS_COPY = re.compile(r"^(Ancestry|US Census) (\d{4}) - ")
+CENSUS_COPY = re.compile(r"^(" + "|".join(COPIED_BY) + r") (\d{4}) - ")
 
 
 def subfolder(k, base):

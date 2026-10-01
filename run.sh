@@ -28,14 +28,37 @@ chmod +x .githooks/* 2>/dev/null || true
 PY=.venv/bin/python
 [ -x "$PY" ] || { echo "no venv: python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflakes"; exit 1; }
 
+# One build at a time in a checkout. data/built/ is emptied and rewritten in
+# place, so a second run deletes the tables the first is reading: it fails in
+# the test stage saying a built table is missing, which reads like a bug in the
+# clean stage and is not one. The lock makes that collision impossible rather
+# than warning about it. A crashed run leaves the directory behind; the owner's
+# pid is in it, so a stale lock is recognised and taken over, never waited on.
+LOCK=data/built/.run.lock
+mkdir -p data/built
+if ! mkdir "$LOCK" 2>/dev/null; then
+  owner=$(cat "$LOCK/.pid" 2>/dev/null || echo "")
+  if [ -n "$owner" ] && kill -0 "$owner" 2>/dev/null; then
+    echo "another run.sh is building in this checkout (pid $owner)."
+    echo "  data/built/ is shared, so the two runs would corrupt each other."
+    echo "  wait for it, or work in a worktree of your own:"
+    echo "    git worktree add .claude/worktrees/<name> -b <branch>"
+    exit 1
+  fi
+  echo "took over a lock left by run $owner, which is no longer running"
+  rm -rf "$LOCK" && mkdir "$LOCK"
+fi
+echo $$ > "$LOCK/.pid"
+trap 'rm -rf "$LOCK"' EXIT
+
 # Stage 1: data/raw/ and data/transcribed/ -> data/built/. Reshaping only;
 # each step is refused if a value its inputs carry is missing from its output.
-BUILD=(elections members_claims candidates census ipums registration localities candidates_party)
+BUILD=(elections members_claims candidates census ipums registration localities candidates_party residents_survey)
 
 # Stage 2: data/built/ -> data/clean/. Every decision about what a number
 # is. Each step is named for the file it writes, and later steps read what
 # earlier ones wrote.
-CLEAN=(residents residents_by_district members candidates members_residence members_by_year elections_results elections_turnout localities)
+CLEAN=(residents residents_by_district members candidates members_residence members_by_year elections_results elections_turnout localities residents_survey)
 
 # Stage 3: data/clean/ -> figures/. Each step is named for the figure it
 # writes. Five populations, alphabetical within each; last, the one step that

@@ -102,11 +102,29 @@ its commits can only hold its own edits, and the hook stays silent there.
 This also changed how liveness is recorded. The single
 `.claude/tmp/session.lock` held one pid, which each new session overwrote, so
 it could answer "was anyone here when I started" and never "how many are here
-now" - and a commit needs the second question. `.claude/tmp/sessions/` now
-holds one file per session, named for the pid, and `.claude/sessions.sh` prunes
-the files whose process has gone or whose shift has ended. Both the
-SessionStart hook and the commit hook read it through that one script, so they
-cannot drift apart.
+now" - and a commit needs the second question. A directory of one file per
+session replaced it, each named for the session's pid and pruned when the
+process had gone. Both the SessionStart hook and the commit hook read it
+through `.claude/sessions.sh`, so they cannot drift apart.
+
+**A guard that reports nothing looks exactly like a quiet checkout.** That
+pid directory never held anything. A session registered itself by writing a
+file named `$PPID`, but in a hook `$PPID` is the shell that invoked the
+script, which exits at once, so the next read found a dead process and
+pruned the file. The directory was therefore always empty, every
+SessionStart said "this is the only live session", and `.githooks/pre-commit`
+never refused a commit in its life. It was found on 1 October 2026 with three
+sessions live in the primary checkout, two of them committing.
+
+Liveness is now read rather than registered: Claude Code writes a transcript
+per session under `~/.claude/projects/<cwd with slashes turned to dashes>/`,
+and a session is live if its transcript has been written to within the last
+four hours. Nothing has to remember to announce itself, and the signal is
+produced by the thing whose presence is in question. `code/tests.py` builds a
+checkout with two live transcripts and one from yesterday and asserts the
+count, because the failure mode here is silence; it also asserts that
+transcripts which cannot be found stop the counter with an error instead of
+an empty answer, which is the distinction the old design lost.
 
 The hook is committed under `.githooks/` rather than left in `.git/hooks/`,
 where it would be invisible to review and absent from a fresh clone. `run.sh`
