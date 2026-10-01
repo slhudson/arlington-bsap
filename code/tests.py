@@ -1190,6 +1190,38 @@ def test_every_quotation_in_a_legal_source_is_in_the_copy_we_hold():
 
 
 
+# --- citekeys named in prose --------------------------------------------------
+
+def test_a_write_up_citing_an_entry_that_was_dropped_is_refused():
+    """1971 Ex. Sess. c. 1 was filed twice in one afternoon under two keys.
+    One was dropped on the merge, and the tracker row went on citing it: the
+    bib was consistent, the build passed, and the row pointed at nothing."""
+    with tempfile.TemporaryDirectory() as tmp:
+        doc = Path(tmp) / "questions.csv"
+        doc.write_text("the 1971 conforming act re-enacts the sections "
+                       "without it (vaacts1971c1), so the softening is later.\n")
+        assert citekeys.dangling([doc]) == [(doc, "vaacts1971c1")], \
+            "a citekey no entry defines was accepted in a write-up"
+
+
+def test_a_write_up_citing_an_entry_that_exists_passes():
+    """The other half: a live key is not flagged, so the check is not
+    simply refusing every parenthesis."""
+    with tempfile.TemporaryDirectory() as tmp:
+        doc = Path(tmp) / "members.md"
+        doc.write_text(f"the article's footnote (`{citekeys.ARLHIST_OFFICIALS}`) "
+                       f"explains the term, and so does ({citekeys.NOVACK} p. 12).\n")
+        assert citekeys.dangling([doc]) == [], "a citekey the bib defines was flagged"
+
+
+def test_every_citekey_the_write_ups_name_is_in_the_bibliography():
+    """Every docs/ file against the real bibliography."""
+    docs = sorted((ROOT / "docs").glob("*.md")) + [ROOT / "docs" / "questions.csv"]
+    bad = citekeys.dangling(docs)
+    assert not bad, "write-ups cite entries paper/sources.bib does not define:\n  " + \
+        "\n  ".join(f"{p.relative_to(ROOT)}: {k}" for p, k in bad)
+
+
 # --- where a web print stops --------------------------------------------------
 
 # Pages of a press copy printed from a web page, as code/sources/clippings.py reads

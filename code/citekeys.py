@@ -67,6 +67,30 @@ def keys():
     return set(re.findall(r"^@\w+\{([^,\s]+)\s*,", BIB.read_text(), re.M))
 
 
+# A citekey as the write-ups and the tracker name one: a surname or an outlet,
+# a year, and sometimes a word for which document it is. Written either in
+# backticks, as the markdown does, or in parentheses, as a tracker row does.
+MENTIONED = re.compile(r"`([a-z][a-z0-9]*\d{4}[a-z0-9]*)`"
+                       r"|\(([a-z][a-z0-9]*\d{4}[a-z0-9]*)(?:[^)]*)\)")
+
+
+def mentioned(text):
+    """Every citekey a write-up or a tracker row names in its prose."""
+    return {a or b for a, b in MENTIONED.findall(text)}
+
+
+def dangling(paths):
+    """Every (path, citekey) a doc names that paper/sources.bib does not
+    define. Prose citations are checked because nothing else checks them: a
+    source column is checked by check() above and a \\autocite by latex, but
+    a key in a sentence can outlive the entry it names and say nothing. One
+    did - a 1971 act was filed twice under two keys, one was dropped, and the
+    tracker row went on citing the dead one."""
+    known = keys()
+    return [(p, k) for p in paths
+            for k in sorted(mentioned(p.read_text())) if k not in known]
+
+
 def key_of(cell):
     """The citekey a source cell cites: "oleary2010 p.6" -> "oleary2010".
     Two sources for one claim are joined with "; ", so a trailing separator
