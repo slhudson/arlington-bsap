@@ -269,6 +269,7 @@ def build() -> pd.DataFrame:
     d, cut = roll.corrections(d)
     d = pd.concat([d, pd.DataFrame(list(roll.terms(d, cut)))], ignore_index=True)
     d = roll.witnessed(d)
+    d = roll.overruled(d)
     check_names(d)
     check_seated_by(d)
     roll.check_empty_is_the_roll(d)

@@ -337,12 +337,25 @@ The roll is also a second witness where Novack already speaks. For 1932 to
 1994 the two are independent records of the same Board, both are cited on the
 terms they agree about, and `check_against_novack` refuses a year where they
 name different people. They agree on all ten departures the roll dates in
-those years and on the membership of every year but four, each declared: the
+those years and on the membership of every year but three, each declared: the
 roll seats a November winner in the year of the election where the roster
-seats him the following January (1939), it appoints Howard Massey in November
-1952 where Novack has him in September, and in 1941 and 1986 it prints one
+seats him the following January (1939), and in 1941 and 1986 it prints one
 name twice where the fifth member should be, leaving out Elizabeth Magruder
 and John Milliken, whom Novack names.
+
+**Neither record wins by default, so a disagreement is read against a third
+source.** Novack is a historian working from the Board's records and is the
+better witness to what a term was; the roll is the county's administrative
+list and the better witness to a date, but it misspells Blevins, prints a
+name twice in two years and leaves a member out each time. One disagreement
+has arisen and `members_roster_roll.OVERRULED` holds it: the roll dates
+Howard Massey's appointment to 10 November 1952, alongside the three members
+elected on 4 November, where Novack has him appointed on 18 September to
+serve until that election. The Daily Sun of 11 September 1952 settles it in
+Novack's favour, naming Massey one of three the judge appointed that month -
+"Picks Byrne, Tillema, Massey; Replaces Dugan, Dean And Cox 'Til After Nov. 4
+Vote" (`dailysun1952appointees`). A disagreement with no third source to
+read it against stops the build rather than being resolved here.
 
 **A month belongs to whoever held the seat for any part of it.** The roll
 dates a departure and an arrival to the day; the roster counts whole months,

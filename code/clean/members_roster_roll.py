@@ -271,7 +271,8 @@ EXPECTED = {
     # holds the outgoing three to the end of the year.
     1939: {"Edmund D. Campbell", "Basil M. DeLashmutt", "Leo C. Lloyd",
            "George M. Yeatman", "W. A. E. McShea", "W. P. Ames"},
-    1952: {"Howard R. Massey"},     # the roll appoints him in November, Novack in September
+    # Nothing: the roll's November date for Massey is settled below in
+    # OVERRULED, not tolerated here.
     # The roll prints one name twice where the fifth member should be, so the
     # member Novack names in that seat is in no roll entry: F. Freeland Chew
     # is printed twice in 1941 and Mary Margaret Whipple in 1986, and these
@@ -375,3 +376,35 @@ def check_empty_is_the_roll(d: pd.DataFrame):
         if (came, ay, am) not in comes:
             raise ValueError(f"EMPTY has {came} seated in {ay}-{am:02d}, which the roll "
                              f"does not date")
+
+
+# A date the roll gives that a third source overrules, with the term it
+# belongs to and what settled it. The roll and Novack are independent records
+# and neither wins by default (docs/members.md), so a disagreement is read
+# against something else rather than resolved by preference.
+OVERRULED = {
+    ("Howard R. Massey", 1952): (
+        "dailysun1952appointees",
+        "The roll puts this appointment on 10 November 1952, with the three members "
+        "elected on 4 November. The Daily Sun of 11 September 1952 names Massey one of "
+        "the three the judge appointed that month - \u201cPicks Byrne, Tillema, Massey; "
+        "Replaces Dugan, Dean And Cox \u2018Til After Nov. 4 Vote\u201d - which is "
+        "Novack's September date, and the term is read from Novack.",
+    ),
+}
+
+
+def overruled(d: pd.DataFrame) -> pd.DataFrame:
+    """The source that settled a disagreement with the roll, cited on the
+    term it settles, with the disagreement in the note."""
+    d = d.copy()
+    for (name, year), (cites, why) in OVERRULED.items():
+        rows = d[(d.name == name) & (d.start_year == year)]
+        if len(rows) != 1:
+            raise ValueError(f"OVERRULED names {name} in {year}, which matches "
+                             f"{len(rows)} terms; expected one")
+        i = rows.index[0]
+        if cites not in d.at[i, "source"]:
+            d.at[i, "source"] = f"{d.at[i, 'source']}; {cites}"
+        d.at[i, "note"] = (d.at[i, "note"] + " " + why).strip()
+    return d
