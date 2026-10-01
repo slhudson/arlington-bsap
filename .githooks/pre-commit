@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Refuse a commit in the primary checkout while more than one session is live.
+# Refuse a commit in the primary checkout while another session is live in it.
 #
 # Installed by run.sh, which points core.hooksPath here. Not active in a
 # worktree: a worktree has its own working tree, so its commits can only hold
@@ -21,11 +21,11 @@ cd "$(git rev-parse --show-toplevel)"
 [ -f .claude/sessions.sh ] || exit 0
 
 live=$(bash .claude/sessions.sh others | wc -l | tr -d ' ')
-[ "$live" -le 1 ] && exit 0
+[ "$live" -eq 0 ] && exit 0
 
 cat >&2 <<EOF
 
-Refusing this commit: $live Claude sessions are live in this checkout.
+Refusing this commit: $live other Claude sessions are live in this checkout.
 
 A commit here would carry whatever anyone else has in flight, under your
 message. That has happened (docs/repository.md).

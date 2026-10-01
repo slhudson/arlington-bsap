@@ -12,10 +12,10 @@ import hashlib
 import os
 import re
 import shutil
+import socket
 import subprocess
 import sys
 import tempfile
-import time
 from pathlib import Path
 
 import pandas as pd
@@ -1122,62 +1122,103 @@ def test_an_event_promotion_is_not_the_article():
 
 
 
-# --- how many sessions are live in this checkout ------------------------------
+# --- how many other sessions are live in this checkout ------------------------
 
-def a_checkout_with_transcripts(tmp, fresh=(), stale=()):
-    """A throwaway repo carrying .claude/sessions.sh, and a directory of
-    session transcripts to ask it about. Not a worktree: the counter answers
-    only for a primary checkout, which is the only shared one."""
-    root, transcripts = Path(tmp) / "repo", Path(tmp) / "transcripts"
+def a_checkout_and_sockets(tmp):
+    """A throwaway repo carrying .claude/sessions.sh, and a directory to put
+    session sockets in. Not a worktree: the counter answers only for a
+    primary checkout, which is the only shared one."""
+    root, socks = Path(tmp) / "repo", Path(tmp) / "socks"
     (root / ".claude").mkdir(parents=True)
-    transcripts.mkdir()
+    socks.mkdir()
     subprocess.run(["git", "init", "-q", "."], cwd=root, check=True)
     shutil.copy(ROOT / ".claude" / "sessions.sh", root / ".claude" / "sessions.sh")
-    for name in fresh:
-        (transcripts / f"{name}.jsonl").touch()
-    for name in stale:
-        f = transcripts / f"{name}.jsonl"
-        f.touch()
-        old = time.time() - 60 * 60 * 24
-        os.utime(f, (old, old))
-    return root, transcripts
+    return root, socks
 
 
-def live_sessions(root, transcripts, stdin=None, arg="others"):
-    r = subprocess.run(["bash", ".claude/sessions.sh", arg], cwd=root, input=stdin or "",
+def a_session(socks, cwd, keep):
+    """A process standing in for a Claude session working in cwd, with the
+    socket the app opens for it. Returns its pid."""
+    proc = subprocess.Popen(["sleep", "60"], cwd=cwd)
+    s = socket.socket(socket.AF_UNIX)
+    s.bind(str(Path(socks) / f"{proc.pid}.sock"))
+    keep.append((proc, s))
+    return proc.pid
+
+
+def a_dead_session(socks, keep):
+    """A socket left behind by a session that has gone."""
+    proc = subprocess.Popen(["true"])
+    proc.wait()
+    s = socket.socket(socket.AF_UNIX)
+    s.bind(str(Path(socks) / f"{proc.pid}.sock"))
+    keep.append((None, s))
+    return proc.pid
+
+
+def others_here(root, socks, cwd=None):
+    r = subprocess.run(["bash", ".claude/sessions.sh", "others"], cwd=cwd or root,
                        capture_output=True, text=True,
-                       env={**os.environ, "SESSIONS_DIR": str(transcripts)})
+                       env={**os.environ, "CC_SOCKS": str(socks)})
     return r.returncode, r.stdout.split(), r.stderr
 
 
-def test_a_live_session_is_counted():
-    """The failure this counter had: it reported an empty checkout while
-    three sessions were working in it, so every SessionStart said nobody was
-    here and .githooks/pre-commit never refused a commit. Two sessions are
-    live here and one stopped yesterday."""
+def close_all(keep):
+    for proc, s in keep:
+        s.close()
+        if proc is not None:
+            proc.kill()
+
+
+def test_only_live_sessions_in_this_checkout_are_counted():
+    """Both ways this counter has been wrong. It once reported nobody while
+    three sessions worked here, and then reported six where four were live,
+    because it read transcripts that outlast their session. A socket is held
+    by a process or it is not: here one session has gone, one is working in
+    another directory, and two are working in this checkout."""
+    keep = []
     with tempfile.TemporaryDirectory() as tmp:
-        root, transcripts = a_checkout_with_transcripts(tmp, ("aaa", "bbb"), ("ccc",))
-        code, out, err = live_sessions(root, transcripts)
-        assert code == 0 and out == ["aaa", "bbb"], (code, out, err)
+        root, socks = a_checkout_and_sockets(tmp)
+        try:
+            here = sorted(str(a_session(socks, root, keep)) for _ in range(2))
+            a_session(socks, tmp, keep)          # live, working somewhere else
+            a_dead_session(socks, keep)          # gone, socket left behind
+            code, out, err = others_here(root, socks)
+            assert code == 0 and sorted(out) == here, (code, out, err, here)
+        finally:
+            close_all(keep)
 
 
-def test_the_session_asking_is_not_one_of_the_others():
-    """SessionStart asks who else is here, and is handed its own id on
-    stdin."""
+def test_the_session_that_asks_is_not_one_of_the_others():
+    """The hooks run as children of the session asking, which must not be
+    told about itself: SessionStart would warn about an empty checkout and
+    pre-commit would refuse every commit."""
+    keep = []
     with tempfile.TemporaryDirectory() as tmp:
-        root, transcripts = a_checkout_with_transcripts(tmp, ("aaa", "bbb"))
-        code, out, err = live_sessions(root, transcripts, '{"session_id":"aaa"}', "register")
-        assert code == 0 and out == ["bbb"], (code, out, err)
+        root, socks = a_checkout_and_sockets(tmp)
+        here = os.getcwd()
+        try:
+            # This test process stands in for the session: it owns a socket
+            # and, while chdir'd, is working in the checkout being asked about.
+            os.chdir(root)
+            s = socket.socket(socket.AF_UNIX)
+            s.bind(str(socks / f"{os.getpid()}.sock"))
+            keep.append((None, s))
+            other = str(a_session(socks, root, keep))
+            code, out, err = others_here(root, socks)
+            assert code == 0 and out == [other], (code, out, err, other)
+        finally:
+            os.chdir(here)
+            close_all(keep)
 
 
-def test_transcripts_that_cannot_be_found_stop_the_counter():
-    """An empty answer and no answer must not look alike: that is how the old
-    design hid. A missing transcript directory fails loudly."""
+def test_sockets_that_cannot_be_found_stop_the_counter():
+    """An empty answer and no answer must not look alike: that is how the
+    first design hid for a month."""
     with tempfile.TemporaryDirectory() as tmp:
-        root, _ = a_checkout_with_transcripts(tmp)
-        code, out, err = live_sessions(root, Path(tmp) / "gone")
+        root, _ = a_checkout_and_sockets(tmp)
+        code, out, err = others_here(root, Path(tmp) / "gone")
         assert code != 0 and "cannot be answered" in err, (code, out, err)
-
 
 
 def test_docs_name_only_paths_that_exist():

@@ -1,39 +1,44 @@
 #!/usr/bin/env bash
-# Which Claude sessions are live in the primary checkout right now.
+# Which other Claude sessions are live in the primary checkout right now.
 #
-#   bash .claude/sessions.sh others     print the live session ids, one per line
-#   bash .claude/sessions.sh register   the same, less the caller's own
+#   bash .claude/sessions.sh others     print their pids, one per line
+#   bash .claude/sessions.sh register   the same; the SessionStart hook's name
 #
 # Two callers share this so they cannot disagree: the SessionStart hook in
 # .claude/settings.json, which advises at the start of a session, and
-# .githooks/pre-commit, which refuses a commit in a shared checkout.
+# .githooks/pre-commit, which refuses a commit in a shared checkout. Both run
+# as descendants of the session that asks, so both can be told about the
+# others and leave the asker out.
 #
-# A session is live if Claude Code has written to its transcript recently.
-# Nothing registers and nothing is pruned: Claude writes the transcripts
-# itself, one per session under ~/.claude/projects/<cwd with slashes turned
-# to dashes>/, and a running session appends to its own as it works. Reading
-# those asks what is true rather than trusting sessions to say so.
+# Claude Code opens one socket per live session at /tmp/cc-socks/<pid>.sock.
+# That is the signal used here: the pid is testable with kill -0, and lsof
+# gives the process's working directory, so a session counts only if it is
+# working in this checkout. The asking session is found by walking up from
+# this script until a parent turns out to own one of those sockets.
 #
-# The design this replaced had each session write a file named for $PPID and
-# tested liveness with kill -0. In a hook $PPID is the shell that invoked the
-# script, which exits immediately, so every registration was pruned by the
-# next read and the directory stood empty. Both callers then believed nobody
-# was here: every SessionStart said "this is the only live session", and the
-# pre-commit hook never refused a commit. Found on 1 October 2026 with three
-# sessions live in this checkout. docs/repository.md has the incident the
-# guard exists for, and this one.
+# Two earlier designs failed in opposite directions, and both are why the
+# tests below exist.
 #
-# Failure here is loud, because silence is how the old design went wrong: if
-# the transcripts cannot be found this says so and exits non-zero rather than
-# reporting an empty checkout.
+# Sessions used to register themselves, writing a file named $PPID. In a hook
+# $PPID is the invoking shell, which exits at once, so the next read found a
+# dead process and pruned the file. The directory was always empty, every
+# SessionStart said "this is the only live session", and .githooks/pre-commit
+# never refused a commit.
+#
+# Replacing that, liveness was read from the per-session transcripts under
+# ~/.claude/projects/, counting any written to within four hours. That
+# over-counted: a transcript keeps its timestamp after its session exits, and
+# subagents write transcripts of their own. Six were counted in a checkout
+# holding four sessions, which refuses every commit and teaches everyone
+# --no-verify - worse than the silence it replaced. A socket is held open by
+# a process or it is not, so there is no window to tune.
+#
+# Failure is loud. An empty answer and no answer must not look alike: that is
+# how the first design hid.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-# A session idle longer than this is treated as gone. A session that is
-# committing is always fresh, so the window only governs how long an idle one
-# goes on blocking it: long enough to cover a lunch, short enough that
-# yesterday's sessions do not count.
-HEARTBEAT=${SESSIONS_HEARTBEAT:-14400}   # 4 hours
+SOCKS=${CC_SOCKS:-/tmp/cc-socks}
 
 # Worktrees have their own .git file; only the primary checkout is shared, and
 # it is the only place this question means anything.
@@ -41,47 +46,45 @@ if [ "$(git rev-parse --git-dir 2>/dev/null)" != "$(git rev-parse --git-common-d
   exit 0
 fi
 
+if [ ! -d "$SOCKS" ]; then
+  echo "sessions.sh: no session sockets under $SOCKS, so how many sessions are" \
+       "live here cannot be answered" >&2
+  exit 1
+fi
 
-live() {
-  # Claude Code names a project's directory for its path, slashes turned to
-  # dashes. SESSIONS_DIR overrides it so code/tests.py can hand this a
-  # directory it built itself.
-  local dir=${SESSIONS_DIR:-"$HOME/.claude/projects/$(pwd -P | tr / -)"}
-  if [ ! -d "$dir" ]; then
-    echo "sessions.sh: no transcripts under $dir, so how many sessions are live" \
-         "here cannot be answered" >&2
-    exit 1
-  fi
-  local now written f
-  now=$(date +%s)
-  for f in "$dir"/*.jsonl; do
-    [ -e "$f" ] || continue
-    # -f %m is stat's mtime on macOS, which is what this repo runs on.
-    written=$(stat -f %m "$f" 2>/dev/null || echo 0)
-    [ $((now - written)) -lt "$HEARTBEAT" ] && basename "$f" .jsonl
+here=$(pwd -P)
+
+# The pid of a live session working in this checkout, or nothing.
+session_at_here() {
+  local pid=$1
+  kill -0 "$pid" 2>/dev/null || return 0
+  local cwd
+  cwd=$(lsof -a -p "$pid" -d cwd -Fn 2>/dev/null | sed -n 's/^n//p' | head -1)
+  [ "$cwd" = "$here" ] && echo "$pid"
+  return 0
+}
+
+# Which of those sessions this script is running under. A hook is a child of
+# the session that triggered it, so its own session is somewhere above it.
+asker() {
+  local p=$$ i
+  for i in 1 2 3 4 5 6 7 8; do
+    [ -S "$SOCKS/$p.sock" ] && { echo "$p"; return 0; }
+    p=$(ps -o ppid= -p "$p" 2>/dev/null | tr -d ' ')
+    { [ -z "$p" ] || [ "$p" -le 1 ]; } && return 0
   done
   return 0
 }
 
-
 case "${1:-others}" in
-  others)
-    # No session to leave out: a hook run by git cannot tell which session it
-    # serves, so the caller asks "how many are here", not "is anyone but me".
-    live
-    ;;
-  register)
-    # The SessionStart hook is given its own session on stdin as JSON, and
-    # wants the others. Without it - run by hand at a terminal - nothing is
-    # left out.
-    self=
-    [ -t 0 ] || self=$(cat | sed -n \
-        's/.*"session_id"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' | head -1)
-    if [ -n "$self" ]; then
-      live | grep -vxF "$self" || true
-    else
-      live
-    fi
+  others|register)
+    self=$(asker)
+    for s in "$SOCKS"/*.sock; do
+      [ -S "$s" ] || continue
+      pid=$(basename "$s" .sock)
+      [ "$pid" = "$self" ] && continue
+      session_at_here "$pid"
+    done
     ;;
   *)
     echo "usage: sessions.sh [others|register]" >&2
