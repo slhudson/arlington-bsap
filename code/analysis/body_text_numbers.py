@@ -7,6 +7,8 @@ whole number, with "per cent" left to the sentence.
 
     share<District><Year>       the district's share of the county, 1870-1930
     blackShare<District><Year>  the Black share of the district, 1870 and 1920
+    genderCensusShareMembers    members whose gender comes from a census sheet
+    raceAssumedShareMembers     members recorded White on no source's say
 
     Jefferson held \shareJeffersonEighteenSeventy{} per cent of the county.
 
@@ -27,6 +29,21 @@ def per_cent(part, whole) -> str:
     return str((Decimal(int(part)) * 100 / Decimal(int(whole))).quantize(0, ROUND_HALF_UP))
 
 
+def member_shares() -> dict:
+    """How members, not seat-years, are known: one row per person, by name.
+
+    genderCensusShareMembers   share of all members whose gender comes from a
+                                census sheet, the rest read from the press
+    raceAssumedShareMembers    share of all members recorded White because no
+                                source says otherwise
+    """
+    m = pd.read_csv(paths.MEMBERS).drop_duplicates(subset="name")
+    return {
+        "genderCensusShareMembers": per_cent(m.gender_source.str.contains("census").sum(), len(m)),
+        "raceAssumedShareMembers": per_cent((m.race_source == "assumed").sum(), len(m)),
+    }
+
+
 def numbers() -> dict:
     """Every command's name and value, in the order the file lists them."""
     d = pd.read_csv(paths.RESIDENTS_BY_DISTRICT)
@@ -36,6 +53,7 @@ def numbers() -> dict:
             out[f"share{r.district}{YEARS[year]}"] = per_cent(r.total, g.total.sum())
     for r in d[d.black.notna()].itertuples():
         out[f"blackShare{r.district}{YEARS[r.year]}"] = per_cent(r.black, r.total)
+    out.update(member_shares())
     return out
 
 

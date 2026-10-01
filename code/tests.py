@@ -810,6 +810,11 @@ def test_a_body_text_number_is_the_clean_tables_number():
         expected[f"share{r.district}{words[r.year]}"] = rounded(r.total, county)
         if pd.notna(r.black):
             expected[f"blackShare{r.district}{words[r.year]}"] = rounded(r.black, r.total)
+
+    m = pd.read_csv(ROOT / "data" / "clean" / "members.csv").drop_duplicates(subset="name")
+    expected["genderCensusShareMembers"] = rounded(m.gender_source.str.contains("census").sum(), len(m))
+    expected["raceAssumedShareMembers"] = rounded((m.race_source == "assumed").sum(), len(m))
+
     wrong = [f"\\{name} is {value}, the table gives {expected.get(name, 'nothing')}"
              for name, value, _ in body_text_numbers() if expected.get(name) != value]
     assert not wrong, "paper/body_text_numbers.tex:\n  " + "\n  ".join(wrong)
