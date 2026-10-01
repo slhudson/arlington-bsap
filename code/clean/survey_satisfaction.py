@@ -1,8 +1,8 @@
-"""The Resident Satisfaction Survey, respondent by respondent -> data/clean/residents_survey.csv
+"""The Resident Satisfaction Survey, respondent by respondent -> data/clean/survey_satisfaction.csv
 
 One row per respondent, 2026, holding the items the report reads and the
 demographics it cuts them by. Every decision about what a value *is* is
-made here; docs/residents_survey.md has the reasoning.
+made here; docs/survey_satisfaction.md has the reasoning.
 
 The scale is kept as the instrument prints it, five points plus "Don't Know",
 because collapsing it into a satisfied share is presentation and belongs in
@@ -10,7 +10,7 @@ code/analysis/. What this step settles is the three kinds of non-answer the
 workbook does not distinguish for us - a blank, an explicit decline, and
 "Don't Know" - and the collapse of eight race boxes into one category.
 
-    respondent            its row in data/built/residents_survey.csv, from 0
+    respondent            its row in data/built/survey_satisfaction.csv, from 0
     familiar .. trust_manager    question 4, five-point agreement
     transparency, engagement     question 3, five-point satisfaction
     communication                question 1, five-point satisfaction
@@ -65,8 +65,8 @@ def column(frame: pd.DataFrame, phrase: str) -> pd.Series:
     if len(hit) != 1:
         raise AssertionError(
             f"{phrase!r} matches {len(hit)} headings in the workbook, not one. "
-            f"The instrument has changed; check code/clean/residents_survey.py "
-            f"against data/built/residents_survey.csv.")
+            f"The instrument has changed; check code/clean/survey_satisfaction.py "
+            f"against data/built/survey_satisfaction.csv.")
     return frame[hit[0]]
 
 
@@ -99,7 +99,7 @@ def race(frame: pd.DataFrame) -> pd.Series:
 
 
 def clean() -> pd.DataFrame:
-    sheet = paths.built("residents_survey")
+    sheet = paths.built("survey_satisfaction")
     out = pd.DataFrame({"respondent": range(len(sheet))})
     for name, phrase in ITEMS.items():
         out[name] = printed(column(sheet, phrase)).values
@@ -110,4 +110,4 @@ def clean() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    paths.write(clean(), "residents_survey")
+    paths.write(clean(), "survey_satisfaction")

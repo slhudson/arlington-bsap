@@ -17,7 +17,7 @@ Board structure, and whether that structure is right for this community.
 Question 3 supplies two more on a satisfaction scale, transparency of the
 County's decision-making process and opportunities for public engagement, and
 question 1 supplies the effectiveness of the County's communication with the
-public. `data/clean/residents_survey.csv` carries those eight items, one row
+public. `data/clean/survey_satisfaction.csv` carries those eight items, one row
 per respondent, beside the demographics the report cuts them by.
 
 ## What a blank means
@@ -25,7 +25,7 @@ per respondent, beside the demographics the report cuts them by.
 The workbook records three different refusals and distinguishes none of them.
 A respondent can leave an item blank, can choose "Don't Know" where the
 satisfaction scales offer it, or can choose "Prefer not to answer" where the
-demographic questions offer it. `code/clean/residents_survey.py` keeps all
+demographic questions offer it. `code/clean/survey_satisfaction.py` keeps all
 three apart: an explicit refusal becomes `declined`, "Don't Know" stays as the
 instrument prints it, and a blank stays blank.
 
@@ -50,7 +50,7 @@ may be checked, and 84 respondents check more than one. The census asks race
 and Hispanic origin as two questions and publishes them crossed, and
 `data/clean/residents.csv` carries that crossing, so the two tables can only be
 set side by side if the survey is cut the same way (`docs/residents.md`).
-`code/clean/residents_survey.py` therefore reads Hispanic of any race first,
+`code/clean/survey_satisfaction.py` therefore reads Hispanic of any race first,
 then among the rest White, Black, and Asian or Pacific Islander alone, and
 puts everyone else — a respondent naming two races, American Indian or Alaska
 Native, or "Other" — together. The 173 respondents who check "Prefer not to
@@ -70,7 +70,7 @@ What does have a trend is transparency, and it falls from 42 per cent
 satisfied in 2018 and 42 in 2022 to 36 in 2026. Those values exist only as a
 bar chart on page 83 of the report, printed as an image whose numbers no
 software can read, so a person read them off the chart and keyed them into
-`data/transcribed/by_claude/residents_survey_by_year.csv` with the page. Eleven
+`data/transcribed/by_claude/survey_satisfaction_by_year.csv` with the page. Eleven
 of question 3's twelve items appear there; the County's efforts to improve
 equity is on the instrument and not on the chart.
 

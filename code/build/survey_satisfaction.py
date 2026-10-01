@@ -1,10 +1,10 @@
-"""The County's Resident Satisfaction Survey response file -> data/built/residents_survey.csv
+"""The County's Resident Satisfaction Survey response file -> data/built/survey_satisfaction.csv
 
 The workbook as a table: one row per respondent, one column per question as
 the sheet heads it, every value as printed ("1. Own", "Strongly Agree",
 "Don't Know"). Headings keep the instrument's wording, typos and all, and
 race and home language stay one column per option, because this stage
-reshapes and never decides. code/clean/residents_survey.py names the items,
+reshapes and never decides. code/clean/survey_satisfaction.py names the items,
 collapses the categories and says what a blank means.
 
 The sheet carries one wholly empty row between the heading and the first
@@ -17,7 +17,7 @@ import pandas as pd
 
 from paths import RAW, source, write
 
-WORKBOOK = RAW / "arlington_county" / "residents_survey_data.xlsx"
+WORKBOOK = RAW / "arlington_county" / "survey_satisfaction_data.xlsx"
 
 # What the published report counts, and so what this file must hold (zilo2026).
 RESPONDENTS = 1613
@@ -40,4 +40,4 @@ def build() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    write(build(), "residents_survey")
+    write(build(), "survey_satisfaction")
