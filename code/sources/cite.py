@@ -76,13 +76,13 @@ def text_problem(pdf):
     return None
 
 
-def entry_text(a, filename, kind):
+def entry_text(a, filename, folder):
     today = date.today().isoformat()
     fields = [("author", "{" + a.author + "}"), ("title", a.title)]
     if a.organization:
         fields.append(("organization", a.organization))
     fields += [("date", a.date), ("url", a.url), ("urldate", today), ("note", a.note),
-               ("annotation", f'Read {today}. Filed in Drive as "{kind}/{filename}", '
+               ("annotation", f'Read {today}. Filed in Drive as "{folder}/{filename}", '
                               + ("saved as published" if a.url.lower().endswith(AS_PUBLISHED)
                                  else "a copy printed in Sally's own browser" if a.copy
                                  else "printed from the page")
@@ -127,9 +127,13 @@ def main():
     # has the rule, so a copy is filed under the name the archive would give it.
     stem = archive.canonical(entry, re.sub(r"[/:]", "-", f"{a.author} {year} - {a.title}"))
     filename = stem + ext
-    target = a.documents / kind / filename
+    # Three kinds are filed in subfolders, so the folder is archive.subfolder()'s
+    # and not the bare kind: a copy lands where the archive would put it, and
+    # the annotation names that path.
+    folder = archive.subfolder(entry, filename)
+    target = a.documents / folder / filename
     if target.exists():
-        sys.exit(f"{kind}/{filename} is already in the folder")
+        sys.exit(f"{folder}/{filename} is already in the folder")
 
     with tempfile.TemporaryDirectory() as tmp:
         got = Path(tmp) / filename
@@ -143,11 +147,11 @@ def main():
         if why:
             sys.exit(f"{a.key}: {why}. Open the page in Sally's own browser, print it "
                      f"to PDF, and run this again with --copy <that file>.")
-        target.parent.mkdir(exist_ok=True)
+        target.parent.mkdir(parents=True, exist_ok=True)
         shutil.move(got, target)
 
-    archive.BIB.write_text(bib.rstrip("\n") + "\n\n" + entry_text(a, filename, kind))
-    print(f"{a.key}: filed as {kind}/{filename}; entry appended to sources.bib")
+    archive.BIB.write_text(bib.rstrip("\n") + "\n\n" + entry_text(a, filename, folder))
+    print(f"{a.key}: filed as {folder}/{filename}; entry appended to sources.bib")
 
 
 if __name__ == "__main__":
