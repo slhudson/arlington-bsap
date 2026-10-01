@@ -195,7 +195,7 @@ for are the same: `Font shape ... undefined, defaults substituted` means a face
 is missing from `style/fonts/` or from the `\setmainfont` declaration, and
 undefined citations mean biber did not run.
 
-## What `code/tests.py`'s 88 tests guard, 1 October 2026
+## What `code/tests.py` guards, 1 October 2026
 
 A read of every test, each checked against the guard it names and against
 what else in the file exercises the same code.
