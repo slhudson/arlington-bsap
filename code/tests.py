@@ -1046,6 +1046,35 @@ def test_a_census_record_is_filed_as_one_whoever_indexed_it():
 
 
 
+def test_an_obituary_is_named_for_the_person_it_is_for():
+    """An obituary filed under its writer or the site it was read on. The
+    folder answers "do we hold one for Grotos", so the person leads and the
+    outlet follows; the Munsey obituary is headed Virdell and the roster says
+    Everard, which is why the name comes from `subject` and not the title."""
+    e = {"type": "online", "key": "planted", "title": "Virdell Munsey Obituary",
+         "subject": "Everard Munsey", "organization": "The Washington Post, via Legacy.com"}
+    assert archive.canonical(e, "Legacy.com 2025 - Virdell Munsey Obituary.pdf") == \
+        "Munsey 2025 - Virdell Munsey Obituary (Washington Post).pdf"
+    scan = {"type": "article", "key": "planted", "title": "Leo C. Lloyd Dies",
+            "subject": "Leo C. Lloyd", "pages": "1", "location": "Arlington",
+            "journaltitle": "The Arlington Daily"}
+    assert archive.canonical(scan, "Arlington Daily 1947 - Leo C. Lloyd Dies (3 November 1947, p. 1).pdf") == \
+        "Lloyd 1947 - Leo C. Lloyd Dies (Arlington Daily, 3 November 1947, p. 1).pdf"
+
+
+def test_every_obituary_names_the_person_it_is_for():
+    """`subject` is what the filename is built from, so an obituary without
+    one is filed under whoever wrote it and nobody notices."""
+    bib = archive.entries(archive.BIB.read_text())
+    roster = (ROOT / "data" / "clean" / "members.csv").read_text()
+    missing = [e["key"] for e in bib if archive.kind(e) == "obituaries" and not e.get("subject")]
+    assert not missing, "obituaries that do not name their subject:\n  " + "\n  ".join(missing)
+    unknown = [(e["key"], archive.plain(e["subject"])) for e in bib
+               if archive.kind(e) == "obituaries" and archive.plain(e["subject"]) not in roster]
+    assert not unknown, ("obituaries whose subject is not a name in data/clean/members.csv:\n  "
+                         + "\n  ".join(f"{k}: {w}" for k, w in unknown))
+
+
 def test_a_press_copy_is_named_for_its_outlet():
     """A filed article named for its byline. The folder is read by someone
     looking for what a paper printed, and the scans were always named for the

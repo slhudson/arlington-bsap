@@ -132,17 +132,47 @@ def outlet(e):
     return re.sub(r"^The\s+", "", o)
 
 
+# A generational suffix is not the name a folder sorts under.
+SUFFIX = re.compile(r"^(Jr|Sr|I{1,3}|IV|V)\.?$", re.I)
+
+
+def surname(who):
+    """The word a person is filed under: the last of their name that is not a
+    generational suffix, so James B. Hunter III files under Hunter."""
+    parts = [w for w in plain(who).split() if not SUFFIX.match(w)]
+    return parts[-1] if parts else ""
+
+
 def canonical(e, base):
-    """What a filed copy is called. A press copy is named for its outlet and
-    not its byline: the folder is read by someone looking for what a paper
-    printed, who knows the Sun Gazette and not which of its reporters wrote
-    this. A scan of a printed page was always named this way; this is what
-    makes a page read online match it. Every other kind keeps the name it
-    was filed under, which is its author's."""
+    """What a filed copy is called.
+
+    A press copy is named for its outlet and not its byline: the folder is
+    read by someone looking for what a paper printed, who knows the Sun
+    Gazette and not which of its reporters wrote this. A scan of a printed
+    page was always named this way; this is what makes a page read online
+    match it.
+
+    An obituary is read the other way round - whether we hold one for Grotos -
+    so it leads with the person it is for, from `subject`, which is the
+    roster's name for them and not always the headline's, and carries its
+    outlet at the end. Every other kind keeps its author's name."""
     m = FILED_NAME.match(base)
-    if kind(e) != "press" or not m or not outlet(e):
+    if not m or not outlet(e):
         return base
-    return f"{outlet(e)} {m.group(2)} - {m.group(3)}"
+    who, year, rest = m.groups()
+    if kind(e) == "press":
+        return f"{outlet(e)} {year} - {rest}"
+    if kind(e) == "obituaries" and e.get("subject"):
+        stem, dot, ext = rest.rpartition(".")
+        if outlet(e) not in stem:
+            # A scan already ends with the page it was printed on, and the
+            # paper belongs in front of that rather than in parentheses of
+            # its own: "(Arlington Daily, 3 November 1947, p. 1)".
+            m2 = re.search(r"\(([^()]*)\)$", stem)
+            stem = (stem[:m2.start()] + f"({outlet(e)}, {m2.group(1)})" if m2
+                    else f"{stem} ({outlet(e)})")
+        return f"{surname(e['subject'])} {year} - {stem}{dot}{ext}"
+    return base
 
 
 def entries(text):
