@@ -1046,6 +1046,16 @@ def test_a_census_record_is_filed_as_one_whoever_indexed_it():
 
 
 
+def test_a_hyphen_is_not_crowded_against_the_word_before_it():
+    """A title's colon becomes a hyphen when it is filed, and "Virginia- A
+    History" reads as a typo. A hyphen inside a word keeps its place."""
+    e = {"type": "book", "key": "planted", "title": "x", "organization": ""}
+    assert archive.canonical(e, "Rose 1976 - Arlington County, Virginia- A History.pdf") == \
+        "Rose 1976 - Arlington County, Virginia - A History.pdf"
+    assert archive.spaced("U.S. Census Bureau 2025 - HH-6. Households and Family- 1940.xls") == \
+        "U.S. Census Bureau 2025 - HH-6. Households and Family - 1940.xls"
+
+
 def test_an_obituary_is_named_for_the_person_it_is_for():
     """An obituary filed under its writer or the site it was read on. The
     folder answers "do we hold one for Grotos", so the person leads and the

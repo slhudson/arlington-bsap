@@ -143,6 +143,17 @@ def surname(who):
     return parts[-1] if parts else ""
 
 
+# A title's colon becomes a hyphen in a filename, and a hyphen against the word
+# before it and a space after reads as a typo: "Virginia- A History". A hyphen
+# inside a word is left alone, so HH-6 and 1870-1960 keep theirs.
+TIGHT_HYPHEN = re.compile(r"(?<=\w)- (?=\S)")
+
+
+def spaced(name):
+    """A filed name with no hyphen crowding the word before it."""
+    return TIGHT_HYPHEN.sub(" - ", name)
+
+
 def canonical(e, base):
     """What a filed copy is called.
 
@@ -156,6 +167,7 @@ def canonical(e, base):
     so it leads with the person it is for, from `subject`, which is the
     roster's name for them and not always the headline's, and carries its
     outlet at the end. Every other kind keeps its author's name."""
+    base = spaced(base)
     m = FILED_NAME.match(base)
     if not m or not outlet(e):
         return base
