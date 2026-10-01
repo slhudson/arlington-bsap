@@ -128,10 +128,40 @@ def events(kinds):
     return out
 
 
+# The two mid-term departures after 1932 that the roll leaves undated, each
+# dated by another source the roster already holds or cites.
+#
+# John G. Milliken resigned in February 1990 on his appointment as Virginia's
+# secretary of transportation, which Novack dates; the roll records it only as
+# "John G. Milliken - James Hunter (5/15/90)".
+#
+# Barbara A. Favola won the state Senate in November 2011 and the roll lists
+# her through 2011 and not in 2012, whose entry names the five members at the
+# Board's organising meeting of 2 January without her. ARLnow reports the
+# court order setting the special election for her seat as issued on 19
+# December 2011 and that "the date could not be set until Favola formally
+# resigned from the County Board", so her resignation was in hand by then
+# (arlnow2011favolaseat). Neither source gives the effective day, and the
+# month is all this stage keeps.
+DATED_ELSEWHERE = {
+    ("John G. Milliken", 1990): ((1990, 2), "novack1994"),
+    ("Barbara A. Favola", 2011): ((2011, 12), "arlnow2011favolaseat"),
+}
+
+
 def departures():
-    """{name: (year, month)} for every departure the roll dates. A member
-    who left more than once keeps each, keyed on the year."""
-    return {(name, year): (year, month) for name, year, month, _ in events(LEAVES)}
+    """{(name, year): (year, month)} for every departure the roll dates, and
+    the two DATED_ELSEWHERE dates for it."""
+    out = {(name, year): (year, month) for name, year, month, _ in events(LEAVES)}
+    for key, (when, _) in DATED_ELSEWHERE.items():
+        out.setdefault(key, when)
+    return out
+
+
+def dated_by(name, year):
+    """The citekey behind a departure the roll does not date, or the roll."""
+    found = DATED_ELSEWHERE.get((name, year))
+    return found[1] if found else SOURCE
 
 
 def arrivals():
@@ -185,10 +215,12 @@ def corrections(d: pd.DataFrame):
                                                int(d.at[i, "end_month"]))
         was = f"{int(d.at[i, 'end_year'])}-{int(d.at[i, 'end_month']):02d}"
         d.at[i, "end_year"], d.at[i, "end_month"] = year, month
-        d.at[i, "source"] = f"{d.at[i, 'source']}; {SOURCE}"
+        cites = dated_by(d.at[i, "name"], year)
+        if cites not in d.at[i, "source"]:
+            d.at[i, "source"] = f"{d.at[i, 'source']}; {cites}"
         d.at[i, "note"] = (
             (d.at[i, "note"] + " " if d.at[i, "note"] else "")
-            + f"Left the seat in {year}-{month:02d}, which the county's roll dates; the "
+            + f"Left the seat in {year}-{month:02d}, which {cites} dates; the "
               f"roster ran the term to {was}, the month the next member was seated, having "
               f"no record of the departure itself."
         ).strip()
@@ -312,6 +344,7 @@ def witnessed(d: pd.DataFrame) -> pd.DataFrame:
 # of transportation, and that month stands.
 EMPTY = [
     ("John G. Milliken", (1990, 2), "James B. Hunter III", (1990, 5)),
+    ("Barbara A. Favola", (2011, 12), "Libby T. Garvey", (2012, 3)),
     ("James B. Hunter III", (1997, 9), "Barbara A. Favola", (1997, 11)),
     ("Albert C. Eisenberg", (1999, 2), "Michael D. Lane", (1999, 4)),
     ("Charles P. Monroe", (2003, 1), "J. Walter Tejada", (2003, 3)),
@@ -333,10 +366,10 @@ def check_empty_is_the_roll(d: pd.DataFrame):
     """Every pair in EMPTY is a departure and an arrival the roll dates, in
     the month given, so the table above cannot drift from the source. Only
     Milliken's departure is exempt, being Novack's date."""
-    dated = {(name, year, month) for (name, _), (year, month) in departures().items()}
+    dated = {(name, year, month) for name, year, month, _ in events(LEAVES)}
     comes = {(name, y, m) for (name, _), (y, m, _) in arrivals().items()}
     for left, (ly, lm), came, (ay, am) in EMPTY:
-        if (left, ly, lm) not in dated and (left, (ly, lm)) != ("John G. Milliken", (1990, 2)):
+        if (left, ly, lm) not in dated and (left, ly) not in DATED_ELSEWHERE:
             raise ValueError(f"EMPTY has {left} leaving in {ly}-{lm:02d}, which the roll "
                              f"does not date")
         if (came, ay, am) not in comes:
