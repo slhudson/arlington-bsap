@@ -357,6 +357,11 @@ def index_text(bib, claims, rows, unplaced, commit):
         "bios: biography pages; campaign websites: candidate sites, "
         "questionnaires and campaign material; legal: constitutions, statutes and the like; "
         "books: scholarship, including a historical society's magazine; reports: everything else.",
+        "",
+        "A copy is named `<who> <year> - <title>`. A press copy leads with the paper that "
+        "printed it rather than the reporter who wrote it, and an obituary with the person it "
+        "is for, followed by the paper; everything else leads with its author. "
+        "`canonical()` in the same script has the rules.",
     ]
     for k in KINDS:
         held = sorted((sorted(files)[0], e) for e in bib

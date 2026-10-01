@@ -39,6 +39,18 @@ scans and the folder. Without `--apply` it only reports. It refuses to act
 while a name the bib says is filed is not in the folder, and deletes
 nothing: a file no entry names goes to `unplaced/`.
 
+A copy is named `<who> <year> - <title>.pdf`, and `archive.canonical()` decides
+the `<who>`, renaming a copy whose name does not match when it files it. Three
+rules, each from how its folder is read. A press copy leads with its outlet,
+never its byline, because the question asked of that folder is what a paper
+printed: `ARLnow 2026 - ...`, with a leading article dropped so papers do not
+shelve under *The*. An obituary leads with the person it is for, from the
+entry's `subject`, which is the roster's name for them and not always the
+headline's, and carries its outlet after the title: `Grotos 2019 - Two-Term
+Arlington Board Member Dorothy Grotos Dies at 88 (Sun Gazette).pdf`. Every
+other kind leads with its author. A new obituary must set `subject` to a name
+`data/clean/members.csv` also holds, or `code/tests.py` refuses the build.
+
 ## Citekeys
 
 Three values are not citekeys and `code/citekeys.py` says what each admits
