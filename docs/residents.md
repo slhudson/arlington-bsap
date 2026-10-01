@@ -406,6 +406,28 @@ that hardest. Arlington's own age bands show it: residents under 18 fell from
 41,564 in 1970 to 24,969 in 1980, from 24 to 16 per cent of the county, while
 those 18 and over fell only from 132,720 to 127,630.
 
+### What the White count does at 1980
+
+The White count falls from 161,329 in 1970 to 120,250 in 1980, a drop of
+41,079 in a county that lost 21,685 people over the same decade. The fall in
+the one category is nearly twice the fall in the whole, so most of it is not
+people leaving.
+
+The difference is exact: every other category grew by 19,394, and 41,079 is
+21,685 plus 19,394. Part of that growth is the question changing. The 1980
+census asked Hispanic origin of everyone and crossed it with race, so `white`
+stops meaning white and starts meaning not-Hispanic white, and the 8,863
+Hispanic residents counted that year sat inside the 1970 White count or
+arrived during the decade. That is an upper bound on the recategorisation,
+and it is 21.6 per cent of the fall. The rest is the Black count rising from
+10,076 to 13,852, the AAPI count from 1,387 to 6,792, and the residual band
+from 1,492 to 2,842.
+
+So recategorisation accounts for at most a fifth of what the White series
+does at 1980. The larger part is the county losing people, which *The 1970s
+population fall* above accounts for, and the remainder is the other
+categories growing.
+
 ### What the Black share shows
 
 Panel (b) of `residents_by_race` shows the Black share of Arlington falling
