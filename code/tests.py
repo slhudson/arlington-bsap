@@ -22,6 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "code"))
 import archive  # noqa: E402
 import citekeys  # noqa: E402
+import clippings  # noqa: E402
 import paper  # noqa: E402
 import quotations  # noqa: E402
 
@@ -1051,6 +1052,50 @@ def test_every_quotation_in_a_legal_source_is_in_the_copy_we_hold():
     assert read >= quotations.FEWEST, (
         f"only {read} quotations were read, fewer than the {quotations.FEWEST} this "
         f"check is known to cover: the copies or the annotations are not being found")
+
+
+
+# --- where a web print stops --------------------------------------------------
+
+# Pages of a press copy printed from a web page, as code/clippings.py reads
+# them: the article, then the site's own furniture.
+ARTICLE = ("Zimmerman is the second-longest serving member of the board in the county's "
+           "history, behind only Ellen Bozman, who served for 23 years.")
+FOOTER_HEAD = ("ARLINGTON, VA Advertise Contact Us Email Newsletter Event Calendar "
+               "Privacy & Other Policies Public Notices on ARLnow Readers' Choice")
+FOOTER_TAIL = ("ALXnow (Alexandria) FFXnow (Fairfax Co.) MoCoShow (Montgomery Co., Md.) "
+               "PoPville (Washington, D.C.) Potomac Local (Pr. Wm. & Stafford) RunWashington")
+
+
+def test_a_footers_list_of_sister_sites_is_not_the_article():
+    """The footer's own pages, reintroduced: its list of sister papers is as
+    many words as a paragraph, so counting words alone keeps a page of links
+    and the copy ends on the publisher's navigation."""
+    assert clippings.article_pages([ARTICLE, FOOTER_HEAD, FOOTER_TAIL]) == 1
+
+
+def test_an_article_that_shares_its_last_page_with_the_footer_is_kept():
+    """The other half: the Connection prints its footer under the end of the
+    article, and that page is the article's."""
+    assert clippings.article_pages([ARTICLE, ARTICLE + " " + FOOTER_HEAD]) == 2
+
+
+def test_a_signature_overleaf_stays_with_its_letter():
+    """Tejada's resignation letter, reintroduced: "Sincerely," ends a page and
+    the name is overleaf, three words on a page the word count would drop."""
+    pages = [ARTICLE + " Please feel free to share this message as appropriate. Sincerely,",
+             "J. Walter Tejada #Walter Tejada", FOOTER_HEAD]
+    assert clippings.article_pages(pages) == 2
+
+
+def test_an_event_promotion_is_not_the_article():
+    """A page of nothing but the site's event promotion and the writer's
+    biography, which read as prose until each block is removed."""
+    page = ("Featured Event Shop the Boulevard Manor Neighborhood Yard Sale! 30+ Homes "
+            "Participating! October 3, 2026 9:00 am-1:00 pm Read More About the Author "
+            "ARLnow.com Launched in January 2010, ARLnow.com is the place for the latest "
+            "news, views and things to do around Arlington, Virginia.")
+    assert clippings.article_pages([ARTICLE, page, FOOTER_HEAD]) == 1
 
 
 
