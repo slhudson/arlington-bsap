@@ -119,7 +119,6 @@ def main():
 
     entry = {"type": a.type, "key": a.key, "title": a.title,
              "organization": a.organization, "author": a.author}
-    kind = archive.kind(entry)
     ext = a.copy.suffix.lower() if a.copy else next(
         (x for x in AS_PUBLISHED if a.url.lower().endswith(x)), ".pdf")
     year = a.date[:4]

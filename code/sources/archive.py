@@ -263,6 +263,10 @@ FEDERAL = re.compile(r"\bUnited States\b|\bU\.S\.\b|\bCongress\b|\bFederal\b", r
 
 STATUTE = re.compile(r"\bAn act\b|\bActs (?:of|and)\b|\bJoint Resolutions\b|\bCode of Virginia\b", re.I)
 CONSTITUTION = re.compile(r"\bConstitution\b", re.I)
+# A charter is the fourth kind of primary law the report reads: a locality's
+# own instrument, read for the clauses Virginia's statute was drawn from. An
+# act granting one is a statute, so this is tested last.
+CHARTER = re.compile(r"\bcharter\b", re.I)
 
 
 def legal_subfolder(e, base):
@@ -280,7 +284,10 @@ def legal_subfolder(e, base):
         return f"legal/{whose} statutes"
     if CONSTITUTION.search(plain(e["title"])):
         return f"legal/{whose} constitutions"
-    sys.exit(f'legal copy "{base}" is not an opinion, a statute or a constitution: '
+    if CHARTER.search(plain(e["title"])):
+        return f"legal/{whose} charters"
+    sys.exit(f'legal copy "{base}" is not an opinion, a statute, a constitution '
+             f'or a charter: '
              f'file it under another kind, or name what it is in archive.legal_subfolder()')
 
 
@@ -291,8 +298,8 @@ def subfolder(e, base):
     stops answering a question. Census copies go by who made them, an
     indexer's record or the Census's own sheet image, then by census year.
     Press goes by outlet, so a paper's run is in one place. Legal goes by what
-    the document is: an opinion, a statute or a constitution. Every other kind
-    is one flat folder."""
+    the document is: an opinion, a statute, a constitution or a charter. Every
+    other kind is one flat folder."""
     k = kind(e)
     if k == "census":
         m = CENSUS_COPY.match(base)
@@ -395,7 +402,7 @@ def index_text(bib, claims, rows, unplaced, commit):
         "`kind()` in `code/sources/archive.py`; three kinds are split further, by `subfolder()`: "
         "census by who made the copy, an indexer's record or the Census's own sheet image, then "
         "by census year; press by outlet, so a paper's run is in one place; and legal by what the "
-        "document is, an opinion, a statute or a constitution. The kinds: "
+        "document is, an opinion, a statute, a constitution or a charter. The kinds: "
         "census: an index record and the Census sheet image; "
         "press: a newspaper's or magazine's page or article, printed or read online; obituaries; "
         "bios: biography pages; campaign websites: candidate sites, "
