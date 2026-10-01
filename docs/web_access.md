@@ -66,6 +66,16 @@ relying on one.
   run batches at once. Hill's Arlington
   County directories are not in Ancestry's city-directory collection; its
   Alexandria volumes cover the 1930s and 1940s only.
+- **HathiTrust** (Virginia's printed session acts). Cloudflare blocks curl
+  but passes in Sally's Chrome. Two catalog records hold them:
+  009788135 to about 1904 (1893–94 is `uva.x004737232`) and 009788134
+  from 1912, in full view through 1977 and search-only from 1978
+  (the 1952 session is `umn.31951d02280223t`). A record's volumes and
+  rights list from `catalog.hathitrust.org/api/volumes/brief/recordnumber/<record>.json`,
+  fetched in the tab. Inside a volume, `babel.hathitrust.org/cgi/pt/search?q1=<terms>&id=<htid>`
+  returns hits with page numbers and context, and `&format=plaintext` on
+  a page URL shows that page's OCR and the next few as text. A burst of a dozen page
+  fetches draws a 429 for a few minutes: one request at a time.
 - **ProQuest** (the Post 1877–2001, including the 11 November 1973
   residence map): a UVA or public-library login; neither was available.
 - **washingtonpost.com**: refuses curl and the built-in browser; in Chrome
