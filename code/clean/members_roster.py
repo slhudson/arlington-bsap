@@ -41,21 +41,44 @@ import members_roster_arlhist as arlhist
 import members_roster_novack as novack
 import members_roster_oleary as oleary
 import members_roster_results as results
-from members_terms import ELECTION, PRESENT, SEATED_BY, SPECIAL_ELECTION, UNRECORDED
+import members_roster_roll as roll
+from members_terms import (APPOINTMENT, AT_LARGE_FROM, ELECTION, PRESENT, SEATED_BY,
+                           SPECIAL_ELECTION, UNRECORDED)
 
 
-def check_five_seats(d: pd.DataFrame, first=1995, last=PRESENT):
-    """Five members at large in every month; six in a handover month."""
+def check_seats(d: pd.DataFrame, first=AT_LARGE_FROM, last=PRESENT):
+    """Five at-large seats, each held by one member in every month from 1932,
+    save the eight months members_roster_roll.vacancies() names.
+
+    The vacancies are the point, as they are for the districts below. Five
+    seats exist from 1932; whether all five are filled in a given month is a
+    fact about the world, and eight times since it has not been - Arlington
+    ran with four members while a special election was called. A seat nobody
+    held counts towards nobody, so an undeclared gap stops the build and so
+    does filling a declared one.
+
+    A mid-term arrival takes the seat in the month it was vacated, because a
+    month belongs to whoever held it for any part of it, so that month holds
+    two rows for one seat and the count is six. Katie Cristol's July 2023 and
+    Tannia Talento's are the same month that way.
+    """
     at_large = d[d.district == "at large"]
-    start = at_large.start_year * 12 + at_large.start_month
-    end = pd.to_numeric(at_large.end_year) * 12 + pd.to_numeric(at_large.end_month)
-    handover = set(start[at_large.seated_by == SPECIAL_ELECTION])
+    start = (at_large.start_year * 12 + at_large.start_month).astype(int)
+    end = (pd.to_numeric(at_large.end_year) * 12
+           + pd.to_numeric(at_large.end_month)).astype(int)
+    midterm = start[at_large.seated_by.isin([SPECIAL_ELECTION, APPOINTMENT])]
+    empty = roll.vacancies()
     for m in range(first * 12 + 1, last * 12 + 13):
-        n = ((start <= m) & (end >= m)).sum()
-        expected = 6 if m in handover else 5
-        if n != expected:
-            raise ValueError(f"{(m - 1) // 12}-{(m - 1) % 12 + 1:02d}: {n} members "
-                             f"at large, expected {expected}")
+        year, month = (m - 1) // 12, (m - 1) % 12 + 1
+        held = [n for n, lo, hi in zip(at_large.name, start, end) if lo <= m <= hi]
+        handover = min((end == m).sum(), (midterm == m).sum())
+        expected = 5 - (1 if (year, month) in empty else 0) + handover
+        if len(held) != expected:
+            raise ValueError(
+                f"{year}-{month:02d}: {len(held)} members at large, expected {expected}"
+                + (" (a declared vacancy)" if (year, month) in empty else "")
+                + f": {sorted(held)}\n  a gap no source accounts for is an error; one a "
+                  f"source records belongs in EMPTY in code/clean/members_roster_roll.py.")
 
 
 NOT_A_NAME = re.compile(r"\b(?:elected|contested|replaced|appointed|vacant|resigned|died)\b|\d", re.I)
@@ -240,9 +263,16 @@ def build() -> pd.DataFrame:
     d = arlhist.terms(d)
     d = apply_duncan_join(d)
     d = results.terms(d)
+    # The county's roll last: it moves ends the election records could only
+    # guess at, and adds the terms no contest holds.
+    roll.check_against_novack(d)
+    d, cut = roll.corrections(d)
+    d = pd.concat([d, pd.DataFrame(list(roll.terms(d, cut)))], ignore_index=True)
+    d = roll.witnessed(d)
     check_names(d)
     check_seated_by(d)
-    check_five_seats(d)
+    roll.check_empty_is_the_roll(d)
+    check_seats(d)
     check_district_seats(d)
     # A blank end is missing, not a float: the columns stay whole numbers.
     d[["end_year", "end_month"]] = d[["end_year", "end_month"]].astype("Int64")

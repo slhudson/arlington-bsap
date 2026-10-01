@@ -88,7 +88,10 @@ NAMED_MONTH = re.compile(r"\b(" + "|".join(MONTHS) + r")\s+((?:19|20)\d\d)\b", r
 
 # A member's line: the name, then the office after a comma, then the entry's
 # note after a dash or inside brackets. The name is what comes first.
-OFFICE = re.compile(r",?\s*(Acting Chairman|Chairman|Vice[- ]Chair(?:man)?|Chair|Member)\b", re.I)
+# "Vice-President" is the page's own slip for the vice-chair, printed once,
+# at 1977; without it the title stays in the member's name.
+OFFICE = re.compile(r",?\s*(Acting Chairman|Chairman|Vice[- ]Chair(?:man)?|Chair|"
+                    r"Vice[- ]President|Member)\b", re.I)
 
 # The years the print does not lay out one member to a line. Each is read off
 # data/raw/arlington_county/members_roll.pdf and written here as the page
@@ -126,7 +129,9 @@ AS_READ = {
            "Allan L. Dean – Removed 9/17/52",
            "Daniel A. Dugan – Removed 9/17/52",
            "Alfred E. Frisbie, Chairman",
-           "Robert A. Peck – Appointed 9/18/52",
+           # The page sets Peck's name against the first sub-period's dates
+           # and records no event for him; Novack has his term from January.
+           "Robert A. Peck",
            "M. Rex Byrne – Appointed 9/18/52 – 11/10/52",
            "John A. Tillema – Appointed 9/18/52 – 11/10/52",
            "Howard R. Massey – Appointed 11/10/52",
@@ -361,6 +366,8 @@ def split_entry(entry):
     if office.lower() == "member":
         office = ""
     low = note.lower()
+    if office.lower().startswith("vice-pres") or office.lower().startswith("vice pres"):
+        office = "Vice-Chairman"
     if not office and "as vice-chair" in low or not office and "as vice chair" in low:
         office = "Vice-Chairman"
     elif not office and "as chair" in low:
