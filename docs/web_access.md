@@ -84,7 +84,15 @@ relying on one.
   page renders empty under automation, so search-only volumes give nothing.
   `/cgi/ls?q1=<phrase>;a=srchls;anyall1=phrase;field1=ocr` searches the whole
   corpus and does render. A burst of a dozen page fetches draws a 429 for a
-  few minutes: one request at a time.
+  few minutes: one request at a time. The single-page PDF under
+  `/cgi/imgsrv/download/pdf?id=<htid>;seq=<n>;attachment=1` downloads to
+  `~/Downloads` as `<htid with dashes>-<seq>-<timestamp>.pdf`, but asking for
+  one after a run of `ssd` pages drew a site-wide block on this machine's
+  address — a "Page Blocked" notice naming the Cloudflare ray, lasting about
+  half an hour and reaching every route. Read the text first and fetch images
+  last, or not at all: `code/sources/pages.py` makes the filed copy from the
+  page text instead, which is what every 1952-75 act in `paper/sources.bib` is
+  filed as.
 - **ProQuest** (the Post 1877–2001, including the 11 November 1973
   residence map): a UVA or public-library login; neither was available.
 - **washingtonpost.com**: refuses curl and the built-in browser; in Chrome
