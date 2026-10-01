@@ -99,34 +99,7 @@ Each of these is a row in `docs/questions.csv`, naming whose court it waits in
 and what would settle it.
 
 ---
-## Local legal authority
-
-The three Dillon's Rule opinions the paper's local legal authority section
-cites, `commonwealthvarlington1977`, `brownvarlington1985` and
-`arlingtonvwhite2000`, are all held, read from CourtListener and filed in Drive
-under `legal/`. `brownvarlington1985` is the one that turns on the County
-Manager Plan: the Board approved a seventy-five-year ground lease of the
-courthouse parking lot and directed the Manager to sign, he refused, and the
-court held the County had no power to lease land already in public use. The
-County Attorney's report dates it 1985 in its list and 1984 in its discussion;
-the reported opinion decides it 26 April 1985, on a record filed in October
-1984.
-
-The paper had `bennettvgarrett1922` holding that Arlington was "one
-continuous, contiguous, and homogenous community". The court said no such
-thing: neither "homogeneous" nor "homogenous" nor "contiguous" occurs in the
-opinion, whose words are "a part only of a thickly settled community". The
-phrase is Cornelia B. Rose, Jr.'s. At `rose1976` p. 176 she writes that the
-Supreme Court of Appeals "held that Arlington County was a 'continuous,
-contiguous, and homogeneous community' that could not be subdivided for the
-purposes of incorporating a portion of it", and cites nothing; the page's only
-footnote is to the 1920 act renaming the county. She reuses her own phrase at
-p. 197, of the 1932 change to at-large election, and again at p. 229, of 1976.
-Both Arlington's County Manager Plan page and `bestebreurtje2017` quote the p.
-197 sentence, correctly. The misattribution is Rose's, and the report inherited
-it from her.
-
-### Residence in the district
+## Residence in the district
 
 A supervisor is required to live in the district he represents only from
 1903, by sec. 32 of the 1902 constitution. Nothing before that requires it.
@@ -232,6 +205,8 @@ Republican's digitized run ends in May 1888. What would settle it is the
 Alexandria County court order book for 1888, which would carry the rule and
 its disposition and name the policemen removed at the same sitting, and the
 Board's own minute books; neither is online (`allen-1888`).
+
+## Seats that changed hands
 
 ### Hume's two dates
 
