@@ -106,10 +106,10 @@ def kind(e):
         return "campaign websites"                                # a candidate's site or questionnaire
     if BIO_ORG.search(org) or BIO_TITLE.search(e["title"]):
         return "bios"                                     # a biography page
+    if e["type"] in BOOK_TYPE or (e["type"] == "article" and "journaltitle" in e):
+        return "books"                 # scholarship, whatever law its title names
     if e["type"] in LEGAL_TYPE or LEGAL_TITLE.search(e["title"]):
         return "legal"
-    if e["type"] in BOOK_TYPE or (e["type"] == "article" and "journaltitle" in e):
-        return "books"                                    # scholarship
     return "reports"
 
 
@@ -255,16 +255,47 @@ def sha16(path):
 CENSUS_COPY = re.compile(r"^(" + "|".join(COPIED_BY) + r") (\d{4}) - ")
 
 
-def subfolder(k, base):
-    """The folder a copy is filed in. Census copies are split by who made
-    them, Ancestry's printed record or the Census's own sheet image, then by
-    census year; every other kind is one flat folder."""
-    if k != "census":
-        return k
-    m = CENSUS_COPY.match(base)
-    if not m:
-        sys.exit(f'census copy "{base}" does not start "Ancestry YYYY - " or "US Census YYYY - "')
-    return f"census/{m.group(1)}/{m.group(2)}"
+# What a law is, from its title. A joint resolution proposing an amendment is
+# the legislature acting, so it is read before the constitution it would amend.
+STATUTE = re.compile(r"\bAn act\b|\bActs (?:of|and)\b|\bJoint Resolutions\b|\bCode of Virginia\b", re.I)
+CONSTITUTION = re.compile(r"\bConstitution\b", re.I)
+
+
+def legal_subfolder(e, base):
+    """Which kind of law a filed copy is. Three, and a copy that is none of
+    them stops the run rather than landing wherever it fell: the folder holds
+    primary law only, so a fourth thing in it is a filing mistake."""
+    if e["type"] == "jurisdiction" or " v. " in plain(e["title"]):
+        return "legal/opinions"
+    if STATUTE.search(plain(e["title"])):
+        return "legal/statutes"
+    if CONSTITUTION.search(plain(e["title"])):
+        return "legal/constitutions"
+    sys.exit(f'legal copy "{base}" is not an opinion, a statute or a constitution: '
+             f'file it under another kind, or name what it is in archive.legal_subfolder()')
+
+
+def subfolder(e, base):
+    """The folder a copy is filed in.
+
+    Three kinds are split, because each is large enough that one flat folder
+    stops answering a question. Census copies go by who made them, an
+    indexer's record or the Census's own sheet image, then by census year.
+    Press goes by outlet, so a paper's run is in one place. Legal goes by what
+    the document is: an opinion, a statute or a constitution. Every other kind
+    is one flat folder."""
+    k = kind(e)
+    if k == "census":
+        m = CENSUS_COPY.match(base)
+        if not m:
+            sys.exit(f'census copy "{base}" does not start with one of '
+                     f'{", ".join(COPIED_BY)} and a year')
+        return f"census/{m.group(1)}/{m.group(2)}"
+    if k == "press":
+        return f"press/{outlet(e)}"
+    if k == "legal":
+        return legal_subfolder(e, base)
+    return k
 
 
 def folder_files(documents):
@@ -304,7 +335,7 @@ def place(bib, documents):
                 missing.append((e["key"], name))
                 continue
             base = canonical(e, base)
-            target = f"{subfolder(kind(e), base)}/{base}"
+            target = f"{subfolder(e, base)}/{base}"
             if current in claims and claims[current][0] != target:
                 sys.exit(f"\"{current}\" is claimed by {claims[current][1]['key']} as "
                          f"{claims[current][0]} and by {e['key']} as {target}")
@@ -352,7 +383,11 @@ def index_text(bib, claims, rows, unplaced, commit):
         "## Documents",
         "",
         "One folder per kind. Which folder a copy belongs in is a rule on its bib entry, "
-        "`kind()` in `code/sources/archive.py`: census: an Ancestry index record and the Census sheet image, in one folder each and then one per census year; "
+        "`kind()` in `code/sources/archive.py`; three kinds are split further, by `subfolder()`: "
+        "census by who made the copy, an indexer's record or the Census's own sheet image, then "
+        "by census year; press by outlet, so a paper's run is in one place; and legal by what the "
+        "document is, an opinion, a statute or a constitution. The kinds: "
+        "census: an index record and the Census sheet image; "
         "press: a newspaper's or magazine's page or article, printed or read online; obituaries; "
         "bios: biography pages; campaign websites: candidate sites, "
         "questionnaires and campaign material; legal: constitutions, statutes and the like; "

@@ -1041,9 +1041,29 @@ def test_a_census_record_is_filed_as_one_whoever_indexed_it():
              "organization": who}
         assert archive.kind(e) == "census", f"a {who} census record filed as {archive.kind(e)}"
         base = f"{who} 1900 - United States, Census, 1900.pdf"
-        assert archive.subfolder("census", base) == f"census/{who}/1900", \
+        assert archive.subfolder(e, base) == f"census/{who}/1900", \
             f"{base} does not file by maker and year"
 
+
+
+def test_press_files_by_outlet_and_legal_by_what_the_document_is():
+    """The two folders that outgrew being flat. A paper's run belongs in one
+    place, and a legal folder holding opinions, statutes and constitutions
+    together answers no question."""
+    e = {"type": "article", "key": "planted", "title": "Arlington Republicans",
+         "organization": "Alexandria Gazette", "pages": "3", "location": "Alexandria"}
+    assert archive.subfolder(e, "Alexandria Gazette 1873 - Arlington Republicans.pdf") == \
+        "press/Alexandria Gazette"
+    for title, where in [("Bennett v. Garrett", "legal/opinions"),
+                         ("Code of Virginia", "legal/statutes"),
+                         ("An Act to Provide for the Method of Voting by Ballot", "legal/statutes"),
+                         # the legislature acting on the constitution is a statute
+                         ("Joint Resolutions Proposing Amendments to Article VII of the "
+                          "Constitution of Virginia", "legal/statutes"),
+                         ("Constitution of Virginia", "legal/constitutions")]:
+        e = {"type": "legislation", "key": "planted", "title": title}
+        assert archive.subfolder(e, f"Commonwealth of Virginia 1894 - {title}.pdf") == where, \
+            f"{title} filed in {archive.subfolder(e, title)}, not {where}"
 
 
 def test_a_hyphen_is_not_crowded_against_the_word_before_it():
@@ -1117,7 +1137,8 @@ def a_legal_entry(key, annotation):
             "  annotation  = {" + annotation + "},\n}\n")
 
 
-BENNETT = 'Filed in Drive as "legal/Supreme Court of Appeals of Virginia 1922 - Bennett v. Garrett.pdf"'
+BENNETT = ('Filed in Drive as "legal/opinions/Supreme Court of Appeals of Virginia 1922 - '
+           'Bennett v. Garrett.pdf"')
 
 
 def test_a_quotation_the_document_does_not_contain_is_refused():

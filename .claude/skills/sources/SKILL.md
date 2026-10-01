@@ -39,6 +39,13 @@ scans and the folder. Without `--apply` it only reports. It refuses to act
 while a name the bib says is filed is not in the folder, and deletes
 nothing: a file no entry names goes to `unplaced/`.
 
+Three kinds are split into subfolders by `archive.subfolder()`, because one flat
+folder stopped answering a question: census by who made the copy and then the
+census year, press by outlet so a paper's run is in one place, and legal by what
+the document is — `opinions`, `statutes` or `constitutions`. A legal copy that
+is none of those three stops the run, because that folder holds primary law
+only: scholarship about law belongs in `books` and a legal memo in `reports`.
+
 A copy is named `<who> <year> - <title>.pdf`, and `archive.canonical()` decides
 the `<who>`, renaming a copy whose name does not match when it files it. Three
 rules, each from how its folder is read. A press copy leads with its outlet,
