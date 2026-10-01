@@ -335,8 +335,19 @@ Time: about N minutes, or "waiting on you" first if you need the lead
 The units are the ones the task is measured in: members read, rows written,
 sheets checked. Never a search term, a page id or an internal step. If the
 lead is needed (a sign-in, a click, a decision), say so at the top of the
-message. Say where the work is saved (branch and last commit) so nothing
-lives only in the session.
+message.
+
+**The repository is not one of the four lines.** Branches, worktrees,
+uncommitted files, which session is behind which, a merge, a conflict, a
+rebase, a hook that refused a commit: the lead has delegated all of it and has
+nothing to add. Resolve it and say nothing. Commit and push before the status
+message instead of reporting where the work is saved, so the lead never has to
+ask whether it survived the session. A commit hash belongs on the sentence
+describing what changed, never in a sentence about the repository's state.
+
+The exception is narrow: the plumbing has stopped the work and only the lead
+can unstop it. Then one line saying what is blocked, in her terms - not the
+mechanics, and not a choice between git commands, which is ours to make.
 
 ## Register
 
