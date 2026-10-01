@@ -35,6 +35,13 @@ on the ages in census listings and on an age stated in an obituary or a
 profile. Each is right to within a year. The age figure draws a year only where
 all but at most one sitting member has a birth year, and it starts in 1932.
 
+**The roster from 1995.** Election results are the only source after Novack's
+article ends in 1994, so the roster holds nobody seated between 1995 and 2026
+who did not win a contest. Tannia Talento, appointed on 15 July 2023 to the
+seat Katie Cristol resigned eleven days earlier, is the one member this loses;
+Keena's workbook carries the appointment and codes her a Hispanic woman, and
+Cristol's term runs to December 2023 in her place (`keena-workbook-source`).
+
 **1912–1931 rests on no assumption.** `arlhist1967officials`, the Historical
 Society's own compilation from the Board's minute books, names all three
 magisterial seats — Arlington, Jefferson and Washington — for all twenty years.
@@ -313,6 +320,16 @@ district to Arlington at term 7.
 `seated_by` says how each term began: election, special election, appointment,
 or unrecorded where O'Leary writes only that someone was replaced. Three builds
 select terms by it, so it is a column, not something read out of the note.
+
+Novack records service and election returns record contests, and the difference
+tells on the roster after 1994. Novack writes a mid-term arrival or departure
+into his parentheticals, so 20 terms begin in an appointment, every one of them
+before 1995. The county's candidate history and the state's database name the
+winners of contests, so a term that ended early shows there only in the win
+that filled it: Whipple in 1996, Hunter in 1997, Monroe in 2003, Zimmerman in
+2014 and Gutshall in 2020 each close on a successor's special election. An
+appointment leaves no contest to find, which is why Cristol's second term runs
+to the end of 2023 and Talento's months are missing from it.
 
 **The constitution created the Board; the acts of 1870 stood it up.** The
 constitution framed in 1868 and ratified in 1869 divides every county into not
