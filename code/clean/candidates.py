@@ -30,6 +30,7 @@ import pandas as pd
 import elections
 import paths
 from elections import COUNTY_HISTORY_THROUGH, LABELS, label_of, surname
+from paths import write
 
 LIST_YEAR = 1931
 BEFORE = "before 1931"
@@ -197,4 +198,4 @@ def build() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    paths.write(build(), "candidates")
+    write(build(), "candidates")

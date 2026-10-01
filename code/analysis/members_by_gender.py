@@ -1,9 +1,9 @@
 """Board seats by gender, 1870-2026 -> figures/members_by_gender.pdf, .png
 
-A stacked step area of seat-years, women then men, with the 1932 rule.
-Blank years are gaps.
+A stacked step area of seat-years, women then men, on the frame
+members_by_race and members_by_party share, with the 1932 rule. Blank years
+are gaps.
 """
-
 import charts
 import members
 import paths
@@ -13,13 +13,5 @@ for profile in style.PROFILES:
     style.apply(profile)
 
     d = paths.read("members_by_year")
-    spans = charts.runs(d["women"].notna().to_numpy())
-    series = charts.series(d.fillna(0), style.GENDER)
-
-    fig, ax = charts.figure(profile)
-    charts.stacked_steps(ax, d["year"].to_numpy(), series, spans)
-    charts.seats(ax)
-    charts.years(ax, 1870, 2020, step=20, label="year", through=members.LAST + 1)
-    charts.rule(ax)
-    charts.legend(fig, series)
+    fig = charts.seat_bands(profile, d, style.GENDER, through=members.LAST + 1)
     paths.save(fig, profile)

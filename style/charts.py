@@ -19,20 +19,27 @@ each placement is in docs/figures.md.
     rule()          a dated vertical rule with its note above the frame
     years() counts() comma_axis() ages() shares() seats()   the axes
     fit()           the figure's size and margins, called by paths.save();
-                    place_labels() then sets every name beside its dot
+                    labels.place() then sets every name beside its dot
+
+The geometry of a name beside a dot is labels.py, which a figure script
+never imports: dot_label() reaches it from here.
 """
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib.patches import Patch
-from matplotlib.text import Text
 from matplotlib.transforms import ScaledTranslation
 from matplotlib.ticker import (FixedLocator, FuncFormatter, MultipleLocator,
                                PercentFormatter)
 
+import labels
 import style
 
 THOUSANDS = FuncFormatter(lambda v, _: f"{int(v):,}")
+
+# A figure script names a dot through charts, like every other chart type it
+# asks for; where the name then goes is labels.py's business, not its.
+dot_label = labels.dot_label
 
 
 def figure(profile=style.DEFAULT_PROFILE, of_width=1.0, aspect=None):
@@ -139,6 +146,36 @@ def stacked_steps(ax, years, entries, spans):
         cum = top
 
 
+def seat_bands(profile, frame, palette, through):
+    """Seat-years by one cut of the Board, as members_by_gender,
+    members_by_race and members_by_party all draw them: a stacked step area
+    in `palette`, a seats axis, the 1932 rule, years to `through`, and a
+    legend. The three share one frame on purpose, so that a reader can set
+    them beside each other; docs/figures.md says why.
+
+    A year no source reports for this cut is a gap in the bands. Within a
+    cut the columns are blank together - members_by_year.csv writes a cut
+    whole - so which years are reported is read off the palette's columns
+    rather than named. A category holding no seat in any year gets no band
+    and no legend entry.
+    """
+    columns = list(palette)
+    held = [c for c in columns if frame[c].fillna(0).sum() > 0]
+    if not held:
+        raise AssertionError(
+            f"no seat is attributed to any of {', '.join(columns)} - check the build")
+    spans = runs(frame[columns].notna().any(axis=1).to_numpy())
+    bands = series(frame.fillna(0), palette, held)
+
+    fig, ax = figure(profile)
+    stacked_steps(ax, frame["year"].to_numpy(), bands, spans)
+    seats(ax)
+    years(ax, 1870, 2020, step=20, label="year", through=through)
+    rule(ax)
+    legend(fig, bands)
+    return fig
+
+
 def fit(fig, profile=style.DEFAULT_PROFILE):
     """Size and place this figure: the canvas is the profile's width, the
     plot is the profile's aspect times as wide as tall, and style.MARGIN of
@@ -240,7 +277,7 @@ def fit(fig, profile=style.DEFAULT_PROFILE):
                                   transform=fig.transFigure)
 
     # Names beside dots are placed last, against the final geometry.
-    place_labels(fig)
+    labels.place(fig)
 
 
 def _row_major(items, ncol):
@@ -316,156 +353,6 @@ def dots(ax, x, y, area, colors):
         ax.dots_drawn = []
     ax.dots_drawn += list(zip(np.asarray(x, dtype=float), np.asarray(y, dtype=float), area))
 
-
-# Where a name may sit beside its dot, in order of preference: offsets in
-# units of the gap, and the text's alignment.
-PLACES = {
-    "right":       (1, 0, "left", "baseline"),
-    "left":        (-1, 0, "right", "baseline"),
-    "above":       (0, 1, "center", "bottom"),
-    "below":       (0, -1, "center", "top"),
-    "above right": (0.7, 0.7, "left", "bottom"),
-    "above left":  (-0.7, 0.7, "right", "bottom"),
-    "below right": (0.7, -0.7, "left", "top"),
-    "below left":  (-0.7, -0.7, "right", "top"),
-}
-
-
-# A name belongs to its dot only if every other dot is at least this many
-# times as far from it.
-CLEAR = 2.0
-# The white between a dot's edge and its name, as a fraction of the type
-# size: across, and up or down, where the text's own line box already
-# carries some.
-GAP_ACROSS = 0.2
-GAP_UPDOWN = 0.05
-# How much farther a name with a leader stands off, in type sizes.
-LEADER = 1.2
-# Half the height of a capital, in type sizes: a name beside its dot drops
-# its baseline by this much, so the letters, not the line box with its
-# descenders, are centred on the dot.
-HALF_CAP = 0.36
-
-
-def dot_label(ax, x, y, text, area, color="black", bold=False, first=None, leader=False):
-    """Name a dot. Where the name goes is chosen by place_labels() once the
-    figure's size is final; `first` is a place from PLACES to try before
-    the rest. `leader` stands the name off and draws a short line to the
-    dot, for a dot in a row too tight to name beside it."""
-    line = dict(arrowstyle="-", color=style.GREY, lw=plt.rcParams["axes.linewidth"],
-                shrinkA=1, shrinkB=np.sqrt(area) / 2 + 1) if leader else None
-    ann = ax.annotate(text, (x, y), xytext=(0, 0), textcoords="offset points",
-                      color=color, fontweight="bold" if bold else "normal",
-                      fontsize=plt.rcParams["font.size"], arrowprops=line)
-    if not hasattr(ax, "dot_labels"):
-        ax.dot_labels = []
-    ax.dot_labels.append((ann, x, y, area, first, bold, leader))
-
-
-def place_labels(fig):
-    """Put every name from dot_label() in the first place, in PLACES order,
-    where it touches no dot and no other name, stays inside the frame, and
-    sits nearer its own dot than any other. Bold names choose first, then
-    the most crowded. A name with no such place stops the build."""
-    fig.canvas.draw()
-    r = fig.canvas.get_renderer()
-    px = fig.dpi / 72
-    pad = plt.rcParams["font.size"] * 0.15 * px
-    for ax in fig.axes:
-        labels = getattr(ax, "dot_labels", [])
-        if not labels:
-            continue
-        frame = ax.get_window_extent(r)
-        dots = [(*ax.transData.transform((x, y)), np.sqrt(a) / 2 * px)
-                for x, y, a in getattr(ax, "dots_drawn", [])]
-
-        def crowd(item):
-            _, x, y, _, _, bold, _ = item
-            cx, cy = ax.transData.transform((x, y))
-            return (not bold, -sum(np.hypot(cx - dx, cy - dy) < 60 * px for dx, dy, _ in dots))
-
-        def attempt(queue):
-            """Place the names in this order; the index and reasons of the
-            first that finds no place, or None if all do."""
-            placed = []
-            for k, (ann, x, y, area, first, bold, leader) in enumerate(queue):
-                cx, cy = ax.transData.transform((x, y))
-                size = plt.rcParams["font.size"]
-                stand = LEADER * size if leader else 0
-                across = np.sqrt(area) / 2 + GAP_ACROSS * size + stand
-                updown = np.sqrt(area) / 2 + GAP_UPDOWN * size + stand
-                why = {}
-                for place in ([first] if first else []) + [p for p in PLACES if p != first]:
-                    ux, uy, ha, va = PLACES[place]
-                    drop = HALF_CAP * size if va == "baseline" else 0
-                    ann.set_position((ux * across, uy * updown - drop))
-                    ann.set_ha(ha)
-                    ann.set_va(va)
-                    # The text alone: an annotation's own extent includes its leader.
-                    b = Text.get_window_extent(ann, r)
-                    box = (b.x0 - pad, b.y0 - pad, b.x1 + pad, b.y1 + pad)
-                    inside = (b.x0 >= frame.x0 and b.x1 <= frame.x1
-                              and b.y0 >= frame.y0 and b.y1 <= frame.y1)
-                    # Distances to the text itself, not its padded box.
-                    dist = [_to_box(dx, dy, (b.x0, b.y0, b.x1, b.y1)) - rad for dx, dy, rad in dots]
-                    own = int(np.argmin([np.hypot(dx - cx, dy - cy) for dx, dy, _ in dots]))
-                    hit = [p[4] for p in placed if _overlap(box, p)]
-                    if not inside:
-                        why[place] = "leaves the frame"
-                    elif hit:
-                        why[place] = f"touches {hit[0]!r}"
-                    elif any(d < 0 for i, d in enumerate(dist) if i != own):
-                        why[place] = "covers another dot"
-                    # A leader may start inside a dot that overlaps its own;
-                    # past that it must clear every dot.
-                    elif leader and any(_to_segment(dx, dy, (cx, cy), _nearest(cx, cy, b)) < rad + pad
-                                        for i, (dx, dy, rad) in enumerate(dots)
-                                        if i != own and np.hypot(dx - cx, dy - cy) > rad + dots[own][2]):
-                        why[place] = "its leader crosses another dot"
-                    elif not leader and min((d for i, d in enumerate(dist) if i != own),
-                                            default=np.inf) < CLEAR * max(dist[own], pad):
-                        why[place] = "sits too near another dot"
-                    else:
-                        placed.append((*box, ann.get_text()))
-                        break
-                else:
-                    return k, why
-            return None
-
-        # A name that finds no place moves to the front and every name is
-        # placed again, until all fit or the order has been tried enough.
-        queue = sorted(labels, key=crowd)
-        for _ in range(3 * len(queue)):
-            failed = attempt(queue)
-            if failed is None:
-                break
-            k, why = failed
-            queue.insert(0, queue.pop(k))
-        else:
-            raise AssertionError(
-                f"no clear place beside its dot for the name {queue[0][0].get_text()!r}: "
-                + "; ".join(f"{p} {w}" for p, w in why.items()))
-
-
-def _overlap(a, b):
-    return a[0] < b[2] and b[0] < a[2] and a[1] < b[3] and b[1] < a[3]
-
-
-def _to_box(x, y, box):
-    """Distance from a point to a box, zero inside it."""
-    return np.hypot(max(box[0] - x, 0, x - box[2]), max(box[1] - y, 0, y - box[3]))
-
-
-def _nearest(x, y, b):
-    """The point of the text's box nearest (x, y)."""
-    return min(max(x, b.x0), b.x1), min(max(y, b.y0), b.y1)
-
-
-def _to_segment(x, y, a, b):
-    """Distance from a point to the segment from a to b."""
-    a, b, p = np.asarray(a), np.asarray(b), np.asarray((x, y))
-    t = np.clip(np.dot(p - a, b - a) / max(np.dot(b - a, b - a), 1e-9), 0, 1)
-    return float(np.hypot(*(p - (a + t * (b - a)))))
 
 
 def dot_legend(fig, entries, profile=style.DEFAULT_PROFILE):

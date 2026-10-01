@@ -35,6 +35,13 @@ def table(name):
     return paths.typed(wide.reset_index(drop=True))
 
 
+def keyed(path):
+    """One table keyed in from a Bureau volume, by its path under
+    data/transcribed/by_claude/us_census_bureau/. Every caller of table()
+    for a Bureau volume names it this way, so the prefix is written once."""
+    return table("transcribed/by_claude/us_census_bureau/" + path)
+
+
 def row(pattern):
     """The one row of the county-level table matching a glob: Arlington's,
     since code/build/census.py keeps no other row of those files."""

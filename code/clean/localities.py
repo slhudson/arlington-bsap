@@ -29,7 +29,7 @@ def members(row) -> int:
     return int(row["council_members"]) + int(extra)
 
 
-def clean() -> pd.DataFrame:
+def build() -> pd.DataFrame:
     b = paths.built("localities")
     out = pd.DataFrame({
         "locality": b["locality"],
@@ -52,4 +52,4 @@ def clean() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    write(clean(), "localities")
+    write(build(), "localities")

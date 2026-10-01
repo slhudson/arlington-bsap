@@ -1,10 +1,10 @@
 """Board seats by race/ethnicity, 1870-2026 -> figures/members_by_race.pdf, .png
 
-A stacked step area of seat-years in style.RACE, on the same frame
-as members_by_gender, with the 1932 rule. Blank years are gaps. A category with
-no seat in any year gets no band and no legend entry.
+A stacked step area of seat-years in style.RACE, on the frame
+members_by_gender and members_by_party share, with the 1932 rule. Blank
+years are gaps. A category with no seat in any year gets no band and no
+legend entry.
 """
-
 import charts
 import members
 import paths
@@ -14,15 +14,5 @@ for profile in style.PROFILES:
     style.apply(profile)
 
     d = paths.read("members_by_year")
-    spans = charts.runs(d["white"].notna().to_numpy())
-    held = [g for g in style.RACE if d[g].fillna(0).sum() > 0]
-    assert held, "no seat is attributed to any race category - check the build"
-    series = charts.series(d.fillna(0), style.RACE, held)
-
-    fig, ax = charts.figure(profile)
-    charts.stacked_steps(ax, d["year"].to_numpy(), series, spans)
-    charts.seats(ax)
-    charts.years(ax, 1870, 2020, step=20, label="year", through=members.LAST + 1)
-    charts.rule(ax)
-    charts.legend(fig, series)
+    fig = charts.seat_bands(profile, d, style.RACE, through=members.LAST + 1)
     paths.save(fig, profile)

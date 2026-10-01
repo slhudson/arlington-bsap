@@ -105,16 +105,6 @@ VARIABLES = ["STATEFIP", "COUNTYICP", "ENUMDIST",
 TOLERANCE = 0.05
 
 
-def api_key():
-    env = ROOT / ".env"
-    if not env.exists():
-        raise SystemExit("no .env at the repository root; see this file's docstring")
-    for line in env.read_text().splitlines():
-        if line.startswith("IPUMS_API_KEY="):
-            return line.split("=", 1)[1].strip()
-    raise SystemExit("IPUMS_API_KEY not found in .env; add it from your IPUMS account")
-
-
 def request(year, spec):
     """The extract this census needs, as a query the API will accept."""
     return MicrodataExtract(
@@ -177,7 +167,7 @@ def census(client, year, spec):
 
 
 def main(years=None):
-    client = IpumsApiClient(api_key())
+    client = IpumsApiClient(paths.api_key("IPUMS_API_KEY"))
     for year, spec in CENSUSES.items():
         if not years or year in years:
             print(f"{year}: {spec['county_in_year']}, Virginia, {spec['sample']}")

@@ -9,6 +9,7 @@ input, run by the loop at the bottom.
 """
 import csv
 import hashlib
+import importlib
 import os
 import re
 import shutil
@@ -29,43 +30,46 @@ import clippings  # noqa: E402
 import paper  # noqa: E402
 import quotations  # noqa: E402
 
-# Each data stage has its own paths.py. The build stage's modules load
-# first and keep theirs; the name is then cleared so the clean stage's can
-# load under it.
-sys.path.insert(0, str(ROOT / "code" / "build"))
-import paths as build_paths  # noqa: E402
-import members_claims  # noqa: E402
-import survey_satisfaction as build_survey_satisfaction  # noqa: E402
-sys.path.remove(str(ROOT / "code" / "build"))
-del sys.modules["paths"]
-# Both stages have a step of this name, as they should: each is named for
-# what it writes. The build one is kept under its own name so the clean
-# one can load under the plain one.
-del sys.modules["survey_satisfaction"]
 
-sys.path.insert(0, str(ROOT / "code" / "clean"))
-import candidates  # noqa: E402
-import members_census  # noqa: E402
-import members  # noqa: E402
-import paths  # noqa: E402
-import members_roster  # noqa: E402
-import members_roster_arlhist  # noqa: E402
-import members_roster_oleary  # noqa: E402
-import members_roster_results  # noqa: E402
-import members_by_year  # noqa: E402
-import residents  # noqa: E402
-import residents_by_district  # noqa: E402
-import elections_turnout  # noqa: E402
-import elections_results  # noqa: E402
-import elections  # noqa: E402
-import survey_satisfaction as clean_survey_satisfaction  # noqa: E402
+def stage(folder, *names):
+    """The named modules of one stage, in the order asked.
 
-# The fetch stage has a paths.py of its own too.
-del sys.modules["paths"]
-sys.path.insert(0, str(ROOT / "code" / "fetch"))
-import registration  # noqa: E402
-sys.path.remove(str(ROOT / "code" / "fetch"))
-sys.modules["paths"] = paths
+    Each stage has a paths.py of its own and they cannot be merged
+    (CLAUDE.md), so only one stage's folder is on the path at a time: it
+    goes on, the modules load and bind the paths they see, and it comes off
+    again. Every module loaded out of that folder is then dropped from the
+    import cache, so a step of the same name in another stage - both stages
+    have a survey_satisfaction, as they should, each named for what it
+    writes - loads as its own module and not as this one's. The objects
+    returned stay live, and a test that mangles one mangles the module the
+    stage itself is holding.
+    """
+    here = str(ROOT / "code" / folder)
+    sys.path.insert(0, here)
+    try:
+        return tuple(importlib.import_module(n) for n in names)
+    finally:
+        sys.path.remove(here)
+        for name, module in list(sys.modules.items()):
+            file = getattr(module, "__file__", None)
+            if file and str(Path(file).parent) == here:
+                del sys.modules[name]
+
+
+build_paths, members_claims, build_survey_satisfaction = stage(
+    "build", "paths", "members_claims", "survey_satisfaction")
+
+(paths, candidates, census, members, members_census, members_by_year,
+ members_roster, members_roster_arlhist, members_roster_oleary,
+ members_roster_results, residents, residents_by_district, elections,
+ elections_results, elections_turnout, clean_survey_satisfaction) = stage(
+    "clean", "paths", "candidates", "census", "members", "members_census",
+    "members_by_year", "members_roster", "members_roster_arlhist",
+    "members_roster_oleary", "members_roster_results", "residents",
+    "residents_by_district", "elections", "elections_results",
+    "elections_turnout", "survey_satisfaction")
+
+registration, = stage("fetch", "registration")
 
 
 def breaks(module, attr, mangle, build=None):
@@ -118,6 +122,13 @@ def patch_built(stem, change):
     return mangle
 
 
+def residents_reads(mangle):
+    """The error code/clean/residents.py raises with one keyed-in census
+    table mangled as it reads it, or None. The tables reach that step
+    through census.keyed(), so that is where a misreading is planted."""
+    return breaks(census, "keyed", mangle, build=residents.build)
+
+
 def candidacies_with(change):
     """The error candidates.build() raises with the built candidacy
     table changed, or None. The tests run before the clean stage, so the
@@ -153,7 +164,7 @@ def test_freedman_village_cannot_become_a_district():
                 d.loc[d.label == "Freedman village", "level"] = 1
             return d
         return patched
-    err = breaks(residents, "table", mangle)
+    err = residents_reads(mangle)
     assert err and "districts sum to" in err, f"not caught: {err}"
 
 
@@ -167,7 +178,7 @@ def test_race_split_must_account_for_its_total():
                 d.loc[d.section == "white", "y1870"] = 9344
             return d
         return patched
-    err = breaks(residents, "table", mangle)
+    err = residents_reads(mangle)
     assert err and "unaccounted" in err, f"not caught: {err}"
 
 
@@ -183,7 +194,7 @@ def districts_with(page, change):
         return patched
     started = os.environ.pop("RUN_STARTED", None)
     try:
-        return breaks(residents_by_district, "table", mangle)
+        return breaks(census, "keyed", mangle, build=residents_by_district.build)
     finally:
         if started:
             os.environ["RUN_STARTED"] = started
@@ -290,8 +301,9 @@ def test_the_two_counts_of_the_adult_population_must_agree():
 
 
 def misread(line, by, columns):
-    """A mangle for residents.table: one printed line of the 1970 age table
-    read `by` too high in each of `columns`."""
+    """A mangle for census.keyed, which is how code/clean/residents.py reads
+    a keyed-in volume table: one printed line of the 1970 age table read
+    `by` too high in each of `columns`."""
     def mangle(orig):
         def patched(path):
             d = orig(path)
@@ -308,7 +320,7 @@ def test_a_transcribed_age_table_that_does_not_sum_to_its_total_is_refused():
     """A digit misread the same way in the total and male columns, so the
     line still cross-foots and the county total is untouched: only the
     printed lines summing to "All ages" can see it."""
-    err = breaks(residents, "table", misread("35 to 39 years", 10, ["total", "male"]))
+    err = residents_reads(misread("35 to 39 years", 10, ["total", "male"]))
     assert err and "The transcription misreads a number" in err, f"not caught: {err}"
 
 
@@ -325,12 +337,12 @@ def test_a_misread_adult_count_cannot_move_into_the_children_in_1930():
                 d.loc[d.label == "Males 21 years old and over", "total"] += 100
             return d
         return patched
-    err = breaks(residents, "table", mangle)
+    err = residents_reads(mangle)
     assert err and "The transcription misreads a number" in err, f"not caught: {err}"
 
 def test_an_age_line_whose_sexes_do_not_make_its_total_is_refused():
     """A digit misread in the total column alone."""
-    err = breaks(residents, "table", misread("19 years", 100, ["total"]))
+    err = residents_reads(misread("19 years", 100, ["total"]))
     assert err and "male and female do not make the printed total" in err, f"not caught: {err}"
 
 # --- guards on the Board files ----------------------------------------------

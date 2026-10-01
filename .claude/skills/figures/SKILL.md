@@ -11,6 +11,7 @@ set inside a figure script.
     style/style.py             the palette, the profiles, which colour each group takes
     style/urban.mplstyle       the rcParams, cited to the guide
     style/charts.py            the chart types, with legend and note placement
+    style/labels.py            where a name sits beside its dot; reached through charts
     code/analysis/paths.py     where things are read and written
     code/analysis/<figure>.py  which numbers a figure shows
 
@@ -62,7 +63,7 @@ neither repeats the reasons.
 - Squarer than the time series: `charts.scatter()` takes `style.SQUARE`.
   Two scatters with different x axes are two figures, each with its own legend.
 - One dot size. Area does not carry a third measure a reader can read.
-- Name dots with `charts.dot_label()` and let `charts.place_labels()` choose
+- Name dots with `charts.dot_label()` and let `labels.place()` choose
   where; never hand-place a name. Every cluster gets at least one name; a dot
   too crowded to name beside it takes `leader=True`. A name that finds no
   clear place stops the build: pick another representative for its cluster.
