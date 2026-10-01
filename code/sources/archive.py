@@ -59,7 +59,7 @@ PAPERS = ("ARLnow", "InsideNoVa", "Sun Gazette", "Connection", "Washington Post"
           "Alexandria Gazette", "Washington Bee", "Richmond Planet", "Evening Star",
           "National Republican", "The Washington Times",
           # read as scanned pages on Virginia Chronicle
-          "Sun")
+          "Sun", "Commonwealth Monitor")
 
 # Magazines are press, like papers. A historical society's magazine is scholarship: books.
 MAGAZINES = ("Arlington Magazine",)
