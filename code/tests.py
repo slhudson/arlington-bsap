@@ -1435,6 +1435,21 @@ def test_every_data_file_is_inventoried():
                        "is never edited:\n  " + "\n  ".join(moved))
 
 
+def test_a_note_whose_commas_are_unquoted_is_refused():
+    """A row of data/contents.csv with more fields than the header.
+
+    An unquoted note splits on its own commas, and csv.DictReader files the
+    spill under None rather than complaining, so the row keeps its path and
+    its checksum and reads as sound. The 1912-1931 term listing sat that way
+    with its note in three pieces until a write that round-tripped the file
+    refused it."""
+    header, *rows = csv.reader((ROOT / "data" / "contents.csv").open())
+    ragged = [(i + 2, len(r)) for i, r in enumerate(rows) if len(r) != len(header)]
+    assert not ragged, ("rows of data/contents.csv whose field count is not "
+                        f"{len(header)} - a note with a comma needs quoting:\n  "
+                        + "\n  ".join(f"line {n}: {c} fields" for n, c in ragged))
+
+
 def run_sh_steps(name):
     """The steps run.sh lists for one stage: BUILD, CLEAN or FIGURES."""
     run = (ROOT / "run.sh").read_text()
