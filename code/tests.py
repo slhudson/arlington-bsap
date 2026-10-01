@@ -1021,6 +1021,20 @@ def test_every_source_with_a_url_is_filed():
     assert not problems, "sources with no copy on file:\n  " + "\n  ".join(problems)
 
 
+def test_a_census_record_is_filed_as_one_whoever_indexed_it():
+    """The FamilySearch record, reintroduced: the rule looked for Ancestry by
+    name, so the one census page indexed elsewhere fell through to reports/
+    and would have been filed as though a number were not read off it."""
+    for who in ("Ancestry", "FamilySearch"):
+        e = {"type": "online", "key": "planted", "title": "United States, Census, 1900",
+             "organization": who}
+        assert archive.kind(e) == "census", f"a {who} census record filed as {archive.kind(e)}"
+        base = f"{who} 1900 - United States, Census, 1900.pdf"
+        assert archive.subfolder("census", base) == f"census/{who}/1900", \
+            f"{base} does not file by maker and year"
+
+
+
 def a_legal_entry(key, annotation):
     """A one-entry bib naming a copy that is really on file, so a test can
     put words in its mouth. @jurisdiction is what archive.kind() files under
