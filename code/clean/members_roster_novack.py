@@ -25,6 +25,20 @@ DATED = re.compile(rf"(?:on|in|from)\s+(?:{MONTH}\s*(?:\d{{1,2}},?)?\s*)?((?:19|
 UNTIL = re.compile(rf"until\b.*?{MONTH}\s*(?:\d{{1,2}},?)?\s*((?:19|20)\d\d)", re.I)
 
 
+# Where a note stops being about the member and turns to the one before:
+# "Elected in a special election in May 1990 to fill the unexpired term of
+# John G. Milliken, who had been appointed as Secretary of Transportation".
+# The appointment there is Milliken's, and reading it as Hunter's made his
+# term begin by appointment when Novack says he won a special election.
+ANOTHER = re.compile(r"\bto fill\b|\bterm of\b|\bwho\b", re.I)
+
+
+def about_the_member(note):
+    """The part of an arrival note that describes this member's own seating."""
+    turn = ANOTHER.search(str(note))
+    return str(note)[:turn.start()] if turn else str(note)
+
+
 def events(notes):
     """Arrivals and departures in Novack's parentheticals: ("arrive" |
     "depart", year, month, text), with year and month None where undated.
@@ -165,7 +179,7 @@ def _span_segments(name, page, span, bounds, last, stood, winners, specials) -> 
     arrive, open_ended, span_end = span["arrive"], span["open_ended"], span["span_end"]
     arrive_note = arrive[0][3] or "" if arrive else ""
     cuts = bounds[1:-1]
-    began = (APPOINTMENT if re.search(r"appointed", arrive_note, re.I)
+    began = (APPOINTMENT if re.search(r"appointed", about_the_member(arrive_note), re.I)
              else SPECIAL_ELECTION if arrive else ELECTION)
     segments = []
     for i in range(len(bounds) - 1):

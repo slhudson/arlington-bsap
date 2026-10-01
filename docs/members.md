@@ -35,13 +35,6 @@ on the ages in census listings and on an age stated in an obituary or a
 profile. Each is right to within a year. The age figure draws a year only where
 all but at most one sitting member has a birth year, and it starts in 1932.
 
-**The roster from 1995.** Election results are the only source after Novack's
-article ends in 1994, so the roster holds nobody seated between 1995 and 2026
-who did not win a contest. Tannia Talento, appointed on 15 July 2023 to the
-seat Katie Cristol resigned eleven days earlier, is the one member this loses;
-Keena's workbook carries the appointment and codes her a Hispanic woman, and
-Cristol's term runs to December 2023 in her place (`keena-workbook-source`).
-
 **1912–1931 rests on no assumption.** `arlhist1967officials`, the Historical
 Society's own compilation from the Board's minute books, names all three
 magisterial seats — Arlington, Jefferson and Washington — for all twenty years.
@@ -321,15 +314,56 @@ district to Arlington at term 7.
 or unrecorded where O'Leary writes only that someone was replaced. Three builds
 select terms by it, so it is a column, not something read out of the note.
 
-Novack records service and election returns record contests, and the difference
-tells on the roster after 1994. Novack writes a mid-term arrival or departure
-into his parentheticals, so 20 terms begin in an appointment, every one of them
-before 1995. The county's candidate history and the state's database name the
-winners of contests, so a term that ended early shows there only in the win
-that filled it: Whipple in 1996, Hunter in 1997, Monroe in 2003, Zimmerman in
-2014 and Gutshall in 2020 each close on a successor's special election. An
-appointment leaves no contest to find, which is why Cristol's second term runs
-to the end of 2023 and Talento's months are missing from it.
+**Novack records service and election returns record contests**, and the
+county's roll records service too. That difference is why the roll is read.
+Novack writes a mid-term arrival or departure into his parentheticals, which
+is how eleven terms between 1933 and 1975 are known to begin in an
+appointment. The county's candidate history and the state's database name the
+winners of contests, so until the roll was read a term that ended early showed
+only in the win that filled it, and a seat filled without a contest showed not
+at all.
+
+Both things followed from that. Seven terms ran months longer than their
+holders served, because the roster ended each at its successor's seating for
+want of a record of the departure itself: Whipple, Hunter, Eisenberg, Monroe,
+Zimmerman, Gutshall and Cristol. And Tannia Talento, appointed on 15 July 2023
+to the rest of Cristol's term, was in the roster not at all, having won
+nothing. The roll dates every one of those departures and her arrival, and
+`members_roster_roll.py` applies them.
+
+The roll is also a second witness where Novack already speaks. For 1932 to
+1994 the two are independent records of the same Board, both are cited on the
+terms they agree about, and `check_against_novack` refuses a year where they
+name different people. They agree on all ten departures the roll dates in
+those years and on the membership of every year but four, each declared: the
+roll seats a November winner in the year of the election where the roster
+seats him the following January (1939), it appoints Howard Massey in November
+1952 where Novack has him in September, and in 1941 and 1986 it prints one
+name twice where the fifth member should be, leaving out Elizabeth Magruder
+and John Milliken, whom Novack names.
+
+**A month belongs to whoever held the seat for any part of it.** The roll
+dates a departure and an arrival to the day; the roster counts whole months,
+and applies that rule in `members_roster_roll.py` rather than in any figure.
+A seat vacated on 14 December 1995 and filled on 30 January 1996 is therefore
+Whipple's in December and Zimmerman's in January, and no month stands empty.
+Where a gap does cover a whole month the seat was empty, and eight months
+since 1932 were: March and April 1990, October 1997, March 1999, February
+2003, March 2014, and May and June 2020. Each is a seat Arlington left unfilled
+while a special election was called, the Board sitting with four members.
+`members_roster_roll.EMPTY` names the departure and the arrival that bracket
+each, read off the roll, and `check_seats` holds the roster to them: an
+undeclared gap stops the build, and so does filling a declared one. Prorating
+within a month would be more exact and would make a seat-year a fraction of a
+month, which nothing else here counts below.
+
+**No one was appointed to any of those eight months.** That was worth
+establishing rather than assuming, since an interim appointee is exactly the
+member this roster could not see. The roll names an appointment in each of
+1933, 1934, 1947, 1952, 1960, 1975 and 2023 and in no year after 1975 but
+2023, and ARLnow reports the Board in February 2014 operating "with four
+members until a special election is held" (`arlnow2014zimmerman`). Talento's
+is the only appointment to the Board since 1975.
 
 **The constitution created the Board; the acts of 1870 stood it up.** The
 constitution framed in 1868 and ratified in 1869 divides every county into not
@@ -885,9 +919,9 @@ with both sets of figures when the table below stops matching.
 | Street name | 2 | 0 | 1 | 0 | 3 |
 | Neighborhood | 10 | 0 | 4 | 2 | 16 |
 | Side of the County | 1 | 1 | 0 | 0 | 2 |
-| Nothing | | | | | 13 |
+| Nothing | | | | | 14 |
 
-So 41 of the 75 have a street address and 62 have a place of some kind,
+So 41 of the 76 have a street address and 62 have a place of some kind,
 but only 27 of the 62 are placed by a source dated to their service. The
 sources found online give a place at the time of writing, an obituary's
 address is where the person died, and a candidate profile's is where they

@@ -191,7 +191,9 @@ def held(terms: pd.DataFrame) -> pd.DataFrame:
 # not list stops the build.
 GENDER_WORDS = {"he": "man", "his": "man", "him": "man", "mr.": "man",
                 "captain": "man",
-                "she": "woman", "her": "woman", "mrs.": "woman", "ms.": "woman"}
+                "she": "woman", "her": "woman", "mrs.": "woman", "ms.": "woman",
+                # Her own words, in reported speech.
+                "token woman": "woman"}
 RACE_WORDS = {
     "black": "Black", "african american": "Black", "african americans": "Black",
     # The word the 1875 Alexandria Gazette prints beside a member's name.
@@ -200,6 +202,9 @@ RACE_WORDS = {
     # As the census's Mulatto is coded (members_census.py).
     "mixed race": "Black",
     "latin american heritage": "Hispanic",
+    # Tannia Talento's own words for herself, in reported speech, and the
+    # paper's words for the seat she held.
+    "token latino": "Hispanic", "the hispanic community": "Hispanic",
     # A description that implies a race the source does not state: a
     # Confederate soldier of the period was White; breaking the all-white
     # pattern was the first Black member.

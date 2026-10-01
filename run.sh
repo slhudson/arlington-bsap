@@ -58,7 +58,7 @@ BUILD=(elections members_claims candidates census ipums registration localities 
 # Stage 2: data/built/ -> data/clean/. Every decision about what a number
 # is. Each step is named for the file it writes, and later steps read what
 # earlier ones wrote.
-CLEAN=(residents residents_by_district members candidates members_residence members_by_year elections_results elections_turnout localities survey_satisfaction)
+CLEAN=(residents residents_by_district members members_chairs candidates members_residence members_by_year elections_results elections_turnout localities survey_satisfaction)
 
 # Stage 3: data/clean/ -> figures/. Each step is named for the figure it
 # writes. Five populations, alphabetical within each; last, the one step that

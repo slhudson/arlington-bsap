@@ -1,6 +1,6 @@
 """Every claim about a Board member, one row each -> data/built/members_claims.csv
 
-Eight files under data/transcribed/by_claude/ stacked into one table, each
+Nine files under data/transcribed/by_claude/ stacked into one table, each
 cell as keyed in, with `claim` saying which source a row came from:
 `demographics` (race, gender or a birth year a source states), `party` (a
 term's party, keyed on the term's start year), `residence` (a dated
@@ -8,9 +8,11 @@ place), `census` (one record, with what the index prints and what the
 sheet gives), `novack` (a member's whole service as Novack prints it, the
 `term` string and `notes`), `arlhist` (one district seat for one of the
 article's term blocks, 1870-1931, its two printed stretches stacked, with
-the block's `term` string, who chaired and a `note`) and `terms`
+the block's `term` string, who chaired and a `note`) `terms`
 (a term keyed in from the county's candidate history, with its dates and
-`note`). A field a row does not carry is blank. Nothing is coded, matched
+`note`) and `roll` (one row per member per year of the county's own roll of
+the Board, with the `office` held that year and, where the roll dates one,
+an `event` and its `event_date`). A field a row does not carry is blank. Nothing is coded, matched
 or chosen here; code/clean/members_roster.py reads the terms,
 code/clean/members_census.py the census rows, and code/clean/members.py
 and members_residence.py resolve the rest. docs/members.md, "Census
@@ -37,15 +39,17 @@ FILES = {"demographics": BY_CLAUDE / "members_demographics.csv",
          "novack": BY_CLAUDE / "arlington_historical_magazine" / "novack_terms_1930-1994.csv",
          "arlhist": (BY_CLAUDE / "arlington_historical_magazine" / "arlhist_terms_1870-1911.csv",
                      BY_CLAUDE / "arlington_historical_magazine" / "arlhist_terms_1912-1931.csv"),
-         "terms": BY_CLAUDE / "members_terms.csv"}
+         "terms": BY_CLAUDE / "members_terms.csv",
+         "roll": BY_CLAUDE / "arlington_county" / "members_roll.csv"}
 
 # A census record's citekey, census<year><surname>, unlike a volume's (census1880).
 CENSUS_RECORD = re.compile(r"census\d{4}[a-z]+")
 
 COLUMNS = ["name", "claim", "year", "start_year", "start_month", "election_date", "end_year", "end_month",
-           "district", "seated_by", "term", "chairman", "race", "gender", "race_words", "gender_words", "party_words", "birth_year", "age", "age_date", "birthplace",
+           "district", "seated_by", "term", "chairman", "office", "event", "event_date",
+           "race", "gender", "race_words", "gender_words", "party_words", "birth_year", "age", "age_date", "birthplace",
            "occupation", "place", "basis", "match", "checked", "source", "page", "quote",
-           "sheet", "notes", "note"]
+           "sheet", "notes", "note", "entry"]
 
 
 def census_records(r: pd.DataFrame) -> pd.DataFrame:
