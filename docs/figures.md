@@ -202,6 +202,19 @@ takes in at once; seven entries edge to edge is a sentence. The type is
 never shrunk to buy the row back, because the legend is the one part of a
 figure a reader has to read rather than see.
 
+A wrapped legend reads left to right along each row, as text does.
+Matplotlib fills a multi-column legend column by column, so seven age bands
+over two rows arrive as under 18, 25 to 34, 45 to 54, 65 and over on the top
+row and the rest beneath: every other band, with the reader going down and
+back up to follow the sequence. Every figure whose legend wraps here carries
+ordered categories — age bands, how exactly a residence is known, the
+election cycles — and their colours are a light-to-dark ramp doing the same
+work. A legend that breaks the sequence while the ramp asserts it is the one
+arrangement that cannot be right, so `charts.legend()` reorders the entries
+before matplotlib lays them out (decided by Sally, 1 October 2026). For
+unordered categories the column-major default would be no worse; the rule is
+one rule because two would be a rule nobody could remember.
+
 The legend is centred on the plot region rather than on the canvas. Centring
 on the canvas counts the y-axis label and the tick labels as part of what to
 centre under, and since both sit on the left, the legend lands left of the

@@ -243,12 +243,24 @@ def fit(fig, profile=style.DEFAULT_PROFILE):
     place_labels(fig)
 
 
+def _row_major(items, ncol):
+    """`items` reordered so that matplotlib, which fills a legend column by
+    column, lays them out left to right along each row instead. See
+    docs/figures.md."""
+    rows = [items[i:i + ncol] for i in range(0, len(items), ncol)]
+    return [row[c] for c in range(ncol) for row in rows if c < len(row)]
+
+
 def legend(fig, entries, ncol=None):
     """One legend for the whole figure, below it, one row unless ncol is
     given. entries is ordered {label: colour} or the {label: (values, colour)}
-    a chart took."""
+    a chart took. A legend that wraps reads left to right along each row."""
     colors = [v if isinstance(v, str) else v[1] for v in entries.values()]
-    fig.legend(handles=[Patch(facecolor=c) for c in colors], labels=list(entries),
+    pairs = list(zip(list(entries), colors))
+    if ncol:
+        pairs = _row_major(pairs, ncol)
+    fig.legend(handles=[Patch(facecolor=c) for _, c in pairs],
+               labels=[label for label, _ in pairs],
                loc="outside lower center", ncol=ncol or len(entries))
 
 
