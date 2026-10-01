@@ -32,8 +32,13 @@ import quotations  # noqa: E402
 sys.path.insert(0, str(ROOT / "code" / "build"))
 import paths as build_paths  # noqa: E402
 import members_claims  # noqa: E402
+import residents_survey as build_residents_survey  # noqa: E402
 sys.path.remove(str(ROOT / "code" / "build"))
 del sys.modules["paths"]
+# Both stages have a step of this name, as they should: each is named for
+# what it writes. The build one is kept under its own name so the clean
+# one can load under the plain one.
+del sys.modules["residents_survey"]
 
 sys.path.insert(0, str(ROOT / "code" / "clean"))
 import candidates  # noqa: E402
@@ -50,6 +55,7 @@ import residents_by_district  # noqa: E402
 import elections_turnout  # noqa: E402
 import elections_results  # noqa: E402
 import elections  # noqa: E402
+import residents_survey as clean_residents_survey  # noqa: E402
 
 # The fetch stage has a paths.py of its own too.
 del sys.modules["paths"]
@@ -1236,6 +1242,69 @@ def test_a_clean_paper_log_passes():
     log = ("This is LuaHBTeX, Version 1.18.0\nOutput written on "
            "arlington-bsap.pdf (14 pages).\n")
     assert paper.problems(log) == [], paper.problems(log)
+
+
+def test_a_second_empty_row_among_the_survey_responses_is_refused():
+    """A blank row below the heading is a spacer; a second one is a
+    respondent whose answers went missing, and dropping both silently
+    would shorten the file by one with nothing to show for it."""
+    mangle = patch_source(lambda d: "language" in d.columns,
+                          lambda d: pd.concat([d, d.iloc[[0]]], ignore_index=True))
+    err = breaks(build_residents_survey, "source", mangle)
+    assert err and "expected one empty row" in err, f"not caught: {err}"
+
+
+def test_a_survey_file_of_the_wrong_length_is_refused():
+    """A response file that is not the one zilo2026 counts. Every topline
+    here is checked against the published report, so reading a different
+    extract would move every number with nothing to say it had."""
+    mangle = patch_source(lambda d: "language" in d.columns, lambda d: d.iloc[:-1])
+    err = breaks(build_residents_survey, "source", mangle)
+    assert err and "not the one the report describes" in err, f"not caught: {err}"
+
+
+def test_a_survey_item_matching_two_headings_is_refused():
+    """The instrument heads the race write-in and its comment field almost
+    alike, and six other questions repeat a stem. Matching an item on a
+    phrase that reaches two of them would read the wrong column and say
+    nothing."""
+    stem = "Which of the following best describes your race or ethnicity? "
+    frame = pd.DataFrame({stem + "8. Other (please specify)": [""],
+                          stem + "8. Other (please specify) Comments": [""]})
+    try:
+        clean_residents_survey.column(frame, "8. Other (please specify)")
+    except AssertionError as e:
+        assert "matches 2 headings" in str(e), e
+    else:
+        raise AssertionError("not caught: a phrase matching two headings was accepted")
+
+
+def test_a_hispanic_respondent_naming_another_race_stays_hispanic():
+    """The census publishes race and Hispanic origin crossed, Hispanic of
+    any race first, and data/clean/residents.csv carries that crossing
+    (docs/residents.md). Reading the boxes in instrument order instead
+    would put 42 of the survey's Hispanic respondents under another race
+    and leave the two tables uncomparable, with both still summing."""
+    stem = "Which of the following best describes your race or ethnicity? "
+    boxes = {stem + "1. Asian": "", stem + "2. Black or African American": "",
+             stem + "3. Hispanic or Latino": "", stem + "4. Native American or Alaska Native": "",
+             stem + "5. White": "", stem + "6. Native Hawaiian or Pacific Islander": "",
+             stem + "7. Prefer not to respond": "",
+             stem + "8. Other (please specify)": ""}
+    def respondent(**checked):
+        row = dict(boxes)
+        for k, v in checked.items():
+            row[[c for c in row if k in c][0]] = v
+        return row
+    frame = pd.DataFrame([
+        respondent(**{"3. Hispanic": "x", "5. White": "x"}),
+        respondent(**{"5. White": "x"}),
+        respondent(**{"2. Black": "x", "5. White": "x"}),
+        respondent(**{"7. Prefer not": "x"}),
+        respondent(),
+    ])
+    got = list(clean_residents_survey.race(frame))
+    assert got == ["hispanic", "white", "other_or_multiracial", "declined", ""], got
 
 
 if __name__ == "__main__":
