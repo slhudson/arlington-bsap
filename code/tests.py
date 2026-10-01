@@ -1006,6 +1006,12 @@ def test_every_source_with_a_url_is_filed():
         # Whitespace-tolerant: biblatex wraps an annotation anywhere, so a
         # literal match would fail an entry that names its copy across a line.
         held = re.search(r"Filed\s+in\s+Drive\s+as", body) or "data/raw/" in body
+        # A page cited only for a count keeps no copy, on purpose: what it said
+        # is keyed into data/transcribed/ with the date it was read, and that
+        # file is the source a reviewer reads. The keyed file must be named, so
+        # "no copy is kept" cannot stand on its own.
+        if re.search(r"no\s+copy\s+is\s+kept", body) and "data/transcribed/" in body:
+            held = True
         if has_url and not held and key not in questions():
             problems.append(f"{key}: has a url but names no copy - add 'Filed in Drive as \"...\"' "
                             f"or the path under data/raw/, or log a question naming the key")

@@ -54,6 +54,7 @@ PAPERS = ("ARLnow", "InsideNoVa", "Sun Gazette", "Connection", "Washington Post"
 
 # Magazines are press, like papers. A historical society's magazine is scholarship: books.
 MAGAZINES = ("Arlington Magazine",)
+JOURNALS = ("Arlington Historical Magazine",)
 
 # Biography pages by publisher, and campaign material by publisher or title.
 BIO_ORG = re.compile(r"County Board Members|Arlington Historical Society|Center for Local History|Senate of Virginia|Library of Virginia|"
@@ -83,6 +84,8 @@ def kind(e):
     if e["type"] == "article" and "pages" in e and "location" in e:
         return "press"                               # a printed page, scanned
     org = e.get("organization", "")
+    if any(j in org for j in JOURNALS):
+        return "books"                                    # a historical society's magazine
     if any(m in org for m in MAGAZINES):
         return "press"                                    # a magazine's article
     if e["type"] == "article" and "journaltitle" in e and "pages" not in e:
