@@ -17,9 +17,11 @@ set inside a figure script.
 `style/` has no `paths.py` and therefore no route to `data/`. If something
 visual needs a column, that is a sign the figure script should pass it in.
 
-A figure script reads `data/clean/`, calls `charts.*`, and calls
-`paths.save()`. If it needs a colour, a size, a font, a margin or a legend
-position, that belongs in the style layer, not in the script.
+A figure script reads a clean table with `paths.read("<stem>")`, calls
+`charts.*`, and ends in `paths.save(fig, profile)`, which names the file after
+the script itself — a figure's name is never written out in its script. If it
+needs a colour, a size, a font, a margin or a legend position, that belongs in
+the style layer, not in the script.
 
 The conventions are the Urban Institute's data visualization style guide,
 <https://urbaninstitute.github.io/graphics-styleguide/>. **Follow Urban by

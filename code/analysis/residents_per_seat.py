@@ -3,7 +3,6 @@
 Two lines on one count axis, a marker per census, with a legend
 and the 1932 rule.
 """
-import pandas as pd
 
 import charts
 import paths
@@ -12,7 +11,7 @@ import style
 for profile in style.PROFILES:
     style.apply(profile)
 
-    d = pd.read_csv(paths.RESIDENTS)[["year", "total", "residents_per_seat"]].dropna()
+    d = paths.read("residents")[["year", "total", "residents_per_seat"]].dropna()
     series = {label: (d[col], colour) for col, (label, colour)
               in (("total", style.POPULATION), ("residents_per_seat", style.PER_SEAT))}
 
@@ -23,4 +22,4 @@ for profile in style.PROFILES:
 
     charts.rule(ax)
     charts.legend(fig, series)
-    paths.save(fig, "residents_per_seat", profile)
+    paths.save(fig, profile)

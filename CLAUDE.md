@@ -61,8 +61,19 @@ before it has nothing to reach with. `code/tests.py` checks both.
 `data/clean/residents.csv`. `code/analysis/members_by_race.py` writes
 `figures/pdf/members_by_race.pdf` and `figures/png/members_by_race.png`. No `make_`
 prefixes, no `_chart` suffixes: the directory says what the stage does, the
-filename says which thing. `run.sh` checks this after every figure, and warns
-about figures in `figures/` that no step produces.
+filename says which thing. A figure script does not repeat its own name:
+`paths.save(fig, profile)` takes the name from the running script, so saving
+under another figure's name is not a thing that can be typed. `run.sh` still
+checks that each step wrote its file, and warns about figures in `figures/`
+that no step produces.
+
+**Not every file in a stage folder is a step.** Half of `code/clean/` is
+modules the steps import, and so are `code/analysis/members.py` and
+`code/analysis/localities.py`. `run.sh` lists the steps in the order they run,
+one array per stage; a step is the file with a `__main__` block, or in
+`code/analysis/` the one that calls `paths.save()`. `code/tests.py` holds the
+two readings to each other, so a new step cannot be missing from run.sh and a
+module cannot be listed as one.
 
 **A name's first word is the subject the file is about; the rest says how that
 subject is cut or what about it is measured.** There are six: `residents`, the

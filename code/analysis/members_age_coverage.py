@@ -31,4 +31,4 @@ for profile in style.PROFILES:
     charts.years(ax, members.FIRST, 2020, step=20, label="year", through=members.LAST + 1)
     charts.rule(ax)
     charts.legend(fig, series)
-    paths.save(fig, "members_age_coverage", profile)
+    paths.save(fig, profile)

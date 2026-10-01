@@ -16,7 +16,7 @@ LEGEND = {label: c for label, c in style.LOCALITIES.values()}
 
 
 def load(profile) -> pd.DataFrame:
-    d = pd.read_csv(paths.BOARD_PEERS)
+    d = paths.read("localities")
     d = d[d["residents"] >= SMALLEST].copy()
     d["arlington"] = d["locality"] == "Arlington"
     d = d.sort_values("arlington")

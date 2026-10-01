@@ -8,7 +8,6 @@ is a run lost, since in Arlington the primary decides the seat. A special
 election is its own run. A year with no dot is a year no source records a
 Black candidacy. The 1932 rule marks the at-large Board.
 """
-import pandas as pd
 
 import charts
 import members
@@ -18,7 +17,7 @@ import style
 for profile in style.PROFILES:
     style.apply(profile)
 
-    d = pd.read_csv(paths.BOARD_CANDIDACIES)
+    d = paths.read("candidates")
     c = d[d.claim == "candidacy"]
     # A primary is drawn only where no general election follows it that year.
     followed = c.set_index(["name", "year"]).index.isin(
@@ -34,4 +33,4 @@ for profile in style.PROFILES:
     charts.years(ax, 1870, 2020, step=20, label="year", through=members.LAST + 1)
     charts.rule(ax)
     charts.dot_legend(fig, shown, profile)
-    paths.save(fig, "candidates", profile)
+    paths.save(fig, profile)

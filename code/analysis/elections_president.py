@@ -3,7 +3,6 @@
 Stacked bars of each band's share of the vote, one per election, in
 style.ELECTIONS_RESULTS. Years the build marks incomplete are left out.
 """
-import pandas as pd
 
 import charts
 import members
@@ -13,7 +12,7 @@ import style
 for profile in style.PROFILES:
     style.apply(profile)
 
-    d = pd.read_csv(paths.ELECTIONS_RESULTS)
+    d = paths.read("elections_results")
     d = d[(d.office == "president") & d.complete]
     share = d[list(style.ELECTIONS_RESULTS)].div(d.total, axis=0) * 100
     series = charts.series(share, style.ELECTIONS_RESULTS)
@@ -23,4 +22,4 @@ for profile in style.PROFILES:
     charts.shares(ax, label="share of the vote for President")
     charts.years(ax, 1870, 2020, step=20, label="presidential election", through=members.LAST + 1)
     charts.legend(fig, series)
-    paths.save(fig, "elections_president", profile)
+    paths.save(fig, profile)

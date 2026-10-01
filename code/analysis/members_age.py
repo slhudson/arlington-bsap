@@ -24,7 +24,7 @@ def span_by_month():
     """One row per month: youngest and oldest age holding a seat, as the
     strokes measure age (the month less the birth year less a half), NaN
     where too few members have a birth year."""
-    d = pd.read_csv(paths.MEMBERS)
+    d = paths.read("members")
     rows = []
     for m in range(FIRST * 12, (LAST + 1) * 12):
         s = d[(d.held_from <= m) & (m < d.held_to)].drop_duplicates("name")
@@ -44,7 +44,7 @@ def tenures():
     the year less the birth year less a half: a birth year alone puts the
     birthday at mid-year, so the age on 1 July is the same whole number the
     band uses."""
-    d = pd.read_csv(paths.MEMBERS).dropna(subset=["birth_year"]).sort_values(["name", "held_from"])
+    d = paths.read("members").dropna(subset=["birth_year"]).sort_values(["name", "held_from"])
     out = []
     for _, g in d.groupby("name"):
         start, stop, birth = None, None, g.birth_year.iloc[0]
@@ -74,4 +74,4 @@ for profile in style.PROFILES:
     charts.ages(ax, 0, 100)
     charts.years(ax, 1930, 2020, step=10, label="year", through=LAST + 1)
     ax.set_xlim(FIRST, LAST + 1)
-    paths.save(fig, "members_age", profile)
+    paths.save(fig, profile)

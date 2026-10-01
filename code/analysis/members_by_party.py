@@ -4,7 +4,6 @@ A stacked step area of seat-years in style.PARTY, on the same frame
 as members_by_race and members_by_gender, with the 1932 rule. Blank years are gaps.
 A category with no seat in any year gets no band and no legend entry.
 """
-import pandas as pd
 
 import charts
 import members
@@ -14,7 +13,7 @@ import style
 for profile in style.PROFILES:
     style.apply(profile)
 
-    d = pd.read_csv(paths.MEMBERS_BY_YEAR)
+    d = paths.read("members_by_year")
     spans = charts.runs(d["dem"].notna().to_numpy())
     held = [g for g in style.PARTY if d[g].fillna(0).sum() > 0]
     assert held, "no seat is attributed to any party category - check the build"
@@ -26,4 +25,4 @@ for profile in style.PROFILES:
     charts.years(ax, 1870, 2020, step=20, label="year", through=members.LAST + 1)
     charts.rule(ax)
     charts.legend(fig, series)
-    paths.save(fig, "members_by_party", profile)
+    paths.save(fig, profile)

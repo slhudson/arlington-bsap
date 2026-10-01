@@ -155,15 +155,16 @@ for s in "${selected[@]}"; do
   printf '  %-34s' "$s"
   outputs=("figures/pdf/$s.pdf" "figures/png/$s.png")
   [ "$s" = body_text_numbers ] && outputs=("paper/$s.tex")
-  # Removed first, so a script saving under the wrong name cannot pass on a
-  # previous run's copy.
+  # Removed first, so a script that writes nothing cannot pass on a previous
+  # run's copy.
   rm -f "${outputs[@]}"
   (cd code/analysis && ../../"$PY" "$s.py") >/dev/null
   for out in "${outputs[@]}"; do
     [ -f "$out" ] || {
       echo "FAILED"
       echo "    $s.py did not write $out"
-      echo "    A script must save under its own name - check its files.save() call."
+      echo "    A figure script ends in paths.save(fig, profile), which names the"
+      echo "    file after the script - check that the call is there."
       exit 1; }
   done
   echo "ok"

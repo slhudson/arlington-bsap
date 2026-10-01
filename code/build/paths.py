@@ -79,10 +79,6 @@ def write(frame, stem):
                         for p, c, gone in problems))
     BUILT.mkdir(parents=True, exist_ok=True)
     path = BUILT / f"{stem}.csv"
-    counts = citekeys.check(
-        (v for c in frame.columns if c == "source" or c.endswith("_source")
-           for v in frame[c].astype(str)), path.name)
+    said = citekeys.checked(frame, path)
     frame.to_csv(path, index=False)
-    print(f"  {path.name:<22} {len(frame):>4} rows", end="")
-    said = ", ".join(f"{n} {k}" for k, n in counts.items() if n)
-    print(f"   [{said}]" if said else "")
+    print(said)

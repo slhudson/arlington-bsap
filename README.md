@@ -32,43 +32,28 @@ committed, so anyone can rebuild without a network connection, an API key,
 or a Mac. `data/built/` is not committed: it rebuilds in seconds from the
 layers above, and `data/clean/` is the layer worth pulling across people.
 
-| Script | Writes | Explained in |
-|---|---|---|
-| `code/fetch/census.py` | `data/raw/us_census_bureau/<year>/*.csv` | `data/contents.csv` |
-| `code/fetch/elections.py` | `data/raw/va_dept_of_elections/county_board_2000-2026.csv.gz` | `data/contents.csv` |
-| `code/fetch/president.py` | `data/raw/va_dept_of_elections/president_1924-2024.csv` | `data/contents.csv` |
-| `code/fetch/registration.py` | `data/raw/va_dept_of_elections/registration_2010-2025.csv` | `data/contents.csv` |
-| `code/fetch/census_volumes.py` | `data/raw/us_census_bureau/<year>/<volume>-01.pdf` | `data/contents.csv` |
-| `code/transcribe/census.py` | `data/transcribed/by_ocr/us_census_bureau/<year>/*.txt` | `data/contents.csv` |
-| `code/transcribe/members_1870_1920.py` | `data/transcribed/by_claude/arlington_county/members_1870-1920.csv` | `data/contents.csv` |
-| `code/transcribe/president_1872_1920.py` | `data/transcribed/by_claude/arlington_county/president_1872-1920.csv` | `data/contents.csv` |
-| `code/transcribe/candidate_history.py` | `data/transcribed/by_claude/arlington_county/candidate_history_1920-present.csv` | `data/contents.csv` |
-| `code/transcribe/novack_terms.py` | `data/transcribed/by_claude/arlington_historical_magazine/novack_terms_1930-1994.csv` | `data/contents.csv` |
-| `code/build/elections.py` | `data/built/elections.csv` | its own docstring |
-| `code/build/members_claims.py` | `data/built/members_claims.csv` | `docs/members.md` |
-| `code/build/census.py` | `data/built/census.csv` | its own docstring |
-| `code/build/registration.py` | `data/built/registration.csv` | its own docstring |
-| `code/clean/residents.py` | `data/clean/residents.csv` | `docs/residents.md` |
-| `code/clean/elections_results.py` | `data/clean/elections_results.csv` | `docs/elections.md` |
-| `code/clean/members.py` | `data/clean/members.csv` | `docs/members.md` |
-| `code/clean/members_residence.py` | `data/clean/members_residence.csv` | `docs/members.md` |
-| `code/clean/members_by_year.py` | `data/clean/members_by_year.csv` | `docs/members.md` |
-| `code/clean/elections_turnout.py` | `data/clean/elections_turnout.csv` | `docs/elections.md` |
-| `code/analysis/<figure>.py` | `figures/pdf/<figure>.pdf`, `figures/png/<figure>.png` | its own docstring |
-| `code/sources/archive.py` | `index.md` at the top of the Drive documents folder, and the zip the County receives | `CLAUDE.md` |
+**A script is named for what it writes**, so the folder is the index and
+there is no list to keep: `code/clean/residents.py` writes
+`data/clean/residents.csv`, and `code/analysis/members_by_race.py` writes
+`figures/pdf/members_by_race.pdf` and its `.png`. What a number *is* and what
+backs it is in that subject's write-up under `docs/`, listed at the bottom of
+this file; where a raw file came from is its row in `data/contents.csv`.
 
-Clean modules that write nothing, read by the steps above:
-`code/clean/members_roster.py` (who held each seat and when, assembled from
-one module per source, `members_roster_oleary.py`, `members_roster_novack.py`
-and `members_roster_results.py`, on the terms `members_terms.py` defines),
-`code/clean/elections.py` (an office's contests, selected from the built
-table), `code/clean/census.py` (a census table in its own shape, from the
-built cells) and `code/clean/members_census.py` (the census rows of the built
-claims, coded), and one analysis module, `code/analysis/members.py` (who
-sits on the Board in a year), is read by the Board figures.
-`code/citekeys.py` (the citekeys `paper/sources.bib` defines) is read by
-both data stages. Each stage has a `paths.py` that maps
-its data folders, and `code/clean/paths.py` maps nothing above `data/built/`.
+**Not every file in a stage folder is a step.** Half of `code/clean/` is
+modules the steps import — the roster readers, the terms they are built on,
+an office's contests — and so are `code/analysis/members.py` and
+`code/analysis/localities.py`. `run.sh` lists the steps, in the order they
+run, one array per stage; a step is the file with a `__main__` block, or in
+`code/analysis/` the one that saves a figure. `code/tests.py` holds those two
+readings to each other, so a step cannot go missing from the list and a
+module cannot creep into it.
+
+Each stage has a `paths.py` that maps its own data folders and no higher:
+`code/clean/paths.py` has no route above `data/built/`,
+`code/analysis/paths.py` none above `data/clean/`. `code/citekeys.py` is the
+citekeys `paper/sources.bib` defines, read by both data stages.
+Outside the stages, `code/sources/archive.py` writes the Drive documents
+folder's `index.md` and the zip the County receives.
 
 ## Rebuilding
 

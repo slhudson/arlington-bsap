@@ -32,4 +32,4 @@ for profile in style.PROFILES:
     charts.comma_axis(ax.yaxis, 120_000, 20_000, "residents per member")
 
     charts.dot_legend(fig, localities.LEGEND, profile)
-    paths.save(fig, "localities_density", profile)
+    paths.save(fig, profile)

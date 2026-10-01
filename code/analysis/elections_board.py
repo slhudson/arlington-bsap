@@ -5,7 +5,6 @@ style.BOARD_VOTE, on the same axis and in the same colours as
 elections_president. Years the build marks incomplete are gaps. A band with
 no votes in any year gets no band and no legend entry.
 """
-import pandas as pd
 
 import charts
 import members
@@ -15,7 +14,7 @@ import style
 for profile in style.PROFILES:
     style.apply(profile)
 
-    d = pd.read_csv(paths.ELECTIONS_RESULTS)
+    d = paths.read("elections_results")
     d = d[d.office == "county board"].sort_values("year")
     held = [g for g in style.BOARD_VOTE if d[g].sum() > 0]
     assert held, "no County Board vote is attributed to any band - check the build"
@@ -28,4 +27,4 @@ for profile in style.PROFILES:
     charts.shares(ax, label="share of the vote for County Board")
     charts.years(ax, 1870, 2020, step=20, label="year", through=members.LAST + 1)
     charts.legend(fig, series)
-    paths.save(fig, "elections_board", profile)
+    paths.save(fig, profile)

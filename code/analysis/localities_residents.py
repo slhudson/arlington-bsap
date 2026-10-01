@@ -36,4 +36,4 @@ for profile in style.PROFILES:
     charts.break_x(near, far, "residents", FAR, FAR_TICK)
 
     charts.dot_legend(fig, localities.LEGEND, profile)
-    paths.save(fig, "localities_residents", profile)
+    paths.save(fig, profile)
