@@ -87,6 +87,11 @@ majority is twelve points larger than the county's, and the gap is widest for
 Hispanic residents, who are a little over half as present in the survey as
 they are in Arlington.
 
+Every figure and table built from this file reports subgroup shares as
+fielded. Nothing in the repository weights a response to the county's
+composition on race or any other characteristic; the departure above is the
+correction a reader gets, not one the data gets.
+
 Zilo states that the dataset "achieves a 95% confidence level with a margin of
 error of approximately ±2.4%". That is the figure a simple random sample of
 1,613 would carry, and the sample Zilo describes is a voluntary one recruited
