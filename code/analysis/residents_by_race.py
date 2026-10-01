@@ -9,7 +9,6 @@ the census asked no Hispanic-origin question, so a dashed rule marks the year
 the definition changes.
 """
 import numpy as np
-import pandas as pd
 
 import charts
 import paths
@@ -20,7 +19,7 @@ TOP = 50000          # top of the counts axis; White is clipped above it
 for profile in style.PROFILES:
     style.apply(profile)
 
-    c = pd.read_csv(paths.RESIDENTS)
+    c = paths.read("residents")
     groups = list(style.RACE)
 
     # A blank stays blank, so a line begins where the column does.
@@ -51,4 +50,4 @@ for profile in style.PROFILES:
     b.set_title("(b) share of residents")
 
     charts.legend(fig, stacked, ncol=3)
-    paths.save(fig, "residents_by_race", profile)
+    paths.save(fig, profile)

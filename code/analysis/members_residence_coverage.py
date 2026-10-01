@@ -24,7 +24,7 @@ SHOWN = {"address": ["address"], "street": ["street"], "neighborhood": ["neighbo
          "side_or_district": ["side", "district"], "none": ["none"]}
 PLACED = [k for k in SHOWN if k != "none"]
 
-claims = pd.read_csv(paths.BOARD_RESIDENCE, dtype=str).fillna("")
+claims = paths.read("members_residence", dtype=str).fillna("")
 exactness = claims.precision.map(ORDER.index)
 best = exactness.groupby(claims.name).min().map(lambda r: ORDER[int(r)])
 
@@ -48,4 +48,4 @@ for profile in style.PROFILES:
     charts.years(ax, members.FIRST, 2020, step=20, label="year", through=members.LAST + 1)
     charts.rule(ax)
     charts.legend(fig, series, ncol=3)
-    paths.save(fig, "members_residence_coverage", profile)
+    paths.save(fig, profile)

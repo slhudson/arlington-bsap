@@ -17,8 +17,6 @@ written, whether or not the prose uses it yet.
 """
 from decimal import ROUND_HALF_UP, Decimal
 
-import pandas as pd
-
 import paths
 
 YEARS = {1870: "EighteenSeventy", 1880: "EighteenEighty", 1890: "EighteenNinety",
@@ -37,7 +35,7 @@ def member_shares() -> dict:
     raceAssumedShareMembers    share of all members recorded White because no
                                 source says otherwise
     """
-    m = pd.read_csv(paths.MEMBERS).drop_duplicates(subset="name")
+    m = paths.read("members").drop_duplicates(subset="name")
     return {
         "genderCensusShareMembers": per_cent(m.gender_source.str.contains("census").sum(), len(m)),
         "raceAssumedShareMembers": per_cent((m.race_source == "assumed").sum(), len(m)),
@@ -46,7 +44,7 @@ def member_shares() -> dict:
 
 def numbers() -> dict:
     """Every command's name and value, in the order the file lists them."""
-    d = pd.read_csv(paths.RESIDENTS_BY_DISTRICT)
+    d = paths.read("residents_by_district")
     out = {}
     for year, g in d.groupby("year"):
         for r in g.itertuples():

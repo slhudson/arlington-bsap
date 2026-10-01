@@ -99,13 +99,13 @@ def key_of(cell):
     return cell.split()[0].rstrip(";") if cell else ""
 
 
-def check(cells, where):
+def check(values, where):
     """Refuse any source cell that is neither a known citekey nor a
     placeholder. Returns a count per placeholder, for run.sh to report."""
     known = keys()
     counts = dict.fromkeys(PLACEHOLDERS, 0)
     bad = set()
-    for cell in cells:
+    for cell in values:
         key = key_of(cell)
         if not key:
             continue
@@ -121,3 +121,20 @@ def check(cells, where):
             f"source genuinely is not known yet - use one of: "
             f"{', '.join(PLACEHOLDERS)}.")
     return counts
+
+
+def cells(frame):
+    """Every source cell in `frame`: a column named `source`, or named for
+    what it sources, `<column>_source`. Both data stages ask this of a table
+    they are about to write, so it is answered once, here."""
+    return (v for c in frame.columns if c == "source" or c.endswith("_source")
+            for v in frame[c].astype(str))
+
+
+def checked(frame, path):
+    """Check every source cell in `frame`, and return the line the stage
+    prints for the table it writes: the file, its rows, and any placeholders
+    among them."""
+    counts = check(cells(frame), path.name)
+    said = ", ".join(f"{n} {k}" for k, n in counts.items() if n)
+    return f"  {path.name:<22} {len(frame):>4} rows" + (f"   [{said}]" if said else "")

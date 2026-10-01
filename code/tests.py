@@ -1435,6 +1435,42 @@ def test_every_data_file_is_inventoried():
                        "is never edited:\n  " + "\n  ".join(moved))
 
 
+def run_sh_steps(name):
+    """The steps run.sh lists for one stage: BUILD, CLEAN or FIGURES."""
+    run = (ROOT / "run.sh").read_text()
+    return re.search(rf"^{name}=\((.*?)\)$", run, re.M).group(1).split()
+
+
+def test_a_step_and_a_module_are_told_apart():
+    """A file in a stage folder that run.sh does not list but writes
+    something anyway, or one it lists that writes nothing.
+
+    Half of code/clean/ is modules the steps import - the roster readers, the
+    terms, the contests - and two of code/analysis/ are too. Nothing in a
+    name or a folder says which half a file is in, so the only reading of it
+    is run.sh's own list, and a step left out of that list silently never
+    runs. The other reading is the file itself: a step writes what it is
+    named for, from a __main__ block or, in code/analysis/, from a
+    paths.save(). This asserts the two agree, which makes the distinction
+    mechanical instead of conventional."""
+    problems = []
+    for folder, name in (("build", "BUILD"), ("clean", "CLEAN"), ("analysis", "FIGURES")):
+        listed = run_sh_steps(name)
+        for f in sorted((ROOT / "code" / folder).glob("*.py")):
+            if f.name == "paths.py":
+                continue
+            text = f.read_text()
+            writes = 'if __name__ == "__main__":' in text or "paths.save(" in text
+            if writes and f.stem not in listed:
+                problems.append(f"code/{folder}/{f.name} writes an output but "
+                                f"{name} in run.sh does not list it - add it, or make it "
+                                f"a module the steps import")
+            if f.stem in listed and not writes:
+                problems.append(f"{name} in run.sh lists {f.stem}, but "
+                                f"code/{folder}/{f.name} writes nothing")
+    assert not problems, "a stage's steps and its modules disagree:\n  " + "\n  ".join(problems)
+
+
 def test_docs_agree_with_run_sh():
     """A `pip install` line in the docs that differs from run.sh."""
     run = (ROOT / "run.sh").read_text()

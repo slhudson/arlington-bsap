@@ -8,11 +8,10 @@ FIRST and LAST are the years the build covers, read from the seat table,
 which ends in the year the roster was checked to. A figure's year axis
 runs through LAST + 1, so every figure ends where the build does.
 """
-import pandas as pd
 
 import paths
 
-_years = pd.read_csv(paths.MEMBERS_BY_YEAR).year
+_years = paths.read("members_by_year").year
 FIRST, LAST = int(_years.min()), int(_years.max())
 
 
@@ -24,5 +23,5 @@ def sitting(members, year):
 
 def by_year(first=FIRST, last=LAST):
     """(year, the members sitting) for every year first..last."""
-    d = pd.read_csv(paths.MEMBERS)
+    d = paths.read("members")
     return [(year, sitting(d, year)) for year in range(first, last + 1)]

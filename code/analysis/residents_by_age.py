@@ -4,7 +4,6 @@ One panel: every resident, as stacked bars in style.RESIDENT_AGES with the
 youngest band at the base. Shares rather than counts, and children included
 though they cannot vote.
 """
-import pandas as pd
 
 import charts
 import paths
@@ -17,7 +16,7 @@ for profile in style.PROFILES:
     style.apply(profile)
 
     bands = list(style.RESIDENT_AGES)
-    c = pd.read_csv(paths.RESIDENTS)
+    c = paths.read("residents")
     c = c[c["year"] >= FIRST].reset_index(drop=True)
     shares = c[bands].astype(float).div(c["total"], axis=0) * 100
 
@@ -28,4 +27,4 @@ for profile in style.PROFILES:
     charts.years(ax, FIRST, 2020, step=10, bars=BARS, dense=True)
 
     charts.legend(fig, stacked, ncol=4)
-    paths.save(fig, "residents_by_age", profile)
+    paths.save(fig, profile)

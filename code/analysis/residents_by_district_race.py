@@ -19,7 +19,7 @@ COUNTY = "county"
 def shares() -> pd.DataFrame:
     """One row per census, one column per place, the Black share per cent,
     a census with no race split left empty."""
-    d = pd.read_csv(paths.RESIDENTS_BY_DISTRICT)
+    d = paths.read("residents_by_district")
     d["counted"] = d[["white", "black", "other"]].sum(axis=1)
 
     # The county is the three districts added up, so it is only a county
@@ -52,4 +52,4 @@ for profile in style.PROFILES:
     charts.years(ax, int(s.index.min()), int(s.index.max()), step=10)
     charts.legend(fig, {**{l: c for l, c in style.DISTRICTS.values()},
                         style.WHOLE_COUNTY[0]: style.WHOLE_COUNTY[1]})
-    paths.save(fig, "residents_by_district_race", profile)
+    paths.save(fig, profile)
