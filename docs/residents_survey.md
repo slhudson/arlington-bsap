@@ -60,11 +60,14 @@ is counted into a race.
 ## What the earlier waves can and cannot settle
 
 The report compares 2026 against 2022 and 2018 for questions 1, 3, 12, 16, 17,
-18 and 20, and for nothing else. Question 4 carries no earlier wave at all, so
-the two items that speak most directly to the Board's structure — whether
-residents are familiar with it and whether they think it is right for this
-community — have no trend. On the evidence in hand they were first asked in
-2026.
+18 and 20, and for nothing else. Question 4 carries no earlier wave, so the two
+items that speak most directly to the Board's structure — whether residents are
+familiar with it and whether they think it is right for this community — have
+no trend. They are new in 2026: the County's review of its form of government
+began within the year before the survey was fielded, and the five statements
+were written for this instrument. The 2026 reading of them stands alone, and
+nothing in the report licenses a sentence about residents' views of the Board's
+structure moving.
 
 What does have a trend is transparency, and it falls from 42 per cent
 satisfied in 2018 and 42 in 2022 to 36 in 2026. Those values exist only as a
@@ -99,9 +102,6 @@ set against the county from what the repository holds.
 
 ## What rests on an assumption
 
-- That question 4's five statements were first asked in 2026. The report's
-  trend section omits them and the County has not been asked whether an
-  earlier instrument carried them.
 - That the 2018 values the chart prints for the County's efforts to embrace
   diversity and for the overall inclusiveness of the community are the 2018
   values. Each equals its 2026 value exactly, in a chart where no other item
