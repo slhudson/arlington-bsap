@@ -1032,6 +1032,19 @@ def test_every_source_with_a_url_is_filed():
     assert not problems, "sources with no copy on file:\n  " + "\n  ".join(problems)
 
 
+def test_a_record_that_is_not_a_census_is_not_filed_as_one():
+    """Four Ancestry records - a marriage, a passenger list, a draft card, a
+    grave - were filed as censuses because the rule read who published them,
+    and landed in census/Ancestry/1924, 1934, 1942 and 1957, years no census
+    was taken in."""
+    for title, where in [
+            ("John C. Gall in the Virginia, U.S., Select Marriages, 1785-1940", "vital records"),
+            ("John Christian Gall in the U.S., World War II Draft Cards", "vital records"),
+            ("S. B. Boyd in the 1870 United States Federal Census", "census")]:
+        e = {"type": "misc", "key": "planted", "title": title, "organization": "Ancestry.com"}
+        assert archive.kind(e) == where, f"{title[:40]} filed as {archive.kind(e)}, not {where}"
+
+
 def test_a_census_record_is_filed_as_one_whoever_indexed_it():
     """The FamilySearch record, reintroduced: the rule looked for Ancestry by
     name, so the one census page indexed elsewhere fell through to reports/

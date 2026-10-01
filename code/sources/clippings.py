@@ -1,4 +1,4 @@
-"""Cut each filed web print down to where its article stops.
+"""Cut each filed web print down to where its text stops.
 
     .venv/bin/python code/sources/clippings.py            # dry run: report, cut nothing
     .venv/bin/python code/sources/clippings.py --apply    # cut the pages, rewrite the annotations
@@ -64,6 +64,11 @@ CHROME = [
     r"No Content Available",
     r"Paid Advertising",
     r"FOLLOW US",
+    # arlingtonva.us, under a Board member's biography
+    r"Registration opens beginning at.*?following Monday\.",
+    r"Related County Board Meeting",
+    r"(?:\d{1,2} [A-Z][a-z]{2} \d{4}\s*)+",      # the dates above the events rail
+    r"\(https?://[^)]*\)",                      # a link printed beside its text
     # Connection Newspapers
     r"The Connection Sign in.*?Votes",
     r"More like this story.*",
@@ -83,6 +88,7 @@ FOOTER = [
     r"The purpose of Blue Virginia",
     r"Corporate Info About Patch",
     r"Find out what.{0,3}s happening in your community on the Patch app",
+    r"Open Door Monday",                      # arlingtonva.us, the events rail under a biography
 ]
 
 # What a page must hold, furniture removed, to count as the article's. Low,
@@ -158,7 +164,9 @@ def copies(bib, documents):
     """Every filed press copy that is a print of a web page, with its entry."""
     out = []
     for e in bib:
-        if archive.kind(e) != "press":
+        # Press, and the other kinds printed from a web page: a biography and a
+        # campaign page carry the site's furniture after them in the same way.
+        if archive.kind(e) not in ("press", "obituaries", "bios", "campaign websites"):
             continue
         for name in archive.filed(e):
             p = documents / name
@@ -168,30 +176,6 @@ def copies(bib, documents):
 
 
 CUT = ", cut to the article"
-
-
-def rewrite_bib(text_, keys):
-    """The bib with ", cut to the article" added to each named entry's
-    annotation. Returns the new text and the keys it could not place, which
-    are the annotations whose last sentence is not the one about the copy."""
-    missed = []
-    for key in keys:
-        m = re.search(r"^@\w+\{" + re.escape(key) + r",", text_, re.M)
-        end = re.compile(r"^\}", re.M).search(text_, m.end()).start()
-        a = re.search(r"^(\s*annotation\s*=\s*\{)(.*?)(\},?\s*)$", text_[m.end():end],
-                      re.S | re.M)
-        if not a or "cut to the article" in a.group(2):
-            if not a:
-                missed.append(key)
-            continue
-        body = a.group(2).rstrip()
-        trail = a.group(2)[len(body):]
-        if not re.search(r"\d{4}$|article$|removed$", body):
-            missed.append(key)
-            continue
-        i = m.end() + a.start(2)
-        text_ = text_[:i] + body + CUT + trail + text_[i + len(a.group(2)):]
-    return text_, missed
 
 
 def main():
@@ -258,7 +242,7 @@ def main():
             sys.exit(f"{key}: the cut copy does not have {keep} pages")
         tmp.replace(path)
         print(f"cut {name} to {keep} pages")
-    new, missed = rewrite_bib(bib_text, [c[0] for c in cuts])
+    new, missed = archive.append_annotation(bib_text, [c[0] for c in cuts], CUT)
     archive.BIB.write_text(new)
     print(f"rewrote {len(cuts) - len(missed)} annotations in {archive.BIB.name}")
     for key in missed:

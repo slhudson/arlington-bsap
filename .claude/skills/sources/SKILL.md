@@ -72,6 +72,14 @@ Arlington Board Member Dorothy Grotos Dies at 88 (Sun Gazette).pdf`. Every
 other kind leads with its author. A new obituary must set `subject` to a name
 `data/clean/members.csv` also holds, or `code/tests.py` refuses the build.
 
+`code/sources/clippings.py` cuts a copy printed from a web page back to where
+its text stops, and `code/sources/scans.py` re-encodes the images of a copy
+that was stored wastefully - a photograph kept losslessly, a page scanned far
+above reading resolution - keeping every page and only where re-encoding at
+150 dpi halves the file, so an archival scan of small print is left alone. Each
+records what it did in the entry's annotation, which is also what stops it
+running twice over the same copy.
+
 ## Citekeys
 
 Three values are not citekeys and `code/citekeys.py` says what each admits
