@@ -65,12 +65,16 @@ filename says which thing. `run.sh` checks this after every figure, and warns
 about figures in `figures/` that no step produces.
 
 **A name's first word is the subject the file is about; the rest says how that
-subject is cut or what about it is measured.** There are five: `residents`, the
+subject is cut or what about it is measured.** There are six: `residents`, the
 county's people; `elections`, the contests they vote in; `members`, the people
-who have served on the Board; `candidates`, the people who have run for it; and
-`localities`, the Virginia jurisdictions Arlington is set against. Then
-`residents_by_district`, `members_by_race`, `elections_turnout`,
-`localities_density`. A subject is whatever a file is about, so people, places
+who have served on the Board; `candidates`, the people who have run for it;
+`localities`, the Virginia jurisdictions Arlington is set against; and
+`survey`, the people a questionnaire reached, cut by which one -
+`survey_satisfaction`, `survey_rcv`. Then `residents_by_district`,
+`members_by_race`, `elections_turnout`, `localities_density`. A survey is its
+own subject because its respondents are a sample and not the county: a share
+of `residents` is every resident, a share of `survey_satisfaction` is every
+resident who answered. A subject is whatever a file is about, so people, places
 and events all qualify; nothing is gained by forcing them into one word. Everything here is Arlington and everything is about the
 Board, so nothing is prefixed `arlington_` and nothing is prefixed `board_`.
 
@@ -256,8 +260,9 @@ biber, so a first failure is retried from clean before it is believed.
 ## Questions and decisions
 
 One write-up per subject, and one tracker. `docs/residents.md`,
-`docs/elections.md`, `docs/members.md`, `docs/candidates.md` and
-`docs/localities.md` hold what is settled about each: what
+`docs/elections.md`, `docs/members.md`, `docs/candidates.md`,
+`docs/localities.md` and `docs/survey_satisfaction.md` hold what is settled
+about each: what
 each number is, what backs it, what is assumed where nothing does, and why,
 in the present tense, ending with a list of what still rests on an
 assumption. `paper/sources.bib` is the registry of sources, and each entry's

@@ -17,7 +17,7 @@ Board structure, and whether that structure is right for this community.
 Question 3 supplies two more on a satisfaction scale, transparency of the
 County's decision-making process and opportunities for public engagement, and
 question 1 supplies the effectiveness of the County's communication with the
-public. `data/clean/residents_survey.csv` carries those eight items, one row
+public. `data/clean/survey_satisfaction.csv` carries those eight items, one row
 per respondent, beside the demographics the report cuts them by.
 
 ## What a blank means
@@ -25,7 +25,7 @@ per respondent, beside the demographics the report cuts them by.
 The workbook records three different refusals and distinguishes none of them.
 A respondent can leave an item blank, can choose "Don't Know" where the
 satisfaction scales offer it, or can choose "Prefer not to answer" where the
-demographic questions offer it. `code/clean/residents_survey.py` keeps all
+demographic questions offer it. `code/clean/survey_satisfaction.py` keeps all
 three apart: an explicit refusal becomes `declined`, "Don't Know" stays as the
 instrument prints it, and a blank stays blank.
 
@@ -50,7 +50,7 @@ may be checked, and 84 respondents check more than one. The census asks race
 and Hispanic origin as two questions and publishes them crossed, and
 `data/clean/residents.csv` carries that crossing, so the two tables can only be
 set side by side if the survey is cut the same way (`docs/residents.md`).
-`code/clean/residents_survey.py` therefore reads Hispanic of any race first,
+`code/clean/survey_satisfaction.py` therefore reads Hispanic of any race first,
 then among the rest White, Black, and Asian or Pacific Islander alone, and
 puts everyone else — a respondent naming two races, American Indian or Alaska
 Native, or "Other" — together. The 173 respondents who check "Prefer not to
@@ -60,17 +60,20 @@ is counted into a race.
 ## What the earlier waves can and cannot settle
 
 The report compares 2026 against 2022 and 2018 for questions 1, 3, 12, 16, 17,
-18 and 20, and for nothing else. Question 4 carries no earlier wave at all, so
-the two items that speak most directly to the Board's structure — whether
-residents are familiar with it and whether they think it is right for this
-community — have no trend. On the evidence in hand they were first asked in
-2026.
+18 and 20, and for nothing else. Question 4 carries no earlier wave, so the two
+items that speak most directly to the Board's structure — whether residents are
+familiar with it and whether they think it is right for this community — have
+no trend. They are new in 2026: the County's review of its form of government
+began within the year before the survey was fielded, and the five statements
+were written for this instrument. The 2026 reading of them stands alone, and
+nothing in the report licenses a sentence about residents' views of the Board's
+structure moving.
 
 What does have a trend is transparency, and it falls from 42 per cent
 satisfied in 2018 and 42 in 2022 to 36 in 2026. Those values exist only as a
 bar chart on page 83 of the report, printed as an image whose numbers no
 software can read, so a person read them off the chart and keyed them into
-`data/transcribed/by_claude/residents_survey_by_year.csv` with the page. Eleven
+`data/transcribed/by_claude/survey_satisfaction_by_year.csv` with the page. Eleven
 of question 3's twelve items appear there; the County's efforts to improve
 equity is on the instrument and not on the chart.
 
@@ -99,9 +102,6 @@ set against the county from what the repository holds.
 
 ## What rests on an assumption
 
-- That question 4's five statements were first asked in 2026. The report's
-  trend section omits them and the County has not been asked whether an
-  earlier instrument carried them.
 - That the 2018 values the chart prints for the County's efforts to embrace
   diversity and for the overall inclusiveness of the community are the 2018
   values. Each equals its 2026 value exactly, in a chart where no other item

@@ -35,13 +35,13 @@ import quotations  # noqa: E402
 sys.path.insert(0, str(ROOT / "code" / "build"))
 import paths as build_paths  # noqa: E402
 import members_claims  # noqa: E402
-import residents_survey as build_residents_survey  # noqa: E402
+import survey_satisfaction as build_survey_satisfaction  # noqa: E402
 sys.path.remove(str(ROOT / "code" / "build"))
 del sys.modules["paths"]
 # Both stages have a step of this name, as they should: each is named for
 # what it writes. The build one is kept under its own name so the clean
 # one can load under the plain one.
-del sys.modules["residents_survey"]
+del sys.modules["survey_satisfaction"]
 
 sys.path.insert(0, str(ROOT / "code" / "clean"))
 import candidates  # noqa: E402
@@ -58,7 +58,7 @@ import residents_by_district  # noqa: E402
 import elections_turnout  # noqa: E402
 import elections_results  # noqa: E402
 import elections  # noqa: E402
-import residents_survey as clean_residents_survey  # noqa: E402
+import survey_satisfaction as clean_survey_satisfaction  # noqa: E402
 
 # The fetch stage has a paths.py of its own too.
 del sys.modules["paths"]
@@ -1371,7 +1371,7 @@ def test_a_second_empty_row_among_the_survey_responses_is_refused():
     would shorten the file by one with nothing to show for it."""
     mangle = patch_source(lambda d: "language" in d.columns,
                           lambda d: pd.concat([d, d.iloc[[0]]], ignore_index=True))
-    err = breaks(build_residents_survey, "source", mangle)
+    err = breaks(build_survey_satisfaction, "source", mangle)
     assert err and "expected one empty row" in err, f"not caught: {err}"
 
 
@@ -1380,7 +1380,7 @@ def test_a_survey_file_of_the_wrong_length_is_refused():
     here is checked against the published report, so reading a different
     extract would move every number with nothing to say it had."""
     mangle = patch_source(lambda d: "language" in d.columns, lambda d: d.iloc[:-1])
-    err = breaks(build_residents_survey, "source", mangle)
+    err = breaks(build_survey_satisfaction, "source", mangle)
     assert err and "not the one the report describes" in err, f"not caught: {err}"
 
 
@@ -1393,7 +1393,7 @@ def test_a_survey_item_matching_two_headings_is_refused():
     frame = pd.DataFrame({stem + "8. Other (please specify)": [""],
                           stem + "8. Other (please specify) Comments": [""]})
     try:
-        clean_residents_survey.column(frame, "8. Other (please specify)")
+        clean_survey_satisfaction.column(frame, "8. Other (please specify)")
     except AssertionError as e:
         assert "matches 2 headings" in str(e), e
     else:
@@ -1424,7 +1424,7 @@ def test_a_hispanic_respondent_naming_another_race_stays_hispanic():
         respondent(**{"7. Prefer not": "x"}),
         respondent(),
     ])
-    got = list(clean_residents_survey.race(frame))
+    got = list(clean_survey_satisfaction.race(frame))
     assert got == ["hispanic", "white", "other_or_multiracial", "declined", ""], got
 
 

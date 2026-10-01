@@ -127,6 +127,9 @@ neither repeats the reasons.
   the tick labels are not part of what a legend sits under, and counting
   them pushes it visibly left of the marks it names. `charts.fit()` does
   this for every figure; nothing in a figure script sets it.
+- **A wrapped legend reads left to right along each row**, not down each
+  column, which is matplotlib's default. `charts.legend(fig, entries, ncol=)`
+  does the reordering; nothing in a figure script arranges entries.
 - If labels are too long for one row, shorten the labels first. Where there
   are still too many entries to read across one row — seven age bands, or a
   narrow figure — **break it into two rows rather than shrinking the type or
