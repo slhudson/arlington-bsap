@@ -449,6 +449,22 @@ samuel2026 note 8 records that the Plan "appears to be the only county form of
 government that does not refer to its Board members as 'supervisors'". The
 name, the at-large method and the five seats therefore arrive together.
 
+**A separate County Attorney needed its own act, and its 1952 referendum was
+never called.** The League of Women Voters proposed a Board-appointed counsel
+apart from the Commonwealth's Attorney on 29 September 1951
+(dailysun1951institute), and 1952 c. 569 offered the voters a referendum on
+creating the office (vaacts1952c569); it was not among the seven questions on
+the 4 November 1952 ballot (dailysun1952lwv), so it was never held. Unlike the
+election-term referendum of the same 1952 package, reopened in 1954 and 1958
+(vaacts1954c151, vaacts1958c207), no later session is known to have reopened
+this one: the 1962 recodification carries the act forward essentially
+unchanged as sec. 15.1-680, still opening "in the year nineteen hundred
+fifty-two", and today's Title 15.2 chapter 7 carries no county attorney
+section the way its neighbors carry secs. 15.2-707 to 15.2-709
+(vaacts1962c623). Edmund D. Campbell was already acting as the Board's
+counsel in the autumn of 1952, before any such office existed
+(paolicelli1952), so his role rests on something other than this act.
+
 **When a term begins depends on the constitution in force.** Under the
 magisterial system elections were held in May and the winners took office on
 1 July following, so those terms run July to June (below). The 1902
