@@ -65,13 +65,13 @@ def stage(folder, *names):
  members_roster, members_roster_arlhist, members_roster_oleary,
  members_roster_results, residents, residents_by_district, elections,
  elections_results, elections_turnout, clean_survey_satisfaction,
- localities, members_residence) = stage(
+ localities, members_residence, localities_southeastern) = stage(
     "clean", "paths", "candidates", "census", "members", "members_census", "members_chairs",
     "members_by_year", "members_roster", "members_roster_arlhist",
     "members_roster_oleary", "members_roster_results", "residents",
     "residents_by_district", "elections", "elections_results",
     "elections_turnout", "survey_satisfaction", "localities",
-    "members_residence")
+    "members_residence", "localities_southeastern")
 
 registration, = stage("fetch", "registration")
 
@@ -1014,6 +1014,18 @@ def test_a_jefferson_win_count_that_is_not_hjerpes_is_refused():
 
 
 # --- guards on the peer localities --------------------------------------------
+
+def test_a_southeastern_city_the_appendix_omits_is_refused():
+    """Cary, North Carolina counted at 200,000 residents, so that the rule
+    finds a city of Arlington's size Appendix E does not list. With no guard
+    the figure is captioned as every such city and silently omits one."""
+    def grow(d):
+        d.loc[d.place_name.str.startswith("Cary town"), "residents"] = "200000"
+        return d
+    err = breaks(paths, "built", patch_built("localities_places", grow),
+                 build=localities_southeastern.build)
+    assert err and "Cary, NC" in err, f"not caught: {err}"
+
 
 def test_a_peer_county_the_census_does_not_carry_is_refused():
     """A county in the crosswalk spelled as the census does not. With no

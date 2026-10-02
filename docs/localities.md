@@ -42,11 +42,16 @@ Fairfax, have more.
 `localities_southeastern.csv` sets the Board's five members beside nineteen
 cities of 180,000 to 300,000 residents in nine southeastern states,
 Richmond among them: council seats and residents, and from them residents per
-member, the measure the Virginia figures use. The set is Appendix E of the
-Richmond Charter Review Commission's 2023 report (`richmond2023`, printed
-p. 122), compiled for Richmond and not for Arlington: it is a regional
-comparison, not a national one, and it holds no county, where Arlington's form
-of government sits.
+member, the measure the Virginia figures use. The set is a rule, not a
+selection: every incorporated place with 180,000 to 300,000 residents in the
+2020 census in the nine states Appendix E names (Alabama, Arkansas, Georgia,
+Louisiana, Mississippi, North Carolina, South Carolina, Tennessee and
+Virginia). The Census Bureau's 2020 place populations (`censusapi`) give
+exactly these nineteen, and the build stops if the appendix and the rule
+disagree. Mississippi and South Carolina have none that size. The nine states
+are the commission's choice of region, not ours; 81 places nationally, census-designated places included, fall in
+the size range. The appendix (`richmond2023`, printed p. 122) was compiled
+for Richmond and holds no county, where Arlington's form of government sits.
 
 A city's seats are the appendix's council members. The appendix counts a Mayor
 who sits and votes as one seat, which is why its Norfolk is eight and Appendix
