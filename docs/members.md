@@ -1077,8 +1077,8 @@ sitting member, with leadership by then rotated to Frank Ballenger
 Washington Times election wrap-up has him a distant third in the sheriff's
 race, "considered [the] most formidable rival because of his 24 years'
 experience on the county board of supervisors" (`washingtontimes1931duncan`),
-naming the same 24 years as his October 1938 obituary (read in prose, not yet
-filed with a citekey). Twenty-four years back from a term ending January 1932
+naming the same 24 years as his October 1938 obituary (`washingtontimes1938duncan`).
+Twenty-four years back from a term ending January 1932
 is 1908 — his first election. This is one term, not one row per election
 (Sally): 1908, 1916, 1920 and 1924 are each a sourced
 election win; 1912 and 1928 are known only because he is shown in office both
@@ -1092,7 +1092,10 @@ Edward Duncan in the county that year"), independently confirm one man, not
 three, and his race and gender attach from both. They disagree on his birth
 year, though — 1872 by the 1910 sheet's age, "abt 1870" by the 1920 sheet's,
 neither a printed date — so both are named in `AGE_MISREPORTED` and he has no
-birth year in the table (`duncan-edward-birth-year`).
+birth year in the table (`duncan-edward-birth-year`). His obituary and the
+Evening Star's death notice (`washingtontimes1938duncan`, `eveningstar1938duncan`)
+both give "aged 71 years" at his October 9, 1938 death, a third age-derived
+year, about 1867, that agrees with neither census; the question stays open.
 
 The Historical Society's article names him in the Jefferson seat in every one
 of its blocks from 1912 to 1931, which is the minute books' own confirmation
