@@ -10,9 +10,11 @@ import members
 import paths
 import style
 
+race = {k: (style.CROSSED_LABELS.get(k, label), colour) for k, (label, colour) in style.RACE.items()}
+
 for profile in style.PROFILES:
     style.apply(profile)
 
     d = paths.read("members_by_year")
-    fig = charts.seat_bands(profile, d, style.RACE, through=members.LAST + 1)
+    fig = charts.seat_bands(profile, d, race, through=members.LAST + 1)
     paths.save(fig, profile)

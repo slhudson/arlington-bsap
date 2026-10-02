@@ -182,12 +182,15 @@ A qualifier is stated once, in the caption, where a category means the same
 thing throughout. On the census basis every group except Hispanic or Latino
 is non-Hispanic, but only from 1980, the first census that asked; before it
 Black and White are everyone in the race, Hispanic or not. So on
-`residents_by_race` alone the legend says "Black, not Hispanic" and "White,
+`residents_by_race` the legend says "Black, not Hispanic" and "White,
 not Hispanic" (`style.RESIDENTS_CROSSED`), and a dashed rule at 1980 marks
 where the definition changes; the caption says what the series before it
-are. `members_by_race` keeps "Black" and "White" (`style.RACE`): the Board's race
-is not a census crosstab, and Hispanic there is from published research, not
-a cell.
+are. `members_by_race` reads the same two labels (`style.CROSSED_LABELS`) over
+the whole of 1870 to 2026. The Board's race is not a census crosstab, and
+Hispanic there is from published research, not a cell, but the figure carries
+a Hispanic band, so its Black and White members are not Hispanic, and the two
+figures name the same band the same way. Before 1980 no one is coded
+Hispanic, so the label is true there by construction.
 
 ## Legend
 
@@ -395,7 +398,9 @@ there the labels can be shortened and here the years cannot.
   distribution has to come from a published table, and 1930 is the
   earliest census volume keyed in. Ten bars at `style.NARROW` leave room to
   name every census, so this axis is `dense` rather than every twentieth
-  year. The 14 people of unknown age in 1930 are
+  year. The note says "From 1930, the earliest county age table we hold": the
+  start is the earliest table keyed in, not a limit of the data, and
+  `age-back-to-1880` is the row to extend it. The 14 people of unknown age in 1930 are
   in no band, so that bar stops 0.05 per cent short of the top, which no
   one can see and nothing marks. The figure is a benchmark for the
   residents section and is never put on a panel with the Board's ages:
@@ -435,8 +440,12 @@ there the labels can be shortened and here the years cannot.
   birth year takes the sand, without takes the no-evidence grey, as
   "not recorded" does on the party chart. Years with no roster are gaps.
 - **members_residence_coverage.** A diagnostic to show the County: of the
-  members sitting on 1 July of each year, how exactly a home is known, as a
-  stacked step area on the seat axis like the age coverage. One hue, darkest
+  seat-years in each year, how exactly the occupant's home is known, as a
+  stacked step area on the seat axis. It counts seat-years, like
+  `members_by_race`, and not the members sitting on 1 July, so a vacancy shows
+  as a gap below the seats that exist and a partial year as a fractional band;
+  a 1 July count would draw a full Board through both. Its yearly total is
+  asserted equal to men + women in `members_by_year`. One hue, darkest
   green for a street address, then a street name, a neighborhood, then one
   shade for a north/south side or a magisterial district of Alexandria
   County, and the no-evidence grey for no location; darker means closer to

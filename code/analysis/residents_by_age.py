@@ -9,7 +9,7 @@ import charts
 import paths
 import style
 
-FIRST = 1930         # the first census whose county age table is held
+FIRST = 1930         # from 1930, the earliest county age table we hold
 BARS = 7             # years per bar, as on the other census figures
 
 for profile in style.PROFILES:
