@@ -1404,6 +1404,18 @@ def test_a_record_that_is_not_a_census_is_not_filed_as_one():
         assert archive.kind(e) == where, f"{title[:40]} filed as {archive.kind(e)}, not {where}"
 
 
+def test_a_committees_report_on_the_code_is_not_filed_as_legal():
+    """vacodecommission1997sd5, reintroduced: the Virginia Code Commission's
+    report recommending a recodification was swept into legal/ because its
+    title names the Code, same as the acts and sections it reports on. A
+    report is not the law it reports on, and @report was a deliberate type."""
+    e = {"type": "report", "key": "planted",
+         "title": "Report of the Virginia Code Commission on the Recodification "
+                   "of Title 15.1 of the Code of Virginia (excerpt)",
+         "organization": "Commonwealth of Virginia, Senate Document No. 5 (1997)"}
+    assert archive.kind(e) == "reports", f"filed as {archive.kind(e)}, not reports"
+
+
 def test_a_census_record_is_filed_as_one_whoever_indexed_it():
     """The FamilySearch record, reintroduced: the rule looked for Ancestry by
     name, so the one census page indexed elsewhere fell through to reports/

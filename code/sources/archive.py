@@ -145,7 +145,14 @@ def kind(e):
         return "bios"                                     # a biography page
     if e["type"] in BOOK_TYPE or (e["type"] == "article" and "journaltitle" in e):
         return "books"                 # scholarship, whatever law its title names
-    if e["type"] in LEGAL_TYPE or LEGAL_TITLE.search(e["title"]):
+    if e["type"] in LEGAL_TYPE:
+        return "legal"
+    # A title-only match is for an entry typed something generic (@online,
+    # @misc) whose title alone shows it is a legal text. @report is excluded:
+    # a legislative commission's report about the Code - vacodecommission1997sd5
+    # is "the Code of Virginia" in its title - is a report on the law, not the
+    # law, and the type was a deliberate choice the title should not override.
+    if e["type"] != "report" and LEGAL_TITLE.search(e["title"]):
         return "legal"
     return "reports"
 
