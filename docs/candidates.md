@@ -37,11 +37,11 @@ the whole point. Coverage runs era by era:
   which does not clear them, because it does not mark Rowe, who is Black, in
   1885: those who sat on the Board are carried in `members.csv`, Rowe among
   them, and the rest have no race yet, named under "1870–1919, the Alexandria
-  Gazette's returns" below (`black-losers-1870-1930`).
+  Gazette's returns" below (`candidate-analysis`).
 - **1931**: answered. A complete candidate list survives; three Black
   candidates ran, all lost.
 - **1932–1986**: the claim at stake is two historians' sentences, not a
-  check of the list (`black-losers-1932-on`). 1932–1950
+  check of the list (`candidate-analysis`). 1932–1950
   is race-matched against the census, and that check finds no Black
   candidacy: the one index reading that would have been an exception is the
   index's own error, which the sheet corrects ("1932-1950, race-matched
@@ -140,7 +140,7 @@ than these, and cannot be counted without reading each contest's report.
 - *1951–1986.* For race, no: the Sun pages read name no Black candidate and state no
   candidate's race, so a longer search of the same papers would find a Black
   candidate only if the paper happened to describe one as such. For gender, only if the
-  women-losers question becomes a figure: an honorific or the census gives a
+  candidate analysis is taken up: an honorific or the census gives a
   gender for some of the people in these years who never sat on the Board,
   and the ABC conventions would add the filers who never reached a ballot.
 - *1987–2025.* Enough for race. The gap is 1987–2000, where the Post's archive
@@ -150,11 +150,11 @@ than these, and cannot be counted without reading each contest's report.
 
 - A Black candidate who lost is recorded only in 1931 and, after 1987, only
   for the four Black members: before 1931 the Gazette's returns name some
-  losers and mark none "(colored)" (`black-losers-1870-1930`), and the people
+  losers and mark none "(colored)" (`candidate-analysis`), and the people
   with a losing candidacy from 1932 through 2025 are coded for race and gender
   in part, from the Board's record, the census and the press, with no Black
   candidate among them but the members Monroe and Spain, whose losses the
-  figure already draws (`black-losers-1932-on`), so "none ran 1932-1986" rests
+  figure already draws (`candidate-analysis`), so "none ran 1932-1986" rests
   on two authors' sentences and on this check, and not on a candidate list.
 - Who lost a nomination is not in any list held, so a Black candidate who
   sought a nomination and lost cannot be excluded for any year.
@@ -203,7 +203,7 @@ The two agree that none ran from 1904 and differ at most on 1889–1903. The
 Alexandria Gazette's returns name losers in these years and a "colored"
 Washington District supervisor in 1889 and 1891 ("1870-1919", below); the
 1903 Bestebreurtje names has no candidate behind it there
-(`black-losers-1870-1930`).
+(`candidate-analysis`).
 
 **1931.** The county's list of the 51 candidates for the first at-large
 election, 3 November 1931, which its candidate history points to rather
@@ -255,7 +255,7 @@ person rows from the county's history through 2021 and the state's database
 after, with the outcome `code/clean/candidates.py` computes, does not
 reproduce the 271 above, so the coding below is of the people those rows name,
 not of that count. The years from 1987 hold every run by a Black member and
-nobody else's (`black-losers-1932-on`; "1950-2025, press and the 1950
+nobody else's (`candidate-analysis`; "1950-2025, press and the 1950
 census", below). The check cannot reach the nomination stage: a candidate who
 lost a party contest never appeared on the general ballot ("Who the
 general-election list leaves out", above).
@@ -356,7 +356,7 @@ misreads digits: a figure the report's own arithmetic contradicts (1899, Washing
 the row's note. Of those who lost, Rowe, Phillips, Birch, Clark, Hume, Corbett, Saegmuller, Rust and Costello sat on
 the Board and are carried in `members.csv`, and these have no race yet: Tucker, Hayes, Palmer, Harrison, G. W. Donaldson, Werks, Hines, Graham, F. C. Hall, J. R.
 Robinson, W. H. Payne, Babcock, Corl, Roberts and Travers. The census match for each, a person on
-the 1900, 1910 or 1920 sheet in Arlington with a second tie, is what `black-losers-1870-1930`
+the 1900, 1910 or 1920 sheet in Arlington with a second tie, is what `candidate-analysis`
 now waits for. 1903's winners are Rust, Douglass and Febrey, and the Gazette marks no candidate for the office
 "colored" in that year or in 1907, so Bestebreurtje's "for the first time since 1903" (p. 215), whose
 sentence carries no note, has no candidate behind it in the Gazette; the one 1903 election he
@@ -385,8 +385,8 @@ are rows in the press file and not in these counts, which are of the general-ele
 1950 index matches Cooper, Booker, DeMik and Kimel, all White men, on the name alone or the name and an
 occupation; Rowzee, Wright, Bayless, Parli, Bell and Pomponio carry two or more records under the name, or
 a different spelling, and are left unmatched; Pearson, Bechtel, Gammon, Leggett and Tuthill have none in
-Arlington. Each of the four matched rows reads `unsourced` until the record's page is filed. Whether the women-losers
-question is a figure or a paragraph is Sally's to decide (`women-losers-1932-on`); these are its data.
+Arlington. Each of the four matched rows reads `unsourced` until the record's page is filed. Whether the report analyzes
+candidates at all, women among them, is Sally's to decide (`candidate-analysis`); these are its data.
 
 **The figure.** `candidates` draws each candidacy in a regular or
 special election as a dot at its year, filled if won and a ring if lost,
