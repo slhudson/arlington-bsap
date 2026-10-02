@@ -19,7 +19,7 @@ Nothing. Which localities are shown is a decision, and it is below.
 `localities.csv` sets Arlington's Board beside the governing body of every
 Virginia independent city and of fourteen counties: the thirteen largest
 other than Arlington, and Rockingham. The figures show those of 100,000
-residents or more, eighteen in all, and leave the choice of peer to the
+residents or more and leave the choice of peer to the
 reader: places Arlington's size in `localities_residents`, places as dense
 in `localities_density`.
 
@@ -30,7 +30,8 @@ the notes name as sitting outside it. A Mayor chosen from council is already
 among its members. A county board's count includes a chair elected at large.
 Residents are the 2020 census; land area is the 2020 Gazetteer's.
 
-Arlington carries about 48,000 residents per member, beside Loudoun and
-Virginia Beach. Cities of its size carry about half that, and Alexandria,
-the one place as dense, about 23,000; the larger counties, Henrico,
-Chesterfield, Prince William and Fairfax, carry more.
+Each Arlington member stands for about as many residents as each member
+in Loudoun and Virginia Beach, and for far more than each member in a city
+of its size. Alexandria, the one place as dense, has far fewer residents per
+member; only the larger counties, Henrico, Chesterfield, Prince William and
+Fairfax, have more.

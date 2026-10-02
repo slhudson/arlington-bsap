@@ -13,24 +13,22 @@ still open.
 Reconstruction" framing. The five Reconstruction-era members rest on Hjerpe's
 census linking (`default-1931-1986`).
 
-**Gender.** Two members rest on the default, man: William H. Robinson and
-Walter G. Willson, both recorded negatives (below, "The members that keep
-the default"). The other 123 members have a census listing or a pronoun or
-honorific in the press, and `gender_evidence` in `members.csv` says which
-each rests on.
+**Gender.** William H. Robinson and Walter G. Willson rest on the default,
+man, both recorded negatives (below, "The members that keep the default").
+Every other member has a census listing or a pronoun or honorific in the
+press, and `gender_evidence` in `members.csv` says which each rests on.
 
-**Race and gender from the census.** For the 40 members first seated 1932–1966
-and the 38 first seated 1870–1904, race and gender come from 74 census records
-covering 67 of those 78 members. Each index reading was checked against the
-sheet, where the row could be found on it. The match to the member rests on the
-name, on the district he sat for or on Arlington, and, where the record gives
-one, on an occupation, a household or a street. Ten of the 78 were found in no
-census: Casto, H. L. Brown Jr, Fisher, Lowry and T. W. Richards of the later
-era, and H. Dwight Smith, Crocker, Schutt, Robinson and Willson of the earlier.
-R. Henry Phillips makes an eleventh, with a record whose household is his
-father's, not his own, so it gives him nothing (below).
+**Race and gender from the census.** For the members first seated 1932–1966
+and 1870–1904, race and gender come from census records. Each index reading
+was checked against the sheet, where the row could be found on it. The match to
+the member rests on the name, on the district he sat for or on Arlington, and,
+where the record gives one, on an occupation, a household or a street. No
+census holds Casto, H. L. Brown Jr, Fisher, Lowry or T. W. Richards of the
+later era, or H. Dwight Smith, Crocker, Schutt, Robinson or Willson of the
+earlier. R. Henry Phillips has a record whose household is his father's, not
+his own, so it gives him nothing (below).
 
-**Birth years.** Birth years are held for 118 of the 126 members, and they rest
+**Birth years.** Birth years are held for most members, and they rest
 on the ages in census listings and on an age stated in an obituary or a
 profile. Each is right to within a year. The age figure draws a year only where
 every sitting member either has a birth year or is one of the three the
@@ -49,7 +47,7 @@ leaving it silent. `members_by_year.py` reads the roster for those years like
 any other (below, "The roster names 1912 to 1931").
 
 **1870–1911 rests on O'Leary's electoral history and the same article
-together.** The article settles seven names, the July–June term year, and five
+together.** The article settles names, the July–June term year, and
 terms O'Leary does not record (below, "The article corrects and adds for 1870
 to 1911"). The statute behind the July
 seating is `vaacts1870` ch. 76 sec. 4, below ("The Board's year ran 1 July
@@ -57,8 +55,8 @@ to 30 June through 1901"). Two seats that the article gives to a
 different man are settled, and the roster follows the article in both: see "Two
 seats go to the man the minute books show sitting" below.
 
-**Party.** 23 terms from 1932 carry no party and three labels are unresolved.
-No party is attempted before 1932 (`party-unlabelled`, `party-before-1932`).
+**Party.** Terms from 1932 that no source labels carry no party, and some
+labels are unresolved. No party is attempted before 1932 (`party-unlabelled`, `party-before-1932`).
 
 **Every place carries a precision**, read from the place's own words by rules
 in `code/clean/members_residence.py`:
@@ -74,14 +72,14 @@ in `code/clean/members_residence.py`:
 A place no rule reads stops the build. A house number whose street is unread
 (Ames) counts as a neighborhood.
 
-**Before 1932 the only places are the census sheets' own.** 33 of the 41
-members seated 1870–1911 have a record. For 28 of those the sheet gives a
+**Before 1932 the only places are the census sheets' own.** Most members
+seated 1870–1911 have a record. For nearly all of those the sheet gives a
 magisterial district and nothing finer, because the street column is blank
 outside the towns; Cherrydale, Washington Avenue, Old Glebe Road and
-Saegmuller's Maryland Avenue house in Washington City are the exceptions. One
-of the 33, Roach, is a weak match, flagged in his row. Eight members have no
-record in the 1870–1920 indexes under any spelling tried, R. Henry Phillips
-among them — the one household read against him is his father's
+Saegmuller's Maryland Avenue house in Washington City are the exceptions.
+Roach is a weak match, flagged in his row. The 1870–1920 indexes hold no record
+for the remaining members under any spelling tried, R. Henry Phillips among
+them — the one household read against him is his father's
 (`residence-pre-1932`).
 
 **The seat itself places nobody before 1932.** No instrument required a
@@ -90,9 +88,9 @@ seated for a magisterial district has no claim from the office, and every place
 comes from a record. See "Residence in the district" below.
 
 **Modern residence is transcribed but not yet coded.** The 1973 Post map that
-places a whole Board at once has not been seen (`mathews1973-map`). Two of the
-37 members first seated 1932–1962 have no place (`residence-1932-1962`), and 10
-of the 25 seated 1964–1999 have none (`residence-1964-1999`). Two rows postdate
+places a whole Board at once has not been seen (`mathews1973-map`). Some
+of the members first seated 1932–1962 have no place (`residence-1932-1962`), and
+so do some of those seated 1964–1999 (`residence-1964-1999`). Two rows postdate
 the member's service (`residence-after-service`). For Thomas, two sources name
 different places (`thomas-residence`). Tillema's and Massey's sources also
 differ, but what each source says is settled; see "Reading an image".
@@ -296,8 +294,8 @@ Board at both ends of the period this report covers.
 `data/clean/members.csv` holds one row per person per term: name, term
 number, district, when service began and ended (to the month), the months the
 term held (`held_from` and `held_to`, counted from year 0, the end exclusive),
-how the term began, and a source per row. 231 terms, 1870 through 2026, from four sources
-in sequence: O'Leary's electoral history to 1915, the Historical Society's
+how the term began, and a source per row. The terms run from 1870 and come from
+four sources in sequence: O'Leary's electoral history to 1915, the Historical Society's
 article for 1870–1931, Novack's roster from 1932 to
 1994, and election results after that, the county's candidate history to 2021
 and the state's elections database from 2022.
@@ -306,8 +304,8 @@ A term is the natural unit: person-years fall out of it, while a term starting
 in May or ending in February cannot be recovered from a list of years. A
 vacant seat is not a row, since nobody served. `term_number` counts within a
 person, so someone appointed to a vacancy who then won twice has three rows
-numbered 1, 2, 3; William A. Rowe has eight, including his move from Jefferson
-district to Arlington at term 7.
+numbered 1, 2, 3; William A. Rowe's rows run longer, and include his move from
+Jefferson district to Arlington.
 
 `seated_by` says how each term began: election, special election, appointment,
 or unrecorded where O'Leary writes only that someone was replaced. Three builds
@@ -318,16 +316,16 @@ select terms by it, so it is a column, not something read out of the note.
 **Novack records service and election returns record contests**, and the
 county's roll records service too. That difference is why the roll is read.
 Novack writes a mid-term arrival or departure into his parentheticals, which
-is how eleven terms between 1933 and 1975 are known to begin in an
-appointment. The county's candidate history and the state's database name the
+is how the terms between 1933 and 1975 that began in an appointment are
+known. The county's candidate history and the state's database name the
 winners of contests, so until the roll was read a term that ended early showed
 only in the win that filled it, and a seat filled without a contest showed not
 at all.
 
-Both things followed from that. Eight terms ran months longer than their
+Both things followed from that. Some terms ran months longer than their
 holders served, because the roster ended each at its successor's seating for
 want of a record of the departure itself: Whipple, Hunter, Eisenberg, Monroe,
-Favola, Zimmerman, Gutshall and Cristol. The roll dates six of the eight; it
+Favola, Zimmerman, Gutshall and Cristol. The roll dates most of them; it
 leaves Milliken's 1990 departure and Favola's to Novack and to ARLnow
 (`members_roster_roll.DATED_ELSEWHERE`). And Tannia Talento, appointed on 15 July 2023
 to the rest of Cristol's term, was in the roster not at all, having won
@@ -337,8 +335,9 @@ nothing. The roll dates every one of those departures and her arrival, and
 The roll is also a second witness where Novack already speaks. For 1932 to
 1994 the two are independent records of the same Board, both are cited on the
 terms they agree about, and `check_against_novack` refuses a year where they
-name different people. They agree on all ten departures the roll dates in
-those years and on the membership of every year but three, each declared: the
+name different people. They agree on every departure the roll dates in
+those years and on the membership of every year but 1939, 1941 and 1986, each
+declared: the
 roll seats a November winner in the year of the election where the roster
 seats him the following January (1939), and in 1941 and 1986 it prints one
 name twice where the fifth member should be, leaving out Elizabeth Magruder
@@ -363,8 +362,8 @@ dates a departure and an arrival to the day; the roster counts whole months,
 and applies that rule in `members_roster_roll.py` rather than in any figure.
 A seat vacated on 14 December 1995 and filled on 30 January 1996 is therefore
 Whipple's in December and Zimmerman's in January, and no month stands empty.
-Where a gap does cover a whole month the seat was empty, and ten months
-since 1932 were: March and April 1990, October 1997, March 1999, February
+Where a gap does cover a whole month the seat was empty, and these
+months since 1932 were: March and April 1990, October 1997, March 1999, February
 2003, January and February 2012, March 2014, and May and June 2020. Each is a seat Arlington left unfilled
 while a special election was called, the Board sitting with four members.
 `members_roster_roll.EMPTY` names the departure and the arrival that bracket
@@ -373,7 +372,7 @@ undeclared gap stops the build, and so does filling a declared one. Prorating
 within a month would be more exact and would make a seat-year a fraction of a
 month, which nothing else here counts below.
 
-**No one was appointed to any of those ten months.** The roll names an
+**No one was appointed to any of those months.** The roll names an
 appointment in each of 1933, 1934, 1947, 1952, 1960, 1975 and 2023 and in no
 year after 1975 but 2023, and ARLnow reports the Board in February 2014
 operating "with four members until a special election is held"
@@ -519,8 +518,8 @@ Arlington, 1870-1960," gives Board membership by magisterial district, term
 by term, compiled from the Board's own minute books. It covers 1908 through 1931 without a gap, in the overlapping term-blocks the
 source itself prints, keyed in
 `data/transcribed/by_claude/arlington_historical_magazine/arlhist_terms_1912-1931.csv`.
-The three districts hold sixty seat-years across those twenty years, and this
-source or `members_terms.csv` above names every one of them but a single
+The three districts hold a seat in each of those twenty years, and this
+source or `members_terms.csv` above names every seat-year but a single
 vacancy. The Washington seat sat empty from 1 January to 20 February 1920,
 after Clarence R. Ahalt, elected to it, moved from the district before the term
 began. The source states that vacancy rather than falling silent about it, so it
@@ -551,7 +550,7 @@ it.
 compilation covers 1932 through 1960, keyed in
 `data/transcribed/by_claude/arlington_historical_magazine/arlhist_terms_1932-1960.csv`,
 where Novack and the county's candidate history already name the Board.
-Across all 180 rows the three agree on membership: the same members in the
+Across every row the three agree on membership: the same members in the
 same seats, so nothing there moves a seat-month and no figure turns on it.
 Six particulars differ, and they matter because the roster is itself a work
 product the County receives, not only an input to the figures. Two are facts
@@ -584,7 +583,7 @@ Ahalt's opens there, and the handover month goes to the incoming member by
 the rule in "Seat-years" below. The article records no election, so a term
 begins `unrecorded` unless its note says the member was appointed.
 
-Four of the terms are in the roster from another source as well — Wibirt's
+Some of the terms are in the roster from another source as well — Wibirt's
 and Walker's 1916 terms from O'Leary, Ingram's 1924 and Turnburke's 1924
 and 1928 from the county's candidate history — so the article merges into
 those rows rather than adding a second one, taking the end date none of the
@@ -664,10 +663,10 @@ boundary change that never happened.
 the renamed rows carry a note saying what settled it. A variant not in that
 table has not been ruled on.
 
-- **Frederick S. Corbett**, one man and five terms. O'Leary gives surnames only
+- **Frederick S. Corbett**, one man across all his terms. O'Leary gives surnames only
   from 1907, so he names the Arlington member of 1908–11 by surname alone,
   apart from the Frederick S. Corbett of 1889–91, 1895–97, October 1897–99 and
-  1899–1901. The article gives all five the same full name from the minute
+  1899–1901. The article gives every one of them the same full name from the minute
   books, and the censuses agree on a birth year: the 1880 sheet an age of 24,
   the 1910 sheet 1856. No figure turns on it — a White man either way, and
   `members_age` starts at 1932 — but the two census rows keyed "Corbett" and
@@ -678,8 +677,7 @@ table has not been ruled on.
   distinguishes two people. The seat passes from his July 1873 appointment to
   his May 1874 election with no gap, and his is the only Schutt household in
   the county in 1880 (`census1880schutt`). The 1873–74 Arlington terms carry
-  that census match rather than race `assumed`, two seat-years off the era
-  default. - **James C. Roach** (Jefferson, 1870), **W. C. Wibirt** and
+  that census match rather than race `assumed`. - **James C. Roach** (Jefferson, 1870), **W. C. Wibirt** and
   **Robert L. Walker**: a bare surname in O'Leary, named in full by the minute
   books. - **Saegmuller**, not Saegmulller. The article, the 1880 sheet and the
   1900 sheet all spell it with two; O'Leary's third l is a typo on its face. -
@@ -699,7 +697,7 @@ ties to the man by his district and by the postmastership that cost him the
 seat (`census1880squier`), so the roster already spells him Perkins W. Squier
 and the ruling leaves no entry to make.
 
-**Five terms the article adds**, taken as one set with the five it supplies
+**Terms the article adds**, taken as one set with those it supplies
 for 1912–1931 (Sally).
 Each is an entry in `ADDED`, and every date is read off the article's blocks
 rather than written into the table:
@@ -718,7 +716,7 @@ rather than written into the table:
 | Frank Hume | Jefferson | 13 November 1888 | Tibbett Allen |
 | William N. Febrey | Washington | 1 July 1892 | Walter G. Willson |
 
-A sixth departure the article states is the same ruling applied to a vacancy,
+A further departure the article states is the same ruling applied to a vacancy,
 not a successor: **William A. Rowe resigned the Jefferson seat on 2 April
 1879**, having moved into the Arlington District, and it stood empty until
 Travis B. Pinn's term began on 1 July. That is `VACATED` in the same module,
@@ -728,12 +726,12 @@ days between an outgoing and an incoming member — Arlington, 5 to 25 June 1877
 — and on a month grain those are one handover, not a vacancy; the month stays
 the unit, and no member's whole service in the article is shorter than a month.
 
-**Where these readings bear on the central figure.** Three of them shorten a
+**Where these readings bear on the central figure.** Some of them shorten a
 Black member's recorded service, and each is stated above:
 
 - the added terms close Pinn's, Pendleton's and Allen's mid-term, where
   O'Leary's elections would run them out;
-- the July term year moves a start off May in the four years a Black member's
+- the July term year moves a start off May in each year a Black member's
   service begins, 1871, 1872, 1879 and 1887;
 - Rowe's resignation stands the Jefferson seat empty from April to June 1879. Reading
 O'Leary's elections alone would give every one of those months to a sitting
@@ -798,7 +796,7 @@ every member of this era defaults to White and man.
   The Washington Evening Star for spring 1919 has not been searched. It could
   confirm the day but not move the seat, so the article's date is settled.
 
-**Four of the five 1912–1931 members the article adds are settled to the
+**Most of the 1912–1931 members the article adds are settled to the
 census.** Thomas J. DeLashmutt, Frank Upman and W. T. Weaver each match a
 single, unique household in the right district in the 1920 census, read off the
 sheet (`census1920delashmutt`, `census1920upman`, `census1920weaver`); B. M.
@@ -831,13 +829,13 @@ carry the family tie (`occupation; household`), which is why
 prose beside the elected member ("Replaced by H. Dwight Smith in Dec.;
 replaced by Lott W. Crocker in March 1873, replaced by Francis D. Schutt in
 April"), and those are parsed into their own rows: the Arlington seat in
-1872–73 is four terms. Where a month is given without a year, the year carries
+1872–73 is a term for each man. Where a month is given without a year, the year carries
 from the previous handover and rolls forward when the month goes backwards.
 Francis D. Schutt holds two consecutive terms in 1873, appointed in April and
 elected in May; that is two terms, not a duplicate. From 1907 O'Leary gives
 surnames only, so "Corbett" from 1907 is a different person in the roster from
-"Frederick S. Corbett" before it and starts again at term 1. Two people appear
-under both forms, Corbett and Duncan; joining them needs a rule (surname plus
+"Frederick S. Corbett" before it and starts again at term 1. Corbett and Duncan
+appear under both forms; joining them needs a rule (surname plus
 district plus continuity) or a note per case.
 
 **Novack's spans are split at elections.** He lists a person once with their
@@ -903,7 +901,7 @@ The county and state sources both hold the 2021 election, and the build
 insists they name the same winner there before using the second.
 
 **Recorded vacancies.** Counting the months each term covers against the seats
-that existed finds three:
+that existed finds these:
 
 - the Washington district seat, from the May 1873 election until Samuel Titus
   was appointed that December;
@@ -916,7 +914,7 @@ and 1920 holds 2 + 11/12 seat-years.
 
 ## Seat-years
 
-`data/clean/members_by_year.csv` is one row per year, 1870 through 2026: seats
+`data/clean/members_by_year.csv` is one row per year from 1870: seats
 held by each race, each gender and (from 1932) each party, in seat-years, so a
 member who sat for four months of a year counts 4/12. Every year is computed
 from `members.csv`. Days are not recorded consistently — Novack gives some and
@@ -962,7 +960,7 @@ magisterial district), the year the source gives, and the source. Nothing is
 coded North or South and no claim is chosen over another; the coverage
 figure takes each member's most exact dated place in each year.
 
-**How much is known, for the 75 members first seated from 1932 on.** A member
+**How much is known, for the members first seated from 1932 on.** A member
 is counted under the most exact kind of place any source gives him, and dated
 by the best-dated row of that kind: during service if the row's year falls
 inside a term, otherwise by the distance to the nearest term's ends. Every
@@ -979,8 +977,8 @@ with both sets of figures when the table below stops matching.
 | Side of the County | 1 | 1 | 0 | 0 | 2 |
 | Nothing | | | | | 14 |
 
-So 41 of the 76 have a street address and 62 have a place of some kind,
-but only 27 of the 62 are placed by a source dated to their service. The
+So most members have a place of some kind and many a street address, but
+only a minority are placed by a source dated to their service. The
 sources found online give a place at the time of writing, an obituary's
 address is where the person died, and a candidate profile's is where they
 lived when they ran; County records may give an address at taking office
@@ -994,8 +992,8 @@ and the window matters to the neighborhood analysis, which is not yet built.
 A census listing names a person, not a Board member, and gives several
 traits at once, so each record matched to a member is one row of
 `data/transcribed/by_claude/members_census.csv`, and the build derives each
-trait from it rather than each trait being keyed separately. The table holds 80
-records for 73 members, from the 1870, 1880, 1900, 1910, 1920, 1930, 1940 and
+trait from it rather than each trait being keyed separately. The table holds
+records from the 1870, 1880, 1900, 1910, 1920, 1930, 1940 and
 1950 schedules. Its columns:
 
 | Column | Holds |
@@ -1176,7 +1174,7 @@ its own enumeration sheet before any of its fields is used, and its `checked`
 column says what the sheet gives. Ancestry's index is a finding aid, the same
 standing as the OCR under `data/transcribed/by_ocr/`: it locates the line, it
 does not read it. That is a second reading of every record, not a sample,
-because there are only 72 of them and the cost of a wrong one is silent.
+because the records are few and the cost of a wrong one is silent.
 
 `code/build/members_claims.py` enforces the half of that rule a machine can
 check. A row whose `checked` names neither the sheet nor the index stops the
@@ -1190,16 +1188,16 @@ any house number in it is read off the image, never off the OCR. Rows entered
 before this rule are cleared a page at a time, whole pages, not a sample of
 rows, since opening the page is the cost and the rows on it are then free.
 
-That reading has found one wrong value. Across the seven census records that
-had only ever been indexed, and the two newspaper pages carrying seven of the
-quoted addresses, the error is this: Detwiler's
+That reading has found one wrong value. Across the census records that
+had only ever been indexed, and the newspaper pages carrying quoted addresses,
+the error is this: Detwiler's
 1940 sheet gives his birthplace as **Minnesota** where the index reads
 Wisconsin, and spells the surname Detwiler, as the Board member does, where
 the index reads Detweiler. Birthplace is not a column the build reads, so no
 figure turns on it. Two smaller disagreements need no fix: the index's street name
 for Buchholz, `1`, is a column number and not a street; and Byrne's sheet
 gives 202 N. Highland St., which the *Daily Sun* of 11 September 1952 prints
-as well. A third is settled below. The 103 figures keyed from the 1870, 1880
+as well. A third is settled below. The figures keyed from the 1870, 1880
 and 1890 volumes and the whole of the POP-TWPS0076 Arlington block agree with
 the printed pages.
 
@@ -1260,7 +1258,7 @@ against the sheet's A. He married in Washington, D.C. in 1880 and died there in
 1912. So `census1900phillips` has `match` `none` and gives R. Henry Phillips,
 the member of 1893–95, nothing: his race (**White**) rests on the default, as
 it does for every member before 1912 except Roach, and he has no residence
-claim at all, standing with the seven members for whom no census record has
+claim at all, standing with the members for whom no census record has
 been found (`residence-pre-1932`). Robert Henry Phillips himself is in no
 record found for Alexandria County or Arlington; if one turns up later, it is
 the one to try, and his father's household in the Washington district is a
@@ -1281,10 +1279,10 @@ the roster gives V, so the match rests on the district — and it is no row in
 the table, because he never sat (above, "Two seats go to the man the minute
 books show sitting").
 
-**Three members rest on a press honorific**, the census holding nothing for
+**Some members rest on a press honorific**, the census holding nothing for
 them. The Alexandria Gazette (Library of Congress, Chronicling America),
 searched by name and district over each member's term, carries a contemporary
-honorific for three: **H. Dwight Smith** presided over an 1873 meeting of the
+honorific for these: **H. Dwight Smith** presided over an 1873 meeting of the
 Arlington Republicans as "Captain H. Dwight Smith" (`gazette1873smith`);
 **Lott W. Crocker** is "Mr. L. W. Crocker, President" of the Arlington
 Turnpike Company the same year (`gazette1873crocker`); and a Board of
@@ -1329,7 +1327,7 @@ the default.
 
 ### The members that keep the default, and what has been searched for them
 
-Two do, and both have been searched past the Gazette into every Virginia
+These do, and both have been searched past the Gazette into every Virginia
 paper Chronicling America and Virginia Chronicle hold, so that nobody repeats
 the search. **William H. Robinson** appears in the Gazette once, named
 plainly among the Board of Supervisors of 18 September 1878, with no pronoun
@@ -1396,7 +1394,7 @@ the index prints a birth date. An obituary or a profile gives a birth date, or
 an age on a date, and the row's basis says which.
 
 `birth_year_precision` in `members.csv` records which case a row is, `exact` or
-`within a year`; 86 of 107 are within a year. The age figures draw both the
+`within a year`; most are within a year. The age figures draw both the
 same way, as a stroke assuming a mid-year birthday, because the half-year is
 below what a stroke can show (Sally). What the report
 does with such distinctions is the data appendix's to explain
@@ -1427,7 +1425,7 @@ each period:
 |---|---|---|
 | 1870–1888 | Five Black members named by Hjerpe (2021): Rowe, Syphax, Pinn, Pendleton, Allen. Pinn, Pendleton and Allen each rest on a reproduced 1880 census image; Rowe and Allen on narrative statements in her paper; Syphax on O'Leary, who writes that his photograph shows he was African American. The sentence naming the five as a group sits in her own list of open inquiries, and the file records it as such. O'Leary adds that "a majority of the early office holders" were probably African-American but cannot name them. Nobody on our side has checked the census linking. | Names in O'Leary; two before 1912, Robinson and Willson, still rest on the default (above, "What rests on an assumption"). |
 | 1889–1930 | One collective sentence: the board "became and remained all white for the duration of this system" (Hjerpe 2021, p.4), sourced to the county's election records. No per-person evidence. | Names in O'Leary; initials only before 1912. No source names a first woman member, so "all men before Magruder (1932)" is assumed. |
-| 1931–1986 | Nothing per-person from any source, except that the county's list of the November 1931 candidates marks three of its 51 names "(Col)" and none of the five elected (`docs/candidates.md`, "Black candidacies"). The default rests on Newman (1987) being described as the first Black member since Reconstruction. About 280 person-years. **The weakest stretch.** | Census listing or a press honorific or pronoun for all but B. M. Smith (1933). |
+| 1931–1986 | Nothing per-person from any source, except that the county's list of the November 1931 candidates marks three of its 51 names "(Col)" and none of the five elected (`docs/candidates.md`, "Black candidacies"). The default rests on Newman (1987) being described as the first Black member since Reconstruction. **The weakest stretch.** | Census listing or a press honorific or pronoun for all but B. M. Smith (1933). |
 | 1987–present | Per-person: Newman (1987), Monroe (1999), Dorsey (2015), Spain (2024), and Tejada as the first Latino member (Hjerpe 2021). The Arlington Historical Society's Newman entry names Newman, Monroe and Dorsey as African American members, and its Center for Local History entry gives Tejada's Latin American heritage; Monroe also rests on the Arlington NAACP president's words at his death, and Dorsey on his own statement (2020). | A press pronoun or honorific for every member. |
 
 In November 1931 three Black candidates ran for the Board and all lost; who
@@ -1442,9 +1440,10 @@ seat counts for 1870–1888 are therefore Hjerpe's identifications applied to
 O'Leary's roster; Alex Keena's year-level counts are a replication
 of the same source and not a second one.
 
-What any source says, in full, is ten members recorded as other than White and
-twelve women (Magruder, Cannon, Buchholz, Bozman, Grotos, Whipple, Favola,
-Hynes, Garvey, Cristol, Coffey and Cunningham). Every other member is recorded
+What any source says, in full, is that Rowe, Syphax, Pinn, Pendleton, Allen,
+Newman, Monroe, Dorsey, Spain, Tejada and Talento are recorded as other than
+White and that Magruder, Cannon, Buchholz, Bozman, Grotos, Whipple, Favola,
+Hynes, Garvey, Cristol, Talento, Coffey and Cunningham are women. Every other member is recorded
 as a white man because no source speaks to them. The verification to ask of
 County staff, and through them the Historical Society, is therefore the
 default, not the lists: every other member has been treated as a white man;
@@ -1500,20 +1499,18 @@ county recorded it and an ABC-majority Board from 1957 to 1966 is a finding.
 
 | Period | Source | What it gives |
 |---|---|---|
-| 1932–1950 | County candidate history, where it prints a label | 23 of 33 terms: the county for 9, newspaper reporting for 1933 and 1942–49, McCaffrey (2026a) for the 1949–52 independents and the 1952 appointees; the rest are `unsourced`. |
+| 1932–1950 | County candidate history, where it prints a label | The county's label where it prints one, newspaper reporting for 1933 and 1942–49, McCaffrey (2026a) for the 1949–52 independents and the 1952 appointees; the rest are `unsourced`. |
 | 1951–1966 | County candidate history | Every winner but Blevins (1956) and the two `(Convention)` nominees of 1955. `(ABC)` appears from 1957. |
 | 1967–1983 | County prints `(I)` on most winners; reporting names the party | Fisher, Munsey, Purdy and Wholey as Democrats; Bozman as ABC's candidate; Grotos, Frankland and Detwiler as Republicans. Ricks stays `(I)`. |
 | 1984–2006 | County candidate history | Every winner labelled. Bozman `(I)` through 1989, `(D)` in 1993. |
 | 2007–2021 | County and state, checked against each other | Agree on every winner. |
 | 2022– | State database | Party on the 2022 general; from 2023, the Democratic primary win. |
 
-The reporting file has 41 rows, each a sentence in the source's own words
-with its citation, keyed on the name and the term's start year: pieces by
+The reporting file holds a sentence in the source's own words for each
+claim, with its citation, keyed on the name and the term's start year: pieces by
 Scott McCaffrey for the Sun Gazette and ARLnow (2009–2026), the Library of
 Virginia's biography of Joseph Fisher, Joseph Wholey's obituary and an ARLnow
-report of the 2020 special election. What it yields for 1932–2026 is 146
-terms: 76 Democratic, 18 Republican, 15 ABC, 12 independent, 25 not recorded.
-The built table reproduces three compositions reported independently, three
+report of the 2020 special election. The built table reproduces three compositions reported independently, three
 Republicans in 1970 and again in 1979 and three independents in 1952, none of
 which was used to build it.
 
@@ -1528,7 +1525,7 @@ ticket", 26 May 1871, p. 3; Smith and Rowe unlabelled). 1872–73 were read
 and print no party beside the supervisors; 1874–75 were fetched and not read. Paused, and no row is keyed for
 any of these: the County has not said it wants these data used.
 
-**What is not labelled.** 12 terms have no label anywhere: the four 1932
+**What is not labelled.** These terms have no label anywhere: the four 1932
 winners (Magruder, Fellows, Gall, Kelley), B. M. Smith 1933, McShea 1934,
 the four 1936 winners (Magruder, Chew, Yeatman, McShea), Wilt 1960 and
 Richards 1975. Read and settled from the Sun, Daily Sun, Northern Virginia

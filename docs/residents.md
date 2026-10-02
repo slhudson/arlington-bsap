@@ -132,9 +132,8 @@ the clean tables on every build, so it cannot drift from them:
 Jefferson is the concentration the district argument rests on, and it holds:
 the district with the largest Black share in 1870 is still the only
 majority-Black district thirty years later, and still the largest share fifty
-years later at nearly twice the county's. Washington fell below half in the
-1870s and Arlington in the 1880s or 1890s, but Jefferson was still 56 per cent
-Black in 1900 and 39 per cent by 1910. **The decade in which Black residents
+years later. Washington fell below half in the 1870s and Arlington in the
+1880s or 1890s, but Jefferson was still a majority Black in 1900. **The decade in which Black residents
 became a minority of every magisterial district is therefore the 1900s**, and
 that does not depend on either empty cell.
 
@@ -238,7 +237,7 @@ the county's own number from.
 **The 1915 annexation sits inside this.** The southern Jefferson district
 enumeration district is the part of the county that 1915 took a bite out of;
 the 1920 volume's own footnote records the annexation. So Jefferson's fall
-from 40 per cent Black in 1910 to 27 in 1920 is partly people leaving the
+in Black share between 1910 and 1920 is partly people leaving the
 district for Alexandria city and partly the district's white population
 growing. Nothing in `data/` separates the two.
 
@@ -386,11 +385,10 @@ kind of not-White and stacking it on top would split that population in two.
 ### The 1970s population fall
 
 Arlington's population fell from 174,284 in 1970 to 152,599 in 1980, a drop of
-21,685 (12.4 per cent). Over the same decade the county's housing stock grew:
+21,685. Over the same decade the county's housing stock grew:
 the 1970 Census of Housing counted 71,241 housing units in Arlington
 (`census1970housing`, Table 1, p. 48-7), and the 1980 Census of Housing counted
-75,182 (`census1980housing`, Table 46, p. 48-200), a gain of 3,941 units (5.5
-per cent). Units rose while population fell, so the decade's loss is people
+75,182 (`census1980housing`, Table 46, p. 48-200), a gain of 3,941 units. Units rose while population fell, so the decade's loss is people
 per household falling faster than the county could add units to hold them,
 not a shrinking housing stock — the pattern of the era's inner-ring suburbs
 generally, not something particular to Arlington.
@@ -403,7 +401,7 @@ born to the young families who filled Arlington in the 1940s and 50s turned
 18 across the 1970s and left, to careers and households of their own, and
 fewer were born behind them. A built-out inner suburb of small units feels
 that hardest. Arlington's own age bands show it: residents under 18 fell from
-41,564 in 1970 to 24,969 in 1980, from 24 to 16 per cent of the county, while
+41,564 in 1970 to 24,969 in 1980, while
 those 18 and over fell only from 132,720 to 127,630.
 
 ### What the White count does at 1980
@@ -531,7 +529,7 @@ the one reads the single years and the other the five-year groups.
 `code/tests.py` reintroduces each mistake and asserts the build refuses.
 
 **Children are counted.** They cannot vote, and the report's other age
-figure is about people who can serve, but a seventh of Arlington is under 18
+figure is about people who can serve, but a large share of Arlington is under 18
 and the section is about the county rather than the electorate.
 `docs/figures.md` carries that reasoning and the rest of the figure's form.
 

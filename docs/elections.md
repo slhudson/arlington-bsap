@@ -157,9 +157,8 @@ censuses on a straight line for the figure's share panel, marked `derived`:
 the 21-and-over counts through the November 1970 election, and from 1971 the
 18-and-over counts from 1970's 132,720; after 2020 the 2020 count is carried
 forward, which overstates the 2021–25 shares a little. The change of age adds
-9,261 people aged 18 to 20 to the 1970 denominator, and no series on the
-share panel steps at 1971: the presidential-year Board vote is 42 per cent of
-adults in 1968 and 46 per cent in 1972. The presidential vote is `elections_results.csv`'s and is
+the people aged 18 to 20 to the 1970 denominator, and no series on the
+share panel steps at 1971. The presidential vote is `elections_results.csv`'s and is
 marked `derived`. Three guards: the Board's voters can never exceed the
 registered voters, nor the presidential vote of the same year, and the
 registered can never exceed the adults.
@@ -173,18 +172,17 @@ years a precinct's row is repeated once per district it sits in.
 **What the series shows.** The Board's vote is drawn as four series by what
 else the November ballot carried (the `cycle` column: president, governor,
 midterm, delegates), because drawn as one line it is a sawtooth whose teeth
-are the ballot and not the Board. In a presidential year about nine in ten of
+are the ballot and not the Board. In a presidential year most of
 the county's presidential voters also vote for the Board.
 
 As a share of the county's adults, the four series move differently:
 
-- **presidential years** ran about a quarter from 1940 to 1948, a third in 1952
-  and 1956, and rose to 42 per cent by 1968; about a third again in 1980, and
-  57 per cent in 2024;
-- **House of Delegates years**, when the Board tops the ballot, run from a
-  fifth to 30 per cent in 2023;
-- **midterm and governor's years** sat at a third for decades and have
-  converged on the presidential-year level since 2017.
+- **presidential years** rose from the 1940s to 1968, fell back by 1980, and
+  reach a majority of adults in 2024;
+- **House of Delegates years**, when the Board tops the ballot, run below the
+  other cycles and rise in 2023;
+- **midterm and governor's years** sat well below presidential years for
+  decades and have converged on them since 2017.
 
 November 2024 gives the whole picture at one date: 196,563 adults (the 2020
 count), 164,865 active registered voters, 128,362 who voted for President and
