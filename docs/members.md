@@ -30,10 +30,16 @@ era, and H. Dwight Smith, Crocker, Schutt, Robinson and Willson of the earlier.
 R. Henry Phillips makes an eleventh, with a record whose household is his
 father's, not his own, so it gives him nothing (below).
 
-**Birth years.** Birth years are held for 115 of the 125 members, and they rest
+**Birth years.** Birth years are held for 115 of the 126 members, and they rest
 on the ages in census listings and on an age stated in an obituary or a
 profile. Each is right to within a year. The age figure draws a year only where
-all but at most one sitting member has a birth year, and it starts in 1932.
+every sitting member either has a birth year or is one of the four the
+figure names, and it starts in 1932. Those four are Edward Duncan, whose
+term reaches into the figure's first month, W. P. Ames, found in no census,
+and Susan Cunningham and Tannia Talento, recent enough that a stated age
+should be findable. Naming them rather than allowing a count of unknowns is
+what makes the gap a known quantity: a member who arrives without a birth
+year and is not among them stops the build.
 
 **1912–1931 rests on no assumption.** `arlhist1967officials`, the Historical
 Society's own compilation from the Board's minute books, names all three
