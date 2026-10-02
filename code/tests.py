@@ -1272,6 +1272,40 @@ def test_the_residence_coverage_table_in_the_write_up_is_current():
         f"  clean says: {counted}, nothing {nothing}")
 
 
+def test_the_term_count_in_the_write_up_is_current():
+    """The roster's own size, stated in docs/members.md, "The roster": "231
+    terms, 1870 through 2026". A roster that grows by a term says nothing,
+    so the count has to be read off the table it describes rather than kept
+    by hand - the way a birth-year count once went stale when the roster
+    reached 126 and nobody updated the sentence (write-up-counts-untested)."""
+    members = list(csv.DictReader((ROOT / "data/clean/members.csv").open(newline="")))
+    text = (ROOT / "docs" / "members.md").read_text()
+    match = re.search(r"(\d+) terms, 1870 through 2026", text)
+    assert match, 'docs/members.md does not say "N terms, 1870 through 2026"'
+    assert int(match.group(1)) == len(members), (
+        f'docs/members.md says {match.group(1)} terms, members.csv holds {len(members)}')
+
+
+def test_the_birth_year_count_in_the_write_up_is_current():
+    """"Birth years are held for 115 of the 126 members" in docs/members.md,
+    "What rests on an assumption" - the sentence that went stale silently
+    when the roster reached 126 and had to be corrected by hand
+    (write-up-counts-untested). Counted here so a new member or a newly
+    dated one moves the sentence along with the data."""
+    members = list(csv.DictReader((ROOT / "data/clean/members.csv").open(newline="")))
+    names = {m["name"] for m in members}
+    with_birth_year = {m["name"] for m in members if m["birth_year"]}
+    text = (ROOT / "docs" / "members.md").read_text()
+    match = re.search(r"held for (\d+) of the (\d+) members", text)
+    assert match, 'docs/members.md does not say "held for N of the N members"'
+    held, total = int(match.group(1)), int(match.group(2))
+    assert total == len(names), (
+        f'docs/members.md says {total} members, members.csv holds {len(names)}')
+    assert held == len(with_birth_year), (
+        f'docs/members.md says birth years are held for {held}, '
+        f'members.csv holds {len(with_birth_year)}')
+
+
 def test_every_bib_entry_closes_before_the_next():
     """An entry whose closing brace is missing swallows the entry after it.
     bib_entries() still finds every key, so the other bib tests pass on a file

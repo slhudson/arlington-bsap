@@ -24,9 +24,7 @@ FIRST, LAST = 1932, members.LAST
 # build rather than quietly widening the tolerance. W. P. Ames was found in no
 # census; Susan Cunningham and Tannia Talento are recent enough that a stated
 # age should be findable (docs/members.md, "What rests on an assumption").
-# Edward Duncan is here because his Jefferson district term runs into January
-# 1932, the figure's first month, though he belongs to the era before it.
-UNKNOWN = {"Edward Duncan", "W. P. Ames", "Susan R. Cunningham", "Tannia Talento"}
+UNKNOWN = {"W. P. Ames", "Susan R. Cunningham", "Tannia Talento"}
 MERGE_WITHIN = 12           # months between terms that still make one stroke
 
 
