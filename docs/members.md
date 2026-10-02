@@ -1097,7 +1097,9 @@ sitting member, with leadership by then rotated to Frank Ballenger
 Washington Times election wrap-up has him a distant third in the sheriff's
 race, "considered [the] most formidable rival because of his 24 years'
 experience on the county board of supervisors" (`washingtontimes1931duncan`),
-naming the same 24 years as his October 1938 obituary (`star1938duncan`). Twenty-four years back from a term ending January 1932
+naming the same 24 years as his October 1938 obituary (`star1938duncan`; the
+Washington Times's own notice the next day, `washingtontimes1938duncan`, names
+the same figure). Twenty-four years back from a term ending January 1932
 is 1908 — his first election. This is one term, not one row per election
 (Sally): 1908, 1916, 1920 and 1924 are each a sourced
 election win; 1912 and 1928 are known only because he is shown in office both
@@ -1113,9 +1115,11 @@ year, though — 1872 by the 1910 sheet's age, "abt 1870" by the 1920 sheet's,
 neither a printed date — so both are named in `AGE_MISREPORTED`. His birth
 year, 1867, is the obituary's: the Evening Star's death notice and news story of
 10 October 1938 give him aged 71 at his death on 9 October, the notice naming
-his wife Katie I. and a son Morton, as the censuses do. That is three to five
-years earlier than either census age, and nothing arbitrates, so the census
-records stay excluded and the year is the obituary's alone
+his wife Katie I. and a son Morton, as the censuses do; the Washington Times's
+own notice and "Duncan Rites Wednesday" piece the next day
+(`washingtontimes1938duncan`) give the same age independently. That is three
+to five years earlier than either census age, and nothing arbitrates, so the
+census records stay excluded and the year is the obituary's alone
 (`duncan-edward-birth-year`).
 
 The Historical Society's article names him in the Jefferson seat in every one
