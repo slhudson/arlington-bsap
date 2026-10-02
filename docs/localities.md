@@ -39,26 +39,29 @@ Fairfax, have more.
 
 ## Southeastern cities of Arlington's size
 
-`localities_southeastern.csv` sets the Board's five at-large members beside
-nineteen cities of 180,000 to 300,000 residents in nine southeastern states,
-Richmond among them. The set is Appendix E of the Richmond Charter Review
-Commission's 2023 report (`richmond2023`, printed p. 122), compiled for
-Richmond and not for Arlington: it is a regional comparison, not a national
-one, and it holds no county, where Arlington's form of government sits.
+`localities_southeastern.csv` sets the Board's five members beside nineteen
+cities of 180,000 to 300,000 residents in nine southeastern states,
+Richmond among them: council seats and residents, and from them residents per
+member, the measure the Virginia figures use. The set is Appendix E of the
+Richmond Charter Review Commission's 2023 report (`richmond2023`, printed
+p. 122), compiled for Richmond and not for Arlington: it is a regional
+comparison, not a national one, and it holds no county, where Arlington's form
+of government sits.
 
-Each city's seats are the appendix's council members, and its at-large seats
-are those its election column counts as at-large; a council printed as
-"Ward" has none, and the two counts add to the members for every city. The
-appendix counts a Mayor who sits and votes as one at-large seat, which is why
-Norfolk is eight here and Appendix D's seven plus an at-large Mayor, and
-leaves out the Mayor of a city where the Mayor is chief executive without a
-seat, Richmond among them. That is the reading of the Mayor the peer set above
-takes.
+A city's seats are the appendix's council members. The appendix counts a Mayor
+who sits and votes as one seat, which is why its Norfolk is eight and Appendix
+D's seven plus an at-large Mayor, and leaves out the Mayor of a city where the
+Mayor is chief executive without a seat, Richmond among them. Residents are the
+appendix's thousands, so a peer's figure is good to the nearest thousand;
+Arlington's is the 2020 census total.
 
-Nine of the nineteen elect every seat by ward and ten mix ward and at-large
-seats; none, Arlington aside, elects every seat at large, and the largest
-at-large share is Durham's four of seven. Huntsville's five, elected by ward, is the only council
-as small as Arlington's. `localities_seats` shows it.
+Arlington carries about 48,000 residents per member, more than any of the
+nineteen; Huntsville, with five seats, is next at about 43,000, and the rest
+carry between 18,000 and 41,000. `localities_southeastern` shows it.
 
-What rests on an assumption: that the appendix's counts are the councils
-that sat in 2023. The report states no date for the table.
+The appendix also prints how each council is elected, ward or at large. It is
+keyed but not used: proportional at-large methods mean at-largeness does not
+by itself say how well a council represents.
+
+What rests on an assumption: that the appendix's counts are the councils that
+sat in 2023. The report states no date for the table.
