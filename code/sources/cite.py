@@ -81,9 +81,14 @@ def entry_text(a, filename, folder):
     fields = [("author", "{" + a.author + "}"), ("title", a.title)]
     if a.organization:
         fields.append(("organization", a.organization))
+    if a.journal:
+        fields.append(("journaltitle", a.journal))
+    if a.location:
+        fields.append(("location", a.location))
     fields += [("date", a.date), ("url", a.url), ("urldate", today), ("note", a.note),
                ("annotation", f'Read {today}. Filed in Drive as "{folder}/{filename}", '
-                              + ("saved as published" if a.url.lower().endswith(AS_PUBLISHED)
+                              + (a.how if a.how
+                                 else "saved as published" if a.url.lower().endswith(AS_PUBLISHED)
                                  else "a copy printed in Sally's own browser" if a.copy
                                  else "printed from the page")
                               + f" on {today}")]
@@ -106,6 +111,9 @@ def main():
     ap.add_argument("--date", required=True, help="YYYY or YYYY-MM-DD, the document's own date")
     ap.add_argument("--note", required=True, help="what the document says that the report relies on")
     ap.add_argument("--organization", default="")
+    ap.add_argument("--journal", default="", help="a newspaper's name: makes the entry an article filed under press")
+    ap.add_argument("--location", default="", help="where the newspaper is published, e.g. \"Alexandria, Va.\"")
+    ap.add_argument("--how", default="", help="how the copy was had, replacing the default phrase in the annotation")
     ap.add_argument("--type", default="online", help="the bib entry type (default online)")
     ap.add_argument("--copy", type=Path, help="a copy already in hand, filed instead of fetching")
     ap.add_argument("--documents", type=Path, default=archive.DOCUMENTS)
@@ -119,6 +127,8 @@ def main():
 
     entry = {"type": a.type, "key": a.key, "title": a.title,
              "organization": a.organization, "author": a.author}
+    if a.journal:
+        entry["journaltitle"] = a.journal
     ext = a.copy.suffix.lower() if a.copy else next(
         (x for x in AS_PUBLISHED if a.url.lower().endswith(x)), ".pdf")
     year = a.date[:4]
