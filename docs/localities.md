@@ -35,3 +35,30 @@ in Loudoun and Virginia Beach, and for far more than each member in a city
 of its size. Alexandria, the one place as dense, has far fewer residents per
 member; only the larger counties, Henrico, Chesterfield, Prince William and
 Fairfax, have more.
+
+
+## Southeastern cities of Arlington's size
+
+`localities_southeastern.csv` sets the Board's five at-large members beside
+nineteen cities of 180,000 to 300,000 residents in nine southeastern states,
+Richmond among them. The set is Appendix E of the Richmond Charter Review
+Commission's 2023 report (`richmond2023`, printed p. 122), compiled for
+Richmond and not for Arlington: it is a regional comparison, not a national
+one, and it holds no county, where Arlington's form of government sits.
+
+Each city's seats are the appendix's council members, and its at-large seats
+are those its election column counts as at-large; a council printed as
+"Ward" has none, and the two counts add to the members for every city. The
+appendix counts a Mayor who sits and votes as one at-large seat, which is why
+Norfolk is eight here and Appendix D's seven plus an at-large Mayor, and
+leaves out the Mayor of a city where the Mayor is chief executive without a
+seat, Richmond among them. That is the reading of the Mayor the peer set above
+takes.
+
+Nine of the nineteen elect every seat by ward and ten mix ward and at-large
+seats; none, Arlington aside, elects every seat at large, and the largest
+at-large share is Durham's four of seven. Huntsville's five, elected by ward, is the only council
+as small as Arlington's. `localities_seats` shows it.
+
+What rests on an assumption: that the appendix's counts are the councils
+that sat in 2023. The report states no date for the table.

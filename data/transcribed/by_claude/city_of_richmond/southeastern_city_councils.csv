@@ -1,0 +1,20 @@
+city,residents_thousands,form_of_government,council_members,at_large_or_ward,mayor_role,source
+"Birmingham, AL",198,Mayor-Council,9,Ward,CEO,richmond2023 p.122
+"Huntsville, AL",217,Mayor-Council,5,Ward,CEO,richmond2023 p.122
+"Mobile, AL",185,Mayor-Council,7,Ward,CEO,richmond2023 p.122
+"Montgomery, AL",199,Mayor-Council,9,Ward,CEO,richmond2023 p.122
+"Little Rock, AR",202,Council-Manager,10,7 Ward/3 at-large,Various*,richmond2023 p.122; notes p.122
+"Augusta, GA",201,Mayor-Commission,10,Ward,Leads Commission,richmond2023 p.122
+"Columbus, GA",206,Mayor-Council,10,8 Ward/2 at-large,Various*,richmond2023 p.122; notes p.122
+"Baton Rouge, LA",222,Mayor-Council,12,Ward,CEO,richmond2023 p.122
+"Shreveport, LA",184,Mayor-Council,7,Ward,CEO,richmond2023 p.122
+"Durham, NC",286,Council-Manager,7,3 Ward/4 at-large,Leads Council,richmond2023 p.122
+"Fayetteville, NC",209,Council-Manager,10,9 Ward/1 at-large,Leads Council,richmond2023 p.122
+"Greensboro, NC",298,Council-Manager,9,5 Ward/4 at-large,Leads Council,richmond2023 p.122
+"Winston-Salem, NC",250,Council-Manager,9,8 Ward/1 at-large,Leads Council,richmond2023 p.122
+"Chattanooga, TN",182,Mayor-Council,9,9 Ward,CEO,richmond2023 p.122
+"Knoxville, TN",193,Mayor-Council,9,6 Ward/3 at-large,CEO,richmond2023 p.122
+"Chesapeake, VA",251,Council-Manager,9,8 Ward/1 at-large,Leads Council,richmond2023 p.122
+"Newport News, VA",185,Council-Manager,7,6 Ward/1 at-large,Leads Council,richmond2023 p.122
+"Norfolk, VA",235,Council-Manager,8,7 Ward/1 at-large,Leads Council,richmond2023 p.122
+"Richmond, VA",227,Mayor-Council,9,9 Ward,CEO,richmond2023 p.122

@@ -65,13 +65,13 @@ def stage(folder, *names):
  members_roster, members_roster_arlhist, members_roster_oleary,
  members_roster_results, residents, residents_by_district, elections,
  elections_results, elections_turnout, clean_survey_satisfaction,
- localities, members_residence) = stage(
+ localities, members_residence, localities_southeastern) = stage(
     "clean", "paths", "candidates", "census", "members", "members_census",
     "members_by_year", "members_roster", "members_roster_arlhist",
     "members_roster_oleary", "members_roster_results", "residents",
     "residents_by_district", "elections", "elections_results",
     "elections_turnout", "survey_satisfaction", "localities",
-    "members_residence")
+    "members_residence", "localities_southeastern")
 
 registration, = stage("fetch", "registration")
 
@@ -1014,6 +1014,18 @@ def test_a_jefferson_win_count_that_is_not_hjerpes_is_refused():
 
 
 # --- guards on the peer localities --------------------------------------------
+
+def test_a_southeastern_council_whose_seats_do_not_add_up_is_refused():
+    """Durham keyed as 3 ward and 3 at-large seats of a council of 7. With
+    no guard the at-large share is computed from seats the council does not
+    have, and Arlington's place among its peers moves with it."""
+    def short(d):
+        d.loc[d.city == "Durham, NC", "at_large_or_ward"] = "3 Ward/3 at-large"
+        return d
+    err = breaks(paths, "built", patch_built("localities_southeastern", short),
+                 build=localities_southeastern.build)
+    assert err and "not the 7 members" in err, f"not caught: {err}"
+
 
 def test_a_peer_county_the_census_does_not_carry_is_refused():
     """A county in the crosswalk spelled as the census does not. With no
