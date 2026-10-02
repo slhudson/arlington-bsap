@@ -1031,7 +1031,13 @@ table, since it gives a birth year that disagrees with the member's other
 record and the build stops on two sources disagreeing: William Duncan's 1910
 record (`census1910duncanwilliam`, 1857 against the 1900 record's August
 1854). Which year is Duncan's is open (`duncan-birth-year`); the row is added
-when it is settled.
+when it is settled. His death is filed (`alexandriagazette1910duncan`): killed
+by a freight train in the Potomac railroad yards early Saturday night, 8
+October 1910, his survivors (a widow, four sons and one daughter) matching
+`census1900duncan`'s household exactly and confirming the deputy marshal and
+former supervisor as the Jefferson-district member. The notice's own age,
+"about forty-five," agrees with neither census record and is too imprecise to
+arbitrate between them.
 
 **W. N. Febrey is one household, born November 1851.** The county's 1900,
 1910 and 1920 schedules hold one William N. Febrey household, not two. All
