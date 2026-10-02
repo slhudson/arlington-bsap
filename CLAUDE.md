@@ -287,7 +287,7 @@ such as comparing Arlington's Board to peer localities.
 `waiting_on` names who owes the next move, not who would do the work. Seven
 courts: `Sally`; `Alex` for work Sally has offered him, which waits on his yes
 until he takes it; `County` for anything the County meeting or its staff would
-answer, which includes every figure on turnout, party or the presidential
+answer, which includes every figure on party or the presidential
 vote and anything where County records may hold better data; `Claude` for
 what a session can reach from here; `Physical` for a record that exists only
 in an archive or a library and takes someone going there; `Digital` for what
