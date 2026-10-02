@@ -74,9 +74,7 @@ in `code/clean/members_residence.py`:
   a district.
 
 A place no rule reads stops the build. A house number whose street is unread
-would count as a neighborhood, but nothing currently needs that rule: Ames's
-1940 record matches on name alone and feeds nothing, the same as it feeds no
-race, gender or birth year (`census-match-quality`).
+(Ames) counts as a neighborhood.
 
 **Before 1932 the only places are the census sheets' own.** 33 of the 41
 members seated 1870–1911 have a record. For 28 of those the sheet gives a
@@ -383,6 +381,17 @@ year after 1975 but 2023, and ARLnow reports the Board in February 2014
 operating "with four members until a special election is held"
 (`arlnow2014zimmerman`). Talento's is the only appointment to the Board
 since 1975.
+
+**The three stretches `arlhist1967officials` left outside any term block are
+not gaps.** Before the roll, Magruder's, Lloyd's and Krupsaw's departures were
+dated only by the election or appointment that followed, so the days between
+a seat falling vacant and being filled — 10–17 May 1947, 3–26 November 1947
+and 21–29 January 1960 — fell in no term block the article named. The roll
+dates each departure and arrival to the day and, on the same month-grain rule
+above, closes all three: Magruder's seat runs through May 1947 and Cuppett's
+begins then; Lloyd's runs through November 1947 and Frisbie's begins then;
+Krupsaw's and Wilt's both hold January 1960. Nothing here was ever
+unrecorded, only undated to the day.
 
 ### What the law made the Board, and when a term ran
 
