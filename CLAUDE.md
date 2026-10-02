@@ -284,14 +284,18 @@ document to find or read; `decision`, a choice about how a number is built
 or shown; and `scope`, a proposal for analysis the report does not yet do,
 such as comparing Arlington's Board to peer localities.
 
-`waiting_on` names who owes the next move, not who would do the work. Five
-courts: `Sally`; `County` for anything the County meeting or its staff would
+`waiting_on` names who owes the next move, not who would do the work. Seven
+courts: `Sally`; `Alex` for work Sally has offered him, which waits on his yes
+until he takes it; `County` for anything the County meeting or its staff would
 answer, which includes every figure on turnout, party or the presidential
 vote and anything where County records may hold better data; `Claude` for
-what a session can reach from here; `RA` for an archive or a paywalled
-database it cannot; and `closeout` for what cannot move until the end of the
-project. An ask Sally makes whose answer is the County's waits on the
-County. How the work gets done is in `settles`, so no column repeats it.
+what a session can reach from here; `Physical` for a record that exists only
+in an archive or a library and takes someone going there; `Digital` for what
+sits behind a database login we do not have (HeinOnline, Westlaw, ProQuest);
+and `closeout` for what cannot move until the end of the project. Who does a
+Physical or Digital row is for Sally and Alex to settle; the court does not
+say. An ask Sally makes whose answer is the County's waits on the County. How
+the work gets done is in `settles`, so no column repeats it.
 
 A row is something
 that would change a number, a citation or a figure's form, or add an
