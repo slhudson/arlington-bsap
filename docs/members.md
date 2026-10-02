@@ -30,16 +30,16 @@ era, and H. Dwight Smith, Crocker, Schutt, Robinson and Willson of the earlier.
 R. Henry Phillips makes an eleventh, with a record whose household is his
 father's, not his own, so it gives him nothing (below).
 
-**Birth years.** Birth years are held for 115 of the 126 members, and they rest
+**Birth years.** Birth years are held for 117 of the 126 members, and they rest
 on the ages in census listings and on an age stated in an obituary or a
 profile. Each is right to within a year. The age figure draws a year only where
-every sitting member either has a birth year or is one of the four the
-figure names, and it starts in 1932. Those four are Edward Duncan, whose
-term reaches into the figure's first month, W. P. Ames, found in no census,
-and Susan Cunningham and Tannia Talento, recent enough that a stated age
-should be findable. Naming them rather than allowing a count of unknowns is
+every sitting member either has a birth year or is one of the three the
+figure names, and it starts in 1932. Those three are W. P. Ames, found in no
+census, and Susan Cunningham and Tannia Talento, recent enough that a stated
+age should be findable. Naming them rather than allowing a count of unknowns is
 what makes the gap a known quantity: a member who arrives without a birth
-year and is not among them stops the build.
+year and is not among them stops the build. Every member seated in 1900-31
+has a birth year.
 
 **1912–1931 rests on no assumption.** `arlhist1967officials`, the Historical
 Society's own compilation from the Board's minute books, names all three
@@ -54,8 +54,8 @@ terms O'Leary does not record (below, "The article corrects and adds for 1870
 to 1911"). One question about the stretch is open, and it changes no value in
 the meantime: whether the 1892 William N. Febrey is the W. N. Febrey of
 1904–11 (`febrey-1892-one-member-or-two`). The statute behind the July
-seating is
-uncited (`may-election-seating`). Two seats that the article gives to a
+seating is `vaacts1870` ch. 76 sec. 4, below ("The Board's year ran 1 July
+to 30 June through 1901"). Two seats that the article gives to a
 different man are settled, and the roster follows the article in both: see "Two
 seats go to the man the minute books show sitting" below.
 
@@ -637,9 +637,11 @@ is a property of every date the article gives, not a fact about either man.
 start in January; elected in May, start in July. Being elected is not taking
 office, and the two halves rest on different things:
 `members_roster_oleary.seated()` carries the November half on
-`vaconstitution1902` sec. 112, and the May half on the minute books, no
-statute in hand stating when a May winner was seated
-(`may-election-seating`). Every term block
+`vaconstitution1902` sec. 112, and the May half on ch. 76 sec. 4 of the 1870
+acts: the term of "all corporation and township officers chosen at a general
+election ... shall commence on the first day of July next thereafter," and
+sec. 14 of the same chapter makes a supervisor a township officer, chosen at
+the May general election (`vaacts1870`). Every term block
 the article prints for 1870–1901 runs 1 July to 30 June. Its own footnote at
 1901 corroborates the arithmetic. The 1902 constitution moved the Board to
 four-year calendar terms, and "the extra six months of this Board covered the
@@ -807,11 +809,13 @@ the Glenarlyn subdivision of the Arlington district in the 1930 census
 All four read White and male from the sheet, so they rest on a record, not on
 the era default (`default-1931-1986`). **Clarence R. Ahalt** is in no 1920
 census index for the former Alexandria County under that name or a close
-spelling; he defaults to White like the rest of the era, and the county-wide
-search (32 nationwide results, none local) is recorded so a later thread
-does not repeat it. His gender rests on a press reading instead of the
-default: a 1933 letter to the editor calling him "Mr. Ahalt" (below, "The
-members that keep the default").
+spelling (the county-wide search, 32 nationwide results, none local, is
+recorded so a later thread does not repeat it), but he is in the 1930 census
+(`census1930ahalt`): an attorney on Mt. Vernon Boulevard in the Jefferson
+district, 41, born in Maryland, the only Clarence R Ahalt in Virginia that
+year, which fits the 1933 letter (below, "The members that keep the default")
+naming him an Arlington County man of twenty years' residence. The record
+gives him White, a man and a birth year, 1889 within a year.
 
 Thomas J. DeLashmutt's household carries a son, **Basil N. Delashmutt, 17**,
 born about 1903 — the same birth year as the **Basil M. DeLashmutt** of the
@@ -1093,8 +1097,7 @@ sitting member, with leadership by then rotated to Frank Ballenger
 Washington Times election wrap-up has him a distant third in the sheriff's
 race, "considered [the] most formidable rival because of his 24 years'
 experience on the county board of supervisors" (`washingtontimes1931duncan`),
-naming the same 24 years as his October 1938 obituary (read in prose, not yet
-filed with a citekey). Twenty-four years back from a term ending January 1932
+naming the same 24 years as his October 1938 obituary (`star1938duncan`). Twenty-four years back from a term ending January 1932
 is 1908 — his first election. This is one term, not one row per election
 (Sally): 1908, 1916, 1920 and 1924 are each a sourced
 election win; 1912 and 1928 are known only because he is shown in office both
@@ -1107,8 +1110,13 @@ ten years on, Morton now ten, the same trade and Irish parents, "the only
 Edward Duncan in the county that year"), independently confirm one man, not
 three, and his race and gender attach from both. They disagree on his birth
 year, though — 1872 by the 1910 sheet's age, "abt 1870" by the 1920 sheet's,
-neither a printed date — so both are named in `AGE_MISREPORTED` and he has no
-birth year in the table (`duncan-edward-birth-year`).
+neither a printed date — so both are named in `AGE_MISREPORTED`. His birth
+year, 1867, is the obituary's: the Evening Star's death notice and news story of
+10 October 1938 give him aged 71 at his death on 9 October, the notice naming
+his wife Katie I. and a son Morton, as the censuses do. That is three to five
+years earlier than either census age, and nothing arbitrates, so the census
+records stay excluded and the year is the obituary's alone
+(`duncan-edward-birth-year`).
 
 The Historical Society's article names him in the Jefferson seat in every one
 of its blocks from 1912 to 1931, which is the minute books' own confirmation
@@ -1313,7 +1321,7 @@ to the editor in the *Commonwealth Monitor*, urging his election as
 Attorney General, calls him "Mr. Ahalt" three times and "an Arlington
 County man" (`commonwealthmonitor1933ahalt`). He remains a recorded
 negative in the 1920 census, 32 nationwide results checked, which the press
-reading now makes moot. **Edward Duncan** has no record
+reading and the 1930 census record (above) now make moot. **Edward Duncan** has no record
 after 1920: Arlington County holds no Duncan of his age in 1930, so the 1920
 sheet is the later of his two.
 
