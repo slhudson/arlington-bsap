@@ -534,6 +534,176 @@ Society's article picks the seats up (below). The note on such a row says the en
 the next listed election seats a successor on the same date the departure is
 sourced and carries no note.
 
+### The election section after 1962
+
+**The rules for electing members of the Board change at the edges after 1958,
+and the 1952 questions never return.** The section that opened with the
+referendum on biennial elections (§ 15.1-676 after the 1962 recodification,
+§ 15.2-705 today) is amended in 1975, 1993, 1997, 1998, 2014 and 2020
+(`vacode152705`), and none of the amendments reopens the 1952 package. No
+petition was filed in the 1958 window (`vaacts1958c207`), and nothing offers the
+voters a second chance.
+
+**1975 c. 636 replaces the vacancy rule.** Until then a vacancy was filled by a
+writ of election, held at the next regular November election when the term had
+a year or more to run, and the member so elected served the rest of the term
+(`vaacts1958c207`). Chapter 636, approved 24 March 1975, has the circuit judge
+call a special election for the remainder of the term, to be held not less
+than forty-five and not more than sixty days afterward; where the vacancy
+falls within 180 days of the term's end, the remaining members fill it by
+appointment within thirty days, after a public hearing (`vaacts1975c636`). A
+clause written for 1975 alone has the Board appoint, before 4 November, a
+person to hold the seat expiring on 31 December of that year from 5 November
+on, and lets the judge's appointee serve until that person qualifies. The act
+leaves the 1958 referendum paragraphs standing, apart from updated
+cross-references, and chapter 517 of the same session carries them through again
+(`vaacts1975c517`). The acts do not say why the rule changed.
+
+**By 1996 the referendum paragraphs are gone and the Board is elected at
+large.** The Code Commission's draft of the 1997 recodification prints the
+section as it then stood: it opens "in any county operating as of December 1,
+1993, under the county manager plan", provides for two members in November
+1995 and one each in 1994, 1996 and 1997, and sets four-year terms beginning on
+1 January, with no petition, no ballot question and no districts
+(`vacodecommission1997sd5`, p. 104). The history line names one act between 1975
+and 1997, 1993 c. 731, so that act made the change. Its text is not in a source
+held: the 1993 volume of the Acts is not in full view at HathiTrust and
+needs a law-library login.
+
+**1997 c. 587 moves the at-large sentence and repeals § 15.1-691.** The
+Commission draft folds the sentence "The members of the board shall be elected
+from the county at large" into § 15.2-705(A), relocated from § 15.1-691, and
+repeals § 15.1-691, which carried the 1930 text that abolished the magisterial
+districts and let the referendum choose districts or the county at large
+(`vacodecommission1997sd5`, pp. 104, 128; `vaacts1930c167`, sec. 2773-k). The
+draft calls the whole section "no substantive change in the law". The enrolled
+act, H 1667, prints only its title at the Legislative Information System, so
+the report is the text read.
+
+**Three later acts adjust the vacancy rule and add the ranked-choice option.**
+Chapters 345 (S 61) and 369 (H 396) of 1998, both approved 11 April, add to
+subsection C that the local electoral board announces the candidate filing
+deadline for the special election within three business days after the judge's
+call (`vaacts1998c345`, `vaacts1998c369`). Chapter 573 of 2014, approved 4 April,
+lengthens the window for the special election to between sixty and eighty days
+(`vaacts2014c573`). Chapter 713 of 2020, approved 6 April, adds to subsection B
+that the board may provide by ordinance for nomination or election by instant
+runoff voting, and adds § 15.2-705.1, which defines the method, authorizes it
+for the nomination and election of members in a county under the manager plan,
+and has the State Board of Elections write the rules; the Department of
+Elections' technology costs fall on the localities that choose it
+(`vaacts2020c713`).
+
+### What the County Code and the Board's own papers add to the split
+
+**The statute draws the line; the County's written rules for the Board and the
+Manager are few and mostly procedural.** The 1930 act has the Board appoint a
+manager, who holds the county's administrative and executive powers and
+"the power of appointment of all officers and employees whose appointment or
+election is not otherwise provided by law", while the Board may not change a
+budget allocation without the manager's recommendation and may not move any
+allocation by more than ten per cent (`vaacts1930c167`, secs. 2773-g and
+2773-h). The County Code does not restate that division. The Manager appears in
+its chapters as the officer who runs permits and enforcement, and none of its
+chapters sets rules for how a Board member deals with the Manager's staff; that
+rule is § 15.2-703 and nothing else (`vaacts1962c623`).
+
+**The County Attorney's office rests on a general statute, not on the manager
+plan and not on the Code.** The 1952 act that would have created the office
+for a county under the plan was a referendum that never took place
+(`vaacts1952c569`, `vaacts1962c623`). Chapter 695 of 1968, approved 5 April,
+added § 15.1-9.1:1 for every county: "the governing body of any county may
+create the office of county attorney", appointed "to serve at the pleasure of
+the governing body" at a salary the body fixes, with the Commonwealth's
+attorney relieved of civil advice, ordinances and civil suits, and the county
+attorney "accountable to the governing body" (`vaacts1968c695`). No vote of the
+people is required. It survives as § 15.2-1542 (`vacode1521542`). No chapter of
+the County Code creates the office; Chapter 6 names the Office of the County
+Attorney only to list its employees among the "confidential" ones for collective
+bargaining (`arlingtoncode6civilservice`). The Board appointed Ryan Samuel by a
+4-0 vote at a special meeting on 2 December 2025, and the office reports to the
+Board, not the Manager (`arlnow2025countyattorney`, `arlingtonva2025samuel`).
+The resolution that made the appointment is not in a source held, and
+§ 15.2-1542 is the only authority found for it.
+
+**The Independent Policing Auditor moved from the Manager to the Board in 2026.**
+ARLnow reports that the Board changed the County Code in June 2026, after
+2026 state legislation let it appoint the auditor directly, and in August
+approved an employment agreement under which the auditor serves at the
+pleasure of the Board and not the Manager; a 2022 bill to the same effect had
+been vetoed (`arlnow2026policingauditor`). The agreement itself is a County
+record the press had to request under the Freedom of Information Act.
+
+**The Audit Committee gives the Board a channel to the Manager, not around the
+office.** Its charter seats the County Manager and the Director of Management
+and Finance with two Board members, who co-chair, and says its creation "is not
+intended to materially alter the responsibility and authority of either the
+County Board, OCA, or the County Manager". The committee advises the Manager on
+the resources the County Auditor's office needs before the proposed budget,
+gives feedback on the Board's annual review of the County Auditor, and, when it
+wants staff to explain corrective action, "may request that the County Manager
+direct staff" to attend (`arlingtonva2025auditcharter`).
+
+**The Board appropriates by department, and the Manager moves money within one.**
+The FY 2027 appropriations resolution lists the County Board, County Manager,
+County Attorney and the other departments with an amount each, returns any
+general-fund surplus to the General Fund and carries unspent capital and
+restricted balances forward; it contains no transfer clause. The budget's own
+glossary supplies the rule: "the County Manager has the authority to approve
+transfer of funds within a department or agency"
+(`arlingtonva2026budgetresolution`). Against the 1930 act, which forbids any
+change in an allocation without Board approval, that is a delegation to the
+Manager; the sources held do not show when it was made. The Financial and Debt
+Management Policies, updated in 2024, reserve to the Board any draw on the
+operating or self-insurance reserve and any use of the contingent, and have the
+Manager submit the ten-year Capital Improvement Plan every two years
+(`arlingtonva2024debtpolicies`).
+
+**The Chair controls the agenda, and the Manager drafts it.** Under the Board's
+2026 meeting procedures the Manager prepares a list of proposed items about
+two weeks before a regular meeting, the Chair approves the agenda, and a Board
+member adds an item by writing to the Chair eight days ahead. The Manager may
+recommend items for the consent agenda "with the consent of the County Board
+Chair" (`arlingtonva2026procedures`).
+
+### Where the 1930 act's text comes from
+
+**The 1930 act matches neither model it could have followed.** Chapter 167 of the
+1930 session, approved 20 March 1930 [H B 342], adds chapter 109-a to the Code
+with two optional forms for a county of 500 or more people to the square mile,
+a "modified commission plan" and the "county manager plan", chosen with the
+question of at-large or district election at a single referendum on the
+petition of two hundred voters (`vaacts1930c167`). Gilbertson's *The County*
+(1917) prints a county manager bill introduced in the New York legislature
+(Appendix D) and argues the plan in chapter form (`gilbertson1917county`). The
+act shares no run of eight words with Appendix D and two with the whole book;
+against the National Municipal League's 1916 Model City Charter it shares four
+(`nml1916modelcharter`). The phrases that recur are generic ones ("need not be
+a resident", "elect one of its members as chairman", "a majority of those
+voting thereon"). The text the act does carry is its own: section 2773-f, on the
+five-member board, the chairman "with a vote but no veto" and the manager who
+"need not be a resident of the county or of the State", reappears in the Code
+Commission's draft of § 15.2-702 with "Commonwealth" for "State"
+(`vacodecommission1997sd5`, p. 102), so the phrasing the Code still carries
+is the 1930 act's.
+
+**Whether Arlington was the first county to adopt the form by popular vote is
+unconfirmed from the sources held.** The Arlington Historical Society's
+account calls it "the first county in the United States to adopt by popular
+vote any kind of a County Manager system" without naming a source, and
+nothing held covers the North Carolina counties that adopted the form after
+1927.
+
+### What remains unread
+
+The 1993 act (c. 731) is not read: HathiTrust does not show the volume in full
+view and the Acts for 1993 need a law-library login. The 1927 and 1941
+editions of the Model City Charter and Wager's *County Government Across the
+Nation* (1950) are unread, so whether the carve-out that lets the Board
+discuss appointments with the manager entered the model before 1958 is open
+(`richland1958charter`). The Manager's employment agreement and the Board's
+real-estate signing authority are not in a source held.
+
 ### The roster names 1912 to 1931
 
 **Two elections of 1912 to 1931 come from the county's candidate history.** It

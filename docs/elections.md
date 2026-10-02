@@ -75,7 +75,7 @@ p.37). So 1938 left term length alone - four years, unchanged since the Plan
 took effect in 1932 - and changed only the cadence, from the whole five-member
 Board at once every four years to one seat most years and two in the fourth.
 That is the baseline the 1952 c. 591 referendum, never petitioned onto a
-ballot (`election-section-amendments`), would have replaced with elections
+ballot (`vaacts1958c207`), would have replaced with elections
 in groups every two years instead of annually.
 
 **For County Board**, every year from 1931. This is what the smaller November
