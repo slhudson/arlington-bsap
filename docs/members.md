@@ -951,6 +951,58 @@ seats filled. Where a seat sat empty, each serving member represented more
 people than the figure shows. Whether to divide by the filled count instead,
 which would make the growth figure depend on the roster, is open.
 
+## The chair
+
+The Board elects its chair and vice-chair from among its own members at its
+first meeting of the year, which the roll dates to the first days of January
+(`arlingtonva2026members`). The statute, `vacode2020chairelection`, enacted in 1997,
+lets a governing body set the officer's term, makes it one year where none is
+set and allows successive terms, so nothing in law gives the chairship to a
+member in the year the seat is up. `data/clean/members_chairs.csv` holds the
+chair of every year from 1932 and the vice-chair from 1967, read off the
+county's roll (`arlingtonva2026members`), and the table is kept out of
+`members.csv`, where every row is a term.
+
+**The custom is succession, not the ballot.** The ARLnow report of the January
+2026 meeting says the new vice-chair, Maureen Coffey, "will rotate in as chair
+in 2027, assuming all goes as is typical" (`arlnow2026chair`). Since 1990 the
+roll bears that out: each year's vice-chair is the next year's chair, and the
+four breaks each have a reason in the Board's own membership. James B. Hunter III took the chair
+in 1996 ahead of Ellen Bozman, the vice-chair, who took it in 1997; Charles Monroe, vice-chair
+in 2002, left the Board in January 2003; J. Walter Tejada's term ended in
+December 2015; and Erik Gutshall, vice-chair in 2020, left the Board that April.
+Between the first vice-chair in 1967 and 1989 the vice-chair was often passed
+over: A. Leslie Phillips and Jay E. Ricks held the office and never chaired.
+
+The test the custom was first put as, that a member chairs in the year the
+seat is up, fails. Jay Fisette chaired in 2010 and 2014, each the first year of
+a term he had just won, and Katie Cristol in 2018 and 2022, the third year of
+hers. The five-member Board gives each member a turn about every fifth year
+whatever the election calendar says, and the long gaps, Bozman from 1976 to
+1983 and Whipple from 1986 to 1994, are members the order skipped over, not
+members waiting for a ballot.
+
+Before 1967 the roll names no vice-chair and the chair changes almost every
+year. The years that break the pattern are the Board's own crises: Lyman
+Kelley was removed in November 1934, a court removed the chairman in September
+1952, Elizabeth Magruder resigned the chair in March 1947, and Eisenberg resigned
+his in February 1999. Magruder alone chaired three years running, 1938 to 1940;
+Harry Fellows, Wesley Cooper and Bozman chaired two. No source found reports a
+chair election contested on the floor: the County's releases and ARLnow for 2025
+and 2026 report none, and the press before them is unread (ProQuest).
+
+Members of colour who served a full term took the chair in turn: William
+Newman in 1991, the fourth year of his first term, Walter Tejada in 2008 and
+2013, Christian Dorsey in 2019 and 2023. The members who never chaired are those
+the order never reached, the part-term members, among them Gutshall and Monroe,
+each of them vice-chair when they left.
+
+**A figure of chair-years by race and gender is not built.** Because the chair
+follows the vice-chair, who follows the order of the Board, chair-years by race
+and gender would repeat the seat-years figures with a year's delay. The report
+can state the first Black chair, Newman in 1991, and the first woman to chair in the roll, Magruder
+in 1938, in a sentence of prose.
+
 ## Where members lived
 
 `data/clean/members_residence.csv` holds one row per claim about a member's

@@ -17,29 +17,35 @@ it prints the office beside a name and no date - which is most years before
 
 The chairship is a vote of the Board among its own members and says nothing
 about who holds a seat, so it is kept out of members.csv, where every row is
-a term. No figure reads this table yet. The question it answers - whether
-the chair went to women and to members of colour in proportion to their
-service - is `chair-by-race-and-gender` in docs/questions.csv, and the table
-is here because the roll is read for the roster anyway and re-reading it
-later would be the only alternative (docs/repository.md).
+a term. No figure reads this table: the chair follows the vice-chair, so who
+chaired by race and gender repeats the seat-years (docs/members.md, "The
+chair"). It is here because the roll is read for the roster anyway and
+re-reading it later would be the only alternative (docs/repository.md).
 """
 import pandas as pd
 
 import members_roster_roll as roll
 from paths import write
 
-OFFICES = {"chairman": "chair", "chairwoman": "chair", "acting chairman": "chair",
+OFFICES = {"chair": "chair", "chairman": "chair", "chairwoman": "chair", "acting chairman": "chair",
            "vice-chairman": "vice-chair", "vice-chair": "vice-chair"}
 
 TOOK = {"took the chair": "chair", "took the vice-chair": "vice-chair"}
 
 
-def build() -> pd.DataFrame:
-    d = roll.rows()
+def build(d: pd.DataFrame | None = None) -> pd.DataFrame:
+    d = roll.rows() if d is None else d
     rows = []
     for _, r in d.iterrows():
-        office = OFFICES.get(r.office.strip().lower())
+        label = r.office.strip().lower()
+        office = OFFICES.get(label)
         if office is None:
+            # A blank is a member with no office; a label no one has mapped is
+            # a chair the build would drop without a word (2020, when the roll
+            # first printed "chair").
+            if "chair" in label or "president" in label:
+                raise ValueError(f"{r.year}: the roll prints the office {r.office!r} "
+                                 f"for {r['name']} and OFFICES does not read it")
             continue
         # The roll dates the vote on the row that records it; a year that
         # prints the office and no date leaves `since` blank.
@@ -49,6 +55,9 @@ def build() -> pd.DataFrame:
                      "source": roll.SOURCE})
     out = pd.DataFrame(rows).drop_duplicates(subset=["year", "office", "name"], keep="first")
     check_one_chair(out)
+    absent = sorted(set(range(1932, 2027)) - set(out[out.office == "chair"].year))
+    if absent:
+        raise ValueError(f"no chair in {absent}: the roll names one every year from 1932")
     return out.sort_values(["year", "office", "since", "name"]).reset_index(drop=True)
 
 

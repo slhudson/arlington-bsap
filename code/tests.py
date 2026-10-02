@@ -61,12 +61,12 @@ def stage(folder, *names):
     "build", "paths", "members_claims", "survey_satisfaction", "census",
     "localities")
 
-(paths, candidates, census, members, members_census, members_by_year,
+(paths, candidates, census, members, members_census, members_chairs, members_by_year,
  members_roster, members_roster_arlhist, members_roster_oleary,
  members_roster_results, residents, residents_by_district, elections,
  elections_results, elections_turnout, clean_survey_satisfaction,
  localities, members_residence, localities_southeastern) = stage(
-    "clean", "paths", "candidates", "census", "members", "members_census",
+    "clean", "paths", "candidates", "census", "members", "members_census", "members_chairs",
     "members_by_year", "members_roster", "members_roster_arlhist",
     "members_roster_oleary", "members_roster_results", "residents",
     "residents_by_district", "elections", "elections_results",
@@ -1898,6 +1898,22 @@ def test_a_hispanic_respondent_naming_another_race_stays_hispanic():
     ])
     got = list(clean_survey_satisfaction.race(frame))
     assert got == ["hispanic", "white", "other_or_multiracial", "declined", ""], got
+
+
+def test_a_chair_the_roll_labels_in_a_new_way_is_refused():
+    """The 2020 chair, reintroduced. The roll prints "chair" for Libby Garvey
+    in 2020, the one year it does not print chairman or chairwoman, and
+    OFFICES had no entry for it: the build dropped the year without a word
+    and the table showed no chair for 2020 until a count of years found the
+    hole. An office label the build cannot read must stop it."""
+    roll = pd.DataFrame([{"year": "2020", "name": "Libby Garvey", "office": "chairperson",
+                          "event": "took the chair", "event_date": "2020-01-02"}])
+    try:
+        members_chairs.build(roll)
+    except ValueError as e:
+        assert "chairperson" in str(e), e
+    else:
+        raise AssertionError("an office label OFFICES does not read was dropped")
 
 
 if __name__ == "__main__":
