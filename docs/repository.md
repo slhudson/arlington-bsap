@@ -292,3 +292,56 @@ one is worth a test is Sally's call per guard; a few read as reachable only
 through a hand-edit of the source data these modules take as fixed, which
 is the kind of guard the existing suite tends to leave untested elsewhere
 in the file too.
+
+### Which of those thirty get a test
+
+Each guard above read once more, asking the question `CLAUDE.md` asks:
+delete it, and does the build ship a wrong number, or does it stop anyway?
+Twenty get a test, five do not, and eleven collapse into one.
+
+**Twenty get a test, because removing the guard leaves a code path that
+produces a value.** They fall into five shapes, and the shape is what a
+test has to reintroduce:
+
+- *A conflict resolved by taking the first value.* The three party checks
+  in `code/clean/members.py` and the two label checks in
+  `code/clean/elections.py` are each followed by a line that reads
+  `printed[0]` or `labels[0]`, so without the guard one of two
+  disagreeing sources silently wins. So does the 2021 overlap check in
+  `code/clean/members_roster_results.py`.
+- *A value that falls through to a default.* A place no precision rule
+  reads returns `None` from `code/clean/members_residence.py`; an
+  unrecorded mayor in `code/clean/localities.py` drops a mayor who sits on
+  the council; a label with no category becomes `other` in
+  `code/clean/elections.py`.
+- *Votes in the wrong band.* In `code/clean/elections_results.py` a
+  surname matched twice falls to `other`, and a year matching neither
+  nominee leaves both at zero.
+- *A count or a denominator that moves.* Both checks in
+  `code/clean/elections_turnout.py`, all four in
+  `code/clean/candidates.py` including the pinned Jefferson win count, and
+  the Code's three-to-eleven range and the one-Arlington-row check in
+  `code/clean/localities.py`.
+- *The wrong county's row, or none.* `code/clean/census.py` and
+  `code/build/census.py` each guard Arlington's one row, and without it
+  `.iloc[0]` takes whichever row is first; `code/build/localities.py`
+  guards a peer the census carries no population or land area for. The
+  census pair is the one to write first, because what it protects is every
+  figure that reads a census volume.
+
+**Five do not, because another guard already stops the build.** Each of
+these improves the message and nothing else, which is not what
+`CLAUDE.md` reserves a test for. The two checks on Edward Duncan's joined
+term in `code/clean/members_roster.py` are caught by `check_seats` a few
+lines later, which sees the gap as a seat held by nobody or the overrun as
+a seat held twice. `code/clean/members_roster_novack.py` and
+`code/clean/members_roster_results.py` each take `min()` of a list the
+guard has just found empty, so both raise either way. And a birth year
+that is not four digits is caught by the age-when-seated range.
+
+**Eleven collapse into one.** The parsing guards in
+`code/clean/members_roster_arlhist.py` are the same mechanism on five
+declared tables: a rename, a note, a seated date or a vacated date must
+match exactly one roster row, and a mis-typed entry silently does nothing
+instead. One test that mangles one table reintroduces that mistake for all
+of them.
