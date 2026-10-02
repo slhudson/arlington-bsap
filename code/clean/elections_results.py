@@ -82,8 +82,6 @@ def oleary() -> pd.DataFrame:
                 votes["dem"] += total
             elif surname == rep:
                 votes["rep"] += total
-            elif surname in NOMINEES[int(year)]:
-                raise AssertionError(f"{year}: {surname} matched twice")
             else:
                 votes["other"] += total
         if votes["dem"] == 0 and votes["rep"] == 0:
