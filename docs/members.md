@@ -621,9 +621,11 @@ is a property of every date the article gives, not a fact about either man.
 start in January; elected in May, start in July. Being elected is not taking
 office, and the two halves rest on different things:
 `members_roster_oleary.seated()` carries the November half on
-`vaconstitution1902` sec. 112, and the May half on the minute books, no
-statute in hand stating when a May winner was seated
-(`may-election-seating`). Every term block
+`vaconstitution1902` sec. 112, and the May half on ch. 76 sec. 4 of the 1870
+acts: the term of "all corporation and township officers chosen at a general
+election ... shall commence on the first day of July next thereafter," and
+sec. 14 of the same chapter makes a supervisor a township officer, chosen at
+the May general election (`vaacts1870`). Every term block
 the article prints for 1870–1901 runs 1 July to 30 June. Its own footnote at
 1901 corroborates the arithmetic. The 1902 constitution moved the Board to
 four-year calendar terms, and "the extra six months of this Board covered the
