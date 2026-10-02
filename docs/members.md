@@ -448,6 +448,38 @@ samuel2026 note 8 records that the Plan "appears to be the only county form of
 government that does not refer to its Board members as 'supervisors'". The
 name, the at-large method and the five seats therefore arrive together.
 
+**The Board won the power to appoint department heads in 1951, and 1952
+c. 443 bars its members from the appointments below it.** The Board appointed
+the department heads until 1937, when it delegated that power to the manager.
+It took the power back by resolution on 27 January 1951 (dailysun1951spicer),
+and on 20 March 1951 Judge McCarthy ruled for it on a petition for a
+declaratory judgment from Commonwealth's Attorney Denman T. Hucker: the Board
+had no right to relinquish the power in 1937, and a change could come only by
+amending the manager act (sun1951rulingboard). The police chief lay outside the
+ruling, because a special act gave that appointment to the manager and both
+sides agreed it was not at issue (sun1951rulingboard). That is the direction
+the *Daily Sun* gives on 19 July 1952 (dailysun1952petitions); its 28 November
+1951 line that the ruling overruled the Board over the police chief
+(dailysun1951policechief) is the one account that runs the other way, and the
+report of the day governs. By the winter the Board's advisory committee and the
+Arlington Civic Federation wanted the power returned to the manager
+(dailysun1951spicer), the new chairman named the same change among the bills he
+hoped for in January 1952 (star1952cox), and 1952 c. 198 put it to the voters
+(vaacts1952c198).
+
+c. 443 does not move that power. Enacted outright on 1 April 1952, it exempts
+"persons appointed by" the Board, and has the Board deal with the
+administrative services through the manager and the heads of departments
+"whom it may be empowered to appoint" (vaacts1952c443). What prompted it is not
+documented in anything held. It is in neither the League's proposals of 29
+September 1951 (dailysun1951institute) nor the delegation's bill list of 4
+December 1951 (dailysun1951bills), and the Board's friction with its manager
+that autumn (dailysun1951lundberg) is context, not a stated cause. No held
+report covers its introduction or passage, and the *Daily Sun*'s digitised run
+has no issue between 31 December 1951 and 22 April 1952. What would show who
+introduced S 431 and why is the Senate's journal for the 1952 session and the
+Board's own minutes for February and March 1952.
+
 **A separate County Attorney needed its own act, and its 1952 referendum was
 never called.** The League of Women Voters proposed a Board-appointed counsel
 apart from the Commonwealth's Attorney on 29 September 1951
