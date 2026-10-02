@@ -80,7 +80,9 @@ Saegmuller's Maryland Avenue house in Washington City are the exceptions.
 Roach is a weak match, flagged in his row. The 1870–1920 indexes hold no record
 for the remaining members under any spelling tried, R. Henry Phillips among
 them — the one household read against him is his father's
-(`residence-pre-1932`).
+(`residence-pre-1932`). The Gazette places two of them without a census:
+Willson on six acres by Ballston and Smith on the Arlington township's party
+committee (below, "Smith, Crocker, Robinson, Willson and Phillips").
 
 **The seat itself places nobody before 1932.** No instrument required a
 supervisor to live in the district he represented before 1903, so a member
@@ -1399,6 +1401,53 @@ negative in the 1920 census, 32 nationwide results checked, which the press
 reading and the 1930 census record (above) now make moot. **Edward Duncan** has no record
 after 1920: Arlington County holds no Duncan of his age in 1930, so the 1920
 sheet is the later of his two.
+
+**Smith, Crocker, Robinson, Willson and Phillips have no birth year, and two
+have a place.** No record found gives any of the five an age, so none enters
+`members_age` before 1932 (`age-pre-1932`).
+
+- **Willson** is printed Walter G. Wilson: "Walter G. Wilson, of Washington
+  District" at the Board's meeting of 10 June 1890, where he is authorized to
+  have the Pimmit Run bridge near Chain Bridge repaired (`gazette1890wilson`).
+  His place is the six acres "near Wunder's cross roads, about one mile north
+  of Ballston" sold in 1894 under a deed of trust of 20 April 1892 by Walter G.
+  Wilson and Mildred A., his wife, "the same land formerly owned by Walter G.
+  Wilson" (`gazette1894wilson`). The notice names no district, so the row
+  rests on the widow: the Gazette has the Washington district supervisor "W. G.
+  Wilson, colored" dead by 5 July 1892 (`gazette1892wilsondeath`) and the
+  county court granting administration on the estate of Walter G. Wilson to
+  "his widow, Mildred A. Wilson" on 5 September (`gazette1892wilsonestate`),
+  the wife of the deed, and the land is "formerly owned" two years on. The
+  Gazette's other full-text hits on the name are the 1894 sale notices and a
+  Philadelphia bakery. No item gives an age or the day of death; a census,
+  will or burial naming Mildred A. is the way to one (`willson-race` has the
+  race question).
+- **Smith** chaired the Arlington township Radicals' meeting of 25 May 1874 and
+  sat on its township committee (`gazette1874smith`), a party office that
+  places him in the township and says nothing of a house; his row says so.
+  He was elected president of the Arlington Turnpike Company in July 1875,
+  when Crocker, its president, was ill (`gazette1875smith`). A deed of trust of
+  2 July 1877 from "H. Dwight Smith and wife" covers sixty-five acres near the
+  Columbia turnpike's junction with the road to Alexandria, "now and lately in
+  possession of Samuel Cochrane" when it is sold in 1887 (`gazette1887smith`);
+  land he held is no residence, so it is no row.
+- **Crocker** is "Lott M. Crocker" on a committee of 1870 to view a county
+  road with S. B. Corbett (`gazette1870crocker`) and the Arlington Turnpike's
+  president in 1873 and 1875. Every item is a county or turnpike office; none
+  gives a house or an age.
+- **Robinson** is a "W. H. Robinson", initials only, with 87 votes against W.
+  A. Rowe's 184 for Supervisor in the Arlington District in the county returns
+  of 1879 (`gazette1879robinson`). The seat places nobody, so it gives no row.
+  A J. H. Robinson stands for justice in the same returns.
+- **Phillips** is paid as a member of the Board in the accounts for the year
+  to 30 June 1895, with mileage of 60 miles against Hume's 36 and Clark's 54,
+  and the same accounts pay an "R A Phillips" 203.50 for stone
+  (`gazette1895phillips`). Robert Henry Phillips, who is "R. Henry" in the
+  record of the 1900 household's elder son, was born 21 January 1865 in
+  Georgetown by the *Evening Star* obituary of 10 March 1942 and in May 1865
+  in Arlington by Find a Grave, and died in Washington on 9 March 1942, a
+  trolley-line engineer and Lehigh graduate of 1887. Nothing in either puts
+  him on the Board, so no birth year is entered.
 
 **B. M. Smith, 1930 and 1940.** The member appointed in June 1933 is
 **Benjamin M. Smith**, a real-estate salesman in 1930 and a broker in 1940,
