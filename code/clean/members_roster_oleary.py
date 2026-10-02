@@ -58,7 +58,8 @@ def seated(year, election_date):
     """When an election's winners take office: (year, month). A November
     election seats on 1 January following (Va. Const. 1902; schedule-1902 in
     docs/questions.csv); a May election seats on 1 July, the start of the
-    Board's year.
+    Board's year (vaacts1870 ch. 76 sec. 4, township officers' terms
+    commence 1 July; sec. 14 makes a supervisor one).
 
     Being elected is not taking office, and that held both halves of the
     period, not only the later one. The Board's own minute books date every
