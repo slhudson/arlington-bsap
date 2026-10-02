@@ -1320,6 +1320,39 @@ def test_every_source_with_a_url_is_filed():
     assert not problems, "sources with no copy on file:\n  " + "\n  ".join(problems)
 
 
+def test_another_localitys_roster_page_is_cited_and_not_filed():
+    """A peer locality's council page filed as a copy. Forty-two reached the
+    folder in a day, 249MB of screen captures of other counties' commissioners
+    for one integer each, and the integer is keyed into data/transcribed/,
+    where a reviewer reads it."""
+    e = {"type": "online", "key": "planted", "title": "Board of Commissioners",
+         "organization": "Buncombe County, North Carolina"}
+    assert archive.roster_page(e), "a peer county's roster page read as something else"
+    # Arlington's own pages are the report's subject, and a paper writing about
+    # a board is not the board publishing about itself.
+    for who, title, typ in [("Arlington County, Virginia", "County Board Members", "online"),
+                            ("Alexandria Gazette", "Board of Supervisors", "article"),
+                            ("Richmond City Charter Review Commission",
+                             "Richmond City Charter Review Commission 2023", "report")]:
+        other = {"type": typ, "key": "planted", "title": title, "organization": who}
+        assert not archive.roster_page(other), f"{who} read as a roster page"
+
+
+def test_no_roster_page_in_the_bib_names_a_filed_copy():
+    """The real bib: a roster page that names a copy, or that does not say
+    where its count was keyed, so neither passes unnoticed."""
+    bib = archive.entries(archive.BIB.read_text())
+    rosters = [e for e in bib if archive.roster_page(e)]
+    assert rosters, "no roster pages found at all - has roster_page() stopped matching?"
+    filed = [e["key"] for e in rosters if archive.filed(e)]
+    assert not filed, ("roster pages with a copy filed in Drive - cite the page and key the "
+                       "count instead:\n  " + "\n  ".join(filed))
+    unkeyed = [e["key"] for e in rosters
+               if "data/transcribed/" not in e.get("annotation", "")]
+    assert not unkeyed, ("roster pages whose annotation does not say where the count is "
+                         "keyed:\n  " + "\n  ".join(unkeyed))
+
+
 def test_a_record_that_is_not_a_census_is_not_filed_as_one():
     """Four Ancestry records - a marriage, a passenger list, a draft card, a
     grave - were filed as censuses because the rule read who published them,

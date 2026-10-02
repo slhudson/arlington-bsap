@@ -84,6 +84,35 @@ LEGAL_TYPE = ("legislation", "jurisdiction", "statute", "bill", "legal", "law")
 BOOK_TYPE = ("book", "inbook", "incollection", "thesis", "phdthesis", "mastersthesis")
 
 
+# A jurisdiction's own page about its governing body: what its council or board
+# is called, who sits on it, how many seats it has. The peer set is keyed from
+# these, one integer per locality.
+# A governing body goes by many names - a council, a commission, a board of
+# supervisors, and in Louisiana a police jury - and a jurisdiction may title the
+# page about it "About Us".
+ROSTER_TITLE = re.compile(r"\b(council|commissioners?|commission|supervisors|police jury|"
+                          r"board members|elected officials|members of the board|"
+                          r"about (our|us|the board))\b", re.I)
+PUBLISHER_IS_A_JURISDICTION = re.compile(r"\b(County|Parish|Borough|Municipality|"
+                                         r"Consolidated Government|Police Jury|"
+                                         r"Metropolitan Government)\b|"
+                                         r"^(City|Town|Village) of\b", re.I)
+
+
+def roster_page(e):
+    """Whether an entry is another locality's own page about its governing
+    body. No copy of one is kept: what the report takes from it is how many
+    voting seats the body has, which is keyed into data/transcribed/ with the
+    url and the date read, and that keyed row is what a reviewer checks. A
+    screen capture of a council's photographs attests nothing the keyed row
+    does not, and the peer set runs to seventy of them. Arlington's own pages
+    are the report's subject and are filed."""
+    who = plain(e.get("organization") or e.get("author") or "")
+    return (e["type"] == "online" and bool(ROSTER_TITLE.search(plain(e["title"])))
+            and bool(PUBLISHER_IS_A_JURISDICTION.search(who))
+            and "Arlington" not in who)
+
+
 def kind(e):
     """Which folder an entry's copy is filed in. The first rule that fits."""
     who = (e.get("howpublished", "") + " " + e.get("organization", "")).lower()

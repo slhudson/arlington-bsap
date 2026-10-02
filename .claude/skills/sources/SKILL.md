@@ -80,6 +80,19 @@ above reading resolution - keeping every page and only where re-encoding at
 records what it did in the entry's annotation, which is also what stops it
 running twice over the same copy.
 
+**Another locality's own page about its governing body is cited and never
+filed.** What the report takes from one is how many voting seats the body has;
+that is keyed into `data/transcribed/`, with the url and the date read, and the
+keyed row is what a reviewer checks. A screen capture of a council's
+photographs attests nothing the row does not, and the peer set runs to seventy
+of them - 45 reached the folder in a day, 257MB, before the rule existed.
+`archive.roster_page()` is the rule, `code/sources/cite.py` refuses to file one,
+and `code/tests.py` refuses a bib that names a copy of one or that does not say
+where the count was keyed. The thirteen Virginia counties are the model: the
+annotation ends "The count is keyed into
+`data/transcribed/by_claude/county_boards.csv`; no copy is kept", naming
+whichever table holds it.
+
 ## Citekeys
 
 Three values are not citekeys and `code/citekeys.py` says what each admits

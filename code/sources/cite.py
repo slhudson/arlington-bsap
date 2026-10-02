@@ -129,6 +129,16 @@ def main():
              "organization": a.organization, "author": a.author}
     if a.journal:
         entry["journaltitle"] = a.journal
+    if archive.roster_page(entry):
+        sys.exit(
+            f"{a.key} is another locality's own page about its governing body, and no copy of "
+            f"one is kept.\n"
+            f"  Key the body's voting seats into data/transcribed/by_claude/county_boards.csv, "
+            f"with this url and\n"
+            f"  the date you read it, and enter the source with no copy: end the annotation\n"
+            f'  "The count is keyed into data/transcribed/by_claude/county_boards.csv; no copy '
+            f'is kept".\n'
+            f"  archive.roster_page() has the rule; the thirteen Virginia counties are the model.")
     ext = a.copy.suffix.lower() if a.copy else next(
         (x for x in AS_PUBLISHED if a.url.lower().endswith(x)), ".pdf")
     year = a.date[:4]
