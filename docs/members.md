@@ -659,6 +659,13 @@ operating or self-insurance reserve and any use of the contingent, and have the
 Manager submit the ten-year Capital Improvement Plan every two years
 (`arlingtonva2024debtpolicies`).
 
+**The Purchasing Resolution keeps large construction contracts with the Board.**
+"No contract for a capital construction improvement project or professional
+services related to a capital construction improvement project that exceeds
+$1,000,000 shall be awarded without the approval of the County Board", in the
+July 2025 text of a resolution first adopted in December 1982
+(`arlingtonva2025purchasingresolution`).
+
 **The Chair controls the agenda, and the Manager drafts it.** Under the Board's
 2026 meeting procedures the Manager prepares a list of proposed items about
 two weeks before a regular meeting, the Chair approves the agenda, and a Board
