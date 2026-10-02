@@ -1320,6 +1320,44 @@ def test_every_source_with_a_url_is_filed():
     assert not problems, "sources with no copy on file:\n  " + "\n  ".join(problems)
 
 
+def test_a_filed_name_is_read_through_the_quotes_in_a_title():
+    """Gilbertson's county is the "Dark Continent", and reading the name only
+    as far as the next quotation mark left "of American Politics.txt", which
+    matches no file. archive.py reported the copy as named by nobody, and
+    --apply would have moved a book the bib names into unplaced/."""
+    e = {"annotation": 'Filed in Drive as "books/Gilbertson, H. S. 1917 - The County, the '
+                       '"Dark Continent" of American Politics.txt", the Internet Archive OCR.'}
+    assert archive.filed(e) == ['books/Gilbertson, H. S. 1917 - The County, the '
+                                '"Dark Continent" of American Politics.txt'], archive.filed(e)
+
+
+def test_a_space_after_a_folder_is_a_typo_and_not_a_folder():
+    """An annotation typed "legal/state statutes/ Commonwealth ..." names a
+    copy that is really there; the space made the archive call it unplaced."""
+    e = {"annotation": 'Filed in Drive as "legal/state statutes/ Commonwealth of Virginia '
+                       '1971 - An Act to Conform.pdf".'}
+    assert archive.filed(e) == ["legal/state statutes/Commonwealth of Virginia 1971 - "
+                                "An Act to Conform.pdf"], archive.filed(e)
+
+
+def test_quoted_prose_in_an_annotation_is_not_a_filed_name():
+    """The other half: annotations quote the sources they read, and a quoted
+    sentence that happens to run past a filename must not be read as one."""
+    e = {"annotation": 'The court said "a continuous, contiguous community" of it. '
+                       'Filed in Drive as "legal/state courts/Court 1922 - Bennett v. Garrett.pdf".'}
+    assert archive.filed(e) == ["legal/state courts/Court 1922 - Bennett v. Garrett.pdf"]
+
+
+def test_every_filed_name_in_the_bib_is_a_file_that_exists():
+    """Every name, against the folder. This is what the two defects above
+    broke: a name the parser mangles resolves to nothing, and nothing says so."""
+    bib = archive.entries(archive.BIB.read_text())
+    named = [(e["key"], n) for e in bib for n in archive.filed(e) if "/" in n]
+    assert len(named) > 400, f"only {len(named)} filed names found - is the parser matching?"
+    missing = [f"{k}: {n}" for k, n in named if not (archive.DOCUMENTS / n).exists()]
+    assert not missing, "filed names that are not files:\n  " + "\n  ".join(missing)
+
+
 def test_another_localitys_roster_page_is_cited_and_not_filed():
     """A peer locality's council page filed as a copy. Forty-two reached the
     folder in a day, 249MB of screen captures of other counties' commissioners

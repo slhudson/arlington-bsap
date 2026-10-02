@@ -72,8 +72,11 @@ NO_TEXT = re.compile(r"carries no text layer|scan carries no text")
 def quotations(annotation, filenames=()):
     """The passages an annotation quotes, as it writes them."""
     a = " ".join(annotation.split())
+    # A filed name is written the way archive.py reads it, so the comparison is
+    # against that reading: an annotation that types a space after a folder
+    # still names a copy and is not quoting the document.
     return [q for q in re.findall(r'"([^"]{8,})"', a)
-            if len(q.split()) >= SHORTEST and " ".join(q.split()) not in filenames]
+            if len(q.split()) >= SHORTEST and archive.tidy_name(q) not in filenames]
 
 
 def comparable(s):

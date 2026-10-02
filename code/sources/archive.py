@@ -71,10 +71,15 @@ BIO_ORG = re.compile(r"County Board Members|Arlington Historical Society|Center 
 BIO_TITLE = re.compile(r"Chair, Arlington County Board|\bbiography\b", re.I)
 CAMPAIGN_ORG = re.compile(r"campaign|candidate|Vote Smart", re.I)
 
-# A filed copy is any quoted filename in an entry's annotation: the "Filed in
-# Drive as" name, and for a census record the sheet image beside it. A table
-# saved as published keeps its own extension.
-FILED = re.compile(r'"([^"]*?\.(?:pdf|jpe?g|png|xlsx?|csv|txt))"', re.S)
+# A filed copy is a quoted filename in an entry's annotation, with or without
+# the folder it sits in. Two things make it hard to pick out of the prose
+# around it. A title carries quotation marks of its own - Gilbertson's county
+# is the "Dark Continent" - so the quote that closes a name is not simply the
+# next one; and the annotation quotes plenty of other things, so a name is
+# recognised by the shape every one of them has, "<who> <year> - <title>.<ext>".
+# Hence: find the end, then walk back to the nearest quote that leaves a name.
+ENDS = re.compile(r'\.(?:pdf|jpe?g|png|xlsx?|csv|txt)"', re.I)
+NAME = re.compile(r'^(?:[^/]+/)*.+ (?:\d{4}[a-z]?|n\.d\.) - .+\.\w+$', re.S)
 
 
 # Titles and entry types that make a source law rather than a report.
@@ -242,9 +247,31 @@ def entries(text):
     return out
 
 
+def tidy_name(s):
+    """A filed name as the folder has it: whitespace collapsed, and no space
+    around a folder's slash, which is a typo in the annotation rather than a
+    folder whose name begins with one."""
+    return re.sub(r"\s*/\s*", "/", " ".join(s.split()))
+
+
+def _filed_spans(text):
+    """Every filed name in a stretch of bib text, as (start, end, name) over
+    the text between its quotes. One pass serves both reading the names and
+    rewriting them, so the two cannot drift."""
+    for m in ENDS.finditer(text):
+        for q in reversed([q.start() for q in re.finditer('"', text[:m.start()])]):
+            name = tidy_name(text[q + 1:m.end() - 1])
+            if NAME.match(name):
+                yield q + 1, m.end() - 1, name
+                break
+
+
 def filed(e):
-    """The filenames an entry says are filed in Drive, whitespace collapsed."""
-    return [" ".join(n.split()) for n in FILED.findall(e.get("annotation", ""))]
+    """The filenames an entry says are filed in Drive, whitespace collapsed. A
+    space around a folder's slash is a typo in the annotation and not a folder
+    whose name begins with one, so it is read through rather than turned into
+    a copy the folder does not have."""
+    return [n for _, _, n in _filed_spans(e.get("annotation", ""))]
 
 
 def plain(s):
@@ -401,9 +428,14 @@ def rewrite_bib(text, bib, claims):
                 if owner is e and Path(current).name == Path(name).name and name != target:
                     new[name] = target
 
-    def sub(m):
-        return '"' + new.get(" ".join(m.group(1).split()), m.group(1)) + '"'
-    return FILED.sub(sub, text), len(new)
+    out, last = [], 0
+    for a, b, name in _filed_spans(text):
+        if name in new:
+            out.append(text[last:a])
+            out.append(new[name])
+            last = b
+    out.append(text[last:])
+    return "".join(out), len(new)
 
 
 def append_annotation(text, keys, phrase):
