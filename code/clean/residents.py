@@ -1,7 +1,7 @@
 """Census population by year -> data/clean/residents.csv
 
 One row per census, 1870-2020: the total, four race categories, the county
-in seven age bands from 1930, the seats the Board had, and residents per
+in seven age bands from 1910, the seats the Board had, and residents per
 seat. `total_source`, `race_source` and `age_source` name the document each
 came from.
 
@@ -18,17 +18,22 @@ came from.
                keyed in by hand; 1930 prints 14 people of unknown age, who
                are `ageunknown`
     1980-      seven age bands, from each census's own age table
+    1910, 1920 seven age bands, counted from the full-count schedules in
+               the county less Alexandria city
 
 The fifth crossed group, non-Hispanic other and multiracial, is not a
 column: a figure takes it as total minus the four. `hisp` is blank before 1980
-and the age bands before 1930. The seven bands and `ageunknown` sum to `total`, and the adult
-population is the six of them above `ageunder18`; neither has a column of
-its own. docs/residents.md says what backs each year and why.
+and the age bands in the censuses above that are not listed. The seven bands
+and `ageunknown` sum to `total` from 1930; in 1910 and 1920 they sum to
+the people the schedules hold, a few short of `total` in each, within
+AGE_TOO_FAR. The adult population is the six bands above `ageunder18`; neither
+has a column of its own. docs/residents.md says what backs each year and why.
 """
 import pandas as pd
 
 import census
 import citekeys
+import residents_by_district
 from members_terms import seats
 from paths import write
 
@@ -42,6 +47,16 @@ ADULT_BANDS = AGE_BANDS[1:]
 COLUMNS = ["year", "total", "white", "black", "hisp", "aapi", *AGE_BANDS, "ageunknown",
            "board_seats", "residents_per_seat"]
 CENSUSES = range(1870, 2021, 10)
+# The censuses whose age bands are counted from the full-count schedules. 1890's
+# burned and 1900's database lacks 499 people whose ages cannot be recovered;
+# 1870 and 1880 could be counted, but nothing reads them before 1910.
+SCHEDULE_AGES = (1910, 1920)
+# The edges of the seven bands in years, the lowest first: under 18, 18 to 24,
+# and so on to 65 and over. Every one is a boundary of the age tables above.
+AGE_EDGES = [18, 25, 35, 45, 55, 65]
+# How far the schedules' county may be from the volume's total, as a share of
+# it. 1910's database is the shortest, 154 of 10,231.
+AGE_TOO_FAR = {1910: 0.02, 1920: 0.01}
 # Which document each year's total comes from.
 TOTAL_SOURCE = {1870: citekeys.CENSUS_1870, 1880: citekeys.CENSUS_1880, 1890: citekeys.CENSUS_1890,
                 **{y: citekeys.CENSUS_COUNTY_SERIES for y in range(1900, 2000, 10)},
@@ -352,6 +367,29 @@ def volume_ages(year):
     return out, unknown, printed, "; ".join(t.loc[read, "cite"].unique())
 
 
+def schedule_ages(year, total):
+    """The seven bands counted from the year's full-count schedules, in the
+    county less Alexandria city, and everyone counted. The schedules are
+    placed by residents_by_district.placed(), so the people are the ones the
+    district figures count, and the count must lie within AGE_TOO_FAR of the
+    volume's total."""
+    d, _ = residents_by_district.placed(year)
+    age = pd.to_numeric(d.age, errors="raise")
+    if age.isna().any() or (age < 0).any():
+        raise AssertionError(f"{year}: the schedules hold an age that is not a number of years")
+    band = pd.cut(age, [-1, *[e - 1 for e in AGE_EDGES], 200], labels=AGE_BANDS)
+    out = {b: int(n) for b, n in d.people.groupby(band, observed=False).sum().items()}
+    counted = sum(out.values())
+    if counted != int(d.people.sum()):
+        raise AssertionError(f"{year}: the bands count {counted:,} of {int(d.people.sum()):,} people")
+    if abs(counted - total) / total > AGE_TOO_FAR[year]:
+        raise AssertionError(
+            f"{year}: the schedules hold {counted:,} people against a county of "
+            f"{total:,}, more than {AGE_TOO_FAR[year]:.0%} apart; the age bands would "
+            f"describe a different population from the total")
+    return out, counted
+
+
 def stf1a(year, table):
     """Arlington's row of one archived Summary Tape File extract."""
     return census.row(f"raw/us_census_bureau/{year}/stf1a_{table}_virginia_counties.csv")
@@ -504,8 +542,9 @@ def build() -> pd.DataFrame:
         "no race source for "
         f"{[int(y) for y in d.loc[d.race_source == '', 'year']]}")
 
-    # The county in seven age bands, from 1930. Each census's age table must
-    # account for the same county the total column does.
+    # The county in seven age bands, from 1930 and in the three censuses the
+    # schedules count. Each volume's or file's age table must account for the
+    # same county the total column does.
     d["age_source"] = ""
     ages, age_source, unknown = {}, {}, {}
     for year in VOLUME_AGE_TABLES:
@@ -524,6 +563,9 @@ def build() -> pd.DataFrame:
                 f"total is {total:,}; a group is missing or counted twice")
     for year in (2000, 2010, 2020):
         ages[year] = api_ages(year)
+    for year in SCHEDULE_AGES:
+        ages[year], _ = schedule_ages(year, int(d.loc[d["year"] == year, "total"].iloc[0]))
+        age_source[year] = citekeys.race_source(year)
     for year, bands in ages.items():
         m = d["year"] == year
         for col, value in bands.items():

@@ -391,16 +391,21 @@ there the labels can be shortened and here the years cannot.
   picture of the electorate when what the section is about is the county.
   For the same reason the denominator is every resident, not every adult.
 
-  It begins at 1930 while the Board figures begin at 1870, and the two are
-  not drawn on a shared range. Nothing is lost by that. The Board series
-  reaches back to 1870 because a Board member is one person whose birth
-  year can be found in a census sheet or an obituary; a county age
-  distribution has to come from a published table, and 1930 is the
-  earliest census volume keyed in. Ten bars at `style.NARROW` leave room to
-  name every census, so this axis is `dense` rather than every twentieth
-  year. The note says "From 1930, the earliest county age table we hold": the
-  start is the earliest table keyed in, not a limit of the data, and
-  `age-back-to-1880` is the row to extend it. The 14 people of unknown age in 1930 are
+  It begins at 1910 while the Board figures begin at 1870, and the two are
+  not drawn on a shared range. A county age distribution needs either a
+  published county table or the schedules counted, and neither reaches
+  further back without a hole: 1890's schedules burned and its published
+  county table counts school, militia and voting ages only (Table 79), 1900's
+  is the same (Table 11 of the Virginia school, militia and voting ages
+  bulletin) and its database lacks 499 people whose ages cannot be recovered.
+  1870 and 1880 could be counted from the schedules, but a bar at each of
+  them with 1890 and 1900 empty between would be two islands, so the figure
+  begins at the first census after the hole. 1910 and 1920 are counted from
+  the schedules and 1930 on is read from the volumes and files, so the
+  note says "1910 and 1920 are counted from the full-count schedules; from
+  1930, the published county age tables". Eleven bars at `style.NARROW` leave
+  room to name every census, so this axis is `dense` rather than every
+  twentieth year. The 14 people of unknown age in 1930 are
   in no band, so that bar stops 0.05 per cent short of the top, which no
   one can see and nothing marks. The figure is a benchmark for the
   residents section and is never put on a panel with the Board's ages:

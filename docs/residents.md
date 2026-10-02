@@ -445,16 +445,31 @@ How much of this the prose says is an open question.
 
 ---
 
-## Age, 1930 onward
+## Age, 1910 onward
 
-`residents.csv` carries the county in seven age bands from 1930: `ageunder18`,
+`residents.csv` carries the county in seven age bands from 1910: `ageunder18`,
 `age18to24`, `age25to34`, `age35to44`, `age45to54`, `age55to64` and
-`age65plus`. With `ageunknown` they sum to `total` at every census, and
+`age65plus`. With `ageunknown` they sum to `total` at every census from 1930, and
 `residents_by_age` draws them as shares of it. `ageunknown` is the 14 people
 whose age the 1930 census did not record; from 1940 the Bureau's tables print
 no such line, and the column is 0. There is no `adults` column: the adult
 population is the six bands above `ageunder18`, summed where something needs
 it.
+
+**1910 and 1920 are counted from the schedules**, in the county less Alexandria
+city, from the full-count extracts' single years of age
+(`code/clean/residents.py`, `schedule_ages`), placed by the same enumeration
+district mapping the district figures use. The schedules and the volume are
+two counts of the same population, so the bands sum to the people the
+schedules hold, not to `total`: 154 short in 1910 and three over in 1920, and
+the build refuses a gap wider than `AGE_TOO_FAR`. The figure divides each
+census by the people its own count holds. No other census before 1930 has an
+age distribution to take. 1890 and 1900 print county ages only as school
+(5 to 17 or 20), militia (males 18 to 44) and voting (males 21 and over)
+ages, which no band here is built from without interpolating; 1890's
+schedules burned and 1900's database lacks 499 people, all in Arlington
+district, whose ages nothing recovers. 1870 and 1880 could be counted from
+the schedules, but nothing reads them.
 
 **The cuts are the ones every census from 1930 shares.** 1930 prints 35 to
 44, 45 to 54, 55 to 64 and 65 to 74 as single groups, and 1980 does the same
