@@ -30,7 +30,7 @@ era, and H. Dwight Smith, Crocker, Schutt, Robinson and Willson of the earlier.
 R. Henry Phillips makes an eleventh, with a record whose household is his
 father's, not his own, so it gives him nothing (below).
 
-**Birth years.** Birth years are held for 117 of the 126 members, and they rest
+**Birth years.** Birth years are held for 118 of the 126 members, and they rest
 on the ages in census listings and on an age stated in an obituary or a
 profile. Each is right to within a year. The age figure draws a year only where
 every sitting member either has a birth year or is one of the three the
@@ -51,9 +51,7 @@ any other (below, "The roster names 1912 to 1931").
 **1870–1911 rests on O'Leary's electoral history and the same article
 together.** The article settles seven names, the July–June term year, and five
 terms O'Leary does not record (below, "The article corrects and adds for 1870
-to 1911"). One question about the stretch is open, and it changes no value in
-the meantime: whether the 1892 William N. Febrey is the W. N. Febrey of
-1904–11 (`febrey-1892-one-member-or-two`). The statute behind the July
+to 1911"). The statute behind the July
 seating is `vaacts1870` ch. 76 sec. 4, below ("The Board's year ran 1 July
 to 30 June through 1901"). Two seats that the article gives to a
 different man are settled, and the roster follows the article in both: see "Two
@@ -772,9 +770,10 @@ the roster records who held a seat, so where the two disagree about occupancy
 the minute books answer the question the roster asks (Sally). Boyd's 1870
 census record (`census1870boyd`) places the man and is not a
 claim about a member, since he never was one. The article's William N. Febrey
-of 1892–93 is carried as his own person, not joined to the W. N. Febrey of
-1904–11 (`febrey-1892-one-member-or-two`); there are three Febreys in the
-roster and the article distinguishes these two only typographically.
+of 1892–93 keeps his own roster row, by the article's own typography, though
+the census settles him as the same man as the W. N. Febrey of 1904–11
+(below, "W. N. Febrey is one household"); there are three Febreys in the
+roster.
 
 **Two readings are written onto the terms they land on**, in `READING_NOTES`
 in `members_roster_arlhist.py`, because the roster has to say them on the term
@@ -1087,6 +1086,20 @@ district in 1872-73. For the members seated 1870–1911 the 1880, 1900 and 1910
 sheets name a magisterial district at the head of each page and, outside
 the towns, leave the street column blank, so the district is the place
 recorded, in the sheet's own words.
+
+**The 1892–93 William N. Febrey is this same man.** No William or W. M.
+Febrey besides him appears in the county's 1880–1930 census record, so the
+29-year-old son in Henry W. Febrey's 1880 household — the only candidate
+the record offers — is who held the Washington seat a Febrey son would be
+expected to hold, twelve years on, at 41. His age in 1880 puts his birth at
+1851, within a year of the November 1851 the 1900 schedule prints, the two
+census readings of one record agreeing rather than conflicting. The
+Alexandria Gazette's notice of 10 October 1893 (`gazette1893febrey`), naming
+a "Mr. W. N. Febrey" elected chairman of the county Republican committee
+mid-way through the 1892–93 term, places a man of that name in county
+politics at the right moment, though the notice alone ties on name only.
+There is no 1890 census to check him against directly, and no source
+distinguishes a second Febrey; the question is settled one man, not two.
 
 **Edward Duncan held Jefferson continuously from 1908 to 1932, one term, not
 four.** He appears in three sources under three names, "E. Duncan" (1908–12),
