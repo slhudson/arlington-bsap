@@ -11,7 +11,7 @@ still open.
 ## What rests on an assumption
 
 - The 1938 referendum margin has two counts and the canvass has not been
-  found (`referendum-1938-margin`).
+  found (`referendum-1938-canvass`).
 - The presidential figure stacks three bands, and the pre-1924 nominees are a
   table in the build (`president-figure-form`).
 - Turnout's denominators: adults after 2020 carried forward

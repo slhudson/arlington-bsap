@@ -11,7 +11,7 @@ still open.
 
 **Race, 1889–1986.** Every seat is coded all-White on the "first since
 Reconstruction" framing. The five Reconstruction-era members rest on Hjerpe's
-census linking (`default-1931-1986`).
+census linking (`member-demographics-lists`).
 
 **Gender.** William H. Robinson and Walter G. Willson rest on the default,
 man, both recorded negatives (below, "The members that keep the default").
@@ -539,7 +539,7 @@ The three seats run as follows.
 - **Jefferson:** Edward Duncan throughout, as sourced above.
 
 The article gives no race for any of them, so a member drawn from this listing
-defaults to White and man like the rest of the era (`default-1931-1986`, above)
+defaults to White and man like the rest of the era (`member-demographics-lists`, above)
 rather than being looked into on its own. The all-White coding of 1889–1986 is
 a separate question waiting on the County, and this reading does not reopen
 it.
@@ -804,7 +804,7 @@ Hedrick, whose term runs 1928–31, is **Benjamin M. Hedrick**, an attorney in
 the Glenarlyn subdivision of the Arlington district in the 1930 census
 (`census1930hedrick`) and is in no 1920 index for the county under that name.
 All four read White and male from the sheet, so they rest on a record, not on
-the era default (`default-1931-1986`). **Clarence R. Ahalt** is in no 1920
+the era default (`member-demographics-lists`). **Clarence R. Ahalt** is in no 1920
 census index for the former Alexandria County under that name or a close
 spelling (the county-wide search, 32 nationwide results, none local, is
 recorded so a later thread does not repeat it), but he is in the 1930 census
@@ -1499,7 +1499,7 @@ Hynes, Garvey, Cristol, Talento, Coffey and Cunningham are women. Every other me
 as a white man because no source speaks to them. The verification to ask of
 County staff, and through them the Historical Society, is therefore the
 default, not the lists: every other member has been treated as a white man;
-where is that wrong? That is `default-1931-1986` in `docs/questions.csv`.
+where is that wrong? That is `member-demographics-lists` in `docs/questions.csv`.
 
 Two things from the record bear on the report's argument. Monroe first stood
 in the April 1999 special election for Eisenberg's unexpired seat and lost to

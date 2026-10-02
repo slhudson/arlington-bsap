@@ -214,7 +214,7 @@ CUT_NOTE = (
 # the term's start year). Each is written onto the term so that members.csv
 # carries it, and none changes a figure - the seat is filled either way, and
 # every member of this era defaults to White and man (docs/members.md,
-# default-1931-1986). A reading still open ends with its slug in
+# member-demographics-lists). A reading still open ends with its slug in
 # docs/questions.csv; a settled one states what settled it.
 READING_NOTES = {
     ("Robert L. Walker", 1916):
