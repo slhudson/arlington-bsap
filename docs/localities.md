@@ -70,3 +70,10 @@ by itself say how well a council represents.
 
 What rests on an assumption: that the appendix's counts are the councils that
 sat in 2023. The report states no date for the table.
+
+## Non-interference clauses in city charters
+
+The Virginia city charters carry non-interference clauses of their own: most
+have some clause, some are stronger than § 15.2-703, and some have none. Only
+Alexandria and Danville share Arlington's carve-out letting the board discuss
+personnel with the manager.
