@@ -74,7 +74,9 @@ in `code/clean/members_residence.py`:
   a district.
 
 A place no rule reads stops the build. A house number whose street is unread
-(Ames) counts as a neighborhood.
+would count as a neighborhood, but nothing currently needs that rule: Ames's
+1940 record matches on name alone and feeds nothing, the same as it feeds no
+race, gender or birth year (`census-match-quality`).
 
 **Before 1932 the only places are the census sheets' own.** 33 of the 41
 members seated 1870–1911 have a record. For 28 of those the sheet gives a
