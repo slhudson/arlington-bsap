@@ -54,8 +54,8 @@ terms O'Leary does not record (below, "The article corrects and adds for 1870
 to 1911"). One question about the stretch is open, and it changes no value in
 the meantime: whether the 1892 William N. Febrey is the W. N. Febrey of
 1904–11 (`febrey-1892-one-member-or-two`). The statute behind the July
-seating is
-uncited (`may-election-seating`). Two seats that the article gives to a
+seating is `vaacts1870` ch. 76 sec. 4, below ("The Board's year ran 1 July
+to 30 June through 1901"). Two seats that the article gives to a
 different man are settled, and the roster follows the article in both: see "Two
 seats go to the man the minute books show sitting" below.
 
