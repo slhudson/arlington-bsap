@@ -56,18 +56,22 @@ def stage(folder, *names):
                 del sys.modules[name]
 
 
-build_paths, members_claims, build_survey_satisfaction = stage(
-    "build", "paths", "members_claims", "survey_satisfaction")
+(build_paths, members_claims, build_survey_satisfaction, build_census,
+ build_localities) = stage(
+    "build", "paths", "members_claims", "survey_satisfaction", "census",
+    "localities")
 
 (paths, candidates, census, members, members_census, members_by_year,
  members_roster, members_roster_arlhist, members_roster_oleary,
  members_roster_results, residents, residents_by_district, elections,
- elections_results, elections_turnout, clean_survey_satisfaction) = stage(
+ elections_results, elections_turnout, clean_survey_satisfaction,
+ localities, members_residence) = stage(
     "clean", "paths", "candidates", "census", "members", "members_census",
     "members_by_year", "members_roster", "members_roster_arlhist",
     "members_roster_oleary", "members_roster_results", "residents",
     "residents_by_district", "elections", "elections_results",
-    "elections_turnout", "survey_satisfaction")
+    "elections_turnout", "survey_satisfaction", "localities",
+    "members_residence")
 
 registration, = stage("fetch", "registration")
 
@@ -137,6 +141,18 @@ def candidacies_with(change):
     try:
         return breaks(paths, "built", patch_built("candidates", change),
                       build=candidates.build)
+    finally:
+        if started:
+            os.environ["RUN_STARTED"] = started
+
+
+def breaks_aside(module, attr, mangle, build=None):
+    """breaks(), for a build step that reads a table the clean stage
+    writes. The tests run before that stage, so the table it reads is last
+    run's: the run's start is set aside."""
+    started = os.environ.pop("RUN_STARTED", None)
+    try:
+        return breaks(module, attr, mangle, build=build or module.build)
     finally:
         if started:
             os.environ["RUN_STARTED"] = started
@@ -345,6 +361,41 @@ def test_an_age_line_whose_sexes_do_not_make_its_total_is_refused():
     err = residents_reads(misread("19 years", 100, ["total"]))
     assert err and "male and female do not make the printed total" in err, f"not caught: {err}"
 
+def test_a_county_table_with_a_second_row_is_refused_when_it_is_read():
+    """A county-level table built with another county's row ahead of
+    Arlington's. census.row() would take the first row, and every figure
+    reading that volume would show a neighbouring county's population."""
+    table = census.names("raw/us_census_bureau/*/stf1a_*_virginia_counties.csv")[0]
+
+    def mangle(orig):
+        def patched():
+            c = orig()
+            one = c[c.table == table]
+            shifted = one.assign(row=one.row.astype(int) + 1)
+            stray = one.assign(value="1")
+            return pd.concat([c[c.table != table], stray, shifted], ignore_index=True)
+        return patched
+    err = breaks(census, "cells", mangle, build=lambda: census.row(table))
+    assert err and "expected Arlington's one row" in err, f"not caught: {err}"
+
+
+def test_a_county_file_naming_arlington_twice_is_refused_when_it_is_built():
+    """A Bureau county file in which a second row begins with Arlington, as
+    a repeated page would. Both rows would reach census.csv, and the census
+    read in code/clean/ would take whichever came first."""
+    def has_arlington(d):
+        names = [c for c in d.columns if c.lower() == "name"]
+        return bool(names) and d[names[0]].str.strip().str.upper().str.startswith("ARLINGTON").any()
+
+    def repeat(d):
+        name = next(c for c in d.columns if c.lower() == "name")
+        arlington = d[d[name].str.strip().str.upper().str.startswith("ARLINGTON")]
+        return pd.concat([d, arlington], ignore_index=True)
+    err = breaks(build_census, "source", patch_source(has_arlington, repeat),
+                 build=build_census.build)
+    assert err and "expected one Arlington row" in err, f"not caught: {err}"
+
+
 # --- guards on the Board files ----------------------------------------------
 
 def test_race_and_gender_must_account_for_the_same_seats():
@@ -396,6 +447,18 @@ def test_the_seat_table_reads_the_roster_for_1912_to_1931():
     assert err and "1928-02 Arlington" in err, f"not caught: {err}"
 
 
+def test_a_ruling_keyed_to_a_term_that_is_not_in_the_roster_is_refused():
+    """A rename in members_roster_arlhist.py keyed to a district the member
+    never sat in. With no guard it renames nothing, and the roster keeps
+    O'Leary's spelling while the table says the article's was applied. The
+    notes, seated dates and vacated dates match their rows the same way,
+    so this one mangle stands for all of them."""
+    def mangle(orig):
+        return {**orig, ("Roach", "Washington"): orig[("Roach", "Jefferson")]}
+    err = breaks(members_roster_arlhist, "NAMES", mangle, build=members_roster.build)
+    assert err and "NAMES has no roster row to rename" in err, f"not caught: {err}"
+
+
 def test_a_term_that_does_not_say_how_it_began_is_rejected():
     """A seated_by value outside the four the roster defines."""
     def mangle(orig):
@@ -407,6 +470,21 @@ def test_a_term_that_does_not_say_how_it_began_is_rejected():
         return patched
     err = breaks(members_roster_results, "terms", mangle, build=members_roster.build)
     assert err and "seated_by must be one of" in err, f"not caught: {err}"
+
+
+def test_the_two_records_naming_different_2021_winners_are_refused():
+    """The state's 2021 County Board winner renamed. With no guard the build
+    keeps the county's winner for 2021 and the state's for every year after,
+    so the roster joins two records that do not agree on who sat in 2022."""
+    def mangle(orig):
+        def patched(*a, **k):
+            d = orig(*a, **k).copy()
+            state = d[(d.record == "state") & (d.year == 2021) & d.person & ~d.primary & ~d.special]
+            d.loc[state.votes.idxmax(), "name"] = "Nobody Else"
+            return d
+        return patched
+    err = breaks(elections, "contests", mangle, build=members_roster_results.outcomes)
+    assert err and "county and state sources disagree" in err, f"not caught: {err}"
 
 
 def test_prose_in_the_name_column_is_rejected():
@@ -460,6 +538,37 @@ def test_a_candidate_party_word_with_no_category_is_refused():
         return patched
     err = breaks(paths, "built", mangle, build=elections_results.build)
     assert err and "no category here" in err, f"not caught: {err}"
+
+
+def test_a_county_candidate_printed_with_two_labels_is_refused():
+    """Magruder's 1939 line printed "(D) (R)". With no guard the sorted
+    first label wins, and her 5,815 votes go to one party's column in
+    elections_results with nothing to say the county printed two."""
+    def mangle(orig):
+        def patched(*a, **k):
+            d = orig(*a, **k).copy()
+            hit = d.candidate == "*Elizabeth B. Magruder (D)"
+            d.loc[hit, "candidate"] = "*Elizabeth B. Magruder (D) (R)"
+            return d
+        return patched
+    err = breaks(elections, "contests", mangle, build=elections_results.county_board)
+    assert err and "more than one label" in err, f"not caught: {err}"
+
+
+def test_a_presidential_year_with_neither_nominee_is_refused():
+    """O'Leary's 1896 returns with the nominees' names changed. With no
+    guard both nominees are zero and the whole vote lands in `other`, so
+    the figure draws 1896 as a year nobody voted for either party."""
+    def mangle(orig):
+        def patched(kind, *a, **k):
+            d = orig(kind, *a, **k)
+            if kind == elections.PRESIDENT:
+                d = d.assign(entry=d.entry.where(d.year != 1896,
+                                                 d.entry.str.replace(r"Bryan|McKinley", "Nobody", regex=True)))
+            return d
+        return patched
+    err = breaks(elections, "oleary", mangle, build=elections_results.oleary)
+    assert err and "no line matched either nominee" in err, f"not caught: {err}"
 
 
 def test_a_candidacy_on_two_source_pages_collapses_to_one_row():
@@ -564,6 +673,17 @@ def test_a_place_read_only_from_the_index_is_refused():
                  patch_source(lambda d: "checked" in d.columns, index_only),
                  build=members_claims.build)
     assert err and "without the sheet read" in err, f"not caught: {err}"
+
+
+def test_a_place_no_precision_rule_reads_is_refused():
+    """A residence keyed as a place none of the rules in members_residence.py
+    reads. With no guard the place is kept with no precision, and the
+    coverage figure shades it as no kind of place at all."""
+    def novel(d):
+        d.loc[d.index[0], "place"] = "the old mill"
+        return d
+    err = breaks(paths, "built", patch_claims("residence", novel), build=members_residence.build)
+    assert err and "no precision rule reads this place" in err, f"not caught: {err}"
 
 
 def test_a_census_record_keyed_into_a_claim_file_is_refused():
@@ -696,6 +816,32 @@ def test_reporting_cannot_overrule_a_party_the_county_prints():
     assert err and "county lists (D)" in err, f"not caught: {err}"
 
 
+def test_two_sources_naming_different_parties_for_one_term_are_refused():
+    """Massey's 1971 term given to the Republicans by a second source. With
+    no guard the sorted first value wins, and the term is counted for
+    whichever party sorts earlier in members_by_party."""
+    def contradict(d):
+        extra = d[d.name == "Howard R. Massey"].iloc[[0]].copy()
+        extra["party_words"] = "Republicans"
+        return pd.concat([d, extra], ignore_index=True)
+    err = breaks(paths, "built", patch_claims("party", contradict), build=members.build)
+    assert err and "sources disagree on party" in err, f"not caught: {err}"
+
+
+def test_a_county_printing_two_labels_for_one_term_is_refused():
+    """Bozman's 1993 election printed under both D and R. With no guard the
+    alphabetically first label wins, and the term is counted for that party
+    with no sign that the county printed two."""
+    def mangle(orig):
+        def patched():
+            labels = orig()
+            labels[("bozman", 1993)]["labels"] = {"D", "R"}
+            return labels
+        return patched
+    err = breaks(members, "county_labels", mangle, build=members.build)
+    assert err and "more than one label" in err, f"not caught: {err}"
+
+
 def test_a_citekey_with_no_bibliography_entry_is_rejected():
     """A source cell naming no entry in sources.bib."""
     try:
@@ -738,6 +884,39 @@ def test_more_board_voters_than_presidential_voters_is_rejected():
         return patched
     err = breaks(elections_turnout, "board_votes", mangle)
     assert err and "presidential" in err and "1972" in err, f"not caught: {err}"
+
+
+def test_a_november_election_that_seats_more_than_five_is_refused():
+    """The roster given six terms beginning after one November election.
+    With no guard the year's seat count is six, and every per-seat figure
+    for it is computed against a Board larger than five."""
+    def mangle(orig):
+        def patched(stem):
+            d = orig(stem)
+            if stem == "members":
+                crowd = d[(d.seated_by == "election") & (d.start_year == 1993)
+                          & (d.start_month == 1)]
+                d = pd.concat([d] + [crowd] * 5, ignore_index=True)
+            return d
+        return patched
+    err = breaks_aside(elections_turnout, "read", mangle, build=elections_turnout.build)
+    assert err and "a Board of five cannot fill that many" in err, f"not caught: {err}"
+
+
+def test_no_district_election_with_a_count_in_every_district_is_refused():
+    """O'Leary's supervisor entries with their counts stripped. With no
+    guard 1870-1915 has no board_votes at all, and the turnout figure starts
+    in 1931 with nothing to say the earlier series is missing."""
+    def mangle(orig):
+        def patched(kind, *a, **k):
+            d = orig(kind, *a, **k)
+            if kind == elections.SUPERVISORS:
+                d = d.assign(entry=d.entry.str.replace(r"\d", "", regex=True))
+            return d
+        return patched
+    err = breaks(elections, "oleary", mangle, build=elections_turnout.board_districts)
+    assert err and "no district election with a count in every district" in err, \
+        f"not caught: {err}"
 
 
 def test_registration_refuses_a_locality_total_that_is_not_its_precincts():
@@ -793,6 +972,91 @@ def test_a_candidate_the_1931_list_marks_is_not_left_out():
     marks him "(Col)", so the build stops."""
     err = candidacies_with(lambda d: d[~((d.claim == "candidacy") & (d.name == "Moseley, C. H."))])
     assert err and "the 1931 list marks" in err, f"not caught: {err}"
+
+
+def test_a_term_counted_twice_in_the_roster_is_refused():
+    """A pre-1931 term repeated in members.csv. A candidacy matching two
+    terms would take the first, and its election would carry whichever
+    source that row happens to name."""
+    def mangle(orig):
+        def patched(stem):
+            d = orig(stem)
+            if stem == "members":
+                rowe = d[(d["name"] == "William A. Rowe") & (d.start_year == 1872)]
+                d = pd.concat([d, rowe], ignore_index=True)
+            return d
+        return patched
+    err = breaks_aside(paths, "read", mangle, build=candidates.build)
+    assert err and "terms in members.csv" in err, f"not caught: {err}"
+
+
+def test_a_candidate_standing_in_two_contests_of_a_year_is_refused():
+    """Spain's 2024 primary row repeated under a second contest. With no
+    guard the candidacy takes the first contest's votes and seat count, and
+    which contest that is depends on the order the records list them."""
+    def mangle(orig):
+        def patched():
+            d = orig()
+            spain = d[(d.surname == "spain") & (d.year == 2024) & (d.election == "primary")]
+            return pd.concat([d, spain.assign(contest="a second contest")], ignore_index=True)
+        return patched
+    err = breaks_aside(candidates, "records", mangle, build=candidates.build)
+    assert err and "stood in 2 contests" in err, f"not caught: {err}"
+
+
+def test_a_jefferson_win_count_that_is_not_hjerpes_is_refused():
+    """Hjerpe's count of Jefferson District wins moved by one. The recorded
+    candidacies would no longer say what the source says, and the figure's
+    Jefferson row would be drawn from a count that does not tie out."""
+    err = breaks_aside(candidates, "JEFFERSON_WINS", lambda orig: orig - 1,
+                       build=candidates.build)
+    assert err and "Hjerpe counts" in err, f"not caught: {err}"
+
+
+# --- guards on the peer localities --------------------------------------------
+
+def test_a_peer_county_the_census_does_not_carry_is_refused():
+    """A county in the crosswalk spelled as the census does not. With no
+    guard it reaches localities.csv with no population and no land area,
+    and drops out of every per-resident comparison with Arlington."""
+    def misspell(d):
+        d.loc[d.index[0], "county"] = "Nowhere"
+        return d
+    err = breaks(build_localities, "source",
+                 patch_source(lambda d: {"county", "members"} <= set(d.columns), misspell),
+                 build=build_localities.build)
+    assert err and "no census population or land area" in err, f"not caught: {err}"
+
+
+def test_a_mayor_the_council_count_does_not_know_is_refused():
+    """A city whose mayor is neither elected at large nor one of the members.
+    With no guard the mayor is left out of the council's size, and the city
+    is compared with Arlington's Board a member short."""
+    def novel(d):
+        d.loc[d.locality == "Norfolk", "mayor"] = "appointed"
+        return d
+    err = breaks(paths, "built", patch_built("localities", novel), build=localities.build)
+    assert err and "unknown mayor" in err, f"not caught: {err}"
+
+
+def test_a_governing_body_outside_the_codes_range_is_refused():
+    """A county board keyed as two members. With no guard the county is
+    plotted as a body the Code of Virginia does not allow, and the
+    comparison with Arlington's five reads the typo as a finding."""
+    def two(d):
+        d.loc[d.locality == "Arlington", "members"] = "2"
+        return d
+    err = breaks(paths, "built", patch_built("localities", two), build=localities.build)
+    assert err and "three to eleven" in err, f"not caught: {err}"
+
+
+def test_a_second_arlington_row_in_the_peer_table_is_refused():
+    """Arlington keyed twice among the peers. With no guard the county is
+    set against itself, and its own rank among the localities is wrong."""
+    def twice(d):
+        return pd.concat([d, d[d.locality == "Arlington"]], ignore_index=True)
+    err = breaks(paths, "built", patch_built("localities", twice), build=localities.build)
+    assert err and "exactly one Arlington row" in err, f"not caught: {err}"
 
 
 # --- the numbers the prose cites ------------------------------------------------
