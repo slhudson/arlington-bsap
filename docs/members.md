@@ -1117,10 +1117,12 @@ year, 1867, is the obituary's: the Evening Star's death notice and news story of
 10 October 1938 give him aged 71 at his death on 9 October, the notice naming
 his wife Katie I. and a son Morton, as the censuses do; the Washington Times's
 own notice and "Duncan Rites Wednesday" piece the next day
-(`washingtontimes1938duncan`) give the same age independently. That is three
-to five years earlier than either census age, and nothing arbitrates, so the
-census records stay excluded and the year is the obituary's alone
-(`duncan-edward-birth-year`).
+(`washingtontimes1938duncan`) give the same age independently, and his Ivy
+Hill Cemetery footstone, photographed for his Find a Grave memorial
+(`findagrave1938duncan`), is carved "EDWARD DUNCAN, 1867 :: 1938" - a fourth
+source for 1867, naming no day or month, beside the same wife and children.
+That is three to five years earlier than either census age, and nothing
+arbitrates, so the census records stay excluded and the year is 1867.
 
 The Historical Society's article names him in the Jefferson seat in every one
 of its blocks from 1912 to 1931, which is the minute books' own confirmation
