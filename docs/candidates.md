@@ -25,8 +25,8 @@ the whole point. Coverage runs era by era:
   return no issue from Chronicling America. Open.
 - **1888–1930**: the Gazette's returns for 1891 to 1901 and 1919 name those who
   lost a supervisor's race (Rowe and Tucker, above, lost in 1885); 1889 and
-  1903 give winners only, and 1911 prints a table of names by district that has
-  not been read. Two things in them bear on the claim that no Black candidate
+  1903 give winners only, and 1911's table of names by district is of county
+  offices and holds no contest for supervisor. Two things in them bear on the claim that no Black candidate
   ran in these years. The Gazette calls the Washington District supervisor of
   1889 "W. Wilson (colored)" and of 1891 "Wilson, colored"
   (`alexandriagazette18890525p3`, `alexandriagazette18910529p3`, both read on
@@ -36,8 +36,9 @@ the whole point. Coverage runs era by era:
   table below. And no one the Gazette names as a loser is marked "(colored)",
   which does not clear them, because it does not mark Rowe, who is Black, in
   1885: those who sat on the Board are carried in `members.csv`, Rowe among
-  them, and the rest have no race yet, named under "1870–1919, the Alexandria
-  Gazette's returns" below (`candidate-analysis`).
+  them; five of the rest are White by the 1900 and 1920 censuses and ten have no
+  matching record ("1870–1919, the Alexandria Gazette's returns", below;
+  `candidate-analysis`).
 - **1931**: answered. A complete candidate list survives; three Black
   candidates ran, all lost.
 - **1932–1986**: the claim at stake is two historians' sentences, not a
@@ -127,10 +128,8 @@ than these, and cannot be counted without reading each contest's report.
 **Whether the later phases are worth doing.**
 
 - *1870–1915.* Yes, and begun: the Gazette names losers in the years above, and
-  it has already changed what is known of 1885 and 1889–91. What remains is the 1911
-  table, the 1870s and 1881 townships, the race of the names with none against
-  the 1900, 1910 and 1920 censuses, and a check of Willson's race against a census
-  record.
+  it has already changed what is known of 1885 and 1889–91. What remains is the
+  1870s and 1881 townships and a check of Willson's race against a census record.
 - *1916–1930.* No. Chronicling America's Gazette runs to 1921, so 1919 is
   read and 1923 and 1927 are not; the county's candidate history for those
   years, not the Gazette, is the route, and it names winners.
@@ -312,8 +311,11 @@ where the paper puts one beside the name, the page, and the sentence. It covers
 1885, 1889, 1891, 1893, 1895, 1897, 1899, 1901 and 1919; 1887, 1889 and 1903 print
 winners only, and so does the 1881 report, which names Rowe, Pinn and Costello.
 O'Leary prints the losers of 1907 and 1915 and the Gazette agrees with him,
-so they are not repeated; 1911 prints a table of names by district whose
-columns the OCR has run together, and has not been read; 1919 is an election
+so they are not repeated; the table of names by district that the Gazette of 8
+November 1911 prints (`alexandriagazette19111108p2`, read on the page image) is of
+the county offices voted for on 7 November, clerk, commonwealth's attorney, sheriff
+and commissioner of revenue, and the issues of 8 to 11 November print no contest
+for supervisor; 1919 is an election
 O'Leary does not list at all. 1871, 1877 and 1883 return no issue for the weeks
 after them. The Gazette's issues after 1921 are not on Chronicling America.
 
@@ -354,10 +356,16 @@ Four things in it are findings.
 None of these figures is read against the page image except the three passages above, and the OCR
 misreads digits: a figure the report's own arithmetic contradicts (1899, Washington) says so in
 the row's note. Of those who lost, Rowe, Phillips, Birch, Clark, Hume, Corbett, Saegmuller, Rust and Costello sat on
-the Board and are carried in `members.csv`, and these have no race yet: Tucker, Hayes, Palmer, Harrison, G. W. Donaldson, Werks, Hines, Graham, F. C. Hall, J. R.
-Robinson, W. H. Payne, Babcock, Corl, Roberts and Travers. The census match for each, a person on
-the 1900, 1910 or 1920 sheet in Arlington with a second tie, is what `candidate-analysis`
-now waits for. 1903's winners are Rust, Douglass and Febrey, and the Gazette marks no candidate for the office
+the Board and are carried in `members.csv`. Of the other fifteen, five are matched to a
+census sheet by the initials or name and the district they stood in, and each is a White man: G. W.
+Donaldson (1893, Washington), a carpenter in 1900 (`census1900donaldson`); Richard E. Babcock, a
+patent attorney in Arlington (`census1920babcock`), W. H. Payne, a carpenter in Washington
+(`census1920payne`), Jacob Corl, a railroad engineer in Jefferson (`census1920corl`) and Charles A.
+Travers, a railroad engineer in Jefferson (`census1920travers`), all of 1919 and read in the 1920
+census. The other ten, Tucker, Hayes, Palmer, Harrison, Werks, Hines, Graham, F. C. Hall, J. R.
+Robinson and K. Roberts, have no record that agrees with the name and the district
+(`candidates_census.csv` says what each search found); a name no household bears is not a
+Black candidate, and the sheets say nothing of the ten. 1903's winners are Rust, Douglass and Febrey, and the Gazette marks no candidate for the office
 "colored" in that year or in 1907, so Bestebreurtje's "for the first time since 1903" (p. 215), whose
 sentence carries no note, has no candidate behind it in the Gazette; the one 1903 election he
 names elsewhere is the Good Citizen League's nomination of Crandal Mackey for Commonwealth's
@@ -385,7 +393,8 @@ are rows in the press file and not in these counts, which are of the general-ele
 1950 index matches Cooper, Booker, DeMik and Kimel, all White men, on the name alone or the name and an
 occupation; Rowzee, Wright, Bayless, Parli, Bell and Pomponio carry two or more records under the name, or
 a different spelling, and are left unmatched; Pearson, Bechtel, Gammon, Leggett and Tuthill have none in
-Arlington. Each of the four matched rows reads `unsourced` until the record's page is filed. Whether the report analyzes
+Arlington. Cooper and Kimel are the Board members whose 1950 records `members_census.csv` already
+files; Booker (`census1950booker`) and DeMik (`census1950demik`) are filed with their sheets. Whether the report analyzes
 candidates at all, women among them, is Sally's to decide (`candidate-analysis`); these are its data.
 
 **The figure.** `candidates` draws each candidacy in a regular or
