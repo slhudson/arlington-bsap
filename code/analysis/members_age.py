@@ -1,4 +1,4 @@
-"""Ages of the Board, 1932-2026 -> figures/members_age.pdf, .png
+"""Ages of the Board, 1870-2026 -> figures/members_age.pdf, .png
 
 A Lexis diagram: age against year. Behind, the youngest-to-oldest span of the
 members holding a seat in each month, drawn where every member in it either
@@ -15,16 +15,21 @@ import members
 import paths
 import style
 
-FIRST, LAST = 1932, members.LAST
+FIRST, LAST = members.FIRST, members.LAST
 
-# The members seated since 1932 whose birth year no source gives. The span is
-# still drawn in their months, understating the spread by whatever they would
-# add at either edge, and naming them is what keeps that a known quantity:
-# a member who arrives without a birth year and is not named here stops the
-# build rather than quietly widening the tolerance. W. P. Ames was found in no
-# census; Susan Cunningham and Tannia Talento are recent enough that a stated
-# age should be findable (docs/members.md, "What rests on an assumption").
-UNKNOWN = {"W. P. Ames", "Susan R. Cunningham", "Tannia Talento"}
+# The members whose birth year no source gives. The span is still drawn in
+# their months, understating the spread by whatever they would add at either
+# edge, and naming them is what keeps that a known quantity: a member who
+# arrives without a birth year and is not named here stops the build rather
+# than quietly widening the tolerance. H. Dwight Smith, Lott W. Crocker,
+# William H. Robinson, Walter G. Willson and R. Henry Phillips are in no
+# census under any spelling tried and in no Gazette item that gives an age
+# (docs/members.md); W. P. Ames was found in no census either;
+# Susan Cunningham and Tannia Talento are recent enough that a stated age
+# should be findable (docs/members.md, "What rests on an assumption").
+UNKNOWN = {"H. Dwight Smith", "Lott W. Crocker", "William H. Robinson",
+           "Walter G. Willson", "R. Henry Phillips",
+           "W. P. Ames", "Susan R. Cunningham", "Tannia Talento"}
 MERGE_WITHIN = 12           # months between terms that still make one stroke
 
 
@@ -101,7 +106,8 @@ for profile in style.PROFILES:
                     spans, style.AGE_SPAN["band"][1], width=1 / 12)
     charts.strokes(ax, tenures(), style.AGE_SPAN["member"][1])
     charts.ages(ax, 0, 100)
-    charts.years(ax, 1930, 2020, step=10, label="year", through=LAST + 1)
+    charts.years(ax, FIRST, 2020, step=20, label="year", through=LAST + 1)
     ax.set_xlim(FIRST, LAST + 1)
+    charts.rule(ax)
     paths.save(fig, profile)
 

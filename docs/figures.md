@@ -473,21 +473,22 @@ there the labels can be shortened and here the years cannot.
   band's edges and the band moves only when the Board changes (Sally). There
   is no legend: the caption names the
   band and the strokes (same decision).
-  The figure starts in 1932. Before it the Board has three seats, the rule
-  is met in eight scattered years and 40 percent of member-years in 1900-31
-  have no birth year, so a band there would be fragments; the 1932 rule
-  therefore sits at the left edge and needs no note. The band is five seats
-  wide throughout. A member seated before 1932 who was still sitting after
-  it is clipped at the edge, and one who left earlier is not drawn. The
+  The figure runs the Board's full span, 1870 to the present. Before 1932
+  the Board has three seats, not five, and eight members across that stretch
+  have no birth year (named in UNKNOWN along with three later members), so
+  the band there is fragments rather than one continuous ribbon, by the same
+  rule above. The 1932 rule is drawn, since it is no longer the figure's left
+  edge and the fragments it explains sit only to its left. A member seated
+  before 1932 who was still sitting after it is clipped at the edge, and one
+  who left earlier is not drawn. The
   band takes the near-neutral sand and the strokes the growth figure's dark
   grey, since nothing is a category, with no new colour. Strokes are thin
   and opaque: at 60 percent opacity a stroke reads as dashed where it
   crosses the band's edge, and around 2013, where four lines sit inside ten
-  years, thin strokes separate without it. The axis runs 0 to 100, so the
-  age is read from zero, and every decade is labelled: the axis is 95 years
-  long, and the decades do not collide at the profile's width, unlike the
-  1870-2026 axes that step by twenty. There is no legend and no direct
-  label; the caption says what band and stroke are.
+  years, thin strokes separate without it. The age axis runs 0 to 100, read
+  from zero; the year axis steps by twenty, like the other 1870-2026 axes.
+  There is no legend and no direct label; the caption says what band and
+  stroke are.
 - **candidates.** A timeline strip of every candidacy a source says
   was a Black candidate's, in a regular or special election, filled if won
   and a ring if lost, from `candidates.csv`. It answers whether Black

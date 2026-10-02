@@ -31,13 +31,16 @@ his own, so it gives him nothing (below).
 **Birth years.** Birth years are held for most members, and they rest
 on the ages in census listings and on an age stated in an obituary or a
 profile. Each is right to within a year. The age figure draws a year only where
-every sitting member either has a birth year or is one of the three the
-figure names, and it starts in 1932. Those three are W. P. Ames, found in no
-census, and Susan Cunningham and Tannia Talento, recent enough that a stated
-age should be findable. Naming them rather than allowing a count of unknowns is
-what makes the gap a known quantity: a member who arrives without a birth
-year and is not among them stops the build. Every member seated in 1900-31
-has a birth year.
+every sitting member either has a birth year or is one of the eight the
+figure names, and it runs the Board's full span, 1870 to the present. Five are
+H. Dwight Smith, Lott W. Crocker, William H. Robinson, Walter G. Willson and
+R. Henry Phillips, each found in no census under any spelling tried and in no
+Gazette item that gives an age (above). The other three are W. P. Ames, found
+in no census, and Susan Cunningham and Tannia Talento, recent enough that a
+stated age should be findable. Naming them rather than allowing a count of
+unknowns is what makes the gap a known quantity: a member who arrives without
+a birth year and is not among them stops the build. Every member seated in
+1900-2026 has a birth year.
 
 **1912–1931 rests on no assumption.** `arlhist1967officials`, the Historical
 Society's own compilation from the Board's minute books, names all three
@@ -703,8 +706,8 @@ table has not been ruled on.
   1899–1901. The article gives every one of them the same full name from the minute
   books, and the censuses agree on a birth year: the 1880 sheet an age of 24,
   the 1910 sheet 1856. No figure turns on it — a White man either way, and
-  `members_age` starts at 1932 — but the two census rows keyed "Corbett" and
-  "Frederick S. Corbett" describe one man and agree on the year. - **Francis G.
+  the two census rows keyed "Corbett" and "Frederick S. Corbett" describe one
+  man and agree on the year. - **Francis G.
   Schutt**, one man. Three sources give three middle initials — D in O'Leary, G
   in the minute books, C in the Alexandria Gazette of 6 December 1875
   (`gazette1875schutt`) — and an initial that unstable cannot be what
@@ -1435,8 +1438,8 @@ after 1920: Arlington County holds no Duncan of his age in 1930, so the 1920
 sheet is the later of his two.
 
 **Smith, Crocker, Robinson, Willson and Phillips have no birth year, and two
-have a place.** No record found gives any of the five an age, so none enters
-`members_age` before 1932 (`age-pre-1932`).
+have a place.** No record found gives any of the five an age, so `members_age`
+names all five in its UNKNOWN set and draws the span their months leave open.
 
 - **Willson** is printed Walter G. Wilson: "Walter G. Wilson, of Washington
   District" at the Board's meeting of 10 June 1890, where he is authorized to
