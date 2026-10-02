@@ -1,20 +1,20 @@
-"""Residents per member, Arlington beside nineteen southeastern cities of
-its size -> figures/localities_southeastern.pdf, .png
+"""Residents per member, Arlington beside the southeastern cities and
+counties of its size -> figures/localities_southeastern.pdf, .png
 
-Every city of the Richmond charter review's Appendix E: residents across,
-residents per member of the council up. Arlington in its own colour; a name
-only where the names would not collide: one per cluster.
+Every city and county of 150,000 to 300,000 residents in the ten states:
+residents across, residents per member of the governing body up. Arlington
+in its own colour, cities and counties in two others; a name only where the
+names would not collide: one per cluster.
 """
 import charts
 import paths
 import style
 
 # One name per cluster of cities that sit together; charts.place_labels() decides where.
-NAMED = {"Arlington", "Huntsville", "Durham", "Greensboro", "Norfolk", "Richmond", "Mobile",
-         "Baton Rouge", "Knoxville"}
+NAMED = {"Arlington", "Clayton", "Huntsville", "Richmond"}
 # Named with a short line to the dot: too close to its neighbours to name beside it.
-LEADERS = {"Mobile", "Knoxville", "Baton Rouge"}
-CITY = style.LOCALITIES["city"][1]
+LEADERS = {"Arlington", "Clayton"}
+COLORS = {kind: color for kind, (_, color) in style.LOCALITIES.items()}
 
 for profile in style.PROFILES:
     style.apply(profile)
@@ -23,7 +23,7 @@ for profile in style.PROFILES:
     d["per_member"] = d["residents"] / d["members"]
     d["arlington"] = d["locality"] == "Arlington"
     d = d.sort_values("arlington")
-    d["color"] = [style.ARLINGTON if a else CITY for a in d["arlington"]]
+    d["color"] = [style.ARLINGTON if a else COLORS[k] for a, k in zip(d["arlington"], d["kind"])]
     d["area"] = [charts.dot_area(a, profile) for a in d["arlington"]]
 
     fig, ax = charts.scatter(profile)
@@ -35,5 +35,6 @@ for profile in style.PROFILES:
     charts.comma_axis(ax.xaxis, 300_000, 50_000, "residents")
     charts.comma_axis(ax.yaxis, 60_000, 10_000, "residents per member")
 
-    charts.dot_legend(fig, {"Arlington": style.ARLINGTON, "southeastern city": CITY}, profile)
+    charts.dot_legend(fig, {"Arlington": style.ARLINGTON, "southeastern city": COLORS["city"],
+                           "southeastern county": COLORS["county"]}, profile)
     paths.save(fig, profile)

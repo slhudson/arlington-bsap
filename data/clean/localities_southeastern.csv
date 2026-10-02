@@ -1,21 +1,82 @@
-locality,state,members,members_source,residents
-Birmingham,AL,9,richmond2023 p.122,198000
-Huntsville,AL,5,richmond2023 p.122,217000
-Mobile,AL,7,richmond2023 p.122,185000
-Montgomery,AL,9,richmond2023 p.122,199000
-Little Rock,AR,10,richmond2023 p.122; notes p.122,202000
-Augusta,GA,10,richmond2023 p.122,201000
-Columbus,GA,10,richmond2023 p.122; notes p.122,206000
-Baton Rouge,LA,12,richmond2023 p.122,222000
-Shreveport,LA,7,richmond2023 p.122,184000
-Durham,NC,7,richmond2023 p.122,286000
-Fayetteville,NC,10,richmond2023 p.122,209000
-Greensboro,NC,9,richmond2023 p.122,298000
-Winston-Salem,NC,9,richmond2023 p.122,250000
-Chattanooga,TN,9,richmond2023 p.122,182000
-Knoxville,TN,9,richmond2023 p.122,193000
-Chesapeake,VA,9,richmond2023 p.122,251000
-Newport News,VA,7,richmond2023 p.122,185000
-Norfolk,VA,8,richmond2023 p.122,235000
-Richmond,VA,9,richmond2023 p.122,227000
-Arlington,VA,5,samuel2026 Attachment A,238643
+locality,state,kind,members,members_source,residents
+Birmingham,AL,city,9,richmond2023 p.122,200733
+Huntsville,AL,city,5,richmond2023 p.122,215006
+Mobile,AL,city,7,richmond2023 p.122,187041
+Montgomery,AL,city,9,richmond2023 p.122,200603
+Baldwin,AL,county,4,baldwinal2026,231767
+Lee,AL,county,5,leeal2026,174241
+Montgomery,AL,county,5,montgomeryal2026,228954
+Shelby,AL,county,9,shelbyal2026,223024
+Tuscaloosa,AL,county,5,tuscaloosaal2026,227036
+Little Rock,AR,city,10,richmond2023 p.122; notes p.122,202591
+Benton,AR,county,15,unsourced,284333
+Washington,AR,county,15,unsourced,245871
+Augusta,GA,city,10,richmond2023 p.122,202081
+Columbus,GA,city,10,richmond2023 p.122; notes p.122,206922
+Macon-Bibb,GA,city,9,maconbibbga2026,157346
+Chatham,GA,county,9,chathamga2026,295291
+Cherokee,GA,county,5,cherokeega2026,266620
+Clayton,GA,county,5,unsourced,297595
+Columbia,GA,county,5,columbiaga2026,156010
+Forsyth,GA,county,5,forsythga2026,251283
+Hall,GA,county,5,hallga2026,203136
+Henry,GA,county,6,unsourced,240712
+Houston,GA,county,5,houstonga2026,163633
+Paulding,GA,county,5,pauldingga2026,168661
+Baton Rouge,LA,city,12,richmond2023 p.122,227470
+Shreveport,LA,city,7,richmond2023 p.122,187593
+Caddo,LA,county,12,caddola2026,237848
+Calcasieu,LA,county,15,unsourced,216785
+Lafayette,LA,county,5,lafayettela2026,241753
+Ouachita,LA,county,6,ouachitala2026,160368
+St. Tammany,LA,county,14,sttammanyla2026,264570
+Carroll,MD,county,5,unsourced,172891
+Charles,MD,county,5,unsourced,166617
+Frederick,MD,county,7,frederickmd2026,271717
+Harford,MD,county,7,harfordmd2026,260924
+Washington,MD,county,5,washingtonmd2026,154705
+Jackson,MS,city,7,jacksonms2026,153701
+DeSoto,MS,county,5,desotoms2026,185314
+Harrison,MS,county,5,unsourced,208621
+Hinds,MS,county,5,hindsms2026,227742
+Rankin,MS,county,5,rankinms2026,157031
+Cary,NC,city,7,unsourced,174721
+Durham,NC,city,7,richmond2023 p.122,283506
+Fayetteville,NC,city,10,richmond2023 p.122,208501
+Greensboro,NC,city,9,richmond2023 p.122,299035
+Winston-Salem,NC,city,9,richmond2023 p.122,249545
+Alamance,NC,county,5,alamancenc2026,171415
+Buncombe,NC,county,7,buncombenc2026,269452
+Cabarrus,NC,county,5,unsourced,225804
+Catawba,NC,county,5,catawbanc2026,160610
+Davidson,NC,county,7,davidsonnc2026,168930
+Gaston,NC,county,7,gastonnc2026,227943
+Iredell,NC,county,5,iredellnc2026,186693
+Johnston,NC,county,7,johnstonnc2026,215999
+New Hanover,NC,county,5,newhanovernc2026,225702
+Onslow,NC,county,7,onslownc2026,204576
+Pitt,NC,county,9,pittnc2026,170243
+Union,NC,county,5,unsourced,238267
+Charleston,SC,city,13,unsourced,150227
+Aiken,SC,county,9,aikensc2026,168808
+Anderson,SC,county,7,andersonsc2026,203718
+Beaufort,SC,county,11,beaufortsc2026,187117
+Berkeley,SC,county,8,unsourced,229861
+Dorchester,SC,county,7,unsourced,161540
+Lexington,SC,county,9,lexingtonsc2026,293991
+York,SC,county,7,yorksc2026,282090
+Chattanooga,TN,city,9,richmond2023 p.122,181099
+Clarksville,TN,city,12,clarksvilletn2026,166722
+Knoxville,TN,city,9,richmond2023 p.122,190740
+Murfreesboro,TN,city,7,murfreesborotn2026,152769
+Montgomery,TN,county,21,montgomerytn2026,220069
+Sullivan,TN,county,24,sullivantn2026,158163
+Sumner,TN,county,24,sumnertn2026,196281
+Williamson,TN,county,24,williamsontn2026,247726
+Alexandria,VA,city,7,richmond2023 p.120,159467
+Chesapeake,VA,city,9,richmond2023 p.122,249422
+Newport News,VA,city,7,richmond2023 p.122,186247
+Norfolk,VA,city,8,richmond2023 p.122,238005
+Richmond,VA,city,9,richmond2023 p.122,226610
+Stafford,VA,county,7,stafford2026,156927
+Arlington,VA,county,5,samuel2026 Attachment A,238643

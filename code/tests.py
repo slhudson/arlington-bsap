@@ -1015,16 +1015,52 @@ def test_a_jefferson_win_count_that_is_not_hjerpes_is_refused():
 
 # --- guards on the peer localities --------------------------------------------
 
-def test_a_southeastern_city_the_appendix_omits_is_refused():
-    """Cary, North Carolina counted at 200,000 residents, so that the rule
-    finds a city of Arlington's size Appendix E does not list. With no guard
-    the figure is captioned as every such city and silently omits one."""
-    def grow(d):
-        d.loc[d.place_name.str.startswith("Cary town"), "residents"] = "200000"
-        return d
-    err = breaks(paths, "built", patch_built("localities_places", grow),
+def drop_body(name):
+    """A mangle for localities_southeastern_bodies: the table without `name`,
+    as if nobody had keyed that body's seats."""
+    return lambda d: d[d["body"] != name]
+
+
+def test_a_southeastern_city_nothing_keys_is_refused():
+    """Cary, North Carolina (174,721 residents) dropped from the keyed bodies.
+    With no guard the figure is captioned as every city of Arlington's size
+    in the region and silently omits one."""
+    err = breaks(paths, "built", patch_built("localities_southeastern_bodies",
+                                             drop_body("Cary, NC")),
                  build=localities_southeastern.build)
     assert err and "Cary, NC" in err, f"not caught: {err}"
+
+
+def test_a_southeastern_county_nothing_keys_is_refused():
+    """Cherokee County, Georgia dropped from the keyed bodies. Counties are
+    found by the same rule as cities; with no guard a county the rule finds
+    would be missing from a figure that says it holds all of them."""
+    err = breaks(paths, "built", patch_built("localities_southeastern_bodies",
+                                             drop_body("Cherokee County, GA")),
+                 build=localities_southeastern.build)
+    assert err and "Cherokee County, GA" in err, f"not caught: {err}"
+
+
+def test_a_maryland_county_nothing_keys_is_refused():
+    """Frederick County, Maryland dropped. Maryland has no incorporated place
+    of Arlington's size, so its bodies come in only by county, and a gap there
+    leaves the state out without a trace."""
+    err = breaks(paths, "built", patch_built("localities_southeastern_bodies",
+                                             drop_body("Frederick County, MD")),
+                 build=localities_southeastern.build)
+    assert err and "Frederick County, MD" in err, f"not caught: {err}"
+
+
+def test_a_keyed_county_below_the_floor_is_refused():
+    """Washington County, Maryland at 100,000 in the census file, below the
+    floor, while the table still keys it. With no guard a body the rule does
+    not hold stays in the figure when the population table moves."""
+    def grow(d):
+        d.loc[d["county_name"].str.startswith("Washington County, Maryland"), "residents"] = "100000"
+        return d
+    err = breaks(paths, "built", patch_built("localities_counties", grow),
+                 build=localities_southeastern.build)
+    assert err and "Washington County, MD" in err, f"not caught: {err}"
 
 
 def test_a_peer_county_the_census_does_not_carry_is_refused():

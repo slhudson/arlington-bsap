@@ -37,39 +37,60 @@ member; only the larger counties, Henrico, Chesterfield, Prince William and
 Fairfax, have more.
 
 
-## Southeastern cities of Arlington's size
+## Southeastern cities and counties of Arlington's size
 
-`localities_southeastern.csv` sets the Board's five members beside nineteen
-cities of 180,000 to 300,000 residents in nine southeastern states,
-Richmond among them: council seats and residents, and from them residents per
-member, the measure the Virginia figures use. The set is a rule, not a
-selection: every incorporated place with 180,000 to 300,000 residents in the
-2020 census in the nine states Appendix E names (Alabama, Arkansas, Georgia,
-Louisiana, Mississippi, North Carolina, South Carolina, Tennessee and
-Virginia). The Census Bureau's 2020 place populations (`censusapi`) give
-exactly these nineteen, and the build stops if the appendix and the rule
-disagree. Mississippi and South Carolina have none that size. The nine states
-are the commission's choice of region, not ours; 81 places nationally, census-designated places included, fall in
-the size range. The appendix (`richmond2023`, printed p. 122) was compiled
-for Richmond and holds no county, where Arlington's form of government sits.
+`localities_southeastern.csv` sets the Board's five members beside eighty
+governing bodies of 150,000 to 300,000 residents in ten southeastern states:
+26 cities and 54 counties. Each row is seats and residents, and from them
+residents per member, the measure the Virginia figures use. The set is a rule,
+not a selection: every incorporated place, and every county or parish, with
+150,000 to 300,000 residents in the 2020 census in the nine states Appendix E
+of the Richmond charter review names (Alabama, Arkansas, Georgia, Louisiana,
+Mississippi, North Carolina, South Carolina, Tennessee and Virginia) and in
+Maryland. Maryland has no incorporated place that size, so it enters by county.
+The build stops if the rule finds a body no table keys, or a table keys one
+the rule does not find. The states are the commission's choice of region and
+the floor and the counties are ours: the commission's 180,000 floor and its
+cities-only list answer Richmond's question, and Arlington's form of
+government is a county's.
 
-A city's seats are the appendix's council members. The appendix counts a Mayor
-who sits and votes as one seat, which is why its Norfolk is eight and Appendix
-D's seven plus an at-large Mayor, and leaves out the Mayor of a city where the
-Mayor is chief executive without a seat, Richmond among them. Residents are the
-appendix's thousands, so a peer's figure is good to the nearest thousand;
-Arlington's is the 2020 census total.
+A county is left out where the Bureau's county is not the body that governs
+it. Virginia's independent cities are counted as cities, and three Georgia
+counties are the consolidated governments of Augusta, Columbus and
+Macon-Bibb County, counted once as those cities. Arlington is the subject, not
+a peer.
 
-Arlington carries about 48,000 residents per member, more than any of the
-nineteen; Huntsville, with five seats, is next at about 43,000, and the rest
-carry between 18,000 and 41,000. `localities_southeastern` shows it.
+A body's seats come from the place that holds its count. The nineteen cities
+Appendix E tabulates are its council members (`richmond2023`, printed p. 122),
+a Mayor who sits and votes counted as one seat, which is why its Norfolk is
+eight and Appendix D's seven plus an at-large Mayor; Alexandria and Stafford are
+Virginia's own rows above. Every other body is keyed from its own charter or
+official page (`southeastern_bodies.csv`, one citekey per body). The same rule
+holds throughout: every member who sits and votes counts, a chair or Mayor
+elected at large included; a chief executive who does not sit, or who votes
+only to break a tie, does not. Residents are the 2020 census count for the
+place or county, not the source's.
+
+Arlington carries about 48,000 residents per member. Five peers carry more:
+Clayton, Baldwin, Cherokee, Forsyth and Lafayette, all counties of five seats
+or fewer. The other 75 carry between 7,000 and 48,000. Cities top out at
+about 43,000, in Huntsville, which has five seats; the lowest are Tennessee's
+county commissions, Sullivan, Sumner and Williamson with 24 seats each. `localities_southeastern` shows it, cities and
+counties in two colours.
 
 The appendix also prints how each council is elected, ward or at large. It is
 keyed but not used: proportional at-large methods mean at-largeness does not
 by itself say how well a council represents.
 
 What rests on an assumption: that the appendix's counts are the councils that
-sat in 2023. The report states no date for the table.
+sat in 2023; the report states no date for the table. Each other body's count
+is the one its page shows in September and October 2026. Clarksville is
+twelve ward seats; a 2009 Tennessee Attorney General opinion reads its
+charter as giving the Mayor a vote, which would make thirteen. St. Tammany's
+council may change after a special election on 3 November 2026. Where a page
+lists members without stating the structure in words (Hall, Cherokee, Henry,
+Paulding, Davidson, Onslow, Sullivan, Anderson, Beaufort), the count is the
+roster's.
 
 ## Non-interference clauses in city charters
 

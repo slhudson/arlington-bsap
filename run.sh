@@ -53,7 +53,7 @@ trap 'rm -rf "$LOCK"' EXIT
 
 # Stage 1: data/raw/ and data/transcribed/ -> data/built/. Reshaping only;
 # each step is refused if a value its inputs carry is missing from its output.
-BUILD=(elections members_claims candidates census ipums registration localities localities_places localities_southeastern candidates_party survey_satisfaction)
+BUILD=(elections members_claims candidates census ipums registration localities localities_places localities_counties localities_southeastern localities_southeastern_bodies candidates_party survey_satisfaction)
 
 # Stage 2: data/built/ -> data/clean/. Every decision about what a number
 # is. Each step is named for the file it writes, and later steps read what
