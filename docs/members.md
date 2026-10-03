@@ -603,10 +603,54 @@ manager, who holds the county's administrative and executive powers and
 election is not otherwise provided by law", while the Board may not change a
 budget allocation without the manager's recommendation and may not move any
 allocation by more than ten per cent (`vaacts1930c167`, secs. 2773-g and
-2773-h). The County Code does not restate that division. The Manager appears in
-its chapters as the officer who runs permits and enforcement, and none of its
-chapters sets rules for how a Board member deals with the Manager's staff; that
-rule is § 15.2-703 and nothing else (`vaacts1962c623`).
+2773-h). The County Code restates the Manager's half of it in one place, Chapter 6, and
+the rest of its chapters show the Manager as the officer who runs permits and
+enforcement. None of them sets rules for how a Board member deals with the
+Manager's staff; that rule is § 15.2-703 and nothing else (`vaacts1962c623`).
+
+**Chapter 6 gives the Manager the County's hiring and firing and keeps the
+Board to the pay plan.** The chapter's authority is § 15.2-721; the Board
+created the Civil Service Commission under it on 15 June 1951
+(`arlingtoncode6civilservice`, § 6-1). The Commission has five members, qualified voters with
+management or public-affairs experience who may hold no paid County
+employment, candidacy or party office while serving; the Board appoints them
+for four-year terms, reconsiders its choice of chair at its first meeting each
+year, and removes a member only "for good cause shown by a majority vote",
+after a written statement and a public hearing (§§ 6-2, 6-3, 6-5, 6-7). The Commission advises the Board, the Manager and the
+Director of Personnel on policy and hears appeals; its finding on a
+disciplinary appeal "shall be binding", and it may order back pay (§§ 6-8,
+6-18). The Manager, not the Board, "appoint[s] and, when necessary for the good
+of the service, remove[s] employees in the competitive service", appoints the
+Director of Personnel, and adopts the administrative regulations, which take
+effect "when approved by the Manager" after the Commission has reviewed a
+draft (§§ 6-10, 6-11, 6-15). The chapter sorts every employee into one of three
+services. The competitive service is every position under the Manager's control
+and appointed by him; the executive management service, which the Code created
+on 15 June 2003 (Ord. No. 03-15), is the Deputy and Assistant County Managers,
+the department directors and the legislative liaison, who "serve at the will of
+the County Manager" and fall outside the merit rules; and the noncompetitive
+service is the Board's members, the other elected officials, the County
+Manager, the County Attorney, the Clerk to the County Board, "heads of
+departments whose appointment is vested by law in the County Board", and the
+staffs of the constitutional officers (§ 6-14). The Manager is
+himself outside the merit rules, and nothing in the chapter gives his office a
+term or a ground for removal. The Board's share is the pay plan. The Manager
+forwards the plan with the Commission's comments, the Board approves it, and
+the Board "shall not increase or decrease any salaries of individual members of
+the competitive service" (§ 6-20); the Board also approves the classification
+system (§ 6-19) and decides, by appropriation, whether the housing and retiree
+medical benefits are paid (§§ 6-28, 6-29).
+
+The chapter reaches the Board's own seats in three places. A County employee
+elected to a Board seat must resign on taking office, and a department director
+or an employee in the Offices of the Manager or the County Attorney must resign
+on becoming a candidate (§ 6-23). Collective bargaining runs through the
+Manager, who names the County's negotiators in his "sole discretion"; a
+tentative agreement binds the County only after a fiscal impact study, a public
+hearing and a Board resolution committing to fund it, and the resolution "remains
+subject to actual appropriation" (§ 6-30). Where a non-binding arbitration
+award is not implemented, the Manager explains why "at the next meeting of the
+County Board". The copy held is the Code as updated in July 2023.
 
 **The County Attorney's office rests on a general statute, not on the manager
 plan and not on the Code.** The 1952 act that would have created the office
@@ -618,21 +662,62 @@ the governing body" at a salary the body fixes, with the Commonwealth's
 attorney relieved of civil advice, ordinances and civil suits, and the county
 attorney "accountable to the governing body" (`vaacts1968c695`). No vote of the
 people is required. It survives as § 15.2-1542 (`vacode1521542`). No chapter of
-the County Code creates the office; Chapter 6 names the Office of the County
-Attorney only to list its employees among the "confidential" ones for collective
-bargaining (`arlingtoncode6civilservice`). The Board appointed Ryan Samuel by a
+the County Code creates the office. Chapter 6 puts the County Attorney in the
+noncompetitive service beside the Manager and the Clerk to the County Board,
+sends his employees through the merit rules with their own appointing authority
+and the Commission's jurisdiction, and counts his office among the
+"confidential" ones for collective bargaining and among the Group 2 offices for
+political activity (`arlingtoncode6civilservice`, §§ 6-14, 6-17, 6-23, 6-30). The Board appointed Ryan Samuel by a
 4-0 vote at a special meeting on 2 December 2025, and the office reports to the
 Board, not the Manager (`arlnow2025countyattorney`, `arlingtonva2025samuel`).
 The resolution that made the appointment is not in a source held, and
 § 15.2-1542 is the only authority found for it.
 
-**The Independent Policing Auditor moved from the Manager to the Board in 2026.**
-ARLnow reports that the Board changed the County Code in June 2026, after
-2026 state legislation let it appoint the auditor directly, and in August
-approved an employment agreement under which the auditor serves at the
-pleasure of the Board and not the Manager; a 2022 bill to the same effect had
-been vetoed (`arlnow2026policingauditor`). The agreement itself is a County
-record the press had to request under the Freedom of Information Act.
+**The Independent Policing Auditor moved from the Manager to the Board in 2026,
+and the state act came first.** Chapter 372 of the 2026 Acts, approved 8 April,
+added § 15.2-709.3: the board of a county under the manager plan "may appoint an
+independent policing auditor to support any law-enforcement civilian oversight
+body", who has the oversight body's powers "to the extent such powers are
+delegated", may have staff "independent of the administrative staff of the
+county", and "shall serve at the pleasure of the board" (`vaacts2026c372`). The
+Board followed with Ordinance No. 26-12, adopted 13 June 2026 and effective 1
+July, which Chapter 69, the 2021 chapter that created the Law Enforcement
+Community Oversight Board, names as the history of every section but four.
+Section 69-11 now reads
+"The County Board shall hire an Independent Policing Auditor", on the basis of
+merit and at the existing pay scales, in an office outside any Police
+Department facility, to "serve at the pleasure of the County Board"; § 69-12(k)
+carries the oversight board's delegated powers to the auditor, as the statute
+does (`arlingtoncode69oversight`). The Manager keeps three places in the
+chapter: he signs the memorandum of understanding between the oversight board
+and the Police Department with its chair, the auditor and the Police Chief
+(§ 69-2(c)); the Police Department withholds records tied to an open matter
+until it is completed or the Manager determines that release will not
+compromise it (§ 69-8(c)); and when the auditor cannot get a witness or record
+from the Department, the Manager decides within four business days whether to
+require it, may not deny the request "unreasonably", and if he does deny it the
+oversight board may by a two-thirds vote have the auditor apply to the Arlington
+Circuit Court for a subpoena (§ 69-9). Any dispute over what the chapter means among the
+oversight board, the Police Chief, the auditor and the Manager is the Board's to
+settle with the County Attorney, and its decision "shall be final" (§ 69-13).
+ARLnow reports the change and that the Board approved the auditor's employment
+agreement in August (`arlnow2026policingauditor`); the amendment's wording is
+in the chapter, but the ordinance's staff report and the agreement are not in a
+source held, and the text of §§ 69-11 and 69-12 before the amendment is not
+either, so what the Manager's hand in the office was before 1 July is known only
+from the press.
+
+**The County Auditor is the Board's by a statute older than the Policing
+Auditor's.** Section 15.2-709.2, added in 2015 (c. 282), lets the board of a
+county under the plan appoint a county auditor "for the audit and review of
+county agencies and county-funded functions", with the power to review
+performance and make "such special studies and reports as the board directs";
+the auditor serves at the board's pleasure, and a removal "shall not be subject
+to review by any other employee, agency, board, or commission of the county" or
+to the grievance procedure (`vacode1527092`). The Policing Auditor's statute
+copies the staffing and pleasure language of this one. Chapter 6 does not name the County Auditor; the office falls under "heads of
+departments whose appointment is vested by law in the County Board" only on the
+reading that § 15.2-709.2 is that law.
 
 **The Audit Committee gives the Board a channel to the Manager, not around the
 office.** Its charter seats the County Manager and the Director of Management
@@ -709,7 +794,10 @@ editions of the Model City Charter and Wager's *County Government Across the
 Nation* (1950) are unread, so whether the carve-out that lets the Board
 discuss appointments with the manager entered the model before 1958 is open
 (`richland1958charter`). The Manager's employment agreement and the Board's
-real-estate signing authority are not in a source held.
+real-estate signing authority are not in a source held; the County would have
+to supply the agreement and whatever resolution lets the Manager sign deeds and
+leases. Ordinance No. 26-12's staff report and the Policing Auditor's
+agreement are the County's too.
 
 ### The roster names 1912 to 1931
 
