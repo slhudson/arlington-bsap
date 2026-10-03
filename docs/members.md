@@ -779,6 +779,26 @@ Commission's draft of § 15.2-702 with "Commonwealth" for "State"
 (`vacodecommission1997sd5`, p. 102), so the phrasing the Code still carries
 is the 1930 act's.
 
+**The carve-out that lets a council discuss appointments with its manager is
+not in the Model City Charter before 1958.** The three editions between 1916
+and the Richland charter each carry the clause on council interference and none
+has a sentence letting the council discuss appointments. The revised edition of
+1927, sec. 48, bars the council, its committees and members from directing or
+requesting an appointment or removal "or in any manner" taking part in it, and
+makes a violation a misdemeanor that forfeits the office
+(`nml1927modelcharter`, printed p. 34). The fifth edition of 1941, a complete
+revision, keeps the same bar in sec. 11, adds that a councilman who votes for
+a resolution or ordinance in violation of it is guilty of the misdemeanor, and
+also has no such sentence (`nml1941modelcharter`). The League's 1957 imprint of
+the fifth edition reads sec. 11 in the same words (`nml1957modelcharter`).
+Richland's charter of 1958 then adds the sentence to the same clause
+(`richland1958charter`), so the carve-out is Richland's or a source between
+1957 and 1958 that is not held, and it is not the League's text before then.
+Each edition's page is filed as a transcript of the text layer HathiTrust
+serves, and only the page with the clause. The 1933 edition (HathiTrust
+`uiug.30112106251876`) and the League's 1948 revision are not read; no sentence
+in 1927, 1941 or 1957 suggests the clause changed between them.
+
 **Whether Arlington was the first county to adopt the form by popular vote is
 unconfirmed from the sources held.** The Arlington Historical Society's
 account calls it "the first county in the United States to adopt by popular
@@ -789,15 +809,16 @@ nothing held covers the North Carolina counties that adopted the form after
 ### What remains unread
 
 The 1993 act (c. 731) is not read: HathiTrust does not show the volume in full
-view and the Acts for 1993 need a law-library login. The 1927 and 1941
-editions of the Model City Charter and Wager's *County Government Across the
-Nation* (1950) are unread, so whether the carve-out that lets the Board
-discuss appointments with the manager entered the model before 1958 is open
-(`richland1958charter`). The Manager's employment agreement and the Board's
-real-estate signing authority are not in a source held; the County would have
-to supply the agreement and whatever resolution lets the Manager sign deeds and
-leases. Ordinance No. 26-12's staff report and the Policing Auditor's
-agreement are the County's too.
+view and the Acts for 1993 need a law-library login. Wager's *County
+Government Across the Nation* (1950), which covers the North Carolina counties
+that adopted the form after 1927, is unread and needs a library copy, so the
+first-county claim is open; so are the North Carolina session laws for
+the counties that adopted it, which would say whether any did so by act or by
+vote. The Manager's employment agreement and the Board's real-estate signing
+authority are not in a source held; the County would have to supply the
+agreement and whatever resolution lets the Manager sign deeds and leases.
+Ordinance No. 26-12's staff report and the Policing Auditor's agreement are the
+County's too.
 
 ### The roster names 1912 to 1931
 
