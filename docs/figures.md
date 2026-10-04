@@ -265,15 +265,6 @@ ramp, darkest latest, and each item is one row with a rule joining its dots.
 Eleven items over three waves is thirty-three bars and eleven dots-on-a-line;
 the second is the one a reader can take in.
 
-A cell the survey's own preparers marked as resting on too few respondents is
-drawn at `style.THIN_ALPHA` rather than dropped. Of the seven race and
-ethnicity categories in the ranked choice voting survey only White and Black
-are unmarked, and the thirty-seven Hispanic respondents are the cells the
-community-input analysis' claim about Latino voters turns on. Dropping them
-would leave the figure silent on five of seven groups and answer the question
-by removing the evidence; fading them says the share is real and thin, and
-the caption gives the respondents behind it.
-
 A share from a sample carries its interval where the groups differ in size
 enough for the difference to matter. The ranked choice voting survey's
 Hispanic respondents are thirty-seven against the White category's
@@ -348,6 +339,8 @@ anything by then.
 
 **Two-panel figures go side by side**, not stacked, because a composition
 panel needs to be taller than it is wide when its early values are small.
+The exception is a pair of scatters, which stack so that each has the full
+width for its names (localities_peers).
 
 **Stacked bars** for composition at intervals, at a width about twice the
 gap between bars, which is Urban's rule. No band is textured: a single
@@ -604,6 +597,21 @@ there the labels can be shortened and here the years cannot.
   over through 1970 and 18 and over from 1971, and nothing marks the change:
   as with residents_by_race at 1980, it is real but small, no line steps at
   it, and a rule would claim more for it than it has. The caption carries it.
+- **elections_turnout_before_1932, elections_turnout_before_1932_adults.**
+  The presidential vote, 1872 to 1928, and the Board's vote in the three years
+  all three seats were counted, per 100 residents and per 100 residents of
+  voting age: men 21 and over through 1916, everyone 21 and over from 1920.
+  The second begins in 1880, the first census that counts adults. A year the
+  source gives as incomplete (1896, 1904, 1908) is not drawn, and a dotted
+  segment crosses it, since a hollow marker drew the eye to a count nobody
+  can use. Three dated rules, the Walton Act of 1894, the constitution of
+  1902 and women voting in 1920. Both denominators are interpolated in a
+  straight line between censuses.
+- **elections_turnout_by_district.** Votes for each district's Board seat
+  per 100 men of voting age at the nearest census, 1893 to 1919, one line per
+  district joining the contests a count was recovered for. Men only: no
+  woman voted before 1920 and the figure stops before it. Two rules, 1894
+  and 1902.
 - **localities_peers.** Arlington beside every Virginia city and county of
   100,000 or more, in two panels that share a legend and a note: (a)
   members against residents, (b) residents per member against density. They
@@ -614,7 +622,7 @@ there the labels can be shortened and here the years cannot.
   that Fairfax, at 1.15 million, stays in view. The two panels are stacked,
   one above the other, each at full width (Sally, 4 October 2026: side by
   side, at half width, they made no sense and could not carry their names);
-  the figure is a page tall (`style.PAIR`, 1.0). Residents and residents
+  the figure is a page tall (`style.PAIR`, 0.88). Residents and residents
   per member are in thousands, so the tick labels stay short. A name may
   run on into the gap of a broken axis, where nothing is drawn. Dots are one
   size: area was tried for population and for density, and in both a reader
@@ -623,7 +631,7 @@ there the labels can be shortened and here the years cannot.
   `labels.place()`: every name sits nearer its own dot than half the
   distance to any other and touches nothing; a dot too crowded to name
   beside it (Alexandria, on the 7-member row; Stafford) takes a short leader.
-  At half width not every dot can be named, so a name stands for its
+  Not every dot can be named, so a name stands for its
   cluster: Richmond for the two 9-member cities in (a), and in (b) the
   Chesapeake, Newport News, Hampton and Hanover dots are named by their
   neighbours.

@@ -66,8 +66,8 @@ neither repeats the reasons.
 
 ## Scatters
 
-- Start both axes at zero where possible; break an axis (`charts.broken_scatter()`)
-  rather than lose a far point or start above zero.
+- Start both axes at zero where possible; break an axis (`charts.break_x()`,
+  in `charts.scatter_pair()`) rather than lose a far point or start above zero.
 - Squarer than the time series: `charts.scatter()` takes `style.SQUARE`.
   Two scatters with different x axes may share one figure as two panels when
   they answer one question and one legend and one note serve both:
@@ -158,8 +158,6 @@ neither repeats the reasons.
 - **A share from a sample carries its interval** where the groups being
   compared differ in size, through `charts.hwhiskers()`, which holds the
   interval inside the scale.
-- **A cell its source marked as resting on too few respondents is faded, not
-  dropped**, at `style.THIN_ALPHA`, and the caption gives its respondents.
 - **Ordered categories take `style.ramp(n)`; unordered take Okabe-Ito.** Age
   and residence coverage are ordered. Never define a ramp in a figure.
 - **Where a category's definition changes mid-figure, the legend does not

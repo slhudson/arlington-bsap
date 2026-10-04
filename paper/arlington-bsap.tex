@@ -123,9 +123,9 @@
 
 % The paper includes the PDF versions; figures/png/ is for slides and email.
 \graphicspath{{../figures/pdf/}}
-% Two figures that share a float page, race and the peer localities, give up the
-% white each carries above and below its ink (style.MARGIN) and are set at 0.91 of
-% the text width: at full width the pair is 31 and 45 points too tall for a page.
+% Figures that share a page in a pair (race, and the two coverage panels) give
+% up the white each carries above and below its ink (style.MARGIN) and are set at
+% 0.91 of the text width: at full width a pair is too tall for a page.
 \newcommand{\pairfigure}[1]{\includegraphics[width=0.91\textwidth,trim=0 14bp 0 14bp,clip]{#1}}
 % A page holding two figures anchors one at the top and one at the bottom, with
 % the white between them (Sally, 4 October 2026): the float is a box the height
@@ -151,10 +151,9 @@
 \renewcommand{\textfraction}{0.1}
 \renewcommand{\floatpagefraction}{0.8}
 
-% Every section starts on a new page. \clearpage also flushes pending figures,
-% so a section's figures stay with it.
 % A part starts a page and its first section follows on the same page; every
-% other section starts a new page.
+% other section starts a new page while \sectionbreaks is true. \clearpage also
+% flushes pending figures, so a section's figures stay with it.
 \newif\ifafterpart
 \let\oldpart\part
 \renewcommand{\part}{\clearpage\afterparttrue\oldpart}
@@ -1099,8 +1098,7 @@ for 72 years, so the 1950 census is the last open.
 
 \subsection{Gender}
 Gender comes from two sources. Census sheets give it for members who served
-through the 1960s; the 1950 census is the last open, and the 1960 census closes
-for 72 years. For nearly every other member the source is the press: the
+through the 1960s. For nearly every other member the source is the press: the
 ``she'' or ``Ms.'' a contemporary article uses, quoted and cited member by
 member. Neither source identifies Robinson and Willson, who served before 1900,
 so both are assumed to be men.
@@ -1158,9 +1156,8 @@ census age bands.
 Homes are easiest to find in the middle years. From 1932 to 1971, census sheets
 and newspaper reports place at least four of the five members at a street address
 or a street name. From 1972 through 1995, two or three members have no known home
-at all, and from 1998 none has a street address. The
-census closes for 72 years --- the 1950 census is the last open --- and
-no public source takes its place. Since 2013 the most precise location available for
+at all, and from 1998 none has a street address. No
+public source takes the closed census's place. Since 2013 the most precise location available for
 all five members is a neighborhood named in press coverage.
 
 \begin{figure}[p]

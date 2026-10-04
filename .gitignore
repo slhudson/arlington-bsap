@@ -62,3 +62,6 @@ data/transcribed/by_ocr/*
 # The built layer: reshaped copies of the layers above, rebuilt by bash run.sh
 # in seconds, so nothing to review in a diff and 1.6MB kept off the text Overleaf syncs.
 data/built/
+
+# biber leaves a copy of a file it could not save beside it.
+paper/*-SAVE-ERROR

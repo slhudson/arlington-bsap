@@ -11,8 +11,7 @@ each placement is in docs/figures.md.
     stacked_steps() composition over continuous years; runs() finds the gaps
     age_band()      youngest to oldest as a band; strokes() draws tenures over it
     scatter()       one scatter, squarer than a time series
-    broken_scatter() the same with a broken x axis; break_x() draws the break
-    scatter_pair()  two scatters side by side, the first with a broken x axis; title_broken() titles it
+    scatter_pair()  two scatters stacked, the first with a broken x axis; break_x() draws the break, title_broken() titles it
     dots()          a scatter, dot area from dot_area(), named by dot_label()
     events()        a timeline strip: a dot per event at its year, filled or a ring
     legend()        one legend for the figure, one row, below the axes
@@ -162,17 +161,12 @@ def _hrows(labels, groups=None):
     return ticks, names, np.array(centres, dtype=float)
 
 
-def hbars(ax, labels, values, color, groups=None, alphas=None):
+def hbars(ax, labels, values, color, groups=None):
     """Horizontal bars over named categories, first at the top. `groups` is
     an ordered {heading: n} splitting them into blocks, each under a heading
-    that sits in the axis labels so nothing is hand-placed. `alphas` fades
-    the bars that carry it, one per label."""
+    that sits in the axis labels so nothing is hand-placed."""
     ticks, names, centres = _hrows(labels, groups)
-    ax.barh(centres, values, height=0.72, color=color, zorder=3,
-            alpha=None if alphas is None else 1.0)
-    if alphas is not None:
-        for bar, a in zip(ax.containers[-1], alphas):
-            bar.set_alpha(a)
+    ax.barh(centres, values, height=0.72, color=color, zorder=3)
     _hcategories(ax, ticks, names, groups or {})
     ax.set_ylim(max(ticks) + 0.5, -0.8)
 
@@ -455,22 +449,10 @@ def scatter(profile=style.DEFAULT_PROFILE):
     return figure(profile, aspect=style.SQUARE)
 
 
-def broken_scatter(profile=style.DEFAULT_PROFILE):
-    """One scatter whose x axis is broken so that one far point stays in
-    view: the near and far sides as two axes sharing y. break_x() draws
-    the break once both sides have their limits."""
-    fig, (near, far) = plt.subplots(1, 2, sharey=True, figsize=style.figsize(profile),
-                                    gridspec_kw={"width_ratios": style.BROKEN})
-    # The two sides sit close, as one axis with a gap, not two panels.
-    fig.get_layout_engine().set(w_pad=0.02, wspace=0.0)
-    fig.plot_aspect = style.SQUARE
-    return fig, (near, far)
-
-
 def scatter_pair(profile=style.DEFAULT_PROFILE):
     """Two scatters stacked, one above the other, each at full width (Sally,
     4 October 2026: side by side they made no sense). The first has its x
-    axis broken, as in broken_scatter(): returns (near, far) for it, then the
+    axis broken: returns (near, far) for it, then the
     second panel's axes, a plain scatter. Title the first with
     title_broken(), so that it is centred over both of its sides."""
     fig = plt.figure(figsize=style.figsize(profile))

@@ -83,7 +83,7 @@ who have served on the Board; `candidates`, the people who have run for it;
 `survey`, the people a questionnaire reached, cut by which one -
 `survey_satisfaction`, `survey_rcv`; and `comments`, the letters the Board
 received. Then `residents_by_district`,
-`members_by_race`, `elections_turnout`, `localities_density`. A survey is its
+`members_by_race`, `elections_turnout`, `localities_peers`. A survey is its
 own subject because its respondents are a sample and not the county: a share
 of `residents` is every resident, a share of `survey_satisfaction` is every
 resident who answered. A subject is whatever a file is about, so people, places
@@ -104,7 +104,7 @@ appears in it once per contest.
 the subject is sorted into categories and the figure shows how many are in
 each. A bare attribute means the attribute shown per individual, ungrouped, so
 `members_age` is a Lexis diagram with one diagonal per member and
-`localities_density` is one dot per locality. Both say what the figure is
+`localities_southeastern` is one dot per locality. Both say what the figure is
 about; only the first says it is a breakdown.
 
 **Three suffixes are not attributes.** `_by_year` and `_by_district` mark an
@@ -227,7 +227,7 @@ is no row.
 **Guards that prevent silent wrongness get a test.** `code/tests.py` reintroduces
 the specific mistake each guard exists to catch and asserts the build refuses,
 so editing `code/build/` or `code/clean/` cannot quietly disable a check.
-`bash run.sh` runs it after the build stage on a full run, about thirty seconds;
+`bash run.sh` runs it after the build stage on a full run, under a minute;
 a filtered run (`bash run.sh <figure>`) is for the figures and skips it.
 
 Only silent failures are worth this. A figure script saving under the wrong
