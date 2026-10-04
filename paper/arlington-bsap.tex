@@ -64,6 +64,10 @@
 % The paper includes the PDF versions; figures/png/ is for slides and email.
 \graphicspath{{../figures/pdf/}}
 
+% The notes under a figure or table. The empty line and the negative skip keep
+% LaTeX from setting a wider gap after the first line than after the rest.
+\newcommand{\figurenote}[1]{{\raggedright\footnotesize\hbox{}\vskip-\baselineskip #1\par}}
+
 % A figure goes at the top of the page it lands on, centered, above the section
 % heading if the section starts there; its title sits above it and its notes
 % below. The fractions let a full-width figure share a page with text.
@@ -130,12 +134,12 @@ Board at once.\autocite[37]{arlhist1967officials}
   \medskip
   \includegraphics[width=\textwidth]{residents_per_seat.pdf}
   \smallskip
-  {\raggedright\footnotesize
-    Source: US decennial census, 1870--2020.\par}
+  \figurenote{
+    Source: US decennial census, 1870--2020.}
 \end{figure}
 
 Arlington's Board has had five seats since 1932 and has not changed size since.
-The expansion came just before the county grew fivefold in twenty years, from
+The expansion came just before the county grew fivefold in 20 years, from
 26,615 residents in 1930 to 135,449 in 1950, and the county has since reached
 238,643. Each seat stood for 1,062 residents in 1870 and 8,872 in 1930, when
 there were three seats; with five, it stood for 11,408 in 1940, 27,090 in 1950
@@ -144,7 +148,7 @@ and 47,729 in 2020.
 The law gave the county a way to change that, and the county did not use it. In
 1952 the General Assembly offered Arlington voters two questions: whether to
 raise the Board from five seats to seven, and whether to elect members every
-two years. Either went on the ballot if two hundred voters petitioned the
+two years. Either went on the ballot if 200 voters petitioned the
 circuit court by 1 August, and nobody did.\autocite{vaacts1952c591} The
 Assembly reopened the window for the election question in 1954 and again in
 1958, and dropped the seven-seat question from both. No petition was filed
@@ -160,12 +164,12 @@ either time, and the question has not been offered since.\autocite{vaacts1954c15
   \medskip
   \includegraphics[width=\textwidth]{members_by_gender.pdf}
   \smallskip
-  {\raggedright\footnotesize
+  \figurenote{
     Notes: Census records identify gender for \genderCensusShareMembers{}
-    per cent of members, and pronouns and honorifics in press coverage
+    percent of members, and pronouns and honorifics in press coverage
     identify nearly all the rest. Two members who served before 1900 are
     recorded as men by default. Fractional seat values arise when members
-    served part of a year.\par}
+    served part of a year.}
 \end{figure}
 
 Women have held about a quarter of all seat-years since 1932 and have never
@@ -182,16 +186,17 @@ board.''\autocite{sun1938referendum}
 
 Gender rests on two kinds of evidence. A census sheet names it for members
 through the 1960s; the 1950 census is the last open, and the 1960 census closes
-for seventy-two years. For nearly every other member the source is the press: the
+for 72 years. For nearly every other member the source is the press: the
 ``she'' or ``Ms.'' a contemporary article uses, quoted and cited member by
 member. Two members before 1900, Robinson and Willson, rest on the default, man.
 
-\subsection*{Women on the Board}
-
-Thirteen women have served, identified through census records and the press.
-
-\begin{center}
-\begin{tabular}{@{}ll@{}}
+\begin{table}[!ht]
+  \centering
+  \refstepcounter{table}\label{tab:women}
+  {\raggedright\MakeUppercase{Table \thetable}\par}
+  {\raggedright\bfseries Women on the Board\par}
+  \medskip
+  \begin{tabular}{@{}ll@{}}
   \toprule
   \textbf{Elizabeth B. Magruder}* & 1932--1947 \\
   \textbf{Florence Cannon}*       & 1948--1951 \\
@@ -207,12 +212,11 @@ Thirteen women have served, identified through census records and the press.
   Maureen E. Coffey*              & 2024-- \\
   Susan R. Cunningham*            & 2024-- \\
   \bottomrule
-\end{tabular}
-\end{center}
-
-\noindent Bold names are members listed as women in US census records. An
-asterisk identifies members referred to as ``she'', ``Ms.'' or the like in the
-press. Three of the thirteen have both; the other ten rest on the press alone.
+  \end{tabular}
+  \smallskip
+  \figurenote{
+    Notes: Bold names are members listed as women in US census records. An asterisk identifies members referred to as ``she'', ``Ms.'' or the like in the press.}
+\end{table}
 
 \section{Race and Ethnicity}
 
@@ -228,19 +232,19 @@ press. Three of the thirteen have both; the other ten rest on the press alone.
   \medskip
   \includegraphics[width=\textwidth]{residents_by_race.pdf}
   \smallskip
-  {\raggedright\footnotesize
+  \figurenote{
     Notes: Panel (a) gives counts and panel (b) shares. Hispanic origin
     was first asked of every household in 1980, where the dashed rule
     falls; before then Hispanic residents were counted as Black or White,
     mostly White. White counts above 50,000 run off the top of panel (a);
-    they peak at 161,329 in 1970.\par}
-  {\raggedright\footnotesize
-    Source: US decennial census, 1870--2020.\par}
+    they peak at 161,329 in 1970.}
+  \figurenote{
+    Source: US decennial census, 1870--2020.}
 \end{figure}
 
 Arlington was a majority-Black county through 1880 and half Black in 1890.
-Between 1870 and 1950 the Black share of the county fell from 63 per cent to
-4.8 per cent, though the Black population itself grew from 2,010 to 6,517: the
+Between 1870 and 1950 the Black share of the county fell from 63 percent to
+4.8 percent, though the Black population itself grew from 2,010 to 6,517: the
 share fell because everything else grew faster. Since 1980 the county has
 diversified mostly through Hispanic and Asian American and Pacific Islander
 growth.
@@ -254,7 +258,7 @@ told.\autocite{bestebreurtje2017}
 
 No source held says when Freedman's Village closed or where its residents went;
 local knowledge is the likeliest answer. The Black share moves little between
-1950 and 1970, from 4.8 to 5.8 per cent. The census asked Asian and Pacific
+1950 and 1970, from 4.8 to 5.8 percent. The census asked Asian and Pacific
 Islander origin from 1950 but Hispanic origin of every household only from 1980,
 so the Hispanic series cannot start earlier.
 
@@ -266,15 +270,15 @@ so the Hispanic series cannot start earlier.
   \medskip
   \includegraphics[width=\textwidth]{members_by_race.pdf}
   \smallskip
-  {\raggedright\footnotesize
+  \figurenote{
     Notes: Census records identify the five Black members of the 1870s and
     1880s, and published sources identify the six members of color seated
-    since 1988. About \raceAssumedShareMembers{} per cent of members are
+    since 1988. About \raceAssumedShareMembers{} percent of members are
     recorded as White because no source says otherwise: the Arlington
     Historical Society describes William T. Newman, Jr. as the first Black
     member since Reconstruction. No Asian American or Pacific Islander
     member has served. Fractional seat values arise when members served
-    part of a year.\par}
+    part of a year.}
 \end{figure}
 
 For two decades after the Board was created, Black members held one or two of
@@ -284,19 +288,19 @@ death in 1892, then holds the Washington district seat for three
 years.\autocite{alexandriagazette18890525p3,alexandriagazette18910529p3,gazette1892wilsondeath}
 After him no member of color is recorded for almost a century, from 1892 to
 1988, with the district system intact until 1932 and
-Jefferson district still \blackShareJeffersonNineteenHundred{} per cent Black in
+Jefferson district still \blackShareJeffersonNineteenHundred{} percent Black in
 1900. Since members of color returned in 1988, no more than one has sat at a
 time except in the second half of 2023, when Dorsey and Talento overlapped, and
 none sat in 2024. No Asian American or Pacific Islander member has served at
 all.
 
-The break opens in 1892, under the district system, thirty-nine years before
+The break opens in 1892, under the district system, 39 years before
 at-large election arrives, and at-large election therefore looks like what
 prevented a reversal, not what caused the exclusion.
 
 One default runs underneath the figure: every member across 156 years who is not
 named below as a member of color is recorded as White because no source says
-otherwise. For the ninety-five years between 1892 and 1987 that default rests on one
+otherwise. For the 95 years between 1892 and 1987 that default rests on one
 sentence, the Arlington Historical Society's statement that William T. Newman,
 Jr. was the first African American elected to the Board since Reconstruction;
 no roster by race corroborates it.
@@ -329,11 +333,11 @@ or correct the record.
   \medskip
   \includegraphics[width=\textwidth]{members_race_coverage.pdf}
   \smallskip
-  {\raggedright\footnotesize
+  \figurenote{
     Notes: Shading shows what each member's race rests on: darkest a
     census sheet, paler a published or press account, grey a member
     recorded as White because no source says otherwise. Fractional seat
-    values arise when members served part of a year.\par}
+    values arise when members served part of a year.}
 \end{figure}
 
 Two mechanisms are at work in the move to countywide contests. At-large election
@@ -371,13 +375,13 @@ vote-dilution claim, and it failed. The 1976 state case asked whether voters
 could use the referendum statute a second time to put district election to a
 vote, and the courts said no.
 
-\subsection*{Members of color on the Board}
-
-Twelve members of color have served since 1870, identified through census
-records, published sources and the press.
-
-\begin{center}
-\begin{tabular}{@{}ll@{}}
+\begin{table}[!ht]
+  \centering
+  \refstepcounter{table}\label{tab:color}
+  {\raggedright\MakeUppercase{Table \thetable}\par}
+  {\raggedright\bfseries Members of color on the Board\par}
+  \medskip
+  \begin{tabular}{@{}ll@{}}
   \toprule
   \textbf{William A. Rowe}     & 1871--1883 \\
   \textbf{John B. Syphax}      & 1872 \\
@@ -392,17 +396,12 @@ records, published sources and the press.
   Tannia Talento*              & 2023 \\
   Julius D. ``JD'' Spain, Sr.* & 2025-- \\
   \bottomrule
-\end{tabular}
-\end{center}
-
-\noindent Bold names are members whose 1880 census records Hjerpe reads as
-Black. A dagger marks Walter G. Willson, whom the Alexandria Gazette calls
-``colored''; no census holds him. An asterisk identifies members named in
-published sources: documents from the Arlington Historical Society and the
-Center for Local History for Newman, Monroe, Tejada, Dorsey and Spain, and
-ARLnow for Talento. The five
-Reconstruction members come from Hjerpe's reading of the 1880 census, and a
-census record is filed for each. % waits on: member-demographics-lists
+  \end{tabular}
+  \smallskip
+  \figurenote{
+    Notes: Bold names are members whose 1880 census records Hjerpe reads as Black. A dagger marks Walter G. Willson, whom the Alexandria Gazette calls ``colored''; no census holds him. An asterisk identifies members named in published sources: documents from the Arlington Historical Society and the Center for Local History for Newman, Monroe, Tejada, Dorsey and Spain, and ARLnow for Talento. % waits on: member-demographics-lists
+  }
+\end{table}
 
 The Historical Society dates Newman's election 1987, Monroe's 1999, Dorsey's
 2015 and Spain's 2024, and this study's roster seats each a year later. Both
@@ -418,10 +417,10 @@ are correct: each won in November and took office the following January.
   \medskip
   \includegraphics[width=\textwidth]{residents_by_age.pdf}
   \smallskip
-  {\raggedright\footnotesize
-    Notes: Share of the county in each age band, youngest at the bottom.\par}
-  {\raggedright\footnotesize
-    Source: US decennial census, 1910--2020.\par}
+  \figurenote{
+    Notes: Share of the county in each age band, youngest at the bottom.}
+  \figurenote{
+    Source: US decennial census, 1910--2020.}
 \end{figure}
 
 This is context for the Board's ages, not a comparison with them. There is no
@@ -429,15 +428,15 @@ defensible optimal age for a Board member, and drawing the two on one panel
 would imply that there is.
 
 The county's age structure moved most before 1980. In 1910 children under 18
-were 36 per cent of residents and the 65-and-over band 4 per cent; by 1980
-children were 16 per cent and the oldest band 12. From 1980 to 2020 the county
+were 36 percent of residents and the 65-and-over band 4 percent; by 1980
+children were 16 percent and the oldest band 12. From 1980 to 2020 the county
 grew by more than half, from 152,599 residents to 238,643, and its age
 structure barely moved. The 25-to-34 band is the largest at every census from 1980,
-between 24 and 28 per cent: Arlington has been a young-adult county since then. The
-65-and-over share fell from 11.6 per cent in 1980 to 8.7 per cent in 2010 and
-recovered only to 10.6 per cent in 2020. The 18-to-24 band fell from 13.9 to
-9.9 per cent while the 35-to-44 band rose from 12.6 to 16.1. The under-18 share
-stayed between 15 and 18 per cent.
+between 24 and 28 percent: Arlington has been a young-adult county since then. The
+65-and-over share fell from 11.6 percent in 1980 to 8.7 percent in 2010 and
+recovered only to 10.6 percent in 2020. The 18-to-24 band fell from 13.9 to
+9.9 percent while the 35-to-44 band rose from 12.6 to 16.1. The under-18 share
+stayed between 15 and 18 percent.
 
 That steadiness makes the next figure readable. From 1980, movement in the
 Board's age range is about the Board, not about who lives in Arlington.
@@ -450,13 +449,13 @@ Board's age range is about the Board, not about who lives in Arlington.
   \medskip
   \includegraphics[width=\textwidth]{members_age.pdf}
   \smallskip
-  {\raggedright\footnotesize
+  \figurenote{
     Notes: Each diagonal line is one member, from age at first election to
     age at departure; the band behind runs from the youngest to the oldest
     member sitting in each year. Birth years come from census records for
     members seated before 1960 and from obituaries and published profiles
     after that, and are approximate within a year. Eight of 126 members
-    have no known birth year and are left out.\par}
+    have no known birth year and are left out.}
 \end{figure}
 
 From 2008 to 2011 the Board sat inside the narrowest age span in the series:
@@ -500,8 +499,8 @@ Elections' printed annual reports hold the earlier counts.
 % waits on: party-unlabelled
 % waits on: party-before-1932
 \textbf{Partisanship} --- the hardest thing on the list to measure defensibly.
-Twelve terms between 1932 and 1975, and one in 2023, carry no party or
-coalition label anywhere, and none has been recorded before 1932.
+No party or coalition label survives for 12 terms between 1932 and 1975 and one
+in 2023, and none has been recorded before 1932.
 
 \subsection*{Local legal authority}
 
@@ -606,21 +605,21 @@ priority among them.
   \medskip
   \includegraphics[width=\textwidth]{members_residence_coverage.pdf}
   \smallskip
-  {\raggedright\footnotesize
+  \figurenote{
     Notes: Shading shows the most specific record held for each member's
     home: darkest a street address, palest a magisterial district or a
     side of the County, grey nothing. Census records carry street
     addresses in the mid-twentieth century; before 1932 they mostly name
     only a magisterial district. More recent members are located largely
     by neighborhoods named in the press and in public profiles. Fractional
-    seat values arise when members served part of a year.\par}
+    seat values arise when members served part of a year.}
 \end{figure}
 
 The record is fullest in the middle. From 1932 to 1971, at least four of the
 five seats have a member placed at a street address or a street name, from
 census sheets and newspaper reports. From 1972 two or three seats have
 no place at all, through 1995, and from 1998 no seat has a street address. The
-census closes for seventy-two years --- the 1950 census is the last open --- and
+census closes for 72 years --- the 1950 census is the last open --- and
 no public source takes its place. Since 2013 the best available unit for all
 five members is a neighborhood drawn from press coverage.
 
@@ -685,12 +684,12 @@ Figures~\ref{fig:board-gender}, \ref{fig:board-race},
 seat-years: a member who sat four months of a year counts four twelfths of a
 seat, so a year in which one member replaced another shows as half a seat each
 rather than a whole seat for both. The denominator is the months the Board
-existed, which is twelve in every year but its first --- the Board's first
+existed, which is 12 in every year but its first --- the Board's first
 members sat from 1 July 1870, after the May election, so 1870 is scaled by six
 months.
 
-Eleven years fall below a full Board, each by a vacancy the record shows: four
-in the district years (1870, 1873, 1879 and 1920) and seven since 1932 (1990,
+In 11 years the Board falls below a full complement, each by a vacancy the record
+shows: four in the district years (1870, 1873, 1879 and 1920) and seven since 1932 (1990,
 1997, 1999, 2003, 2012, 2014 and 2020), each a seat left empty while a special
 election was called and the Board sat with four members.
 
@@ -711,10 +710,10 @@ what the printed categories leave. The Bureau did not ask Hispanic origin of
 every household until 1980, and Hispanic residents were counted as white
 before then, so part of the step at 1980 is the question appearing, not people
 arriving. Asian and Pacific Islander residents were first counted in 1950, when
-they numbered 57, 0.04 per cent of the county. The 1980 Asian and Pacific
+they numbered 57, 0.04 percent of the county. The 1980 Asian and Pacific
 Islander band also carries the county's 384 American Indian, Eskimo and Aleut
 residents, because the 1980 table does not separate them among residents of
-Spanish origin; the band is about five per cent high, once. Asian and Pacific Islander are reported together
+Spanish origin; the band is about five percent high, once. Asian and Pacific Islander are reported together
 before 2000 and separately after, and are combined throughout so the series is
 consistent. ``Other or Multiracial'' is American Indian and Alaska Native, some
 other race, and two or more races; before 1980 it is the residents the reported

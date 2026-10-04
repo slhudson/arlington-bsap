@@ -3,14 +3,14 @@ r"""Numbers the prose cites that no figure carries -> paper/body_text_numbers.te
 One \newcommand per number, for the paper's preamble to \input. A name is
 <measure><District><Year>, the year in words because a LaTeX command name
 holds letters only, and a value is printed as the paper prints a share: a
-whole number, with "per cent" left to the sentence.
+whole number, with "percent" left to the sentence.
 
     share<District><Year>       the district's share of the county, 1870-1930
     blackShare<District><Year>  the Black share of the district, 1870 and 1920
     genderCensusShareMembers    members whose gender comes from a census sheet
     raceAssumedShareMembers     members recorded White on no source's say
 
-    Jefferson held \shareJeffersonEighteenSeventy{} per cent of the county.
+    Jefferson held \shareJeffersonEighteenSeventy{} percent of the county.
 
 The {} keeps the space after the command. Every number the table gives is
 written, whether or not the prose uses it yet.

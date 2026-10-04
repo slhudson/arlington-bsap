@@ -208,6 +208,12 @@ and is never trimmed for brevity.
 A figure's caption says what the picture shows and what a reader must know to
 read it. Not how it was built.
 
+## Conventions of the page
+
+**Numbers above 10 are numerals** (4 October 2026): "13 women", "200 voters",
+"72 years"; ten and under are words. **"Percent" is one word** in running text,
+and the symbol stays out of prose.
+
 ## Corrections this project has made
 
 Kept here so the voice accumulates rather than being re-derived. Add to it
