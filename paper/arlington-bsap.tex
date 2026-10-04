@@ -64,9 +64,9 @@
 % The paper includes the PDF versions; figures/png/ is for slides and email.
 \graphicspath{{../figures/pdf/}}
 
-% The notes under a figure or table. The empty line and the negative skip keep
-% LaTeX from setting a wider gap after the first line than after the rest.
-\newcommand{\figurenote}[1]{{\raggedright\footnotesize\hbox{}\vskip-\baselineskip #1\par}}
+% The notes under a figure or table, set in a box of their own so the first
+% line is spaced like the rest.
+\newcommand{\figurenote}[1]{\begin{minipage}[t]{\linewidth}\raggedright\footnotesize #1\par\end{minipage}\par}
 
 % A figure goes at the top of the page it lands on, centered, above the section
 % heading if the section starts there; its title sits above it and its notes
@@ -191,7 +191,6 @@ for 72 years. For nearly every other member the source is the press: the
 member. Two members before 1900, Robinson and Willson, rest on the default, man.
 
 \begin{table}[!ht]
-  \centering
   \refstepcounter{table}\label{tab:women}
   {\raggedright\MakeUppercase{Table \thetable}\par}
   {\raggedright\bfseries Women on the Board\par}
@@ -213,7 +212,7 @@ member. Two members before 1900, Robinson and Willson, rest on the default, man.
   Susan R. Cunningham*            & 2024-- \\
   \bottomrule
   \end{tabular}
-  \smallskip
+  \par\smallskip
   \figurenote{
     Notes: Bold names are members listed as women in US census records. An asterisk identifies members referred to as ``she'', ``Ms.'' or the like in the press.}
 \end{table}
@@ -376,7 +375,6 @@ could use the referendum statute a second time to put district election to a
 vote, and the courts said no.
 
 \begin{table}[!ht]
-  \centering
   \refstepcounter{table}\label{tab:color}
   {\raggedright\MakeUppercase{Table \thetable}\par}
   {\raggedright\bfseries Members of color on the Board\par}
@@ -397,7 +395,7 @@ vote, and the courts said no.
   Julius D. ``JD'' Spain, Sr.* & 2025-- \\
   \bottomrule
   \end{tabular}
-  \smallskip
+  \par\smallskip
   \figurenote{
     Notes: Bold names are members whose 1880 census records Hjerpe reads as Black. A dagger marks Walter G. Willson, whom the Alexandria Gazette calls ``colored''; no census holds him. An asterisk identifies members named in published sources: documents from the Arlington Historical Society and the Center for Local History for Newman, Monroe, Tejada, Dorsey and Spain, and ARLnow for Talento. % waits on: member-demographics-lists
   }
