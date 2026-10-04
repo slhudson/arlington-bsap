@@ -32,7 +32,7 @@ def shares() -> pd.DataFrame:
     both["share"] = 100 * both.black / both.counted
     wide = both.pivot(index="year", columns="district", values="share")
     # The censuses with no race below the county stay, empty, so the line
-    # breaks across them instead of being drawn through them; the axis stops
+    # breaks across them and a dotted segment bridges the gap; the axis stops
     # at the last census that has one rather than running on over nothing.
     told = wide.index[wide.notna().any(axis=1)]
     return wide.loc[told.min():told.max(), list(style.DISTRICTS) + [COUNTY]]
@@ -46,8 +46,8 @@ for profile in style.PROFILES:
 
     fig, ax = charts.figure(profile)
     charts.lines(ax, s.index.to_numpy(),
-                 {style.WHOLE_COUNTY[0]: (s[COUNTY].to_numpy(), style.WHOLE_COUNTY[1])})
-    charts.lines(ax, s.index.to_numpy(), charts.series(s, style.DISTRICTS))
+                 {style.WHOLE_COUNTY[0]: (s[COUNTY].to_numpy(), style.WHOLE_COUNTY[1])}, bridge=True)
+    charts.lines(ax, s.index.to_numpy(), charts.series(s, style.DISTRICTS), bridge=True)
     charts.shares(ax, label="Black share of residents")
     charts.years(ax, int(s.index.min()), int(s.index.max()), step=10)
     charts.legend(fig, {style.WHOLE_COUNTY[0]: style.WHOLE_COUNTY[1],

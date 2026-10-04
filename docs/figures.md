@@ -473,7 +473,8 @@ there the labels can be shortened and here the years cannot.
   district over the censuses that give race below the county, with the county
   behind them. Lines, because the points are observations one per census, and
   a line breaks wherever a census has nothing rather than being drawn through
-  it: 1890, whose schedules burned, for every line, and 1900 for Arlington,
+  it, and a dotted segment bridges the gap so that the break reads as a
+  missing census and not as a series ending (Sally, 4 October 2026): 1890, whose schedules burned, for every line, and 1900 for Arlington,
   whose schedules are short of that district by one resident in six. The
   county line is the three districts added together, so it breaks at 1900
   too — two districts are not a county. That it is the districts added up

@@ -66,11 +66,20 @@ def series(frame, table, keys=None):
             if keys is None or k in keys}
 
 
-def lines(ax, x, entries, marker=True):
+def lines(ax, x, entries, marker=True, bridge=False):
     """One line per entry of an ordered {label: (values, colour)}. A marker
-    on every point unless marker=False."""
+    on every point unless marker=False. A missing value breaks the line;
+    with bridge=True a dotted segment joins the points either side of the
+    gap, so the gap reads as a gap and not as the end of a series
+    (docs/figures.md)."""
     for label, (values, color) in entries.items():
         ax.plot(x, values, color=color, marker="o" if marker else None, zorder=3, label=label)
+        if bridge:
+            known = [i for i, v in enumerate(values) if v == v]  # not NaN
+            for a, b in zip(known, known[1:]):
+                if b - a > 1:
+                    ax.plot([x[a], x[b]], [values[a], values[b]], color=color,
+                            ls=(0, (1, 3)), lw=plt.rcParams["lines.linewidth"], zorder=2)
 
 
 def age_band(ax, x, low, high, spans, color, width=1.0):
