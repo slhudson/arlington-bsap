@@ -44,9 +44,9 @@ def build() -> pd.DataFrame:
                 continue
             r = h.iloc[0]
             kind = ("unopposed" if r.outcome == "unopposed"
-                    else "contested" if r.contested is True
+                    else "contested" if str(r.contested) in ("True", "1.0")
                     else "contest not reported")
-            parts.append(f"{w}: {r.method or 'method not stated'}, {kind}")
+            parts.append(f"{w}: {r.method if pd.notna(r.method) else "method not stated"}, {kind}")
             key = (r.year, r.seat, r.party)
             if key not in used:
                 used.append(key)

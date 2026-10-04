@@ -56,7 +56,7 @@ def tidy(name) -> str:
     """A candidate's name without the marks the county's page hangs on it:
     a leading asterisk, a label, a trailing remark."""
     s = re.sub(r"\(.*?\)", "", str(name)).lstrip("*").strip()
-    return re.split(r", (?:re-elected|incumbent|new|conservative)|\s+-\s+", s)[0].strip(" ,;")
+    return re.split(r", (?:re-elected|incumbent|new|conservative|unopposed)|\s+-\s+", s)[0].strip(" ,;")
 
 
 def _row(**kw):
@@ -230,8 +230,32 @@ def district_rows() -> list:
             row["note"] = f"{row['note']}; " + "; ".join(said.quote.unique())
         rows.append(row)
     o = elections.oleary(elections.SUPERVISORS)
+    m = paths.read("members")
     for _, r in o.iterrows():
         if (int(r.year), r.district) in covered:
+            continue
+        counts = (re.findall(r"([A-Z][A-Za-z.'\- ]*?)\s+(\d+)", r.entry)
+                  if re.fullmatch(r"(?:[A-Z][A-Za-z.'\- ]*?\s+\d+\s*)+", r.entry) else [])
+        if counts:
+            # O'Leary prints the counts for 1907 and 1915; the roster says who sat.
+            c = pd.DataFrame(counts, columns=["name", "votes"]).astype({"votes": int})
+            win = c.loc[c.votes.idxmax()]
+            sat = m[(m.election_year == r.year) & (m.district == r.district)]
+            if len(sat) and surname(win["name"]) not in set(sat.name.map(surname)):
+                raise ValueError(f"{r.year} {r.district}: O'Leary's highest count is {win['name']}, "
+                                 f"the roster seated {list(sat.name)}")
+            lost = c.drop(c.votes.idxmax())
+            cast = c.votes.sum()
+            rows.append(_row(year=int(r.year), stage="general", tier="before 1931",
+                             contest=f"{r.district} District", date=r.election_date, seats=1,
+                             winners=win["name"], candidates=len(c), last_winner_votes=win.votes,
+                             top_loser=lost.loc[lost.votes.idxmax(), "name"],
+                             top_loser_votes=lost.votes.max(), margin_votes=win.votes - lost.votes.max(),
+                             votes_cast=cast, margin_share=(win.votes - lost.votes.max()) / cast,
+                             share_of="votes cast", status="computed",
+                             source="oleary2010 p." + str(r["page"]),
+                             note="the counts are as O'Leary prints them; the winner is the highest count, "
+                                  "checked against the roster"))
             continue
         rows.append(_row(year=int(r.year), stage="general", tier="before 1931",
                          contest=f"{r.district} District", date=r.election_date,

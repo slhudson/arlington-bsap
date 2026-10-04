@@ -19,6 +19,15 @@ still open.
   (`registration-before-2010`), and votes per seat standing in for ballots
   cast (`ballots-cast`).
 
+- The nominating stage is recorded for at least one winner in 20 of the 89 Board election years since
+  1931 (`nominations-1931-1978`, `nominations-1979-2011`,
+  `nominations-2012-2025`), and before 1931 for 1885 alone
+  (`nominations-pre-1931`); every other year reads "no record" in
+  `elections_margins_by_year.csv`, which is a gap and not a finding.
+- The nominating margin of the 2023 and 2024 ranked-choice primaries waits on
+  the final-round counts (`margins-ranked-choice-rounds`), and the district
+  margins before 1931 rest on the Gazette's OCR text (`margins-gazette-ocr`).
+
 Each is a row in `docs/questions.csv`, with whose court it waits in and what would settle it.
 
 ---
@@ -102,6 +111,91 @@ where it ran fewer candidates than seats, which the county's record shows in
 1951 (one independent), 1959 (one Democrat and one Republican against two
 ABC) and 2003 (one Republican).
 
+
+---
+
+## How the Board's candidates were nominated
+
+`data/clean/elections_nominations.csv` has one row per candidate per nominating
+contest. A party's or coalition's method is its own and changes
+(`docs/candidates.md`, "Who the general-election list leaves out"); the file
+records the methods the sources name and no others: Democratic primary,
+Democratic caucus, Democratic committees' vote, ABC convention, Republican
+committee, Republican mass meeting, and for 1885 the Gazette's "regular"
+nomination. A row is **derived** where the county's candidate history (to
+2021) or the state's database (from 2022) prints the primary with its counts,
+and **keyed** where a newspaper reports a convention, caucus, committee vote
+or primary, with a quoted sentence in
+`data/transcribed/by_claude/elections_nominations.csv`.
+
+A primary candidate won the nomination if they are on that year's regular
+general ballot. The state's own winner flag is not used: for a ranked-choice
+primary it marks every candidate who was not eliminated in the first count.
+The 2023 and 2024 counts are first choices (`votes_kind`), and in 2023 the
+candidate with the most first choices did not win.
+
+`contested` is yes where a source names a losing candidate, no where it says
+the nominee was unopposed, and blank where it says neither: the county prints
+some primaries as one name, and a convention report can omit the losers.
+
+What the covered years show about method, from the rows:
+
+| Years | Party | Method |
+|---|---|---|
+| 1942, 1944 | Democratic | primary: unopposed in 1942; Lloyd 1,212, Usilton 754, Beard 116 in 1944 |
+| 1944, 1963 | Republican | county committee (1944); mass meeting, then committee when the nominee withdrew (1963) |
+| 1955 | ABC | convention, five seeking two nominations, 39 votes between second and third |
+| 1950, 1952, 1962 | Democratic | primaries the county prints without counts |
+| 1995, 1997, 2003 | Democratic | state-run primaries |
+| 2002, 2003 (March special) | Democratic | caucus |
+| 2012, 2014, 2017 | Democratic | caucus, with ranked ballots in 2014 and 2017 |
+| 2015, 2016, 2018, 2021 | Democratic | state-run primaries |
+| 2019, 2020 (regular seat) | Democratic | primary not held, the incumbents unopposed |
+| 2020 (special) | Democratic | a ranked-choice vote of about 250 committee members |
+| 2023-2025 | Democratic | state-run primaries, ranked-choice counting |
+
+## How close the contests were
+
+`data/clean/elections_margins.csv` has one row per contest, general and
+nominating. The margin is the fewest votes that won a seat minus the most votes
+that lost one, so with two seats it is the second-place candidate against the
+third; as a share it is of the votes cast in the contest, write-ins included,
+which counts each two-seat ballot twice. A source that prints only
+percentages (the 2014 caucus) gives the difference in points. The seats are the
+county's except where it prints "Vote for 1" on a larger contest (`SEATS` in
+`code/clean/elections_margins.py`), and every winner the votes name must be a
+member the roster seated that year or the build stops.
+
+A margin is not computed where the returns are incomplete (1931, 1935, 1947,
+1949, and 1942, whose names carry no counts), where no named candidate stood
+against the winner (1996, 2005), where the page prints no counts for a
+nominating contest, and for a ranked-choice contest whose counts are first
+choices. Each such row stays in the file with its reason.
+
+The general margin is computed for 83 of the 89 years since 1931. Its share of
+votes cast, by era:
+
+| Years | Contests computed | Median share | Range |
+|---|---|---|---|
+| 1931-1950 | 9 | 10.0% | 0.7-57.2% |
+| 1951-1970 | 21 | 4.6% | 0.2-21.8% |
+| 1971-1990 | 21 | 11.1% | 0.5-68.6% |
+| 1991-2010 | 23 | 23.5% | 0.9-53.1% |
+| 2011-2025 | 18 | 31.2% | 5.7-49.6% |
+
+`contested_other` in `elections_margins_by_year.csv` is yes where any named
+candidate carries a label other than the county's Democratic or ABC (the
+county's label, as in "For County Board" above, and not the member's party in
+`members_by_party`), no where every candidate is Democratic or ABC, and unknown
+where a candidate has no label and no other candidate has a non-Democratic,
+non-ABC one.
+
+Before 1931 each district's seat is its own contest. The Gazette's counts
+give ten district margins (1893-1901, 1919) from OCR text; O'Leary prints the
+counts for 1907 and 1915, and the highest count there is checked against the
+roster. The nominating stage is keyed for 1885 only, where the Gazette names
+the "regular republican" nominee and a "citizens'" candidate against them in
+Arlington District; the other years and districts are gaps.
 
 ---
 
