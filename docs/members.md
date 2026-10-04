@@ -183,7 +183,9 @@ Walker; on 3 October it reports that "Judge Chichester yesterday, before the
 adjournment of the County Court, appointed Mr. Frank Hume supervisor of
 Jefferson district, in place of Tibbett Allen, resigned"
 (`alexandriagazette1888rule`, `alexandriagazette1888hume`). Allen was the
-last Black member of the Board until Newman was seated in 1988. Schutt and Rowe went on their own
+Board's only Black member that year; Willson, whom the Gazette calls colored,
+takes the Washington seat in 1889, and Newman in 1988 is the next Black member
+after him. Schutt and Rowe went on their own
 and no process issued against either.
 
 The record does not support three things it would be easy to assume.
@@ -865,7 +867,7 @@ The three seats run as follows.
 
 The article gives no race for any of them, so a member drawn from this listing
 defaults to White and man like the rest of the era (`member-demographics-lists`, above)
-rather than being looked into on its own. The White coding of 1889–1986 is
+rather than being looked into on its own. The White coding of 1889–1986, Willson aside, is
 a separate question waiting on the County, and this reading does not reopen
 it.
 
