@@ -1,0 +1,16 @@
+year,district,men_white,men_black,men_other,men_all,source
+1880,Arlington,232,220,0,452,ipumsfullcount
+1880,Jefferson,124,198,0,322,ipumsfullcount
+1880,Washington,121,78,0,199,ipumsfullcount
+1880,county,477,496,0,973,ipumsfullcount
+1900,Arlington,489,257,0,746,ipumsfullcount
+1900,Jefferson,244,301,0,545,ipumsfullcount
+1900,Washington,256,108,0,364,ipumsfullcount
+1910,Arlington,1853,374,0,2227,ipumsfullcount; nara1910eds
+1910,Jefferson,437,332,0,769,ipumsfullcount; nara1910eds
+1910,Washington,349,90,0,439,ipumsfullcount; nara1910eds
+1910,county,2639,796,0,3435,ipumsfullcount; nara1910eds
+1920,Arlington,2578,326,2,2906,ipumsfullcount; nara1920eds
+1920,Jefferson,807,300,0,1107,ipumsfullcount; nara1920eds
+1920,Washington,936,148,0,1084,ipumsfullcount; nara1920eds
+1920,county,4321,774,2,5097,ipumsfullcount; nara1920eds

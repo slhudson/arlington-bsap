@@ -262,6 +262,36 @@ it and began removing its residents in 1888, so the 1870 baseline of the race
 series is a Reconstruction moment rather than a stable starting point. See
 *What the Black share shows* below.
 
+### Men of voting age, by district
+
+`data/clean/residents_by_district_adults.csv` counts the men aged 21 and over
+in each district at 1880, 1900, 1910 and 1920, by race, and the county where
+all three districts are counted. It is the denominator of
+`elections_turnout_by_district`. The build carries sex beside race and age
+(`data/built/ipums.csv`); that the age is 21 and the unit a man is decided in
+`code/clean/residents_by_district_adults.py`. Each census's enumeration
+districts are placed in a magisterial district by `residents_by_district.placed()`
+and `ED_READ_BY_HAND`, the same reading as the race table, and the step
+refuses if a district's head count is not the one `residents_by_district.csv`
+holds.
+
+| District | 1880 | 1900 | 1910 | 1920 |
+|---|---|---|---|---|
+| Arlington | 452 | 746 | 2,227 | 2,906 |
+| Jefferson | 322 | 545 | 769 | 1,107 |
+| Washington | 199 | 364 | 439 | 1,084 |
+
+**Arlington's 1900 count is a floor.** The database holds 2,701 of the 3,200
+people the volume prints for the district, so the 746 men are fewer than the
+district's. The row is written, since a turnout rate needs a denominator and
+the alternative is no 1893 to 1905 line for the district; the county is not
+written for 1900, because two districts and a short third are not a county.
+A rate that divides by this count is an upper bound.
+
+**A census is a denominator for the years nearest it.** Washington's 439
+adult men in 1910 and 1,084 in 1920 are the district doubling, so a vote
+divided by the nearer census reads high in 1915, which is five years from
+each and is divided by 1910's. Nothing in `data/` interpolates the men.
 
 ---
 
