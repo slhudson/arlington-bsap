@@ -454,7 +454,10 @@ says the county was treated as an exception.
 district were supervisors: the county's own returns print "Supervisor Jefferson
 District" for the election of 8 November 1927 (arlingtonelections2021 p.4), and
 Corbett's 1910 census occupation is "Supervisor, County". Arlington adopted the
-County Manager Plan by referendum in 1930 and has operated under it since 1932;
+County Manager Plan by referendum on 4 November 1930 (rose1976 pp. 194-196:
+2,067 to 1,031 for a change of government, 1,936 to 428 for the Manager Plan
+over a Modified Commission Plan, 1,689 to 1,149 for election at large over
+election by district) and has operated under it since 1932;
 samuel2026 note 8 records that the Plan "appears to be the only county form of
 government that does not refer to its Board members as 'supervisors'". The
 name, the at-large method and the five seats therefore arrive together.
@@ -1265,7 +1268,7 @@ Board grew from two seats to three, which it did not.
 
 The seats held can never exceed the seats that exist: three magisterial
 districts with one supervisor each from 1870, and five members elected
-countywide from the County Manager plan, which the November 1931 referendum
+countywide from the County Manager plan, which the referendum of 4 November 1930
 adopted and which seated its first Board in January 1932. The seats held fall
 short only in 1873 and 1990. Anything else stops the build. Race, gender and party are independent splits of the same
 seats and must account for the same total in every year, which
