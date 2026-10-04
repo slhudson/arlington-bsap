@@ -97,11 +97,9 @@ themes the Board could take up next.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{residents_per_seat.pdf}
-  \caption{Arlington County residents and residents per Board seat, 1870--2020,
-  with a dashed rule at 1932, when the Board went from three seats to five.
-  Both series count people, so one axis serves both. The denominator is the
-  seats that exist --- three through 1930, five after --- not the members
-  serving, so a vacancy does not move the line. Source: US decennial census.}
+  \caption{Arlington residents and residents per Board seat, 1870--2020. Notes: Seats
+  are counted as authorized --- three through 1930, five after --- not as
+  filled. Source: US decennial census.}
   \label{fig:residents-per-seat}
 \end{figure}
 
@@ -157,14 +155,11 @@ no other form.\autocite{samuel2026}
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{members_by_gender.pdf}
-  \caption{Arlington County Board seats by gender, 1870--2026, in seats, not
-  shares. The dashed rule marks 1932, when the Board went from three seats to
-  five and magisterial districts gave way to at-large election; the first woman
-  took a seat that year. Census records identify gender for
-  \genderCensusShareMembers{} per cent of all members and the press's pronouns
-  and honorifics for the rest but two: William H. Robinson (1877) and Walter G.
-  Willson (1889) rest on the default, man. Fractional seat values arise where a
-  member served part of a year.}
+  \caption{Board seats by gender, 1870--2026. Notes: Census records identify gender for
+  \genderCensusShareMembers{} per cent of members, and pronouns and honorifics
+  in press coverage identify nearly all the rest. Two members who served before
+  1900 are recorded as men by default. Fractional seat values arise when
+  members served part of a year.}
   \label{fig:board-gender}
 \end{figure}
 
@@ -232,14 +227,12 @@ press. Three of the thirteen have both; the other ten rest on the press alone.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{residents_by_race.pdf}
-  \caption{Arlington County residents by race and ethnicity, 1870--2020. Panel
-  (a) gives counts, panel (b) each group's share. A line in (a) begins the year
-  the Census first counted that group. The dashed rule marks 1980, the first
-  census to ask Hispanic origin of every household; from there the categories
-  are the Census Bureau's own race-by-Hispanic-origin crosstabs, so nobody is
-  counted twice. The White line leaves the top of panel (a) at 50,000 between
-  1930 and 1940, where the triangle marks it, and peaks at 161,329 in 1970;
-  plotting its full range would flatten the other four series.}
+  \caption{Arlington residents by race and ethnicity, 1870--2020. Notes: Panel (a)
+  gives counts and panel (b) shares. Hispanic origin was first asked of every
+  household in 1980, where the dashed rule falls; before then Hispanic residents
+  were counted as Black or White, mostly White. White counts above 50,000 run
+  off the top of panel (a); they peak at 161,329 in 1970. Source: US decennial
+  census.}
   \label{fig:residents-race}
 \end{figure}
 
@@ -281,16 +274,14 @@ so the Hispanic series cannot start earlier.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{members_by_race.pdf}
-  \caption{Arlington County Board seats by race and ethnicity, 1870--2026, in
-  seats, not shares, on the same scale as
-  Figure~\ref{fig:board-gender}. The dashed rule marks 1932. Hjerpe's reading
-  of the 1880 census identifies the five members seated through 1888, the
-  Alexandria Gazette's word ``colored'' the sixth, Walter G. Willson, who sat
-  from 1889 to 1892; published sources, among them research by the Arlington
-  Historical Society and the Center for Local History, identify the six
-  members of color seated since 1988. About \raceAssumedShareMembers{} per cent of all members are recorded as
-  White because no source confirms it. No Asian American or Pacific Islander
-  member has served in any year, so no such band is drawn.}
+  \caption{Board seats by race and ethnicity, 1870--2026. Notes: Census records identify
+  the five Black members of the 1870s and 1880s, and published sources identify
+  the six members of color seated since 1988. About \raceAssumedShareMembers{}
+  per cent of members are recorded as White because no source says otherwise:
+  the Arlington Historical Society describes William T. Newman, Jr. as the first
+  Black member since Reconstruction. No Asian American or Pacific Islander
+  member has served. Fractional seat values arise when members served part of a
+  year.}
   \label{fig:board-race}
 \end{figure}
 
@@ -475,16 +466,13 @@ are correct: each won in November and took office the following January.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{members_residence_coverage.pdf}
-  \caption{How precisely each Board seat's occupant can be located, 1870--2026.
-  Each year averages the months the Board existed, so a vacancy leaves a gap
-  and a member who served part of a year fills a fraction of a seat. The shade
-  gives the finest geographic unit at which the person sitting in it can be
-  placed: darkest a street address, palest a magisterial district or a side of
-  the County, grey no location at all. Census records carry street addresses
-  through the mid-twentieth century. Before 1932 a member is placed by his
-  census sheet, which outside the towns names a magisterial district and no
-  street. More recent members are located largely by neighborhood mentions in
-  the press and in public profiles.}
+  \caption{How precisely each Board member's home can be located, 1870--2026. Notes:
+  Shading shows the most specific record held: darkest a street address, palest
+  a magisterial district or a side of the County, grey nothing. Census records
+  carry street addresses in the mid-twentieth century; before 1932 they mostly
+  name only a magisterial district. More recent members are located largely by
+  neighborhoods named in the press and in public profiles. Fractional seat
+  values arise when members served part of a year.}
   \label{fig:board-residence}
 \end{figure}
 
@@ -528,10 +516,8 @@ code or precinct?
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{residents_by_age.pdf}
-  \caption{Arlington residents by age band as a share of the county, at each
-  census from 1910 to 2020, shaded light to dark from youngest to oldest. 1910
-  and 1920 are counted from the full-count schedules; from 1930, the published
-  county age tables. US decennial census, 1910--2020.}
+  \caption{Arlington residents by age band, share of the county, 1910--2020, youngest
+  at the bottom. Source: US decennial census.}
   \label{fig:residents-age}
 \end{figure}
 
@@ -556,15 +542,12 @@ Board's age range is about the Board, not about who lives in Arlington.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{members_age.pdf}
-  \caption{Ages of the Arlington County Board, 1870--2026. Each diagonal is one
-  member, running from their age at first election to their age at departure;
-  it rises at 45 degrees because everyone ages a year per year. The band behind
-  runs from the youngest to the oldest member sitting in that year, so its
-  height is the age range on the Board at that moment. Birth years come from
+  \caption{Ages of Board members, 1870--2026. Notes: Each diagonal line is one member,
+  from age at first election to age at departure; the band behind runs from the
+  youngest to the oldest member sitting in each year. Birth years come from
   census records for members seated before 1960 and from obituaries and
-  published profiles after that; exact birth dates are rarely known, so age is
-  approximate within one year. A year is drawn only where all but at most one
-  sitting member has a birth year.}
+  published profiles after that, and are approximate within a year. Eight of
+  126 members have no known birth year and are left out.}
   \label{fig:board-age}
 \end{figure}
 
