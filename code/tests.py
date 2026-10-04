@@ -65,12 +65,12 @@ def stage(folder, *names):
  members_roster, members_roster_arlhist, members_roster_oleary,
  members_roster_results, residents, residents_by_district, elections,
  elections_results, elections_turnout, clean_survey_satisfaction,
- localities, members_residence, localities_southeastern) = stage(
+ clean_survey_rcv, localities, members_residence, localities_southeastern) = stage(
     "clean", "paths", "candidates", "census", "members", "members_census", "members_chairs",
     "members_by_year", "members_roster", "members_roster_arlhist",
     "members_roster_oleary", "members_roster_results", "residents",
     "residents_by_district", "elections", "elections_results",
-    "elections_turnout", "survey_satisfaction", "localities",
+    "elections_turnout", "survey_satisfaction", "survey_rcv", "localities",
     "members_residence", "localities_southeastern")
 
 registration, = stage("fetch", "registration")
@@ -2033,6 +2033,25 @@ def test_a_chair_the_roll_labels_in_a_new_way_is_refused():
         assert "chairperson" in str(e), e
     else:
         raise AssertionError("an office label OFFICES does not read was dropped")
+
+
+def test_a_survey_cell_that_lost_its_status_is_refused():
+    """A cell resting on too few respondents, read as one that is not.
+    Twenty of the 132 cells are marked caution by the survey's own
+    preparers, and every race and ethnicity category but White and Black is
+    among them. If `status` stopped reaching code/clean/survey_rcv.py the
+    shares would all still be right, and a figure would show the 37 Hispanic
+    respondents as firmly as the 444 White ones with nothing to say so."""
+    def mangle(orig):
+        def patched(stem):
+            frame = orig(stem)
+            if stem == "survey_rcv":
+                frame = frame.copy()
+                frame["status"] = "ok"
+            return frame
+        return patched
+    err = breaks(clean_survey_rcv.paths, "built", mangle, build=clean_survey_rcv.clean)
+    assert err and "marked the same way" in err, f"not caught: {err}"
 
 
 if __name__ == "__main__":

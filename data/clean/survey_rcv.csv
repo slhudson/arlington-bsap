@@ -1,0 +1,133 @@
+group,category,respondents,measure,share,counted,thin
+Age 18-49 or 50+,18-49,171,awareness,0.6922,115.0,False
+Age 18-49 or 50+,18-49,171,net_support,47.7,,False
+Age 18-49 or 50+,18-49,171,support,0.6952,115.0,False
+Age 18-49 or 50+,18-49,171,understanding,0.9313,157.0,False
+Age 18-49 or 50+,50+,413,awareness,0.7239,308.0,False
+Age 18-49 or 50+,50+,413,net_support,35.0,,False
+Age 18-49 or 50+,50+,413,support,0.6322,264.0,False
+Age 18-49 or 50+,50+,413,understanding,0.8216,351.0,False
+Age band,18-29,22,awareness,,,False
+Age band,18-29,22,net_support,,,False
+Age band,18-29,22,support,0.7448,17.0,True
+Age band,18-29,22,understanding,0.9401,20.0,True
+Age band,30-44,87,awareness,0.6947,59.0,False
+Age band,30-44,87,net_support,53.0,,False
+Age band,30-44,87,support,0.7072,60.0,False
+Age band,30-44,87,understanding,0.9252,80.0,False
+Age band,45-64,250,awareness,0.6942,173.0,False
+Age band,45-64,250,net_support,41.6,,False
+Age band,45-64,250,support,0.6607,167.0,False
+Age band,45-64,250,understanding,0.8883,221.0,False
+Age band,65+,225,awareness,0.7385,174.0,False
+Age band,65+,225,net_support,25.6,,False
+Age band,65+,225,support,0.5833,135.0,False
+Age band,65+,225,understanding,0.7744,187.0,False
+All respondents,All respondents,584,awareness,0.7092,423.0,False
+All respondents,All respondents,584,net_support,40.9,,False
+All respondents,All respondents,584,support,0.6615,379.0,False
+All respondents,All respondents,584,understanding,0.8725,508.0,False
+Contact method,Landline,90,awareness,0.8675,75.0,False
+Contact method,Landline,90,net_support,41.3,,False
+Contact method,Landline,90,support,0.6522,59.0,False
+Contact method,Landline,90,understanding,0.7789,74.0,False
+Contact method,Live Operator,50,awareness,0.7185,34.0,False
+Contact method,Live Operator,50,net_support,49.0,,False
+Contact method,Live Operator,50,support,0.6815,31.0,False
+Contact method,Live Operator,50,understanding,0.9098,44.0,False
+Contact method,SMS-to-Web,377,awareness,0.6994,272.0,False
+Contact method,SMS-to-Web,377,net_support,36.4,,False
+Contact method,SMS-to-Web,377,support,0.6466,245.0,False
+Contact method,SMS-to-Web,377,understanding,0.8634,327.0,False
+Contact method,Web Panel,67,awareness,0.6354,42.0,False
+Contact method,Web Panel,67,net_support,52.9,,False
+Contact method,Web Panel,67,support,0.711,44.0,False
+Contact method,Web Panel,67,understanding,0.9504,63.0,False
+Education,4-year College Degree,175,awareness,0.693,124.0,False
+Education,4-year College Degree,175,net_support,46.5,,False
+Education,4-year College Degree,175,support,0.677,117.0,False
+Education,4-year College Degree,175,understanding,0.894,156.0,False
+Education,Graduate Degree,309,awareness,0.724,233.0,False
+Education,Graduate Degree,309,net_support,40.0,,False
+Education,Graduate Degree,309,support,0.6744,208.0,False
+Education,Graduate Degree,309,understanding,0.8534,268.0,False
+Education,High School,22,awareness,0.7778,15.0,True
+Education,High School,22,net_support,,,False
+Education,High School,22,support,0.7237,13.0,True
+Education,High School,22,understanding,0.8045,16.0,True
+Education,Some College,61,awareness,0.6414,38.0,False
+Education,Some College,61,net_support,48.4,,False
+Education,Some College,61,support,0.6379,37.0,False
+Education,Some College,61,understanding,0.9277,55.0,False
+Gender,Female,282,awareness,0.6884,202.0,False
+Gender,Female,282,net_support,45.8,,False
+Gender,Female,282,support,0.6672,182.0,False
+Gender,Female,282,understanding,0.889,247.0,False
+Gender,Male,284,awareness,0.7225,207.0,False
+Gender,Male,284,net_support,40.6,,False
+Gender,Male,284,support,0.6787,191.0,False
+Gender,Male,284,understanding,0.8595,247.0,False
+Gender,Prefer Not To Say,18,awareness,0.8432,14.0,True
+Gender,Prefer Not To Say,18,net_support,,,False
+Gender,Prefer Not To Say,18,support,,,False
+Gender,Prefer Not To Say,18,understanding,0.8082,14.0,True
+Homeownership,Homeowner,441,awareness,0.7062,321.0,False
+Homeownership,Homeowner,441,net_support,39.2,,False
+Homeownership,Homeowner,441,support,0.659,293.0,False
+Homeownership,Homeowner,441,understanding,0.8494,384.0,False
+Homeownership,No answer,23,awareness,,,False
+Homeownership,No answer,23,net_support,,,False
+Homeownership,No answer,23,support,,,False
+Homeownership,No answer,23,understanding,0.8825,19.0,True
+Homeownership,Renter,120,awareness,0.6937,83.0,False
+Homeownership,Renter,120,net_support,58.3,,False
+Homeownership,Renter,120,support,0.7283,80.0,False
+Homeownership,Renter,120,understanding,0.9265,105.0,False
+How voted,By Mail Or Absentee Ballot,72,awareness,0.6723,47.0,False
+How voted,By Mail Or Absentee Ballot,72,net_support,30.4,,False
+How voted,By Mail Or Absentee Ballot,72,support,0.6074,44.0,False
+How voted,By Mail Or Absentee Ballot,72,understanding,0.878,60.0,False
+How voted,Early In Person,238,awareness,0.7916,189.0,False
+How voted,Early In Person,238,net_support,47.7,,False
+How voted,Early In Person,238,support,0.7085,162.0,False
+How voted,Early In Person,238,understanding,0.8824,205.0,False
+How voted,On Election Day,274,awareness,0.6581,187.0,False
+How voted,On Election Day,274,net_support,38.3,,False
+How voted,On Election Day,274,support,0.6394,173.0,False
+How voted,On Election Day,274,understanding,0.8643,243.0,False
+Pooled,Age 30 and older,562,awareness,0.7083,406.0,False
+Pooled,Age 30 and older,562,net_support,39.7,,False
+Pooled,Age 30 and older,562,support,0.6491,362.0,False
+Pooled,Age 30 and older,562,understanding,0.8625,488.0,False
+Pooled,"Hispanic, Asian or 65+",274,awareness,0.7005,202.0,False
+Pooled,"Hispanic, Asian or 65+",274,net_support,33.1,,False
+Pooled,"Hispanic, Asian or 65+",274,support,0.6173,168.0,False
+Pooled,"Hispanic, Asian or 65+",274,understanding,0.8118,230.0,False
+Race and ethnicity,American Indian,11,awareness,,,False
+Race and ethnicity,American Indian,11,net_support,,,False
+Race and ethnicity,American Indian,11,support,0.9423,10.0,True
+Race and ethnicity,American Indian,11,understanding,1.0,11.0,True
+Race and ethnicity,Asian,23,awareness,,,False
+Race and ethnicity,Asian,23,net_support,,,False
+Race and ethnicity,Asian,23,support,0.7475,19.0,True
+Race and ethnicity,Asian,23,understanding,0.7678,20.0,True
+Race and ethnicity,Black,49,awareness,0.7251,34.0,False
+Race and ethnicity,Black,49,net_support,42.2,,False
+Race and ethnicity,Black,49,support,0.6862,31.0,False
+Race and ethnicity,Black,49,understanding,0.8518,39.0,False
+Race and ethnicity,Hispanic,37,awareness,0.454,17.0,True
+Race and ethnicity,Hispanic,37,net_support,19.1,,True
+Race and ethnicity,Hispanic,37,support,0.5412,22.0,True
+Race and ethnicity,Hispanic,37,understanding,0.7728,31.0,False
+Race and ethnicity,Other race,16,awareness,0.8941,14.0,True
+Race and ethnicity,Other race,16,net_support,,,False
+Race and ethnicity,Other race,16,support,0.8191,13.0,True
+Race and ethnicity,Other race,16,understanding,0.8555,13.0,True
+Race and ethnicity,Prefer not to say,59,awareness,0.8285,47.0,False
+Race and ethnicity,Prefer not to say,59,net_support,-11.3,,True
+Race and ethnicity,Prefer not to say,59,support,0.4053,26.0,True
+Race and ethnicity,Prefer not to say,59,understanding,0.7954,45.0,False
+Race and ethnicity,White,444,awareness,0.7084,325.0,False
+Race and ethnicity,White,444,net_support,43.1,,False
+Race and ethnicity,White,444,support,0.6793,295.0,False
+Race and ethnicity,White,444,understanding,0.8976,394.0,False
