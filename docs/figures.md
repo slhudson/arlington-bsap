@@ -123,10 +123,19 @@ a rank. A figure never defines a ramp of its own.
   the palette's other oranges and greys already mean a party, the residual
   or no evidence.
 - **The magisterial districts.** Three unordered places, so Okabe-Ito:
-  Arlington vermilion, Jefferson blue, Washington reddish purple. The county
+  Arlington District bluish green, Jefferson District blue, Washington
+  District reddish purple. Arlington District is not vermilion or orange,
+  which mark the county as a whole elsewhere (vermilion the per-seat line
+  and Arlington among its peers) and a Black member or candidate on the race
+  charts; of the hues left, bluish green sits furthest from the blue beside
+  it, where sky blue would read as a shade of it and yellow disappears as a
+  line on white. As with blue and reddish purple, the reuse of a category's
+  hue costs nothing because the lines are named in the legend. The county
   behind them takes the dark grey the growth and peer figures use for a
   reference series, because it is not a fourth district but the thing the
-  three are being read against. `style.DISTRICTS` and `style.WHOLE_COUNTY`.
+  three are being read against; it leads the legend as Arlington County, and
+  the districts follow in alphabetical order. `style.DISTRICTS` and
+  `style.WHOLE_COUNTY`.
 - **Peers.** Cities dark grey, counties the sand stroke, Arlington the
   per-seat vermilion. The two neutrals are close on purpose: the kind of
   government is context, and a second saturated hue would compete with

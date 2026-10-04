@@ -123,11 +123,11 @@ RESIDENCE["none"] = ("no location", UNRECORDED)
 # reference: three unordered places, so Okabe-Ito, and the county in the
 # reference neutral the growth and peer figures use. See docs/figures.md.
 DISTRICTS = {
-    "Arlington":  ("Arlington", OKABE_ITO["vermilion"]),
-    "Jefferson":  ("Jefferson", OKABE_ITO["blue"]),
-    "Washington": ("Washington", OKABE_ITO["reddish_purple"]),
+    "Arlington":  ("Arlington District", OKABE_ITO["bluish_green"]),
+    "Jefferson":  ("Jefferson District", OKABE_ITO["blue"]),
+    "Washington": ("Washington District", OKABE_ITO["reddish_purple"]),
 }
-WHOLE_COUNTY = ("the whole county", DARK)
+WHOLE_COUNTY = ("Arlington County", DARK)
 
 PRESIDENT = ("voted for President", DARK)
 CYCLE = {

@@ -50,6 +50,6 @@ for profile in style.PROFILES:
     charts.lines(ax, s.index.to_numpy(), charts.series(s, style.DISTRICTS))
     charts.shares(ax, label="Black share of residents")
     charts.years(ax, int(s.index.min()), int(s.index.max()), step=10)
-    charts.legend(fig, {**{l: c for l, c in style.DISTRICTS.values()},
-                        style.WHOLE_COUNTY[0]: style.WHOLE_COUNTY[1]})
+    charts.legend(fig, {style.WHOLE_COUNTY[0]: style.WHOLE_COUNTY[1],
+                        **{l: c for l, c in style.DISTRICTS.values()}})
     paths.save(fig, profile)
