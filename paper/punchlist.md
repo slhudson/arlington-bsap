@@ -20,5 +20,6 @@ stays, with a one-line reason under it.
 - Age: soften the Board half. Be cautious about saying the Board is not representative by age: no one under 18 can serve, so the comparison base is adults (or eligible voters), and age correlates with knowledge and professional skill, so the claim needs a conversation before it is made strongly. If the claim stays, it needs a figure that makes the comparison directly, probably in a different format from the two now in the section. (Decision; tracker row age-board-against-county.)
 - Part B waits on the author-team conversation about how the themes run across the parts (the map note of 4 October: structure, election method, who has served, duties, legal authority, participation). Nothing to do in Part B until then.
 - Part C needs parallel structure with Part A, settled in the same conversation. Board Duties (C.1) is not a concept Part A has explored; if the Board-and-Manager material folds into A.1 Board Structure, then duties live inside structure in Part A and C.1 should follow, or Part A grows a duties strand.
+- Peer scatters (Figures 8 and 9 in Part C): make them two panels of one figure, side by side, sharing one legend and one notes block. This changes the figures skill's rule that two scatters with different x axes are two figures; update the rule and docs/figures.md with it.
 
 ## Could not settle
