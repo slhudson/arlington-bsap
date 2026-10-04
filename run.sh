@@ -63,7 +63,8 @@ CLEAN=(residents residents_by_district members members_chairs candidates members
 # Stage 3: data/clean/ -> figures/. Each step is named for the figure it
 # writes. Five populations, alphabetical within each; last, the one step that
 # writes the numbers the prose cites, paper/body_text_numbers.tex, instead,
-# and members_roster writes the appendix roster, paper/members_roster.tex.
+# and members_roster writes the roster, paper/members_roster.tex, and the two
+# subsets the body prints, paper/members_roster_subsets.tex.
 FIGURES=(residents_by_age residents_by_district_race residents_by_race residents_per_seat elections_turnout elections_board elections_president members_age candidates members_by_gender members_by_party localities_density localities_residents localities_southeastern members_by_race members_race_coverage members_residence_coverage survey_satisfaction_structure survey_satisfaction_by_year survey_satisfaction_sample survey_rcv_support survey_rcv_by_race body_text_numbers members_roster)
 
 echo "lint"
@@ -155,7 +156,10 @@ fi
 for s in "${selected[@]}"; do
   printf '  %-34s' "$s"
   outputs=("figures/pdf/$s.pdf" "figures/png/$s.png")
-  case "$s" in body_text_numbers|members_roster) outputs=("paper/$s.tex");; esac
+  case "$s" in
+    body_text_numbers) outputs=("paper/$s.tex");;
+    members_roster) outputs=("paper/$s.tex" "paper/${s}_subsets.tex");;
+  esac
   # Removed first, so a script that writes nothing cannot pass on a previous
   # run's copy.
   rm -f "${outputs[@]}"

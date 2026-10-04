@@ -1,0 +1,1775 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{cms/global//global/global/global}
+    \entry{alexandriagazette18720520p3}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=1e08f213fd9a80c4bc3e2664ca006bca}{%
+           family={{Alexandria Gazette}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Alexandria, Va.}%
+      }
+      \strng{namehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{fullhash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{fullhashraw}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{bibnamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorbibnamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authornamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorfullhash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorfullhashraw}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \field{extraname}{1}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{The Radicals' Arlington Township meeting, held at the Baptist church in Freedmen's, nominates its officers and prints 'colored' after four of the nominees: John Syphax for Supervisor, Stephen Baily for Commissioner of Roads, R. S. Laws for Justice of the Peace and Robert Smith for Constable; M. C. Munson, Wm. N. Reed and Horatio Ball, Jr. are printed with no label. The same column calls Wm. Jackson, tried for murder, 'colored'. Cited for the paper's practice in the township's party lists in 1872. Read 2026-10-04. Filed in Drive as "press/Alexandria Gazette/Alexandria Gazette 1872 - Arlington Township.pdf", Read from the Library of Congress's Chronicling America scan, the page image, and saved from the Library's page PDF on 2026-10-04}
+      \field{day}{20}
+      \field{journaltitle}{Alexandria Gazette}
+      \field{month}{5}
+      \field{title}{Arlington Township}
+      \field{urlday}{4}
+      \field{urlmonth}{10}
+      \field{urlyear}{2026}
+      \field{year}{1872}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{3}
+      \range{pages}{1}
+      \verb{urlraw}
+      \verb https://www.loc.gov/resource/sn85025007/1872-05-20/ed-1/?sp=3
+      \endverb
+      \verb{url}
+      \verb https://www.loc.gov/resource/sn85025007/1872-05-20/ed-1/?sp=3
+      \endverb
+    \endentry
+    \entry{alexandriagazette1888rule}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=1e08f213fd9a80c4bc3e2664ca006bca}{%
+           family={{Alexandria Gazette}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Alexandria Gazette}%
+      }
+      \strng{namehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{fullhash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{fullhashraw}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{bibnamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorbibnamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authornamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorfullhash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorfullhashraw}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \field{extraname}{2}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extratitle}{1}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{County Court column, Judge D. M. Chichester presiding, p. 3: "A rule was issued against Tibbett Allen to show cause why he should not be removed as Supervisor of Roads of Jefferson District on account of non-residence." The same sitting removed all previously appointed policemen except Robert Walker, issued rules against landowners on two road petitions returnable at the October term, and received the grand jury's true bills. The rule alleges non-residence and no disposition of it appears, Allen having resigned before the October term. Read 2026-09-26. Filed in Drive as "press/Alexandria Gazette/Alexandria Gazette 1888 - County Court.pdf", a copy printed in Sally's own browser on 2026-09-26}
+      \field{day}{3}
+      \field{month}{9}
+      \field{note}{County Court column, p. 3}
+      \field{title}{County Court}
+      \field{urlday}{26}
+      \field{urlmonth}{9}
+      \field{urlyear}{2026}
+      \field{year}{1888}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.loc.gov/resource/sn85025007/1888-09-03/ed-1/?sp=3
+      \endverb
+      \verb{url}
+      \verb https://www.loc.gov/resource/sn85025007/1888-09-03/ed-1/?sp=3
+      \endverb
+    \endentry
+    \entry{gazette1892wilsondeath}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=1e08f213fd9a80c4bc3e2664ca006bca}{%
+           family={{Alexandria Gazette}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Alexandria, Va.}%
+      }
+      \strng{namehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{fullhash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{fullhashraw}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{bibnamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorbibnamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authornamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorfullhash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorfullhashraw}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \field{extraname}{3}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extratitle}{2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{County Court report ends: 'The appointment of a supervisor for Washington district to fill the vacancy caused by the death of W. G. Wilson, colored, will be made during vacation', read on the page image (Library of Congress, Chronicling America). The item gives no date of death. Read 2026-10-02. Filed in Drive as "press/Alexandria Gazette/Alexandria Gazette 1892 - County Court.pdf", image 3 of the issue: the Library of Congress scan with its OCR text embedded, saved on 2026-10-02}
+      \field{day}{5}
+      \field{journaltitle}{Alexandria Gazette}
+      \field{month}{7}
+      \field{title}{County Court}
+      \field{urlday}{2}
+      \field{urlmonth}{10}
+      \field{urlyear}{2026}
+      \field{year}{1892}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.loc.gov/resource/sn85025007/1892-07-05/ed-1/?sp=3
+      \endverb
+      \verb{url}
+      \verb https://www.loc.gov/resource/sn85025007/1892-07-05/ed-1/?sp=3
+      \endverb
+    \endentry
+    \entry{alexandriagazette18930526p3}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=1e08f213fd9a80c4bc3e2664ca006bca}{%
+           family={{Alexandria Gazette}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Alexandria Gazette}%
+      }
+      \strng{namehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{fullhash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{fullhashraw}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{bibnamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorbibnamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authornamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorfullhash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorfullhashraw}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \field{extraname}{4}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Read from the Library of Congress's Chronicling America scan, its OCR text (page 3 of the issue). Cited for the three districts' supervisor votes, with the losers; no copy is kept: what the page said is keyed into data/transcribed/by_claude/candidates_gazette.csv with the date it was read.}
+      \field{day}{26}
+      \field{month}{5}
+      \field{title}{County election returns}
+      \field{urlday}{2}
+      \field{urlmonth}{10}
+      \field{urlyear}{2026}
+      \field{year}{1893}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{3}
+      \range{pages}{1}
+      \verb{urlraw}
+      \verb https://www.loc.gov/resource/sn85025007/1893-05-26/ed-1/?sp=3
+      \endverb
+      \verb{url}
+      \verb https://www.loc.gov/resource/sn85025007/1893-05-26/ed-1/?sp=3
+      \endverb
+    \endentry
+    \entry{alexandriagazette18890525p3}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=1e08f213fd9a80c4bc3e2664ca006bca}{%
+           family={{Alexandria Gazette}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Alexandria, Va.}%
+      }
+      \strng{namehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{fullhash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{fullhashraw}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{bibnamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorbibnamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authornamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorfullhash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorfullhashraw}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \field{extraname}{5}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Read from the Library of Congress's Chronicling America scan, the page image (the OCR text misreads the passage; page 3 of the issue). Cited for the supervisors elected in each district, and for the paper's word 'colored' beside the Washington District winner. Filed in Drive as "press/Alexandria Gazette/Alexandria Gazette 1889 - County Officers.pdf", the Library of Congress scan with its OCR text embedded; what the page said is keyed into data/transcribed/by_claude/candidates_gazette.csv with the date it was read.}
+      \field{day}{25}
+      \field{journaltitle}{Alexandria Gazette}
+      \field{month}{5}
+      \field{title}{County Officers}
+      \field{urlday}{2}
+      \field{urlmonth}{10}
+      \field{urlyear}{2026}
+      \field{year}{1889}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{3}
+      \range{pages}{1}
+      \verb{urlraw}
+      \verb https://www.loc.gov/resource/sn85025007/1889-05-25/ed-1/?sp=3
+      \endverb
+      \verb{url}
+      \verb https://www.loc.gov/resource/sn85025007/1889-05-25/ed-1/?sp=3
+      \endverb
+    \endentry
+    \entry{alexandriagazette18850529p3}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=1e08f213fd9a80c4bc3e2664ca006bca}{%
+           family={{Alexandria Gazette}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Alexandria Gazette}%
+      }
+      \strng{namehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{fullhash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{fullhashraw}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{bibnamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorbibnamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authornamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorfullhash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorfullhashraw}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \field{extraname}{6}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Read from the Library of Congress's Chronicling America scan, the page image (the OCR text misreads the passage; page 3 of the issue). Cited for who won and who lost each district's supervisor's race; no copy is kept: what the page said is keyed into data/transcribed/by_claude/candidates_gazette.csv with the date it was read.}
+      \field{day}{29}
+      \field{month}{5}
+      \field{title}{Election in the County}
+      \field{urlday}{2}
+      \field{urlmonth}{10}
+      \field{urlyear}{2026}
+      \field{year}{1885}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{3}
+      \range{pages}{1}
+      \verb{urlraw}
+      \verb https://www.loc.gov/resource/sn85025007/1885-05-29/ed-1/?sp=3
+      \endverb
+      \verb{url}
+      \verb https://www.loc.gov/resource/sn85025007/1885-05-29/ed-1/?sp=3
+      \endverb
+    \endentry
+    \entry{gazette1879robinson}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=1e08f213fd9a80c4bc3e2664ca006bca}{%
+           family={{Alexandria Gazette}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Alexandria, Va.}%
+      }
+      \strng{namehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{fullhash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{fullhashraw}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{bibnamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorbibnamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authornamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorfullhash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorfullhashraw}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \field{extraname}{7}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Returns by district of the county election; Arlington District, Supervisor: W. A. Rowe 184, W. H. Robinson 87; Justices: H. A. Whallon 193, John B. Syphax 189, J. H. Robinson 186, among others, read on the page image (Library of Congress, Chronicling America). The page's heading is not in the filed column; the title is supplied. Read 2026-10-02. Filed in Drive as "press/Alexandria Gazette/Alexandria Gazette 1879 - Election Returns.pdf", image 3 of the issue: the Library of Congress scan with its OCR text embedded, saved on 2026-10-02. The same page's police report calls Isaac Hackley and Ezy Minor 'colored', while the returns print no label for any candidate, John B. Syphax and W. A. Rowe among them}
+      \field{day}{23}
+      \field{journaltitle}{Alexandria Gazette}
+      \field{month}{5}
+      \field{title}{Election Returns}
+      \field{urlday}{2}
+      \field{urlmonth}{10}
+      \field{urlyear}{2026}
+      \field{year}{1879}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.loc.gov/resource/sn85025007/1879-05-23/ed-1/?sp=3
+      \endverb
+      \verb{url}
+      \verb https://www.loc.gov/resource/sn85025007/1879-05-23/ed-1/?sp=3
+      \endverb
+    \endentry
+    \entry{alexandriagazette18740529p2}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=1e08f213fd9a80c4bc3e2664ca006bca}{%
+           family={{Alexandria Gazette}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Alexandria, Va.}%
+      }
+      \strng{namehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{fullhash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{fullhashraw}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{bibnamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorbibnamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authornamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorfullhash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorfullhashraw}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \field{extraname}{8}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{The returns of the Alexandria city election, ward by ward, print 'colored' after Mitchell and Harris, elected in the Fourth Ward, and 'col.' after Geo. L. Seaton and 'colored' after R. D. Ruffin; the other candidates are printed with no label. Cited for the paper's practice in an election report of the year H. Dwight Smith chaired the Arlington township Radicals. Read 2026-10-04. Filed in Drive as "press/Alexandria Gazette/Alexandria Gazette 1874 - Municipal Election Returns.pdf", Read from the Library of Congress's Chronicling America scan, the page image, and saved from the Library's page PDF on 2026-10-04}
+      \field{day}{29}
+      \field{journaltitle}{Alexandria Gazette}
+      \field{month}{5}
+      \field{title}{Municipal Election Returns}
+      \field{urlday}{4}
+      \field{urlmonth}{10}
+      \field{urlyear}{2026}
+      \field{year}{1874}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{2}
+      \range{pages}{1}
+      \verb{urlraw}
+      \verb https://www.loc.gov/resource/sn85025007/1874-05-29/ed-1/?sp=2
+      \endverb
+      \verb{url}
+      \verb https://www.loc.gov/resource/sn85025007/1874-05-29/ed-1/?sp=2
+      \endverb
+    \endentry
+    \entry{alexandriagazette18910529p3}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=1e08f213fd9a80c4bc3e2664ca006bca}{%
+           family={{Alexandria Gazette}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Alexandria, Va.}%
+      }
+      \strng{namehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{fullhash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{fullhashraw}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{bibnamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorbibnamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authornamehash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorfullhash}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \strng{authorfullhashraw}{1e08f213fd9a80c4bc3e2664ca006bca}
+      \field{extraname}{9}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Read from the Library of Congress's Chronicling America scan, the page image (the OCR text misreads the passage; page 3 of the issue). Cited for the Washington District result, with the winner's race. Filed in Drive as "press/Alexandria Gazette/Alexandria Gazette 1891 - The County Election.pdf", the Library of Congress scan with its OCR text embedded; what the page said is keyed into data/transcribed/by_claude/candidates_gazette.csv with the date it was read.}
+      \field{day}{29}
+      \field{journaltitle}{Alexandria Gazette}
+      \field{month}{5}
+      \field{title}{The County Election}
+      \field{urlday}{2}
+      \field{urlmonth}{10}
+      \field{urlyear}{2026}
+      \field{year}{1891}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{3}
+      \range{pages}{1}
+      \verb{urlraw}
+      \verb https://www.loc.gov/resource/sn85025007/1891-05-29/ed-1/?sp=3
+      \endverb
+      \verb{url}
+      \verb https://www.loc.gov/resource/sn85025007/1891-05-29/ed-1/?sp=3
+      \endverb
+    \endentry
+    \entry{anderson1958}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=5714c0bdf50f06fc2d4742a29ca8ce0b}{%
+           family={Anderson},
+           familyi={A\bibinitperiod},
+           given={Robert\bibnamedelima Nelson},
+           giveni={R\bibinitperiod\bibinitdelim N\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{5714c0bdf50f06fc2d4742a29ca8ce0b}
+      \strng{fullhash}{5714c0bdf50f06fc2d4742a29ca8ce0b}
+      \strng{fullhashraw}{5714c0bdf50f06fc2d4742a29ca8ce0b}
+      \strng{bibnamehash}{5714c0bdf50f06fc2d4742a29ca8ce0b}
+      \strng{authorbibnamehash}{5714c0bdf50f06fc2d4742a29ca8ce0b}
+      \strng{authornamehash}{5714c0bdf50f06fc2d4742a29ca8ce0b}
+      \strng{authorfullhash}{5714c0bdf50f06fc2d4742a29ca8ce0b}
+      \strng{authorfullhashraw}{5714c0bdf50f06fc2d4742a29ca8ce0b}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Byline, title and printed pages 52-67 read off the article. Volume and issue are not printed on the pages held, as with novack1994 and pratt1995 in the same magazine. The Historical Society gives the author as Robert Nelson Anderson, Jr., a founder of the Society and its president 1958-1959; the article itself prints no "Jr.". A first-hand account of the 1930 referendum and the 1931 election, which is the hinge of this report. Filed in Drive as "books/Anderson 1958 - Arlington Adopts the County Manager Form of Government.pdf"}
+      \field{journaltitle}{Arlington Historical Magazine}
+      \field{title}{Arlington Adopts the County Manager Form of Government}
+      \field{year}{1958}
+      \field{dateera}{ce}
+      \field{pages}{52\bibrangedash 67}
+      \range{pages}{16}
+    \endentry
+    \entry{arlingtoncb2019equity}{report}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=c7f1e377d434f73ab2e13fb27e2bdb33}{%
+           family={{Arlington County Board}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Arlington County Board}%
+      }
+      \strng{namehash}{c7f1e377d434f73ab2e13fb27e2bdb33}
+      \strng{fullhash}{c7f1e377d434f73ab2e13fb27e2bdb33}
+      \strng{fullhashraw}{c7f1e377d434f73ab2e13fb27e2bdb33}
+      \strng{bibnamehash}{c7f1e377d434f73ab2e13fb27e2bdb33}
+      \strng{authorbibnamehash}{c7f1e377d434f73ab2e13fb27e2bdb33}
+      \strng{authornamehash}{c7f1e377d434f73ab2e13fb27e2bdb33}
+      \strng{authorfullhash}{c7f1e377d434f73ab2e13fb27e2bdb33}
+      \strng{authorfullhashraw}{c7f1e377d434f73ab2e13fb27e2bdb33}
+      \field{extraname}{1}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Three pages. Adopted by the County Board on 21 September 2019. Names the residents likely to meet poorer outcomes and disparities: people of color, women, those living in poverty, immigrants and refugees, LGBTQ+ community members, people with disabilities, and residents of certain neighborhoods (citing Destination 2027, April 2019). Commits the County to collecting and disaggregating data to find disparities, and directs the County Manager to bring a Racial Equity Tool in September 2020 and, with each department's FY 2021 budget, an analysis asking who benefits, who is burdened, who is missing and how the County knows. Cited in the report's introduction as the lens for reading the Board's history by who has held its seats and who has not. Read 2026-10-04. Filed in Drive as "reports/Arlington County Board 2019 - Equity Resolution.pdf", the PDF as published at the url, fetched by the session's web tool, since the County's site refuses curl and the built-in browser on 2026-10-04}
+      \field{day}{21}
+      \field{month}{9}
+      \field{title}{Equity Resolution}
+      \field{urlday}{4}
+      \field{urlmonth}{10}
+      \field{urlyear}{2026}
+      \field{year}{2019}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.arlingtonva.us/files/sharedassets/public/v/1/county-board/documents/resolutions/equity-resolution-final-09-21-19.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.arlingtonva.us/files/sharedassets/public/v/1/county-board/documents/resolutions/equity-resolution-final-09-21-19.pdf
+      \endverb
+    \endentry
+    \entry{arlingtonva2026members}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=c7f1e377d434f73ab2e13fb27e2bdb33}{%
+           family={{Arlington County Board}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Arlington County, Virginia}%
+      }
+      \strng{namehash}{c7f1e377d434f73ab2e13fb27e2bdb33}
+      \strng{fullhash}{c7f1e377d434f73ab2e13fb27e2bdb33}
+      \strng{fullhashraw}{c7f1e377d434f73ab2e13fb27e2bdb33}
+      \strng{bibnamehash}{c7f1e377d434f73ab2e13fb27e2bdb33}
+      \strng{authorbibnamehash}{c7f1e377d434f73ab2e13fb27e2bdb33}
+      \strng{authornamehash}{c7f1e377d434f73ab2e13fb27e2bdb33}
+      \strng{authorfullhash}{c7f1e377d434f73ab2e13fb27e2bdb33}
+      \strng{authorfullhashraw}{c7f1e377d434f73ab2e13fb27e2bdb33}
+      \field{extraname}{2}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{The county's own roll of the County Board, one entry per year from 1932 to the current year, each member named with the office held that year and with arrivals and departures dated to the day: ``Resigned 12/14/95'', ``Special Election 1/30/96: Replaced Mary Margaret Whipple'', ``Appointed on 7/15/2023 to fill seat vacated by Katie Cristol''. It records service rather than contests, so it is the only source held here that witnesses a member seated without winning an election. The page carries no date of its own and is revised as the Board changes; the copy in data/raw/arlington_county/ is the page as printed on 1 October 2026. Each decade sits in a collapsed accordion and the server refuses curl, so the copy is printed by headless Chrome, which expands every panel. Five of its entries are wrong, each checked against novack1994 and listed on county-corrections: it carries the county's own spelling ``Lucas H. Bleviins'' at 1957; lists F. Freeland Chew twice at 1941 and Mary Margaret Whipple twice at 1986, leaving out Elizabeth B. Magruder and John G. Milliken; dates Howard Massey's appointment to 10 November 1952 where dailysun1952appointees names him among the three appointed that September; and gives John W. Purdy the title Vice-President at 1977. It also interleaves notes about the Board's clerk into the member column at 1971, 1982, 1989, 1994 and 2000}
+      \field{title}{Historical Members: 1932 -- Present}
+      \field{urlday}{1}
+      \field{urlmonth}{10}
+      \field{urlyear}{2026}
+      \field{year}{2026}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.arlingtonva.us/Government/Departments/County-Board/County-Board-Members/Historical-Members-1932-Present
+      \endverb
+      \verb{url}
+      \verb https://www.arlingtonva.us/Government/Departments/County-Board/County-Board-Members/Historical-Members-1932-Present
+      \endverb
+    \endentry
+    \entry{arlingtonelections2021}{report}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=37440df3699028218636ff91e6f7c8a8}{%
+           family={{Arlington County Office of Voter Registration and Elections}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Arlington County, Virginia}%
+      }
+      \strng{namehash}{37440df3699028218636ff91e6f7c8a8}
+      \strng{fullhash}{37440df3699028218636ff91e6f7c8a8}
+      \strng{fullhashraw}{37440df3699028218636ff91e6f7c8a8}
+      \strng{bibnamehash}{37440df3699028218636ff91e6f7c8a8}
+      \strng{authorbibnamehash}{37440df3699028218636ff91e6f7c8a8}
+      \strng{authornamehash}{37440df3699028218636ff91e6f7c8a8}
+      \strng{authorfullhash}{37440df3699028218636ff91e6f7c8a8}
+      \strng{authorfullhashraw}{37440df3699028218636ff91e6f7c8a8}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{The document's own title; the county's website called it ``Candidate History, 1920--Present'', which is how the file in data/raw/ is named. PDF metadata names Linda Lindberg. States that it was compiled from Electoral Board records and historical news sources, that early vote tallies are incomplete, and that corrections are welcome. The county has since taken it down}
+      \field{day}{18}
+      \field{month}{11}
+      \field{title}{Arlington County Election Results}
+      \field{year}{2021}
+      \field{dateera}{ce}
+    \endentry
+    \entry{arlingtonvwhite2000}{jurisdiction}{}{}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Koontz, J., for the majority; Kinser, J., concurring; Hassell, J., joined by Carrico, C.J., and Compton, S.J., concurring in the judgment on other grounds. The County had extended its self-funded health plan to employees' "domestic partners". Holds, 259 Va. at 714: the County's "expanded definition of dependents eligible to receive coverage under the self-funded health insurance benefits plan ... is not a reasonable method of implementing its implied authority under those statutes and is, therefore, an ultra vires act." With commonwealthvarlington1977 and brownvarlington1985 it is one of the three Arlington cases that carry Virginia's Dillon's Rule doctrine. Filed in Drive as "legal/state courts/Supreme Court of Virginia 2000 - Arlington County v. White.pdf"}
+      \field{day}{21}
+      \field{month}{4}
+      \field{note}{259 Va. 708, 528 S.E.2d 706 (Supreme Court of Virginia, 2000)}
+      \field{title}{Arlington County v. White}
+      \field{urlday}{26}
+      \field{urlmonth}{9}
+      \field{urlyear}{2026}
+      \field{year}{2000}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.courtlistener.com/opinion/1059632/arlington-county-v-white/
+      \endverb
+      \verb{url}
+      \verb https://www.courtlistener.com/opinion/1059632/arlington-county-v-white/
+      \endverb
+    \endentry
+    \entry{arlhist1967officials}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=047a9d596f9049a770be47ce8ea6470f}{%
+           family={{Arlington Historical Society}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{047a9d596f9049a770be47ce8ea6470f}
+      \strng{fullhash}{047a9d596f9049a770be47ce8ea6470f}
+      \strng{fullhashraw}{047a9d596f9049a770be47ce8ea6470f}
+      \strng{bibnamehash}{047a9d596f9049a770be47ce8ea6470f}
+      \strng{authorbibnamehash}{047a9d596f9049a770be47ce8ea6470f}
+      \strng{authornamehash}{047a9d596f9049a770be47ce8ea6470f}
+      \strng{authorfullhash}{047a9d596f9049a770be47ce8ea6470f}
+      \strng{authorfullhashraw}{047a9d596f9049a770be47ce8ea6470f}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Bylined the Research and Records Committee; Board membership by magisterial district, term by term, compiled from the Board's minute books. Francis G. Schutt left in June 1877 on a notation that he had moved from Arlington District; William A. Rowe resigned 2 April 1879, having moved from Jefferson to Arlington District, and was elected for Arlington District that July; Tibbett Allen, Jefferson District, is entered only as "Resigned; date ?" and Frank Hume as "Appointed; date ?". The article never states the race of any official. Read 2026-09-26. Filed in Drive as "books/Arlington Historical Society 1967 - County Officials in Arlington, 1870-1960.pdf", saved as published on 2026-09-26. Read through for the 1912-1931 roster on 2026-09-27; the PDF file held in data/raw/ is the same file, fetched from this url on 2026-09-27}
+      \field{journaltitle}{Arlington Historical Magazine}
+      \field{month}{10}
+      \field{title}{County Officials in Arlington, 1870-1960}
+      \field{urlday}{26}
+      \field{urlmonth}{9}
+      \field{urlyear}{2026}
+      \field{year}{1967}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://arlhist.org/wp-content/uploads/2017/02/1967-7-Officials.pdf
+      \endverb
+      \verb{url}
+      \verb https://arlhist.org/wp-content/uploads/2017/02/1967-7-Officials.pdf
+      \endverb
+    \endentry
+    \entry{bennettvgarrett1922}{jurisdiction}{}{}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Kelly, P., for the court; affirmed. Inhabitants of Clarendon petitioned the Circuit Court of Arlington County for a town charter under ch. 116 of the Code of 1919; the board of supervisors and several hundred county residents opposed it, and the court dismissed the petition. Holds, 132 Va. at 406, that where proposed corporate limits are "carved out of a thickly settled section" the "general good of the community" the statute requires "must be construed as embracing the whole section", following Board of Supervisors of Norfolk County v. Duke, 113 Va. 94. At 407: Clarendon and Ballston are "practically interlocked", about a mile apart, and "it appears doubtful whether any small town could be chartered therein without detriment to the general good of the county" - the passage samuel2026 note 7 reads as the inference that no town may incorporate within Arlington. The court did not call Arlington "a continuous, contiguous, and homogeneous community": neither "homogeneous" nor "homogenous" nor "contiguous" occurs anywhere in the opinion, and its own words are "a part only of a thickly settled community". The attribution is rose1976 p. 176, which puts the phrase in quotation marks in the court's mouth and cites nothing for it; she reuses it at p. 197 of the 1932 change and at p. 229 of 1976. bestebreurtje2017 quotes her p. 197 sentence, and her own account of this case, at p. 14 n. 25, is accurate and free of the phrase. Filed in Drive as "legal/state courts/Supreme Court of Appeals of Virginia 1922 - Bennett v. Garrett.pdf", the Harvard Caselaw Access Project scan of 132 Va. 397 as CourtListener serves it, saved 30 September 2026}
+      \field{day}{15}
+      \field{month}{6}
+      \field{note}{132 Va. 397, 112 S.E. 772 (Supreme Court of Appeals of Virginia, 1922)}
+      \field{title}{Bennett v. Garrett}
+      \field{urlday}{30}
+      \field{urlmonth}{9}
+      \field{urlyear}{2026}
+      \field{year}{1922}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.courtlistener.com/opinion/6919203/bennett-v- garrett/
+      \endverb
+      \verb{url}
+      \verb https://www.courtlistener.com/opinion/6919203/bennett-v-%20garrett/
+      \endverb
+    \endentry
+    \entry{bestebreurtje2017}{thesis}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=d31351d0dd549d0dd9d06fca4744d5eb}{%
+           family={Bestebreurtje},
+           familyi={B\bibinitperiod},
+           given={Lindsey},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{institution}{1}{%
+        {George Mason University}%
+      }
+      \strng{namehash}{d31351d0dd549d0dd9d06fca4744d5eb}
+      \strng{fullhash}{d31351d0dd549d0dd9d06fca4744d5eb}
+      \strng{fullhashraw}{d31351d0dd549d0dd9d06fca4744d5eb}
+      \strng{bibnamehash}{d31351d0dd549d0dd9d06fca4744d5eb}
+      \strng{authorbibnamehash}{d31351d0dd549d0dd9d06fca4744d5eb}
+      \strng{authornamehash}{d31351d0dd549d0dd9d06fca4744d5eb}
+      \strng{authorfullhash}{d31351d0dd549d0dd9d06fca4744d5eb}
+      \strng{authorfullhashraw}{d31351d0dd549d0dd9d06fca4744d5eb}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{The dissertation, distinct from the 2024 book of the same title and from the digital exhibit of the same title at lindseybestebreurtje.org, which its own About page calls a piece of the book. Author, title, degree, institution and year are read from the dissertation's own title page; the defence was 27 March 2017. George Mason's repository holds it as Bestebreurtje_gmu_0883E_11369.pdf under handle 1920/11125. The copy held is a 443-page PDF whose metadata dates it 30 March 2017; page numbers cited are the printed ones (printed p.215 is PDF page 227). Printed p.215 names the November 1931 candidates, Vollin for sheriff and Harris, Morton and Mosley for the County Board, citing the county's candidate list as Anderson reprints it (anderson1958 p.67); pp.217-218 say it was fifty years before another African American candidate ran for office in Arlington; p.307 repeats the four in note 815. The text was read for the growth of 1930-1950 and the fall in the Black share: p.233 says the fall in the Black share was no exodus but a steady Black population beside white arrivals drawn by suburban land booms and federal employment; pp.239-240 give the federal influx under the New Deal and the 1940s militarization, and 57,000 (1941), 120,000 (1945) and 135,000 (1950), citing Rose; p.242 says the arrivals were overwhelmingly white and that Black residents who arrived in the Great Migration were 12 per cent of Arlington's Black population in 1940; p.248 calls Arlington the fastest-growing county from 1930 to 1950; pp.249-250 give the Zoning Ordinance of 1930 and road over rail access. pp.42-43 tie the streetcar suburbs to the era before 1930. Filed in Drive as "books/Bestebreurtje 2017 - Built By the People Themselves.pdf"}
+      \field{title}{Built By the People Themselves: African American Community Development in Arlington, Virginia, From the Civil War Through Civil Rights}
+      \field{type}{PhD dissertation}
+      \field{urlday}{24}
+      \field{urlmonth}{9}
+      \field{urlyear}{2026}
+      \field{year}{2017}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://mars.gmu.edu/
+      \endverb
+      \verb{url}
+      \verb https://mars.gmu.edu/
+      \endverb
+    \endentry
+    \entry{richmondcouncilvwilder2007}{jurisdiction}{}{}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Spencer, J. Same docket (No. CL07-2426-4) as a July 2007 ruling on a demurrer, reported separately at 73 Va. Cir. 471, 2007 Va. Cir. LEXIS 136; this is the later ruling, on cross-motions for summary judgment, where the holding sits. The Mayor had declared Council's own legislative-staff appointments (Council Liaisons, its Chief of Staff, Policy Analyst, Public Relations Specialist and Budget Analyst, the Director of Legislative Services, and the City Assessor) void, and the Deputy Chief Administrative Officer had told those employees to reapply for their jobs. Richmond is a mayor-council city with an appointed Chief Administrative Officer, not a County Manager Plan locality, and its Charter sec. 5.03 carries the non-interference language this report's search was for: "the mayor, council, and its members shall deal with the administrative services solely through the chief administrative officer, and neither the mayor, council, nor any member thereof shall give orders ... to any subordinate of the chief administrative officer." Holds that sec. 5.03's "ultimate responsibility" sentence gives the CAO authority over administrative and executive branch employees only, read together with secs. 5.02 and 5.04 and with the separation-of-powers clause of the Virginia Constitution's Art. III sec. 1, so Council keeps the implied power under its Charter sec. 4.02 to appoint the legislative staff it needs to do its own legislative work; cites the Dillon's Rule holding of \textit{Commonwealth v. Arlington County Bd.}, 217 Va. 558, 574 (1977), the same case cited here as commonwealthvarlington1977. Summary judgment for Council. Neither opinion under this docket cites \textit{County Board of Arlington County v. Brown}, and CourtListener, Justia and a general web search turn up no appeal of either ruling to the Court of Appeals of Virginia or the Supreme Court of Virginia. Filed in Drive as "legal/state courts/Richmond City Circuit Court 2007 - City of Richmond City Council v. Wilder.pdf", the CourtListener scan read in full in the browser (the automated fetch was answered with a Cloudflare challenge), saved 1 October 2026}
+      \field{day}{29}
+      \field{month}{11}
+      \field{note}{74 Va. Cir. 382, 2007 Va. Cir. LEXIS 296 (Richmond City Circuit Court, 2007)}
+      \field{title}{City of Richmond City Council v. Wilder}
+      \field{urlday}{1}
+      \field{urlmonth}{10}
+      \field{urlyear}{2026}
+      \field{year}{2007}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.courtlistener.com/opinion/8685922/city-of- richmond-city-council-v-wilder/
+      \endverb
+      \verb{url}
+      \verb https://www.courtlistener.com/opinion/8685922/city-of-%20richmond-city-council-v-wilder/
+      \endverb
+    \endentry
+    \entry{winchestervredmond1896}{jurisdiction}{}{}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Riely, J.; reversed. Winchester's common council had offered a standing $500 reward for the apprehension and conviction of incendiaries, and Redmond, having secured two convictions, sued the city for it. Holds, 93 Va. at 714, quoting Dillon on Municipal Corporations sec. 89 (3rd ed.), that a municipal corporation has only "those granted in express words", those "necessarily or fairly implied in or incident to the powers expressly granted", and those "essential to the declared objects and purposes of the corporation, not simply convenient, but indispensable", and that "Any fair, reasonable doubt concerning the existence of power is resolved by the courts against the corporation, and the power is denied." The city had no such power: crime is an offence against the State, and the charter's general clause letting the council "do all such things as it may deem proper for the prosperity, quiet, and good order of the city" is confined to "the ordinary objects and purposes of municipal corporations". schragger2022 note 79 names this as the case in which the court "directly quoted what we know as Dillon's Rule". Filed in Drive as "legal/state courts/Supreme Court of Appeals of Virginia 1896 - City of Winchester v. Redmond.pdf", the Harvard Caselaw Access Project scan of 93 Va. 711 as CourtListener serves it, saved 30 September 2026}
+      \field{day}{19}
+      \field{month}{11}
+      \field{note}{93 Va. 711, 25 S.E. 1001 (Supreme Court of Appeals of Virginia, 1896)}
+      \field{title}{City of Winchester v. Redmond}
+      \field{urlday}{30}
+      \field{urlmonth}{9}
+      \field{urlyear}{2026}
+      \field{year}{1896}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.courtlistener.com/opinion/6914215/city-of- winchester-v-redmond/
+      \endverb
+      \verb{url}
+      \verb https://www.courtlistener.com/opinion/6914215/city-of-%20winchester-v-redmond/
+      \endverb
+    \endentry
+    \entry{vaacts1875}{misc}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=e4acea2f03120c40785a4d0fdc19483c}{%
+           family={{Commonwealth of Virginia}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Richmond}%
+      }
+      \strng{namehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{bibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorbibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authornamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \field{extraname}{1}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Sections read: Ch. 69 sec. 1 (approved 2 February 1875), "township" in any statute passed before 3 November 1874 is to be read as the magisterial districts the amendment directs; ch. 76 sec. 1 (approved 5 February 1875), the townships as they existed "on the third day of November, eighteen hundred and seventy-four, (the date of the ratification of amendment to the constitution respecting county organization)" are "hereby declared to be, the magisterial districts", keeping their boundaries, names and voting places; ch. 158 sec. 4 (approved 8 March 1875), in each magisterial district the qualified voters choose one supervisor, one constable, three justices and one overseer of the poor. Ch. 76 is the act that carried out the constitutional amendment on county organization ratified 3 November 1874; it renames the unit and leaves the officers alone. The amendment itself is not in this volume; it is cited separately as \cite{vaacts1873amendment}. Ch. 158 is titled "An act to provide for the Election and Qualification of County Officers" and is the general law under which supervisors were elected from 1875; sec. 4 names the electorate ("the qualified voters of the same"), fixes the term at two years, and states no residence qualification for any of the four district officers it creates. The copy held is a seven-page extract of the Internet Archive scan of the Google-digitized volume: the title page and printed pages 52, 56-58, 133 and 134. The scan carries no text layer, so chapter numbers and approval dates were read off the page images. Nothing else in the volume has been read. Two sessions cut excerpts on 26 September 2026 and they are combined here. Filed in Drive as "legal/state statutes/Commonwealth of Virginia 1875 - Acts and Joint Resolutions, Session of 1874-75 (ch. 69, 76 and 158 excerpt).pdf"}
+      \field{title}{Acts and Joint Resolutions Passed by the General Assembly of the State of Virginia During the Session of 1874--5}
+      \field{urlday}{26}
+      \field{urlmonth}{9}
+      \field{urlyear}{2026}
+      \field{year}{1875}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://archive.org/details/actsandjointres01assegoog
+      \endverb
+      \verb{url}
+      \verb https://archive.org/details/actsandjointres01assegoog
+      \endverb
+    \endentry
+    \entry{vaacts1930c167}{legislation}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=e4acea2f03120c40785a4d0fdc19483c}{%
+           family={{Commonwealth of Virginia}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {General Assembly of Virginia, session of 1930}%
+      }
+      \strng{namehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{bibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorbibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authornamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \field{extraname}{2}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Ch. 167, Acts of the General Assembly of Virginia, session of 1930, printed pp. 450-456, approved 20 March 1930 [H B 342]. Read 2026-10-02. The act that gave Virginia counties of 500 or more people to the square mile two optional forms, a "modified commission plan" and the "county manager plan", chosen with the question of at-large or district election at one referendum on the petition of two hundred voters; approved 20 March 1930. Sec. 2773-f is the board of five, the chairman "with a vote but no veto" and a manager who "need not be a resident of the county or of the State". Sec. 2773-h has the manager prepare the budget and says that, once it is in force, "in no event shall any change of more than ten per centum be made in any allocation". The act has no clause on dealing with the manager's staff; vaacts1952c443 adds it. The OCR prints "Sections 2773-a" and "Section 2773-1" for 2773-l, and the transcript keeps them. Filed in Drive as "legal/state statutes/Commonwealth of Virginia 1930 - Acts and Joint Resolutions, Session of 1930 (ch. 167).pdf", the page text as HathiTrust uva.x030752226 serves it (seq 456-462, printed pp. 450-456), set out on a plain page by code/sources/pages.py and printed on 2 October 2026; HathiTrust refuses an automated request, so no copy of the page image was had}
+      \field{day}{20}
+      \field{month}{3}
+      \field{note}{printed pp. 450--456}
+      \field{title}{Acts and Joint Resolutions, Session of 1930 (ch. 167)}
+      \field{urlday}{2}
+      \field{urlmonth}{10}
+      \field{urlyear}{2026}
+      \field{year}{1930}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://babel.hathitrust.org/cgi/pt?id=uva.x030752226&seq=456
+      \endverb
+      \verb{url}
+      \verb https://babel.hathitrust.org/cgi/pt?id=uva.x030752226&seq=456
+      \endverb
+    \endentry
+    \entry{vaacts1952c198}{legislation}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=e4acea2f03120c40785a4d0fdc19483c}{%
+           family={{Commonwealth of Virginia}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {General Assembly of Virginia, session of 1952}%
+      }
+      \strng{namehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{bibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorbibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authornamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \field{extraname}{3}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Ch. 198, Acts of the General Assembly of Virginia, session of 1952, printed pp. 226-228, approved 6 March 1952 [S 174]. The act that offered Arlington the strong-manager form and left the choice to the voters. Sec. 15-352 keeps the Manager's core grant, today's sec. 15.2-706 almost word for word: "The administrative and executive powers of the county, including the power of appointment of all officers and employees whose appointment or election is not otherwise provided by law, are vested in an official known as the county manager". Department heads, however, "shall be selected by the county board; provided that if a majority of the qualified voters voting in the election required by § 15-355.1 vote in favor thereof, then the heads of the several county departments ... shall be appointed by the county manager." New sec. 15-352.2 sets the Manager's term at one year - it "shall expire on June thirtieth of each year after nineteen hundred fifty-two", with sixty days' notice if his services are not wanted, and removal only "for neglect of duty, malfeasance or misfeasance in office, or incompetency" - unless the referendum carries, after which he is "appointed for an indefinite period and be subject to removal by the county board at any time", with a written statement of reasons and a public hearing if he asks, suspension capped at thirty days, and the Board's action "not be subject to review". New sec. 15-355.1 prints the two questions for 1952: "Shall the county manager be appointed for an indefinite term, subject to removal at any time by the county board?" and "Shall the heads of the county departments be appointed by the county manager?", with sec. 15-360.1 (vaacts1952c49) supplying the machinery. Both carried on 4 November 1952 (dailysun1952results). Sec. 15-353 is amended on the budget: the Manager prepares the tentative budget by 15 March, the Board may alter it only before 15 May, and if it does not act the Manager's budget stands. Filed in Drive as "legal/state statutes/Commonwealth of Virginia 1952 - Acts and Joint Resolutions, Session of 1952 (ch. 198).pdf", the page text as HathiTrust umn.31951d02280223t serves it, set out on a plain page by code/sources/pages.py and printed on 1 October 2026; HathiTrust refuses an automated request, so no copy of the page image was had.}
+      \field{day}{6}
+      \field{month}{3}
+      \field{note}{printed pp. 226--228}
+      \field{title}{Acts and Joint Resolutions, Session of 1952 (ch. 198)}
+      \field{urlday}{1}
+      \field{urlmonth}{10}
+      \field{urlyear}{2026}
+      \field{year}{1952}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://babel.hathitrust.org/cgi/pt?id=umn.31951d02280223t&seq=230
+      \endverb
+      \verb{url}
+      \verb https://babel.hathitrust.org/cgi/pt?id=umn.31951d02280223t&seq=230
+      \endverb
+    \endentry
+    \entry{vaacts1952c443}{legislation}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=e4acea2f03120c40785a4d0fdc19483c}{%
+           family={{Commonwealth of Virginia}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {General Assembly of Virginia, session of 1952}%
+      }
+      \strng{namehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{bibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorbibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authornamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \field{extraname}{4}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Ch. 443, Acts of the General Assembly of Virginia, session of 1952, printed p. 732, approved 1 April 1952 [S 431]. The non-interference bar, and the one structural change of the 1952 session enacted outright rather than offered to the voters. The act is titled as "relating to interference by members of county boards in appointments and removals of certain personnel". New sec. 15-350.1 in full: "Except as to persons appointed by it, neither the county board nor any of its members shall direct or request the appointment of any person to or his removal from any office or employment by the county or in any way take part in the appointment of or removal of officers and employees of the county. Except for the purpose of inquiry, the board and its members shall deal with the administrative services solely through the county manager and the heads of departments whom it may be empowered to appoint and neither the board nor any member thereof shall give orders either publicly or privately to any other county employee. Any member violating the provisions of this section shall be guilty of a misdemeanor and upon conviction thereof shall forfeit his office." Four things separate that from today's sec. 15.2-703, all of them loosening the Board: requesting an appointment is no longer barred, only dictating one; the bar on taking any part in an appointment is gone; the misdemeanor and the forfeiture of office are gone; and a sentence has been added letting the Board discuss appointments and removals with the Manager. None of that happened in 1962 (vaacts1962c623) or in 1971 (vaacts1971exsess), which leaves 1982 c. 108 or the 1997 recodification. The wording follows the National Municipal League's model (nml1916modelcharter), penalty included. What prompted the act is unknown: it is in neither the League of Women Voters' October 1951 list nor the delegation's December 1951 bill list. Filed in Drive as "legal/state statutes/Commonwealth of Virginia 1952 - Acts and Joint Resolutions, Session of 1952 (ch. 443).pdf", the page text as HathiTrust umn.31951d02280223t serves it, set out on a plain page by code/sources/pages.py and printed on 1 October 2026; HathiTrust refuses an automated request, so no copy of the page image was had.}
+      \field{day}{1}
+      \field{month}{4}
+      \field{note}{printed p. 732}
+      \field{title}{Acts and Joint Resolutions, Session of 1952 (ch. 443)}
+      \field{urlday}{1}
+      \field{urlmonth}{10}
+      \field{urlyear}{2026}
+      \field{year}{1952}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://babel.hathitrust.org/cgi/pt?id=umn.31951d02280223t&seq=736
+      \endverb
+      \verb{url}
+      \verb https://babel.hathitrust.org/cgi/pt?id=umn.31951d02280223t&seq=736
+      \endverb
+    \endentry
+    \entry{vaacts1952c591}{legislation}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=e4acea2f03120c40785a4d0fdc19483c}{%
+           family={{Commonwealth of Virginia}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {General Assembly of Virginia, session of 1952}%
+      }
+      \strng{namehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{bibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorbibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authornamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \field{extraname}{5}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Ch. 591, Acts of the General Assembly of Virginia, session of 1952, printed pp. 1035-1036, approved 3 April 1952 [H 650]. Board elections, offered to the voters and never petitioned onto the ballot. The act re-enacts sec. 15-351, and subsection (e) sets a hard window: a petition "signed by two hundred or more qualified voters" filed with the circuit court "on or before the first day of August, nineteen hundred fifty-two", a court order "on or before the first day of September, nineteen hundred fifty-two", and the vote "at the next regular election to be held in November, nineteen hundred fifty-two". Two questions were to be printed: "Shall the members of the county board be elected biennially for four year terms, as provided in subsection (f) of § 15-351 of the Code of Virginia?" and "Shall the membership on the county board be increased from five to seven?" Subsection (f) works out the staggering that a yes would have produced, and subsection (g) provides that on a yes to the second question "there shall be elected two additional members of the board, for terms of three years" at the November 1953 election. No petition was filed, so neither question reached the ballot and the window closed; the seven- member question reached Arlington voters in 1952 only as a conditional clause of the incorporation package, which failed (dailysun1952petitions, dailysun1952results). 1954 (vaacts1954c151) and 1958 (vaacts1958c207) reopened the window and dropped the board-size question. At-large election is not among the questions. Filed in Drive as "legal/state statutes/Commonwealth of Virginia 1952 - Acts and Joint Resolutions, Session of 1952 (ch. 591).pdf", the page text as HathiTrust umn.31951d02280223t serves it, set out on a plain page by code/sources/pages.py and printed on 1 October 2026; HathiTrust refuses an automated request, so no copy of the page image was had.}
+      \field{day}{3}
+      \field{month}{4}
+      \field{note}{printed pp. 1035--1036}
+      \field{title}{Acts and Joint Resolutions, Session of 1952 (ch. 591)}
+      \field{urlday}{1}
+      \field{urlmonth}{10}
+      \field{urlyear}{2026}
+      \field{year}{1952}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://babel.hathitrust.org/cgi/pt?id=umn.31951d02280223t&seq=1039
+      \endverb
+      \verb{url}
+      \verb https://babel.hathitrust.org/cgi/pt?id=umn.31951d02280223t&seq=1039
+      \endverb
+    \endentry
+    \entry{vaacts1954c151}{legislation}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=e4acea2f03120c40785a4d0fdc19483c}{%
+           family={{Commonwealth of Virginia}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {General Assembly of Virginia, session of 1954}%
+      }
+      \strng{namehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{bibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorbibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authornamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \field{extraname}{6}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Ch. 151, Acts of the General Assembly of Virginia, session of 1954, printed p. 148, approved 5 March 1954. A renewal of the referendum window vaacts1952c591 opened and nobody used, not a change in how Arlington elects its Board. Sec. 15-351 is re-enacted with every date in subsection (e) moved forward two years - a petition of "two hundred or more qualified voters" by "the first day of August, nineteen hundred fifty- four", a court order by "the first day of September, nineteen hundred fifty- four", the vote at the November 1954 election - and with one ballot question instead of two: "Shall the members of the county board be elected biennially for four year terms, as provided in paragraph (f) of § 15-351 of the Code of Virginia?" The question on raising the Board from five to seven is gone, two years after it was first offered and never petitioned for. Subsection (f) is rewritten to stagger from the terms expiring in 1955 and 1957. No petition was filed under this act either. The printed text marks the amended words with asterisks, which is how the dropped question can be read off the page. Filed in Drive as "legal/state statutes/Commonwealth of Virginia 1954 - Acts and Joint Resolutions, Session of 1954 (ch. 151).pdf", the page text as HathiTrust umn.31951d02280224r serves it, set out on a plain page by code/sources/pages.py and printed on 1 October 2026; HathiTrust refuses an automated request, so no copy of the page image was had.}
+      \field{day}{5}
+      \field{month}{3}
+      \field{note}{printed p. 148}
+      \field{title}{Acts and Joint Resolutions, Session of 1954 (ch. 151)}
+      \field{urlday}{1}
+      \field{urlmonth}{10}
+      \field{urlyear}{2026}
+      \field{year}{1954}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://babel.hathitrust.org/cgi/pt?id=umn.31951d02280224r&seq=218
+      \endverb
+      \verb{url}
+      \verb https://babel.hathitrust.org/cgi/pt?id=umn.31951d02280224r&seq=218
+      \endverb
+    \endentry
+    \entry{vaacts1958c207}{legislation}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=e4acea2f03120c40785a4d0fdc19483c}{%
+           family={{Commonwealth of Virginia}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {General Assembly of Virginia, session of 1958}%
+      }
+      \strng{namehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{bibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorbibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authornamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \field{extraname}{7}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Ch. 207, Acts of the General Assembly of Virginia, session of 1958, printed pp. 263-265, approved 6 March 1958 [S 329]. The same window reopened a second time, and the last time. Sec. 15-351 is re-enacted with the single four-year-terms question that vaacts1954c151 left, and with the dates moved again - but not simply forward. The petition of "two hundred or more qualified voters" is now due by "the first day of * April nineteen hundred * fifty-eight", the court order by "the first day of * May, nineteen hundred * fifty-eight", and the poll is to be opened "at the time prescribed by law for the next * primary election to be held in * July, nineteen hundred * fifty-eight" rather than at a November general election. The asterisks are the volume's own marks on the amended words. Subsection (f) restaggers from the terms expiring in 1958, 1959, 1960 and 1961. No petition was filed, and the question has not been offered since. The chapter number is 207, not 208: 1958 c. 208 is an act about a trial judge's power to direct a verdict, printed on the same page. Filed in Drive as "legal/state statutes/Commonwealth of Virginia 1958 - Acts and Joint Resolutions, Session of 1958 (ch. 207).pdf", the page text as HathiTrust umn.31951d02280226n serves it, set out on a plain page by code/sources/pages.py and printed on 1 October 2026; HathiTrust refuses an automated request, so no copy of the page image was had.}
+      \field{day}{6}
+      \field{month}{3}
+      \field{note}{printed pp. 263--265}
+      \field{title}{Acts and Joint Resolutions, Session of 1958 (ch. 207)}
+      \field{urlday}{1}
+      \field{urlmonth}{10}
+      \field{urlyear}{2026}
+      \field{year}{1958}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://babel.hathitrust.org/cgi/pt?id=umn.31951d02280226n&seq=433
+      \endverb
+      \verb{url}
+      \verb https://babel.hathitrust.org/cgi/pt?id=umn.31951d02280226n&seq=433
+      \endverb
+    \endentry
+    \entry{vaacts1870}{misc}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=e4acea2f03120c40785a4d0fdc19483c}{%
+           family={{Commonwealth of Virginia}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{bibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorbibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authornamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \field{extraname}{8}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Sections read: Ch. 39 (approved 2 April 1870), the governor to appoint five commissioners in each county to lay it off into not fewer than three townships; ch. 76 secs. 3-4 and 14 (approved 11 May 1870) - sec. 3, the term of state, district and county officers chosen at a general election commences "the first day of January next thereafter"; sec. 4, the term of "all corporation and township officers chosen at a general election ... shall commence on the first day of July next thereafter"; sec. 14, one supervisor chosen annually in each township at the May general election, making the supervisor a township officer under sec. 4 - ch. 188 sec. 2 (approved 11 July 1870), under the heading "Board of supervisors", the supervisors of the several townships constitute the board of supervisors for the county and may sue and be sued by that name. The copy held is a five-page extract of the Internet Archive scan of the Google- digitized University of Virginia volume: the title page and printed pages 37, 78, 80 and 269; secs. 3-4 are on printed page 78 (sec. 14 is on page 80). The filed scan carries no text layer, so sec. 3-4's wording was read 2 October 2026 directly off the page 78 image (archive.org leaf 84, IIIF actsgeneralasse04virggoog$84). Nothing else in the volume has been read. Filed in Drive as "legal/state statutes/Commonwealth of Virginia 1870 - Acts of the General Assembly, Session of 1869-70.pdf", made 26 September 2026}
+      \field{title}{Acts of the General Assembly of the State of Virginia, Passed at the Session of 1869--70}
+      \field{urlday}{26}
+      \field{urlmonth}{9}
+      \field{urlyear}{2026}
+      \field{year}{1870}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://archive.org/details/actsgeneralasse04virggoog
+      \endverb
+      \verb{url}
+      \verb https://archive.org/details/actsgeneralasse04virggoog
+      \endverb
+    \endentry
+    \entry{waltonact1894}{legislation}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=e4acea2f03120c40785a4d0fdc19483c}{%
+           family={{Commonwealth of Virginia}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{bibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorbibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authornamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \field{extraname}{9}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Sections the report uses: sec. 3, the official "white paper ticket" carries every candidate who has complied with the act and "None other shall be a legal ballot"; sec. 11, the elector must "draw a line with a pen or pencil through the names of the candidates he does not wish to vote for", no name counts as scratched "unless the pen or pencil mark extend through three-fourths of the length of said name", and an office for which more than one name survives is void; sec. 15, the electoral board of each county or city appoints for each precinct one special constable, who must be "able to read and write" and who alone may read the ballot to and mark it for an elector "physically or educationally unable to vote" - the appointment is the electoral board's, not a judge's; sec. 16, any board member, printer, judge of election "or any other person" who gives or sells any official ballot "or any copy, or any fac-simile of the same, or any information about the same" is guilty of a misdemeanor. The full text is the Virginia Center for Digital History's transcription, printed from its page on 30 September 2026, nineteen sections including the candidate notice, the screened booth and a two-and-a-half-minute limit. Its chapter number and approval date are confirmed against the printed session-acts volume for 1893-94, read in full view on HathiTrust as uva.x004737232 (record 009788135; a title search on 30 September 2026 had missed it): chapter 746, "to provide for the method of voting by ballot", "Approved March 6, 1894", pp. 862-867. Filed in Drive as "legal/state statutes/Commonwealth of Virginia 1894 - An Act to Provide for the Method of Voting by Ballot (transcription).pdf" and "legal/state statutes/Commonwealth of Virginia 1894 - Acts and Joint Resolutions, Session of 1893-94 (ch. 746).pdf"}
+      \field{day}{6}
+      \field{month}{3}
+      \field{note}{Acts and Joint Resolutions Passed by the General Assembly of the State of Virginia During the Session of 1893--94, ch. 746, approved 6 March 1894; the Walton Act}
+      \field{title}{An Act to Provide for the Method of Voting by Ballot}
+      \field{urlday}{30}
+      \field{urlmonth}{9}
+      \field{urlyear}{2026}
+      \field{year}{1894}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www2.vcdh.virginia.edu/afam/politics/legislation.html
+      \endverb
+      \verb{url}
+      \verb https://www2.vcdh.virginia.edu/afam/politics/legislation.html
+      \endverb
+    \endentry
+    \entry{vacode2020chairelection}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=e4acea2f03120c40785a4d0fdc19483c}{%
+           family={{Commonwealth of Virginia}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{bibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorbibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authornamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \field{extraname}{10}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Read 2026-10-02. Filed in Drive as "legal/state statutes/Commonwealth of Virginia 2020 - Code of Virginia § 15.2-1422, Electing a chairman and vice-chairman or a mayor and vice-mayor.pdf", printed from the page on 2026-10-02}
+      \field{note}{A governing body elects one of its members presiding officer at its first meeting after taking office; the term may match the member's own or follow another period the body sets; with none designated it is one year; successive terms are permitted. The page lists the section as enacted in 1997 and amended in 2020, so it is not the law the Board met under before 1997.}
+      \field{title}{Code of Virginia § 15.2-1422, Electing a chairman and vice-chairman or a mayor and vice-mayor}
+      \field{urlday}{2}
+      \field{urlmonth}{10}
+      \field{urlyear}{2026}
+      \field{year}{2020}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://law.lis.virginia.gov/vacode/title15.2/chapter14/section15.2-1422/
+      \endverb
+      \verb{url}
+      \verb https://law.lis.virginia.gov/vacode/title15.2/chapter14/section15.2-1422/
+      \endverb
+    \endentry
+    \entry{vaconstitution1869}{misc}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=e4acea2f03120c40785a4d0fdc19483c}{%
+           family={{Commonwealth of Virginia}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{bibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorbibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authornamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \field{extraname}{11}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extratitle}{1}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Sections read: Art. III (Elective Franchise and Qualifications for Office), sec. 1 (a voter's residence: twelve months in the state and three months in "the county, city or town in which he shall offer to vote") and sec. 2 ("all persons entitled to vote shall be eligible to any office within the gift of the people, except as restricted in this Constitution"); Art. VII (County Organizations), sec. 1 (county officers elected county-wide) and sec. 2 (each county divided into not fewer than three townships, one supervisor elected annually in each, and "The Supervisors of each township shall constitute the Board of Supervisors for that county"). The printed edition framed by the convention that met in Richmond in December 1867: the title page reads "passed April 17, 1868", printed at the Office of the New Nation, 1868. It was ratified by the voters in July 1869 and the first officers under it took office in 1870, so it is dated here by the year it took effect, which is how the report names it. Art. VII sec. 2 creates the supervisor and states no residence qualification for him; Art. III sec. 2 makes eligibility for office follow from the vote. The copy held is a four- page extract of the Internet Archive scan of the Library of Congress pamphlet: the title page and printed pages 9, 28 and 29, carrying those sections. Nothing else in the document has been read. Two sessions cut excerpts on 26 September 2026 and they are combined here. Filed in Drive as "legal/state constitutions/Commonwealth of Virginia 1869 - Constitution of Virginia (title page, Art. III and Art. VII excerpt).pdf"}
+      \field{title}{Constitution of Virginia}
+      \field{urlday}{26}
+      \field{urlmonth}{9}
+      \field{urlyear}{2026}
+      \field{year}{1869}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://archive.org/details/constitutionofvi00virg
+      \endverb
+      \verb{url}
+      \verb https://archive.org/details/constitutionofvi00virg
+      \endverb
+    \endentry
+    \entry{vaconstitution1902}{misc}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=e4acea2f03120c40785a4d0fdc19483c}{%
+           family={{Commonwealth of Virginia}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{bibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorbibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authornamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \field{extraname}{12}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extratitle}{2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{The Library of Virginia holds the enrolled Constitution and Schedule, Record Group 97, signed by John Goode (President) and Joseph Button (Secretary) of the Convention, with no restrictions on use. Schedule sec. 10 governs the first election under the Constitution: county and district officers are elected on the Tuesday after the first Monday in November 1903, and "the terms of office of the several officers elected at that or any subsequent election shall begin on the first day of January, next after their election" - the same rule sec. 112 states for every later election, with no exception for this first one. Sec. 10's second paragraph names "supervisors of the several counties" among the offices whose sitting holders "are continued until January the first, nineteen hundred and four", confirming the magisterial supervisors elected that November took their seats on 1 January 1904 and not before (`schedule-1902`). Filed in Drive as "legal/state constitutions/Commonwealth of Virginia 1902 - Constitution of Virginia (scan).pdf", the 155-page enrolled original, and "legal/state constitutions/Commonwealth of Virginia 1902 - Constitution of Virginia (transcription).pdf", Brent Tarter's Library of Virginia transcription of it, which names the official printed edition ("The Constitution of the State of Virginia, Adopted by the Convention of 1901-2", Richmond, 1902) as the same text; both fetched 26 September 2026. Supersedes the incomplete hosted PDF fetched 24 September 2026, which stopped mid-sentence in Article IX at sec. 136 and carried no Schedule.}
+      \field{note}{Sec. 111 (one supervisor elected in each magisterial district) and sec. 112 (county and district officers elected on the Tuesday after the first Monday in November, entering office on 1 January next succeeding, for a term of four years)}
+      \field{title}{Constitution of Virginia}
+      \field{urlday}{26}
+      \field{urlmonth}{9}
+      \field{urlyear}{2026}
+      \field{year}{1902}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://rosetta.virginiamemory.com/delivery/DeliveryManagerServlet?dps_pid=IE2924540
+      \endverb
+      \verb{url}
+      \verb https://rosetta.virginiamemory.com/delivery/DeliveryManagerServlet?dps_pid=IE2924540
+      \endverb
+    \endentry
+    \entry{vacode1860}{misc}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=e4acea2f03120c40785a4d0fdc19483c}{%
+           family={{Commonwealth of Virginia}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=586c7187cc2f556d0de24f80247a047b}{%
+           family={Munford},
+           familyi={M\bibinitperiod},
+           given={George\bibnamedelima Wythe},
+           giveni={G\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+      }
+      \strng{namehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{fullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{bibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorbibnamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authornamehash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhash}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{authorfullhashraw}{e4acea2f03120c40785a4d0fdc19483c}
+      \strng{editorbibnamehash}{586c7187cc2f556d0de24f80247a047b}
+      \strng{editornamehash}{586c7187cc2f556d0de24f80247a047b}
+      \strng{editorfullhash}{586c7187cc2f556d0de24f80247a047b}
+      \strng{editorfullhashraw}{586c7187cc2f556d0de24f80247a047b}
+      \field{extraname}{13}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Sections read: Ch. 53 sec. 1 (the county levy laid by the court of the county) and sec. 3 (annually in May or June, "when a majority of the acting justices of the county is present", the court makes up an account of all sums chargeable on the county and orders the levy); ch. 157 sec. 1 (a court for every county, "held by the justices of the county or corporation, or any four or more of them") and sec. 16 (its general jurisdiction). The copy held is a five-page extract of the Internet Archive scan: the title page and printed pages 307, 660, 661 and 663. The Code applies by its terms to every county and names none, so it is evidence about Alexandria County only through that generality. Nothing else in the volume has been read. Filed in Drive as "legal/state statutes/Commonwealth of Virginia 1860 - Code of Virginia.pdf", made 26 September 2026}
+      \field{title}{The Code of Virginia, Including Legislation to the Year 1860}
+      \field{urlday}{26}
+      \field{urlmonth}{9}
+      \field{urlyear}{2026}
+      \field{year}{1860}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://archive.org/details/codeofvirginiain00virg
+      \endverb
+      \verb{url}
+      \verb https://archive.org/details/codeofvirginiain00virg
+      \endverb
+    \endentry
+    \entry{commonwealthvarlington1977}{jurisdiction}{}{}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Carrico, J., for a unanimous court. Frames the question, 217 Va. at 573, as "one of first impression for this court" for "local governing bodies in Virginia" generally, not Arlington's alone, which is why the ruling reached public-sector bargaining statewide; the General Assembly did not restore local authority to bargain until 2021. Holds, 217 Va. at 581: "to the extent the boards' policies permit collective bargaining and collective bargaining agreements with recognized labor organizations, the policies are declared invalid... the agreements are declared void." Filed in Drive as "legal/state courts/Supreme Court of Virginia 1977 - Commonwealth v. County Board of Arlington County.pdf"}
+      \field{day}{14}
+      \field{month}{1}
+      \field{note}{217 Va. 558, 232 S.E.2d 30 (Supreme Court of Virginia, 1977)}
+      \field{title}{Commonwealth of Virginia v. County Board of Arlington County}
+      \field{urlday}{26}
+      \field{urlmonth}{9}
+      \field{urlyear}{2026}
+      \field{year}{1977}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.courtlistener.com/opinion/1277629/commonwealth-v-county-board-of-arlington-county/
+      \endverb
+      \verb{url}
+      \verb https://www.courtlistener.com/opinion/1277629/commonwealth-v-county-board-of-arlington-county/
+      \endverb
+    \endentry
+    \entry{brownvarlington1985}{jurisdiction}{}{}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Compton, J., for the court; Russell, J., dissenting. Record No. 841641, brought October 1984 and decided 26 April 1985; the County Attorney's report gives 1985 in its list and 1984 in its discussion, and the reported opinion settles the decision at 1985. The Board had accepted a letter of intent to let 6.4 acres of the courthouse parking lot to a private developer on a 75-year ground lease for office, hotel, retail and residential use, and directed the County Manager to sign it; he refused, believing the County's authority doubtful, and the Board sought a writ of mandamus to compel its own Manager. Holds, 229 Va. at 345-46, that the parcel is not "unused lands" within Code sec. 15.1-261.1 because it "has a substantive, functional use" as parking, and at 346-47 that sec. 15.1-262's power to "sell ... or exchange and convey" carries no power to lease: "Nowhere in the statute is the power given to counties to grant less than fee simple title to county land", and the general power to lease that sec. 15.1-847 gives municipalities "demonstrates a clear legislative intent to withhold from counties any power to lease not otherwise specifically granted." Writ denied; the General Assembly granted the authority afterwards. Applies Dillon's Rule expressly at 344, citing commonwealthvarlington1977. With that case and arlingtonvwhite2000 it is the third of the three Arlington decisions the County Attorney's report lists, and the only one about the County Manager Plan itself: the Board could not compel its own Manager to act. Filed in Drive as "legal/state courts/Supreme Court of Virginia 1985 - County Board of Arlington County v. Brown.pdf", the Harvard Caselaw Access Project scan of 229 Va. 341 as CourtListener serves it, saved 30 September 2026}
+      \field{day}{26}
+      \field{month}{4}
+      \field{note}{229 Va. 341, 329 S.E.2d 468 (Supreme Court of Virginia, 1985)}
+      \field{title}{County Board of Arlington County v. Brown}
+      \field{urlday}{30}
+      \field{urlmonth}{9}
+      \field{urlyear}{2026}
+      \field{year}{1985}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.courtlistener.com/opinion/1158625/county-bd-of- arlington-county-v-brown/
+      \endverb
+      \verb{url}
+      \verb https://www.courtlistener.com/opinion/1158625/county-bd-of-%20arlington-county-v-brown/
+      \endverb
+    \endentry
+    \entry{kirkhamvrussell1882}{jurisdiction}{}{}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Lewis, J. Seven men whom Petersburg's outgoing common council elected to city offices three days before eleven of its twenty-four members left office petitioned for mandamus to compel the city auditor to pay their salaries; the writs were refused, the ordinance under which they were elected being an unreasonable exercise of the council's power and the council's power of election already spent. Holds, 76 Va. at 961, citing Dillon on Municipal Corporations sec. 91 (3rd ed.), that "in the construction of charters of corporations, whether public or private, it is a settled rule of interpretation ... that only such powers can be exercised under them as are clearly comprehended within the words of the charter, or derived therefrom by necessary implication, regard being had to the objects of the grant. And any doubt arising out of the terms used by the legislature must be resolved in favor of the public." schragger2022 note 79 reads this as the point at which Virginia adopted Dillon's Rule in full, rejecting the contrary doctrine of Cooley that the court had followed in Ould & Carrington v. City of Richmond, 64 Va. 464 (1873). Filed in Drive as "legal/state courts/Supreme Court of Appeals of Virginia 1882 - Kirkham v. Russell.pdf", the Harvard Caselaw Access Project scan of 76 Va. 956 and the pages that follow it in the volume, as CourtListener serves it, saved 30 September 2026}
+      \field{day}{19}
+      \field{month}{12}
+      \field{note}{76 Va. 956 (Supreme Court of Appeals of Virginia, 1882)}
+      \field{title}{Kirkham v. Russell}
+      \field{urlday}{30}
+      \field{urlmonth}{9}
+      \field{urlyear}{2026}
+      \field{year}{1882}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.courtlistener.com/opinion/6911713/kirkham-v- russell/
+      \endverb
+      \verb{url}
+      \verb https://www.courtlistener.com/opinion/6911713/kirkham-v-%20russell/
+      \endverb
+    \endentry
+    \entry{pratt1995}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=545a5a557424d0d3d75cf999d1586e83}{%
+           family={Pratt},
+           familyi={P\bibinitperiod},
+           given={Sherman\bibnamedelima W.},
+           giveni={S\bibinitperiod\bibinitdelim W\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{545a5a557424d0d3d75cf999d1586e83}
+      \strng{fullhash}{545a5a557424d0d3d75cf999d1586e83}
+      \strng{fullhashraw}{545a5a557424d0d3d75cf999d1586e83}
+      \strng{bibnamehash}{545a5a557424d0d3d75cf999d1586e83}
+      \strng{authorbibnamehash}{545a5a557424d0d3d75cf999d1586e83}
+      \strng{authornamehash}{545a5a557424d0d3d75cf999d1586e83}
+      \strng{authorfullhash}{545a5a557424d0d3d75cf999d1586e83}
+      \strng{authorfullhashraw}{545a5a557424d0d3d75cf999d1586e83}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Byline, title, month and printed pages 19-35 read off the article. Volume and issue are not printed on the pages held, as with novack1994 in the same magazine. Pratt heard Vollin's testimony and holds tape recordings of his own interviews with him; the article is the source for both Vollin citations. Filed in Drive as "books/Pratt 1995 - Arlington's At-Large Electoral System.pdf" - it was already in the folder under the title "Arlington's Electoral History", which is O'Leary's subject, not this}
+      \field{journaltitle}{Arlington Historical Magazine}
+      \field{month}{10}
+      \field{title}{Arlington's At-Large Electoral System: A Study of Its History, Strengths, and Weaknesses}
+      \field{year}{1995}
+      \field{dateera}{ce}
+      \field{pages}{19\bibrangedash 35}
+      \range{pages}{17}
+    \endentry
+    \entry{rose1976}{book}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=efef1747e141e43f542f5b44774acb8d}{%
+           family={Rose},
+           familyi={R\bibinitperiod},
+           given={Cornelia\bibnamedelima B.},
+           giveni={C\bibinitperiod\bibinitdelim B\bibinitperiod},
+           givenun=0,
+           suffix={Jr.},
+           suffixi={J\bibinitperiod},
+           suffixun=0}}%
+      }
+      \list{location}{1}{%
+        {Arlington}%
+      }
+      \list{publisher}{1}{%
+        {Arlington Historical Society}%
+      }
+      \strng{namehash}{efef1747e141e43f542f5b44774acb8d}
+      \strng{fullhash}{efef1747e141e43f542f5b44774acb8d}
+      \strng{fullhashraw}{efef1747e141e43f542f5b44774acb8d}
+      \strng{bibnamehash}{efef1747e141e43f542f5b44774acb8d}
+      \strng{authorbibnamehash}{efef1747e141e43f542f5b44774acb8d}
+      \strng{authornamehash}{efef1747e141e43f542f5b44774acb8d}
+      \strng{authorfullhash}{efef1747e141e43f542f5b44774acb8d}
+      \strng{authorfullhashraw}{efef1747e141e43f542f5b44774acb8d}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{This is where "continuous, contiguous, and homogeneous community" comes from, and Rose gives no source for it. At p. 176, on Bennett v. Garrett: "The case was eventually decided by the Supreme Court of Appeals of Virginia which held that Arlington County was a 'continuous, contiguous, and homogeneous community' that could not be subdivided for the purposes of incorporating a portion of it." None of the three words occurs anywhere in the opinion, the page's only footnote is to Acts of Assembly 1920 ch. 241 for the county's renaming, and the quotation marks are Rose's own; see bennettvgarrett1922. At p. 197 she reuses the phrase for the change the Board made in 1932: "the fact that the Magisterial Districts had been abolished and the County Board elected at large, meant a governing body more responsive to the needs of the whole County rather than pitting one section against another. The 'Continuous, contiguous, and homogeneous' nature of Arlington had now found expression in its form of government." At p. 229 she uses it a third time, of 1976: Arlington is "much more 'continuous [and] contiguous' than fifty years ago, but far less 'homogeneous'." Her spelling throughout is homogeneous. bestebreurtje2017 note 552 prints homogenous and cites p. 167, where this printing carries a passage on rail lines and air travel; Arlington's own County Manager Plan page quotes the p. 197 sentence and spells it homogeneous. Pages read: the title page, 176 and 197, from the Internet Archive's borrowable scan on 30 September 2026. On 1 October 2026 the chapters covering the 1930s-50s (pp. 174-230: the end of Chapter VIII through Chapters IX-XII) were read in full against the same scan, in-book search run on "incorporating", "incorporate", "staggered", "1938", "1958", "1959" and "Commission". Neither incorporation-commission-1959 nor referendum-1938-canvass is answered here: Rose's narrative has nothing under those years on the Board's term structure or a study of incorporation. What p. 174-176 and 194-196 do carry is earlier and later material on the same incorporation question - an unnamed 1920s committee (Mackey, Douglas, Moncure, Finney, Jesse) that drafted a charter for "a city of the first class" and went nowhere, folded into the Bennett v. Garrett discussion already cited above; and the referendum of 4 November 1930 that adopted the County Manager Plan, where "a diversion was created by the desire of some elements to study the matter of incorporating the whole County as a city" before the Board chose instead to put the Manager Plan to a vote (2,067 for change of government to 1,031 against; 1,936 for the Manager Plan to 428 for a Modified Commission Plan; 1,689 for election at large to 1,149 for election by district). Neither passage is about 1958-59 or 1938, so neither is filed; the rest of the book (chapters I-VII, XIII on) is still unread. Filed in Drive as "books/Rose 1976 - Arlington County, Virginia - A History (title page and pp. 176, 197 excerpt).pdf", page images captured from the borrowed scan in Sally's own browser, images reduced to 150 dpi}
+      \field{title}{Arlington County, Virginia: A History}
+      \field{urlday}{30}
+      \field{urlmonth}{9}
+      \field{urlyear}{2026}
+      \field{year}{1976}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://archive.org/details/arlingtoncountyv0000rose
+      \endverb
+      \verb{url}
+      \verb https://archive.org/details/arlingtoncountyv0000rose
+      \endverb
+    \endentry
+    \entry{samuel2026}{report}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=a1fb1902914804573bdf3d2edff5d321}{%
+           family={Samuel},
+           familyi={S\bibinitperiod},
+           given={Ryan},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{institution}{1}{%
+        {Office of the County Attorney, Arlington County, Virginia}%
+      }
+      \strng{namehash}{a1fb1902914804573bdf3d2edff5d321}
+      \strng{fullhash}{a1fb1902914804573bdf3d2edff5d321}
+      \strng{fullhashraw}{a1fb1902914804573bdf3d2edff5d321}
+      \strng{bibnamehash}{a1fb1902914804573bdf3d2edff5d321}
+      \strng{authorbibnamehash}{a1fb1902914804573bdf3d2edff5d321}
+      \strng{authornamehash}{a1fb1902914804573bdf3d2edff5d321}
+      \strng{authorfullhash}{a1fb1902914804573bdf3d2edff5d321}
+      \strng{authorfullhashraw}{a1fb1902914804573bdf3d2edff5d321}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Marked "For Public Release". Written to the Board's direction for the Form of Government study, in four parts: Arlington's current form and the alternatives; how a jurisdiction over 150,000 may change its own structure; impacts on the School Board and constitutional officers; impacts of converting to city status. Attachment A compares the six county forms. Carries no history: every episode appears as precedent, never as narrative. Four points bear on this report. Note 8 (p.7): the County Manager Plan "appears to be the only county form of government that does not refer to its Board members as 'supervisors'", and Arlington adopted the Plan by referendum in 1930, operating under it since 1932 - so the name, the at-large method and the five seats arrive together. Va. Code s 15.2-705 requires at-large election of all members, the only form that does. Note 13 (p.20) gives the reported citations for both Vollin actions. Note 7 (p.6) cites Bennett v. Garrett for the inference that no town may incorporate within Arlington. Filed in Drive as "reports/Samuel 2026 - Virginia Forms of Local Government.pdf"}
+      \field{day}{21}
+      \field{month}{7}
+      \field{title}{Virginia Forms of Local Government}
+      \field{urlday}{25}
+      \field{urlmonth}{9}
+      \field{urlyear}{2026}
+      \field{year}{2026}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.arlingtonva.us/files/sharedassets/public/v/1/county-board/documents/form-of-government/form-of-government-legal-research.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.arlingtonva.us/files/sharedassets/public/v/1/county-board/documents/form-of-government/form-of-government-legal-research.pdf
+      \endverb
+    \endentry
+    \entry{schragger2022}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=70dbcd106f0bf1e2c3b0c7b6043466cf}{%
+           family={Schragger},
+           familyi={S\bibinitperiod},
+           given={Richard},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4e54952d295fd5fc4584565e98935521}{%
+           family={Retzloff},
+           familyi={R\bibinitperiod},
+           given={C.\bibnamedelimi Alex},
+           giveni={C\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{874873c87a61ca23b4d13ed135bd7896}
+      \strng{fullhash}{874873c87a61ca23b4d13ed135bd7896}
+      \strng{fullhashraw}{874873c87a61ca23b4d13ed135bd7896}
+      \strng{bibnamehash}{874873c87a61ca23b4d13ed135bd7896}
+      \strng{authorbibnamehash}{874873c87a61ca23b4d13ed135bd7896}
+      \strng{authornamehash}{874873c87a61ca23b4d13ed135bd7896}
+      \strng{authorfullhash}{874873c87a61ca23b4d13ed135bd7896}
+      \strng{authorfullhashraw}{874873c87a61ca23b4d13ed135bd7896}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Read 30 September 2026. The Commission on Constitutional Revision's 1969 draft included the provision, quoted at 183 from the Commission's report, that "a charter county or a city may exercise any power or perform any function which is not denied to it by this Constitution, by its charter, or by laws enacted by the General Assembly"; it was dropped before the draft reached the voters in 1970. At 205, quoting the House of Delegates committee report: "The committee does not recommend a constitutional provision proposed by the Commission to reverse the so-called 'Dillon' rule of strict construction of municipal powers. The first sentence of Section 3 as introduced, therefore, has been deleted. The Municipal League also told the committee it was against this change because, as a matter of experience it felt the General Assembly had granted to cities the powers they need and desire." The opposition was the Virginia Municipal League's, described at 200 as "somewhat counterintuitive"; the Virginia Association of Counties' executive board had proposed the opposite in 1968, that localities be given every power not denied them (note 102), and reversed its later hostility only in its 2020 legislative program (note 174). At 195-96 and notes 79-80: the court took Dillon's canon of strict construction in kirkhamvrussell1882 and quoted it outright in winchestervredmond1896, and the rule "has now been the law of Virginia for 140 years". At 205-08 the authors place the rejection in the racial politics of the moment, Richmond turning majority-Black while white suburban and rural leaders were wary of empowered cities, and note that in 1969 one of the hundred delegates was African-American. Filed in Drive as "books/Schragger and Retzloff 2022 - The Failure of Home Rule Reform in Virginia.pdf", the journal's own PDF saved 30 September 2026}
+      \field{journaltitle}{Journal of Law and Politics}
+      \field{title}{The Failure of Home Rule Reform in Virginia: Race, Localism, and the Constitution of 1971}
+      \field{urlday}{30}
+      \field{urlmonth}{9}
+      \field{urlyear}{2026}
+      \field{volume}{37}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{183\bibrangedash 215}
+      \range{pages}{33}
+      \verb{urlraw}
+      \verb https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3574765
+      \endverb
+      \verb{url}
+      \verb https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3574765
+      \endverb
+    \endentry
+    \entry{dailysun1952results}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=f279e0344aeec0651a8ec6f6c65ea8a8}{%
+           family={{The Daily Sun}},
+           familyi={T\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Arlington, Virginia}%
+      }
+      \strng{namehash}{f279e0344aeec0651a8ec6f6c65ea8a8}
+      \strng{fullhash}{f279e0344aeec0651a8ec6f6c65ea8a8}
+      \strng{fullhashraw}{f279e0344aeec0651a8ec6f6c65ea8a8}
+      \strng{bibnamehash}{f279e0344aeec0651a8ec6f6c65ea8a8}
+      \strng{authorbibnamehash}{f279e0344aeec0651a8ec6f6c65ea8a8}
+      \strng{authornamehash}{f279e0344aeec0651a8ec6f6c65ea8a8}
+      \strng{authorfullhash}{f279e0344aeec0651a8ec6f6c65ea8a8}
+      \strng{authorfullhashraw}{f279e0344aeec0651a8ec6f6c65ea8a8}
+      \field{extraname}{1}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{The result. "With a record 36,673 voters casting their ballots in the general elections in the county, 27,523 opposed Incorporation, while only 3,540 favored It", following the Citizens Study Commission on Local Government, appointed by the County Board, which had found the county would lose about $750,000 in state and federal road funds and that "there are defects in the proposed Arlington City Charter, approved by the 1946 Virginia General Assembly". On the rest: "While turning down the incorporation proposal, the Arlington voters decided to make three changes in their county government. They voted to give the county manager power to appoint department heads and to make his tenure indefinite. Previously the County Board appointed department heads and the county manager was hired by annual contract. The present contract of County Manager A. T. Lundberg expires December 31." The tallies: indefinite tenure 19,024 to 11,069, department heads 18,597 to 11,162, and a Department of Real Estate Assessments 17,795 to 11,348, after which "The County Board now may establish this department immediately by ordinance or resolution." So Arlington's strong-manager form was voted in rather than legislated in, under the questions vaacts1952c198 and vaacts1952c610c611 print. The page also carries the photograph of the three Arlington Independent Movement winners of the special elections - Alvin F. Kimel, Mrs. Leone B. Buchholz and Dr. Robert H. Detwiler - "replacing three members removed from office by a court ruling against federal employes serving in county and state offices in Virginia" (paolicelli1952), and reports that Robert W. Cox, the ousted chairman, had been appointed executive officer of the Federal Communications Commission, where he had been budget officer. Filed in Drive as "press/Daily Sun/Daily Sun 1952 - City Charter For Arlington Soundly Beaten (5 November 1952, p. 1).pdf", the page text as Virginia Chronicle serves it at f=XML, set out on a plain page by code/sources/pages.py and printed on 1 October 2026; the site refuses an automated request and its page images are behind a login, so no copy of the image was had, and the OCR is poor enough in places that it is quoted here as it stands.}
+      \field{day}{5}
+      \field{journaltitle}{The Daily Sun}
+      \field{month}{11}
+      \field{title}{City Charter For Arlington Soundly Beaten}
+      \field{urlday}{1}
+      \field{urlmonth}{10}
+      \field{urlyear}{2026}
+      \field{year}{1952}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{1}
+      \range{pages}{1}
+      \verb{urlraw}
+      \verb https://virginiachronicle.com/?a=d&d=TDS19521105.1.1
+      \endverb
+      \verb{url}
+      \verb https://virginiachronicle.com/?a=d&d=TDS19521105.1.1
+      \endverb
+    \endentry
+    \entry{dailysun1952petitions}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=f279e0344aeec0651a8ec6f6c65ea8a8}{%
+           family={{The Daily Sun}},
+           familyi={T\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Arlington, Virginia}%
+      }
+      \strng{namehash}{f279e0344aeec0651a8ec6f6c65ea8a8}
+      \strng{fullhash}{f279e0344aeec0651a8ec6f6c65ea8a8}
+      \strng{fullhashraw}{f279e0344aeec0651a8ec6f6c65ea8a8}
+      \strng{bibnamehash}{f279e0344aeec0651a8ec6f6c65ea8a8}
+      \strng{authorbibnamehash}{f279e0344aeec0651a8ec6f6c65ea8a8}
+      \strng{authornamehash}{f279e0344aeec0651a8ec6f6c65ea8a8}
+      \strng{authorfullhash}{f279e0344aeec0651a8ec6f6c65ea8a8}
+      \strng{authorfullhashraw}{f279e0344aeec0651a8ec6f6c65ea8a8}
+      \field{extraname}{2}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{The two petitions filed under vaacts1952c49, and the page that sets the 4 November 1952 ballot. The incorporation petition "was filed Primary Day in Arlington Circuit Court by Mrs. Vera Dean, wife of Non-Partisan County Board Alan L. Dean", and if enough signatures stand "Circuit Judge William D. Medley must accede by Aug. 1" - though the same story later says "Circuit Judge Walter T. McCarthy will be required to call for a referendum by Aug. 1", so the page names two judges for the same duty. Incorporation would also put two further questions: "(1) Shall the City Council consist of five or seven members? There presently are five seats on the County Board. (2) Shall the city school board be appointed by the City Council or elected by the people? Arlington is the only Virginia county that has an elected school board." That is the only route by which a five-or-seven question reached Arlington voters in 1952; the one vaacts1952c591 offered was never petitioned for. The second petition, "signed by 204 voters", was "filed July 11 by Mrs. George C. Vietheer, prsident of the Arlington League of Women Voters", carrying "(1) Shall the County Manager be appointed for an indefinite term, subject to removal at any time by the County Board? (2) Shall the heads of the County departments be appointed by the Countv Manager?" - the two questions vaacts1952c198 prints. The paper adds the background: "This referendum apparently steii: * f. mn a dispute between County political factions last year over whether the County Manager has the power to appoint department heads. The Arlington Circuit Court ruled that the County Board should make the appointments", which runs the other way from dailysun1951policechief; and "The county Manager presently serves for one year and is eligible for additional consecutive terms." Incorporation's purpose is given plainly: federal employees had been barred from Board seats by Judge McCarthy, the appeal was pending with a decision expected in September, and "Legal authorities maintain that this ban does not apply in Virginia cities". Filed in Drive as "press/Daily Sun/Daily Sun 1952 - Petition Seeks To Incorporate County As City (19 July 1952, p. 1).pdf", the page text as Virginia Chronicle serves it at f=XML, set out on a plain page by code/sources/pages.py and printed on 1 October 2026; the site refuses an automated request and its page images are behind a login, so no copy of the image was had, and the OCR is poor enough in places that it is quoted here as it stands.}
+      \field{day}{19}
+      \field{journaltitle}{The Daily Sun}
+      \field{month}{7}
+      \field{title}{Petition Seeks To Incorporate County As City}
+      \field{urlday}{1}
+      \field{urlmonth}{10}
+      \field{urlyear}{2026}
+      \field{year}{1952}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{1}
+      \range{pages}{1}
+      \verb{urlraw}
+      \verb https://virginiachronicle.com/?a=d&d=TDS19520719.1.1
+      \endverb
+      \verb{url}
+      \verb https://virginiachronicle.com/?a=d&d=TDS19520719.1.1
+      \endverb
+    \endentry
+    \entry{dailysun1951spicer}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=f279e0344aeec0651a8ec6f6c65ea8a8}{%
+           family={{The Daily Sun}},
+           familyi={T\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Arlington, Virginia}%
+      }
+      \strng{namehash}{f279e0344aeec0651a8ec6f6c65ea8a8}
+      \strng{fullhash}{f279e0344aeec0651a8ec6f6c65ea8a8}
+      \strng{fullhashraw}{f279e0344aeec0651a8ec6f6c65ea8a8}
+      \strng{bibnamehash}{f279e0344aeec0651a8ec6f6c65ea8a8}
+      \strng{authorbibnamehash}{f279e0344aeec0651a8ec6f6c65ea8a8}
+      \strng{authornamehash}{f279e0344aeec0651a8ec6f6c65ea8a8}
+      \strng{authorfullhash}{f279e0344aeec0651a8ec6f6c65ea8a8}
+      \strng{authorfullhashraw}{f279e0344aeec0651a8ec6f6c65ea8a8}
+      \field{extraname}{3}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{What the Board's January 1951 action had left by the winter before the 1952 session. "On January 27, 1951, the board took over from the county manager the power to appoint department heads, and this action was upheld by Judge Walter T. McCarthy in an Arlington Circuit Court test." The Board's Advisory Committee on Government Organization and Procedure and the Arlington Civic Federation "have recommended introduction of legislation that would give back to the county manager the power to appoint department heads, but that would make the county manager's tenure at office indefinite", and the delegation, Senator Charles R. Fenwick and Delegates J. Maynard Magruder and George Damm, "have not endorsed the recommended changes, but plan to introduce bills that would provide referenda on the changes." George W. Spicer's new book is quoted as finding the arrangement unworkable, since "The manager can exercise no effective control over department heads without some voice in their selection and removal", and as granting "some plausibility in the position of the board, since the manager is not subject to removal at their pleasure". Nothing in the article mentions a bar on members' taking part in appointments. Only the article is filed, not the page; an advertisement and a column break run through it on the page and are left out. Filed in Drive as "press/Daily Sun/Daily Sun 1951 - Spicer Suggests, In New Book, Changes In Arlington County Governmental Relationships (17 December 1951, p. 5).pdf", the article's text as Virginia Chronicle serves it at f=XML, set out on a plain page by code/sources/pages.py with plain OCR slips corrected and printed on 2 October 2026; the site refuses an automated request and its page images are behind a login, so no copy of the image was had.}
+      \field{day}{17}
+      \field{journaltitle}{The Daily Sun}
+      \field{month}{12}
+      \field{title}{Spicer Suggests, In New Book, Changes In Arlington County Governmental Relationships}
+      \field{urlday}{2}
+      \field{urlmonth}{10}
+      \field{urlyear}{2026}
+      \field{year}{1951}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{5}
+      \range{pages}{1}
+      \verb{urlraw}
+      \verb https://virginiachronicle.com/?a=d&d=TDS19511217.1.5
+      \endverb
+      \verb{url}
+      \verb https://virginiachronicle.com/?a=d&d=TDS19511217.1.5
+      \endverb
+    \endentry
+    \entry{star1957seating}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=51e436f932cfdf645c0d0e1caa19aab1}{%
+           family={{The Evening Star}},
+           familyi={T\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Washington, D.C.}%
+      }
+      \strng{namehash}{51e436f932cfdf645c0d0e1caa19aab1}
+      \strng{fullhash}{51e436f932cfdf645c0d0e1caa19aab1}
+      \strng{fullhashraw}{51e436f932cfdf645c0d0e1caa19aab1}
+      \strng{bibnamehash}{51e436f932cfdf645c0d0e1caa19aab1}
+      \strng{authorbibnamehash}{51e436f932cfdf645c0d0e1caa19aab1}
+      \strng{authornamehash}{51e436f932cfdf645c0d0e1caa19aab1}
+      \strng{authorfullhash}{51e436f932cfdf645c0d0e1caa19aab1}
+      \strng{authorfullhashraw}{51e436f932cfdf645c0d0e1caa19aab1}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Reports the arrests at an Arlington candidates' meeting for violating the segregated seating law. It calls the seven defendants 'five colored and two white', says two white women 'entered the meeting with a Negro woman'. Cited for the Star's labeling of individuals by race in 1957 where race is at issue; it names no Board candidate and shows nothing about how the Star treated one. Read 2026-10-04. Filed in Drive as "press/Evening Star/Evening Star 1957 - Seven Facing Hearing In Racial Seating Case.pdf", Read from the Library of Congress's Chronicling America scan, the page image, and saved from the Library's page PDF on 2026-10-04}
+      \field{day}{29}
+      \field{journaltitle}{The Evening Star}
+      \field{month}{10}
+      \field{title}{Seven Facing Hearing In Racial Seating Case}
+      \field{urlday}{4}
+      \field{urlmonth}{10}
+      \field{urlyear}{2026}
+      \field{year}{1957}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{A\bibrangedash 26}
+      \range{pages}{-1}
+      \verb{urlraw}
+      \verb https://www.loc.gov/resource/sn83045462/1957-10-29/ed-1/?sp=26
+      \endverb
+      \verb{url}
+      \verb https://www.loc.gov/resource/sn83045462/1957-10-29/ed-1/?sp=26
+      \endverb
+    \endentry
+    \entry{sun1951rulingboard}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=61d90a57eb2dd9e494ff0bc1ae07c905}{%
+           family={{The Sun}},
+           familyi={T\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Arlington, Virginia}%
+      }
+      \strng{namehash}{61d90a57eb2dd9e494ff0bc1ae07c905}
+      \strng{fullhash}{61d90a57eb2dd9e494ff0bc1ae07c905}
+      \strng{fullhashraw}{61d90a57eb2dd9e494ff0bc1ae07c905}
+      \strng{bibnamehash}{61d90a57eb2dd9e494ff0bc1ae07c905}
+      \strng{authorbibnamehash}{61d90a57eb2dd9e494ff0bc1ae07c905}
+      \strng{authornamehash}{61d90a57eb2dd9e494ff0bc1ae07c905}
+      \strng{authorfullhash}{61d90a57eb2dd9e494ff0bc1ae07c905}
+      \strng{authorfullhashraw}{61d90a57eb2dd9e494ff0bc1ae07c905}
+      \field{extraname}{1}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{The 1951 ruling, reported three days after it was handed down on Tuesday 20 March. The Board won. Judge Walter T. McCarthy "ruled Tuesday that appointment of Arlington department heads rests with the County Board", on a petition for a declaratory judgment filed by Commonwealth's Attorney Denman T. Hucker "after the Board, by resolution in January, reclaimed the appointive power from the manager". The Board, represented by Malcolm D. Miller and Benjamin M. Hedrick, had the manager law read for it: "After establishment of the county manager system here and until 1937, the Board appointed the department heads. In 1937 it delegated that authority to the county manager. The Board had no right to relinquish its power in 1937, Judge McCarthy said in his ruling, declaring a change in procedure could be accomplished only through an amendment to the county manager act." The police chief was outside the ruling: "The opposing attorneys had agreed that appointment of a police chief was not at issue, since a special legislative act gives this appointment to the manager. Judge McCarthy did not rule on that question in view of the agreement." That settles which way the ruling went, which dailysun1952petitions and dailysun1951policechief report in different words: it went for the Board on department heads and left the manager's hold on the police chief to the special act. Only the article is filed, not the page. Filed in Drive as "press/Sun/Sun 1951 - Board Wins Ruling Affirming Power to Appoint Heads of Departments (23 March 1951, p. 1).pdf", the article's text as Virginia Chronicle serves it at f=XML, set out on a plain page by code/sources/pages.py with plain OCR slips corrected and printed on 2 October 2026; the site refuses an automated request and its page images are behind a login, so no copy of the image was had.}
+      \field{day}{23}
+      \field{journaltitle}{The Sun}
+      \field{month}{3}
+      \field{title}{Board Wins Ruling Affirming Power to Appoint Heads of Departments}
+      \field{urlday}{2}
+      \field{urlmonth}{10}
+      \field{urlyear}{2026}
+      \field{year}{1951}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{1}
+      \range{pages}{1}
+      \verb{urlraw}
+      \verb https://virginiachronicle.com/?a=d&d=TSU19510323.1.1
+      \endverb
+      \verb{url}
+      \verb https://virginiachronicle.com/?a=d&d=TSU19510323.1.1
+      \endverb
+    \endentry
+    \entry{sun1938referendum}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=61d90a57eb2dd9e494ff0bc1ae07c905}{%
+           family={{The Sun}},
+           familyi={T\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Arlington, Virginia}%
+      }
+      \strng{namehash}{61d90a57eb2dd9e494ff0bc1ae07c905}
+      \strng{fullhash}{61d90a57eb2dd9e494ff0bc1ae07c905}
+      \strng{fullhashraw}{61d90a57eb2dd9e494ff0bc1ae07c905}
+      \strng{bibnamehash}{61d90a57eb2dd9e494ff0bc1ae07c905}
+      \strng{authorbibnamehash}{61d90a57eb2dd9e494ff0bc1ae07c905}
+      \strng{authornamehash}{61d90a57eb2dd9e494ff0bc1ae07c905}
+      \strng{authorfullhash}{61d90a57eb2dd9e494ff0bc1ae07c905}
+      \strng{authorfullhashraw}{61d90a57eb2dd9e494ff0bc1ae07c905}
+      \field{extraname}{2}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Vol. III, no. 49. Held as data/raw/arlington_sun/sun_1938-11-11_p1.pdf, the page as digitised by the Library of Virginia's Virginia Chronicle. The report of the 8 November 1938 referendum on staggered County Board terms, three days after the vote. Carries the returns for all eleven precincts and their totals, and says in terms that the figures are unofficial}
+      \field{day}{11}
+      \field{journaltitle}{The Sun}
+      \field{month}{11}
+      \field{note}{Vol. III, no. 49}
+      \field{title}{Referendum Wins By 61 Votes; Board Will Be `Staggered'}
+      \field{year}{1938}
+      \field{dateera}{ce}
+      \field{pages}{1}
+      \range{pages}{1}
+    \endentry
+    \entry{census1880allen}{misc}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=f54aa34563b343ab8867839fb6246c07}{%
+           family={{U.S. Bureau of the Census}},
+           familyi={U\bibinitperiod}}}%
+      }
+      \strng{namehash}{f54aa34563b343ab8867839fb6246c07}
+      \strng{fullhash}{f54aa34563b343ab8867839fb6246c07}
+      \strng{fullhashraw}{f54aa34563b343ab8867839fb6246c07}
+      \strng{bibnamehash}{f54aa34563b343ab8867839fb6246c07}
+      \strng{authorbibnamehash}{f54aa34563b343ab8867839fb6246c07}
+      \strng{authornamehash}{f54aa34563b343ab8867839fb6246c07}
+      \strng{authorfullhash}{f54aa34563b343ab8867839fb6246c07}
+      \strng{authorfullhashraw}{f54aa34563b343ab8867839fb6246c07}
+      \field{extraname}{1}
+      \field{sortinit}{U}
+      \field{sortinithash}{6901a00e45705986ee5e7ca9fd39adca}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{The enumeration sheet and Ancestry's index of it. The match to the Board member: matched on the name and Alexandria County; the household and age are in the row's quote. Filed in Drive as "census/Ancestry/1880/Ancestry 1880 - Tibbett Allen in the 1880 United States Federal Census (record 42596239).pdf", the index record as displayed on 25 September 2026, with the sheet image "census/US Census/1880/US Census 1880 - Alexandria County VA, ED 7, page 440C (Tibbett Allen).jpg" downloaded from Ancestry's viewer}
+      \field{day}{1}
+      \field{howpublished}{Ancestry.com, 1880 United States Federal Census [database on-line], record 42596239}
+      \field{month}{6}
+      \field{title}{Tibbett Allen in the 1880 United States Federal Census, Alexandria County, Virginia}
+      \field{urlday}{25}
+      \field{urlmonth}{9}
+      \field{urlyear}{2026}
+      \field{year}{1880}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.ancestry.com/search/collections/6742/records/42596239
+      \endverb
+      \verb{url}
+      \verb https://www.ancestry.com/search/collections/6742/records/42596239
+      \endverb
+    \endentry
+    \entry{census1880pinn}{misc}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=f54aa34563b343ab8867839fb6246c07}{%
+           family={{U.S. Bureau of the Census}},
+           familyi={U\bibinitperiod}}}%
+      }
+      \strng{namehash}{f54aa34563b343ab8867839fb6246c07}
+      \strng{fullhash}{f54aa34563b343ab8867839fb6246c07}
+      \strng{fullhashraw}{f54aa34563b343ab8867839fb6246c07}
+      \strng{bibnamehash}{f54aa34563b343ab8867839fb6246c07}
+      \strng{authorbibnamehash}{f54aa34563b343ab8867839fb6246c07}
+      \strng{authornamehash}{f54aa34563b343ab8867839fb6246c07}
+      \strng{authorfullhash}{f54aa34563b343ab8867839fb6246c07}
+      \strng{authorfullhashraw}{f54aa34563b343ab8867839fb6246c07}
+      \field{extraname}{2}
+      \field{sortinit}{U}
+      \field{sortinithash}{6901a00e45705986ee5e7ca9fd39adca}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{The enumeration sheet and Ancestry's index of it. The match to the Board member: the index reads the name as Travres B Pinn and the race as Mulatto, coded Black as Hjerpe's reading of the same record is; matched on the name and Alexandria County; the household and age are in the row's quote. Filed in Drive as "census/Ancestry/1880/Ancestry 1880 - Travis B. Pinn in the 1880 United States Federal Census (record 11855799).pdf", the index record as displayed on 25 September 2026, with the sheet image "census/US Census/1880/US Census 1880 - Alexandria County VA, ED 7, page 434D (Travis B Pinn).jpg" downloaded from Ancestry's viewer}
+      \field{day}{1}
+      \field{howpublished}{Ancestry.com, 1880 United States Federal Census [database on-line], record 11855799}
+      \field{month}{6}
+      \field{title}{Travis B. Pinn in the 1880 United States Federal Census, Alexandria County, Virginia}
+      \field{urlday}{25}
+      \field{urlmonth}{9}
+      \field{urlyear}{2026}
+      \field{year}{1880}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.ancestry.com/search/collections/6742/records/11855799
+      \endverb
+      \verb{url}
+      \verb https://www.ancestry.com/search/collections/6742/records/11855799
+      \endverb
+    \endentry
+    \entry{usstat1846retrocession}{legislation}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=ac238a333872128a1a6f442fcebef042}{%
+           family={{United States}},
+           familyi={U\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {29th Congress, 1st session}%
+      }
+      \strng{namehash}{ac238a333872128a1a6f442fcebef042}
+      \strng{fullhash}{ac238a333872128a1a6f442fcebef042}
+      \strng{fullhashraw}{ac238a333872128a1a6f442fcebef042}
+      \strng{bibnamehash}{ac238a333872128a1a6f442fcebef042}
+      \strng{authorbibnamehash}{ac238a333872128a1a6f442fcebef042}
+      \strng{authornamehash}{ac238a333872128a1a6f442fcebef042}
+      \strng{authorfullhash}{ac238a333872128a1a6f442fcebef042}
+      \strng{authorfullhashraw}{ac238a333872128a1a6f442fcebef042}
+      \field{sortinit}{U}
+      \field{sortinithash}{6901a00e45705986ee5e7ca9fd39adca}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{The preamble recites Virginia's act of 3 February 1846 accepting the county 'when the same shall be receded by the Congress'. Sec. 1 cedes the territory and jurisdiction to Virginia 'with the assent of the people of the county and town of Alexandria', existing laws and jurisdiction to continue until Virginia provides by law for the extension of hers; sec. 2 has the sense of the people taken at a poll and proclaimed by the President. So retrocession has three dates: Virginia's acceptance in advance (3 February 1846), the act of Congress (9 July 1846) and the vote (September 1846), with Virginia's extension of her laws following (13 March 1847, not yet cited). Read 2026-09-26. Filed in Drive as "legal/federal statutes/United States 1846 - An Act to retrocede the County of Alexandria, in the District of Columbia, to the State of Virginia.pdf", saved as published on 2026-09-26}
+      \field{day}{9}
+      \field{month}{7}
+      \field{note}{9 Stat. 35, ch. 35}
+      \field{title}{An Act to retrocede the County of Alexandria, in the District of Columbia, to the State of Virginia}
+      \field{urlday}{26}
+      \field{urlmonth}{9}
+      \field{urlyear}{2026}
+      \field{year}{1846}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.govinfo.gov/content/pkg/STATUTE-9/pdf/STATUTE-9-Pg35.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.govinfo.gov/content/pkg/STATUTE-9/pdf/STATUTE-9-Pg35.pdf
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

@@ -24,15 +24,38 @@
 % A roster column of a share of the text width, set ragged right.
 \newcolumntype{R}[1]{>{\raggedright\arraybackslash}p{\dimexpr(\textwidth-10\tabcolsep)*#1/100\relax}}
 \input{body_text_numbers}  % numbers the prose cites, written by code/analysis/body_text_numbers.py
-% One row of the appendix roster, written by code/analysis/members_roster.py.
+% One row of the roster tables, written by code/analysis/members_roster.py.
 \newcommand{\roster}[6]{#1 & #2 & #3 & #4 & #5 & #6 \\}
 \newcommand{\rosterk}[6]{#1 & #2 & #3 & #4 & #5 & #6 \\*}  % no page break after
 \newcommand{\rosterheading}[1]{\multicolumn{6}{@{}l}{\bfseries #1} \\*}
-% The roster file is read with TeX's own \input, not LaTeX's: LaTeX's looks
+% The roster files are read with TeX's own \input, not LaTeX's: LaTeX's looks
 % ahead with \futurelet, which ends the table's search for \multicolumn at the
-% start of the first cell, so the first decade heading would be misplaced.
+% start of the first cell, so the first heading would be misplaced.
 \makeatletter\let\rosterinput\@@input\makeatother
 \newcommand{\rosterdecade}[1]{\addlinespace[1.4ex]\rosterheading{#1}}  % a gap, then the heading; not for the first group, where a gap before any row is an error
+% The columns and header of every roster table, and the notes they share.
+\newcolumntype{Q}{@{}R{28}R{14}R{18}R{10}R{11}R{19}@{}}
+\newcommand{\rosterhead}{\textit{Name} & \textit{Served} & \textit{Seated By} & \textit{Born} & \textit{Gender} & \textit{Race and Ethnicity} \\}
+\newcommand{\rostermarks}{Superscripts indicate the source for each record: the
+  US census (c), press or published profile (p), or assumption (a). Two
+  superscripts mean two kinds of source agree. A dash means no source gives the
+  value. A birth year from a census sheet is accurate to within a year.}
+% One page of the full roster, written by members_roster.py: \rosterpanel{A}{1870--1919}
+% opens panel 2A, with its own title, and \rosterpanelend closes it with its notes.
+\newcommand{\rosterpanel}[2]{\clearpage\begingroup
+  \ifstrequal{#1}{A}{\refstepcounter{table}\label{tab:roster}\xdef\rostertable{\thetable}}{}
+  {\raggedright\MakeUppercase{Table \rostertable#1}\par}
+  {\raggedright\bfseries Board Members, #2, by Year First Seated\par}
+  \medskip
+  \footnotesize\setlength{\tabcolsep}{8pt}\setlength{\LTpre}{0pt}\setlength{\LTpost}{0pt}
+  \begin{longtable}{Q}
+  \toprule \rosterhead \midrule \endfirsthead
+  \toprule \rosterhead \midrule \endhead
+  \bottomrule \endfoot}
+\newcommand{\rosterpanelend}{\end{longtable}\par\smallskip
+  \noindent\figurenotes{Notes: \rostermarks{} The source for each member's entry
+    is in the repository's members table and in the archive delivered to the
+    County. Assumptions are described under the headings that follow.}{}\endgroup}
 \usepackage[margin=1in]{geometry}
 \usepackage[hidelinks]{hyperref}
 
@@ -288,37 +311,23 @@ Maureen Coffey and Susan Cunningham made a second majority.
 In all the years since 1932, women have held a majority of the Board twice, in
 1983 and 2024, and neither lasted more than a year.
 
+% waits on: member-demographics-lists
 \begin{table}[t]
-  \refstepcounter{table}\label{tab:women}
+  \refstepcounter{table}\label{tab:subsets}
   {\raggedright\MakeUppercase{Table \thetable}\par}
-  {\raggedright\bfseries Women on the Board\par}
+  {\raggedright\bfseries Women and Members of Color on the Board\par}
   \medskip
-  \vspace{6pt}
-  \begin{center}
-  \begin{tabular}{@{}ll@{}}
+  \begingroup\footnotesize\setlength{\tabcolsep}{8pt}
+  \begin{tabular}{Q}
   \toprule
-  \textit{Member} & \textit{Years of Board Service} \\
+  \rosterhead
   \midrule
-  \textbf{Elizabeth B. Magruder}* & 1932--1947 \\
-  \textbf{Florence Cannon}*       & 1948--1951 \\
-  \textbf{Leone B. Buchholz}*     & 1952--1958 \\
-  Ellen Bozman*                   & 1974--1997 \\
-  Dorothy Grotos*                 & 1976--1983 \\
-  Mary Margaret Whipple*          & 1983--1995 \\
-  Barbara A. Favola*              & 1997--2011 \\
-  Mary H. Hynes*                  & 2008--2015 \\
-  Libby T. Garvey*                & 2012--2024 \\
-  Kate A. ``Katie'' Cristol*      & 2016--2023 \\
-  Tannia Talento*                 & 2023 \\
-  Maureen E. Coffey*              & 2024-- \\
-  Susan R. Cunningham*            & 2024-- \\
+  \rosterinput members_roster_subsets.tex
   \bottomrule
-  \end{tabular}
-  \end{center}
-  \vspace{6pt}
+  \end{tabular}\endgroup
   \par\smallskip
   \figurenotes{
-    Notes: Bold names are members listed as women in US census records. Asterisks identify members referred to with female pronouns or honorifics in the press.}{}
+    Notes: \rostermarks{} Each panel is a subset of the full roster, Table~\ref{tab:roster} in the Data Appendix.}{}
 \end{table}
 
 \section{Race and Ethnicity}
@@ -484,39 +493,6 @@ The two Vollin actions are separate cases. The 1974 federal suit brought the
 vote-dilution claim, and it failed. The 1976 state case asked whether voters
 could use the referendum statute a second time to put district election to a
 vote, and the courts said no.
-
-\begin{table}[t]
-  \refstepcounter{table}\label{tab:color}
-  {\raggedright\MakeUppercase{Table \thetable}\par}
-  {\raggedright\bfseries Members of Color on the Board\par}
-  \medskip
-  \vspace{6pt}
-  \begin{center}
-  \begin{tabular}{@{}ll@{}}
-  \toprule
-  \textit{Member} & \textit{Years of Board Service} \\
-  \midrule
-  \textbf{William A. Rowe}     & 1871--1883 \\
-  \textbf{John B. Syphax}      & 1872 \\
-  \textbf{Travis B. Pinn}      & 1879--1881 \\
-  \textbf{John W. Pendleton}   & 1883--1884 \\
-  \textbf{Tibbett Allen}       & 1887--1888 \\
-  Walter G. Willson* & 1889--1892 \\
-  William T. Newman, Jr.*      & 1988--1993 \\
-  Charles P. Monroe*           & 2000--2003 \\
-  J. Walter Tejada*            & 2003--2015 \\
-  Christian E. Dorsey*         & 2016--2023 \\
-  Tannia Talento*              & 2023 \\
-  Julius D. ``JD'' Spain, Sr.* & 2025-- \\
-  \bottomrule
-  \end{tabular}
-  \end{center}
-  \vspace{6pt}
-  \par\smallskip
-  % waits on: member-demographics-lists
-  \figurenotes{
-    Notes: Bold names are members listed in 1880 census records. Asterisks identify members named in documents from the Arlington Historical Society, the Center for Local History, or local press coverage.}{}
-\end{table}
 
 The Historical Society dates Newman's election 1987, Monroe's 1999, Dorsey's
 2015 and Spain's 2024, and this study lists each as taking the seat a year later. Both
@@ -911,33 +887,7 @@ followed by a superscript giving its source. The sources for every cell, one by
 one, are in the repository's members table and in the archive
 delivered to the County.
 
-\clearpage
-\refstepcounter{table}\label{tab:roster}
-{\raggedright\MakeUppercase{Table \thetable}\par}
-{\raggedright\bfseries Board Members, 1870--2026\par}
-\medskip
-\footnotesize
-\setlength{\LTpre}{0pt}\setlength{\LTpost}{0pt}
-% Six columns filling the text width, each a share of what the gaps leave.
-\begin{longtable}{@{}R{32}R{14}R{18}R{10}R{13}R{13}@{}}
-\toprule
-\textit{Member} & \textit{Served} & \textit{Seated by} & \textit{Born} & \textit{Gender} & \textit{Race} \\
-\midrule
-\endfirsthead
-\toprule
-\textit{Member} & \textit{Served} & \textit{Seated by} & \textit{Born} & \textit{Gender} & \textit{Race} \\
-\midrule
-\endhead
-\bottomrule
-\endfoot
 \rosterinput members_roster.tex
-\end{longtable}
-\normalsize
-\noindent\figurenotes{Notes: Superscripts indicate the source for each record: the
-US census (c), press or published profile (p), or assumption (a). Two
-superscripts mean two kinds of source agree. Assumptions are detailed in the data
-appendix above. A dash means no source gives the value. A birth year from a census sheet
-is accurate to within a year.}{}
 
 \clearpage
 \printbibliography[title={Works Cited}]
