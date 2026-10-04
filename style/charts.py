@@ -90,6 +90,23 @@ def strokes(ax, segments, color, alpha=1.0):
         ax.plot([x0, x1], [y0, y1], color=color, alpha=alpha, solid_capstyle="butt", zorder=3)
 
 
+def end_label(ax, x, y, text, color, where="left", gap=0.012):
+    """Name a line at (x, y), inside the axes: `left` ends the text at the
+    point; `above` and `below` sit it over or under the point, right-aligned.
+    gap is the offset as a fraction of the axis."""
+    if where == "above":
+        lo, hi = ax.get_ylim()
+        x, y, ha, va = x, y + (hi - lo) * gap, "right", "bottom"
+    elif where == "below":
+        lo, hi = ax.get_ylim()
+        x, y, ha, va = x, y - (hi - lo) * gap, "right", "top"
+    else:
+        lo, hi = ax.get_xlim()
+        x, y, ha, va = x - (hi - lo) * gap, y, "right", "center"
+    ax.text(x, y, text, color=color, ha=ha, va=va, linespacing=1.25,
+            fontsize=plt.rcParams["font.size"])
+
+
 def stacked_bars(ax, x, entries, width=7):
     """Stacked bars, one per entry of an ordered {label: (values, colour)},
     from the axis upward. No texture."""
