@@ -20,10 +20,13 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{longtable}
+\usepackage{array}
+% A roster column of a share of the text width, set ragged right.
+\newcolumntype{R}[1]{>{\raggedright\arraybackslash}p{\dimexpr(\textwidth-12\tabcolsep)*#1/100\relax}}
 \input{body_text_numbers}  % numbers the prose cites, written by code/analysis/body_text_numbers.py
 % One row of the appendix roster, written by code/analysis/members_roster.py.
-\newcommand{\roster}[6]{#1 & #2 & #3 & #4 & #5 & #6 \\}
-\newcommand{\rosterk}[6]{#1 & #2 & #3 & #4 & #5 & #6 \\*}  % no page break after
+\newcommand{\roster}[7]{#1 & #2 & #3 & #4 & #5 & #6 & #7 \\}
+\newcommand{\rosterk}[7]{#1 & #2 & #3 & #4 & #5 & #6 & #7 \\*}  % no page break after
 \newcommand{\rosterdecade}{\addlinespace[1.4ex]}
 \usepackage[margin=1in]{geometry}
 \usepackage[hidelinks]{hyperref}
@@ -782,15 +785,15 @@ delivered to the County.
 \medskip
 \footnotesize
 \setlength{\LTpre}{0pt}\setlength{\LTpost}{0pt}
-% Six columns filling the text width, each a share of what the gaps leave.
-\newcommand{\rc}[1]{\dimexpr(\textwidth-10\tabcolsep)*#1/100\relax}
-\begin{longtable}{@{}p{\rc{31}}p{\rc{11}}p{\rc{15}}p{\rc{17}}p{\rc{13}}p{\rc{13}}@{}}
+% Seven columns filling the text width, each a share of what the gaps leave.
+\newcommand{\rc}[1]{\dimexpr(\textwidth-12\tabcolsep)*#1/100\relax}
+\begin{longtable}{@{}R{25}R{7}R{10}R{17}R{9}R{9}R{23}@{}}
 \toprule
-\textit{Member} & \textit{Born} & \textit{Served} & \textit{Seated by} & \textit{Gender} & \textit{Race} \\
+\textit{Member} & \textit{Born} & \textit{Served} & \textit{Seated by} & \textit{Gender} & \textit{Race} & \textit{Chair} \\
 \midrule
 \endfirsthead
 \toprule
-\textit{Member} & \textit{Born} & \textit{Served} & \textit{Seated by} & \textit{Gender} & \textit{Race} \\
+\textit{Member} & \textit{Born} & \textit{Served} & \textit{Seated by} & \textit{Gender} & \textit{Race} & \textit{Chair} \\
 \midrule
 \endhead
 \bottomrule
@@ -801,8 +804,8 @@ delivered to the County.
 \figurenotes{Notes: A mark after a value says what it rests on:
 \textsuperscript{c} a census sheet, \textsuperscript{p} a newspaper or a
 published profile, \textsuperscript{a} assumed because no source says
-otherwise. Two marks mean two kinds of source agree, and no value is both
-assumed and sourced. A dash is a value no source gives. A birth year from a census sheet
+otherwise. Two marks, as in c,\,p, mean two kinds of source agree, and no value is both
+assumed and sourced. A dash is a value no source gives. The chair is recorded from 1932, when the County's roll begins. A birth year from a census sheet
 is within a year. ``Seated by'' is how the member first took a seat.}{}
 
 \subsubsection*{Seat-Years}
