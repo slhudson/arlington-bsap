@@ -354,9 +354,7 @@ Four things in it are findings.
   Arlington; Edward Duncan (169) beat Jacob Corl (133), K. Roberts (12) and Charles A. Travers
   in Jefferson.
 
-None of these figures is read against the page image except the three passages above, and the OCR
-misreads digits: a figure the report's own arithmetic contradicts (1899, Washington) says so in
-the row's note. Of those who lost, Rowe, Phillips, Birch, Clark, Hume, Corbett, Saegmuller, Rust and Costello sat on
+The 1893-1901 and 1919 counts are read off the page image. Of those who lost, Rowe, Phillips, Birch, Clark, Hume, Corbett, Saegmuller, Rust and Costello sat on
 the Board and are carried in `members.csv`. Of the other fifteen, five are matched to a
 census sheet by the initials or name and the district they stood in, and each is a White man: G. W.
 Donaldson (1893, Washington), a carpenter in 1900 (`census1900donaldson`); Richard E. Babcock, a

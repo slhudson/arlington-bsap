@@ -25,8 +25,7 @@ still open.
   (`nominations-pre-1931`); every other year reads "no record" in
   `elections_margins_by_year.csv`, which is a gap and not a finding.
 - The nominating margin of the 2023 and 2024 ranked-choice primaries waits on
-  the final-round counts (`margins-ranked-choice-rounds`), and the district
-  margins before 1931 rest on the Gazette's OCR text (`margins-gazette-ocr`).
+  the final-round counts (`margins-ranked-choice-rounds`).
 
 Each is a row in `docs/questions.csv`, with whose court it waits in and what would settle it.
 
@@ -191,7 +190,7 @@ where a candidate has no label and no other candidate has a non-Democratic,
 non-ABC one.
 
 Before 1931 each district's seat is its own contest. The Gazette's counts
-give ten district margins (1893-1901, 1919) from OCR text; O'Leary prints the
+give ten district margins (1893-1901, 1919), each read off the page image; O'Leary prints the
 counts for 1907 and 1915, and the highest count there is checked against the
 roster. The nominating stage is keyed for 1885 only, where the Gazette names
 the "regular republican" nominee and a "citizens'" candidate against them in

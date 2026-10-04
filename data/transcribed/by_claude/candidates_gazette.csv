@@ -9,46 +9,46 @@ year,election_date,district,name,votes,outcome,race_words,source,page,read_from,
 1889,1889-05-23,Jefferson,Frank Hume,,won,,alexandriagazette18890525p3,3,page image,"Jefferson District--Frank Hume, Supervisor",winners only
 1891,1891-05-28,Washington,Wilson,,won,colored,alexandriagazette18910529p3,3,page image,"In Washington district, Wilson, colored, beat Mr. Phillips, present incumbent, for supervisor, by 36 majority.",read against the page image; O'Leary's Walter G. Willson of Washington District; the other two districts are not in the report
 1891,1891-05-28,Washington,Mr. Phillips,,lost,,alexandriagazette18910529p3,3,page image,"In Washington district, Wilson, colored, beat Mr. Phillips, present incumbent, for supervisor, by 36 majority.","'present incumbent'; first name not printed; O'Leary has Willson, not Phillips, holding the district from 1889"
-1893,1893-05-25,Jefferson,Frank Hume,203,won,,alexandriagazette18930526p3,3,OCR text,Frank Hume 203,"OCR; 'unanimously elected', no opponent given"
-1893,1893-05-25,Arlington,John W. Clarke,172,won,,alexandriagazette18930526p3,3,OCR text,"Supervisor, Johu W. Clarke 172, ami M. F. Birch 130.",OCR
-1893,1893-05-25,Arlington,M. F. Birch,130,lost,,alexandriagazette18930526p3,3,OCR text,"Supervisor, Johu W. Clarke 172, ami M. F. Birch 130.",OCR
-1893,1893-05-25,Washington,R. H. Phillips,151,won,,alexandriagazette18930526p3,3,OCR text,"Supervisor, K. H. Phillips 151, J. Costello52, and G. W. Donald? son 19.",OCR; the initial reads K. or R.
-1893,1893-05-25,Washington,J. Costello,52,lost,,alexandriagazette18930526p3,3,OCR text,"Supervisor, K. H. Phillips 151, J. Costello52, and G. W. Donald? son 19.",OCR
-1893,1893-05-25,Washington,G. W. Donaldson,19,lost,,alexandriagazette18930526p3,3,OCR text,"Supervisor, K. H. Phillips 151, J. Costello52, and G. W. Donald? son 19.",OCR
-1895,1895-05-23,Arlington,Corbett,158,won,,alexandriagazette18950524p3,3,OCR text,"for Supervisor, Cor? bett 158, Birch 5)0, Hayes 101, Clark 41.","OCR; 'F. S. Corbett, Arlington district' named elected in the same report"
-1895,1895-05-23,Arlington,Birch,,lost,,alexandriagazette18950524p3,3,OCR text,"for Supervisor, Cor? bett 158, Birch 5)0, Hayes 101, Clark 41.",OCR; the figure reads '5)0'
-1895,1895-05-23,Arlington,Hayes,101,lost,,alexandriagazette18950524p3,3,OCR text,"for Supervisor, Cor? bett 158, Birch 5)0, Hayes 101, Clark 41.",OCR
-1895,1895-05-23,Arlington,Clark,41,lost,,alexandriagazette18950524p3,3,OCR text,"for Supervisor, Cor? bett 158, Birch 5)0, Hayes 101, Clark 41.",OCR
-1895,1895-05-23,Washington,Grunwell,158,won,,alexandriagazette18950524p3,3,OCR text,"for Supervisor, Grunwell 15S, Paimer So.",OCR; the figures read 15S and So
-1895,1895-05-23,Washington,Palmer,,lost,,alexandriagazette18950524p3,3,OCR text,"for Supervisor, Grunwell 15S, Paimer So.",OCR; the figure reads 'So'
-1895,1895-05-23,Jefferson,Duncan,162,won,,alexandriagazette18950524p3,3,OCR text,"for Supervisor, Duncan 162, Hume 119","OCR; the same report says 'a large majority of the voters colored, especially in Jefferson district' and calls H. L. Holmes, elected commissioner of revenue, 'colored'"
-1895,1895-05-23,Jefferson,Hume,119,lost,,alexandriagazette18950524p3,3,OCR text,"for Supervisor, Duncan 162, Hume 119",OCR
-1897,1897-05-27,Washington,Saegmuller,,won,,alexandriagazette18970529p3,3,OCR text,Mr. Seig mueller was elected supervisor of Wash? ington district,OCR; no loser named
-1897,1897-05-27,Jefferson,Duncan,,won,,alexandriagazette18970529p3,3,OCR text,Mr. Duncan of Jef forson district,OCR; no loser named
-1897,1897-05-27,Arlington,Torreyson,,won,,alexandriagazette18970529p3,3,OCR text,"There being a tie be? tween Messrs. Corbettand Torreyson in Arlington district, these gentlemen to day drew for the position and Mr. Torreyson won the prizo.","OCR; a tie decided by drawing; O'Leary's note has Torreyson elected, contested by Corbett"
-1897,1897-05-27,Arlington,Corbett,,lost,,alexandriagazette18970529p3,3,OCR text,"There being a tie be? tween Messrs. Corbettand Torreyson in Arlington district, these gentlemen to day drew for the position and Mr. Torreyson won the prizo.","OCR; tied, lost the draw"
-1899,1899-05-25,Washington,Saegmuller,103,won,,alexandriagazette18990526p3,3,OCR text,"Supervisor' baegmuller 103, Harrison 109, Donald? son t>.","OCR; the report says the incumbents were re-elected, so a digit is misread in 103 or 109"
-1899,1899-05-25,Washington,Harrison,109,lost,,alexandriagazette18990526p3,3,OCR text,"Supervisor' baegmuller 103, Harrison 109, Donald? son t>.",OCR; see the winner's figure
-1899,1899-05-25,Washington,Donaldson,,lost,,alexandriagazette18990526p3,3,OCR text,"Supervisor' baegmuller 103, Harrison 109, Donald? son t>.",OCR; the figure reads 't>'
-1899,1899-05-25,Arlington,Corbett,209,won,,alexandriagazette18990526p3,3,OCR text,"Supervisor' Corbett 209, Birch 131, Werks 137* Hine3 35.",OCR
-1899,1899-05-25,Arlington,Birch,131,lost,,alexandriagazette18990526p3,3,OCR text,"Supervisor' Corbett 209, Birch 131, Werks 137* Hine3 35.",OCR
-1899,1899-05-25,Arlington,Werks,137,lost,,alexandriagazette18990526p3,3,OCR text,"Supervisor' Corbett 209, Birch 131, Werks 137* Hine3 35.","OCR; the page image of alexandriagazette18990526p3 reads 'Werks 137, Hines 35'"
-1899,1899-05-25,Arlington,Hines,35,lost,,alexandriagazette18990526p3,3,OCR text,"Supervisor' Corbett 209, Birch 131, Werks 137* Hine3 35.",OCR
-1899,1899-05-25,Jefferson,D. N. Rust,233,won,,alexandriagazette18990526p3,3,OCR text,"Supervisor Rust 233, Gra' ham 13S.","OCR; 'Dr. D. N. Rust was elected supervisor, taking the place of Mr. Duncan, who was a candidate for sheriff'"
-1899,1899-05-25,Jefferson,Graham,138,lost,,alexandriagazette18990526p3,3,OCR text,"Supervisor Rust 233, Gra' ham 13S.",OCR; the figure reads 13S
-1901,1901-05-23,Arlington,Darby,400,won,,alexandriagazette19010524p3,3,OCR text,"For Supervisor: Darby, 400; Corbe?, 74.",OCR
-1901,1901-05-23,Arlington,Corbett,74,lost,,alexandriagazette19010524p3,3,OCR text,"For Supervisor: Darby, 400; Corbe?, 74.",OCR; the surname is cut at 'Corbe'
-1901,1901-05-23,Washington,Costello,132,won,,alexandriagazette19010524p3,3,OCR text,"For Supervisor: Costello, 132; Saegmuller, 110.",OCR
-1901,1901-05-23,Washington,Saegmuller,110,lost,,alexandriagazette19010524p3,3,OCR text,"For Supervisor: Costello, 132; Saegmuller, 110.",OCR
-1901,1901-05-23,Jefferson,Duncan,281,won,,alexandriagazette19010524p3,3,OCR text,"For Supervisor: Duncan, 281; Rust, 180.",OCR; 'All of the present Supervisors were defeated'
-1901,1901-05-23,Jefferson,Rust,180,lost,,alexandriagazette19010524p3,3,OCR text,"For Supervisor: Duncan, 281; Rust, 180.",OCR
-1919,1919-11-04,Washington,C. N. Ahalt,241,won,,alexandriagazette19191105p1,1,OCR text,C. N. Ah'alt .elected in Washington district over W. H. Payne by a vote of 241 to 204.,OCR; no 1919 election in O'Leary
-1919,1919-11-04,Washington,W. H. Payne,204,lost,,alexandriagazette19191105p1,1,OCR text,C. N. Ah'alt .elected in Washington district over W. H. Payne by a vote of 241 to 204.,OCR
-1919,1919-11-04,Arlington,Thomas J. DeLashmutt,411,won,,alexandriagazette19191105p1,1,OCR text,"Thomias J. De Lashmutt was elected The vote was De Lashmutt, 411; F. C: Hall, 191; J. R. Robinson, 110; Rich ard E. Babcpcik, 34.",OCR
-1919,1919-11-04,Arlington,F. C. Hall,191,lost,,alexandriagazette19191105p1,1,OCR text,"Thomias J. De Lashmutt was elected The vote was De Lashmutt, 411; F. C: Hall, 191; J. R. Robinson, 110; Rich ard E. Babcpcik, 34.",OCR
-1919,1919-11-04,Arlington,J. R. Robinson,110,lost,,alexandriagazette19191105p1,1,OCR text,"Thomias J. De Lashmutt was elected The vote was De Lashmutt, 411; F. C: Hall, 191; J. R. Robinson, 110; Rich ard E. Babcpcik, 34.",OCR
-1919,1919-11-04,Arlington,Richard E. Babcock,34,lost,,alexandriagazette19191105p1,1,OCR text,"Thomias J. De Lashmutt was elected The vote was De Lashmutt, 411; F. C: Hall, 191; J. R. Robinson, 110; Rich ard E. Babcpcik, 34.",OCR
-1919,1919-11-04,Jefferson,Edward Duncan,169,won,,alexandriagazette19191105p1,1,OCR text,"In Jefferson district Edward Dun can was re-elected supervisor. The vote for supervisor in this district follows: Duncan, 169.;-Jacob Corl, 133; K; Roberts, 12; Charles A. Travers.",OCR
-1919,1919-11-04,Jefferson,Jacob Corl,133,lost,,alexandriagazette19191105p1,1,OCR text,"In Jefferson district Edward Dun can was re-elected supervisor. The vote for supervisor in this district follows: Duncan, 169.;-Jacob Corl, 133; K; Roberts, 12; Charles A. Travers.",OCR
-1919,1919-11-04,Jefferson,K. Roberts,12,lost,,alexandriagazette19191105p1,1,OCR text,"In Jefferson district Edward Dun can was re-elected supervisor. The vote for supervisor in this district follows: Duncan, 169.;-Jacob Corl, 133; K; Roberts, 12; Charles A. Travers.",OCR
-1919,1919-11-04,Jefferson,Charles A. Travers,,lost,,alexandriagazette19191105p1,1,OCR text,"In Jefferson district Edward Dun can was re-elected supervisor. The vote for supervisor in this district follows: Duncan, 169.;-Jacob Corl, 133; K; Roberts, 12; Charles A. Travers.",OCR; the vote is cut off in the report
+1893,1893-05-25,Jefferson,Frank Hume,203,won,,alexandriagazette18930526p3,3,page image,"Supervisor, Frank Hume 203.",'unanimously elected' in the same report; no opponent given
+1893,1893-05-25,Arlington,John W. Clarke,172,won,,alexandriagazette18930526p3,3,page image,"Supervisor, John W. Clarke 172, and M. F. Birch 130.",
+1893,1893-05-25,Arlington,M. F. Birch,130,lost,,alexandriagazette18930526p3,3,page image,"Supervisor, John W. Clarke 172, and M. F. Birch 130.",
+1893,1893-05-25,Washington,R. H. Phillips,151,won,,alexandriagazette18930526p3,3,page image,"Supervisor, R. H. Phillips 151, J. Costello 52, and G. W. Donaldson 19.",
+1893,1893-05-25,Washington,J. Costello,52,lost,,alexandriagazette18930526p3,3,page image,"Supervisor, R. H. Phillips 151, J. Costello 52, and G. W. Donaldson 19.",
+1893,1893-05-25,Washington,G. W. Donaldson,19,lost,,alexandriagazette18930526p3,3,page image,"Supervisor, R. H. Phillips 151, J. Costello 52, and G. W. Donaldson 19.",
+1895,1895-05-23,Arlington,Corbett,158,won,,alexandriagazette18950524p3,3,page image,"for Supervisor, Corbett 158, Birch 90, Hayes 101, Clark 41.","'F. S. Corbett, Arlington district' named elected in the same report"
+1895,1895-05-23,Arlington,Birch,90,lost,,alexandriagazette18950524p3,3,page image,"for Supervisor, Corbett 158, Birch 90, Hayes 101, Clark 41.",
+1895,1895-05-23,Arlington,Hayes,101,lost,,alexandriagazette18950524p3,3,page image,"for Supervisor, Corbett 158, Birch 90, Hayes 101, Clark 41.",
+1895,1895-05-23,Arlington,Clark,41,lost,,alexandriagazette18950524p3,3,page image,"for Supervisor, Corbett 158, Birch 90, Hayes 101, Clark 41.",
+1895,1895-05-23,Washington,Grunwell,158,won,,alexandriagazette18950524p3,3,page image,"for Supervisor, Grunwell 158, Palmer 85.",
+1895,1895-05-23,Washington,Palmer,85,lost,,alexandriagazette18950524p3,3,page image,"for Supervisor, Grunwell 158, Palmer 85.",the page prints 'Paimer' in worn type
+1895,1895-05-23,Jefferson,Duncan,162,won,,alexandriagazette18950524p3,3,page image,"for Supervisor, Duncan 162, Hume 119","the same report says 'a large majority of the voters colored, especially in Jefferson district' and calls H. L. Holmes, elected commissioner of revenue, 'colored'"
+1895,1895-05-23,Jefferson,Hume,119,lost,,alexandriagazette18950524p3,3,page image,"for Supervisor, Duncan 162, Hume 119",
+1897,1897-05-27,Washington,Saegmuller,,won,,alexandriagazette18970529p3,3,page image,Mr. Seigmueller was elected supervisor of Washington district,"the page prints 'Seig-mueller'; no count is printed, the report refers to 'yesterday' for the result; no loser named"
+1897,1897-05-27,Jefferson,Duncan,,won,,alexandriagazette18970529p3,3,page image,Mr. Duncan of Jefferson district,no count is printed; no loser named
+1897,1897-05-27,Arlington,Torreyson,,won,,alexandriagazette18970529p3,3,page image,"There being a tie between Messrs. Corbett and Torreyson in Arlington district, these gentlemen to-day drew for the position and Mr. Torreyson won the prize.","no count is printed; a tie decided by drawing; O'Leary's note has Torreyson elected, contested by Corbett"
+1897,1897-05-27,Arlington,Corbett,,lost,,alexandriagazette18970529p3,3,page image,"There being a tie between Messrs. Corbett and Torreyson in Arlington district, these gentlemen to-day drew for the position and Mr. Torreyson won the prize.","no count is printed; tied, lost the draw"
+1899,1899-05-25,Washington,Saegmuller,163,won,,alexandriagazette18990526p3,3,page image,"Supervisor, Saegmuller 163, Harrison 109, Donaldson 6.",the report says the incumbents were re-elected
+1899,1899-05-25,Washington,Harrison,109,lost,,alexandriagazette18990526p3,3,page image,"Supervisor, Saegmuller 163, Harrison 109, Donaldson 6.",
+1899,1899-05-25,Washington,Donaldson,6,lost,,alexandriagazette18990526p3,3,page image,"Supervisor, Saegmuller 163, Harrison 109, Donaldson 6.",
+1899,1899-05-25,Arlington,Corbett,209,won,,alexandriagazette18990526p3,3,page image,"Supervisor, Corbett 209, Birch 131, Werks 137, Hines 35.",
+1899,1899-05-25,Arlington,Birch,131,lost,,alexandriagazette18990526p3,3,page image,"Supervisor, Corbett 209, Birch 131, Werks 137, Hines 35.",
+1899,1899-05-25,Arlington,Werks,137,lost,,alexandriagazette18990526p3,3,page image,"Supervisor, Corbett 209, Birch 131, Werks 137, Hines 35.",
+1899,1899-05-25,Arlington,Hines,35,lost,,alexandriagazette18990526p3,3,page image,"Supervisor, Corbett 209, Birch 131, Werks 137, Hines 35.",
+1899,1899-05-25,Jefferson,D. N. Rust,233,won,,alexandriagazette18990526p3,3,page image,"Supervisor Rust 233, Graham 188.","'Dr. D. N. Rust was elected supervisor, taking the place of Mr. Duncan, who was a candidate for sheriff'"
+1899,1899-05-25,Jefferson,Graham,188,lost,,alexandriagazette18990526p3,3,page image,"Supervisor Rust 233, Graham 188.",
+1901,1901-05-23,Arlington,Darby,400,won,,alexandriagazette19010524p3,3,page image,"For Supervisor: Darby, 400; Corbett, 74.",
+1901,1901-05-23,Arlington,Corbett,74,lost,,alexandriagazette19010524p3,3,page image,"For Supervisor: Darby, 400; Corbett, 74.",
+1901,1901-05-23,Washington,Costello,132,won,,alexandriagazette19010524p3,3,page image,"For Supervisor: Costello, 132; Saegmuller, 110.",
+1901,1901-05-23,Washington,Saegmuller,110,lost,,alexandriagazette19010524p3,3,page image,"For Supervisor: Costello, 132; Saegmuller, 110.",
+1901,1901-05-23,Jefferson,Duncan,281,won,,alexandriagazette19010524p3,3,page image,"For Supervisor: Duncan, 281; Rust, 130.",'All of the present Supervisors were defeated'
+1901,1901-05-23,Jefferson,Rust,130,lost,,alexandriagazette19010524p3,3,page image,"For Supervisor: Duncan, 281; Rust, 130.",
+1919,1919-11-04,Washington,C. N. Ahalt,241,won,,alexandriagazette19191105p1,1,page image,C. N. Ahalt elected in Washington district over W. H. Payne by a vote of 241 to 204.,no 1919 election in O'Leary
+1919,1919-11-04,Washington,W. H. Payne,204,lost,,alexandriagazette19191105p1,1,page image,C. N. Ahalt elected in Washington district over W. H. Payne by a vote of 241 to 204.,
+1919,1919-11-04,Arlington,Thomas J. DeLashmutt,411,won,,alexandriagazette19191105p1,1,page image,"For supervisor in Arlington district Thomas J. De Lashmutt was elected The vote was De Lashmutt, 411; F. C. Hall, 191; J. R. Robinson, 110; Richard E. Babcock, 34.",
+1919,1919-11-04,Arlington,F. C. Hall,191,lost,,alexandriagazette19191105p1,1,page image,"For supervisor in Arlington district Thomas J. De Lashmutt was elected The vote was De Lashmutt, 411; F. C. Hall, 191; J. R. Robinson, 110; Richard E. Babcock, 34.",
+1919,1919-11-04,Arlington,J. R. Robinson,110,lost,,alexandriagazette19191105p1,1,page image,"For supervisor in Arlington district Thomas J. De Lashmutt was elected The vote was De Lashmutt, 411; F. C. Hall, 191; J. R. Robinson, 110; Richard E. Babcock, 34.",
+1919,1919-11-04,Arlington,Richard E. Babcock,34,lost,,alexandriagazette19191105p1,1,page image,"For supervisor in Arlington district Thomas J. De Lashmutt was elected The vote was De Lashmutt, 411; F. C. Hall, 191; J. R. Robinson, 110; Richard E. Babcock, 34.",
+1919,1919-11-04,Jefferson,Edward Duncan,169,won,,alexandriagazette19191105p1,1,page image,"In Jefferson district Edward Duncan was re-elected supervisor. The vote for supervisor in this district follows: Duncan, 169; Jacob Corl, 133; E. J. Roberts, 12; Charles A. Travers,",
+1919,1919-11-04,Jefferson,Jacob Corl,133,lost,,alexandriagazette19191105p1,1,page image,"In Jefferson district Edward Duncan was re-elected supervisor. The vote for supervisor in this district follows: Duncan, 169; Jacob Corl, 133; E. J. Roberts, 12; Charles A. Travers,",
+1919,1919-11-04,Jefferson,E. J. Roberts,12,lost,,alexandriagazette19191105p1,1,page image,"In Jefferson district Edward Duncan was re-elected supervisor. The vote for supervisor in this district follows: Duncan, 169; Jacob Corl, 133; E. J. Roberts, 12; Charles A. Travers,",
+1919,1919-11-04,Jefferson,Charles A. Travers,,lost,,alexandriagazette19191105p1,1,page image,"In Jefferson district Edward Duncan was re-elected supervisor. The vote for supervisor in this district follows: Duncan, 169; Jacob Corl, 133; E. J. Roberts, 12; Charles A. Travers,",the count falls on a line torn at the page margin; the digit visible is 5 and an earlier digit may be lost

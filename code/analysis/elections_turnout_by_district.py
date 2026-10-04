@@ -9,9 +9,7 @@ between two points are not a gap in a series but elections nothing records.
 
 Two things a reader of the figure needs, and the caption carries:
 
-- 1893 to 1901 rest on the Alexandria Gazette's OCR text, whose digits
-  misread elsewhere on the same pages (tracker row margins-gazette-ocr), so
-  those points are provisional. Arlington District's denominator through
+- Arlington District's denominator through
   1905 is the 1900 count, which is short of the district by one resident in
   six, so its 1893 to 1901 rates are upper bounds.
 - The denominators are the nearest census, not the year's own population.
