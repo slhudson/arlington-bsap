@@ -1,8 +1,8 @@
 """Question 3's items across the County's three survey waves, 2018 to 2026.
 
 One row per item, a dot per wave, ordered by where the item stands in 2026.
-The two items the chart prints with the same figure in 2018 as in 2026 are
-drawn as read; docs/survey_satisfaction.md says why they are doubted.
+Two items carry no 2022 value, the chart saying they were not asked, and
+their 2018 and 2026 values coincide, so each shows one dot.
 """
 import charts
 import paths
