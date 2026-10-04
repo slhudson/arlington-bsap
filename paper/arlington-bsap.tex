@@ -63,6 +63,13 @@
 % under each figure and the footnotes. Headings and figure titles are bold at
 % the body size, so weight and not size marks a level.
 \usepackage{titlesec}
+\usepackage{indentfirst}
+% Heading conventions, set once for the whole report, the Data Appendix included.
+% A part (Part A to Part D) opens a page. A section (A.1) is numbered within its
+% part and starts a new page. A subsection (D.2.1) is numbered within its section
+% and runs on. All three are bold at the body size, and there is no run-in
+% heading and no heading in italic. A paragraph is indented wherever it begins
+% (indentfirst), so a heading, a figure or a table never changes it.
 \usepackage{chngcntr}
 \titleclass{\part}{straight}
 \titleformat{\section}{\normalfont\normalsize\bfseries}{\thesection}{1em}{}
@@ -73,8 +80,6 @@
 % Sections are numbered within their part: A.1, A.2, ..., C.1.
 \counterwithin*{section}{part}
 \renewcommand{\thesection}{\thepart.\arabic{section}}
-\titleformat{\subsubsection}{\normalfont\normalsize\itshape}{}{0em}{}
-\titlespacing*{\subsubsection}{0pt}{8pt}{3pt}
 \titlespacing*{\section}{0pt}{12pt}{6pt}
 \titlespacing*{\subsection}{0pt}{10pt}{4pt}
 
@@ -725,17 +730,17 @@ itself. Dillon's Rule, the three Arlington decisions that have tested it, the
 that could not use the 1930 referendum statute a second time are in the
 Race section and in Section~\ref{sec:legal}.
 
-\section*{Data Appendix}
+\part{Data Appendix}
 
-\subsection*{Residents}
+\section{Residents}
 
-\subsubsection*{Population}
+\subsection{Population}
 Population is the decennial census count for the territory the Board governed, which
 excludes the City of Alexandria throughout. Alexandria annexed 866 acres in 1915 and
 more in 1930, so part of the movement between the 1910 and 1930 censuses is territory
 changing hands, not people arriving or leaving.
 
-\subsubsection*{Race and Ethnicity}
+\subsection{Race and Ethnicity}
 From 1980 the groups in Figure~\ref{fig:residents-race} are the Census Bureau's race
 categories crossed with Hispanic origin: Hispanic or Latino of any race, and every other
 group non-Hispanic. Before 1980 the Bureau did not ask Hispanic origin of every household
@@ -747,9 +752,9 @@ in that one year.
 ``Other or Multiracial'' is American Indian and Alaska Native, some other race, and two or
 more races.
 
-\subsection*{Board Members}
+\section{Board Members}
 
-\subsubsection*{Seat-Years}
+\subsection{Seat-Years}
 A member who sat part of a year counts as a fraction of a seat: four months is a
 third, so a year in which one member replaced another shows fractions. The Board's
 first members sat from 1 July 1870, so 1870 counts only the six months the Board
@@ -758,7 +763,7 @@ existed.
 In 11 years a seat stood empty: four in the district years (1870, 1873, 1879 and 1920) and seven since 1932 (1990, 1997, 1999,
 2003, 2012, 2014 and 2020), each while a special election was called.
 
-\subsubsection*{The Roster}
+\subsection{The Roster}
 Table~\ref{tab:roster} lists every person who has served, in the order they
 first took a seat, with the gender, race and birth year used in the figures, each
 followed by a superscript giving its source. The sources for every cell, one by
@@ -767,7 +772,7 @@ delivered to the County.
 
 \rosterinput members_roster.tex
 
-\subsubsection*{Gender}
+\subsection{Gender}
 Gender comes from two sources. Census sheets give it for members who served
 through the 1960s; the 1950 census is the last open, and the 1960 census closes
 for 72 years. For nearly every other member the source is the press: the
@@ -775,7 +780,7 @@ for 72 years. For nearly every other member the source is the press: the
 member. Neither source identifies Robinson and Willson, who served before 1900,
 so both are assumed to be men.
 
-\subsubsection*{Race and Ethnicity}
+\subsection{Race and Ethnicity}
 Census records identify the five Black members of the 1870s and 1880s, and published
 sources identify the six members of color seated since 1988.
 
@@ -826,7 +831,7 @@ or correct it.
     member was White because no source says otherwise.}{}
 \end{figure}
 
-\subsubsection*{Age}
+\subsection{Age}
 Birth years come from census records for members seated before 1960 and from obituaries
 and published profiles after that, and are accurate to within a year. No source gives a birth year for \birthYearMissingMembers{} of
 \membersTotal{} members, who are left out of the figure.
@@ -836,7 +841,7 @@ in any source, so the age band there covers only the members with a birth year.
 Medians are of ages on 1 July, and the county's adult median is interpolated within
 census age bands.
 
-\subsubsection*{Residence}
+\subsection{Residence}
 % waits on: residence-county-records
 % Residence stays in the data appendix until better data arrive.
 
