@@ -28,7 +28,7 @@
 % the body size, so weight and not size marks a level.
 \usepackage{titlesec}
 \usepackage{chngcntr}
-\titleclass{\part}{top}
+\titleclass{\part}{straight}
 \titleformat{\section}{\normalfont\normalsize\bfseries}{\thesection}{1em}{}
 \titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
 \renewcommand{\thepart}{\Alph{part}}
@@ -37,6 +37,8 @@
 % Sections are numbered within their part: A.1, A.2, ..., C.1.
 \counterwithin*{section}{part}
 \renewcommand{\thesection}{\thepart.\arabic{section}}
+\titleformat{\subsubsection}{\normalfont\normalsize\itshape}{}{0em}{}
+\titlespacing*{\subsubsection}{0pt}{8pt}{3pt}
 \titlespacing*{\section}{0pt}{12pt}{6pt}
 \titlespacing*{\subsection}{0pt}{10pt}{4pt}
 
@@ -88,8 +90,13 @@
 
 % Every section starts on a new page. \clearpage also flushes pending figures,
 % so a section's figures stay with it.
+% A part starts a page and its first section follows on the same page; every
+% other section starts a new page.
+\newif\ifafterpart
+\let\oldpart\part
+\renewcommand{\part}{\clearpage\afterparttrue\oldpart}
 \let\oldsection\section
-\renewcommand{\section}{\clearpage\oldsection}
+\renewcommand{\section}{\ifafterpart\afterpartfalse\else\clearpage\fi\oldsection}
 
 % A comma between two footnote marks that stand together.
 \newcommand{\fnsep}{\textsuperscript{,}}
@@ -357,7 +364,7 @@ vote, and the courts said no.
 \begin{table}[t]
   \refstepcounter{table}\label{tab:color}
   {\raggedright\MakeUppercase{Table \thetable}\par}
-  {\raggedright\bfseries Members of color on the Board\par}
+  {\raggedright\bfseries Members of Color on the Board\par}
   \medskip
   \vspace{6pt}
   \begin{center}
@@ -473,7 +480,7 @@ be appointed by the Manager.\autocite{vaacts1952c198,dailysun1952results} That
 spring the Assembly had barred Board members from directing or requesting
 appointments below the Board.\autocite{vaacts1952c443}
 
-\subsection*{Local legal authority}
+\subsection*{Local Legal Authority}
 
 The County Attorney's July 2026 report sets out the law without its
 history.\autocite{samuel2026} The history is what this report adds, in seven episodes, none of them
@@ -568,17 +575,17 @@ priority among them.
 % the notes print in front of the figures they describe.
 \clearpage
 
-\section*{Data appendix}
+\section*{Data Appendix}
 
-\subsection*{Population}
+\subsection*{Residents}
 
+\subsubsection*{Population}
 Population is the decennial census count for the territory the Board governed, which
 excludes the City of Alexandria throughout. Alexandria annexed 866 acres in 1915 and
 more in 1930, so part of the movement between the 1910 and 1930 censuses is territory
 changing hands, not people arriving or leaving.
 
-\subsection*{Race and ethnicity of residents}
-
+\subsubsection*{Race and Ethnicity}
 From 1980 the groups in Figure~\ref{fig:residents-race} are the Census Bureau's race
 categories crossed with Hispanic origin: Hispanic or Latino of any race, and every other
 group non-Hispanic. Before 1980 the Bureau did not ask Hispanic origin of every household
@@ -589,16 +596,16 @@ separate them among residents of Spanish origin; the band is about five percent 
 ``Other or Multiracial'' is American Indian and Alaska Native, some other race, and two or
 more races.
 
-\subsection*{Gender of members}
+\subsection*{Board Members}
 
+\subsubsection*{Gender}
 Gender rests on two kinds of evidence. A census sheet names it for members
 through the 1960s; the 1950 census is the last open, and the 1960 census closes
 for 72 years. For nearly every other member the source is the press: the
 ``she'' or ``Ms.'' a contemporary article uses, quoted and cited member by
 member. Two members before 1900, Robinson and Willson, rest on the default, man.
 
-\subsection*{Race of members}
-
+\subsubsection*{Race and Ethnicity}
 Census records identify the five Black members of the 1870s and 1880s, and published
 sources identify the six members of color seated since 1988.
 
@@ -647,8 +654,7 @@ or correct the record.
     recorded as White because no source says otherwise.}
 \end{figure}
 
-\subsection*{Age of members}
-
+\subsubsection*{Age}
 Birth years come from census records for members seated before 1960 and from obituaries
 and published profiles after that, and are approximate within a year. \birthYearMissingMembers{} of \membersTotal{} members have no known
 birth year and are left out of the figure.
@@ -656,8 +662,7 @@ birth year and are left out of the figure.
 Before 1932 the Board has three seats, and five members in that stretch have no birth year
 found in any source, so the age band there spans only the members whose birth year is known.
 
-\subsection*{Residence}
-
+\subsubsection*{Residence}
 % waits on: residence-county-records
 % Residence stays in the data appendix until better data arrive.
 
@@ -708,15 +713,12 @@ A place is counted in Figure~\ref{fig:board-residence} whenever it is dated, so
 a member whose only recorded place comes from after their service still counts
 at that precision.
 
-\subsection*{Better data}
-
 County records may identify where Board members lived: payroll and personnel
 records, candidate filings and oaths of office, and voter registration records.
 Even an aggregate unit, such as the side of the County, the civic association,
 zip code or precinct, would place members the census and the press cannot.
 
-\subsection*{Seat-years}
-
+\subsubsection*{Seat-Years}
 Fractional seat values arise when members served part of a year: a member who sat four
 months of a year counts a third of a seat, so a year in which one member replaced another
 shows as fractions. The Board's first members sat from 1 July 1870, so 1870 is scaled to the
@@ -727,6 +729,6 @@ four in the district years (1870, 1873, 1879 and 1920) and seven since 1932 (199
 2003, 2012, 2014 and 2020), each a seat left empty while a special election was called.
 
 \clearpage
-\printbibliography[title={Works cited}]
+\printbibliography[title={Works Cited}]
 
 \end{document}
