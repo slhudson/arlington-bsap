@@ -9,9 +9,10 @@ still open.
 
 ## What rests on an assumption
 
-**Race, 1889–1986.** Every seat is coded all-White on the "first since
-Reconstruction" framing. The five Reconstruction-era members rest on Hjerpe's
-census linking (`member-demographics-lists`).
+**Race, 1889–1986.** Walter G. Willson (1889–92) is Black on the Gazette's
+word. Every other seat is coded White on the "first since Reconstruction"
+framing. The five Reconstruction-era members rest on Hjerpe's census linking
+(`member-demographics-lists`).
 
 **Gender.** William H. Robinson and Walter G. Willson rest on the default,
 man, both recorded negatives (below, "The members that keep the default").
@@ -864,7 +865,7 @@ The three seats run as follows.
 
 The article gives no race for any of them, so a member drawn from this listing
 defaults to White and man like the rest of the era (`member-demographics-lists`, above)
-rather than being looked into on its own. The all-White coding of 1889–1986 is
+rather than being looked into on its own. The White coding of 1889–1986 is
 a separate question waiting on the County, and this reading does not reopen
 it.
 
@@ -1747,8 +1748,19 @@ name with Alexandria County, Ballston and the Arlington Turnpike.
   the wife of the deed, and the land is "formerly owned" two years on. The
   Gazette's other full-text hits on the name are the 1894 sale notices and a
   Philadelphia bakery. No item gives an age or the day of death; a census,
-  will or burial naming Mildred A. is the way to one (`willson-race` has the
-  race question).
+  will or burial naming Mildred A. is the way to one.
+
+  Willson is Black on the Gazette alone: its list of the officers elected on
+  23 May 1889 has "W. Wilson (colored)" for Washington District
+  (`alexandriagazette18890525p3`), its report of 28 May 1891 has "Wilson,
+  colored" beating Phillips (`alexandriagazette18910529p3`), and the death
+  notice has "W. G. Wilson, colored" (`gazette1892wilsondeath`). The roster
+  ties the Gazette's Wilson to Willson by the seat and the years, the initials
+  W. G. of the death notice and the first name Walter of the estate notice
+  (`gazette1892wilsonestate`). The Gazette's telegraphed note of 24 May 1889
+  names the colored winner of the third seat "[blank] Green"
+  (`alexandriagazette18890524p3`), where the next day's list has Wilson. No
+  census under any spelling from 1870 to 1920 holds him.
 - **Smith** chaired the Arlington township Radicals' meeting of 25 May 1874 and
   sat on its township committee (`gazette1874smith`), a party office that
   places him in the township and says nothing of a house; his row says so.
@@ -1863,7 +1875,7 @@ each period:
 | Period | Race | Gender |
 |---|---|---|
 | 1870–1888 | Five Black members named by Hjerpe (2021): Rowe, Syphax, Pinn, Pendleton, Allen. Pinn, Pendleton and Allen each rest on a reproduced 1880 census image; Rowe and Allen on narrative statements in her paper; Syphax on O'Leary, who writes that his photograph shows he was African American. The sentence naming the five as a group sits in her own list of open inquiries, and the file records it as such. O'Leary adds that "a majority of the early office holders" were probably African-American but cannot name them. Nobody on our side has checked the census linking. | Names in O'Leary; two before 1912, Robinson and Willson, still rest on the default (above, "What rests on an assumption"). |
-| 1889–1930 | One collective sentence: the board "became and remained all white for the duration of this system" (Hjerpe 2021, p.4), sourced to the county's election records. No per-person evidence. | Names in O'Leary; initials only before 1912. No source names a first woman member, so "all men before Magruder (1932)" is assumed. |
+| 1889–1930 | Willson (1889–92) is Black on the Gazette's word, three notices that read "colored" (above). For every other member, one collective sentence: the board "became and remained all white for the duration of this system" (Hjerpe 2021, p.4), sourced to the county's election records, which the Gazette contradicts for 1889 and 1891. No per-person evidence. | Names in O'Leary; initials only before 1912. No source names a first woman member, so "all men before Magruder (1932)" is assumed. |
 | 1931–1986 | Nothing per-person from any source, except that the county's list of the November 1931 candidates marks three of its 51 names "(Col)" and none of the five elected (`docs/candidates.md`, "Black candidacies"). The default rests on Newman (1987) being described as the first Black member since Reconstruction. **The weakest stretch.** | Census listing or a press honorific or pronoun for all but B. M. Smith (1933). |
 | 1987–present | Per-person: Newman (1987), Monroe (1999), Dorsey (2015), Spain (2024), and Tejada as the first Latino member (Hjerpe 2021). The Arlington Historical Society's Newman entry names Newman, Monroe and Dorsey as African American members, and its Center for Local History entry gives Tejada's Latin American heritage; Monroe also rests on the Arlington NAACP president's words at his death, and Dorsey on his own statement (2020). | A press pronoun or honorific for every member. |
 
