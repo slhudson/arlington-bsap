@@ -1,34 +1,34 @@
-item,year,satisfied,repeats_2026
-County's overall efforts to embrace diversity,2018,63.0,True
-County's overall efforts to embrace diversity,2022,,False
-County's overall efforts to embrace diversity,2026,63.0,False
-How well the County is managing growth,2018,48.0,False
-How well the County is managing growth,2022,45.0,False
-How well the County is managing growth,2026,41.0,False
-Opportunities for public engagement with the County,2018,58.0,False
-Opportunities for public engagement with the County,2022,53.0,False
-Opportunities for public engagement with the County,2026,53.0,False
-Overall image of Arlington County,2018,88.0,False
-Overall image of Arlington County,2022,79.0,False
-Overall image of Arlington County,2026,79.0,False
-Overall quality of services provided by Arlington County,2018,88.0,False
-Overall quality of services provided by Arlington County,2022,78.0,False
-Overall quality of services provided by Arlington County,2026,82.0,False
-Physical accessibility of County facilities,2018,77.0,False
-Physical accessibility of County facilities,2022,68.0,False
-Physical accessibility of County facilities,2026,75.0,False
-Quality of life in Arlington County,2018,86.0,False
-Quality of life in Arlington County,2022,85.0,False
-Quality of life in Arlington County,2026,78.0,False
-Quality of public schools in the County,2018,78.0,False
-Quality of public schools in the County,2022,65.0,False
-Quality of public schools in the County,2026,72.0,False
-The overall inclusiveness of the community,2018,70.0,True
-The overall inclusiveness of the community,2022,,False
-The overall inclusiveness of the community,2026,70.0,False
-Transparency of the County's decision-making process,2018,42.0,False
-Transparency of the County's decision-making process,2022,42.0,False
-Transparency of the County's decision-making process,2026,36.0,False
-Value you receive for your County taxes,2018,59.0,False
-Value you receive for your County taxes,2022,53.0,False
-Value you receive for your County taxes,2026,53.0,False
+item,year,satisfied
+County's overall efforts to embrace diversity,2018,63.0
+County's overall efforts to embrace diversity,2022,
+County's overall efforts to embrace diversity,2026,63.0
+How well the County is managing growth,2018,48.0
+How well the County is managing growth,2022,45.0
+How well the County is managing growth,2026,41.0
+Opportunities for public engagement with the County,2018,58.0
+Opportunities for public engagement with the County,2022,53.0
+Opportunities for public engagement with the County,2026,53.0
+Overall image of Arlington County,2018,88.0
+Overall image of Arlington County,2022,79.0
+Overall image of Arlington County,2026,79.0
+Overall quality of services provided by Arlington County,2018,88.0
+Overall quality of services provided by Arlington County,2022,78.0
+Overall quality of services provided by Arlington County,2026,82.0
+Physical accessibility of County facilities,2018,77.0
+Physical accessibility of County facilities,2022,68.0
+Physical accessibility of County facilities,2026,75.0
+Quality of life in Arlington County,2018,86.0
+Quality of life in Arlington County,2022,85.0
+Quality of life in Arlington County,2026,78.0
+Quality of public schools in the County,2018,78.0
+Quality of public schools in the County,2022,65.0
+Quality of public schools in the County,2026,72.0
+The overall inclusiveness of the community,2018,70.0
+The overall inclusiveness of the community,2022,
+The overall inclusiveness of the community,2026,70.0
+Transparency of the County's decision-making process,2018,42.0
+Transparency of the County's decision-making process,2022,42.0
+Transparency of the County's decision-making process,2026,36.0
+Value you receive for your County taxes,2018,59.0
+Value you receive for your County taxes,2022,53.0
+Value you receive for your County taxes,2026,53.0
