@@ -46,7 +46,7 @@
 \newcommand{\rosterpanel}[2]{\clearpage\begingroup
   \ifstrequal{#1}{A}{\refstepcounter{table}\label{tab:roster}\xdef\rostertable{\thetable}}{}
   {\raggedright\MakeUppercase{Table \rostertable#1}\par}
-  {\raggedright\bfseries Board Members, #2, by Year First Seated\par}
+  {\raggedright\bfseries Board Members, First Seated #2\par}
   \medskip
   \footnotesize\setlength{\tabcolsep}{8pt}\setlength{\LTpre}{0pt}\setlength{\LTpost}{0pt}
   \begin{longtable}{Q}
@@ -75,7 +75,7 @@
 \usepackage{chngcntr}
 \titleclass{\part}{straight}
 \titleformat{\section}{\normalfont\normalsize\bfseries}{\thesection}{1em}{}
-\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsection}{\normalfont\normalsize\itshape}{\thesubsection}{1em}{}
 \renewcommand{\thepart}{\Alph{part}}
 \titleformat{\part}{\normalfont\normalsize\bfseries}{Part \thepart.}{0.5em}{}
 \titlespacing*{\part}{0pt}{12pt}{12pt}
@@ -84,6 +84,10 @@
 \renewcommand{\thesection}{\thepart.\arabic{section}}
 \titlespacing*{\section}{0pt}{12pt}{6pt}
 \titlespacing*{\subsection}{0pt}{10pt}{4pt}
+% Third level, used inside Who Participates: unnumbered, italic, run on the
+% way a subsection is, a little closer to its text.
+\titleformat{\subsubsection}{\normalfont\normalsize\itshape}{}{0em}{}
+\titlespacing*{\subsubsection}{0pt}{8pt}{3pt}
 
 \usepackage{fontspec}
 % All four faces are declared, because the report sets case names in italic
@@ -155,7 +159,11 @@
 \let\oldpart\part
 \renewcommand{\part}{\clearpage\afterparttrue\oldpart}
 \let\oldsection\section
-\renewcommand{\section}{\ifafterpart\afterpartfalse\else\clearpage\fi\oldsection}
+% Only Part A's sections start new pages for now (Sally, 4 October 2026): the
+% other parts are short or placeholders, and a page break between their
+% sections would leave the pages mostly empty.
+\newif\ifsectionbreaks\sectionbreakstrue
+\renewcommand{\section}{\ifafterpart\afterpartfalse\else\ifsectionbreaks\clearpage\fi\fi\oldsection}
 
 % A comma between two footnote marks that stand together.
 \newcommand{\fnsep}{\textsuperscript{,}}
@@ -185,9 +193,11 @@ dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
 sunt in culpa qui officia deserunt mollit anim id est laborum.
 \end{abstract}
 
-\part{Historical Background}
+\clearpage
+\section*{Introduction}
 
-% Introduction stub: Sally replaces this.
+% Introduction: Sally writes this. The paragraph below is a stub for the lens;
+% the comments after it are the outline the section should cover.
 In September 2019 the Arlington County Board adopted an equity resolution
 committing the County to collect and disaggregate data on disparities and to ask
 of its decisions who benefits, who is burdened and who is
@@ -197,9 +207,20 @@ has held the Board's seats and who has not: how many seats there were, who sat i
 them, and how that has changed for women, for residents of color and for the
 young.
 
+% Outline for the introduction, to be written:
+% - the Board's charge for this study and what it asked of the authors
+% - the 2019 equity resolution as the lens, and what it commits the County to
+% - the four headings every part follows: Board Structure and Duties, Election
+%   Method, Who Participates, Local Authority
+% - how to read the three parts: Part A the Board's history, Part B how
+%   residents participate now, Part C the questions the two point toward
+% - what the report does not do: no recommendation on any question
+
+\part{Historical Background}
+
 \section{Board Structure and Duties}
 
-\subsection{Seats and Terms}
+\subsection{Board Seats and Size}
 
 Alexandria County returned to Virginia in 1847, after Congress's act of 1846 and
 a vote of its residents.\autocite{usstat1846retrocession} A county court of
@@ -234,15 +255,9 @@ observes that the County Manager Plan appears to be the only county form whose
 members are not called supervisors, and the Code requires at-large election of
 all of them under no other form.\autocite{samuel2026}
 
-The five members of 1932 still stood for election all at once. In 1938 voters
-approved staggered terms, 1,539 to 1,487 in the county's tally, and from the
-Board elected in 1939 one member was chosen in most years and two in the
-fourth, so a regular election could no longer replace more than two of the five
-seats.\autocite[11]{arlingtonelections2021}\fnsep\autocite[37]{arlhist1967officials}
-Within that frame the members elect their own chair each January, and the law
-ties the chairship to no seat's election year.\autocite{arlingtonva2026members,vacode2020chairelection}
-
-\subsection{Board Size}
+The five members elect their own chair each January, and the law ties the
+chairship to no seat's election year; how the five are chosen, and how often, is
+the subject of Section~\ref{sec:method}.\autocite{arlingtonva2026members,vacode2020chairelection}
 
 \begin{figure}
   \centering
@@ -282,9 +297,9 @@ every two years, without the seven-seat question, and again nobody
 petitioned.\autocite{vaacts1954c151,vaacts1958c207}
 Part C asks whether five seats still fit by setting Arlington's residents per
 member beside those of Virginia's other large localities
-(Figures~\ref{fig:localities-residents} and~\ref{fig:localities-density}).
+(Figure~\ref{fig:localities-peers}).
 
-\subsection{The Board and the Manager}
+\subsection{Board Duties}
 
 The same 1930 act that made the Board five and elected it at large also settled
 what the five would do. The Board appoints a manager, who holds the county's
@@ -426,9 +441,12 @@ than Maureen Coffey, 5,607 to 5,421, and Coffey was nominated beside Susan
 Cunningham all the
 same.\autocite[contest 160326]{vaelections}\fnsep\autocite{arlnow2023coffeyprimary}
 % waits on: margins-ranked-choice-rounds
-The primaries of 2024 and 2025 were counted the same way, and in November 2025 the
-five-candidate general election for one seat was the first for the Board run by
-ranked choice voting.\autocite{rcva2026evaluation}
+That count was a two-winner single transferable vote, the proportional form of
+ranked choice: a nominee's surplus passed to the voters' next choices. The
+primaries of 2024 and 2025 each filled one nomination by a single-winner count,
+and in November 2025 the five-candidate general election for one seat was the
+first for the Board run by ranked choice voting.\autocite{rcva2026evaluation}
+% waits on: margins-ranked-choice-rounds, for the 2023 round-by-round count
 
 % Party by seat waits on the County.
 % waits on: party-unlabelled
@@ -526,6 +544,8 @@ turns to.
   \figurenotes{}{}
 \end{pairpage}
 
+\subsubsection{The County's People}
+
 Arlington was a majority-Black county through 1880 and half Black in 1890.
 Between 1870 and 1950 the Black share of its residents fell from 63 percent to
 4.8 percent, though the Black population itself grew from 2,010 to 6,517:
@@ -538,6 +558,8 @@ can hide a neighborhood cleared while in-migration elsewhere keeps the total
 climbing, and no county total can tell the two apart. Bestebreurtje's
 dissertation on African American community development in Arlington tells that
 neighborhood history.\autocite{bestebreurtje2017}
+
+\subsubsection{The Board's Members}
 
 For the Board's first 14 years Black members held one or two of its three seats,
 though never in proportion: from 1871 to 1892 they held, year by year, about
@@ -562,6 +584,8 @@ that. Willson held a seat in Washington district until he died. No source
 consulted says why no Black candidate won a Board seat after him, and this
 report does not claim a cause for the years from 1888 to 1893.
 
+\subsubsection{Four Forces}
+
 Four forces may have kept the Board white once Willson was gone, and the record
 bears on each differently. The county's Black population fell, from a majority
 in 1870 to one resident in eight by 1930. The three magisterial districts never
@@ -571,12 +595,14 @@ taking an unknown number of Black voters with it. And in 1932 the county moved
 to at-large election, which removed the district through which a concentrated
 minority could elect a member. The paragraphs below take them in that order.
 
+\subsubsection{A Smaller Black Population}
+
 Population change was the background, not the break. The county's Black share
 fell from 63 percent in 1870 to 12.5 percent in 1930, but Jefferson district was
 still \blackShareJeffersonNineteenHundred{} percent Black in 1900
 (Figure~\ref{fig:residents-district-race}), and in the eight Jefferson
 contests from 1889 through 1903 no Black candidate won. A district that was
-still a majority Black sent no Black member to the Board.
+still majority Black sent no Black member to the Board.
 
 \begin{figure}
   \centering
@@ -596,6 +622,8 @@ still a majority Black sent no Black member to the Board.
     district split by race.}{Source: US decennial census, 1870--1920.}
 \end{figure}
 
+\subsubsection{Districts Without a Guarantee}
+
 Nor did districts ever guarantee a seat. Jefferson elected a Black member at 10
 of its 11 elections through 1887, but Arlington district, 62 and 56 percent
 Black in 1870 and 1880, did so at 3 of 12, and Washington, the least Black of
@@ -604,6 +632,8 @@ district, as the regular Republican nominee, to a ``citizens' candidate.''%
 \autocite{alexandriagazette18850529p3} A district gave a concentrated minority a
 route to a seat, and even a district with a Black majority could go the other
 way.
+
+\subsubsection{A Shrinking Electorate}
 
 The electorate shrank by about three quarters, and the laws that shrank it fit
 the years the absence lasted. Recorded votes in presidential elections ran about
@@ -647,6 +677,8 @@ handful of men voting together could now decide it.
   schedules, 1880--1920.}
 \end{figure}
 
+\subsubsection{At-Large Election}
+
 At-large election in 1932 cannot be tested as a cause of exclusion, because
 exclusion was complete before it came. By 1931 no Black member had sat for 39
 years, and no source names a Black candidate after 1903. The three who ran in
@@ -660,6 +692,8 @@ single seat and each needed a countywide
 majority.\autocite[11]{arlingtonelections2021} No Black candidate ran for the
 Board from 1932 until 1987, so nothing shows what either change would have done
 to one.\autocite[22--23]{pratt1995}\fnsep\autocite[217--218]{bestebreurtje2017}
+
+\subsubsection{Attempts to Restore Districts}
 
 Why county voters chose at-large election in 1930 rests on testimony, not
 documents. Pratt writes that countywide election substantially reduced Black
@@ -676,6 +710,8 @@ The two Vollin actions are separate cases. The 1974 federal suit brought the
 vote-dilution claim, and it failed. The 1976 state case asked whether voters
 could use the referendum statute a second time to put district election to a
 vote, and the courts said no.
+
+\subsubsection{What the Record Settles}
 
 The record settles three things. The absence began in 1888, before either
 disfranchising law and in a district that was still a Black majority; neither
@@ -786,6 +822,7 @@ power it asked its own Manager to exercise.\autocite{brownvarlington1985} Part C
 Board Duties section returns to \textit{County Board of Arlington v. Brown}.
 
 \part{Community Input}
+\sectionbreaksfalse  % only Part A's sections start new pages for now; the rest is short (Sally, 4 October 2026)
 
 Community input, from the National Civic League's analysis of public comments and
 surveys, is in progress. This part is a placeholder until it arrives, under the
@@ -808,6 +845,7 @@ Placeholder.
 Placeholder: nothing in the community input bears on it, and this section says so.
 
 \part{Future Work}
+\sectionbreaksfalse  % Part C's sections run on while they are short (Sally, 4 October 2026)
 
 The history and the community input point toward questions the Board may want
 to take up next, under the same four headings. Naming them is not a
@@ -833,40 +871,34 @@ who serve it.\autocite{richmondcouncilvwilder2007} Richmond's charter is not the
 County Manager Plan, and no appeal of the ruling turns up, so it settles
 nothing for Arlington.
 
-\begin{pairpage}
-  \refstepcounter{figure}\label{fig:localities-residents}
+\begin{figure}[p]
+  \centering
+  \refstepcounter{figure}\label{fig:localities-peers}
   {\raggedright\MakeUppercase{Figure \thefigure}\par}
-  {\raggedright\bfseries Governing-Body Size and Population, Virginia Localities of 100,000 or More\par}
+  {\raggedright\bfseries Arlington Among Virginia's Larger Cities and Counties, 2020\par}
+  \medskip
+  \includegraphics[width=\textwidth]{localities_peers.pdf}
   \smallskip
-  \pairfigure{localities_residents.pdf}
-  \vspace{2pt}
-  \figurenotes{
-    Notes: One dot per locality; a city's council and a county's board are
-    counted as the Richmond Charter Review Commission counts them, a mayor
-    elected at large included where the mayor votes. Each Arlington member
-    stands for about 48,000 residents, about as many as in Loudoun and
-    Virginia Beach; only Prince William, Henrico, Chesterfield and Fairfax
-    have more residents per member.}{Source: Richmond Charter Review
-    Commission (2023), Appendix D; US decennial census, 2020.}
-  \vfill
-  \refstepcounter{figure}\label{fig:localities-density}
-  {\raggedright\MakeUppercase{Figure \thefigure}\par}
-  {\raggedright\bfseries Residents per Member and Population Density, Virginia Localities of 100,000 or More\par}
-  \smallskip
-  \pairfigure{localities_density.pdf}
-  \vspace{2pt}
-  \figurenotes{
-    Notes: Alexandria, the one locality as dense as Arlington, has about
-    23,000 residents per council member.}{Source: Richmond Charter Review
-    Commission (2023), Appendix D; US decennial census, 2020; US Census
-    Bureau Gazetteer, 2020.}
-\end{pairpage}
+  \figurenotes{Notes: Each dot is a Virginia city or county with 100,000 or more
+  residents in 2020. Panel (a) sets the size of each governing body against its
+  population; Fairfax, with about 1.15 million residents, sits beyond the break
+  in the axis. Panel (b) sets the residents each member stands for against how
+  many people live per square mile. A city's council and a county's board are
+  counted as the Richmond Charter Review Commission counts them, a mayor elected
+  at large included where the mayor votes. Not every place is named; a name
+  stands for the dots beside it. Each Arlington member stands for about 48,000
+  residents, about as many as in Loudoun and Virginia Beach; only Prince William,
+  Henrico, Chesterfield and Fairfax have more, and Alexandria, the one locality as
+  dense as Arlington, has about 23,000 per member.}{Source: Richmond Charter
+  Review Commission (2023), Appendix D; US decennial census, 2020; US Census
+  Bureau Gazetteer, 2020.}
+\end{figure}
 
 The number of seats, whether the chair is
 directly elected, and how terms are set and sequenced. The Board has had five
 seats since 1932; Figure~\ref{fig:residents-per-seat} shows the Board's size
 staying fixed while the county around it keeps growing, and the report takes no
-position on what, if anything, should follow. Figures~\ref{fig:localities-residents} and~\ref{fig:localities-density} put the question
+position on what, if anything, should follow. Figure~\ref{fig:localities-peers} puts the question
 beside Virginia's other large localities.
 
 \section{Election Method}
@@ -898,6 +930,7 @@ that could not use the 1930 referendum statute a second time are in the
 Race section and in Section~\ref{sec:legal}.
 
 \part{Data Appendix}
+\sectionbreaksfalse
 
 \section{Residents}
 
