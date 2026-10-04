@@ -1783,7 +1783,26 @@ for a racial label beside the member's name; none appears.
   and as railway manager. None is labeled.
 - **Brown and Richards**: eight Star pages for Brown, 1957-61, and five for
   Richards, 1960-61, are read. The Star's profiles give Brown's age, career and
-  street and Richards's wife, children and street, with no label.
+  street and Richards's wife, children and street, with no label. The
+  *Northern Virginia Sun* (Virginia Chronicle, searched 4 October 2026 by
+  surname, the OCR text of every hit read for a label within 350 characters of
+  the member's name) adds nothing. The Sun is online for April 1957 and then
+  from January 1958, so Brown's 1957 campaign is not there. Brown: January
+  1958 (134 pages with "Brown", 24 naming him), September to December 1959
+  (239, 7) and March to November 1961 (1,327, 84). Richards: May and June 1960
+  (5 pages, 1 naming him, 26 May), November 1960 to January 1961 (35, 12), and
+  March to December of 1963 (207, 88) and of 1967 (215, 68). The Sun names
+  neither man's race. Two passages put Brown beside the subject without
+  labeling him: on 22 May 1961 he asks the recreation director whether he would
+  refuse a caller who "identifies himself as a Negro" at Barcroft Park, and on
+  12 May 1961 Oscar Le Beau credits "quiet intervention and persuasion by
+  Herbert L. Brown Jr. and others during sit-in demonstrations" for opening
+  eating places to Negroes. Richards is likewise the board chairman who "told a
+  television audience" the board would not deny use permits to private schools
+  that excluded Negroes (5 August 1963), and the editorial of 19 June 1963 names
+  him among leaders who "worked quietly but effectively toward removing racial
+  bans." Each is a position on a policy and none says who the speaker is. Pages
+  where the OCR misreads the surname are not reached by the search.
 
 **Whether a missing label counts for anything depends on the paper's habit.**
 The Gazette labels Black people in prose reports: the Radicals' Arlington ticket
