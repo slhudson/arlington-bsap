@@ -27,7 +27,12 @@
 % One row of the appendix roster, written by code/analysis/members_roster.py.
 \newcommand{\roster}[6]{#1 & #2 & #3 & #4 & #5 & #6 \\}
 \newcommand{\rosterk}[6]{#1 & #2 & #3 & #4 & #5 & #6 \\*}  % no page break after
-\newcommand{\rosterdecade}{\addlinespace[1.4ex]}
+\newcommand{\rosterheading}[1]{\multicolumn{6}{@{}l}{\bfseries #1} \\*}
+% The roster file is read with TeX's own \input, not LaTeX's: LaTeX's looks
+% ahead with \futurelet, which ends the table's search for \multicolumn at the
+% start of the first cell, so the first decade heading would be misplaced.
+\makeatletter\let\rosterinput\@@input\makeatother
+\newcommand{\rosterdecade}[1]{\addlinespace[1.4ex]\rosterheading{#1}}  % a gap, then the heading; not for the first group, where a gap before any row is an error
 \usepackage[margin=1in]{geometry}
 \usepackage[hidelinks]{hyperref}
 
@@ -131,6 +136,16 @@
 \begin{document}
 
 {\renewcommand{\thefootnote}{\fnsymbol{footnote}}\maketitle}
+
+% Abstract placeholder: Sally writes it last.
+\begin{abstract}
+\noindent Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+sunt in culpa qui officia deserunt mollit anim id est laborum.
+\end{abstract}
 
 \part{Historical Background}
 
@@ -808,7 +823,6 @@ records, candidate filings and oaths of office, and voter registration records.
 Even an aggregate unit, such as the side of the County, the civic association,
 zip code or precinct, would place members the census and the press cannot.
 
-\clearpage
 \subsubsection*{The Roster}
 Table~\ref{tab:roster} lists every person who has served, in the order they
 first took a seat, with the gender, race and birth year the figures use and a
@@ -816,6 +830,7 @@ mark after each saying what it rests on. The full record behind each cell,
 source by source, is in the repository's members table and in the archive
 delivered to the County.
 
+\clearpage
 \refstepcounter{table}\label{tab:roster}
 {\raggedright\MakeUppercase{Table \thetable}\par}
 {\raggedright\bfseries Board Members, 1870--2026\par}
@@ -834,7 +849,7 @@ delivered to the County.
 \endhead
 \bottomrule
 \endfoot
-\input{members_roster}
+\rosterinput members_roster.tex
 \end{longtable}
 \normalsize
 \figurenotes{Notes: A mark after a value says what it rests on:
