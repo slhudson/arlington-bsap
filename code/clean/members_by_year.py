@@ -23,11 +23,12 @@ GENDER = {"man": "men", "woman": "women"}
 PARTY = {"Democratic": "dem", "Republican": "rep", "ABC": "abc",
          "independent": "ind", "": "unrecorded"}
 PARTY_COLUMNS = ["dem", "abc", "rep", "ind", "unrecorded"]
-# Seat-years by whether the member's race rests on a source or on the era
-# default (race_source "assumed"), and by the most exact place any source
+# Seat-years by what the member's race rests on, most direct first: a census
+# sheet, a published or press account with no census behind it, or the era
+# default (race_source "assumed"); and by the most exact place any source
 # gives for the member (members_residence.PRECISION, most exact first). Each
 # is one more split of the same seats.
-BASIS_COLUMNS = ["race_known", "race_default"]
+BASIS_COLUMNS = ["race_census", "race_published", "race_default"]
 PLACE_COLUMNS = ["address", "street", "neighborhood", "side", "district", "no_place"]
 SPLIT_COLUMNS = BASIS_COLUMNS + PLACE_COLUMNS
 
@@ -38,6 +39,16 @@ def best_place(residence: pd.DataFrame) -> dict:
     order = list(members_residence.PRECISION)
     exactness = residence.precision.map(order.index)
     return exactness.groupby(residence.name).min().map(lambda r: order[int(r)]).to_dict()
+
+
+def race_basis(race_source: str) -> str:
+    """What a member's race rests on. Any census citekey in race_source makes
+    it a census sheet, whatever else is cited beside it; a source that is not
+    a census is a published account; `assumed` is the default."""
+    if race_source == citekeys.ASSUMED:
+        return BASIS_COLUMNS[2]
+    keys = [k.strip() for k in race_source.split(";")]
+    return BASIS_COLUMNS[0] if any(k.startswith("census") for k in keys) else BASIS_COLUMNS[1]
 
 
 def months_held(members: pd.DataFrame, places: dict) -> pd.DataFrame:
@@ -58,7 +69,7 @@ def months_held(members: pd.DataFrame, places: dict) -> pd.DataFrame:
                 rows.append({"year": year, "months": hi - lo,
                              "race": RACE[t.race], "gender": GENDER[t.gender],
                              "party": PARTY[t.party if isinstance(t.party, str) else ""],
-                             "basis": BASIS_COLUMNS[1] if t.race_source == citekeys.ASSUMED else BASIS_COLUMNS[0],
+                             "basis": race_basis(t.race_source),
                              "place": places.get(t["name"], "no_place")})
     return pd.DataFrame(rows)
 

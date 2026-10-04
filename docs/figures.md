@@ -437,18 +437,20 @@ there the labels can be shortened and here the years cannot.
   reads as a sliver too small to see rather than as zero, and the absence is
   a finding for the prose. The test is on the data, not the category name.
 - **members_race_coverage.** A diagnostic: of the seat-years in each year,
-  how many are held by a member whose race comes from a source and how many by
-  one recorded White because no source says otherwise, as a stacked step area
-  on the seat axis, so it reads like the seat figures and a reader can see at
-  once which years the race figure stands on a default. It reads
-  `members_by_year`, as does every figure on the seat axis, so a vacancy is
-  decided once, in the clean stage, and shows as a notch in all of them.
-  Counts rather than a share, because two of three and four of five are
-  different situations and a share would say they were the same. Sourced takes
-  the sand, the default takes the no-evidence grey, as "not recorded" does on
-  the party chart. The grey is almost all after 1962, when no census is open,
-  which is the point of drawing it: the members it covers are living and can
-  be asked. A coverage figure exists for an
+  what the occupant's race rests on, as a stacked step area on the seat axis,
+  so it reads like the seat figures and like `members_residence_coverage`, and
+  a reader can see at once which years the race figure stands on a default.
+  It reads `members_by_year`, as does every figure on the seat axis, so a
+  vacancy is decided once, in the clean stage, and shows as a notch in all of
+  them. Counts rather than a share, because two of three and four of five are
+  different situations and a share would say they were the same. Ordered, so
+  the same green ramp as residence: darkest a census sheet, paler a published
+  or press account with no census citation, and the no-evidence grey for the
+  default. A member counts as a census sheet when any citekey in `race_source`
+  is a census, whatever else is cited beside it (`race_basis` in
+  `code/clean/members_by_year.py`). The grey is almost all after 1962, when no
+  census is open, which is the point of drawing it: the members it covers are
+  living and can be asked. A coverage figure exists for an
   attribute while more than a tenth of members rest on an assumption or lack
   a source; `code/tests.py` refuses a run.sh without one, and below that
   threshold a sentence in the write-up replaces the figure. Birth year is

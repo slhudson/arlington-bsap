@@ -2076,6 +2076,18 @@ def test_a_coverage_figure_is_demanded_only_above_the_threshold():
     assert missing_coverage(gaps, ["members_race_coverage"]) == []
 
 
+def test_a_census_citation_beside_other_sources_still_counts_as_a_census_sheet():
+    """The race coverage figure grades each member by the most direct source.
+    A member cited to Hjerpe and to a census sheet rests on the sheet; one
+    cited to no census rests on a published account; `assumed` is the
+    default. If the first case fell to the published grade, the figure would
+    understate how much of the early Board a census backs, with no error."""
+    basis = members_by_year.race_basis
+    assert basis("hjerpe2021 p.2; gazette1875schutt; census1880rowe") == "race_census"
+    assert basis("ahs2026newman; dorsey2020") == "race_published"
+    assert basis("assumed") == "race_default"
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in sorted(globals().items()) if n.startswith("test_")]
     failed = 0

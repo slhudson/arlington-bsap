@@ -99,12 +99,12 @@ ARLINGTON = OKABE_ITO["vermilion"]
 # A scatter's dot, in points squared at scale 1; Arlington's a little larger.
 DOT = 40
 DOT_HIGHLIGHT = 70
-# What the sitting Board's race rests on: a source in sand, the era default
-# in the no-evidence grey.
-RACE_BASIS = {
-    "known":   ("race from a source", SAND),
-    "default": ("race assumed", UNRECORDED),
-}
+# What the sitting Board's race rests on: ordered, so the sequential profile,
+# darker the more direct the source, and the no-evidence grey for the default.
+RACE_BASIS = dict(zip(
+    ("census", "published"),
+    zip(("census sheet", "published or press account"), reversed(ramp(2)))))
+RACE_BASIS["default"] = ("assumed", UNRECORDED)
 # The sitting Board's ages on a Lexis diagram: the span from youngest to
 # oldest in the near-neutral, each member's tenure a stroke in the dark grey.
 AGE_SPAN = {

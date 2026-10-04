@@ -1246,8 +1246,8 @@ and 1920 holds 2 + 11/12 seat-years.
 ## Seat-years
 
 `data/clean/members_by_year.csv` is one row per year from 1870: seats
-held by each race, each gender, (from 1932) each party, whether the member's race rests on a
-source or on the default, and the most exact place any source gives, in seat-years, so a
+held by each race, each gender, (from 1932) each party, what the member's race rests on
+(a census sheet, a published or press account, or the default), and the most exact place any source gives, in seat-years, so a
 member who sat for four months of a year counts 4/12. Every year is computed
 from `members.csv`. Days are not recorded consistently — Novack gives some and
 the election dates others — so the month is the unit, and **the handover month
