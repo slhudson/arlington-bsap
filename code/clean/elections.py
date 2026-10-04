@@ -199,8 +199,8 @@ def _typed(e: pd.DataFrame) -> pd.DataFrame:
 def _selected(e: pd.DataFrame, office) -> pd.Series:
     """The county's and the state's rows for `office`; O'Leary's entries have
     oleary(). "County Board Candidates" heads a pointer to an article, not
-    a contest."""
-    return ((e.record != "oleary") & e.office.str.match(office)
+    a contest. The Commonwealth's return for President has state_return()."""
+    return (e.record.isin(["county", "state"]) & e.office.str.match(office)
             & ~e.office.str.startswith("County Board Candidates"))
 
 
@@ -223,3 +223,13 @@ def oleary(office) -> pd.DataFrame:
     o = e[(e.record == "oleary") & e.office.str.match(office)]
     o = o[["page", "year", "election_date", "district", "entry"]].reset_index(drop=True)
     return o.astype({"page": int, "year": int})
+
+
+def state_return() -> pd.DataFrame:
+    """The Commonwealth's county return for President, one row per ticket as
+    keyed: year and votes as numbers, the rest as printed."""
+    e = paths.built("elections")
+    r = e[e.record == "state_return"].copy()
+    r["year"] = r.year.astype(int)
+    r["votes"] = pd.to_numeric(r.votes).astype(int)
+    return r.reset_index(drop=True)

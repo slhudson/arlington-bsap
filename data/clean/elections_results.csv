@@ -1,19 +1,19 @@
 year,office,dem,rep,abc,other,unrecorded,total,complete,source,note
-1872,president,125,455,0,0,0,580,True,oleary2010 p.10,
-1876,president,237,587,0,0,0,824,True,oleary2010 p.13,
-1880,president,262,459,0,0,0,721,True,oleary2010 p.14,
-1884,president,264,508,0,0,0,772,True,oleary2010 p.16,
-1888,president,407,314,0,0,0,721,True,oleary2010 p.17,
-1892,president,338,426,0,0,0,764,True,oleary2010 p.19,
-1896,president,78,259,0,0,0,337,False,oleary2010 p.20,Washington district and the total are printed '?'
-1900,president,418,408,0,0,0,826,True,oleary2010 p.22,
-1904,president,157,99,0,0,0,256,False,oleary2010 p.24,O'Leary: the returns 'appear incomplete'
-1908,president,345,165,0,0,0,510,False,oleary2010 p.25,O'Leary: the returns 'appear incomplete'
-1912,president,246,86,0,153,0,485,True,oleary2010 p.26,
-1916,president,445,351,0,8,0,804,True,oleary2010 p.27,
-1920,president,835,996,0,0,0,1831,True,oleary2010 p.28,
-1924,president,1209,1307,0,405,0,2921,True,vaelections contest 79250,
-1928,president,1444,4274,0,0,0,5718,True,vaelections contest 79248,
+1872,president,125,455,0,0,0,580,True,oleary2010 p.10,O'Leary's count; no state return found
+1876,president,237,587,0,0,0,824,True,warrock1868,
+1880,president,264,489,0,0,0,753,True,warrock1868,
+1884,president,264,509,0,0,0,773,True,warrock1868,
+1888,president,255,462,0,0,0,717,True,warrock1892,
+1892,president,340,499,0,1,0,840,True,warrock1892,
+1896,president,322,713,0,4,0,1039,True,warrock1892,
+1900,president,413,421,0,2,0,836,True,warrock1900,
+1904,president,157,99,0,0,0,256,True,warrock1900,
+1908,president,354,165,0,0,0,519,True,warrock1900,
+1912,president,346,86,0,153,0,585,True,warrock1911,
+1916,president,515,412,0,0,0,927,True,warrock1911,
+1920,president,835,996,0,0,0,1831,True,oleary2010 p.28,O'Leary's count; no state return found
+1924,president,1209,1307,0,405,0,2921,True,vasecretary1924,
+1928,president,1444,4274,0,26,0,5744,True,vasecretary1928,the Secretary's return prints 26 votes for minor tickets that the state database's locality rows leave out
 1932,president,3285,2806,0,143,0,6234,True,vaelections contest 79326,
 1936,president,4971,2825,0,39,0,7835,True,vaelections contest 79343,
 1940,president,5440,4365,0,57,0,9862,True,vaelections contest 79369,

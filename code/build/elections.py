@@ -5,11 +5,14 @@ contest's own facts on each row; and, for 1870-1920, one row per entry
 O'Leary prints, the Board of Supervisors by district and the presidential
 returns. Nothing is chosen: every row of the county's candidate history is
 here, prose and write-ins included, every candidate in the state's files,
-their precinct rows summed, and every line of O'Leary's as transcribed.
+their precinct rows summed, every line of O'Leary's as transcribed, and
+every ticket of the Commonwealth's return for President as keyed.
 code/clean/elections.py selects from it.
 
     record      "county" (arlingtonelections2021, to 2021), "state"
-                (vaelections, 2000 on) or "oleary" (oleary2010, 1870-1920)
+                (vaelections, 2000 on), "oleary" (oleary2010, 1870-1920) or
+                "state_return" (the Almanack's and the Secretary's printed
+                county returns for President, 1876-1916, 1924, 1928)
     entry       O'Leary's printed line, unparsed; `district` the magisterial
                 district it is listed under
     contest     an id shared by the contest's rows: for the county, the
@@ -30,6 +33,9 @@ code/clean/elections.py selects from it.
     party, primary_party, is_winner    the state's columns; is_winner is
                 true if any precinct row says so
     source      the citation for the row
+    read_from, quote
+                a "state_return" row's reading: what was read and the
+                printed line it was read from; `page` is where it prints
 
 The county's text columns and page stay on its rows. County rows come
 first, in page order; state rows follow, in contest order.
@@ -48,6 +54,9 @@ STATE = (RAW / "va_dept_of_elections" / "county_board_2000-2026.csv.gz",
 # O'Leary's listings, and the office each is of.
 OLEARY = {BY_CLAUDE / "arlington_county" / "members_1870-1920.csv": "Board of Supervisors",
           BY_CLAUDE / "arlington_county" / "president_1872-1920.csv": "President"}
+
+# The Commonwealth's county returns for President, one row per ticket as keyed.
+STATE_RETURN = BY_CLAUDE / "elections_results_state.csv"
 
 NAMED = re.compile(r"^[*A-Z]")                          # a row naming a candidate
 # The qualifiers a contest heading carries.
@@ -128,15 +137,28 @@ def oleary(path, office) -> pd.DataFrame:
     return o
 
 
+def state_return() -> pd.DataFrame:
+    """Every ticket of the Commonwealth's return for President as keyed, one
+    row each, with the page it prints on and the line it was read from. The
+    office stays as keyed; the clean stage decides what each ticket is."""
+    r = source(STATE_RETURN, dtype=str).fillna("")
+    return pd.DataFrame({
+        "record": "state_return", "office": r.office, "contest": r.year + " " + r.office,
+        "year": r.year, "page": r.page, "candidate": r.candidate, "name": r.candidate,
+        "votes": r.votes, "party": r.party, "person": True, "writein": False, "prose": False,
+        "source": r.source, "read_from": r.read_from, "quote": r.quote, "note": r.note})
+
+
 COLUMNS = ["record", "contest", "office", "district", "year", "election_date", "election_kind",
            "page", "month", "november", "primary", "special", "seats", "fills", "candidate",
            "name", "entry", "votes", "person", "writein", "prose", "party", "primary_party",
-           "is_winner", "source"]
+           "is_winner", "source", "read_from", "quote", "note"]
 
 
 def build() -> pd.DataFrame:
     d = pd.concat([county()] + [state(p) for p in STATE]
-                  + [oleary(p, office) for p, office in OLEARY.items()], ignore_index=True)
+                  + [oleary(p, office) for p, office in OLEARY.items()] + [state_return()],
+                  ignore_index=True)
     return d[COLUMNS]
 
 
