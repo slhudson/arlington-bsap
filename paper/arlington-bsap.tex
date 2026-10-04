@@ -72,14 +72,19 @@
 
 % A timeline is a dated list, not prose: a narrow date column and a wrapping
 % one beside it. Used by every section that has one.
+\usepackage{newfloat}
+\DeclareFloatingEnvironment[placement=t,name=Timeline]{timelinebox}
 \newcommand{\timeline}[1]{%
-  \begin{center}
+  \begin{timelinebox}
+  \centering
+  \begin{minipage}{\textwidth}
   \begin{tabular}{@{}p{0.17\textwidth}p{0.77\textwidth}@{}}
     \toprule
     #1
     \bottomrule
   \end{tabular}
-  \end{center}}
+  \end{minipage}
+  \end{timelinebox}}
 
 % A figure goes at the top of the page it lands on, centered, above the section
 % heading if the section starts there; its title sits above it and its notes
