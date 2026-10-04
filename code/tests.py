@@ -65,13 +65,15 @@ def stage(folder, *names):
  members_roster, members_roster_arlhist, members_roster_oleary,
  members_roster_results, residents, residents_by_district, elections,
  elections_results, elections_turnout, clean_survey_satisfaction,
- clean_survey_rcv, localities, members_residence, localities_southeastern) = stage(
+ clean_survey_rcv, localities, members_residence, localities_southeastern,
+ elections_nominations, elections_margins) = stage(
     "clean", "paths", "candidates", "census", "members", "members_census", "members_chairs",
     "members_by_year", "members_roster", "members_roster_arlhist",
     "members_roster_oleary", "members_roster_results", "residents",
     "residents_by_district", "elections", "elections_results",
     "elections_turnout", "survey_satisfaction", "survey_rcv", "localities",
-    "members_residence", "localities_southeastern")
+    "members_residence", "localities_southeastern", "elections_nominations",
+    "elections_margins")
 
 registration, = stage("fetch", "registration")
 
@@ -988,6 +990,43 @@ def test_a_term_counted_twice_in_the_roster_is_refused():
         return patched
     err = breaks_aside(paths, "read", mangle, build=candidates.build)
     assert err and "terms in members.csv" in err, f"not caught: {err}"
+
+
+def test_a_nomination_method_with_no_category_is_refused():
+    """A press-keyed nomination whose method is a phrasing the clean step has
+    no category for. The transcribed file keeps the source's words, so a new
+    method has to be decided in code/clean/elections_nominations.py before
+    it is counted in the by-year table."""
+    def mangle(orig):
+        def patched(stem):
+            d = orig(stem)
+            if stem == "elections_nominations":
+                d = d.copy()
+                d.loc[d.name == "Leo Lloyd", "method"] = "Whig caucus"
+            return d
+        return patched
+    err = breaks(elections_nominations.paths, "built", mangle, build=elections_nominations.keyed)
+    assert err and "not one the clean step knows" in err, f"not caught: {err}"
+
+
+def test_a_wrong_seat_count_for_a_general_election_is_refused():
+    """1939 filled five seats and the county prints "Vote for 1". Counting six
+    puts the top Republican among the winners, and the margin shrinks to the
+    gap between the Republicans with no sign; the roster did not seat him."""
+    orig = dict(elections_margins.SEATS)
+    elections_margins.SEATS["1939 November 7 County Board"] = 6
+    started = os.environ.pop("RUN_STARTED", None)
+    try:
+        elections_margins.build()
+        err = None
+    except (AssertionError, ValueError) as e:
+        err = str(e)
+    finally:
+        elections_margins.SEATS.clear()
+        elections_margins.SEATS.update(orig)
+        if started:
+            os.environ["RUN_STARTED"] = started
+    assert err and "did not seat" in err, f"not caught: {err}"
 
 
 def test_a_candidate_standing_in_two_contests_of_a_year_is_refused():

@@ -241,6 +241,30 @@ def district_rows() -> list:
     return rows
 
 
+# The county spells one winner two ways across its pages.
+SPELLED = {"blevens": "blevins"}
+
+
+def seated(d: pd.DataFrame):
+    """Every general-election winner the votes name must be a member the
+    roster seated from that election. A wrong seat count, which this table
+    cannot see by itself, puts a loser among the winners or drops a winner
+    and moves the margin without a sign."""
+    m = paths.read("members")
+    sat = {(int(y), surname(n)) for y, n in zip(m.election_year.dropna(), m.name[m.election_year.notna()])}
+    sat |= {(int(y), surname(n)) for y, n in zip(m.start_year, m.name)}
+    g = d[(d.stage == "general") & (d.tier == "1931 on") & (d.status == "computed")]
+    missing = []
+    for _, r in g.iterrows():
+        for w in str(r.winners).split("; "):
+            s = SPELLED.get(surname(w), surname(w))
+            if (int(r.year), s) not in sat and (int(r.year), surname(w)) not in sat:
+                missing.append((int(r.year), w))
+    if missing:
+        raise ValueError(f"general-election winners the roster did not seat in that year: {missing}. "
+                         f"A contest's seat count is probably wrong (SEATS).")
+
+
 def build() -> pd.DataFrame:
     noms = paths.read("elections_nominations")
     rows = generals(noms) + nominations(noms) + district_rows()
@@ -250,6 +274,7 @@ def build() -> pd.DataFrame:
     d = d.sort_values(["year", "stage", "date", "contest"]).reset_index(drop=True)
     d["stage"] = d.stage.astype(str)
     c = d[d.status == "computed"]
+    seated(d)
     assert (c.margin_votes.dropna() >= 0).all(), "a computed margin is negative"
     assert (c.margin_share.dropna().between(0, 1)).all(), "a margin share is outside 0-1"
     return d
