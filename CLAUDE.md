@@ -79,9 +79,10 @@ module cannot be listed as one.
 subject is cut or what about it is measured.** There are six: `residents`, the
 county's people; `elections`, the contests they vote in; `members`, the people
 who have served on the Board; `candidates`, the people who have run for it;
-`localities`, the Virginia jurisdictions Arlington is set against; and
+`localities`, the Virginia jurisdictions Arlington is set against;
 `survey`, the people a questionnaire reached, cut by which one -
-`survey_satisfaction`, `survey_rcv`. Then `residents_by_district`,
+`survey_satisfaction`, `survey_rcv`; and `comments`, the letters the Board
+received. Then `residents_by_district`,
 `members_by_race`, `elections_turnout`, `localities_density`. A survey is its
 own subject because its respondents are a sample and not the county: a share
 of `residents` is every resident, a share of `survey_satisfaction` is every
@@ -272,7 +273,8 @@ biber, so a first failure is retried from clean before it is believed.
 
 One write-up per subject, and one tracker. `docs/residents.md`,
 `docs/elections.md`, `docs/members.md`, `docs/candidates.md`,
-`docs/localities.md` and `docs/survey_satisfaction.md` hold what is settled
+`docs/localities.md`, `docs/survey_satisfaction.md` and `docs/comments.md`
+hold what is settled
 about each: what
 each number is, what backs it, what is assumed where nothing does, and why,
 in the present tense, ending with a list of what still rests on an
