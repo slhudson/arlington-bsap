@@ -298,6 +298,34 @@ POP-TWPS0076 Table 47, which prints Arlington by race at every census from
 county, every variable of the table) so Arlington is a row in a published
 table rather than an extract.
 
+### What drew the 1930–1950 growth
+
+Bestebreurtje (`bestebreurtje2017`, p. 239) says a large influx of federal
+employees and their families came with the New Deal's expanded government, and
+(p. 240) that federal expansion continued into the 1940s with the
+militarization of the United States before and during the Second World War.
+Her figures for the county's permanent population are 57,000 in 1941, 120,000
+in 1945 and 135,000 by 1950 (p. 240, citing Rose), and she calls Arlington the
+fastest-growing county in the country from 1930 to 1950 (p. 248).
+
+The same chapter says the 1930s-40s houses went up on land Arlington's
+comprehensive Zoning Ordinance of 1930 had already classed almost
+entirely residential (pp. 249-250), and that the suburbs first developed along
+rail lines but were advertised by road access from the early 1920s and by the
+1930s were dominated by the personal car (p. 250). The dissertation ties the streetcar
+suburbs to the growth before 1930 (Chapter Two, pp. 42-43) and gives no
+streetcar cause for 1930-1950.
+
+The Black share's fall from 49.9 per cent in 1890 to 4.8 per cent in 1950
+rests on two statements. Bestebreurtje says the fall in the Black share did
+not represent an exodus of African Americans but a consistent Black population
+where new white residents were entering in droves with suburban land booms
+and federal employment (p. 233), and that the vast majority of the new
+arrivals and federal positions of the 1930s-40s went to white workers (p. 240).
+She puts the White-to-Black ratio in the surrounding suburbs at 12 to 1 in
+1950 (pp. 242-243). She gives no cause of the White in-migration beyond
+federal employment and suburban building.
+
 **1870–1890.** County minus city, from the volumes. The 1870 white figure is
 1,175 (Jefferson district's 383, not 283), the 1890 total 4,258 (above), and
 the 1890 white figure 2,135 (foreign white female 305, not 365: a `0` reading
