@@ -25,7 +25,7 @@ import pandas as pd
 import paths
 
 MARK = {"census": "c", "press": "p", "assumed": "a"}
-SEATED = {"election": "elected", "appointment": "appointed",
+SEATED = {"election": "election", "appointment": "appointment",
           "special election": "special election", "unrecorded": "---"}
 
 
