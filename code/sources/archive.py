@@ -131,8 +131,8 @@ def kind(e):
     if e["type"] == "article" and "pages" in e and "location" in e:
         return "press"                               # a printed page, scanned
     org = e.get("organization", "")
-    if any(j in org for j in JOURNALS):
-        return "books"                                    # a historical society's magazine
+    if any(j in org or j in e.get("journaltitle", "") for j in JOURNALS):
+        return "books"                                    # a historical society's magazine, however its name is fielded
     if any(m in org for m in MAGAZINES):
         return "press"                                    # a magazine's article
     if e["type"] == "article" and "journaltitle" in e and "pages" not in e:
