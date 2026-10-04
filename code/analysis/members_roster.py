@@ -89,6 +89,8 @@ def rows(members: pd.DataFrame) -> list:
         years = f"{int(first.start_year)}--"
         if last.end_year < present:
             years += str(int(last.end_year))
+        if years == f"{int(first.start_year)}--{int(first.start_year)}":
+            years = str(int(first.start_year))  # one year of service prints once
         out.append(Row((name, years, SEATED[first.seated_by],
                         marked(first.birth_year, first.birth_year_source),
                         marked(first.gender, first.gender_source),
