@@ -309,8 +309,38 @@ def test_the_adults_county_is_only_written_where_every_district_is_whole():
     for year, g in d.groupby("year"):
         county = g[g.district == "county"]
         if not county.empty:
-            parts = g[g.district != "county"][["men_white", "men_black", "men_other", "men_all"]].sum()
+            if year == 1930:   # the volume prints the county only
+                continue
+            parts = g[g.district != "county"][["men_white", "men_black", "men_other", "men_all",
+                                               "women_white", "women_black", "women_other",
+                                               "women_all"]].sum()
             assert (county.iloc[0][parts.index] == parts).all(), f"{year}: county is not its districts"
+
+
+def test_the_adults_women_and_men_make_the_adults():
+    """The women columns added beside the men. Each sex's races must sum to
+    its total, and men plus women must make `adults_all`, in every row the
+    schedules count and in 1930's county row, where only the totals print."""
+    started = os.environ.pop("RUN_STARTED", None)
+    try:
+        d = residents_by_district_adults.build()
+    finally:
+        if started:
+            os.environ["RUN_STARTED"] = started
+    counted = d[d.year != 1930]
+    assert (counted[["women_white", "women_black", "women_other"]].sum(axis=1) == counted.women_all).all()
+    assert (counted[["men_white", "men_black", "men_other"]].sum(axis=1) == counted.men_all).all()
+    assert (d.adults_all == d.men_all + d.women_all).all()
+    assert d[(d.year == 1930) & (d.district == "county")].shape[0] == 1, "1930 has no county row"
+
+
+def test_a_sex_code_other_than_one_or_two_is_refused():
+    """A third sex code in the schedules: its adults would be counted in
+    neither the men's columns nor the women's, and every total would still
+    tie to itself."""
+    err = breaks_aside(residents_by_district_adults, "SEXES", lambda orig: {"1": "men"},
+                       build=residents_by_district_adults.build)
+    assert err and "counted in neither column" in err, f"not caught: {err}"
 
 
 def test_an_age_group_left_out_of_every_band_is_refused():
