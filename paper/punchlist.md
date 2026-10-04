@@ -34,5 +34,6 @@ stays, with a one-line reason under it.
 - Data Appendix, Board Members: reorder so membership comes first. Open with how membership is handled (the Seat-Years paragraphs: fractions, vacancies, 1870) and the roster, then the sources for each attribute (gender, race, age, residence) after.
 - Roster: each page is a self-contained panel with its own notes: Table 3A "Board Members, 1870--1919, by Year First Seated", 3B, 3C for the pages that follow, each carrying the notes (including a line saying where the source for each member's entry can be found: the repository's members table and the archive delivered to the County, named by their public location once it exists), instead of one longtable with notes only at the end. If the panel titles and notes push a decade (the 1960s) onto the next panel, that is fine; break panels at decade boundaries, never inside one.
 - Roster: "Seated By" in title case in the header; space the columns more evenly (Served and Seated by are squeezed against the others); confirm the order Name, Served, Seated by, Born, Gender, Race and Ethnicity (the last column's header matches the section's name).
+- Figure 7 (county by age): the Notes line is unnecessary; drop it, keep the Source.
 
 ## Could not settle
