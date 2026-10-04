@@ -34,11 +34,15 @@ def member_shares() -> dict:
                                 census sheet, the rest read from the press
     raceAssumedShareMembers    share of all members recorded White because no
                                 source says otherwise
+    membersTotal               people who have served, one per name
+    birthYearMissingMembers    of them, those with no birth year found
     """
     m = paths.read("members").drop_duplicates(subset="name")
     return {
         "genderCensusShareMembers": per_cent(m.gender_source.str.contains("census").sum(), len(m)),
         "raceAssumedShareMembers": per_cent((m.race_source == "assumed").sum(), len(m)),
+        "membersTotal": str(len(m)),
+        "birthYearMissingMembers": str(int(m.birth_year.isna().sum())),
     }
 
 
