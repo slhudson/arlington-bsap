@@ -68,6 +68,16 @@
   \end{tabular}
   \end{center}}
 
+% A figure goes at the top of the page it lands on, centered, above the section
+% heading if the section starts there; its title sits above it and its notes
+% below. The fractions let a full-width figure share a page with text.
+\makeatletter
+\renewcommand{\fps@figure}{t}
+\makeatother
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.8}
+
 % Every section starts on a new page. \clearpage also flushes pending figures,
 % so a section's figures stay with it.
 \let\oldsection\section
@@ -83,12 +93,13 @@
 
 \section{Board Size}
 
-\begin{figure}[htbp]
+\begin{figure}
   \centering
+  {\large\bfseries County Population and Board Size\par}
+  \medskip
   \includegraphics[width=\textwidth]{residents_per_seat.pdf}
-  \caption{Arlington residents and residents per Board seat, 1870--2020. Notes: Seats
-  are counted as authorized --- three through 1930, five after --- not as
-  filled. Source: US decennial census.}
+  \caption{Notes: Seats are counted as authorized --- three through 1930, five after
+  --- not as filled. Source: US decennial census, 1870--2020.}
   \label{fig:residents-per-seat}
 \end{figure}
 
@@ -141,14 +152,16 @@ no other form.\autocite{samuel2026}
 
 \section{Gender}
 
-\begin{figure}[htbp]
+\begin{figure}
   \centering
+  {\large\bfseries Board Members by Gender\par}
+  \medskip
   \includegraphics[width=\textwidth]{members_by_gender.pdf}
-  \caption{Board seats by gender, 1870--2026. Notes: Census records identify gender for
-  \genderCensusShareMembers{} per cent of members, and pronouns and honorifics
-  in press coverage identify nearly all the rest. Two members who served before
-  1900 are recorded as men by default. Fractional seat values arise when
-  members served part of a year.}
+  \caption{Notes: Census records identify gender for \genderCensusShareMembers{} per
+  cent of members, and pronouns and honorifics in press coverage identify
+  nearly all the rest. Two members who served before 1900 are recorded as
+  men by default. Fractional seat values arise when members served part of a
+  year.}
   \label{fig:board-gender}
 \end{figure}
 
@@ -213,15 +226,16 @@ press. Three of the thirteen have both; the other ten rest on the press alone.
 % gates the Board half of this section. Errors are corrected and the prose tightened;
 % no claim is added or changed except where a source contradicted the draft.
 
-\begin{figure}[htbp]
+\begin{figure}
   \centering
+  {\large\bfseries County Population by Race and Ethnicity\par}
+  \medskip
   \includegraphics[width=\textwidth]{residents_by_race.pdf}
-  \caption{Arlington residents by race and ethnicity, 1870--2020. Notes: Panel (a)
-  gives counts and panel (b) shares. Hispanic origin was first asked of every
-  household in 1980, where the dashed rule falls; before then Hispanic residents
-  were counted as Black or White, mostly White. White counts above 50,000 run
-  off the top of panel (a); they peak at 161,329 in 1970. Source: US decennial
-  census.}
+  \caption{Notes: Panel (a) gives counts and panel (b) shares. Hispanic origin was
+  first asked of every household in 1980, where the dashed rule falls;
+  before then Hispanic residents were counted as Black or White, mostly
+  White. White counts above 50,000 run off the top of panel (a); they peak
+  at 161,329 in 1970. Source: US decennial census, 1870--2020.}
   \label{fig:residents-race}
 \end{figure}
 
@@ -260,16 +274,18 @@ local knowledge is the likeliest answer. The Black share moves little between
 Islander origin from 1950 but Hispanic origin of every household only from 1980,
 so the Hispanic series cannot start earlier.
 
-\begin{figure}[htbp]
+\begin{figure}
   \centering
+  {\large\bfseries Board Members by Race and Ethnicity\par}
+  \medskip
   \includegraphics[width=\textwidth]{members_by_race.pdf}
-  \caption{Board seats by race and ethnicity, 1870--2026. Notes: Census records identify
-  the five Black members of the 1870s and 1880s, and published sources identify
-  the six members of color seated since 1988. About \raceAssumedShareMembers{}
-  per cent of members are recorded as White because no source says otherwise:
-  the Arlington Historical Society describes William T. Newman, Jr. as the first
-  Black member since Reconstruction. No Asian American or Pacific Islander
-  member has served. Fractional seat values arise when members served part of a
+  \caption{Notes: Census records identify the five Black members of the 1870s and
+  1880s, and published sources identify the six members of color seated
+  since 1988. About \raceAssumedShareMembers{} per cent of members are
+  recorded as White because no source says otherwise: the Arlington
+  Historical Society describes William T. Newman, Jr. as the first Black
+  member since Reconstruction. No Asian American or Pacific Islander member
+  has served. Fractional seat values arise when members served part of a
   year.}
   \label{fig:board-race}
 \end{figure}
@@ -318,15 +334,15 @@ weight. Most of the members it covers were seated after 1962, when no census
 sheet is open to read, and they are living people in Arlington who can confirm
 or correct the record.
 
-\begin{figure}[htbp]
+\begin{figure}
   \centering
+  {\large\bfseries Data Availability: Board Member Race\par}
+  \medskip
   \includegraphics[width=\textwidth]{members_race_coverage.pdf}
-  \caption{What each Board seat's race rests on, 1870--2026. Each year averages
-  the months the Board existed, so a vacancy leaves a gap and a member who
-  served part of a year fills a fraction of a seat. The shade gives what the
-  occupant's race rests on: darkest a census sheet, paler a published or press
-  account with no census behind it, grey a member recorded as White because no
-  source says otherwise. The dashed rule marks 1932.}
+  \caption{Notes: Shading shows what each member's race rests on: darkest a census
+  sheet, paler a published or press account, grey a member recorded as White
+  because no source says otherwise. Fractional seat values arise when
+  members served part of a year.}
   \label{fig:board-race-coverage}
 \end{figure}
 
@@ -452,16 +468,18 @@ are correct: each won in November and took office the following January.
 % The Neighborhood section waits on the County. Errors are corrected and the
 % prose tightened; the request at its end is unchanged in substance.
 
-\begin{figure}[htbp]
+\begin{figure}
   \centering
+  {\large\bfseries Data Availability: Board Member Residence\par}
+  \medskip
   \includegraphics[width=\textwidth]{members_residence_coverage.pdf}
-  \caption{How precisely each Board member's home can be located, 1870--2026. Notes:
-  Shading shows the most specific record held: darkest a street address, palest
-  a magisterial district or a side of the County, grey nothing. Census records
-  carry street addresses in the mid-twentieth century; before 1932 they mostly
-  name only a magisterial district. More recent members are located largely by
-  neighborhoods named in the press and in public profiles. Fractional seat
-  values arise when members served part of a year.}
+  \caption{Notes: Shading shows the most specific record held for each member's home:
+  darkest a street address, palest a magisterial district or a side of the
+  County, grey nothing. Census records carry street addresses in the
+  mid-twentieth century; before 1932 they mostly name only a magisterial
+  district. More recent members are located largely by neighborhoods named
+  in the press and in public profiles. Fractional seat values arise when
+  members served part of a year.}
   \label{fig:board-residence}
 \end{figure}
 
@@ -502,11 +520,13 @@ code or precinct?
 
 \section{Age}
 
-\begin{figure}[htbp]
+\begin{figure}
   \centering
+  {\large\bfseries County Population by Age\par}
+  \medskip
   \includegraphics[width=\textwidth]{residents_by_age.pdf}
-  \caption{Arlington residents by age band, share of the county, 1910--2020, youngest
-  at the bottom. Source: US decennial census.}
+  \caption{Notes: Share of the county in each age band, youngest at the bottom.
+  Source: US decennial census, 1910--2020.}
   \label{fig:residents-age}
 \end{figure}
 
@@ -528,15 +548,17 @@ stayed between 15 and 18 per cent.
 That steadiness makes the next figure readable. From 1980, movement in the
 Board's age range is about the Board, not about who lives in Arlington.
 
-\begin{figure}[htbp]
+\begin{figure}
   \centering
+  {\large\bfseries Board Members by Age\par}
+  \medskip
   \includegraphics[width=\textwidth]{members_age.pdf}
-  \caption{Ages of Board members, 1870--2026. Notes: Each diagonal line is one member,
-  from age at first election to age at departure; the band behind runs from the
-  youngest to the oldest member sitting in each year. Birth years come from
-  census records for members seated before 1960 and from obituaries and
-  published profiles after that, and are approximate within a year. Eight of
-  126 members have no known birth year and are left out.}
+  \caption{Notes: Each diagonal line is one member, from age at first election to age
+  at departure; the band behind runs from the youngest to the oldest member
+  sitting in each year. Birth years come from census records for members
+  seated before 1960 and from obituaries and published profiles after that,
+  and are approximate within a year. Eight of 126 members have no known
+  birth year and are left out.}
   \label{fig:board-age}
 \end{figure}
 
