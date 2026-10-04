@@ -8,7 +8,7 @@ line between censuses (1880, 1910, 1920 and 1930 for the county; 1900 is not
 counted whole). The elections before 1880 are not drawn: no census before 1880
 counts adults, and holding 1880's count back would invent the denominator.
 Everything else is as the all-residents figure: the same three rules, the
-same incomplete years left undrawn, the same Board squares.
+same open marker for 1920's count, which is O'Leary's, the same Board squares.
 """
 import numpy as np
 
@@ -39,7 +39,7 @@ for profile in style.PROFILES:
     president = president[(president.office == "president")
                           & president.year.between(FIRST, LAST)].set_index("year")
     rate = per_100(president.total, adults)
-    complete = president.complete.astype(bool)
+    oleary = president.source.str.startswith("oleary")
 
     board = paths.read("elections_margins")
     board = board[board.contest.str.endswith("District") & board.votes_cast.notna()
@@ -50,8 +50,9 @@ for profile in style.PROFILES:
 
     fig, ax = charts.figure(profile)
     label, colour = style.PRESIDENT
-    charts.lines(ax, president.index.to_numpy(), {label: (rate.where(complete).to_numpy(), colour)},
-                 bridge=True)
+    charts.lines(ax, president.index.to_numpy(), {label: (rate.to_numpy(), colour)})
+    olabel, _ = style.PRESIDENT_OLEARY
+    charts.marks(ax, rate.index[oleary], rate[oleary], colour, filled=False)
     label, colour = style.BOARD_VOTE_DISTRICTS
     charts.marks(ax, board_rate.index, board_rate, colour, marker="s")
 
@@ -59,5 +60,6 @@ for profile in style.PROFILES:
     charts.years(ax, 1870, 1930, step=10, label="year", minor=5)
     for year, note, ha in style.ELECTORATE_RULES_TO_1932:
         charts.rule(ax, year, note, ha=ha)
-    charts.legend(fig, dict([style.PRESIDENT, style.BOARD_VOTE_DISTRICTS]))
+    charts.legend(fig, dict([style.PRESIDENT, style.PRESIDENT_OLEARY, style.BOARD_VOTE_DISTRICTS]),
+                  hollow=[olabel])
     paths.save(fig, profile)
