@@ -219,6 +219,47 @@ rounded to the grain of the argument: "about 1,000 residents a seat in 1870,
 48,000 today", not 1,062 and 47,729. Keep the exact figure in a figure label or a
 table, and let the sentence carry the shape. The grain is a judgment each time.
 
+## Drafting the paper: what Sally has asked for (4 October 2026)
+
+Read this before editing `paper/arlington-bsap.tex` or `paper/timelines.tex`.
+
+**Workflow.** The 2 October "Arlington BSaP Outline - History" slides in Drive are the
+outline. Agree a section's timeline in `paper/timelines.tex` first, then write prose
+from it; the timelines live in their own document so they can leave the paper. When a
+slide and the sources disagree, the sources win: say so and cut what no source holds,
+with a tracker row. The paper is not Board-facing yet: no "requests", no "confirm
+this list". Work in a worktree on a branch, commit and push, and do not narrate git.
+
+**Voice.** Narrative and journalistic: one thread per section, named people and bodies
+acting, the finding first, the stake last. Numbers are rounded to what the argument
+needs, numerals above 10, "percent" as one word. A digression is a footnote. Never
+defend a decision the reader never saw (the cube-root law, the palette). A section
+holds only things that happened; failed efforts and the Board-Manager division of
+labor are their own sections.
+
+**What the body may say.** The body states the data. Where the data come from, and how
+a figure was built, goes in the Data Appendix (Residents, then Board Members, each
+with gender, race and ethnicity, age, residence in parallel), and only what changes how
+a reader interprets a number stays at all. Individual member sources are not printed.
+
+**Structure.** Part A Historical Background, Part B Community Input, Part C Future Work;
+sections numbered within a part (A.1), each starting a new page, headings in title case.
+
+**Figures and tables.** Top of the page, centered: FIGURE n, bold title, the figure, Notes,
+Source (Urban's form). Notes only when a reader needs them. Two type sizes, 11 and 9.
+
+**Citations.** A footnote is the citation and the page, nothing else: a bib `note` prints
+in the footnote, so commentary goes in `annotation` (`cite.py --note` does this). No
+URL or access date in a footnote. Adjacent notes are one note or take `\fnsep`.
+
+**Gated.** Race, party, turnout and anything the County has not answered: correct errors
+and tighten, add no claim, and mark the spot `% waits on: <tracker row>`.
+
+**Checks after every change.** `bash run.sh`, `code/paper.py` and `code/paper.py
+timelines`, then `grep -c '^!' paper/*.log`: the compile check does not catch a LaTeX
+error. A `%` comment inside a macro argument swallows its closing brace. End a reply
+with a full-path link to the rebuilt PDF; leave no dated PDF copies in the repo.
+
 ## Corrections this project has made
 
 Kept here so the voice accumulates rather than being re-derived. Add to it
