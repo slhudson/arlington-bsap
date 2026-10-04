@@ -606,8 +606,11 @@ there the labels can be shortened and here the years cannot.
   Arlington's peers are: places its size, and places as dense. Both axes
   start at zero; the residents axis breaks so that Fairfax, at 1.15
   million, stays in view without pressing the other seventeen into a third
-  of the width. Squarer than the time series (`style.SQUARE`), since both
-  axes are measures and neither is time. Dots are one size: area was tried
+  of the width. Squarer than the time series, but only just (`style.SQUARE`, 2.0 against
+  2.2): both axes are measures and neither is time, and the two figures share
+  a page in the paper. At 1.2 each took most of a page; below 2.0 the names
+  in `localities_southeastern` stopped finding places beside their dots, and
+  Norfolk names that figure's cluster where Richmond did. Dots are one size: area was tried
   for population and for density, and in both a reader could not read the
   third measure off it. Residents per member rather than members per
   resident, to match residents_per_seat. Names are placed by

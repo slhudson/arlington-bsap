@@ -11,9 +11,9 @@ import paths
 import style
 
 # One name per cluster of cities that sit together; charts.place_labels() decides where.
-NAMED = {"Arlington", "Clayton", "Huntsville", "Richmond"}
+NAMED = {"Arlington", "Clayton", "Huntsville", "Norfolk"}
 # Named with a short line to the dot: too close to its neighbours to name beside it.
-LEADERS = {"Arlington", "Clayton"}
+LEADERS = {"Arlington"}
 COLORS = {kind: color for kind, (_, color) in style.LOCALITIES.items()}
 
 for profile in style.PROFILES:
