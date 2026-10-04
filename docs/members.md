@@ -32,8 +32,8 @@ birth year rests on an obituary and a railroad notice, not a census (below).
 on the ages in census listings and on an age stated in an obituary or a
 profile. Each is right to within a year. The age figure draws a year only where
 every sitting member either has a birth year or is one of the two the figure
-names, and it runs from 1900 to the present, the first census whose ages the
-residents figures can set beside the Board's. Four members before 1900 have no
+names, and it runs from 1910 to the present, the first census whose ages the
+residents figures can set beside the Board's. Four members before 1910 have no
 birth year: H. Dwight Smith, Lott W. Crocker, William H. Robinson and Walter G.
 Willson, each found in no census under any spelling tried and in no Gazette
 item that gives an age (above); they sit outside the figure. The two it names

@@ -13,4 +13,4 @@ import paths
 
 _by_year = paths.read("members_by_year")
 FIRST, LAST = int(_by_year.year.min()), int(_by_year.year.max())
-AGE_FIRST = 1900    # the age figures begin with the censuses' ages (docs/members.md, "Birth years")
+AGE_FIRST = 1910    # the age figures begin with the first census whose ages can be counted (docs/residents.md)

@@ -490,7 +490,7 @@ there the labels can be shortened and here the years cannot.
   band's edges and the band moves only when the Board changes (Sally). There
   is no legend: the caption names the
   band and the strokes (same decision).
-  The figure runs from 1900 to the present, where the censuses' ages begin
+  The figure runs from 1910 to the present, where the censuses' ages begin
   and every sitting member has a birth year but two recent ones (named in
   UNKNOWN), so the band is one continuous ribbon; the four early members
   without a birth year sit before it (Sally, 4 October 2026). Before 1932 the

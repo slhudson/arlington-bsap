@@ -1,4 +1,4 @@
-"""Ages of the Board, 1900-2026 -> figures/members_age.pdf, .png
+"""Ages of the Board, 1910-2026 -> figures/members_age.pdf, .png
 
 A Lexis diagram: age against year. Behind, the youngest-to-oldest span of the
 members holding a seat in each month, drawn where every member in it either
@@ -23,7 +23,7 @@ FIRST, LAST = members.AGE_FIRST, members.LAST
 # arrives without a birth year and is not named here stops the build rather
 # than quietly widening the tolerance. Susan Cunningham and Tannia Talento
 # are recent enough that a stated age should be findable (docs/members.md,
-# "What rests on an assumption"). The four members before 1900 with no birth
+# "What rests on an assumption"). The four members before 1910 with no birth
 # year sit outside the figure's span.
 UNKNOWN = {"Susan R. Cunningham", "Tannia Talento"}
 MERGE_WITHIN = 12           # months between terms that still make one stroke

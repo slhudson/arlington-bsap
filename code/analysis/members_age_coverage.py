@@ -1,4 +1,4 @@
-"""How many seat-years have a member with a birth year, 1900-2026
+"""How many seat-years have a member with a birth year, 1910-2026
 -> figures/members_age_coverage.pdf, .png
 
 A stacked step area of the seat-years in each year, those held by a member
