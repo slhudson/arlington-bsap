@@ -1924,6 +1924,30 @@ Arlington County objected to the ballot's wording (`sun1938womenvoters`).
 Florence E. Cannon is elected parliamentarian of the Organised Women Voters
 in the second notice and sits on the Board from 1948 to 1951.
 
+### The voting-rights era
+
+One secondary source, the Congressional Research Service's history of the Act
+(`crs2023votingrightsact`), covers all four items the race timeline may name.
+
+- The Voting Rights Act is signed on 6 August 1965 (P.L. 89-110) and prohibits
+  discrimination in registration and voting on the basis of race, color or
+  language-minority status (Table 2, p. 5; Summary); its Section 5 requires
+  federal review of voting changes before they take effect in certain
+  jurisdictions (Table 1, p. 3).
+- Section 4(b) covers six states entirely when the Act is enacted in 1965,
+  Virginia among them (p. 14).
+- *City of Mobile v. Bolden* (22 April 1980) reads Section 2 to require proof
+  of discriminatory intent, and Congress amends the Act in 1982 in response
+  (Table 2, p. 5; p. 21).
+- *Thornburg v. Gingles* (30 June 1986) sets the standard for vote-dilution
+  claims under Section 2, which the report ties to the 1982 amendment's
+  attention to at-large elections (Table 2, p. 5; p. 22).
+
+No source held says what preclearance covered in Arlington, whether the
+County or its Board's election method ever came before it, or whether either
+case touched Arlington; the report names no Virginia locality, so the
+timeline can say nothing about Arlington from it.
+
 ## Party of Board members
 
 Party has never been printed on the County Board ballot; the county's own
