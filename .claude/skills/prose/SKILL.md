@@ -252,6 +252,7 @@ sections numbered within a part (A.1), each starting a new page, headings in tit
 
 **Figures and tables.** Top of the page, centered: FIGURE n, bold title, the figure, Notes,
 Source (Urban's form). Notes only when a reader needs them. Two type sizes, 11 and 9.
+Paragraphs are not indented; a line of space separates them (4 October 2026).
 
 **Citations.** A footnote is the citation and the page, nothing else: a bib `note` prints
 in the footnote, so commentary goes in `annotation` (`cite.py --note` does this). No

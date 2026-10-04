@@ -64,13 +64,14 @@
 % under each figure and the footnotes. Headings and figure titles are bold at
 % the body size, so weight and not size marks a level.
 \usepackage{titlesec}
-\usepackage{indentfirst}
 % Heading conventions, set once for the whole report, the Data Appendix included.
 % A part (Part A to Part D) opens a page. A section (A.1) is numbered within its
 % part and starts a new page. A subsection (D.2.1) is numbered within its section
 % and runs on. All three are bold at the body size, and there is no run-in
-% heading and no heading in italic. A paragraph is indented wherever it begins
-% (indentfirst), so a heading, a figure or a table never changes it.
+% heading and no heading in italic. Paragraphs are never indented and are
+% separated by a line of space (Sally, 4 October 2026), so a heading, a figure
+% or a table never changes how one begins.
+\usepackage{parskip}
 \usepackage{chngcntr}
 \titleclass{\part}{straight}
 \titleformat{\section}{\normalfont\normalsize\bfseries}{\thesection}{1em}{}
