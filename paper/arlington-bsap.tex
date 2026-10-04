@@ -68,6 +68,11 @@
   \end{tabular}
   \end{center}}
 
+% Every section starts on a new page. \clearpage also flushes pending figures,
+% so a section's figures stay with it.
+\let\oldsection\section
+\renewcommand{\section}{\clearpage\oldsection}
+
 \title{Report for Arlington County Board}
 \author{Sally Hudson and Alex Keena}
 \date{\today}
@@ -75,7 +80,6 @@
 \begin{document}
 
 \maketitle
-\clearpage
 
 \section{Board Size}
 
