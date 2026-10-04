@@ -26,6 +26,5 @@ stays, with a one-line reason under it.
 - Part C needs parallel structure with Part A, settled in the same conversation. Board Duties (C.1) is not a concept Part A has explored; if the Board-and-Manager material folds into A.1 Board Structure, then duties live inside structure in Part A and C.1 should follow, or Part A grows a duties strand.
 - Figures 9 and 10 (the peer-locality scatters in Part C) should fit on one page; there is a lot of white space. Perhaps less square (they take style.SQUARE), or side by side as two panels; a style-layer change, so check every scatter after.
 - Data Appendix formatting does not match the rest. Set the heading conventions once (what is a part, a section, a subsection, a run-in heading) and apply them to the appendix (it is a starred section with starred subsections now). Paragraph indents are inconsistent, some flush left and some indented, mostly where a figure or table environment precedes a paragraph; pick one convention and enforce it (\noindent after floats, or indent everywhere).
-- Data Appendix, Board Members: reorder so membership comes first. Open with how membership is handled (the Seat-Years paragraphs: fractions, vacancies, 1870) and the roster, then the sources for each attribute (gender, race, age, residence) after.
 
 ## Could not settle
