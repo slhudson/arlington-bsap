@@ -21,7 +21,7 @@
 \usepackage{booktabs}
 \input{body_text_numbers}  % numbers the prose cites, written by code/analysis/body_text_numbers.py
 \usepackage[margin=1in]{geometry}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 
 % Two type sizes: the body size, and one smaller size for notes --- the notes
 % under each figure and the footnotes. Headings and figure titles are bold at
@@ -70,6 +70,9 @@
 % A footnote names the source and the page; the web address and the access date
 % appear only in the bibliography.
 \AtEveryCitekey{\clearfield{url}\clearfield{urldate}\clearfield{urlyear}\clearfield{urlmonth}\clearfield{urlday}}
+
+% The bibliography keeps the web address and drops the access date.
+\AtEveryBibitem{\clearfield{urldate}\clearfield{urlyear}\clearfield{urlmonth}\clearfield{urlday}}
 
 % The paper includes the PDF versions; figures/png/ is for slides and email.
 \graphicspath{{../figures/pdf/}}
