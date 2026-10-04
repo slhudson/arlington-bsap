@@ -10,7 +10,16 @@ relying on one.
   election). A JSON API:
   `https://www.loc.gov/collections/chronicling-america/?q=Surname+Arlington&dates=1955-09-01/1955-12-31&fa=partof_title:evening+star+%28washington%2C+d.c.%29+1854-1972&fo=json&c=10&at=results,pagination`;
   each result's resource JSON (`&fo=json&at=resource`) names a
-  `fulltext_file` (the OCR text) and a `pdf` (the page). It rate-limits
+  `fulltext_file` (the OCR text) and a `pdf` (the page). curl is answered
+  with Cloudflare's check from this machine; the built-in browser pane passes
+  it, and `code/fetch/chronicling_scan.js` runs there: a result's own
+  `word_coordinates_url` gives the page's full text from tile.loc.gov in one
+  request, so a page costs one fetch where the resource record made it two,
+  and 40 pages read in about four minutes without a 503. tile.loc.gov answers
+  curl's PDF request with a 403 but serves the browser, which saves the scan
+  to `~/Downloads` (`savePdf` in the script) for `cite.py --copy`. A page's
+  text is the OCR, which misreads names (the 1879 returns print "Robinson" as
+  "Rib it son"), so read the passage on the page image before citing it. It rate-limits
   after about 55 fetches (a 503, or a Cloudflare page on every route from
   the machine, browsers included); a few minutes clears it, and about 220
   fetches across three pauses is a day's budget. One request every few
