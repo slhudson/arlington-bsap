@@ -26,6 +26,7 @@ sys.path.insert(0, str(ROOT / "code"))
 sys.path.insert(0, str(ROOT / "code" / "sources"))
 import archive  # noqa: E402
 import citekeys  # noqa: E402
+import cite  # noqa: E402
 import clippings  # noqa: E402
 import paper  # noqa: E402
 import quotations  # noqa: E402
@@ -1913,17 +1914,36 @@ def test_a_timeline_citation_reaches_the_footnote():
     compile that succeeds. Six citations were lost that way before
     \\makesavenoteenv{tabular} was added, so the pairing is checked rather
     than trusted."""
-    tex = (ROOT / "paper" / "arlington-bsap.tex").read_text()
-    live = "\n".join(re.sub(r"(?<!\\\\)%.*", "", line) for line in tex.split("\n"))
-    cited = len([m for m in re.finditer(r"\\timeline\{(.*?)\n\}", live, re.S)
-                 if "autocite" in m.group(1)])
-    tabular = re.search(r"\\newcommand\{\\timeline\}.*?\\end\{tabular\}", live, re.S)
-    safe = re.search(r"\\makesavenoteenv\{tabular\}", live)
-    assert not (cited and tabular and not safe), (
-        f"{cited} timeline(s) cite a source inside a tabular, but the preamble "
-        f"has no \\makesavenoteenv{{tabular}}: those footnotes are dropped "
-        f"silently. Add \\usepackage{{footnote}} and \\makesavenoteenv{{tabular}}, "
-        f"or move the citations into the prose.")
+    # The timelines now live in paper/timelines.tex, each with its own preamble.
+    for name in ("arlington-bsap", "timelines"):
+        tex = (ROOT / "paper" / f"{name}.tex").read_text()
+        live = "\n".join(re.sub(r"(?<!\\\\)%.*", "", line) for line in tex.split("\n"))
+        cited = len([m for m in re.finditer(r"\\timeline\{(.*?)\n\}", live, re.S)
+                     if "autocite" in m.group(1)])
+        tabular = re.search(r"\\newcommand\{\\timeline\}.*?\\end\{tabular\}", live, re.S)
+        safe = re.search(r"\\makesavenoteenv\{tabular\}", live)
+        assert not (cited and tabular and not safe), (
+            f"{name}.tex: {cited} timeline(s) cite a source inside a tabular, but the "
+            f"preamble has no \\makesavenoteenv{{tabular}}: those footnotes are dropped "
+            f"silently. Add \\usepackage{{footnote}} and \\makesavenoteenv{{tabular}}, "
+            f"or move the citations into the prose.")
+
+
+def test_a_source_note_is_filed_in_the_annotation_not_the_footnote():
+    """cite.py's --note is what the document says that the report relies on.
+    biblatex prints a `note` field in the footnote of every citation, so a
+    reading written there lands in the paper: footnotes ran to a paragraph
+    until the reading went to the annotation, which is not printed."""
+    import types
+    a = types.SimpleNamespace(
+        key="k", url="https://example.org/x.pdf", author="A", title="T", organization="",
+        journal="", location="", date="2026", note="The page says seven members.",
+        cite_note="", how="", copy=None, type="online")
+    entry = cite.entry_text(a, "A 2026 - T.pdf", "documents")
+    assert "\n  note " not in entry, "the reading is filed as a note, which prints in the footnote"
+    assert "The page says seven members." in entry
+    a.cite_note = "Vol. 3, no. 4"
+    assert "note        = {Vol. 3, no. 4}" in cite.entry_text(a, "A 2026 - T.pdf", "documents")
 
 
 def test_a_paper_build_that_lost_something_is_refused():

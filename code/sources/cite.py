@@ -10,12 +10,16 @@ A web page is printed to PDF with headless Chrome; a file the url names
 in hand instead, a page printed in Sally's own browser when a site refuses
 an automated request. The copy is filed under the kind archive.kind()
 assigns, named "<author> <year> - <title>", and the entry is appended to
-sources.bib with the url, today's urldate, the note given and an annotation
-naming the file, which is what code/tests.py and code/sources/archive.py check.
+sources.bib with the url, today's urldate and an annotation naming the file,
+which is what code/tests.py and code/sources/archive.py check.
 
-The note is the reader's: what the document says that the report relies on,
-built from the document in hand (CLAUDE.md). This script does not read the
-document for you; it does the filing, so that reading it is the only work.
+--note is the reader's: what the document says that the report relies on,
+built from the document in hand (CLAUDE.md). It goes into the annotation,
+which the paper does not print. biblatex prints a `note` field in the footnote
+of every citation, so --note must not land there; --cite-note is the one
+for what a footnote should carry, a reporter citation or a volume and number.
+This script does not read the document for you; it does the filing, so that
+reading it is the only work.
 
 It refuses to act, and says to print the page in Sally's browser and pass
 --copy, when the site answers with an error or a challenge page or the
@@ -85,8 +89,10 @@ def entry_text(a, filename, folder):
         fields.append(("journaltitle", a.journal))
     if a.location:
         fields.append(("location", a.location))
-    fields += [("date", a.date), ("url", a.url), ("urldate", today), ("note", a.note),
-               ("annotation", f'Read {today}. Filed in Drive as "{folder}/{filename}", '
+    fields += [("date", a.date), ("url", a.url), ("urldate", today)]
+    if a.cite_note:
+        fields.append(("note", a.cite_note))     # prints in the footnote
+    fields += [("annotation", f'{a.note.rstrip(".")}. Read {today}. Filed in Drive as "{folder}/{filename}", '
                               + (a.how if a.how
                                  else "saved as published" if a.url.lower().endswith(AS_PUBLISHED)
                                  else "a copy printed in Sally's own browser" if a.copy
@@ -109,7 +115,12 @@ def main():
     ap.add_argument("--author", required=True, help='as the bib prints it, e.g. "Hanover County"')
     ap.add_argument("--title", required=True)
     ap.add_argument("--date", required=True, help="YYYY or YYYY-MM-DD, the document's own date")
-    ap.add_argument("--note", required=True, help="what the document says that the report relies on")
+    ap.add_argument("--note", required=True,
+                    help="what the document says that the report relies on; goes in the annotation, "
+                         "which the paper does not print")
+    ap.add_argument("--cite-note", default="",
+                    help="facts a footnote should carry, such as a reporter citation; printed in "
+                         "the footnote, so keep it to a few words")
     ap.add_argument("--organization", default="")
     ap.add_argument("--journal", default="", help="a newspaper's name: makes the entry an article filed under press")
     ap.add_argument("--location", default="", help="where the newspaper is published, e.g. \"Alexandria, Va.\"")

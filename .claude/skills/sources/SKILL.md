@@ -21,7 +21,9 @@ says what each site needs from this machine.
 ## Citing and filing a source the prose reads
 
 `code/sources/cite.py` fetches such a source, files it and writes its bib entry in one
-step; the note, what the document says, is still written by the reader.
+step; the note, what the document says, is still written by the reader, and
+goes in the annotation: the paper prints a `note` field in every footnote, so
+`note` holds only citation facts (`--cite-note`).
 `code/sources/ancestry.py` does the filing for a census record, whose page is behind a
 sign-in and cannot be fetched at all: it sets the record out on a plain page
 from the row that already holds it, so the filed copy follows the row rather
