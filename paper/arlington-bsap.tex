@@ -553,7 +553,39 @@ not use the 1930 statute a second time.
 
 \section*{Data appendix}
 
-\subsection*{Gender}
+\subsection*{Population}
+
+Population is the decennial census count for the territory the Board governed
+in each year, which excludes the City of Alexandria throughout. The published
+county figure still contains the city through 1890, so 1870 to 1890 subtract it;
+from 1900 the published figure already excludes it. Alexandria annexed 866
+acres in 1915 and a further tract in 1930, so part of the movement between the
+1910 and 1930 censuses is territory changing hands, not people arriving or
+leaving.
+
+\subsection*{Race and ethnicity of residents}
+
+From 1980 the groups in Figure~\ref{fig:residents-race} are the Census Bureau's
+race categories crossed with Hispanic origin. They do not overlap and account
+for the county exactly: Hispanic or Latino is of any race, and every other
+group is non-Hispanic. Before 1980 the groups are the race categories as the
+Bureau printed them, and they too account for the county, the residual taking
+what the printed categories leave. The Bureau did not ask Hispanic origin of
+every household until 1980, and Hispanic residents were counted as white
+before then, so part of the step at 1980 is the question appearing, not people
+arriving. Asian and Pacific Islander residents were first counted in 1950, when
+they numbered 57, 0.04 percent of the county. The 1980 Asian and Pacific
+Islander band also carries the county's 384 American Indian, Eskimo and Aleut
+residents, because the 1980 table does not separate them among residents of
+Spanish origin; the band is about five percent high, once. Asian and Pacific Islander are reported together
+before 2000 and separately after, and are combined throughout so the series is
+consistent. ``Other or Multiracial'' is American Indian and Alaska Native, some
+other race, and two or more races; before 1980 it is the residents the reported
+categories do not account for, never more than 202 people.
+
+Terms follow the Bureau's own wording throughout.
+
+\subsection*{Gender of members}
 
 Gender rests on two kinds of evidence. A census sheet names it for members
 through the 1960s; the 1950 census is the last open, and the 1960 census closes
@@ -561,7 +593,7 @@ for 72 years. For nearly every other member the source is the press: the
 ``she'' or ``Ms.'' a contemporary article uses, quoted and cited member by
 member. Two members before 1900, Robinson and Willson, rest on the default, man.
 
-\subsection*{Race}
+\subsection*{Race of members}
 
 Census records identify the five Black members of the 1870s and 1880s, and published
 sources identify the six members of color seated since 1988. About \raceAssumedShareMembers{} percent of
@@ -613,11 +645,24 @@ or correct the record.
     recorded as White because no source says otherwise.}
 \end{figure}
 
-\subsection*{Age}
+Figure~\ref{fig:board-race-coverage} counts a seat as resting on the default
+on a census sheet whenever any census citation backs the member's race, beside
+whatever else is cited, and on a published account when none does.
+
+Board members carry one race code each, so the Board categories do not overlap and can be
+read against the census ones directly: a Hispanic or Latino member appears in that category
+whatever their race.
+
+\subsection*{Age of members}
 
 Birth years come from census records for members seated before 1960 and from obituaries
 and published profiles after that, and are approximate within a year. \birthYearMissingMembers{} of \membersTotal{} members have no known
 birth year and are left out of the figure.
+
+Figure~\ref{fig:board-age} runs the Board's full span, 1870 to the present.
+Before 1932 the Board has three seats, and five members in that stretch have
+no birth year found in any source, so the band there spans only the members
+whose birth year is known.
 
 \subsection*{Residence}
 
@@ -667,6 +712,12 @@ third are dated to the member's service. The rest are dated before or after
 it, and an obituary address is where someone died, not where they lived when
 elected.
 
+A place is counted in Figure~\ref{fig:board-residence} whenever it is dated, so
+a member whose only recorded place comes from after their service still counts
+at that precision. A magisterial district and a side of the County are the same
+grade of knowledge, told apart only by the era of the source, and read as one
+shade.
+
 \subsection*{Better data}
 
 County records may identify where Board members lived: payroll and personnel
@@ -690,82 +741,6 @@ In 11 years the Board falls below a full complement, each by a vacancy the recor
 shows: four in the district years (1870, 1873, 1879 and 1920) and seven since 1932 (1990,
 1997, 1999, 2003, 2012, 2014 and 2020), each a seat left empty while a special
 election was called and the Board sat with four members.
-
-\section*{Notes on the figures}
-
-\subsection*{Palette}
-
-A figure's palette follows from whether its categories are ordered. Ordered
-categories --- the grades of residence precision in
-Figure~\ref{fig:board-residence}, the age bands in
-Figure~\ref{fig:residents-age} --- take one sequential ramp, so that adjacent
-bands read as adjacent and the darker end is more of the thing. Unordered
-categories --- race, gender --- take the Okabe--Ito palette, where no hue
-implies a rank, with a near-neutral for the largest group and a grey for
-residuals. No figure defines a ramp of its own. \texttt{docs/figures.md} holds
-the detail and the departures from the Urban Institute style guide this project
-otherwise follows.
-
-\subsection*{Board size and population}
-
-Population is the decennial census count for the territory the Board governed
-in each year, which excludes the City of Alexandria throughout. The published
-county figure still contains the city through 1890, so 1870 to 1890 subtract it;
-from 1900 the published figure already excludes it. Alexandria annexed 866
-acres in 1915 and a further tract in 1930, so part of the movement between the
-1910 and 1930 censuses is territory changing hands, not people arriving or
-leaving.
-
-Seats in Figure~\ref{fig:residents-per-seat} are counted as authorized, not
-as filled --- three through 1930, five after --- so a vacancy does not move
-the line.
-
-\subsection*{Gender and race}
-
-Race and gender are two splits of the same seats, drawn on the same scale, so
-Figures~\ref{fig:board-gender} and \ref{fig:board-race} can be read against
-each other. Board members carry one race code each, so the Board categories do
-not overlap and can be read against the census ones directly: a Hispanic or
-Latino member appears in that category whatever their race.
-
-From 1980 the groups in Figure~\ref{fig:residents-race} are the Census Bureau's
-race categories crossed with Hispanic origin. They do not overlap and account
-for the county exactly: Hispanic or Latino is of any race, and every other
-group is non-Hispanic. Before 1980 the groups are the race categories as the
-Bureau printed them, and they too account for the county, the residual taking
-what the printed categories leave. The Bureau did not ask Hispanic origin of
-every household until 1980, and Hispanic residents were counted as white
-before then, so part of the step at 1980 is the question appearing, not people
-arriving. Asian and Pacific Islander residents were first counted in 1950, when
-they numbered 57, 0.04 percent of the county. The 1980 Asian and Pacific
-Islander band also carries the county's 384 American Indian, Eskimo and Aleut
-residents, because the 1980 table does not separate them among residents of
-Spanish origin; the band is about five percent high, once. Asian and Pacific Islander are reported together
-before 2000 and separately after, and are combined throughout so the series is
-consistent. ``Other or Multiracial'' is American Indian and Alaska Native, some
-other race, and two or more races; before 1980 it is the residents the reported
-categories do not account for, never more than 202 people.
-
-Terms follow the Bureau's own wording throughout.
-
-Figure~\ref{fig:board-race-coverage} counts a seat as resting on the default
-on a census sheet whenever any census citation backs the member's race, beside
-whatever else is cited, and on a published account when none does.
-
-\subsection*{Neighborhood}
-
-A place is counted in Figure~\ref{fig:board-residence} whenever it is dated, so
-a member whose only recorded place comes from after their service still counts
-at that precision. A magisterial district and a side of the County are the same
-grade of knowledge, told apart only by the era of the source, and read as one
-shade.
-
-\subsection*{Age}
-
-Figure~\ref{fig:board-age} runs the Board's full span, 1870 to the present.
-Before 1932 the Board has three seats, and five members in that stretch have
-no birth year found in any source, so the band there spans only the members
-whose birth year is known.
 
 \clearpage
 \printbibliography[title={Works cited}]
