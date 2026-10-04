@@ -14,6 +14,9 @@ still open.
   found (`referendum-1938-canvass`).
 - The presidential figure stacks three bands, and the pre-1924 nominees are a
   table in the build (`president-figure-form`).
+- The county's presidential totals before 1924 are O'Leary's wherever the
+  state's return is not yet in the build (`elections-results-from-state`), and
+  no state return has been found for 1872 or 1920 (`state-returns-1872-1920`).
 - Turnout's denominators: adults after 2020 carried forward
   (`adults-after-2020`), registration before 2010
   (`registration-before-2010`), and votes per seat standing in for ballots
@@ -59,6 +62,66 @@ county's Carter figure is 25,003 against the state's 26,502 and the state's
 canvass is kept. The "other" band is small except in 1912, 1968, 1980 and
 1992; whether a two-line figure of the Democratic and Republican shares would
 read better than three stacked bands has not been tried.
+
+**The state's return, read against O'Leary's.** The Commonwealth's county
+returns for President are keyed in `data/transcribed/by_claude/elections_results_state.csv`,
+one row per ticket, each read off the page image. Before 1924 no Secretary of
+the Commonwealth's report prints them: the reports held in HathiTrust for
+1904 to 1921 are rosters of officers and boards. What prints the official vote
+by county is the *Warrock-Richardson Almanack*, a Richmond annual that heads
+its tables "The Official Vote of Virginia" and says of the 1892 and 1896 votes
+that they are "taken from the official returns for this Almanack"
+(`warrock1868`, `warrock1892`, `warrock1900`, `warrock1911`); from 1924 the
+Secretary's own report prints them (`vasecretary1924`, `vasecretary1928`). The
+Almanack's tables keep Alexandria County and Alexandria city in separate rows,
+and the county's is the row keyed. 1872 and 1920 have no state return in
+anything held. Where the Almanack prints only the highest candidates (1904,
+1908, 1912, 1916) the minor tickets' votes are not recorded.
+
+| Year | State's return | O'Leary | The two |
+|---|---|---|---|
+| 1872 | none found | 125 D, 455 R | O'Leary only |
+| 1876 | 237 D, 587 R | 237 D, 587 R | agree |
+| 1880 | 262 D (Funder) and 2 D (Readjuster), 489 R | 262 D, 459 R | Garfield 489 against 459 |
+| 1884 | 264 D, 509 R | 264 D, 508 R | one vote |
+| 1888 | 255 D, 462 R | 407 D, 314 R | the county's winner changes |
+| 1892 | 340 D, 499 R, 1 Prohibition | 338 D, 426 R | Harrison 499 against 426 |
+| 1896 | 322 D, 713 R, 4 other | 78 D, 259 R, marked incomplete | state's total 1,039 against 337 |
+| 1900 | 413 D, 421 R, 2 Prohibition | 418 D, 408 R | the county's winner changes |
+| 1904 | 157 D, 99 R | 157 D, 99 R | agree |
+| 1908 | 354 D, 165 R | 345 D, 165 R | Bryan 354 against 345 |
+| 1912 | 346 D, 86 R, 153 Progressive | 246 D, 86 R, 153 Progressive | Wilson 346 against 246 |
+| 1916 | 515 D, 412 R (two highest only) | 445 D, 351 R, 8 other | Wilson 515 against 445 |
+| 1920 | none found | 835 D, 996 R | O'Leary only |
+| 1924 | 1,209 D, 1,307 R, 405 Progressive | the build already reads the state | agree |
+| 1928 | 1,444 D, 4,274 R, 26 other | the build reads 1,444 D, 4,274 R, 0 other | the 26 minor-party votes |
+
+The build should take the state's return wherever one is keyed and O'Leary's
+only for 1872 and 1920. O'Leary compiled his from the *Alexandria Gazette*
+and states that party is inferred and the record ragged; the state's figures
+are printed from the official returns, and in 1888 and 1900 the two disagree
+on which party carried the county. For 1908 the state's Bryan figure is the one
+doubtful digit: the type is damaged in every printing seen and reads 354,
+which would make O'Leary's 345 a transposition. In 1912 the Almanack prints
+346 for Wilson on two pages while O'Leary's 485 total rests on 246, and the
+state's 346 gives 585. The Almanack is a compilation and not the Secretary's
+own return, and the two are held side by side for no election: the Secretary's
+reports print county returns from 1924 and the Almanack volumes held end with
+the 1920 edition.
+The Secretary's 1928 report prints 26 votes for three minor tickets that the
+state database's locality rows, which the build reads for 1928, leave out; the
+database's total of 5,718 is therefore 26 short of the Secretary's 5,744.
+
+**1896, 1904 and 1908 are complete in the state's return.** The state prints
+322, 713 and four others for 1896 where O'Leary has no Washington-district
+figure and no total; its 1,039 replaces his 337. For 1904 it prints the same
+157 and 99 as O'Leary, so nothing in the state's return is missing from his:
+the fall from 836 votes in 1900 to 256 in 1904 is the county's, and follows
+the poll tax and literacy test the 1902 constitution put in place. For 1908 it
+prints 354 and 165, nine more Democratic votes than his 345. The
+tables print a whole row for the county in each year and carry no note of a
+precinct missing; whether every precinct was counted is not something a table
+can show.
 
 **The 1938 staggered-terms referendum** is in the county's candidate history
 (`arlingtonelections2021` p.11) as 1,539 for, 1,487 against. The *Sun* of
