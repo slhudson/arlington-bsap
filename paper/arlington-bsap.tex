@@ -27,8 +27,16 @@
 % under each figure and the footnotes. Headings and figure titles are bold at
 % the body size, so weight and not size marks a level.
 \usepackage{titlesec}
+\usepackage{chngcntr}
+\titleclass{\part}{top}
 \titleformat{\section}{\normalfont\normalsize\bfseries}{\thesection}{1em}{}
 \titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
+\renewcommand{\thepart}{\Alph{part}}
+\titleformat{\part}{\normalfont\normalsize\bfseries}{Part \thepart.}{0.5em}{}
+\titlespacing*{\part}{0pt}{12pt}{12pt}
+% Sections are numbered within their part: A.1, A.2, ..., C.1.
+\counterwithin*{section}{part}
+\renewcommand{\thesection}{\thepart.\arabic{section}}
 \titlespacing*{\section}{0pt}{12pt}{6pt}
 \titlespacing*{\subsection}{0pt}{10pt}{4pt}
 
@@ -93,6 +101,8 @@
 \begin{document}
 
 \maketitle
+
+\part{Historical Background}
 
 \section{Board Structure}
 
@@ -444,6 +454,58 @@ ceiling is the finding, and quartiles would hide it.
 Voter turnout and partisanship are in the works. This section is a placeholder
 until we know what is there.
 
+\section{The Board and the Manager}\label{sec:manager}
+
+The county manager plan divides the county's government between two offices. The
+1930 act has the Board appoint a manager, who holds the county's administrative
+and executive powers, including the appointment of officers and employees; the
+Board may not move any budget allocation by more than 10 percent.%
+\autocite{vaacts1930c167}
+
+The harder question was who appoints the department heads. The Board had
+appointed them until 1937, when it delegated the power to the Manager. It took
+the power back by resolution in January 1951, and in March 1951 a circuit judge
+ruled that it had no right to give the power up.%
+\autocite{dailysun1951spicer,sun1951rulingboard} In November 1952 voters
+approved both questions the General Assembly put to them: that the Manager serve
+an indefinite term, removable at any time by the Board, and that department heads
+be appointed by the Manager.\autocite{vaacts1952c198,dailysun1952results} That
+spring the Assembly had barred Board members from directing or requesting
+appointments below the Board.\autocite{vaacts1952c443}
+
+\subsection*{Local legal authority}
+
+The County Attorney's July 2026 report sets out the law without its
+history.\autocite{samuel2026} The history is what this report adds, in seven episodes, none of them
+about elections:
+
+% The 1958-59 Commission on Incorporation is out of the report until a
+% source says what it recommended: waits on: incorporation-commission-1959
+
+Kirkham and Winchester made Dillon's Rule Virginia law. The County Attorney's
+report lists three further decisions under it, and all three are Arlington's
+own. The 1977 decision ended public-sector bargaining across the state until
+the General Assembly restored local authority in 2021, and the 2000 decision
+held that the County had no authority to extend health benefits to domestic
+partners. The 1985 decision is the one a study of the form of government wants,
+because the official the Board could not move was its own Manager, and the
+court denied the Board's writ on the ground that it never had the power to
+grant the lease. None of the three is about elections, and all turn on the
+question this report asks --- what Arlington may decide for itself.
+
+Home rule has been tried and has failed. The 1968--71 reform that would have let a
+charter county or city act without the General Assembly's leave was struck
+before voters saw it. The 1976 \textit{Vollin} petition in the Race section
+met a related limit: voters who wanted a referendum on district election could
+not use the 1930 statute a second time.
+
+\part{Community Input}
+
+Community input, from the National Civic League's analysis of public comments and
+surveys, is in progress. This part is a placeholder until it arrives.
+
+\part{Future Work}
+
 \section{Themes for Future Work}
 
 This report's five topics and the legal history in Section~\ref{sec:manager} point toward six themes
@@ -506,84 +568,26 @@ priority among them.
 % the notes print in front of the figures they describe.
 \clearpage
 
-\section{The Board and the Manager}\label{sec:manager}
-
-The county manager plan divides the county's government between two offices. The
-1930 act has the Board appoint a manager, who holds the county's administrative
-and executive powers, including the appointment of officers and employees; the
-Board may not move any budget allocation by more than 10 percent.%
-\autocite{vaacts1930c167}
-
-The harder question was who appoints the department heads. The Board had
-appointed them until 1937, when it delegated the power to the Manager. It took
-the power back by resolution in January 1951, and in March 1951 a circuit judge
-ruled that it had no right to give the power up.%
-\autocite{dailysun1951spicer,sun1951rulingboard} In November 1952 voters
-approved both questions the General Assembly put to them: that the Manager serve
-an indefinite term, removable at any time by the Board, and that department heads
-be appointed by the Manager.\autocite{vaacts1952c198,dailysun1952results} That
-spring the Assembly had barred Board members from directing or requesting
-appointments below the Board.\autocite{vaacts1952c443}
-
-\subsection*{Local legal authority}
-
-The County Attorney's July 2026 report sets out the law without its
-history.\autocite{samuel2026} The history is what this report adds, in seven episodes, none of them
-about elections:
-
-% The 1958-59 Commission on Incorporation is out of the report until a
-% source says what it recommended: waits on: incorporation-commission-1959
-
-Kirkham and Winchester made Dillon's Rule Virginia law. The County Attorney's
-report lists three further decisions under it, and all three are Arlington's
-own. The 1977 decision ended public-sector bargaining across the state until
-the General Assembly restored local authority in 2021, and the 2000 decision
-held that the County had no authority to extend health benefits to domestic
-partners. The 1985 decision is the one a study of the form of government wants,
-because the official the Board could not move was its own Manager, and the
-court denied the Board's writ on the ground that it never had the power to
-grant the lease. None of the three is about elections, and all turn on the
-question this report asks --- what Arlington may decide for itself.
-
-Home rule has been tried and has failed. The 1968--71 reform that would have let a
-charter county or city act without the General Assembly's leave was struck
-before voters saw it. The 1976 \textit{Vollin} petition in the Race section
-met a related limit: voters who wanted a referendum on district election could
-not use the 1930 statute a second time.
-
 \section*{Data appendix}
 
 \subsection*{Population}
 
-Population is the decennial census count for the territory the Board governed
-in each year, which excludes the City of Alexandria throughout. The published
-county figure still contains the city through 1890, so 1870 to 1890 subtract it;
-from 1900 the published figure already excludes it. Alexandria annexed 866
-acres in 1915 and a further tract in 1930, so part of the movement between the
-1910 and 1930 censuses is territory changing hands, not people arriving or
-leaving.
+Population is the decennial census count for the territory the Board governed, which
+excludes the City of Alexandria throughout. Alexandria annexed 866 acres in 1915 and
+more in 1930, so part of the movement between the 1910 and 1930 censuses is territory
+changing hands, not people arriving or leaving.
 
 \subsection*{Race and ethnicity of residents}
 
-From 1980 the groups in Figure~\ref{fig:residents-race} are the Census Bureau's
-race categories crossed with Hispanic origin. They do not overlap and account
-for the county exactly: Hispanic or Latino is of any race, and every other
-group is non-Hispanic. Before 1980 the groups are the race categories as the
-Bureau printed them, and they too account for the county, the residual taking
-what the printed categories leave. The Bureau did not ask Hispanic origin of
-every household until 1980, and Hispanic residents were counted as white
-before then, so part of the step at 1980 is the question appearing, not people
-arriving. Asian and Pacific Islander residents were first counted in 1950, when
-they numbered 57, 0.04 percent of the county. The 1980 Asian and Pacific
-Islander band also carries the county's 384 American Indian, Eskimo and Aleut
-residents, because the 1980 table does not separate them among residents of
-Spanish origin; the band is about five percent high, once. Asian and Pacific Islander are reported together
-before 2000 and separately after, and are combined throughout so the series is
-consistent. ``Other or Multiracial'' is American Indian and Alaska Native, some
-other race, and two or more races; before 1980 it is the residents the reported
-categories do not account for, never more than 202 people.
-
-Terms follow the Bureau's own wording throughout.
+From 1980 the groups in Figure~\ref{fig:residents-race} are the Census Bureau's race
+categories crossed with Hispanic origin: Hispanic or Latino of any race, and every other
+group non-Hispanic. Before 1980 the Bureau did not ask Hispanic origin of every household
+and Hispanic residents were counted as white, so part of the step at 1980 is the question
+appearing, not people arriving. The 1980 Asian and Pacific Islander band also carries the
+county's 384 American Indian, Eskimo and Aleut residents, because the 1980 table does not
+separate them among residents of Spanish origin; the band is about five percent high, once.
+``Other or Multiracial'' is American Indian and Alaska Native, some other race, and two or
+more races.
 
 \subsection*{Gender of members}
 
@@ -596,9 +600,7 @@ member. Two members before 1900, Robinson and Willson, rest on the default, man.
 \subsection*{Race of members}
 
 Census records identify the five Black members of the 1870s and 1880s, and published
-sources identify the six members of color seated since 1988. About \raceAssumedShareMembers{} percent of
-members are recorded as White because no source says otherwise: the Arlington Historical Society describes
-William T. Newman, Jr. as the first Black member since Reconstruction.
+sources identify the six members of color seated since 1988.
 
 Walter G. Willson is the one member of color identified only by a newspaper: the Alexandria
 Gazette calls him ``colored'' in its reports of the elections of 1889 and 1891 and of his death in
@@ -645,24 +647,14 @@ or correct the record.
     recorded as White because no source says otherwise.}
 \end{figure}
 
-Figure~\ref{fig:board-race-coverage} counts a seat as resting on the default
-on a census sheet whenever any census citation backs the member's race, beside
-whatever else is cited, and on a published account when none does.
-
-Board members carry one race code each, so the Board categories do not overlap and can be
-read against the census ones directly: a Hispanic or Latino member appears in that category
-whatever their race.
-
 \subsection*{Age of members}
 
 Birth years come from census records for members seated before 1960 and from obituaries
 and published profiles after that, and are approximate within a year. \birthYearMissingMembers{} of \membersTotal{} members have no known
 birth year and are left out of the figure.
 
-Figure~\ref{fig:board-age} runs the Board's full span, 1870 to the present.
-Before 1932 the Board has three seats, and five members in that stretch have
-no birth year found in any source, so the band there spans only the members
-whose birth year is known.
+Before 1932 the Board has three seats, and five members in that stretch have no birth year
+found in any source, so the age band there spans only the members whose birth year is known.
 
 \subsection*{Residence}
 
@@ -714,9 +706,7 @@ elected.
 
 A place is counted in Figure~\ref{fig:board-residence} whenever it is dated, so
 a member whose only recorded place comes from after their service still counts
-at that precision. A magisterial district and a side of the County are the same
-grade of knowledge, told apart only by the era of the source, and read as one
-shade.
+at that precision.
 
 \subsection*{Better data}
 
@@ -727,20 +717,14 @@ zip code or precinct, would place members the census and the press cannot.
 
 \subsection*{Seat-years}
 
-Fractional seat values in the figures arise when members served part of a year.
-Figures~\ref{fig:board-gender}, \ref{fig:board-race},
-\ref{fig:board-residence} and \ref{fig:board-age} count the Board in
-seat-years: a member who sat four months of a year counts four twelfths of a
-seat, so a year in which one member replaced another shows as half a seat each
-rather than a whole seat for both. The denominator is the months the Board
-existed, which is 12 in every year but its first --- the Board's first
-members sat from 1 July 1870, after the May election, so 1870 is scaled by six
-months.
+Fractional seat values arise when members served part of a year: a member who sat four
+months of a year counts a third of a seat, so a year in which one member replaced another
+shows as fractions. The Board's first members sat from 1 July 1870, so 1870 is scaled to the
+six months it existed.
 
-In 11 years the Board falls below a full complement, each by a vacancy the record
-shows: four in the district years (1870, 1873, 1879 and 1920) and seven since 1932 (1990,
-1997, 1999, 2003, 2012, 2014 and 2020), each a seat left empty while a special
-election was called and the Board sat with four members.
+In 11 years the Board falls below a full complement, each by a vacancy the record shows:
+four in the district years (1870, 1873, 1879 and 1920) and seven since 1932 (1990, 1997, 1999,
+2003, 2012, 2014 and 2020), each a seat left empty while a special election was called.
 
 \clearpage
 \printbibliography[title={Works cited}]
