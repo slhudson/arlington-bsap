@@ -103,8 +103,8 @@ DOT_HIGHLIGHT = 70
 # darker the more direct the source, and the no-evidence grey for the default.
 RACE_BASIS = dict(zip(
     ("census", "published"),
-    zip(("census sheet", "published or press account"), reversed(ramp(2)))))
-RACE_BASIS["default"] = ("assumed", UNRECORDED)
+    zip(("race from a census sheet", "race from the press or a profile"), reversed(ramp(2)))))
+RACE_BASIS["default"] = ("assumed White, no source", UNRECORDED)
 # The sitting Board's ages on a Lexis diagram: the span from youngest to
 # oldest in the near-neutral, each member's tenure a stroke in the dark grey.
 AGE_SPAN = {

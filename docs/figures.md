@@ -497,6 +497,10 @@ there the labels can be shortened and here the years cannot.
   what the occupant's race rests on, as a stacked step area on the seat axis,
   so it reads like the seat figures and like `members_residence_coverage`, and
   a reader can see at once which years the race figure stands on a default.
+  Its legend says what each shade is in words ("race from a census sheet",
+  "race from the press or a profile", "assumed White, no source"), so the
+  figure needs no note; it shares one figure, as panel (a), with the residence
+  figure as panel (b), under one short note (Sally, 4 October 2026).
   It reads `members_by_year`, as does every figure on the seat axis, so a
   vacancy is decided once, in the clean stage, and shows as a notch in all of
   them. Counts rather than a share, because two of three and four of five are
