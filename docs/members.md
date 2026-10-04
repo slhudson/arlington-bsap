@@ -17,6 +17,9 @@ the members seated since rest on the default unless a source names them: 40 of
 126 members rest on it, 34 of them seated in 1962 or later.
 `members_race_coverage` draws the seat-years that rest on it. Those 34 are
 living people in Arlington, so most could be confirmed by asking.
+The other six, Smith, Crocker, Robinson, Phillips, Brown and Richards, were
+seated before 1962; the press names each without a racial label, which is weak
+evidence at most (below, "Race: six members rest on the default").
 
 **Gender.** William H. Robinson and Walter G. Willson rest on the default,
 man, both recorded negatives (below, "The members that keep the default").
@@ -1734,6 +1737,55 @@ negative in the 1920 census, 32 nationwide results checked, which the press
 reading and the 1930 census record (above) now make moot. **Edward Duncan** has no record
 after 1920: Arlington County holds no Duncan of his age in 1930, so the 1920
 sheet is the later of his two.
+
+**Race: six members rest on the default and the press gives no label for any.**
+Smith, Crocker, Robinson, Phillips, Brown and Richards are the pre-1962
+members whose race no census or direct source states. The Gazette's full text
+was read for each of the first four, and the Evening Star's for the last two,
+for a racial label beside the member's name; none appears.
+
+- **Smith**: all forty Gazette hits on "H. D. Smith" or "Dwight Smith" for
+  1870-80 and the four of 1880-1910 are read. He is Treasurer of a Freedmen's
+  Republican association whose other officers include John B. Syphax, R. S.
+  Laws and W. A. Rowe (5 January 1870), Secretary of a meeting the Gazette
+  calls "mostly colored persons" (7 May 1870), the Arlington Township's winning
+  Radical supervisor (28 May 1870), and "Capt. H. D. Smith" in the party's
+  county conventions of 1875-76. Nowhere is he labeled. His widow, "Mrs. H. D.
+  Smith, Arlington", advertises a lost note endorsed to "H. D. Smith, deceased"
+  on 17 October 1879 (not filed).
+- **Crocker**: forty Gazette hits on "Crocker" with "Arlington", 1870-80, are
+  read. "Lot W. Crocker, esq., of Arlington", ill with consumption, is on 20
+  March 1876, and "Mr. Lot W. Crocker" plans to sell and move on 12 November
+  1874 (neither filed). Two items with a first-name-less Crocker are not tied
+  to him: a store "near Arlington" robbed by "a colored man" (5 December 1871)
+  and the Arlington Township overseer of the poor vote of 1870, "Syphax, col.,
+  61, Crocker 29".
+- **Robinson**: forty Gazette hits for "W. H. Robinson", 1877-80, are read and
+  none that the OCR reads as his name labels him; the 1879 returns, where it
+  misreads "Robinson", print his vote with no label (`gazette1879robinson`).
+- **Phillips**: all fourteen hits, 1893-95, are read: "Mr. R. Henry Phillips"
+  in the Board's proceedings beside "Mr. Frank Hume" and "Mr. John W. Clark",
+  and as railway manager. None is labeled.
+- **Brown and Richards**: eight Star pages for Brown, 1957-61, and five for
+  Richards, 1960-61, are read. The Star's profiles give Brown's age, career and
+  street and Richards's wife, children and street, with no label.
+
+**Whether a missing label counts for anything depends on the paper's habit.**
+The Gazette labels Black people in prose reports: the Radicals' Arlington ticket
+of 1872 (`alexandriagazette18720520p3`), the Alexandria city returns of 1874
+(`alexandriagazette18740529p2`), the county election of 1889 and 1891, and
+Willson's death. It does not label them in county returns tables. The returns of
+23 May 1879 print T. B. Pinn and Tibbett Allen, both Black on the 1880 census,
+Syphax and Rowe, with no label, on a page whose police report calls two men
+"colored" (`gazette1879robinson`); the 1885 report names Rowe plainly. So a
+missing label in a returns table says nothing, and one in a prose report says
+little: no report found names any of the six in a setting where the paper
+labels others and so tests the habit. The Phillips of 1891, printed "Mr.
+Phillips" beside "Wilson, colored", is the closest, and his first name is not
+printed. The paper's habit is not shown to hold for the Star in 1958-61: the
+Star of 1957 labels individuals "Negro" where race is the subject
+(`star1957seating`) and names no Black Board candidate. The six stay on the
+default, and a missing label is no confirmation of White.
 
 **Smith, Crocker, Robinson and Willson have no birth year, and two have a
 place.** No record found gives any of the four an age, so `members_age` names
