@@ -99,11 +99,11 @@ ARLINGTON = OKABE_ITO["vermilion"]
 # A scatter's dot, in points squared at scale 1; Arlington's a little larger.
 DOT = 40
 DOT_HIGHLIGHT = 70
-# Which sitting members have a birth year: the mass in sand, none in the
-# no-evidence grey.
-AGE_COVERAGE = {
-    "known":   ("with a birth year", SAND),
-    "unknown": ("without", UNRECORDED),
+# What the sitting Board's race rests on: a source in sand, the era default
+# in the no-evidence grey.
+RACE_BASIS = {
+    "known":   ("race from a source", SAND),
+    "default": ("race assumed", UNRECORDED),
 }
 # The sitting Board's ages on a Lexis diagram: the span from youngest to
 # oldest in the near-neutral, each member's tenure a stroke in the dark grey.

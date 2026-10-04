@@ -436,17 +436,23 @@ there the labels can be shortened and here the years cannot.
   in any year gets no band and no legend entry, because an empty swatch
   reads as a sliver too small to see rather than as zero, and the absence is
   a finding for the prose. The test is on the data, not the category name.
-- **members_age_coverage.** A diagnostic: of the seat-years in each year,
-  how many are held by a member with a birth year and how many by one
-  without, as a stacked step area on the seat axis, so it reads like the seat
-  figures and a reader can see at once which years the age figure can stand
-  on. It reads `members_by_year`, as does every figure on the seat axis, so
-  a vacancy is decided once, in the clean stage, and shows as a notch in all
-  of them (Sally, 4 October 2026).
+- **members_race_coverage.** A diagnostic: of the seat-years in each year,
+  how many are held by a member whose race comes from a source and how many by
+  one recorded White because no source says otherwise, as a stacked step area
+  on the seat axis, so it reads like the seat figures and a reader can see at
+  once which years the race figure stands on a default. It reads
+  `members_by_year`, as does every figure on the seat axis, so a vacancy is
+  decided once, in the clean stage, and shows as a notch in all of them.
   Counts rather than a share, because two of three and four of five are
-  different situations and a share would say they were the same. With a
-  birth year takes the sand, without takes the no-evidence grey, as
-  "not recorded" does on the party chart. Years with no roster are gaps.
+  different situations and a share would say they were the same. Sourced takes
+  the sand, the default takes the no-evidence grey, as "not recorded" does on
+  the party chart. The grey is almost all after 1962, when no census is open,
+  which is the point of drawing it: the members it covers are living and can
+  be asked. A coverage figure exists for an
+  attribute while more than a tenth of members rest on an assumption or lack
+  a source; `code/tests.py` refuses a run.sh without one, and below that
+  threshold a sentence in the write-up replaces the figure. Birth year is
+  under it, so there is no age coverage figure (Sally, 4 October 2026).
 - **members_residence_coverage.** A diagnostic to show the County: of the
   seat-years in each year, how exactly the occupant's home is known, as a
   stacked step area on the seat axis. It counts seat-years, like
@@ -474,8 +480,7 @@ there the labels can be shortened and here the years cannot.
   from the age they arrived to the age they left. Terms less than twelve
   months apart are one stroke, so a member's stroke is their tenure; longer
   gaps (six cases of two years or more) are two strokes. A member with no
-  birth year does not appear, and `members_age_coverage` in front of it says
-  how many. The question is what range of ages the Board holds at a given
+  birth year does not appear; the write-up names the few. The question is what range of ages the Board holds at a given
   moment, so the band is the minimum and maximum rather than a quartile
   range or three lines: when the oldest member leaves and no one older
   replaces them the ceiling drops, and that step (1997 to 1998) is the

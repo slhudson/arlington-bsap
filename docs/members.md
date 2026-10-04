@@ -12,7 +12,11 @@ still open.
 **Race, 1889–1986.** Walter G. Willson (1889–92) is Black on the Gazette's
 word. Every other seat is coded White on the "first since Reconstruction"
 framing. The five Reconstruction-era members rest on Hjerpe's census linking
-(`member-demographics-lists`).
+(`member-demographics-lists`). From the 1962 seating on, no census is open, so
+the members seated since rest on the default unless a source names them: 40 of
+126 members rest on it, 34 of them seated in 1962 or later.
+`members_race_coverage` draws the seat-years that rest on it. Those 34 are
+living people in Arlington, so most could be confirmed by asking.
 
 **Gender.** William H. Robinson and Walter G. Willson rest on the default,
 man, both recorded negatives (below, "The members that keep the default").
@@ -1242,8 +1246,8 @@ and 1920 holds 2 + 11/12 seat-years.
 ## Seat-years
 
 `data/clean/members_by_year.csv` is one row per year from 1870: seats
-held by each race, each gender, (from 1932) each party, whether the member has
-a birth year, and the most exact place any source gives, in seat-years, so a
+held by each race, each gender, (from 1932) each party, whether the member's race rests on a
+source or on the default, and the most exact place any source gives, in seat-years, so a
 member who sat for four months of a year counts 4/12. Every year is computed
 from `members.csv`. Days are not recorded consistently — Novack gives some and
 the election dates others — so the month is the unit, and **the handover month
