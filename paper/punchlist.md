@@ -12,11 +12,9 @@ stays, with a one-line reason under it.
 
 ## Open
 
-- An introduction section is needed; the equity resolution belongs there, not as a stub at the head of Part A. Budget space for it.
 - Figure 3 (county by race) legend: consider alphabetical order (Asian & Pacific Islander first), since nothing says why Black comes first. The figures skill says a legend follows stacking order, and docs/figures.md sets the stack with the largest group on top; if the legend goes alphabetical, decide whether the stack does too, and apply the same rule to Figure 4 and the gender figure.
 - A map of the three magisterial districts, perhaps on the same page as the Black-share-by-district figure. How to render it: for simplicity, a stylized version drawn with a little GIS coding of our own (district polygons from the traced boundaries over the modern county outline, in the style layer's colors), not a reproduction of the 1900 map. The boundary source and the build are on the tracker (district-map).
 - Age: soften the Board half. Be cautious about saying the Board is not representative by age: no one under 18 can serve, so the comparison base is adults (or eligible voters), and age correlates with knowledge and professional skill, so the claim needs a conversation before it is made strongly. If the claim stays, it needs a figure that makes the comparison directly, probably in a different format from the two now in the section. (Decision; tracker row age-board-against-county.)
-- Peer scatters (Figures 8 and 9 in Part C): make them two panels of one figure, side by side, sharing one legend and one notes block. This changes the figures skill's rule that two scatters with different x axes are two figures; update the rule and docs/figures.md with it.
 - Headings and spacing are not yet nailed for skimmability (Sally, 4 October 2026, looking at the data appendix): the part, section, subsection and run-in levels need a deliberate scheme of weight, style and white space above and below so the eye finds the structure at a glance; a typographic pass over the whole document, one scheme applied everywhere, shown before and after.
 
 ## Could not settle

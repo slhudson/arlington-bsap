@@ -597,6 +597,21 @@ there the labels can be shortened and here the years cannot.
   over through 1970 and 18 and over from 1971, and nothing marks the change:
   as with residents_by_race at 1980, it is real but small, no line steps at
   it, and a rule would claim more for it than it has. The caption carries it.
+- **elections_turnout_before_1932, elections_turnout_before_1932_adults.**
+  The presidential vote, 1872 to 1928, and the Board's vote in the three years
+  all three seats were counted, per 100 residents and per 100 residents of
+  voting age: men 21 and over through 1916, everyone 21 and over from 1920.
+  The second begins in 1880, the first census that counts adults. A year the
+  source gives as incomplete (1896, 1904, 1908) is not drawn, and a dotted
+  segment crosses it, since a hollow marker drew the eye to a count nobody
+  can use. Three dated rules, the Walton Act of 1894, the constitution of
+  1902 and women voting in 1920. Both denominators are interpolated in a
+  straight line between censuses.
+- **elections_turnout_by_district.** Votes for each district's Board seat
+  per 100 men of voting age at the nearest census, 1893 to 1919, one line per
+  district joining the contests a count was recovered for. Men only: no
+  woman voted before 1920 and the figure stops before it. Two rules, 1894
+  and 1902.
 - **localities_peers.** Arlington beside every Virginia city and county of
   100,000 or more, in two panels that share a legend and a note: (a)
   members against residents, (b) residents per member against density. They
