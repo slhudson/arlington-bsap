@@ -21,6 +21,12 @@ four separable hues under simulated deuteranopia where Urban's magenta goes
 olive. It gives up some tonal spread in greyscale, which costs nothing
 unless the memo is printed in black and white.
 
+**The paper has two type sizes, not Urban's ladder.** Urban's guide sets chart
+text from 8pt to 12pt and says nothing about body text, which lives in its Word
+templates. Here the body is one size, and the notes under each figure and the
+footnotes share a second, smaller one. Figure titles and headings are bold at the
+body size, so weight and not size marks a level.
+
 **The legend sits below the figure, not above it.** Urban stretches it
 across the top. Several figures carry a note above the plot (the 1932
 rule), and the two would compete for the same band.

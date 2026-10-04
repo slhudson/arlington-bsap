@@ -23,6 +23,16 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
 
+% Two type sizes: the body size, and one smaller size for notes --- the notes
+% under each figure and the footnotes. Headings and figure titles are bold at
+% the body size, so weight and not size marks a level.
+\usepackage{titlesec}
+\titleformat{\section}{\normalfont\normalsize\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
+\titlespacing*{\section}{0pt}{12pt}{6pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\usepackage[font=footnotesize]{caption}
+
 \usepackage{fontspec}
 % All four faces are declared, because the report sets case names in italic
 % --- Bennett v. Garrett, Vollin v. Kimbel --- and an undeclared face is
@@ -95,7 +105,7 @@
 
 \begin{figure}
   \centering
-  {\large\bfseries County Population and Board Size\par}
+  {\normalsize\bfseries County Population and Board Size\par}
   \medskip
   \includegraphics[width=\textwidth]{residents_per_seat.pdf}
   \caption{Notes: Seats are counted as authorized --- three through 1930, five after
@@ -154,7 +164,7 @@ no other form.\autocite{samuel2026}
 
 \begin{figure}
   \centering
-  {\large\bfseries Board Members by Gender\par}
+  {\normalsize\bfseries Board Members by Gender\par}
   \medskip
   \includegraphics[width=\textwidth]{members_by_gender.pdf}
   \caption{Notes: Census records identify gender for \genderCensusShareMembers{} per
@@ -228,7 +238,7 @@ press. Three of the thirteen have both; the other ten rest on the press alone.
 
 \begin{figure}
   \centering
-  {\large\bfseries County Population by Race and Ethnicity\par}
+  {\normalsize\bfseries County Population by Race and Ethnicity\par}
   \medskip
   \includegraphics[width=\textwidth]{residents_by_race.pdf}
   \caption{Notes: Panel (a) gives counts and panel (b) shares. Hispanic origin was
@@ -276,7 +286,7 @@ so the Hispanic series cannot start earlier.
 
 \begin{figure}
   \centering
-  {\large\bfseries Board Members by Race and Ethnicity\par}
+  {\normalsize\bfseries Board Members by Race and Ethnicity\par}
   \medskip
   \includegraphics[width=\textwidth]{members_by_race.pdf}
   \caption{Notes: Census records identify the five Black members of the 1870s and
@@ -336,7 +346,7 @@ or correct the record.
 
 \begin{figure}
   \centering
-  {\large\bfseries Data Availability: Board Member Race\par}
+  {\normalsize\bfseries Data Availability: Board Member Race\par}
   \medskip
   \includegraphics[width=\textwidth]{members_race_coverage.pdf}
   \caption{Notes: Shading shows what each member's race rests on: darkest a census
@@ -470,7 +480,7 @@ are correct: each won in November and took office the following January.
 
 \begin{figure}
   \centering
-  {\large\bfseries Data Availability: Board Member Residence\par}
+  {\normalsize\bfseries Data Availability: Board Member Residence\par}
   \medskip
   \includegraphics[width=\textwidth]{members_residence_coverage.pdf}
   \caption{Notes: Shading shows the most specific record held for each member's home:
@@ -522,7 +532,7 @@ code or precinct?
 
 \begin{figure}
   \centering
-  {\large\bfseries County Population by Age\par}
+  {\normalsize\bfseries County Population by Age\par}
   \medskip
   \includegraphics[width=\textwidth]{residents_by_age.pdf}
   \caption{Notes: Share of the county in each age band, youngest at the bottom.
@@ -550,7 +560,7 @@ Board's age range is about the Board, not about who lives in Arlington.
 
 \begin{figure}
   \centering
-  {\large\bfseries Board Members by Age\par}
+  {\normalsize\bfseries Board Members by Age\par}
   \medskip
   \includegraphics[width=\textwidth]{members_age.pdf}
   \caption{Notes: Each diagonal line is one member, from age at first election to age
