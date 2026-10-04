@@ -22,11 +22,11 @@
 \usepackage{longtable}
 \usepackage{array}
 % A roster column of a share of the text width, set ragged right.
-\newcolumntype{R}[1]{>{\raggedright\arraybackslash}p{\dimexpr(\textwidth-12\tabcolsep)*#1/100\relax}}
+\newcolumntype{R}[1]{>{\raggedright\arraybackslash}p{\dimexpr(\textwidth-10\tabcolsep)*#1/100\relax}}
 \input{body_text_numbers}  % numbers the prose cites, written by code/analysis/body_text_numbers.py
 % One row of the appendix roster, written by code/analysis/members_roster.py.
-\newcommand{\roster}[7]{#1 & #2 & #3 & #4 & #5 & #6 & #7 \\}
-\newcommand{\rosterk}[7]{#1 & #2 & #3 & #4 & #5 & #6 & #7 \\*}  % no page break after
+\newcommand{\roster}[6]{#1 & #2 & #3 & #4 & #5 & #6 \\}
+\newcommand{\rosterk}[6]{#1 & #2 & #3 & #4 & #5 & #6 \\*}  % no page break after
 \newcommand{\rosterdecade}{\addlinespace[1.4ex]}
 \usepackage[margin=1in]{geometry}
 \usepackage[hidelinks]{hyperref}
@@ -713,7 +713,7 @@ Birth years come from census records for members seated before 1960 and from obi
 and published profiles after that, and are approximate within a year. \birthYearMissingMembers{} of \membersTotal{} members have no known
 birth year and are left out of the figure.
 
-Before 1932 the Board has three seats, and five members in that stretch have no birth year
+Before 1932 the Board has three seats, and four members in that stretch have no birth year
 found in any source, so the age band there spans only the members whose birth year is known.
 
 \subsubsection*{Residence}
@@ -772,6 +772,7 @@ records, candidate filings and oaths of office, and voter registration records.
 Even an aggregate unit, such as the side of the County, the civic association,
 zip code or precinct, would place members the census and the press cannot.
 
+\clearpage
 \subsubsection*{The Roster}
 Table~\ref{tab:roster} lists every person who has served, in the order they
 first took a seat, with the gender, race and birth year the figures use and a
@@ -785,15 +786,14 @@ delivered to the County.
 \medskip
 \footnotesize
 \setlength{\LTpre}{0pt}\setlength{\LTpost}{0pt}
-% Seven columns filling the text width, each a share of what the gaps leave.
-\newcommand{\rc}[1]{\dimexpr(\textwidth-12\tabcolsep)*#1/100\relax}
-\begin{longtable}{@{}R{25}R{7}R{10}R{17}R{9}R{9}R{23}@{}}
+% Six columns filling the text width, each a share of what the gaps leave.
+\begin{longtable}{@{}R{32}R{14}R{18}R{10}R{13}R{13}@{}}
 \toprule
-\textit{Member} & \textit{Born} & \textit{Served} & \textit{Seated by} & \textit{Gender} & \textit{Race} & \textit{Chair} \\
+\textit{Member} & \textit{Served} & \textit{Seated by} & \textit{Born} & \textit{Gender} & \textit{Race} \\
 \midrule
 \endfirsthead
 \toprule
-\textit{Member} & \textit{Born} & \textit{Served} & \textit{Seated by} & \textit{Gender} & \textit{Race} & \textit{Chair} \\
+\textit{Member} & \textit{Served} & \textit{Seated by} & \textit{Born} & \textit{Gender} & \textit{Race} \\
 \midrule
 \endhead
 \bottomrule
@@ -805,7 +805,7 @@ delivered to the County.
 \textsuperscript{c} a census sheet, \textsuperscript{p} a newspaper or a
 published profile, \textsuperscript{a} assumed because no source says
 otherwise. Two marks, as in c,\,p, mean two kinds of source agree, and no value is both
-assumed and sourced. A dash is a value no source gives. The chair is recorded from 1932, when the County's roll begins. A birth year from a census sheet
+assumed and sourced. A dash is a value no source gives. A birth year from a census sheet
 is within a year. ``Seated by'' is how the member first took a seat.}{}
 
 \subsubsection*{Seat-Years}

@@ -6,7 +6,7 @@ what the value rests on. The paper \input{}s the file inside its own table
 environment; this writes only the rows, so the heading, the notes and the
 type size stay in the paper where the other tables keep theirs.
 
-    \roster{Member}{Born}{Served}{Seated by}{Gender}{Race}{Chair}
+    \roster{Member}{Served}{Seated by}{Born}{Gender}{Race}
 
 The marks, which the paper's note explains: \textsuperscript{c} a census
 sheet, \textsuperscript{p} the press or a published profile,
@@ -26,7 +26,7 @@ import paths
 
 MARK = {"census": "c", "press": "p", "assumed": "a"}
 SEATED = {"election": "elected", "appointment": "appointed",
-          "special election": "special election", "unrecorded": "not recorded"}
+          "special election": "special election", "unrecorded": "---"}
 
 
 def basis(source) -> list:
@@ -56,34 +56,13 @@ def marked(value, source) -> str:
     return v + (r"\textsuperscript{%s}" % marks if marks else "")
 
 
-def runs(years) -> str:
-    """Consecutive years as runs, 1986--87, 1989--90, 1999--2000; empty when
-    the list is."""
-    out, years = [], sorted(set(int(y) for y in years))
-    i = 0
-    while i < len(years):
-        j = i
-        while j + 1 < len(years) and years[j + 1] == years[j] + 1:
-            j += 1
-        a, b = years[i], years[j]
-        if a == b:
-            out.append(str(a))
-        else:
-            out.append(f"{a}--{b % 100:02d}" if a // 100 == b // 100 else f"{a}--{b}")
-        i = j + 1
-    return ", ".join(out)
 
-
-def rows(members: pd.DataFrame, chairs: pd.DataFrame) -> list:
-    """One (member, born, years, seated, gender, race, chair) tuple per person, in
+def rows(members: pd.DataFrame) -> list:
+    """One (member, years, seated, born, gender, race) tuple per person, in
     the order of first seating. Years run from the first term's start to the
     last term's end, left open for a term that runs past the last year the
     seat table covers."""
     present = paths.read("members_by_year").year.max()
-    chairs = chairs[chairs.office == "chair"]
-    unknown = set(chairs.name) - set(members.name)
-    assert not unknown, f"chair names not in the members table: {sorted(unknown)}"
-    chaired = chairs.groupby("name").year.apply(runs)
     out = []
     ordered = members.sort_values(["start_year", "start_month"], kind="stable")
     for name, g in ordered.groupby("name", sort=False):
@@ -92,11 +71,10 @@ def rows(members: pd.DataFrame, chairs: pd.DataFrame) -> list:
         years = f"{int(first.start_year)}--"
         if last.end_year < present:
             years += str(int(last.end_year))
-        out.append((name, marked(first.birth_year, first.birth_year_source),
-                    years, SEATED[first.seated_by],
+        out.append((name, years, SEATED[first.seated_by],
+                    marked(first.birth_year, first.birth_year_source),
                     marked(first.gender, first.gender_source),
                     marked(first.race, first.race_source),
-                    chaired.get(name, ""),
                     int(first.start_year) // 10 * 10))
     return out
 
@@ -122,6 +100,6 @@ def tex(table: list) -> str:
 
 if __name__ == "__main__":
     members = paths.read("members")
-    table = rows(members, paths.read("members_chairs"))
+    table = rows(members)
     assert len(table) == members.name.nunique()
     paths.MEMBERS_ROSTER.write_text(tex(table))
