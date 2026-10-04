@@ -56,7 +56,7 @@ for profile in style.PROFILES:
 
     charts.counts(ax, 25, 5, label="votes per 100 residents")
     charts.years(ax, 1870, 1930, step=10, label="year", minor=5)
-    for year, note, ha in style.ELECTORATE_RULES:
+    for year, note, ha in style.ELECTORATE_RULES_TO_1932:
         charts.rule(ax, year, note, ha=ha)
     charts.legend(fig, dict([style.PRESIDENT, style.BOARD_VOTE_DISTRICTS]))
     paths.save(fig, profile)

@@ -138,6 +138,9 @@ BOARD_VOTE_DISTRICTS = ("voted for the Board, all three districts", OKABE_ITO["v
 # notes eight years apart do not meet above the frame.
 ELECTORATE_RULES = ((1894, "1894: Walton Act", "right"),
                     (1902, "1902: new constitution", "left"))
+# The county-wide figure runs to 1928 and adds the year women vote; the
+# by-district figure ends in 1919 and does not.
+ELECTORATE_RULES_TO_1932 = ELECTORATE_RULES + ((1920, "1920: women vote", "left"),)
 CYCLE = {
     "president": ("presidential year", OKABE_ITO["vermilion"]),
     "governor":  ("governor's year", OKABE_ITO["orange"]),
