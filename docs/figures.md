@@ -265,15 +265,6 @@ ramp, darkest latest, and each item is one row with a rule joining its dots.
 Eleven items over three waves is thirty-three bars and eleven dots-on-a-line;
 the second is the one a reader can take in.
 
-A cell the survey's own preparers marked as resting on too few respondents is
-drawn at `style.THIN_ALPHA` rather than dropped. Of the seven race and
-ethnicity categories in the ranked choice voting survey only White and Black
-are unmarked, and the thirty-seven Hispanic respondents are the cells the
-community-input analysis' claim about Latino voters turns on. Dropping them
-would leave the figure silent on five of seven groups and answer the question
-by removing the evidence; fading them says the share is real and thin, and
-the caption gives the respondents behind it.
-
 A share from a sample carries its interval where the groups differ in size
 enough for the difference to matter. The ranked choice voting survey's
 Hispanic respondents are thirty-seven against the White category's

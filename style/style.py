@@ -181,9 +181,6 @@ SAMPLE = {"county": ("Arlington residents, 2020 census", DARK),
 # One share measured across several cuts of one set of respondents: one
 # series, so one colour, and the near-neutral rather than a lead.
 SURVEY_SHARE = ("share of respondents", SAND_LINE)
-# A cell the survey's own preparers marked as resting on too few
-# respondents to report plainly: drawn open rather than filled.
-THIN_ALPHA = 0.45
 # The gap between two blocks of a horizontal bar chart, in bar widths.
 GROUP_GAP = 0.8
 
