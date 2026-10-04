@@ -22,13 +22,13 @@ FIRST, LAST = members.FIRST, members.LAST
 # edge, and naming them is what keeps that a known quantity: a member who
 # arrives without a birth year and is not named here stops the build rather
 # than quietly widening the tolerance. H. Dwight Smith, Lott W. Crocker,
-# William H. Robinson, Walter G. Willson and R. Henry Phillips are in no
+# William H. Robinson and Walter G. Willson are in no
 # census under any spelling tried and in no Gazette item that gives an age
 # (docs/members.md); W. P. Ames was found in no census either;
 # Susan Cunningham and Tannia Talento are recent enough that a stated age
 # should be findable (docs/members.md, "What rests on an assumption").
 UNKNOWN = {"H. Dwight Smith", "Lott W. Crocker", "William H. Robinson",
-           "Walter G. Willson", "R. Henry Phillips",
+           "Walter G. Willson",
            "W. P. Ames", "Susan R. Cunningham", "Tannia Talento"}
 MERGE_WITHIN = 12           # months between terms that still make one stroke
 
