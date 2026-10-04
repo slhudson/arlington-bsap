@@ -2054,6 +2054,58 @@ def test_a_survey_cell_that_lost_its_status_is_refused():
     assert err and "marked the same way" in err, f"not caught: {err}"
 
 
+# Above this share of members resting on an assumption or missing, the
+# attribute needs a coverage figure; at or below it, a sentence in the
+# write-up is enough and the figure may go (Sally, 4 October 2026).
+COVERAGE_THRESHOLD = 0.10
+
+
+def attribute_gaps():
+    """Per attribute of members.csv, the share of members it does not rest
+    on a source for, and the figure that shows it."""
+    terms = pd.read_csv(ROOT / "data/clean/members.csv", dtype=str, keep_default_na=False)
+    people = terms.groupby("name").first()
+    placed = set(pd.read_csv(ROOT / "data/clean/members_residence.csv", dtype=str)["name"])
+    return {
+        "members_race_coverage": (people.race_source == citekeys.ASSUMED).mean(),
+        "members_age_coverage": (people.birth_year == "").mean(),
+        "members_residence_coverage": (~people.index.isin(placed)).mean(),
+    }
+
+
+def missing_coverage(gaps, figures, threshold=COVERAGE_THRESHOLD):
+    """The coverage figures an attribute is owed but run.sh does not build."""
+    return sorted(f for f, share in gaps.items() if share > threshold and f not in figures)
+
+
+def test_an_attribute_resting_on_an_assumption_has_a_coverage_figure():
+    """The race default, reintroduced without its figure. A third of the
+    members are White because nothing says otherwise, and with no coverage
+    figure the report would show race as known where it is assumed. Any
+    attribute whose gap passes COVERAGE_THRESHOLD must be drawn."""
+    missing = missing_coverage(attribute_gaps(), run_sh_steps("FIGURES"))
+    assert not missing, f"above {COVERAGE_THRESHOLD:.0%} of members, with no figure in run.sh: {missing}"
+
+
+def test_a_coverage_figure_is_demanded_only_above_the_threshold():
+    """The rule itself, on invented numbers: a large gap with no figure is
+    named, a small one is not, and a large one with its figure is not."""
+    gaps = {"members_race_coverage": 0.33, "members_age_coverage": 0.05}
+    assert missing_coverage(gaps, []) == ["members_race_coverage"]
+    assert missing_coverage(gaps, ["members_race_coverage"]) == []
+
+
+def test_a_census_citation_beside_other_sources_still_counts_as_a_census_sheet():
+    """The race coverage figure grades each member by the most direct source.
+    A member cited to Hjerpe and to a census sheet rests on the sheet; one
+    cited to no census rests on a published account; `assumed` is the
+    default. If the first case fell to the published grade, the figure would
+    understate how much of the early Board a census backs, with no error."""
+    basis = members_by_year.race_basis
+    assert basis("hjerpe2021 p.2; gazette1875schutt; census1880rowe") == "race_census"
+    assert basis("ahs2026newman; dorsey2020") == "race_published"
+    assert basis("assumed") == "race_default"
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in sorted(globals().items()) if n.startswith("test_")]
     failed = 0

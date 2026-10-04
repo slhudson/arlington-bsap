@@ -31,9 +31,8 @@ the whole point. Coverage runs era by era:
   1889 "W. Wilson (colored)" and of 1891 "Wilson, colored"
   (`alexandriagazette18890525p3`, `alexandriagazette18910529p3`, both read on
   the page image). O'Leary's Walter G. Willson held that district in the same
-  years and is carried as White on the default (`docs/members.md`, "What rests
-  on an assumption"), so a Black supervisor of 1889–93 may be missing from the
-  table below. And no one the Gazette names as a loser is marked "(colored)",
+  years and is Black on that word (`docs/members.md`, "What rests on an
+  assumption"), so the table below holds two wins in these years. And no one the Gazette names as a loser is marked "(colored)",
   which does not clear them, because it does not mark Rowe, who is Black, in
   1885: those who sat on the Board are carried in `members.csv`, Rowe among
   them; five of the rest are White by the 1900 and 1920 censuses and ten have no
@@ -129,7 +128,7 @@ than these, and cannot be counted without reading each contest's report.
 
 - *1870–1915.* Yes, and begun: the Gazette names losers in the years above, and
   it has already changed what is known of 1885 and 1889–91. What remains is the
-  1870s and 1881 townships and a check of Willson's race against a census record.
+  1870s and 1881 townships.
 - *1916–1930.* No. Chronicling America's Gazette runs to 1921, so 1919 is
   read and 1923 and 1927 are not; the county's candidate history for those
   years, not the Gazette, is the route, and it names winners.
@@ -200,8 +199,9 @@ Bestebreurtje (`bestebreurtje2017` p.215) has Black candidates running in
 1931 "for the first time since 1903", and names no 1903 candidate or office.
 The two agree that none ran from 1904 and differ at most on 1889–1903. The
 Alexandria Gazette's returns name losers in these years and a "colored"
-Washington District supervisor in 1889 and 1891 ("1870-1919", below); the
-1903 Bestebreurtje names has no candidate behind it there
+Washington District supervisor in 1889 and 1891 ("1870-1919", below): Walter
+G. Willson wins both elections, so Hjerpe's sentence holds in the table only
+from 1892. The 1903 Bestebreurtje names has no candidate behind it there
 (`candidate-analysis`).
 
 **1931.** The county's list of the 51 candidates for the first at-large
@@ -332,12 +332,13 @@ Four things in it are findings.
 - **"Wilson (colored)", 1889 and 1891.** The Gazette's list of the officers elected on
   23 May 1889 reads "Washington District--W. Wilson (colored), Supervisor"
   (`alexandriagazette18890525p3`), the day after a telegraphed note that
-  Alexandria County elected "F. S. Corbett and [blank] Green, (colored)" supervisors,
-  a name that differs. On 29 May 1891 "In Washington district, Wilson, colored,
+  Alexandria County elected "F. S. Corbett and [blank] Green, (colored)" supervisors
+  (`alexandriagazette18890524p3`), a name that differs. On 29 May 1891 "In Washington district, Wilson, colored,
   beat Mr. Phillips, present incumbent, for supervisor, by 36 majority"
   (`alexandriagazette18910529p3`). O'Leary has Walter G. Willson for the district in
   1889 and 1891 and names no Phillips in 1891; `docs/members.md` carries him as
-  White on the default (the row `willson-race` in `docs/questions.csv`).
+  Black on these two notices and the Gazette's report of his death, and the
+  table holds both wins.
 - **Who lost, 1893–1901.** 1893: Birch (130) to Clarke (172) in Arlington; J.
   Costello (52) and G. W. Donaldson (19) to R. H. Phillips (151) in Washington.
   1895: Birch, Hayes (101) and Clark (41) to Corbett (158) in Arlington; Palmer to
@@ -401,7 +402,8 @@ candidates at all, women among them, is Sally's to decide (`candidate-analysis`)
 special election as a dot at its year, filled if won and a ring if lost,
 with runs in the same year stacked; primaries are in the table and not
 drawn. It shows a win at every Jefferson election but 1885's from 1871 to
-1887; nothing from 1888 to 1930; three losses at the first at-large election
+1887; Willson's two wins in Washington District, 1889 and 1891, and nothing
+else from 1888 to 1930; three losses at the first at-large election
 in 1931; nothing from 1932 to 1986; and from 1987 wins, the one loss
 being Monroe's in the one-seat special. Where a year is empty the sources
 say different things, and this section says which: from 1932 to 1986 two

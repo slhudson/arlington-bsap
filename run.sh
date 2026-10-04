@@ -63,7 +63,7 @@ CLEAN=(residents residents_by_district members members_chairs candidates members
 # Stage 3: data/clean/ -> figures/. Each step is named for the figure it
 # writes. Five populations, alphabetical within each; last, the one step that
 # writes the numbers the prose cites, paper/body_text_numbers.tex, instead.
-FIGURES=(residents_by_age residents_by_district_race residents_by_race residents_per_seat elections_turnout elections_board elections_president members_age members_age_coverage candidates members_by_gender members_by_party localities_density localities_residents localities_southeastern members_by_race members_residence_coverage body_text_numbers)
+FIGURES=(residents_by_age residents_by_district_race residents_by_race residents_per_seat elections_turnout elections_board elections_president members_age candidates members_by_gender members_by_party localities_density localities_residents localities_southeastern members_by_race members_race_coverage members_residence_coverage body_text_numbers)
 
 echo "lint"
 "$PY" -m pyflakes code style || { echo "  pyflakes: fix the above"; exit 1; }

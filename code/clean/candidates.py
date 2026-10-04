@@ -45,6 +45,11 @@ RANKED_CHOICE = {(2023, "spain", "primary"): (False, "arlnow2023coffeyprimary"),
 # recorded elections, 1871-1887.
 JEFFERSON_WINS = 10
 
+# Hjerpe's sentence that no Black candidate ran from 1889 holds only from the
+# year after the last candidacy the Gazette contradicts it with (docs/candidates.md,
+# "Black candidacies").
+CONTRADICTED = {("hjerpe2021", 1889): 1892}
+
 COLUMNS = ["claim", "name", "year", "month", "through", "election", "office", "seats",
            "votes", "winning_votes", "won", "party", "race_words", "source",
            "election_source", "note"]
@@ -140,7 +145,8 @@ def join(c, members, listed, contests) -> dict:
 
 def none_ran(d) -> pd.DataFrame:
     """The periods a source says no Black candidate ran in, as keyed."""
-    return pd.DataFrame({"claim": "none", "name": "", "year": d.year.astype(int),
+    year = [CONTRADICTED.get((s, int(y)), int(y)) for s, y in zip(d.source, d.year)]
+    return pd.DataFrame({"claim": "none", "name": "", "year": year,
                          "through": d.through.astype(int), "office": d.office,
                          "race_words": d.race_words,
                          "source": [f"{s} p.{p}" for s, p in zip(d.source, d.page)],
@@ -165,6 +171,9 @@ def check(out, members, listed):
         if len(inside):
             raise ValueError(f"{n.source} says no Black candidate ran {n.year}-{n.through}, "
                              f"but candidacies are recorded: {list(inside.name)}")
+    # A period moved off a candidacy has one at its edge.
+    for (_, was), now in CONTRADICTED.items():
+        assert (cand.year == now - 1).any(), f"{was} moved to {now} with no candidacy in {now - 1}"
     # Every "(Col)" on the 1931 list is a candidacy, and every 1931 candidacy is one.
     marked = set(listed[listed.entry.str.contains(r"\(Col")].surname)
     of_1931 = set(cand[cand.year == LIST_YEAR].name.map(surname))
