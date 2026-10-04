@@ -195,6 +195,20 @@ for are the same: `Font shape ... undefined, defaults substituted` means a face
 is missing from `style/fonts/` or from the `\setmainfont` declaration, and
 undefined citations mean biber did not run.
 
+## Why the bibliography is checked entry by entry
+
+`test_every_cited_entry_is_complete` reads the keys the paper's `.tex` files
+cite and refuses an entry that would print incompletely: a newspaper piece
+without a journaltitle, location, date, title or page; an online piece without
+an organization or author, a date or a url; a report without an institution or
+author and a date; a thesis without a school; a legal case without a reporter
+citation or court in `note`; a book without a publisher and year. A field the
+copy does not give is declared in the annotation ("The copy gives no page",
+"The page gives no date"). It also refuses an author equal to the journaltitle
+or organization, which prints a paper's name twice, since an unsigned piece has
+no author, and a `note` over 80 characters, since a footnote is the citation
+and the page and commentary belongs in `annotation`.
+
 ## What `code/tests.py` guards, 1 October 2026
 
 A read of every test, each checked against the guard it names and against

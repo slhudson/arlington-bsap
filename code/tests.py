@@ -2203,6 +2203,131 @@ def test_a_census_citation_beside_other_sources_still_counts_as_a_census_sheet()
     assert basis("ahs2026newman; dorsey2020") == "race_published"
     assert basis("assumed") == "race_default"
 
+
+# --- the bibliography the paper prints -----------------------------------------
+
+def cited_keys():
+    """Every key the paper's LaTeX cites: the report, its timelines and the
+    files they \\input. Read from the source rather than the .bcf, because the
+    tests run before the paper is compiled and a .bcf is not committed."""
+    cited = set()
+    for tex in (ROOT / "paper").glob("*.tex"):
+        live = "\n".join(re.sub(r"(?<!\\)%.*", "", line) for line in tex.read_text().split("\n"))
+        for m in re.finditer(r"\\\w*cite\w*\*?(?:\[[^\]]*\])*\{([^}]*)\}", live):
+            cited |= {k.strip() for k in m.group(1).split(",")}
+    return cited
+
+
+# What a footnote may carry in `note`: a page, a volume, a reporter citation.
+# The longest of those is "132 Va. 397, 112 S.E. 772 (Supreme Court of Appeals
+# of Virginia, 1922)"; a sentence of commentary is longer than any of them.
+NOTE_LIMIT = 80
+REPORTER = re.compile(r"\d+\s+(?:Va\.|S\.E\.|U\.S\.|F\.)[\w. ]*\s+\d+")
+# An entry that lacks a field the copy does not give says so in its annotation.
+NO_PAGE = re.compile(r"\bcopy (?:gives|shows|prints) no page", re.I)
+NO_DATE = re.compile(r"\bpage (?:gives|shows|prints) no date", re.I)
+
+
+def incomplete(e):
+    """What a cited entry lacks that its type needs, as a list of sentences;
+    empty when it is complete. A newspaper piece, an online piece, a report, a
+    thesis, a legal case and a book each print differently, so each needs a
+    different field: a paper's name, place, date and page; or who published a
+    page and when; or an institution; or a school; or a reporter citation; or a
+    publisher and a year."""
+    t, ann, note = e["type"], e.get("annotation", ""), archive.plain(e.get("note", ""))
+    has = lambda *fields: any(e.get(f, "").strip() for f in fields)
+    need = []
+    if t == "article" and archive.kind(e) == "press":
+        # An unsigned piece has no author: the paper prints once, as journaltitle.
+        need += [f for f in ("title", "journaltitle", "location", "date") if not has(f)]
+        if not has("pages") and not NO_PAGE.search(ann):
+            need.append("pages (or an annotation saying the copy gives no page)")
+    elif t == "article":
+        need += [f for f in ("author", "title", "journaltitle", "date") if not has(f)]
+    elif t == "online":
+        need += [f for f in ("title", "url") if not has(f)]
+        if not has("organization", "author"):
+            need.append("an organization or an author")
+        if not has("date") and not NO_DATE.search(ann):
+            need.append("date (or an annotation saying the page gives no date)")
+    elif t == "report":
+        need += [f for f in ("title", "date") if not has(f)]
+        if not has("institution", "author"):
+            need.append("an institution or an author")
+    elif t in ("phdthesis", "mastersthesis", "thesis"):
+        need += [f for f in ("author", "title", "date") if not has(f)]
+        if not has("institution", "school"):
+            need.append("a school")
+    elif t == "book":
+        need += [f for f in ("author", "title", "publisher") if not has(f)]
+        if not has("date", "year"):
+            need.append("a year")
+    elif t == "jurisdiction" or (t == "misc" and re.search(r" v\. ", e.get("title", ""))):
+        if not has("date"):
+            need.append("date")
+        if not (REPORTER.search(note) or re.search(r"Court|\bD\. ?Va\.", note)):
+            need.append("a reporter citation, or a court, in note")
+    out = [f"lacks {n}" for n in need]
+    # The same name as author and as publisher prints twice.
+    # (A report prints its institution, not its organization.)
+    for f in ("journaltitle", "organization") if t in ("article", "online") else ():
+        if has("author") and archive.plain(e["author"]) == archive.plain(e.get(f, "")):
+            out.append(f"has {archive.plain(e['author'])!r} as author and as {f}, which prints twice; "
+                       f"an unsigned piece has no author")
+    if len(note) > NOTE_LIMIT:
+        out.append(f"has a note of {len(note)} characters, which prints in the footnote; "
+                   f"the footnote is the citation and the page, and the rest goes in annotation")
+    return out
+
+
+def test_an_incomplete_entry_is_refused():
+    """Each mistake the Works Cited printed before this check existed, built
+    as an entry and handed to incomplete(). A newspaper entry whose author is
+    the paper printed its name twice, in the Gazette's and the Sun's; one with
+    no place or no page printed a citation that could not be found again."""
+    paper = {"type": "article", "key": "k", "title": "T", "journaltitle": "The Sun",
+             "location": "Arlington, Va.", "date": "1938-11-11", "pages": "1"}
+    assert incomplete(paper) == [], incomplete(paper)
+    for change, saying in (
+            ({"author": "{The Sun}"}, "prints twice"),
+            ({"location": ""}, "location"),
+            ({"pages": ""}, "pages"),
+            ({"date": ""}, "date"),
+            ({"journaltitle": ""}, "journaltitle"),
+            ({"note": "x" * (NOTE_LIMIT + 1)}, "footnote")):
+        got = incomplete({**paper, **change})
+        assert any(saying in g for g in got), f"{change} not caught: {got}"
+    # A copy that numbers no pages says so, and then needs none.
+    assert incomplete({**paper, "pages": "", "annotation": "The copy gives no page number."}) == []
+    web = {"type": "online", "key": "k", "title": "T", "organization": "ARLnow",
+           "date": "2020-05-07", "url": "https://example.org"}
+    assert incomplete(web) == []
+    for change, saying in (({"author": "ARLnow"}, "prints twice"), ({"url": ""}, "url"),
+                           ({"organization": ""}, "organization"), ({"date": ""}, "date")):
+        got = incomplete({**web, **change})
+        assert any(saying in g for g in got), f"{change} not caught: {got}"
+    assert incomplete({**web, "date": "", "annotation": "The page gives no date."}) == []
+    assert any("school" in g for g in incomplete(
+        {"type": "phdthesis", "key": "k", "author": "A", "title": "T", "date": "2017"}))
+    assert any("year" in g for g in incomplete(
+        {"type": "book", "key": "k", "author": "A", "title": "T", "publisher": "P"}))
+    assert any("institution" in g for g in incomplete(
+        {"type": "report", "key": "k", "title": "T", "date": "2020"}))
+    case = {"type": "jurisdiction", "key": "k", "title": "A v. B", "date": "1922",
+            "note": "132 Va. 397, 112 S.E. 772 (Supreme Court of Appeals of Virginia, 1922)"}
+    assert incomplete(case) == []
+    assert any("reporter" in g for g in incomplete({**case, "note": ""}))
+
+
+def test_every_cited_entry_is_complete():
+    """The keys the paper cites, each through incomplete(). A key the bib does
+    not define is the citation check's to refuse, not this one's."""
+    bib = {e["key"]: e for e in archive.entries((ROOT / "paper" / "sources.bib").read_text())}
+    bad = [f"{k}: {p}" for k in sorted(cited_keys() & set(bib)) for p in incomplete(bib[k])]
+    assert not bad, "cited entries the Works Cited would print incompletely:\n  " + "\n  ".join(bad)
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in sorted(globals().items()) if n.startswith("test_")]
     failed = 0
