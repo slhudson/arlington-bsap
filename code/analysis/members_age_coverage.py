@@ -1,22 +1,21 @@
-"""How many sitting members have a birth year, 1900-2026
+"""How many seat-years have a member with a birth year, 1900-2026
 -> figures/members_age_coverage.pdf, .png
 
-A stacked step area of the members sitting on 1 July of each year, those
-with a birth year and those without, with the 1932 rule. A year the roster
-names nobody in is a gap.
+A stacked step area of the seat-years in each year, those held by a member
+with a birth year and those without, with the 1932 rule. Seat-years are
+counted as members_residence_coverage counts them (members.seat_years), so a
+vacancy is a dip below the seats that exist.
 """
-import pandas as pd
 
 import charts
 import members
 import paths
 import style
 
-rows = []
-for year, s in members.by_year(members.AGE_FIRST):
-    known = int(s.birth_year.notna().sum())
-    rows.append({"year": year, "known": known, "unknown": len(s) - known})
-d = pd.DataFrame(rows)
+born = paths.read("members").drop_duplicates("name").set_index("name").birth_year.notna()
+d = members.seat_years(lambda name: "known" if born[name] else "unknown")
+d = d[d.year >= members.AGE_FIRST].reindex(columns=["year", "known", "unknown"], fill_value=0)
+d = d.reset_index(drop=True)
 if d.known.sum() == 0:
     raise ValueError("no sitting member has a birth year; nothing to draw")
 

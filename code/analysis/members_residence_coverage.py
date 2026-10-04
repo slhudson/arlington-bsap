@@ -15,6 +15,7 @@ the bands carry fractions of a seat.
 import pandas as pd
 
 import charts
+import members
 import paths
 import style
 
@@ -31,37 +32,8 @@ claims = paths.read("members_residence", dtype=str).fillna("")
 exactness = claims.precision.map(ORDER.index)
 best = exactness.groupby(claims.name).min().map(lambda r: ORDER[int(r)])
 
-# One row per name, the months its terms held, read the way members_by_year
-# reads them: a district seat ends when the Board went at large.
-terms = paths.read("members")
-by_year = paths.read("members_by_year")
-end = (int(by_year.year.max()) + 1) * 12      # terms run past the year the roster was checked to
-at_large_from = terms.loc[terms.district == "at large", "held_from"].min()
-terms = terms.assign(held_to=terms.held_to.where(terms.district == "at large",
-                                                 terms.held_to.clip(upper=at_large_from)))
-terms["held_to"] = terms.held_to.clip(upper=end)
-terms = terms[terms.held_to > terms.held_from]
-first_month, last_month = int(terms.held_from.min()), int(terms.held_to.max())
-
-grade = {k: [] for k in ORDER + ["none"]}
-per_month = []
-for month in range(first_month, last_month):
-    sitting = terms[(terms.held_from <= month) & (month < terms.held_to)].drop_duplicates("name")
-    found = sitting.name.map(best).fillna("none")
-    per_month.append({"year": month // 12, **{k: int((found == k).sum()) for k in grade}})
-monthly = pd.DataFrame(per_month)
-# 1870 is averaged over the months the Board existed, every other year over twelve.
-months_existing = monthly.groupby("year").size().clip(upper=12)
-graded = monthly.groupby("year").sum().div(months_existing, axis=0).reset_index()
-
-# The yearly totals are the seats members_by_year counts, men + women.
-seats_held = by_year.set_index("year")[["men", "women"]].sum(axis=1)
-total = graded.set_index("year")[list(grade)].sum(axis=1)
-off = (total - seats_held.reindex(total.index)).abs() > 1e-9
-if off.any() or set(total.index) != set(seats_held.index):
-    raise AssertionError(
-        "seat-years here and in members_by_year differ in "
-        f"{list(total.index[off])}; the years differ by {set(total.index) ^ set(seats_held.index)}")
+graded = members.seat_years(lambda name: best.get(name, "none"))
+graded = graded.reindex(columns=["year", *ORDER, "none"], fill_value=0)
 
 d = pd.DataFrame({"year": graded.year, **{k: graded[cols].sum(axis=1) for k, cols in SHOWN.items()}})
 if d[PLACED].sum().sum() == 0:

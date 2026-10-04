@@ -436,10 +436,13 @@ there the labels can be shortened and here the years cannot.
   in any year gets no band and no legend entry, because an empty swatch
   reads as a sliver too small to see rather than as zero, and the absence is
   a finding for the prose. The test is on the data, not the category name.
-- **members_age_coverage.** A diagnostic: of the members sitting on 1 July
-  of each year, how many have a birth year and how many do not, as a
-  stacked step area on the seat axis, so it reads like the seat figures
-  and a reader can see at once which years the age figure can stand on.
+- **members_age_coverage.** A diagnostic: of the seat-years in each year,
+  how many are held by a member with a birth year and how many by one
+  without, as a stacked step area on the seat axis, so it reads like the seat
+  figures and a reader can see at once which years the age figure can stand
+  on. It counts seat-years exactly as `members_residence_coverage` does, by
+  the one function `members.seat_years`, so a vacancy shows as a notch in
+  both (Sally, 4 October 2026).
   Counts rather than a share, because two of three and four of five are
   different situations and a share would say they were the same. With a
   birth year takes the sand, without takes the no-evidence grey, as
