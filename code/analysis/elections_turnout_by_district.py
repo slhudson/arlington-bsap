@@ -3,9 +3,9 @@
 One line per magisterial district: the votes cast in its contest for the
 Board, over the men aged 21 and over the nearest census counted in that
 district (residents_by_district_adults.csv), a year equally far from two
-censuses taking the earlier. The Board is elected in odd years, so the
-x axis is every odd year from 1893 and a year with no count recovered for a
-district breaks its line, a dotted segment crossing the gap.
+censuses taking the earlier. A line joins the contests a count was recovered
+for, in order; a contest with no count simply is not a point, since the years
+between two points are not a gap in a series but elections nothing records.
 
 Two things a reader of the figure needs, and the caption carries:
 
@@ -20,7 +20,6 @@ Two things a reader of the figure needs, and the caption carries:
 
 The two rules are the Walton Act of 1894 and the constitution of 1902.
 """
-import numpy as np
 import pandas as pd
 
 import charts
@@ -28,7 +27,6 @@ import paths
 import style
 
 CENSUSES = (1880, 1900, 1910, 1920)
-ELECTIONS = range(1893, 1920, 2)
 
 
 def nearest(year):
@@ -47,9 +45,8 @@ for profile in style.PROFILES:
     fig, ax = charts.figure(profile)
     for district, (label, colour) in style.DISTRICTS.items():
         votes = contests[contests.contest == f"{district} District"].set_index("year").votes_cast
-        rate = pd.Series({y: votes.get(y, np.nan) / adults[(district, nearest(y))] * 100
-                          for y in ELECTIONS})
-        charts.lines(ax, rate.index.to_numpy(), {label: (rate.to_numpy(), colour)}, bridge=True)
+        rate = pd.Series({y: v / adults[(district, nearest(y))] * 100 for y, v in votes.items()})
+        charts.lines(ax, rate.index.to_numpy(), {label: (rate.to_numpy(), colour)})
 
     charts.counts(ax, 120, 20, label="votes per 100 men of voting age")
     charts.years(ax, 1890, 1920, step=10, label="year", minor=5)
