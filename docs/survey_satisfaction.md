@@ -107,10 +107,11 @@ set against the county from what the repository holds.
 
 ## What rests on an assumption
 
-- That the 2018 values the chart prints for the County's efforts to embrace
-  diversity and for the overall inclusiveness of the community are the 2018
-  values. Each equals its 2026 value exactly, in a chart where no other item
-  repeats, and both are the items marked not asked in 2022.
+- That the values the report's trend chart prints are the published
+  values. This repository has no microdata for the earlier waves, so the chart
+  is read as printed, including the 2018 values for the County's efforts to
+  embrace diversity and the overall inclusiveness of the community, which equal
+  their 2026 values.
 - That a respondent who leaves race, income and gender blank or declined has
   declined to give demographics, which is the definition
   `demographics_declined` applies to 147 respondents. A respondent who
