@@ -4,10 +4,9 @@
 A stacked step area of seat-years, by the most exact place any source gives
 for the person holding the seat, darkest for a house on a street and lightest
 for a side of the County or a magisterial district of Alexandria County, with
-the 1932 rule. Each year is the average, over the months the Board existed,
-of the members seated that month, so a vacancy is a dip below the seats that
-exist and a member who served part of a year counts that part; the yearly
-total is the men + women of members_by_year. A place is counted whenever it
+the 1932 rule. Seat-years are read from members_by_year, like every figure on
+the seat axis, so a vacancy is a dip below the seats that exist and a member
+who served part of a year counts that part. A place is counted whenever it
 is dated, so a member whose only place comes from after their service still
 counts. A seat-year is fractional wherever a member served part of a year, so
 the bands carry fractions of a seat.
@@ -15,25 +14,17 @@ the bands carry fractions of a seat.
 import pandas as pd
 
 import charts
-import members
 import paths
 import style
 
-# The grades of precision data/clean/members_residence.csv records, most exact first.
-ORDER = ["address", "street", "neighborhood", "side", "district"]
 # The grades one shade shows. A side of the County and a magisterial
 # district are the same grade of knowledge, told apart only by the era of
 # the source, so they read as one; docs/figures.md.
 SHOWN = {"address": ["address"], "street": ["street"], "neighborhood": ["neighborhood"],
-         "side_or_district": ["side", "district"], "none": ["none"]}
+         "side_or_district": ["side", "district"], "none": ["no_place"]}
 PLACED = [k for k in SHOWN if k != "none"]
 
-claims = paths.read("members_residence", dtype=str).fillna("")
-exactness = claims.precision.map(ORDER.index)
-best = exactness.groupby(claims.name).min().map(lambda r: ORDER[int(r)])
-
-graded = members.seat_years(lambda name: best.get(name, "none"))
-graded = graded.reindex(columns=["year", *ORDER, "none"], fill_value=0)
+graded = paths.read("members_by_year")
 
 d = pd.DataFrame({"year": graded.year, **{k: graded[cols].sum(axis=1) for k, cols in SHOWN.items()}})
 if d[PLACED].sum().sum() == 0:

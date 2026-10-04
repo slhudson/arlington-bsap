@@ -440,9 +440,9 @@ there the labels can be shortened and here the years cannot.
   how many are held by a member with a birth year and how many by one
   without, as a stacked step area on the seat axis, so it reads like the seat
   figures and a reader can see at once which years the age figure can stand
-  on. It counts seat-years exactly as `members_residence_coverage` does, by
-  the one function `members.seat_years`, so a vacancy shows as a notch in
-  both (Sally, 4 October 2026).
+  on. It reads `members_by_year`, as does every figure on the seat axis, so
+  a vacancy is decided once, in the clean stage, and shows as a notch in all
+  of them (Sally, 4 October 2026).
   Counts rather than a share, because two of three and four of five are
   different situations and a share would say they were the same. With a
   birth year takes the sand, without takes the no-evidence grey, as

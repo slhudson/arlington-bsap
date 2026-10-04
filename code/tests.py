@@ -401,8 +401,8 @@ def test_a_county_file_naming_arlington_twice_is_refused_when_it_is_built():
 def test_race_and_gender_must_account_for_the_same_seats():
     """One term with a gender the seat table has no column for."""
     def mangle(orig):
-        def patched(members):
-            d = orig(members).copy()
+        def patched(members, places):
+            d = orig(members, places).copy()
             d.loc[d.index[d.year == 1975][0], "gender"] = "unrecorded"
             return d
         return patched
@@ -785,8 +785,8 @@ def test_the_clean_stage_has_no_route_above_built():
 def test_party_must_account_for_the_same_seats():
     """One term with a party the seat table has no column for."""
     def mangle(orig):
-        def patched(members):
-            d = orig(members).copy()
+        def patched(members, places):
+            d = orig(members, places).copy()
             d.loc[d.index[d.year == 1975][0], "party"] = "whig"
             return d
         return patched

@@ -1,8 +1,11 @@
-"""Seats held per year, by race, gender and party -> data/clean/members_by_year.csv
+"""Seats held per year, by race, gender, party, birth year and place
+-> data/clean/members_by_year.csv
 
 One row per year, 1870-2026, in seat-years: a member who held a seat for
 four months of a year counts 4/12, by the months members.csv says
-each term held. Every year is computed from that table. Party is from
+each term held. Every year is computed from that table, and every figure
+drawn on the three- and five-seat axis reads it, so a vacancy is one
+decision made here. Party is from
 1932 only, with a member no source records under `unrecorded`. The
 denominator is the months the Board existed that year, which is twelve for
 every year but 1870. docs/members.md, Seat-years.
@@ -10,6 +13,7 @@ every year but 1870. docs/members.md, Seat-years.
 import pandas as pd
 
 import citekeys
+import members_residence
 from members_terms import AT_LARGE_FROM, PRESENT, seats
 from paths import read, write
 
@@ -19,15 +23,30 @@ GENDER = {"man": "men", "woman": "women"}
 PARTY = {"Democratic": "dem", "Republican": "rep", "ABC": "abc",
          "independent": "ind", "": "unrecorded"}
 PARTY_COLUMNS = ["dem", "abc", "rep", "ind", "unrecorded"]
+# Seat-years by whether the member has a birth year, and by the most exact
+# place any source gives for the member (members_residence.PRECISION, most
+# exact first). Each is one more split of the same seats.
+BIRTH_COLUMNS = ["birth_year_known", "birth_year_unknown"]
+PLACE_COLUMNS = ["address", "street", "neighborhood", "side", "district", "no_place"]
+SPLIT_COLUMNS = BIRTH_COLUMNS + PLACE_COLUMNS
 
 
-def months_held(members: pd.DataFrame) -> pd.DataFrame:
+def best_place(residence: pd.DataFrame) -> dict:
+    """Each member's most exact place, whenever it is dated: a place from
+    after their service still counts (residence-after-service)."""
+    order = list(members_residence.PRECISION)
+    exactness = residence.precision.map(order.index)
+    return exactness.groupby(residence.name).min().map(lambda r: order[int(r)]).to_dict()
+
+
+def months_held(members: pd.DataFrame, places: dict) -> pd.DataFrame:
     """One row per term per calendar year: how many months of it were held,
     from held_from and held_to. A magisterial-district seat stopped existing
     as such the moment the Board reorganized to at large, whatever a term's
     own end date says, so none of it counts past the last month of 1931
     (Edward Duncan's term, ending January 1932 on the usual "ends when the
-    next one starts" convention, is the first to reach that boundary)."""
+    next one starts" convention, is the first to reach that boundary).
+    `places` is best_place()'s answer for each member."""
     m = members
     rows = []
     for _, t in m.iterrows():
@@ -37,32 +56,36 @@ def months_held(members: pd.DataFrame) -> pd.DataFrame:
             if hi > lo:
                 rows.append({"year": year, "months": hi - lo,
                              "race": RACE[t.race], "gender": GENDER[t.gender],
-                             "party": PARTY[t.party if isinstance(t.party, str) else ""]})
+                             "party": PARTY[t.party if isinstance(t.party, str) else ""],
+                             "birth": BIRTH_COLUMNS[0] if pd.notna(t.birth_year) else BIRTH_COLUMNS[1],
+                             "place": places.get(t["name"], "no_place")})
     return pd.DataFrame(rows)
 
 
 def build() -> pd.DataFrame:
     members = read("members")
-    held = months_held(members)
+    held = months_held(members, best_place(read("members_residence")))
 
     def split(by, columns):
         return (held.pivot_table(index="year", columns=by, values="months", aggfunc="sum", fill_value=0)
                 .reindex(columns=list(columns)) / 12)
 
     built = pd.concat([split("race", RACE.values()), split("gender", GENDER.values()),
-                       split("party", PARTY_COLUMNS)], axis=1)
-    built = built.reindex(columns=COLUMNS[1:] + PARTY_COLUMNS).fillna(0.0).reset_index()
+                       split("party", PARTY_COLUMNS), split("birth", BIRTH_COLUMNS),
+                       split("place", PLACE_COLUMNS)], axis=1)
+    built = built.reindex(columns=COLUMNS[1:] + PARTY_COLUMNS + SPLIT_COLUMNS).fillna(0.0).reset_index()
     built.loc[built.year < AT_LARGE_FROM, PARTY_COLUMNS] = float("nan")
     built = built[built.year <= PRESENT]
     built["source"] = citekeys.DERIVED
-    d = built.sort_values("year").reset_index(drop=True)[COLUMNS + PARTY_COLUMNS + ["source"]]
+    d = built.sort_values("year").reset_index(drop=True)[COLUMNS + PARTY_COLUMNS + SPLIT_COLUMNS + ["source"]]
 
     # 1870 is scaled by the months the Board existed.
     first_month = int(members.loc[members.start_year == d.year.min(), "start_month"].min())
     months_existing = 13 - first_month
     if months_existing < 12:
         m = d.year == d.year.min()
-        d.loc[m, COLUMNS[1:]] = d.loc[m, COLUMNS[1:]] * 12 / months_existing
+        scaled = COLUMNS[1:] + SPLIT_COLUMNS
+        d.loc[m, scaled] = d.loc[m, scaled] * 12 / months_existing
     years = list(d.year)
     assert years == list(range(1870, PRESENT + 1)), f"years are not 1870-{PRESENT} without gaps: {years[:3]}..{years[-3:]}"
 
@@ -87,7 +110,11 @@ def build() -> pd.DataFrame:
     assert list(short) == VACANT_YEARS, \
         f"seats fall short in {list(short)}; expected only {VACANT_YEARS}"
 
-    # Race, gender and party are three splits of the same seats.
+    # Race, gender, party, birth year and place are splits of the same seats.
+    for name, columns in (("birth year", BIRTH_COLUMNS), ("place", PLACE_COLUMNS)):
+        off = d.loc[(by_race - d[columns].sum(axis=1)).abs() > 1e-9, "year"]
+        assert off.empty, (f"{name} does not account for the same seats as race in "
+                           f"{list(off.astype(int))}")
     by_gender = d[["men", "women"]].sum(axis=1)
     off = d.loc[(by_race - by_gender).abs() > 1e-9, "year"]
     assert off.empty, (

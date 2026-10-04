@@ -3,8 +3,8 @@
 
 A stacked step area of the seat-years in each year, those held by a member
 with a birth year and those without, with the 1932 rule. Seat-years are
-counted as members_residence_coverage counts them (members.seat_years), so a
-vacancy is a dip below the seats that exist.
+read from members_by_year, like every figure on the seat axis, so a vacancy
+is a dip below the seats that exist.
 """
 
 import charts
@@ -12,9 +12,9 @@ import members
 import paths
 import style
 
-born = paths.read("members").drop_duplicates("name").set_index("name").birth_year.notna()
-d = members.seat_years(lambda name: "known" if born[name] else "unknown")
-d = d[d.year >= members.AGE_FIRST].reindex(columns=["year", "known", "unknown"], fill_value=0)
+d = paths.read("members_by_year")
+d = d[d.year >= members.AGE_FIRST].rename(
+    columns={"birth_year_known": "known", "birth_year_unknown": "unknown"})[["year", "known", "unknown"]]
 d = d.reset_index(drop=True)
 if d.known.sum() == 0:
     raise ValueError("no sitting member has a birth year; nothing to draw")
