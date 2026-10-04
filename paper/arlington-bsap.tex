@@ -117,6 +117,10 @@
 
 % The paper includes the PDF versions; figures/png/ is for slides and email.
 \graphicspath{{../figures/pdf/}}
+% Two figures that share a float page, race and the peer localities, give up the
+% white each carries above and below its ink (style.MARGIN) and are set at 0.91 of
+% the text width: at full width the pair is 31 and 45 points too tall for a page.
+\newcommand{\pairfigure}[1]{\includegraphics[width=0.91\textwidth,trim=0 14bp 0 14bp,clip]{#1}}
 
 % The notes under a figure or table: Notes, then Source, in one box so the gap
 % between them is the same under every figure. Either may be empty.
@@ -341,20 +345,29 @@ In all the years since 1932, women have held a majority of the Board twice, in
 % gates the Board half of this section. Errors are corrected and the prose tightened;
 % no claim is added or changed except where a source contradicted the draft.
 
-\begin{figure}
+\begin{figure}[p]
   \centering
   \refstepcounter{figure}\label{fig:residents-race}
   {\raggedright\MakeUppercase{Figure \thefigure}\par}
   {\raggedright\bfseries County Population by Race and Ethnicity\par}
-  \medskip
-  \includegraphics[width=\textwidth]{residents_by_race.pdf}
   \smallskip
+  \pairfigure{residents_by_race.pdf}
+  \vspace{2pt}
   \figurenotes{
     Notes: Panel (a) gives counts and panel (b) shares. Hispanic origin
     was first asked of every household in 1980, where the dashed rule
     falls; before then Hispanic residents were counted as Black or White,
     mostly White. White counts above 50,000 run off the top of panel (a);
     they peak at 161,329 in 1970.}{Source: US decennial census, 1870--2020.}
+  \medskip
+  \refstepcounter{figure}\label{fig:board-race}
+  {\raggedright\MakeUppercase{Figure \thefigure}\par}
+  {\raggedright\bfseries Board Members by Race and Ethnicity\par}
+  \smallskip
+  \pairfigure{members_by_race.pdf}
+  \vspace{2pt}
+  \figurenotes{
+    Notes: No Asian American or Pacific Islander member has served.}{}
 \end{figure}
 
 Arlington was a majority-Black county through 1880 and half Black in 1890.
@@ -370,18 +383,6 @@ totals cannot tell the two apart. Bestebreurtje's dissertation on African
 American community development in Arlington tells that neighborhood
 history.\autocite{bestebreurtje2017} No document consulted for this report says
 when Freedman's Village closed or where its residents went.
-
-\begin{figure}
-  \centering
-  \refstepcounter{figure}\label{fig:board-race}
-  {\raggedright\MakeUppercase{Figure \thefigure}\par}
-  {\raggedright\bfseries Board Members by Race and Ethnicity\par}
-  \medskip
-  \includegraphics[width=\textwidth]{members_by_race.pdf}
-  \smallskip
-  \figurenotes{
-    Notes: No Asian American or Pacific Islander member has served.}{}
-\end{figure}
 
 For the Board's first 14 years Black members held one or two of its three seats,
 though never in proportion: from 1871 to 1892 they held, year by year, about
@@ -505,7 +506,7 @@ are correct: each won in November and took office the following January.
 
 \section{Age}
 
-\begin{figure}
+\begin{figure}[p]
   \centering
   \refstepcounter{figure}\label{fig:residents-age}
   {\raggedright\MakeUppercase{Figure \thefigure}\par}
@@ -514,6 +515,15 @@ are correct: each won in November and took office the following January.
   \includegraphics[width=0.7\textwidth]{residents_by_age.pdf}
   \smallskip
   \figurenotes{}{Source: US decennial census, 1910--2020.}
+  \bigskip
+  \refstepcounter{figure}\label{fig:board-age}
+  {\raggedright\MakeUppercase{Figure \thefigure}\par}
+  {\raggedright\bfseries Board Members by Age\par}
+  \medskip
+  \includegraphics[width=\textwidth]{members_age.pdf}
+  \smallskip
+  \figurenotes{
+    Notes: Each diagonal line is one member, from age at first election to age at departure; the band behind runs from the youngest to the oldest member sitting in each year.}{}
 \end{figure}
 
 Arlington is a young county and has been one on every census since 1910. In
@@ -528,18 +538,6 @@ report starts from that fact: Arlington is a young county.
 There is no defensible optimal age for a Board member, so the two figures are not
 drawn on one panel, which would imply that there is. The Board's own ages stand
 against that steady background.
-
-\begin{figure}
-  \centering
-  \refstepcounter{figure}\label{fig:board-age}
-  {\raggedright\MakeUppercase{Figure \thefigure}\par}
-  {\raggedright\bfseries Board Members by Age\par}
-  \medskip
-  \includegraphics[width=\textwidth]{members_age.pdf}
-  \smallskip
-  \figurenotes{
-    Notes: Each diagonal line is one member, from age at first election to age at departure; the band behind runs from the youngest to the oldest member sitting in each year.}{}
-\end{figure}
 
 Since 1980 the Board has been middle-aged. Its median age on 1 July has run 4 to
 16 years above the county's adult median at every census, 43 to 54 for the Board
@@ -662,14 +660,14 @@ nothing for Arlington.
 
 \section{Board Structure}
 
-\begin{figure}
+\begin{figure}[p]
   \centering
   \refstepcounter{figure}\label{fig:localities-residents}
   {\raggedright\MakeUppercase{Figure \thefigure}\par}
   {\raggedright\bfseries Governing-Body Size and Population, Virginia Localities of 100,000 or More\par}
-  \medskip
-  \includegraphics[width=\textwidth]{localities_residents.pdf}
   \smallskip
+  \pairfigure{localities_residents.pdf}
+  \vspace{2pt}
   \figurenotes{
     Notes: One dot per locality; a city's council and a county's board are
     counted as the Richmond Charter Review Commission counts them, a mayor
@@ -678,16 +676,13 @@ nothing for Arlington.
     Virginia Beach; only Prince William, Henrico, Chesterfield and Fairfax
     have more residents per member.}{Source: Richmond Charter Review
     Commission (2023), Appendix D; US decennial census, 2020.}
-\end{figure}
-
-\begin{figure}
-  \centering
+  \medskip
   \refstepcounter{figure}\label{fig:localities-density}
   {\raggedright\MakeUppercase{Figure \thefigure}\par}
   {\raggedright\bfseries Residents per Member and Population Density, Virginia Localities of 100,000 or More\par}
-  \medskip
-  \includegraphics[width=\textwidth]{localities_density.pdf}
   \smallskip
+  \pairfigure{localities_density.pdf}
+  \vspace{2pt}
   \figurenotes{
     Notes: Alexandria, the one locality as dense as Arlington, has about
     23,000 residents per council member.}{Source: Richmond Charter Review
