@@ -6,9 +6,9 @@
 % figure, edit its script in code/analysis/ and re-run. Never paste plot data here:
 % that makes a second copy of the numbers, free to go stale.
 %
-% The sections follow the working-session deck of 26 September 2026, one
-% section per topic, each holding its figures and then its timeline. County-level
-% context precedes the Board-level figure within a topic.
+% The sections follow the 2 October 2026 history outline, one section per topic,
+% each holding its figures and then its prose. The dated timelines the prose is
+% written from are in timelines.tex.
 %
 % Compiled with lualatex, not pdflatex: the body text uses Lato, the same
 % typeface urban.mplstyle sets for the figures, loaded via fontspec from
@@ -64,28 +64,6 @@
 % The paper includes the PDF versions; figures/png/ is for slides and email.
 \graphicspath{{../figures/pdf/}}
 
-% A footnote inside a tabular is silently dropped by LaTeX: the mark prints
-% and the note never appears. Timeline rows carry citations, so make tabular
-% save and emit them.
-\usepackage{footnote}
-\makesavenoteenv{tabular}
-
-% A timeline is a dated list, not prose: a narrow date column and a wrapping
-% one beside it. Used by every section that has one.
-\usepackage{newfloat}
-\DeclareFloatingEnvironment[placement=t,name=Timeline]{timelinebox}
-\newcommand{\timeline}[1]{%
-  \begin{timelinebox}
-  \centering
-  \begin{minipage}{\textwidth}
-  \begin{tabular}{@{}p{0.17\textwidth}p{0.77\textwidth}@{}}
-    \toprule
-    #1
-    \bottomrule
-  \end{tabular}
-  \end{minipage}
-  \end{timelinebox}}
-
 % A figure goes at the top of the page it lands on, centered, above the section
 % heading if the section starts there; its title sits above it and its notes
 % below. The fractions let a full-width figure share a page with text.
@@ -133,24 +111,14 @@ The expansion came just before the county grew fivefold in twenty years, from
 there were three seats; with five, it stood for 11,408 in 1940, 27,090 in 1950
 and 47,729 in 2020.
 
-\timeline{
-  1846--1847 & Congress returns Alexandria County to Virginia, with the assent of
-  its voters in a referendum.\autocite{usstat1846retrocession} \\[2pt]
-  1847--1870 & A county court of elected justices of the peace governs the county,
-  and its work is mainly judicial. No elected body does what the Board now
-  does.\autocite[art.~VI, secs.~25--27]{vaconstitution1851} \\[2pt]
-  1870--1931 & Virginia's constitution creates boards of supervisors for counties
-  statewide. Three magisterial districts --- Arlington, Jefferson and
-  Washington --- elect one supervisor each.\autocite[art.~VII,
-  sec.~2]{vaconstitution1869} \\[2pt]
-  1930--1932 & The county adopts the County Manager Plan by referendum. The Board
-  grows from three district seats to five members elected at
-  large.\autocite{samuel2026} \\[2pt]
-  1930--1950 & Arlington's population grows more than fivefold.
-  % The deck gives a cause (the federal workforce, the New Deal and World War II)
-  % that no source held supports yet: population-growth-causes
-  \\
-}
+The law gave the county a way to change that, and the county did not use it. In
+1952 the General Assembly offered Arlington voters two questions: whether to
+raise the Board from five seats to seven, and whether to elect members every
+two years. Either went on the ballot if two hundred voters petitioned the
+circuit court by 1 August, and nobody did.\autocite{vaacts1952c591} The
+Assembly reopened the window for the election question in 1954 and again in
+1958, and dropped the seven-seat question from both. No petition was filed
+either time, and the question has not been offered since.\autocite{vaacts1954c151,vaacts1958c207}
 
 The county court did the administrative work the Board later took up: the Code of
 1860 gives the county levy to the court, and the 1851 constitution has its
@@ -195,14 +163,6 @@ Women have held about a quarter of all seat-years since 1932 and have never
 held a majority for more than a single year, three of the five seats in 1983
 and again in 2024. The first woman took a seat in 1932, and the longest
 stretch with no woman at all, 1959 to 1973, came a generation after her.
-
-\timeline{
-  1932 & The first woman takes a seat in the year the Board expands to five and
-  moves to at-large election. \\[2pt]
-  1959--1973 & Fifteen consecutive years with no woman on the Board. \\[2pt]
-  1983, 2024 & The only two years in which women hold a majority of the
-  seats. \\
-}
 
 Three things change in 1932 --- five seats, at-large election, and the first
 woman --- and no figure built from this record can separate them. Contemporaries
@@ -283,21 +243,6 @@ loss, and county totals cannot tell the two apart. Bestebreurtje's dissertation
 on African American community development in Arlington is where that
 neighborhood history is
 told.\autocite{bestebreurtje2017}
-
-\timeline{
-  1870--1890 & A majority-Black county until the 1890 census, which counts it
-  at 49.9 per cent. The Board is created in 1870. Freedman's Village, the
-  settlement of formerly enslaved people on the Lee estate, lies inside
-  Arlington district and counts 338 residents in
-  1890.\autocite{census1890} \\[2pt]
-  1890--1950 & The White population grows from 2,135 to 128,780 and the Black
-  share falls from 49.9 per cent to 4.8; the Black population grows from 2,123 to
-  6,517. % waits on: population-growth-causes
-  \\[2pt]
-  1980--present & Hispanic residents grow from 8,863 to 37,362 and Asian and
-  Pacific Islander residents from 6,792 to 27,353, from the first census to ask
-  every household its Hispanic origin. \\
-}
 
 No source held says when Freedman's Village closed or where its residents went;
 local knowledge is the likeliest answer. The Black share moves little between
@@ -383,52 +328,22 @@ or correct the record.
     values arise when members served part of a year.\par}
 \end{figure}
 
-\timeline{
-  \multicolumn{2}{@{}l}{\textit{1871--1892 --- Black representation under the
-  district system}} \\[4pt]
-  1888 & The county court issues a rule against Tibbett Allen, the Board's only
-  Black member, to show cause why he should not be removed for
-  non-residence; he resigns, and the court never
-  rules.\autocite{alexandriagazette1888rule} \\[2pt]
-  1889--92 & Walter G. Willson holds the Washington district seat, the last
-  Black member until 1988.\autocite{alexandriagazette18890525p3,alexandriagazette18910529p3,gazette1892wilsondeath} \\[4pt]
-  \multicolumn{2}{@{}l}{\textit{1893--1919 --- Suppressing Black
-  representation}} \\[2pt]
-  1894 & The Walton Act makes the ballot official and bars any other as a legal
-  vote. A voter must strike through the name of every candidate he does not
-  want, with a line reaching three-fourths of the name's length or the stroke
-  does not count, and an office left with more than one name standing is void.
-  Only a constable the electoral board appoints may read or mark a ballot for a
-  voter who cannot do it himself, and giving out a copy of the ballot is a
-  misdemeanor.\autocite{waltonact1894}
-  \\[2pt]
-  1901--02 & The Virginia Constitutional Convention writes a poll tax and a
-  literacy test into the constitution. \\[4pt]
-  \multicolumn{2}{@{}l}{\textit{1920--1940 --- Replacing district
-  representation with countywide majority contests}} \\[2pt]
-  1922 & \textit{Bennett v. Garrett}: the Supreme Court of Appeals affirms the
-  dismissal of Clarendon's petition to incorporate as a town, holding that where
-  proposed limits are carved out of a thickly settled section the ``general good
-  of the community'' the statute protects ``must be construed as embracing the
-  whole section.''\autocite{bennettvgarrett1922} \\[2pt]
-  1930--31 & A referendum adopts at-large election in place of magisterial
-  districts, and the first at-large election follows in November 1931,
-  changing who the constituency is. \\[2pt]
-  1938 & Staggered terms, approved 1,539 to 1,487 in the county's tally, so
-  most elections fill a single seat --- changing the threshold, not the
-  constituency.\autocite[11]{arlingtonelections2021} \\
-}
+Two mechanisms are at work in the move to countywide contests. At-large election
+changes who the constituency is: every member is elected countywide, so a group
+concentrated in one part of the county cannot elect anyone from it. Staggering,
+which county voters approved in 1938 by 1,539 to 1,487 in the county's
+tally,\autocite[11]{arlingtonelections2021} changes the threshold: most
+elections then fill a single seat, so every contest requires a countywide
+majority.
 
-Two mechanisms are at work in that periodization. At-large election changes who
-the constituency is: every member is elected countywide, so a group
-concentrated in one part of the county cannot elect anyone from it. Staggering
-changes the threshold: one seat at a time means every contest requires a
-countywide majority.
-
-\textit{Bennett v. Garrett} sits under the 1920--1940 era because Rose reads its
-reasoning --- Arlington is one community, and Clarendon only ``a part of a
-thickly settled community'' inside it --- into the countywide election of 1932.
-The County Attorney's report cites it as precedent, not as
+In \textit{Bennett v. Garrett} (1922) the Supreme Court of Appeals affirmed the
+dismissal of Clarendon's petition to incorporate as a town, holding that where
+proposed limits are carved out of a thickly settled section, the ``general good
+of the community'' the statute protects ``must be construed as embracing the
+whole section.''\autocite{bennettvgarrett1922} Rose reads that reasoning ---
+Arlington is one community, and Clarendon only ``a part of a thickly settled
+community'' inside it --- into the countywide election of 1932. The County
+Attorney's report cites the case as precedent, not as
 history.\autocite[6, n.~7]{samuel2026}
 
 The phrase often repeated for that holding --- ``continuous, contiguous, and
@@ -438,20 +353,6 @@ and reuses it twice more, for the 1932 change to at-large election and for how
 much less homogeneous the county had become by 1976; the words appear nowhere
 in the opinion itself.\autocite[176, 197, 229]{rose1976}
 
-\timeline{
-  \multicolumn{2}{@{}l}{\textit{1939--1987 --- No Black member serves}} \\[2pt]
-  1974--75 & \textit{Vollin v. Kimbel}: eight Arlington residents from Black,
-  Hispanic and lower-income neighborhoods sue to have at-large election
-  declared unconstitutional; the district court dismisses the suit in 1974 and
-  the Fourth Circuit affirms in 1975.\autocite{vollin1974} \\[2pt]
-  1976 & More than two hundred voters petition to put district election to a
-  referendum; the Virginia Supreme Court denies the petition because the County
-  had already adopted the County Manager Plan.\autocite{vollinelectoralboard}
-  \\[4pt]
-  \multicolumn{2}{@{}l}{\textit{1988--present --- Members of color return}}
-  \\[2pt]
-  1988-- & Newman, Monroe, Tejada, Dorsey, Talento, Spain. \\
-}
 % waits on: school-board-elections-1947-1956
 
 That no Black member served for half a century is a fact about the record; the
@@ -659,49 +560,7 @@ The County Attorney's July 2026 report sets out the law without its
 history.\autocite{samuel2026} The history is what this report could add, if the
 County wants it, in seven episodes, none of them about elections:
 
-\timeline{
-  1882 & \textit{Kirkham v. Russell}: refusing mandamus to seven men whom
-  Petersburg's outgoing common council had elected to city offices three days
-  before eleven of its twenty-four members left office, the Supreme Court of
-  Appeals cites Dillon on Municipal Corporations for the rule that a charter
-  grants only the powers its words comprehend or necessarily
-  imply.\autocite{kirkhamvrussell1882} \\[2pt]
-  1896 & \textit{City of Winchester v. Redmond}: refusing to pay a reward
-  Winchester's council had promised for catching incendiaries, the court
-  quotes Dillon directly for the rule that now carries his name. Schragger and
-  Retzloff name Kirkham the case in which Virginia adopted the rule in full and
-  Winchester the one that quotes it
-  outright.\autocite{winchestervredmond1896}\autocite[195--96]{schragger2022}
-  \\[2pt]
-  1968--71 & Virginia's constitutional revision commission proposes letting a
-  charter county or city act on anything state law does not deny it; the
-  General Assembly strikes the provision before the new constitution reaches
-  voters. The opposition is the Virginia Municipal League's --- ``somewhat
-  counterintuitive'', Schragger and Retzloff call it, since the Virginia
-  Association of Counties had proposed the opposite in 1968 and reverses its
-  later hostility only in its 2020 legislative
-  program.\autocite[200]{schragger2022} \\[2pt]
-  1971 & The General Assembly conforms the County Manager Plan's statutory
-  text to the new Constitution: the sections setting the board's membership,
-  the manager's powers and the board's authority to abolish offices each
-  replace a cross-reference to the old constitution's section 110 with Article
-  VII, Section 4, and nothing else changes.\autocite{vaacts1971exsess} \\[2pt]
-  1977 & \textit{Commonwealth v. Arlington County Board}: the Virginia Supreme
-  Court voids the County's collective bargaining agreements with its own
-  employees and, on a question of first impression for every local governing
-  body, bars public-sector bargaining statewide.\autocite{commonwealthvarlington1977}
-  \\[2pt]
-  1985 & \textit{County Board of Arlington v. Brown}: the Board accepts a letter
-  of intent for a seventy-five-year lease of 6.4 acres of the courthouse
-  parking lot to a private developer and directs its County Manager to sign;
-  he refuses, the Board sues to compel him, and the Virginia Supreme Court
-  denies the writ because a county has no power to
-  lease.\autocite{brownvarlington1985} \\[2pt]
-  2000 & \textit{Arlington County v. White}: the County extends its health plan
-  to employees' domestic partners, and the Virginia Supreme Court holds the
-  extension beyond the County's authority.\autocite{arlingtonvwhite2000} \\
-}
-% The 1958-59 Commission on Incorporation, in the draft's timeline, is out until a
+% The 1958-59 Commission on Incorporation is out of the report until a
 % source says what it recommended: waits on: incorporation-commission-1959
 
 Kirkham and Winchester made Dillon's Rule Virginia law. The County Attorney's
