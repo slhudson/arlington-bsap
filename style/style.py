@@ -130,6 +130,14 @@ DISTRICTS = {
 WHOLE_COUNTY = ("Arlington County", DARK)
 
 PRESIDENT = ("voted for President", DARK)
+# The Board's own vote before 1931, set against the presidential vote: the
+# per-seat vermilion, as the other Board series before the expansion take.
+BOARD_VOTE_DISTRICTS = ("voted for the Board, all three districts", OKABE_ITO["vermilion"])
+# The two dated changes to who could vote that the pre-1932 turnout figures
+# rule off: (year, note, which side of the rule the note runs to), so two
+# notes eight years apart do not meet above the frame.
+ELECTORATE_RULES = ((1894, "1894: Walton Act", "right"),
+                    (1902, "1902: new constitution", "left"))
 CYCLE = {
     "president": ("presidential year", OKABE_ITO["vermilion"]),
     "governor":  ("governor's year", OKABE_ITO["orange"]),

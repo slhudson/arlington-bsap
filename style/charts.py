@@ -82,6 +82,14 @@ def lines(ax, x, entries, marker=True, bridge=False):
                             ls=(0, (1, 3)), lw=plt.rcParams["lines.linewidth"], zorder=2)
 
 
+def marks(ax, x, values, colour, marker="o", filled=True):
+    """Separate markers with no line between them, open where `filled` is
+    false: a ring is a count that is partial, not a different series.
+    Missing values are skipped."""
+    ring = {} if filled else dict(markerfacecolor="white")
+    ax.plot(x, values, ls="", marker=marker, color=colour, zorder=4, **ring)
+
+
 def age_band(ax, x, low, high, spans, color, width=1.0):
     """The youngest-to-oldest span of the Board as a step area over samples
     at `x` (years, possibly fractional), each holding for `width` of a year.
@@ -546,16 +554,18 @@ def comma_axis(axis, top, step, label):
     axis.set_label_text(label)
 
 
-def rule(ax, year=style.EXPANSION_YEAR, note=style.EXPANSION_NOTE):
+def rule(ax, year=style.EXPANSION_YEAR, note=style.EXPANSION_NOTE, ha="center"):
     """A dated vertical rule, with its note above the frame; note=None for
-    the rule alone."""
+    the rule alone. `ha` is which way the note runs from the rule: "right"
+    ends it there and "left" starts it there, so two rules close together
+    keep their notes apart."""
     ax.axvline(year, zorder=5, **style.EXPANSION_LINE)
     if note is None:
         return
     ax.plot([year, year], [1.0, 1.045], transform=ax.get_xaxis_transform(),
             clip_on=False, zorder=5, **style.EXPANSION_LINE)
     ax.text(year, 1.06, note, transform=ax.get_xaxis_transform(),
-            ha="center", va="bottom", zorder=6, clip_on=False,
+            ha=ha, va="bottom", zorder=6, clip_on=False,
             fontsize=plt.rcParams["font.size"])
 
 
