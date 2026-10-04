@@ -214,6 +214,11 @@ read it. Not how it was built.
 "72 years"; ten and under are words. **"Percent" is one word** in running text,
 and the symbol stays out of prose.
 
+**Round to the precision a reader can use.** A large number reads when it is
+rounded to the grain of the argument: "about 1,000 residents a seat in 1870,
+48,000 today", not 1,062 and 47,729. Keep the exact figure in a figure label or a
+table, and let the sentence carry the shape. The grain is a judgment each time.
+
 ## Corrections this project has made
 
 Kept here so the voice accumulates rather than being re-derived. Add to it
