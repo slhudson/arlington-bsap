@@ -607,11 +607,11 @@ there the labels can be shortened and here the years cannot.
   Arlington's peers are (places its size, places as dense), and are one now
   because the paper reads them together and one legend and one set of notes
   serve both. Both axes start at zero; panel (a)'s residents axis breaks so
-  that Fairfax, at 1.15 million, stays in view. Each panel is half the page,
-  so the figure is taller than a scatter alone (`style.PAIR`, 0.9) and the
-  broken panel takes the larger share (`style.PAIR_SPLIT`): at equal widths
-  Arlington and Richmond found no place for a name. Residents and residents
-  per member are in thousands, so tick labels fit the half width. A name may
+  that Fairfax, at 1.15 million, stays in view. The two panels are stacked,
+  one above the other, each at full width (Sally, 4 October 2026: side by
+  side, at half width, they made no sense and could not carry their names);
+  the figure is a page tall (`style.PAIR`, 1.0). Residents and residents
+  per member are in thousands, so the tick labels stay short. A name may
   run on into the gap of a broken axis, where nothing is drawn. Dots are one
   size: area was tried for population and for density, and in both a reader
   could not read the third measure off it. Residents per member rather than

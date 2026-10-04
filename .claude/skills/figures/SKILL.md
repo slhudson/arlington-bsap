@@ -46,8 +46,9 @@ neither repeats the reasons.
 - Nothing cramped. The bottom margin especially. Constrained layout is on by
   default; do not switch it off for hand-tuned padding.
 - No text collisions anywhere: tick labels, legends, annotations, end labels.
-- Two-panel figures go side by side, not stacked. Panel titles are centred and
-  plain: `(a) number of residents`.
+- Two-panel figures go side by side, not stacked, with one exception: a pair
+  of scatters (`charts.scatter_pair()`) stacks, each panel at full width, so
+  its names fit. Panel titles are centred and plain: `(a) number of residents`.
 - An explanatory note that belongs to a mark, such as the 1932 rule, appears
   once per figure and goes above the top of the frame; `charts.rule()` draws
   it there. Once per *figure*, not once per section: leave the same note on

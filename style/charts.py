@@ -465,12 +465,13 @@ def broken_scatter(profile=style.DEFAULT_PROFILE):
 
 
 def scatter_pair(profile=style.DEFAULT_PROFILE):
-    """Two scatters side by side, at full width. The first has its x axis
-    broken, as in broken_scatter(): returns (near, far) for it, then the
+    """Two scatters stacked, one above the other, each at full width (Sally,
+    4 October 2026: side by side they made no sense). The first has its x
+    axis broken, as in broken_scatter(): returns (near, far) for it, then the
     second panel's axes, a plain scatter. Title the first with
     title_broken(), so that it is centred over both of its sides."""
     fig = plt.figure(figsize=style.figsize(profile))
-    outer = fig.add_gridspec(1, 2, width_ratios=style.PAIR_SPLIT, wspace=0.1)
+    outer = fig.add_gridspec(2, 1, hspace=0.25)
     inner = outer[0].subgridspec(1, 2, width_ratios=style.BROKEN, wspace=0.0)
     near = fig.add_subplot(inner[0])
     far = fig.add_subplot(inner[1], sharey=near)
