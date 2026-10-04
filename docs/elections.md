@@ -14,9 +14,10 @@ still open.
   found (`referendum-1938-canvass`).
 - The presidential figure stacks three bands, and the pre-1924 nominees are a
   table in the build (`president-figure-form`).
-- The county's presidential totals before 1924 are O'Leary's wherever the
-  state's return is not yet in the build (`elections-results-from-state`), and
-  no state return has been found for 1872 or 1920 (`state-returns-1872-1920`).
+- The county's presidential totals for 1872 and 1920 are O'Leary's, since no
+  state return has been found for either (`state-returns-1872-1920`), and the
+  Almanack that prints the others before 1924 has not been tested against the
+  Secretary's own return (`almanack-against-secretary`).
 - Turnout's denominators: adults after 2020 carried forward
   (`adults-after-2020`), registration before 2010
   (`registration-before-2010`), and votes per seat standing in for ballots
@@ -46,15 +47,24 @@ voters, not residents, and before 1966 the electorate was the one the 1902
 constitution allowed, poll tax and literacy test, and before 1920 it was men.
 The comparison the figures invite is therefore the Board against the people
 who were allowed to vote, which the file name and axis label say so that no
-caption has to. 1872–1920 is O'Leary's compilation of the Alexandria Gazette,
-transcribed verbatim and parsed in `code/clean/elections_results.py`. Party before 1924
-is the nominee's, named in the build, since O'Leary prints it for 1912 only;
-a name the build does not know stops it rather than falling into "other".
-Three elections are kept and marked incomplete, and the figure leaves them
-out: 1896, where the Washington district and the total are printed "?", and
-1904 and 1908, of which O'Leary writes that the returns "appear incomplete"
-(1904 sums to 256 votes against 826 four years earlier). 1924–2024 is the
-state database's locality rows, which carry party on every candidate; its
+caption has to. 1876–1916 is the Commonwealth's return for the county as the
+*Warrock-Richardson Almanack* prints the official vote, and 1924 and 1928 are
+the Secretary of the Commonwealth's reports, keyed in
+`data/transcribed/by_claude/elections_results_state.csv` and read by the build
+as they stand: the clean step sums each year's tickets into the bands (a Funder
+and a Readjuster column for Hancock in 1880 are one Democratic vote; a dotted
+ticket is 0; where the Almanack prints only the highest candidates, 1904, 1908,
+1912 and 1916, the other band is what it prints). For 1928 the Secretary's 26
+minor-party votes are kept and the year's note says the state database's
+locality rows leave them out. 1872 and 1920 are O'Leary's compilation of the
+*Alexandria Gazette*, the only count held, marked as his in the row's note and
+drawn as open markers; the build takes nothing from him in a year with a state
+return, and refuses a year that is in neither. Every year in the
+return is complete, 1896, 1904 and 1908 included
+(see "The state's return, read against O'Leary's"). Party in 1872 and 1920 is
+the nominee's, named in the build, since O'Leary prints it for 1912 only; a name
+the build does not know stops it rather than falling into "other". 1932–2024
+is the state database's locality rows, which carry party on every candidate; its
 Arlington rows for this office begin in 1924. The county's own candidate
 history prints the same returns from 1920 and is read as a check: it agrees
 with the state within five per cent in every year but 1980, where the
@@ -96,7 +106,7 @@ anything held. Where the Almanack prints only the highest candidates (1904,
 | 1924 | 1,209 D, 1,307 R, 405 Progressive | the build already reads the state | agree |
 | 1928 | 1,444 D, 4,274 R, 26 other | the build reads 1,444 D, 4,274 R, 0 other | the 26 minor-party votes |
 
-The build should take the state's return wherever one is keyed and O'Leary's
+The build takes the state's return wherever one is keyed and O'Leary's
 only for 1872 and 1920. O'Leary compiled his from the *Alexandria Gazette*
 and states that party is inferred and the record ragged; the state's figures
 are printed from the official returns, and in 1888 and 1900 the two disagree
@@ -354,7 +364,7 @@ constant, with the milestones as the caveat.
 **Milestones, for the prose.** 1870, the Board is created, elected in May by
 district. 1904, local elections move from May to November under the 1902
 constitution, whose poll tax and literacy test shrank the electorate until the
-1960s. 1920, women vote: O'Leary's presidential returns go from 804 in 1916 to
+1960s. 1920, women vote: the presidential vote goes from 927 in 1916 to
 1,831 in 1920. 1932, the at-large Board of five, staggered from 1940 so that
 the Board is on every November ballot. 1966, the poll tax falls (*Harper v.
 Virginia Board of Elections*). 1971, the vote at 18. 2020, no-excuse absentee
