@@ -1956,17 +1956,16 @@ published records name it in submissions but in no objection.
 - **Submissions naming Arlington.** The Division's periodic notices of
   preclearance activity list each submission by state, county and subject.
   Twelve notices between 19 February 1999 and 6 July 2001 carry a line for
-  Arlington County, one submission each: a vacancy special-election procedure
-  (99-0392, `doj1999notice0219`; 2000-2791, `doj2000notice0714`); voter
-  registration hours or locations (99-1480, `doj1999notice0604`; 2000-4119,
-  `doj2000notice1027`); a changed polling place (99-1860, `doj1999notice0716`;
-  99-1628, `doj1999notice0809`; 98-3449, `doj1999notice0903`; 1999-3616,
-  `doj1999notice1126`); a bond election (2000-2967, `doj2000notice0922`;
-  2000-3923, `doj2000notice1013`); a voting machine (2001-1309,
-  `doj2001notice0629`); and a precinct realignment with polling places
-  (2001-1893, `doj2001notice0706`). The notices record receipt and requests
-  only; none states an outcome, and the notices do not say whether the
-  vacancy procedures concerned Board seats.
+  Arlington County, one submission each: two vacancy special-election
+  procedures (February 1999, July 2000), voter registration hours or
+  locations (May 1999, October 2000), four changed polling places (July to
+  November 1999), a bond election (September and October 2000), a voting
+  machine (June 2001) and a precinct realignment (July 2001). The notices
+  record receipt and requests only and state no outcome, and they do not say
+  whether the vacancy procedures concerned Board seats. They are cited
+  nowhere: the changes are administrative and none concerns how the Board
+  is chosen, so no source entry is kept for them; the notices are at
+  justice.gov/crt under "Notice of Preclearance Activity".
 - **Objections naming Arlington.** None. The Division's list of Virginia
   objection letters runs from 26 June 1970 to 21 October 2003, 33 entries
   for the State of Virginia and named cities and counties, and does not name
