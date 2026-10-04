@@ -1,0 +1,1684 @@
+question,measure,kind,group,category,n,base_n,weighted_n,weighted_share,unit,status
+How voted,On Election Day,answer,All respondents,All respondents,274,584,298.0,0.5182,share,ok
+How voted,Early In Person,answer,All respondents,All respondents,238,584,213.1,0.3706,share,ok
+How voted,By Mail Or Absentee Ballot,answer,All respondents,All respondents,72,584,64.0,0.1112,share,ok
+How many ranked,More Than One,answer,All respondents,All respondents,327,584,321.0,0.5582,share,ok
+How many ranked,Only One,answer,All respondents,All respondents,205,584,199.3,0.3467,share,ok
+How many ranked,Did Not Rank Any,answer,All respondents,All respondents,28,584,32.4,0.0564,share,caution
+How many ranked,Not Sure,answer,All respondents,All respondents,24,584,22.3,0.0388,share,caution
+Only liked one,Yes,answer,All respondents,All respondents,125,205,127.3,0.6387,share,ok
+Only liked one,No,answer,All respondents,All respondents,80,205,72.0,0.3613,share,ok
+Didn't know enough,Yes,answer,All respondents,All respondents,59,205,57.8,0.2901,share,ok
+Didn't know enough,No,answer,All respondents,All respondents,146,205,141.5,0.7099,share,ok
+Concerned,Yes,answer,All respondents,All respondents,54,205,49.6,0.249,share,ok
+Concerned,No,answer,All respondents,All respondents,151,205,149.7,0.751,share,ok
+Felt about ballot,Very Confident,answer,All respondents,All respondents,484,584,458.1,0.7967,share,ok
+Felt about ballot,Mostly Confident,answer,All respondents,All respondents,83,584,90.8,0.158,share,ok
+Felt about ballot,Not Very Confident,answer,All respondents,All respondents,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,All respondents,All respondents,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,All respondents,All respondents,567,584,548.9,0.9547,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,All respondents,All respondents,17,584,26.1,0.0453,share,caution
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,All respondents,All respondents,423,584,407.8,0.7092,share,ok
+Ranked choice,"No, Learned When Received Ballot",answer,All respondents,All respondents,140,584,148.0,0.2574,share,ok
+Ranked choice,Not Sure,answer,All respondents,All respondents,21,584,19.2,0.0334,share,caution
+Understand how counted,"Yes, You're Confident",answer,All respondents,All respondents,380,584,357.2,0.6212,share,ok
+Understand how counted,Pretty Sure You Know,answer,All respondents,All respondents,128,584,144.5,0.2514,share,ok
+Understand how counted,You're Not Sure,answer,All respondents,All respondents,47,584,37.5,0.0653,share,ok
+Understand how counted,"No, You Don't Understand How",answer,All respondents,All respondents,29,584,35.8,0.0622,share,caution
+Understand how counted,Understands counting (confident or pretty sure),rollup,All respondents,All respondents,508,584,501.7,0.8725,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,All respondents,All respondents,76,584,73.3,0.1275,share,ok
+Who won,Takis Karantonis,answer,All respondents,All respondents,313,584,297.4,0.5173,share,ok
+Who won,Bob Cambridge,answer,All respondents,All respondents,,,,,share,suppressed
+Who won,Audrey Clement,answer,All respondents,All respondents,,,,,share,suppressed
+Who won,Jeramy Olmack,answer,All respondents,All respondents,0,584,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,All respondents,All respondents,0,584,0.0,0.0,share,caution
+Who won,Not Sure,answer,All respondents,All respondents,262,584,269.1,0.468,share,ok
+Results,Very Satisfied,answer,All respondents,All respondents,209,322,185.6,0.6067,share,ok
+Results,Somewhat Satisfied,answer,All respondents,All respondents,47,322,48.6,0.1589,share,ok
+Results,Somewhat Dissatisfied,answer,All respondents,All respondents,22,322,27.7,0.0904,share,caution
+Results,Very Dissatisfied,answer,All respondents,All respondents,29,322,25.6,0.0837,share,caution
+Results,Not Sure,answer,All respondents,All respondents,15,322,18.4,0.0603,share,caution
+Ranked in future,"Yes, Strongly Support",answer,All respondents,All respondents,214,584,206.6,0.3593,share,ok
+Ranked in future,"Yes, Somewhat Support",answer,All respondents,All respondents,165,584,173.7,0.3021,share,ok
+Ranked in future,"No, Somewhat Oppose",answer,All respondents,All respondents,62,584,60.8,0.1057,share,ok
+Ranked in future,"No, Strongly Oppose",answer,All respondents,All respondents,90,584,84.4,0.1468,share,ok
+Ranked in future,Not Sure,answer,All respondents,All respondents,53,584,49.5,0.086,share,ok
+Ranked in future,Support (strongly or somewhat),rollup,All respondents,All respondents,379,584,380.3,0.6615,share,ok
+Ranked in future,Oppose (somewhat or strongly),rollup,All respondents,All respondents,152,584,145.2,0.2525,share,ok
+Ranked one and concerned,Yes,answer,All respondents,All respondents,54,584,49.6,0.0863,share,ok
+Ranked one and concerned,No,answer,All respondents,All respondents,530,584,525.4,0.9137,share,ok
+"Ranked one, did not know enough",Yes,answer,All respondents,All respondents,59,584,57.8,0.1006,share,ok
+"Ranked one, did not know enough",No,answer,All respondents,All respondents,525,584,517.2,0.8994,share,ok
+Ranked in future,Net support (support minus oppose),net,All respondents,All respondents,,584,,40.9,points,ok
+How voted,On Election Day,answer,Gender,Female,110,282,132.0,0.4694,share,ok
+How voted,Early In Person,answer,Gender,Female,131,282,117.6,0.4184,share,ok
+How voted,By Mail Or Absentee Ballot,answer,Gender,Female,41,282,31.5,0.1122,share,ok
+How many ranked,More Than One,answer,Gender,Female,165,282,176.1,0.6262,share,ok
+How many ranked,Only One,answer,Gender,Female,96,282,87.8,0.3124,share,ok
+How many ranked,Did Not Rank Any,answer,Gender,Female,10,282,10.0,0.0357,share,caution
+How many ranked,Not Sure,answer,Gender,Female,11,282,7.2,0.0257,share,caution
+Only liked one,Yes,answer,Gender,Female,60,96,54.8,0.6245,share,ok
+Only liked one,No,answer,Gender,Female,36,96,33.0,0.3755,share,ok
+Didn't know enough,Yes,answer,Gender,Female,24,96,25.5,0.2901,share,caution
+Didn't know enough,No,answer,Gender,Female,72,96,62.4,0.7099,share,ok
+Concerned,Yes,answer,Gender,Female,26,96,20.2,0.2305,share,caution
+Concerned,No,answer,Gender,Female,70,96,67.6,0.7695,share,ok
+Felt about ballot,Very Confident,answer,Gender,Female,238,282,227.0,0.8074,share,ok
+Felt about ballot,Mostly Confident,answer,Gender,Female,38,282,42.1,0.1496,share,ok
+Felt about ballot,Not Very Confident,answer,Gender,Female,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Gender,Female,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Gender,Female,276,282,269.1,0.957,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Gender,Female,,,,,share,suppressed
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Gender,Female,202,282,193.6,0.6884,share,ok
+Ranked choice,"No, Learned When Received Ballot",answer,Gender,Female,,,,,share,suppressed
+Ranked choice,Not Sure,answer,Gender,Female,,,,,share,suppressed
+Understand how counted,"Yes, You're Confident",answer,Gender,Female,171,282,160.6,0.5713,share,ok
+Understand how counted,Pretty Sure You Know,answer,Gender,Female,76,282,89.4,0.3178,share,ok
+Understand how counted,You're Not Sure,answer,Gender,Female,22,282,17.2,0.0612,share,caution
+Understand how counted,"No, You Don't Understand How",answer,Gender,Female,13,282,14.0,0.0498,share,caution
+Understand how counted,Understands counting (confident or pretty sure),rollup,Gender,Female,247,282,250.0,0.889,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,Gender,Female,35,282,31.2,0.111,share,ok
+Who won,Takis Karantonis,answer,Gender,Female,163,282,156.6,0.5569,share,ok
+Who won,Bob Cambridge,answer,Gender,Female,0,282,0.0,0.0,share,caution
+Who won,Audrey Clement,answer,Gender,Female,,,,,share,suppressed
+Who won,Jeramy Olmack,answer,Gender,Female,0,282,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Gender,Female,0,282,0.0,0.0,share,caution
+Who won,Not Sure,answer,Gender,Female,,,,,share,suppressed
+Results,Very Satisfied,answer,Gender,Female,113,167,98.3,0.6125,share,ok
+Results,Somewhat Satisfied,answer,Gender,Female,27,167,30.0,0.1869,share,caution
+Results,Somewhat Dissatisfied,answer,Gender,Female,,,,,share,suppressed
+Results,Very Dissatisfied,answer,Gender,Female,11,167,9.0,0.056,share,caution
+Results,Not Sure,answer,Gender,Female,,,,,share,suppressed
+Ranked in future,"Yes, Strongly Support",answer,Gender,Female,99,282,97.8,0.3478,share,ok
+Ranked in future,"Yes, Somewhat Support",answer,Gender,Female,83,282,89.8,0.3195,share,ok
+Ranked in future,"No, Somewhat Oppose",answer,Gender,Female,34,282,34.7,0.1236,share,ok
+Ranked in future,"No, Strongly Oppose",answer,Gender,Female,32,282,24.2,0.0859,share,ok
+Ranked in future,Not Sure,answer,Gender,Female,34,282,34.7,0.1233,share,ok
+Ranked in future,Support (strongly or somewhat),rollup,Gender,Female,182,282,187.6,0.6672,share,ok
+Ranked in future,Oppose (somewhat or strongly),rollup,Gender,Female,66,282,58.9,0.2095,share,ok
+Ranked one and concerned,Yes,answer,Gender,Female,26,282,20.2,0.072,share,caution
+Ranked one and concerned,No,answer,Gender,Female,256,282,260.9,0.928,share,ok
+"Ranked one, did not know enough",Yes,answer,Gender,Female,24,282,25.5,0.0906,share,caution
+"Ranked one, did not know enough",No,answer,Gender,Female,258,282,255.7,0.9094,share,ok
+Ranked in future,Net support (support minus oppose),net,Gender,Female,,282,,45.8,points,ok
+How voted,On Election Day,answer,Gender,Male,154,284,156.2,0.5622,share,ok
+How voted,Early In Person,answer,Gender,Male,100,284,90.6,0.326,share,ok
+How voted,By Mail Or Absentee Ballot,answer,Gender,Male,30,284,31.1,0.1118,share,ok
+How many ranked,More Than One,answer,Gender,Male,154,284,139.3,0.5012,share,ok
+How many ranked,Only One,answer,Gender,Male,100,284,101.9,0.3667,share,ok
+How many ranked,Did Not Rank Any,answer,Gender,Male,17,284,21.6,0.0779,share,caution
+How many ranked,Not Sure,answer,Gender,Male,13,284,15.1,0.0542,share,caution
+Only liked one,Yes,answer,Gender,Male,61,100,68.8,0.6751,share,ok
+Only liked one,No,answer,Gender,Male,39,100,33.1,0.3249,share,ok
+Didn't know enough,Yes,answer,Gender,Male,32,100,30.6,0.3001,share,ok
+Didn't know enough,No,answer,Gender,Male,68,100,71.3,0.6999,share,ok
+Concerned,Yes,answer,Gender,Male,23,100,23.1,0.2263,share,caution
+Concerned,No,answer,Gender,Male,77,100,78.8,0.7737,share,ok
+Felt about ballot,Very Confident,answer,Gender,Male,232,284,218.2,0.7849,share,ok
+Felt about ballot,Mostly Confident,answer,Gender,Male,42,284,46.3,0.1667,share,ok
+Felt about ballot,Not Very Confident,answer,Gender,Male,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Gender,Male,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Gender,Male,274,284,264.5,0.9517,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Gender,Male,10,284,13.4,0.0483,share,caution
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Gender,Male,207,284,200.8,0.7225,share,ok
+Ranked choice,"No, Learned When Received Ballot",answer,Gender,Male,66,284,66.9,0.2407,share,ok
+Ranked choice,Not Sure,answer,Gender,Male,11,284,10.2,0.0368,share,caution
+Understand how counted,"Yes, You're Confident",answer,Gender,Male,198,284,188.3,0.6775,share,ok
+Understand how counted,Pretty Sure You Know,answer,Gender,Male,49,284,50.6,0.182,share,ok
+Understand how counted,You're Not Sure,answer,Gender,Male,23,284,18.5,0.0666,share,caution
+Understand how counted,"No, You Don't Understand How",answer,Gender,Male,14,284,20.5,0.0738,share,caution
+Understand how counted,Understands counting (confident or pretty sure),rollup,Gender,Male,247,284,238.9,0.8595,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,Gender,Male,37,284,39.0,0.1405,share,ok
+Who won,Takis Karantonis,answer,Gender,Male,141,284,131.7,0.4737,share,ok
+Who won,Bob Cambridge,answer,Gender,Male,0,284,0.0,0.0,share,caution
+Who won,Audrey Clement,answer,Gender,Male,,,,,share,suppressed
+Who won,Jeramy Olmack,answer,Gender,Male,0,284,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Gender,Male,0,284,0.0,0.0,share,caution
+Who won,Not Sure,answer,Gender,Male,,,,,share,suppressed
+Results,Very Satisfied,answer,Gender,Male,91,145,81.5,0.603,share,ok
+Results,Somewhat Satisfied,answer,Gender,Male,17,145,16.1,0.1191,share,caution
+Results,Somewhat Dissatisfied,answer,Gender,Male,,,,,share,suppressed
+Results,Very Dissatisfied,answer,Gender,Male,18,145,16.6,0.123,share,caution
+Results,Not Sure,answer,Gender,Male,,,,,share,suppressed
+Ranked in future,"Yes, Strongly Support",answer,Gender,Male,111,284,106.0,0.3813,share,ok
+Ranked in future,"Yes, Somewhat Support",answer,Gender,Male,80,284,82.7,0.2974,share,ok
+Ranked in future,"No, Somewhat Oppose",answer,Gender,Male,26,284,24.8,0.0892,share,caution
+Ranked in future,"No, Strongly Oppose",answer,Gender,Male,50,284,51.0,0.1833,share,ok
+Ranked in future,Not Sure,answer,Gender,Male,17,284,13.5,0.0487,share,caution
+Ranked in future,Support (strongly or somewhat),rollup,Gender,Male,191,284,188.6,0.6787,share,ok
+Ranked in future,Oppose (somewhat or strongly),rollup,Gender,Male,76,284,75.7,0.2726,share,ok
+Ranked one and concerned,Yes,answer,Gender,Male,23,284,23.1,0.083,share,caution
+Ranked one and concerned,No,answer,Gender,Male,261,284,254.9,0.917,share,ok
+"Ranked one, did not know enough",Yes,answer,Gender,Male,32,284,30.6,0.11,share,ok
+"Ranked one, did not know enough",No,answer,Gender,Male,252,284,247.3,0.89,share,ok
+Ranked in future,Net support (support minus oppose),net,Gender,Male,,284,,40.6,points,ok
+How voted,On Election Day,answer,Gender,Prefer Not To Say,10,18,9.8,0.6134,share,caution
+How voted,Early In Person,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+How voted,By Mail Or Absentee Ballot,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+How many ranked,More Than One,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+How many ranked,Only One,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+How many ranked,Did Not Rank Any,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+How many ranked,Not Sure,answer,Gender,Prefer Not To Say,0,18,0.0,0.0,share,caution
+Only liked one,Yes,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Only liked one,No,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Didn't know enough,Yes,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Didn't know enough,No,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Concerned,Yes,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Concerned,No,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Felt about ballot,Very Confident,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Felt about ballot,Mostly Confident,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Felt about ballot,Not Very Confident,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Gender,Prefer Not To Say,17,18,15.4,0.9664,share,caution
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Gender,Prefer Not To Say,,,,,share,suppressed
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Gender,Prefer Not To Say,14,18,13.4,0.8432,share,caution
+Ranked choice,"No, Learned When Received Ballot",answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Ranked choice,Not Sure,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Understand how counted,"Yes, You're Confident",answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Understand how counted,Pretty Sure You Know,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Understand how counted,You're Not Sure,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Understand how counted,"No, You Don't Understand How",answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Understand how counted,Understands counting (confident or pretty sure),rollup,Gender,Prefer Not To Say,14,18,12.9,0.8082,share,caution
+Understand how counted,Not sure or does not understand counting,rollup,Gender,Prefer Not To Say,,,,,share,suppressed
+Who won,Takis Karantonis,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Who won,Bob Cambridge,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Who won,Audrey Clement,answer,Gender,Prefer Not To Say,0,18,0.0,0.0,share,caution
+Who won,Jeramy Olmack,answer,Gender,Prefer Not To Say,0,18,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Gender,Prefer Not To Say,0,18,0.0,0.0,share,caution
+Who won,Not Sure,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Results,Very Satisfied,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Results,Somewhat Satisfied,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Results,Somewhat Dissatisfied,answer,Gender,Prefer Not To Say,0,10,0.0,0.0,share,caution
+Results,Very Dissatisfied,answer,Gender,Prefer Not To Say,0,10,0.0,0.0,share,caution
+Results,Not Sure,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Ranked in future,"Yes, Strongly Support",answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Ranked in future,"Yes, Somewhat Support",answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Ranked in future,"No, Somewhat Oppose",answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Ranked in future,"No, Strongly Oppose",answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Ranked in future,Not Sure,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Ranked in future,Support (strongly or somewhat),rollup,Gender,Prefer Not To Say,,,,,share,suppressed
+Ranked in future,Oppose (somewhat or strongly),rollup,Gender,Prefer Not To Say,10,18,10.5,0.6631,share,caution
+Ranked one and concerned,Yes,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Ranked one and concerned,No,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+"Ranked one, did not know enough",Yes,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+"Ranked one, did not know enough",No,answer,Gender,Prefer Not To Say,,,,,share,suppressed
+Ranked in future,Net support (support minus oppose),net,Gender,Prefer Not To Say,,,,,points,suppressed
+How voted,On Election Day,answer,Age band,18-29,12,22,44.8,0.6023,share,caution
+How voted,Early In Person,answer,Age band,18-29,,,,,share,suppressed
+How voted,By Mail Or Absentee Ballot,answer,Age band,18-29,,,,,share,suppressed
+How many ranked,More Than One,answer,Age band,18-29,11,22,39.1,0.5261,share,caution
+How many ranked,Only One,answer,Age band,18-29,,,,,share,suppressed
+How many ranked,Did Not Rank Any,answer,Age band,18-29,0,22,0.0,0.0,share,caution
+How many ranked,Not Sure,answer,Age band,18-29,,,,,share,suppressed
+Only liked one,Yes,answer,Age band,18-29,,,,,share,suppressed
+Only liked one,No,answer,Age band,18-29,,,,,share,suppressed
+Didn't know enough,Yes,answer,Age band,18-29,,,,,share,suppressed
+Didn't know enough,No,answer,Age band,18-29,,,,,share,suppressed
+Concerned,Yes,answer,Age band,18-29,,,,,share,suppressed
+Concerned,No,answer,Age band,18-29,,,,,share,suppressed
+Felt about ballot,Very Confident,answer,Age band,18-29,,,,,share,suppressed
+Felt about ballot,Mostly Confident,answer,Age band,18-29,,,,,share,suppressed
+Felt about ballot,Not Very Confident,answer,Age band,18-29,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Age band,18-29,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Age band,18-29,19,22,65.4,0.8801,share,caution
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Age band,18-29,,,,,share,suppressed
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Age band,18-29,,,,,share,suppressed
+Ranked choice,"No, Learned When Received Ballot",answer,Age band,18-29,,,,,share,suppressed
+Ranked choice,Not Sure,answer,Age band,18-29,0,22,0.0,0.0,share,caution
+Understand how counted,"Yes, You're Confident",answer,Age band,18-29,,,,,share,suppressed
+Understand how counted,Pretty Sure You Know,answer,Age band,18-29,,,,,share,suppressed
+Understand how counted,You're Not Sure,answer,Age band,18-29,,,,,share,suppressed
+Understand how counted,"No, You Don't Understand How",answer,Age band,18-29,,,,,share,suppressed
+Understand how counted,Understands counting (confident or pretty sure),rollup,Age band,18-29,20,22,69.9,0.9401,share,caution
+Understand how counted,Not sure or does not understand counting,rollup,Age band,18-29,,,,,share,suppressed
+Who won,Takis Karantonis,answer,Age band,18-29,,,,,share,suppressed
+Who won,Bob Cambridge,answer,Age band,18-29,,,,,share,suppressed
+Who won,Audrey Clement,answer,Age band,18-29,0,22,0.0,0.0,share,caution
+Who won,Jeramy Olmack,answer,Age band,18-29,0,22,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Age band,18-29,0,22,0.0,0.0,share,caution
+Who won,Not Sure,answer,Age band,18-29,12,22,42.0,0.565,share,caution
+Results,Very Satisfied,answer,Age band,18-29,,,,,share,suppressed
+Results,Somewhat Satisfied,answer,Age band,18-29,,,,,share,suppressed
+Results,Somewhat Dissatisfied,answer,Age band,18-29,,,,,share,suppressed
+Results,Very Dissatisfied,answer,Age band,18-29,,,,,share,suppressed
+Results,Not Sure,answer,Age band,18-29,0,10,0.0,0.0,share,caution
+Ranked in future,"Yes, Strongly Support",answer,Age band,18-29,,,,,share,suppressed
+Ranked in future,"Yes, Somewhat Support",answer,Age band,18-29,,,,,share,suppressed
+Ranked in future,"No, Somewhat Oppose",answer,Age band,18-29,,,,,share,suppressed
+Ranked in future,"No, Strongly Oppose",answer,Age band,18-29,,,,,share,suppressed
+Ranked in future,Not Sure,answer,Age band,18-29,0,22,0.0,0.0,share,caution
+Ranked in future,Support (strongly or somewhat),rollup,Age band,18-29,17,22,55.4,0.7448,share,caution
+Ranked in future,Oppose (somewhat or strongly),rollup,Age band,18-29,,,,,share,suppressed
+Ranked one and concerned,Yes,answer,Age band,18-29,,,,,share,suppressed
+Ranked one and concerned,No,answer,Age band,18-29,,,,,share,suppressed
+"Ranked one, did not know enough",Yes,answer,Age band,18-29,,,,,share,suppressed
+"Ranked one, did not know enough",No,answer,Age band,18-29,,,,,share,suppressed
+Ranked in future,Net support (support minus oppose),net,Age band,18-29,,,,,points,suppressed
+How voted,On Election Day,answer,Age band,30-44,54,87,86.6,0.6254,share,ok
+How voted,Early In Person,answer,Age band,30-44,,,,,share,suppressed
+How voted,By Mail Or Absentee Ballot,answer,Age band,30-44,,,,,share,suppressed
+How many ranked,More Than One,answer,Age band,30-44,52,87,82.4,0.5953,share,ok
+How many ranked,Only One,answer,Age band,30-44,26,87,43.4,0.3134,share,caution
+How many ranked,Did Not Rank Any,answer,Age band,30-44,,,,,share,suppressed
+How many ranked,Not Sure,answer,Age band,30-44,,,,,share,suppressed
+Only liked one,Yes,answer,Age band,30-44,,,,,share,suppressed
+Only liked one,No,answer,Age band,30-44,,,,,share,suppressed
+Didn't know enough,Yes,answer,Age band,30-44,,,,,share,suppressed
+Didn't know enough,No,answer,Age band,30-44,,,,,share,suppressed
+Concerned,Yes,answer,Age band,30-44,,,,,share,suppressed
+Concerned,No,answer,Age band,30-44,,,,,share,suppressed
+Felt about ballot,Very Confident,answer,Age band,30-44,69,87,105.1,0.7594,share,ok
+Felt about ballot,Mostly Confident,answer,Age band,30-44,15,87,29.0,0.2097,share,caution
+Felt about ballot,Not Very Confident,answer,Age band,30-44,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Age band,30-44,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Age band,30-44,84,87,134.1,0.9691,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Age band,30-44,,,,,share,suppressed
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Age band,30-44,59,87,96.2,0.6947,share,ok
+Ranked choice,"No, Learned When Received Ballot",answer,Age band,30-44,,,,,share,suppressed
+Ranked choice,Not Sure,answer,Age band,30-44,,,,,share,suppressed
+Understand how counted,"Yes, You're Confident",answer,Age band,30-44,61,87,94.1,0.6796,share,ok
+Understand how counted,Pretty Sure You Know,answer,Age band,30-44,19,87,34.0,0.2456,share,caution
+Understand how counted,You're Not Sure,answer,Age band,30-44,,,,,share,suppressed
+Understand how counted,"No, You Don't Understand How",answer,Age band,30-44,,,,,share,suppressed
+Understand how counted,Understands counting (confident or pretty sure),rollup,Age band,30-44,80,87,128.1,0.9252,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,Age band,30-44,,,,,share,suppressed
+Who won,Takis Karantonis,answer,Age band,30-44,,,,,share,suppressed
+Who won,Bob Cambridge,answer,Age band,30-44,0,87,0.0,0.0,share,caution
+Who won,Audrey Clement,answer,Age band,30-44,,,,,share,suppressed
+Who won,Jeramy Olmack,answer,Age band,30-44,0,87,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Age band,30-44,0,87,0.0,0.0,share,caution
+Who won,Not Sure,answer,Age band,30-44,47,87,72.1,0.5212,share,ok
+Results,Very Satisfied,answer,Age band,30-44,26,40,43.6,0.6581,share,caution
+Results,Somewhat Satisfied,answer,Age band,30-44,,,,,share,suppressed
+Results,Somewhat Dissatisfied,answer,Age band,30-44,,,,,share,suppressed
+Results,Very Dissatisfied,answer,Age band,30-44,,,,,share,suppressed
+Results,Not Sure,answer,Age band,30-44,,,,,share,suppressed
+Ranked in future,"Yes, Strongly Support",answer,Age band,30-44,36,87,60.0,0.4335,share,ok
+Ranked in future,"Yes, Somewhat Support",answer,Age band,30-44,24,87,37.9,0.2738,share,caution
+Ranked in future,"No, Somewhat Oppose",answer,Age band,30-44,,,,,share,suppressed
+Ranked in future,"No, Strongly Oppose",answer,Age band,30-44,,,,,share,suppressed
+Ranked in future,Not Sure,answer,Age band,30-44,,,,,share,suppressed
+Ranked in future,Support (strongly or somewhat),rollup,Age band,30-44,60,87,97.9,0.7072,share,ok
+Ranked in future,Oppose (somewhat or strongly),rollup,Age band,30-44,17,87,24.5,0.1772,share,caution
+Ranked one and concerned,Yes,answer,Age band,30-44,,,,,share,suppressed
+Ranked one and concerned,No,answer,Age band,30-44,,,,,share,suppressed
+"Ranked one, did not know enough",Yes,answer,Age band,30-44,,,,,share,suppressed
+"Ranked one, did not know enough",No,answer,Age band,30-44,,,,,share,suppressed
+Ranked in future,Net support (support minus oppose),net,Age band,30-44,,87,,53.0,points,ok
+How voted,On Election Day,answer,Age band,45-64,134,250,106.5,0.5217,share,ok
+How voted,Early In Person,answer,Age band,45-64,89,250,72.9,0.3569,share,ok
+How voted,By Mail Or Absentee Ballot,answer,Age band,45-64,27,250,24.8,0.1214,share,caution
+How many ranked,More Than One,answer,Age band,45-64,143,250,114.1,0.5592,share,ok
+How many ranked,Only One,answer,Age band,45-64,88,250,74.7,0.3658,share,ok
+How many ranked,Did Not Rank Any,answer,Age band,45-64,,,,,share,suppressed
+How many ranked,Not Sure,answer,Age band,45-64,,,,,share,suppressed
+Only liked one,Yes,answer,Age band,45-64,50,88,45.7,0.6123,share,ok
+Only liked one,No,answer,Age band,45-64,38,88,29.0,0.3877,share,ok
+Didn't know enough,Yes,answer,Age band,45-64,27,88,22.2,0.2974,share,caution
+Didn't know enough,No,answer,Age band,45-64,61,88,52.5,0.7026,share,ok
+Concerned,Yes,answer,Age band,45-64,20,88,15.0,0.2005,share,caution
+Concerned,No,answer,Age band,45-64,68,88,59.7,0.7995,share,ok
+Felt about ballot,Very Confident,answer,Age band,45-64,212,250,170.9,0.8372,share,ok
+Felt about ballot,Mostly Confident,answer,Age band,45-64,32,250,27.8,0.136,share,ok
+Felt about ballot,Not Very Confident,answer,Age band,45-64,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Age band,45-64,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Age band,45-64,244,250,198.6,0.9731,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Age band,45-64,,,,,share,suppressed
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Age band,45-64,173,250,141.7,0.6942,share,ok
+Ranked choice,"No, Learned When Received Ballot",answer,Age band,45-64,,,,,share,suppressed
+Ranked choice,Not Sure,answer,Age band,45-64,,,,,share,suppressed
+Understand how counted,"Yes, You're Confident",answer,Age band,45-64,165,250,135.3,0.6627,share,ok
+Understand how counted,Pretty Sure You Know,answer,Age band,45-64,56,250,46.0,0.2256,share,ok
+Understand how counted,You're Not Sure,answer,Age band,45-64,18,250,14.8,0.0727,share,caution
+Understand how counted,"No, You Don't Understand How",answer,Age band,45-64,11,250,8.0,0.0391,share,caution
+Understand how counted,Understands counting (confident or pretty sure),rollup,Age band,45-64,221,250,181.3,0.8883,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,Age band,45-64,29,250,22.8,0.1117,share,caution
+Who won,Takis Karantonis,answer,Age band,45-64,140,250,117.0,0.5733,share,ok
+Who won,Bob Cambridge,answer,Age band,45-64,0,250,0.0,0.0,share,caution
+Who won,Audrey Clement,answer,Age band,45-64,0,250,0.0,0.0,share,caution
+Who won,Jeramy Olmack,answer,Age band,45-64,0,250,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Age band,45-64,0,250,0.0,0.0,share,caution
+Who won,Not Sure,answer,Age band,45-64,110,250,87.1,0.4267,share,ok
+Results,Very Satisfied,answer,Age band,45-64,88,140,73.9,0.6316,share,ok
+Results,Somewhat Satisfied,answer,Age band,45-64,21,140,16.4,0.1403,share,caution
+Results,Somewhat Dissatisfied,answer,Age band,45-64,,,,,share,suppressed
+Results,Very Dissatisfied,answer,Age band,45-64,12,140,9.9,0.0848,share,caution
+Results,Not Sure,answer,Age band,45-64,,,,,share,suppressed
+Ranked in future,"Yes, Strongly Support",answer,Age band,45-64,95,250,78.2,0.3832,share,ok
+Ranked in future,"Yes, Somewhat Support",answer,Age band,45-64,72,250,56.6,0.2775,share,ok
+Ranked in future,"No, Somewhat Oppose",answer,Age band,45-64,21,250,20.4,0.1002,share,caution
+Ranked in future,"No, Strongly Oppose",answer,Age band,45-64,36,250,29.6,0.1448,share,ok
+Ranked in future,Not Sure,answer,Age band,45-64,26,250,19.3,0.0943,share,caution
+Ranked in future,Support (strongly or somewhat),rollup,Age band,45-64,167,250,134.9,0.6607,share,ok
+Ranked in future,Oppose (somewhat or strongly),rollup,Age band,45-64,57,250,50.0,0.245,share,ok
+Ranked one and concerned,Yes,answer,Age band,45-64,20,250,15.0,0.0734,share,caution
+Ranked one and concerned,No,answer,Age band,45-64,230,250,189.1,0.9266,share,ok
+"Ranked one, did not know enough",Yes,answer,Age band,45-64,27,250,22.2,0.1088,share,caution
+"Ranked one, did not know enough",No,answer,Age band,45-64,223,250,181.9,0.8912,share,ok
+Ranked in future,Net support (support minus oppose),net,Age band,45-64,,250,,41.6,points,ok
+How voted,On Election Day,answer,Age band,65+,74,225,60.2,0.3804,share,ok
+How voted,Early In Person,answer,Age band,65+,116,225,77.2,0.488,share,ok
+How voted,By Mail Or Absentee Ballot,answer,Age band,65+,35,225,20.8,0.1316,share,ok
+How many ranked,More Than One,answer,Age band,65+,121,225,85.3,0.5395,share,ok
+How many ranked,Only One,answer,Age band,65+,81,225,49.4,0.3125,share,ok
+How many ranked,Did Not Rank Any,answer,Age band,65+,,,,,share,suppressed
+How many ranked,Not Sure,answer,Age band,65+,,,,,share,suppressed
+Only liked one,Yes,answer,Age band,65+,49,81,28.9,0.5856,share,ok
+Only liked one,No,answer,Age band,65+,32,81,20.5,0.4144,share,ok
+Didn't know enough,Yes,answer,Age band,65+,24,81,15.2,0.3068,share,caution
+Didn't know enough,No,answer,Age band,65+,57,81,34.2,0.6932,share,ok
+Concerned,Yes,answer,Age band,65+,26,81,16.8,0.3395,share,caution
+Concerned,No,answer,Age band,65+,55,81,32.6,0.6605,share,ok
+Felt about ballot,Very Confident,answer,Age band,65+,,,,,share,suppressed
+Felt about ballot,Mostly Confident,answer,Age band,65+,,,,,share,suppressed
+Felt about ballot,Not Very Confident,answer,Age band,65+,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Age band,65+,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Age band,65+,220,225,150.7,0.9533,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Age band,65+,,,,,share,suppressed
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Age band,65+,174,225,116.8,0.7385,share,ok
+Ranked choice,"No, Learned When Received Ballot",answer,Age band,65+,,,,,share,suppressed
+Ranked choice,Not Sure,answer,Age band,65+,,,,,share,suppressed
+Understand how counted,"Yes, You're Confident",answer,Age band,65+,141,225,86.8,0.5487,share,ok
+Understand how counted,Pretty Sure You Know,answer,Age band,65+,46,225,35.7,0.2257,share,ok
+Understand how counted,You're Not Sure,answer,Age band,65+,23,225,13.9,0.0879,share,caution
+Understand how counted,"No, You Don't Understand How",answer,Age band,65+,15,225,21.8,0.1376,share,caution
+Understand how counted,Understands counting (confident or pretty sure),rollup,Age band,65+,187,225,122.5,0.7744,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,Age band,65+,38,225,35.7,0.2256,share,ok
+Who won,Takis Karantonis,answer,Age band,65+,126,225,86.8,0.5488,share,ok
+Who won,Bob Cambridge,answer,Age band,65+,0,225,0.0,0.0,share,caution
+Who won,Audrey Clement,answer,Age band,65+,,,,,share,suppressed
+Who won,Jeramy Olmack,answer,Age band,65+,0,225,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Age band,65+,0,225,0.0,0.0,share,caution
+Who won,Not Sure,answer,Age band,65+,,,,,share,suppressed
+Results,Very Satisfied,answer,Age band,65+,92,132,56.9,0.6305,share,ok
+Results,Somewhat Satisfied,answer,Age band,65+,16,132,13.5,0.1498,share,caution
+Results,Somewhat Dissatisfied,answer,Age band,65+,,,,,share,suppressed
+Results,Very Dissatisfied,answer,Age band,65+,13,132,7.5,0.0834,share,caution
+Results,Not Sure,answer,Age band,65+,,,,,share,suppressed
+Ranked in future,"Yes, Strongly Support",answer,Age band,65+,76,225,48.3,0.3057,share,ok
+Ranked in future,"Yes, Somewhat Support",answer,Age band,65+,59,225,43.9,0.2776,share,ok
+Ranked in future,"No, Somewhat Oppose",answer,Age band,65+,32,225,19.0,0.1202,share,ok
+Ranked in future,"No, Strongly Oppose",answer,Age band,65+,41,225,32.7,0.2067,share,ok
+Ranked in future,Not Sure,answer,Age band,65+,17,225,14.2,0.0898,share,caution
+Ranked in future,Support (strongly or somewhat),rollup,Age band,65+,135,225,92.2,0.5833,share,ok
+Ranked in future,Oppose (somewhat or strongly),rollup,Age band,65+,73,225,51.7,0.3269,share,ok
+Ranked one and concerned,Yes,answer,Age band,65+,26,225,16.8,0.1061,share,caution
+Ranked one and concerned,No,answer,Age band,65+,199,225,141.4,0.8939,share,ok
+"Ranked one, did not know enough",Yes,answer,Age band,65+,24,225,15.2,0.0959,share,caution
+"Ranked one, did not know enough",No,answer,Age band,65+,201,225,143.0,0.9041,share,ok
+Ranked in future,Net support (support minus oppose),net,Age band,65+,,225,,25.6,points,ok
+How voted,On Election Day,answer,Age 18-49 or 50+,18-49,99,171,157.3,0.5891,share,ok
+How voted,Early In Person,answer,Age 18-49 or 50+,18-49,54,171,82.9,0.3104,share,ok
+How voted,By Mail Or Absentee Ballot,answer,Age 18-49 or 50+,18-49,18,171,26.8,0.1005,share,caution
+How many ranked,More Than One,answer,Age 18-49 or 50+,18-49,93,171,147.3,0.5515,share,ok
+How many ranked,Only One,answer,Age 18-49 or 50+,18-49,66,171,101.0,0.3781,share,ok
+How many ranked,Did Not Rank Any,answer,Age 18-49 or 50+,18-49,,,,,share,suppressed
+How many ranked,Not Sure,answer,Age 18-49 or 50+,18-49,,,,,share,suppressed
+Only liked one,Yes,answer,Age 18-49 or 50+,18-49,42,66,68.3,0.6761,share,ok
+Only liked one,No,answer,Age 18-49 or 50+,18-49,24,66,32.7,0.3239,share,caution
+Didn't know enough,Yes,answer,Age 18-49 or 50+,18-49,16,66,26.3,0.2602,share,caution
+Didn't know enough,No,answer,Age 18-49 or 50+,18-49,50,66,74.7,0.7398,share,ok
+Concerned,Yes,answer,Age 18-49 or 50+,18-49,18,66,25.6,0.2537,share,caution
+Concerned,No,answer,Age 18-49 or 50+,18-49,48,66,75.3,0.7463,share,ok
+Felt about ballot,Very Confident,answer,Age 18-49 or 50+,18-49,135,171,200.8,0.7521,share,ok
+Felt about ballot,Mostly Confident,answer,Age 18-49 or 50+,18-49,30,171,53.0,0.1985,share,ok
+Felt about ballot,Not Very Confident,answer,Age 18-49 or 50+,18-49,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Age 18-49 or 50+,18-49,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Age 18-49 or 50+,18-49,165,171,253.8,0.9506,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Age 18-49 or 50+,18-49,,,,,share,suppressed
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Age 18-49 or 50+,18-49,115,171,184.8,0.6922,share,ok
+Ranked choice,"No, Learned When Received Ballot",answer,Age 18-49 or 50+,18-49,,,,,share,suppressed
+Ranked choice,Not Sure,answer,Age 18-49 or 50+,18-49,,,,,share,suppressed
+Understand how counted,"Yes, You're Confident",answer,Age 18-49 or 50+,18-49,116,171,171.6,0.6427,share,ok
+Understand how counted,Pretty Sure You Know,answer,Age 18-49 or 50+,18-49,41,171,77.0,0.2885,share,ok
+Understand how counted,You're Not Sure,answer,Age 18-49 or 50+,18-49,,,,,share,suppressed
+Understand how counted,"No, You Don't Understand How",answer,Age 18-49 or 50+,18-49,,,,,share,suppressed
+Understand how counted,Understands counting (confident or pretty sure),rollup,Age 18-49 or 50+,18-49,157,171,248.7,0.9313,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,Age 18-49 or 50+,18-49,14,171,18.4,0.0687,share,caution
+Who won,Takis Karantonis,answer,Age 18-49 or 50+,18-49,84,171,128.3,0.4804,share,ok
+Who won,Bob Cambridge,answer,Age 18-49 or 50+,18-49,,,,,share,suppressed
+Who won,Audrey Clement,answer,Age 18-49 or 50+,18-49,,,,,share,suppressed
+Who won,Jeramy Olmack,answer,Age 18-49 or 50+,18-49,0,171,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Age 18-49 or 50+,18-49,0,171,0.0,0.0,share,caution
+Who won,Not Sure,answer,Age 18-49 or 50+,18-49,84,171,133.8,0.501,share,ok
+Results,Very Satisfied,answer,Age 18-49 or 50+,18-49,50,87,73.2,0.5495,share,ok
+Results,Somewhat Satisfied,answer,Age 18-49 or 50+,18-49,16,87,24.4,0.1834,share,caution
+Results,Somewhat Dissatisfied,answer,Age 18-49 or 50+,18-49,,,,,share,suppressed
+Results,Very Dissatisfied,answer,Age 18-49 or 50+,18-49,,,,,share,suppressed
+Results,Not Sure,answer,Age 18-49 or 50+,18-49,,,,,share,suppressed
+Ranked in future,"Yes, Strongly Support",answer,Age 18-49 or 50+,18-49,63,171,97.1,0.3635,share,ok
+Ranked in future,"Yes, Somewhat Support",answer,Age 18-49 or 50+,18-49,52,171,88.6,0.3317,share,ok
+Ranked in future,"No, Somewhat Oppose",answer,Age 18-49 or 50+,18-49,15,171,28.3,0.1059,share,caution
+Ranked in future,"No, Strongly Oppose",answer,Age 18-49 or 50+,18-49,22,171,29.9,0.1122,share,caution
+Ranked in future,Not Sure,answer,Age 18-49 or 50+,18-49,19,171,23.2,0.0868,share,caution
+Ranked in future,Support (strongly or somewhat),rollup,Age 18-49 or 50+,18-49,115,171,185.6,0.6952,share,ok
+Ranked in future,Oppose (somewhat or strongly),rollup,Age 18-49 or 50+,18-49,37,171,58.2,0.218,share,ok
+Ranked one and concerned,Yes,answer,Age 18-49 or 50+,18-49,18,171,25.6,0.0959,share,caution
+Ranked one and concerned,No,answer,Age 18-49 or 50+,18-49,153,171,241.4,0.9041,share,ok
+"Ranked one, did not know enough",Yes,answer,Age 18-49 or 50+,18-49,16,171,26.3,0.0984,share,caution
+"Ranked one, did not know enough",No,answer,Age 18-49 or 50+,18-49,155,171,240.8,0.9016,share,ok
+Ranked in future,Net support (support minus oppose),net,Age 18-49 or 50+,18-49,,171,,47.7,points,ok
+How voted,On Election Day,answer,Age 18-49 or 50+,50+,175,413,140.7,0.4568,share,ok
+How voted,Early In Person,answer,Age 18-49 or 50+,50+,184,413,130.2,0.4227,share,ok
+How voted,By Mail Or Absentee Ballot,answer,Age 18-49 or 50+,50+,54,413,37.1,0.1205,share,ok
+How many ranked,More Than One,answer,Age 18-49 or 50+,50+,234,413,173.7,0.564,share,ok
+How many ranked,Only One,answer,Age 18-49 or 50+,50+,139,413,98.4,0.3194,share,ok
+How many ranked,Did Not Rank Any,answer,Age 18-49 or 50+,50+,22,413,23.4,0.0761,share,caution
+How many ranked,Not Sure,answer,Age 18-49 or 50+,50+,18,413,12.5,0.0405,share,caution
+Only liked one,Yes,answer,Age 18-49 or 50+,50+,83,139,59.1,0.6003,share,ok
+Only liked one,No,answer,Age 18-49 or 50+,50+,56,139,39.3,0.3997,share,ok
+Didn't know enough,Yes,answer,Age 18-49 or 50+,50+,43,139,31.6,0.3208,share,ok
+Didn't know enough,No,answer,Age 18-49 or 50+,50+,96,139,66.8,0.6792,share,ok
+Concerned,Yes,answer,Age 18-49 or 50+,50+,36,139,24.0,0.2442,share,ok
+Concerned,No,answer,Age 18-49 or 50+,50+,103,139,74.4,0.7558,share,ok
+Felt about ballot,Very Confident,answer,Age 18-49 or 50+,50+,349,413,257.3,0.8353,share,ok
+Felt about ballot,Mostly Confident,answer,Age 18-49 or 50+,50+,53,413,37.8,0.1229,share,ok
+Felt about ballot,Not Very Confident,answer,Age 18-49 or 50+,50+,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Age 18-49 or 50+,50+,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Age 18-49 or 50+,50+,402,413,295.1,0.9582,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Age 18-49 or 50+,50+,11,413,12.9,0.0418,share,caution
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Age 18-49 or 50+,50+,308,413,223.0,0.7239,share,ok
+Ranked choice,"No, Learned When Received Ballot",answer,Age 18-49 or 50+,50+,91,413,74.4,0.2414,share,ok
+Ranked choice,Not Sure,answer,Age 18-49 or 50+,50+,14,413,10.7,0.0346,share,caution
+Understand how counted,"Yes, You're Confident",answer,Age 18-49 or 50+,50+,264,413,185.5,0.6025,share,ok
+Understand how counted,Pretty Sure You Know,answer,Age 18-49 or 50+,50+,87,413,67.5,0.2192,share,ok
+Understand how counted,You're Not Sure,answer,Age 18-49 or 50+,50+,36,413,25.2,0.0818,share,ok
+Understand how counted,"No, You Don't Understand How",answer,Age 18-49 or 50+,50+,26,413,29.7,0.0966,share,caution
+Understand how counted,Understands counting (confident or pretty sure),rollup,Age 18-49 or 50+,50+,351,413,253.0,0.8216,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,Age 18-49 or 50+,50+,62,413,54.9,0.1784,share,ok
+Who won,Takis Karantonis,answer,Age 18-49 or 50+,50+,229,413,169.2,0.5493,share,ok
+Who won,Bob Cambridge,answer,Age 18-49 or 50+,50+,0,413,0.0,0.0,share,caution
+Who won,Audrey Clement,answer,Age 18-49 or 50+,50+,,,,,share,suppressed
+Who won,Jeramy Olmack,answer,Age 18-49 or 50+,50+,0,413,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Age 18-49 or 50+,50+,0,413,0.0,0.0,share,caution
+Who won,Not Sure,answer,Age 18-49 or 50+,50+,,,,,share,suppressed
+Results,Very Satisfied,answer,Age 18-49 or 50+,50+,159,235,112.4,0.6509,share,ok
+Results,Somewhat Satisfied,answer,Age 18-49 or 50+,50+,31,235,24.2,0.1399,share,ok
+Results,Somewhat Dissatisfied,answer,Age 18-49 or 50+,50+,13,235,9.5,0.0553,share,caution
+Results,Very Dissatisfied,answer,Age 18-49 or 50+,50+,22,235,14.7,0.0851,share,caution
+Results,Not Sure,answer,Age 18-49 or 50+,50+,10,235,11.9,0.0688,share,caution
+Ranked in future,"Yes, Strongly Support",answer,Age 18-49 or 50+,50+,151,413,109.6,0.3558,share,ok
+Ranked in future,"Yes, Somewhat Support",answer,Age 18-49 or 50+,50+,113,413,85.2,0.2765,share,ok
+Ranked in future,"No, Somewhat Oppose",answer,Age 18-49 or 50+,50+,47,413,32.5,0.1056,share,ok
+Ranked in future,"No, Strongly Oppose",answer,Age 18-49 or 50+,50+,68,413,54.5,0.1769,share,ok
+Ranked in future,Not Sure,answer,Age 18-49 or 50+,50+,34,413,26.3,0.0853,share,ok
+Ranked in future,Support (strongly or somewhat),rollup,Age 18-49 or 50+,50+,264,413,194.7,0.6322,share,ok
+Ranked in future,Oppose (somewhat or strongly),rollup,Age 18-49 or 50+,50+,115,413,87.0,0.2824,share,ok
+Ranked one and concerned,Yes,answer,Age 18-49 or 50+,50+,36,413,24.0,0.078,share,ok
+Ranked one and concerned,No,answer,Age 18-49 or 50+,50+,377,413,284.0,0.922,share,ok
+"Ranked one, did not know enough",Yes,answer,Age 18-49 or 50+,50+,43,413,31.6,0.1025,share,ok
+"Ranked one, did not know enough",No,answer,Age 18-49 or 50+,50+,370,413,276.4,0.8975,share,ok
+Ranked in future,Net support (support minus oppose),net,Age 18-49 or 50+,50+,,413,,35.0,points,ok
+How voted,On Election Day,answer,Education,4-year College Degree,100,175,109.7,0.6009,share,ok
+How voted,Early In Person,answer,Education,4-year College Degree,58,175,50.4,0.2761,share,ok
+How voted,By Mail Or Absentee Ballot,answer,Education,4-year College Degree,17,175,22.5,0.123,share,caution
+How many ranked,More Than One,answer,Education,4-year College Degree,104,175,111.1,0.6084,share,ok
+How many ranked,Only One,answer,Education,4-year College Degree,56,175,56.5,0.3094,share,ok
+How many ranked,Did Not Rank Any,answer,Education,4-year College Degree,,,,,share,suppressed
+How many ranked,Not Sure,answer,Education,4-year College Degree,,,,,share,suppressed
+Only liked one,Yes,answer,Education,4-year College Degree,32,56,31.8,0.5624,share,ok
+Only liked one,No,answer,Education,4-year College Degree,24,56,24.7,0.4376,share,caution
+Didn't know enough,Yes,answer,Education,4-year College Degree,19,56,21.5,0.3804,share,caution
+Didn't know enough,No,answer,Education,4-year College Degree,37,56,35.0,0.6196,share,ok
+Concerned,Yes,answer,Education,4-year College Degree,13,56,12.2,0.2157,share,caution
+Concerned,No,answer,Education,4-year College Degree,43,56,44.3,0.7843,share,ok
+Felt about ballot,Very Confident,answer,Education,4-year College Degree,,,,,share,suppressed
+Felt about ballot,Mostly Confident,answer,Education,4-year College Degree,,,,,share,suppressed
+Felt about ballot,Not Very Confident,answer,Education,4-year College Degree,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Education,4-year College Degree,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Education,4-year College Degree,171,175,171.2,0.9376,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Education,4-year College Degree,,,,,share,suppressed
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Education,4-year College Degree,124,175,126.5,0.693,share,ok
+Ranked choice,"No, Learned When Received Ballot",answer,Education,4-year College Degree,,,,,share,suppressed
+Ranked choice,Not Sure,answer,Education,4-year College Degree,,,,,share,suppressed
+Understand how counted,"Yes, You're Confident",answer,Education,4-year College Degree,111,175,112.2,0.6144,share,ok
+Understand how counted,Pretty Sure You Know,answer,Education,4-year College Degree,45,175,51.0,0.2796,share,ok
+Understand how counted,You're Not Sure,answer,Education,4-year College Degree,,,,,share,suppressed
+Understand how counted,"No, You Don't Understand How",answer,Education,4-year College Degree,,,,,share,suppressed
+Understand how counted,Understands counting (confident or pretty sure),rollup,Education,4-year College Degree,156,175,163.2,0.894,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,Education,4-year College Degree,19,175,19.4,0.106,share,caution
+Who won,Takis Karantonis,answer,Education,4-year College Degree,101,175,101.8,0.5573,share,ok
+Who won,Bob Cambridge,answer,Education,4-year College Degree,0,175,0.0,0.0,share,caution
+Who won,Audrey Clement,answer,Education,4-year College Degree,,,,,share,suppressed
+Who won,Jeramy Olmack,answer,Education,4-year College Degree,0,175,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Education,4-year College Degree,0,175,0.0,0.0,share,caution
+Who won,Not Sure,answer,Education,4-year College Degree,,,,,share,suppressed
+Results,Very Satisfied,answer,Education,4-year College Degree,65,104,59.5,0.5748,share,ok
+Results,Somewhat Satisfied,answer,Education,4-year College Degree,16,104,17.0,0.1639,share,caution
+Results,Somewhat Dissatisfied,answer,Education,4-year College Degree,,,,,share,suppressed
+Results,Very Dissatisfied,answer,Education,4-year College Degree,11,104,9.1,0.0877,share,caution
+Results,Not Sure,answer,Education,4-year College Degree,,,,,share,suppressed
+Ranked in future,"Yes, Strongly Support",answer,Education,4-year College Degree,66,175,64.8,0.3547,share,ok
+Ranked in future,"Yes, Somewhat Support",answer,Education,4-year College Degree,51,175,58.9,0.3224,share,ok
+Ranked in future,"No, Somewhat Oppose",answer,Education,4-year College Degree,16,175,18.8,0.1029,share,caution
+Ranked in future,"No, Strongly Oppose",answer,Education,4-year College Degree,23,175,19.9,0.1091,share,caution
+Ranked in future,Not Sure,answer,Education,4-year College Degree,19,175,20.3,0.111,share,caution
+Ranked in future,Support (strongly or somewhat),rollup,Education,4-year College Degree,117,175,123.6,0.677,share,ok
+Ranked in future,Oppose (somewhat or strongly),rollup,Education,4-year College Degree,39,175,38.7,0.212,share,ok
+Ranked one and concerned,Yes,answer,Education,4-year College Degree,13,175,12.2,0.0667,share,caution
+Ranked one and concerned,No,answer,Education,4-year College Degree,162,175,170.4,0.9333,share,ok
+"Ranked one, did not know enough",Yes,answer,Education,4-year College Degree,19,175,21.5,0.1177,share,caution
+"Ranked one, did not know enough",No,answer,Education,4-year College Degree,156,175,161.1,0.8823,share,ok
+Ranked in future,Net support (support minus oppose),net,Education,4-year College Degree,,175,,46.5,points,ok
+How voted,On Election Day,answer,Education,Graduate Degree,127,309,130.4,0.4565,share,ok
+How voted,Early In Person,answer,Education,Graduate Degree,140,309,126.2,0.4418,share,ok
+How voted,By Mail Or Absentee Ballot,answer,Education,Graduate Degree,42,309,29.1,0.1018,share,ok
+How many ranked,More Than One,answer,Education,Graduate Degree,165,309,152.5,0.5339,share,ok
+How many ranked,Only One,answer,Education,Graduate Degree,120,309,107.3,0.3755,share,ok
+How many ranked,Did Not Rank Any,answer,Education,Graduate Degree,,,,,share,suppressed
+How many ranked,Not Sure,answer,Education,Graduate Degree,,,,,share,suppressed
+Only liked one,Yes,answer,Education,Graduate Degree,75,120,72.1,0.6725,share,ok
+Only liked one,No,answer,Education,Graduate Degree,45,120,35.1,0.3275,share,ok
+Didn't know enough,Yes,answer,Education,Graduate Degree,35,120,31.0,0.2893,share,ok
+Didn't know enough,No,answer,Education,Graduate Degree,85,120,76.2,0.7107,share,ok
+Concerned,Yes,answer,Education,Graduate Degree,30,120,26.3,0.2452,share,ok
+Concerned,No,answer,Education,Graduate Degree,90,120,81.0,0.7548,share,ok
+Felt about ballot,Very Confident,answer,Education,Graduate Degree,262,309,232.8,0.8151,share,ok
+Felt about ballot,Mostly Confident,answer,Education,Graduate Degree,38,309,41.4,0.1448,share,ok
+Felt about ballot,Not Very Confident,answer,Education,Graduate Degree,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Education,Graduate Degree,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Education,Graduate Degree,300,309,274.2,0.9599,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Education,Graduate Degree,,,,,share,suppressed
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Education,Graduate Degree,233,309,206.8,0.724,share,ok
+Ranked choice,"No, Learned When Received Ballot",answer,Education,Graduate Degree,,,,,share,suppressed
+Ranked choice,Not Sure,answer,Education,Graduate Degree,,,,,share,suppressed
+Understand how counted,"Yes, You're Confident",answer,Education,Graduate Degree,207,309,177.7,0.6222,share,ok
+Understand how counted,Pretty Sure You Know,answer,Education,Graduate Degree,61,309,66.1,0.2312,share,ok
+Understand how counted,You're Not Sure,answer,Education,Graduate Degree,24,309,20.5,0.0717,share,caution
+Understand how counted,"No, You Don't Understand How",answer,Education,Graduate Degree,17,309,21.4,0.0749,share,caution
+Understand how counted,Understands counting (confident or pretty sure),rollup,Education,Graduate Degree,268,309,243.8,0.8534,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,Education,Graduate Degree,41,309,41.9,0.1466,share,ok
+Who won,Takis Karantonis,answer,Education,Graduate Degree,184,309,161.5,0.5652,share,ok
+Who won,Bob Cambridge,answer,Education,Graduate Degree,0,309,0.0,0.0,share,caution
+Who won,Audrey Clement,answer,Education,Graduate Degree,,,,,share,suppressed
+Who won,Jeramy Olmack,answer,Education,Graduate Degree,0,309,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Education,Graduate Degree,0,309,0.0,0.0,share,caution
+Who won,Not Sure,answer,Education,Graduate Degree,,,,,share,suppressed
+Results,Very Satisfied,answer,Education,Graduate Degree,126,185,101.0,0.6232,share,ok
+Results,Somewhat Satisfied,answer,Education,Graduate Degree,25,185,24.5,0.1511,share,caution
+Results,Somewhat Dissatisfied,answer,Education,Graduate Degree,,,,,share,suppressed
+Results,Very Dissatisfied,answer,Education,Graduate Degree,16,185,15.4,0.0952,share,caution
+Results,Not Sure,answer,Education,Graduate Degree,,,,,share,suppressed
+Ranked in future,"Yes, Strongly Support",answer,Education,Graduate Degree,116,309,102.7,0.3594,share,ok
+Ranked in future,"Yes, Somewhat Support",answer,Education,Graduate Degree,92,309,90.0,0.3149,share,ok
+Ranked in future,"No, Somewhat Oppose",answer,Education,Graduate Degree,33,309,31.9,0.1116,share,ok
+Ranked in future,"No, Strongly Oppose",answer,Education,Graduate Degree,47,309,46.5,0.1629,share,ok
+Ranked in future,Not Sure,answer,Education,Graduate Degree,21,309,14.6,0.0512,share,caution
+Ranked in future,Support (strongly or somewhat),rollup,Education,Graduate Degree,208,309,192.6,0.6744,share,ok
+Ranked in future,Oppose (somewhat or strongly),rollup,Education,Graduate Degree,80,309,78.4,0.2745,share,ok
+Ranked one and concerned,Yes,answer,Education,Graduate Degree,30,309,26.3,0.0921,share,ok
+Ranked one and concerned,No,answer,Education,Graduate Degree,279,309,259.3,0.9079,share,ok
+"Ranked one, did not know enough",Yes,answer,Education,Graduate Degree,35,309,31.0,0.1086,share,ok
+"Ranked one, did not know enough",No,answer,Education,Graduate Degree,274,309,254.6,0.8914,share,ok
+Ranked in future,Net support (support minus oppose),net,Education,Graduate Degree,,309,,40.0,points,ok
+How voted,On Election Day,answer,Education,High School,10,22,14.9,0.5924,share,caution
+How voted,Early In Person,answer,Education,High School,,,,,share,suppressed
+How voted,By Mail Or Absentee Ballot,answer,Education,High School,,,,,share,suppressed
+How many ranked,More Than One,answer,Education,High School,12,22,12.2,0.4858,share,caution
+How many ranked,Only One,answer,Education,High School,,,,,share,suppressed
+How many ranked,Did Not Rank Any,answer,Education,High School,,,,,share,suppressed
+How many ranked,Not Sure,answer,Education,High School,,,,,share,suppressed
+Only liked one,Yes,answer,Education,High School,,,,,share,suppressed
+Only liked one,No,answer,Education,High School,,,,,share,suppressed
+Didn't know enough,Yes,answer,Education,High School,,,,,share,suppressed
+Didn't know enough,No,answer,Education,High School,,,,,share,suppressed
+Concerned,Yes,answer,Education,High School,,,,,share,suppressed
+Concerned,No,answer,Education,High School,,,,,share,suppressed
+Felt about ballot,Very Confident,answer,Education,High School,,,,,share,suppressed
+Felt about ballot,Mostly Confident,answer,Education,High School,,,,,share,suppressed
+Felt about ballot,Not Very Confident,answer,Education,High School,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Education,High School,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Education,High School,19,22,22.4,0.8937,share,caution
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Education,High School,,,,,share,suppressed
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Education,High School,15,22,19.5,0.7778,share,caution
+Ranked choice,"No, Learned When Received Ballot",answer,Education,High School,,,,,share,suppressed
+Ranked choice,Not Sure,answer,Education,High School,,,,,share,suppressed
+Understand how counted,"Yes, You're Confident",answer,Education,High School,,,,,share,suppressed
+Understand how counted,Pretty Sure You Know,answer,Education,High School,,,,,share,suppressed
+Understand how counted,You're Not Sure,answer,Education,High School,,,,,share,suppressed
+Understand how counted,"No, You Don't Understand How",answer,Education,High School,,,,,share,suppressed
+Understand how counted,Understands counting (confident or pretty sure),rollup,Education,High School,16,22,20.2,0.8045,share,caution
+Understand how counted,Not sure or does not understand counting,rollup,Education,High School,,,,,share,suppressed
+Who won,Takis Karantonis,answer,Education,High School,,,,,share,suppressed
+Who won,Bob Cambridge,answer,Education,High School,0,22,0.0,0.0,share,caution
+Who won,Audrey Clement,answer,Education,High School,,,,,share,suppressed
+Who won,Jeramy Olmack,answer,Education,High School,0,22,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Education,High School,0,22,0.0,0.0,share,caution
+Who won,Not Sure,answer,Education,High School,17,22,18.6,0.7422,share,caution
+Results,Very Satisfied,answer,Education,High School,,,,,share,suppressed
+Results,Somewhat Satisfied,answer,Education,High School,,,,,share,suppressed
+Results,Somewhat Dissatisfied,answer,Education,High School,,,,,share,suppressed
+Results,Very Dissatisfied,answer,Education,High School,,,,,share,suppressed
+Results,Not Sure,answer,Education,High School,,,,,share,suppressed
+Ranked in future,"Yes, Strongly Support",answer,Education,High School,,,,,share,suppressed
+Ranked in future,"Yes, Somewhat Support",answer,Education,High School,,,,,share,suppressed
+Ranked in future,"No, Somewhat Oppose",answer,Education,High School,,,,,share,suppressed
+Ranked in future,"No, Strongly Oppose",answer,Education,High School,,,,,share,suppressed
+Ranked in future,Not Sure,answer,Education,High School,,,,,share,suppressed
+Ranked in future,Support (strongly or somewhat),rollup,Education,High School,13,22,18.1,0.7237,share,caution
+Ranked in future,Oppose (somewhat or strongly),rollup,Education,High School,,,,,share,suppressed
+Ranked one and concerned,Yes,answer,Education,High School,0,22,0.0,0.0,share,caution
+Ranked one and concerned,No,answer,Education,High School,22,22,25.1,1.0,share,caution
+"Ranked one, did not know enough",Yes,answer,Education,High School,,,,,share,suppressed
+"Ranked one, did not know enough",No,answer,Education,High School,,,,,share,suppressed
+Ranked in future,Net support (support minus oppose),net,Education,High School,,,,,points,suppressed
+How voted,On Election Day,answer,Education,Some College,27,61,31.8,0.4946,share,caution
+How voted,Early In Person,answer,Education,Some College,,,,,share,suppressed
+How voted,By Mail Or Absentee Ballot,answer,Education,Some College,,,,,share,suppressed
+How many ranked,More Than One,answer,Education,Some College,38,61,37.1,0.5774,share,ok
+How many ranked,Only One,answer,Education,Some College,18,61,22.8,0.3545,share,caution
+How many ranked,Did Not Rank Any,answer,Education,Some College,,,,,share,suppressed
+How many ranked,Not Sure,answer,Education,Some College,,,,,share,suppressed
+Only liked one,Yes,answer,Education,Some College,,,,,share,suppressed
+Only liked one,No,answer,Education,Some College,,,,,share,suppressed
+Didn't know enough,Yes,answer,Education,Some College,,,,,share,suppressed
+Didn't know enough,No,answer,Education,Some College,,,,,share,suppressed
+Concerned,Yes,answer,Education,Some College,,,,,share,suppressed
+Concerned,No,answer,Education,Some College,,,,,share,suppressed
+Felt about ballot,Very Confident,answer,Education,Some College,43,61,42.6,0.6627,share,ok
+Felt about ballot,Mostly Confident,answer,Education,Some College,18,61,21.7,0.3373,share,caution
+Felt about ballot,Not Very Confident,answer,Education,Some College,0,61,0.0,0.0,share,caution
+Felt about ballot,Did Not Understand,answer,Education,Some College,0,61,0.0,0.0,share,caution
+Felt about ballot,Confident marking (very or mostly),rollup,Education,Some College,61,61,64.3,1.0,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Education,Some College,0,61,0.0,0.0,share,caution
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Education,Some College,38,61,41.3,0.6414,share,ok
+Ranked choice,"No, Learned When Received Ballot",answer,Education,Some College,,,,,share,suppressed
+Ranked choice,Not Sure,answer,Education,Some College,,,,,share,suppressed
+Understand how counted,"Yes, You're Confident",answer,Education,Some College,,,,,share,suppressed
+Understand how counted,Pretty Sure You Know,answer,Education,Some College,,,,,share,suppressed
+Understand how counted,You're Not Sure,answer,Education,Some College,,,,,share,suppressed
+Understand how counted,"No, You Don't Understand How",answer,Education,Some College,,,,,share,suppressed
+Understand how counted,Understands counting (confident or pretty sure),rollup,Education,Some College,55,61,59.7,0.9277,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,Education,Some College,,,,,share,suppressed
+Who won,Takis Karantonis,answer,Education,Some College,17,61,17.8,0.277,share,caution
+Who won,Bob Cambridge,answer,Education,Some College,,,,,share,suppressed
+Who won,Audrey Clement,answer,Education,Some College,,,,,share,suppressed
+Who won,Jeramy Olmack,answer,Education,Some College,0,61,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Education,Some College,0,61,0.0,0.0,share,caution
+Who won,Not Sure,answer,Education,Some College,40,61,41.0,0.6371,share,ok
+Results,Very Satisfied,answer,Education,Some College,14,21,15.8,0.6766,share,caution
+Results,Somewhat Satisfied,answer,Education,Some College,,,,,share,suppressed
+Results,Somewhat Dissatisfied,answer,Education,Some College,,,,,share,suppressed
+Results,Very Dissatisfied,answer,Education,Some College,,,,,share,suppressed
+Results,Not Sure,answer,Education,Some College,,,,,share,suppressed
+Ranked in future,"Yes, Strongly Support",answer,Education,Some College,22,61,26.7,0.4155,share,caution
+Ranked in future,"Yes, Somewhat Support",answer,Education,Some College,15,61,14.3,0.2224,share,caution
+Ranked in future,"No, Somewhat Oppose",answer,Education,Some College,,,,,share,suppressed
+Ranked in future,"No, Strongly Oppose",answer,Education,Some College,,,,,share,suppressed
+Ranked in future,Not Sure,answer,Education,Some College,11,61,13.4,0.2081,share,caution
+Ranked in future,Support (strongly or somewhat),rollup,Education,Some College,37,61,41.0,0.6379,share,ok
+Ranked in future,Oppose (somewhat or strongly),rollup,Education,Some College,13,61,9.9,0.154,share,caution
+Ranked one and concerned,Yes,answer,Education,Some College,,,,,share,suppressed
+Ranked one and concerned,No,answer,Education,Some College,,,,,share,suppressed
+"Ranked one, did not know enough",Yes,answer,Education,Some College,,,,,share,suppressed
+"Ranked one, did not know enough",No,answer,Education,Some College,,,,,share,suppressed
+Ranked in future,Net support (support minus oppose),net,Education,Some College,,61,,48.4,points,ok
+How voted,On Election Day,answer,Homeownership,Homeowner,194,441,187.6,0.4809,share,ok
+How voted,Early In Person,answer,Homeownership,Homeowner,190,441,159.3,0.4083,share,ok
+How voted,By Mail Or Absentee Ballot,answer,Homeownership,Homeowner,57,441,43.2,0.1108,share,ok
+How many ranked,More Than One,answer,Homeownership,Homeowner,245,441,218.4,0.5598,share,ok
+How many ranked,Only One,answer,Homeownership,Homeowner,160,441,135.2,0.3467,share,ok
+How many ranked,Did Not Rank Any,answer,Homeownership,Homeowner,22,441,26.0,0.0667,share,caution
+How many ranked,Not Sure,answer,Homeownership,Homeowner,14,441,10.5,0.0268,share,caution
+Only liked one,Yes,answer,Homeownership,Homeowner,97,160,87.3,0.6453,share,ok
+Only liked one,No,answer,Homeownership,Homeowner,63,160,48.0,0.3547,share,ok
+Didn't know enough,Yes,answer,Homeownership,Homeowner,47,160,37.8,0.2797,share,ok
+Didn't know enough,No,answer,Homeownership,Homeowner,113,160,97.4,0.7203,share,ok
+Concerned,Yes,answer,Homeownership,Homeowner,41,160,33.4,0.2473,share,ok
+Concerned,No,answer,Homeownership,Homeowner,119,160,101.8,0.7527,share,ok
+Felt about ballot,Very Confident,answer,Homeownership,Homeowner,377,441,325.8,0.8352,share,ok
+Felt about ballot,Mostly Confident,answer,Homeownership,Homeowner,53,441,47.7,0.1223,share,ok
+Felt about ballot,Not Very Confident,answer,Homeownership,Homeowner,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Homeownership,Homeowner,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Homeownership,Homeowner,430,441,373.5,0.9575,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Homeownership,Homeowner,11,441,16.6,0.0425,share,caution
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Homeownership,Homeowner,321,441,275.5,0.7062,share,ok
+Ranked choice,"No, Learned When Received Ballot",answer,Homeownership,Homeowner,106,441,103.5,0.2654,share,ok
+Ranked choice,Not Sure,answer,Homeownership,Homeowner,14,441,11.1,0.0284,share,caution
+Understand how counted,"Yes, You're Confident",answer,Homeownership,Homeowner,286,441,238.2,0.6105,share,ok
+Understand how counted,Pretty Sure You Know,answer,Homeownership,Homeowner,98,441,93.2,0.2389,share,ok
+Understand how counted,You're Not Sure,answer,Homeownership,Homeowner,33,441,27.6,0.0707,share,ok
+Understand how counted,"No, You Don't Understand How",answer,Homeownership,Homeowner,24,441,31.2,0.08,share,caution
+Understand how counted,Understands counting (confident or pretty sure),rollup,Homeownership,Homeowner,384,441,331.3,0.8494,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,Homeownership,Homeowner,57,441,58.8,0.1506,share,ok
+Who won,Takis Karantonis,answer,Homeownership,Homeowner,260,441,230.6,0.5912,share,ok
+Who won,Bob Cambridge,answer,Homeownership,Homeowner,0,441,0.0,0.0,share,caution
+Who won,Audrey Clement,answer,Homeownership,Homeowner,,,,,share,suppressed
+Who won,Jeramy Olmack,answer,Homeownership,Homeowner,0,441,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Homeownership,Homeowner,0,441,0.0,0.0,share,caution
+Who won,Not Sure,answer,Homeownership,Homeowner,,,,,share,suppressed
+Results,Very Satisfied,answer,Homeownership,Homeowner,172,264,142.5,0.6118,share,ok
+Results,Somewhat Satisfied,answer,Homeownership,Homeowner,35,264,29.9,0.1282,share,ok
+Results,Somewhat Dissatisfied,answer,Homeownership,Homeowner,17,264,20.3,0.0872,share,caution
+Results,Very Dissatisfied,answer,Homeownership,Homeowner,28,264,25.1,0.1076,share,caution
+Results,Not Sure,answer,Homeownership,Homeowner,12,264,15.2,0.0651,share,caution
+Ranked in future,"Yes, Strongly Support",answer,Homeownership,Homeowner,168,441,143.6,0.368,share,ok
+Ranked in future,"Yes, Somewhat Support",answer,Homeownership,Homeowner,125,441,113.5,0.291,share,ok
+Ranked in future,"No, Somewhat Oppose",answer,Homeownership,Homeowner,48,441,43.9,0.1126,share,ok
+Ranked in future,"No, Strongly Oppose",answer,Homeownership,Homeowner,65,441,60.4,0.1548,share,ok
+Ranked in future,Not Sure,answer,Homeownership,Homeowner,35,441,28.7,0.0736,share,ok
+Ranked in future,Support (strongly or somewhat),rollup,Homeownership,Homeowner,293,441,257.1,0.659,share,ok
+Ranked in future,Oppose (somewhat or strongly),rollup,Homeownership,Homeowner,113,441,104.3,0.2674,share,ok
+Ranked one and concerned,Yes,answer,Homeownership,Homeowner,41,441,33.4,0.0857,share,ok
+Ranked one and concerned,No,answer,Homeownership,Homeowner,400,441,356.7,0.9143,share,ok
+"Ranked one, did not know enough",Yes,answer,Homeownership,Homeowner,47,441,37.8,0.097,share,ok
+"Ranked one, did not know enough",No,answer,Homeownership,Homeowner,394,441,352.3,0.903,share,ok
+Ranked in future,Net support (support minus oppose),net,Homeownership,Homeowner,,441,,39.2,points,ok
+How voted,On Election Day,answer,Homeownership,No answer,13,23,12.0,0.5639,share,caution
+How voted,Early In Person,answer,Homeownership,No answer,,,,,share,suppressed
+How voted,By Mail Or Absentee Ballot,answer,Homeownership,No answer,,,,,share,suppressed
+How many ranked,More Than One,answer,Homeownership,No answer,13,23,9.8,0.4614,share,caution
+How many ranked,Only One,answer,Homeownership,No answer,,,,,share,suppressed
+How many ranked,Did Not Rank Any,answer,Homeownership,No answer,,,,,share,suppressed
+How many ranked,Not Sure,answer,Homeownership,No answer,0,23,0.0,0.0,share,caution
+Only liked one,Yes,answer,Homeownership,No answer,,,,,share,suppressed
+Only liked one,No,answer,Homeownership,No answer,,,,,share,suppressed
+Didn't know enough,Yes,answer,Homeownership,No answer,,,,,share,suppressed
+Didn't know enough,No,answer,Homeownership,No answer,,,,,share,suppressed
+Concerned,Yes,answer,Homeownership,No answer,,,,,share,suppressed
+Concerned,No,answer,Homeownership,No answer,,,,,share,suppressed
+Felt about ballot,Very Confident,answer,Homeownership,No answer,,,,,share,suppressed
+Felt about ballot,Mostly Confident,answer,Homeownership,No answer,,,,,share,suppressed
+Felt about ballot,Not Very Confident,answer,Homeownership,No answer,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Homeownership,No answer,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Homeownership,No answer,22,23,20.8,0.975,share,caution
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Homeownership,No answer,,,,,share,suppressed
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Homeownership,No answer,,,,,share,suppressed
+Ranked choice,"No, Learned When Received Ballot",answer,Homeownership,No answer,,,,,share,suppressed
+Ranked choice,Not Sure,answer,Homeownership,No answer,0,23,0.0,0.0,share,caution
+Understand how counted,"Yes, You're Confident",answer,Homeownership,No answer,,,,,share,suppressed
+Understand how counted,Pretty Sure You Know,answer,Homeownership,No answer,,,,,share,suppressed
+Understand how counted,You're Not Sure,answer,Homeownership,No answer,,,,,share,suppressed
+Understand how counted,"No, You Don't Understand How",answer,Homeownership,No answer,,,,,share,suppressed
+Understand how counted,Understands counting (confident or pretty sure),rollup,Homeownership,No answer,19,23,18.8,0.8825,share,caution
+Understand how counted,Not sure or does not understand counting,rollup,Homeownership,No answer,,,,,share,suppressed
+Who won,Takis Karantonis,answer,Homeownership,No answer,,,,,share,suppressed
+Who won,Bob Cambridge,answer,Homeownership,No answer,0,23,0.0,0.0,share,caution
+Who won,Audrey Clement,answer,Homeownership,No answer,,,,,share,suppressed
+Who won,Jeramy Olmack,answer,Homeownership,No answer,0,23,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Homeownership,No answer,0,23,0.0,0.0,share,caution
+Who won,Not Sure,answer,Homeownership,No answer,16,23,13.4,0.6292,share,caution
+Results,Very Satisfied,answer,Homeownership,No answer,,,,,share,suppressed
+Results,Somewhat Satisfied,answer,Homeownership,No answer,,,,,share,suppressed
+Results,Somewhat Dissatisfied,answer,Homeownership,No answer,,,,,share,suppressed
+Results,Very Dissatisfied,answer,Homeownership,No answer,,,,,share,suppressed
+Results,Not Sure,answer,Homeownership,No answer,,,,,share,suppressed
+Ranked in future,"Yes, Strongly Support",answer,Homeownership,No answer,,,,,share,suppressed
+Ranked in future,"Yes, Somewhat Support",answer,Homeownership,No answer,,,,,share,suppressed
+Ranked in future,"No, Somewhat Oppose",answer,Homeownership,No answer,,,,,share,suppressed
+Ranked in future,"No, Strongly Oppose",answer,Homeownership,No answer,,,,,share,suppressed
+Ranked in future,Not Sure,answer,Homeownership,No answer,0,23,0.0,0.0,share,caution
+Ranked in future,Support (strongly or somewhat),rollup,Homeownership,No answer,,,,,share,suppressed
+Ranked in future,Oppose (somewhat or strongly),rollup,Homeownership,No answer,17,23,17.2,0.8061,share,caution
+Ranked one and concerned,Yes,answer,Homeownership,No answer,,,,,share,suppressed
+Ranked one and concerned,No,answer,Homeownership,No answer,,,,,share,suppressed
+"Ranked one, did not know enough",Yes,answer,Homeownership,No answer,,,,,share,suppressed
+"Ranked one, did not know enough",No,answer,Homeownership,No answer,,,,,share,suppressed
+Ranked in future,Net support (support minus oppose),net,Homeownership,No answer,,,,,points,suppressed
+How voted,On Election Day,answer,Homeownership,Renter,67,120,98.3,0.6014,share,ok
+How voted,Early In Person,answer,Homeownership,Renter,42,120,49.9,0.3049,share,ok
+How voted,By Mail Or Absentee Ballot,answer,Homeownership,Renter,11,120,15.3,0.0937,share,caution
+How many ranked,More Than One,answer,Homeownership,Renter,69,120,92.7,0.567,share,ok
+How many ranked,Only One,answer,Homeownership,Renter,36,120,53.3,0.326,share,ok
+How many ranked,Did Not Rank Any,answer,Homeownership,Renter,,,,,share,suppressed
+How many ranked,Not Sure,answer,Homeownership,Renter,,,,,share,suppressed
+Only liked one,Yes,answer,Homeownership,Renter,25,36,35.9,0.6737,share,caution
+Only liked one,No,answer,Homeownership,Renter,11,36,17.4,0.3263,share,caution
+Didn't know enough,Yes,answer,Homeownership,Renter,11,36,19.4,0.3633,share,caution
+Didn't know enough,No,answer,Homeownership,Renter,25,36,33.9,0.6367,share,caution
+Concerned,Yes,answer,Homeownership,Renter,,,,,share,suppressed
+Concerned,No,answer,Homeownership,Renter,,,,,share,suppressed
+Felt about ballot,Very Confident,answer,Homeownership,Renter,89,120,114.8,0.7018,share,ok
+Felt about ballot,Mostly Confident,answer,Homeownership,Renter,26,120,39.8,0.2436,share,caution
+Felt about ballot,Not Very Confident,answer,Homeownership,Renter,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Homeownership,Renter,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Homeownership,Renter,115,120,154.6,0.9454,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Homeownership,Renter,,,,,share,suppressed
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Homeownership,Renter,83,120,113.4,0.6937,share,ok
+Ranked choice,"No, Learned When Received Ballot",answer,Homeownership,Renter,,,,,share,suppressed
+Ranked choice,Not Sure,answer,Homeownership,Renter,,,,,share,suppressed
+Understand how counted,"Yes, You're Confident",answer,Homeownership,Renter,79,120,106.0,0.6483,share,ok
+Understand how counted,Pretty Sure You Know,answer,Homeownership,Renter,26,120,45.5,0.2783,share,caution
+Understand how counted,You're Not Sure,answer,Homeownership,Renter,,,,,share,suppressed
+Understand how counted,"No, You Don't Understand How",answer,Homeownership,Renter,,,,,share,suppressed
+Understand how counted,Understands counting (confident or pretty sure),rollup,Homeownership,Renter,105,120,151.5,0.9265,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,Homeownership,Renter,15,120,12.0,0.0735,share,caution
+Who won,Takis Karantonis,answer,Homeownership,Renter,47,120,59.5,0.3639,share,ok
+Who won,Bob Cambridge,answer,Homeownership,Renter,,,,,share,suppressed
+Who won,Audrey Clement,answer,Homeownership,Renter,,,,,share,suppressed
+Who won,Jeramy Olmack,answer,Homeownership,Renter,0,120,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Homeownership,Renter,0,120,0.0,0.0,share,caution
+Who won,Not Sure,answer,Homeownership,Renter,69,120,98.4,0.6019,share,ok
+Results,Very Satisfied,answer,Homeownership,Renter,33,51,37.9,0.5815,share,ok
+Results,Somewhat Satisfied,answer,Homeownership,Renter,11,51,18.0,0.277,share,caution
+Results,Somewhat Dissatisfied,answer,Homeownership,Renter,,,,,share,suppressed
+Results,Very Dissatisfied,answer,Homeownership,Renter,,,,,share,suppressed
+Results,Not Sure,answer,Homeownership,Renter,,,,,share,suppressed
+Ranked in future,"Yes, Strongly Support",answer,Homeownership,Renter,42,120,60.4,0.3693,share,ok
+Ranked in future,"Yes, Somewhat Support",answer,Homeownership,Renter,38,120,58.7,0.359,share,ok
+Ranked in future,"No, Somewhat Oppose",answer,Homeownership,Renter,12,120,14.1,0.0861,share,caution
+Ranked in future,"No, Strongly Oppose",answer,Homeownership,Renter,10,120,9.6,0.0588,share,caution
+Ranked in future,Not Sure,answer,Homeownership,Renter,18,120,20.7,0.1268,share,caution
+Ranked in future,Support (strongly or somewhat),rollup,Homeownership,Renter,80,120,119.1,0.7283,share,ok
+Ranked in future,Oppose (somewhat or strongly),rollup,Homeownership,Renter,22,120,23.7,0.1449,share,caution
+Ranked one and concerned,Yes,answer,Homeownership,Renter,,,,,share,suppressed
+Ranked one and concerned,No,answer,Homeownership,Renter,,,,,share,suppressed
+"Ranked one, did not know enough",Yes,answer,Homeownership,Renter,11,120,19.4,0.1184,share,caution
+"Ranked one, did not know enough",No,answer,Homeownership,Renter,109,120,144.2,0.8816,share,ok
+Ranked in future,Net support (support minus oppose),net,Homeownership,Renter,,120,,58.3,points,ok
+How voted,On Election Day,answer,Contact method,Landline,41,90,32.7,0.4786,share,ok
+How voted,Early In Person,answer,Contact method,Landline,34,90,25.9,0.3796,share,ok
+How voted,By Mail Or Absentee Ballot,answer,Contact method,Landline,15,90,9.7,0.1418,share,caution
+How many ranked,More Than One,answer,Contact method,Landline,55,90,45.4,0.6646,share,ok
+How many ranked,Only One,answer,Contact method,Landline,25,90,15.9,0.2321,share,caution
+How many ranked,Did Not Rank Any,answer,Contact method,Landline,,,,,share,suppressed
+How many ranked,Not Sure,answer,Contact method,Landline,,,,,share,suppressed
+Only liked one,Yes,answer,Contact method,Landline,,,,,share,suppressed
+Only liked one,No,answer,Contact method,Landline,,,,,share,suppressed
+Didn't know enough,Yes,answer,Contact method,Landline,12,25,8.2,0.5202,share,caution
+Didn't know enough,No,answer,Contact method,Landline,13,25,7.6,0.4798,share,caution
+Concerned,Yes,answer,Contact method,Landline,11,25,6.7,0.4212,share,caution
+Concerned,No,answer,Contact method,Landline,14,25,9.2,0.5788,share,caution
+Felt about ballot,Very Confident,answer,Contact method,Landline,,,,,share,suppressed
+Felt about ballot,Mostly Confident,answer,Contact method,Landline,,,,,share,suppressed
+Felt about ballot,Not Very Confident,answer,Contact method,Landline,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Contact method,Landline,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Contact method,Landline,87,90,62.0,0.9078,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Contact method,Landline,,,,,share,suppressed
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Contact method,Landline,75,90,59.3,0.8675,share,ok
+Ranked choice,"No, Learned When Received Ballot",answer,Contact method,Landline,,,,,share,suppressed
+Ranked choice,Not Sure,answer,Contact method,Landline,,,,,share,suppressed
+Understand how counted,"Yes, You're Confident",answer,Contact method,Landline,55,90,36.2,0.5292,share,ok
+Understand how counted,Pretty Sure You Know,answer,Contact method,Landline,19,90,17.1,0.2497,share,caution
+Understand how counted,You're Not Sure,answer,Contact method,Landline,,,,,share,suppressed
+Understand how counted,"No, You Don't Understand How",answer,Contact method,Landline,,,,,share,suppressed
+Understand how counted,Understands counting (confident or pretty sure),rollup,Contact method,Landline,74,90,53.2,0.7789,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,Contact method,Landline,16,90,15.1,0.2211,share,caution
+Who won,Takis Karantonis,answer,Contact method,Landline,46,90,39.7,0.5814,share,ok
+Who won,Bob Cambridge,answer,Contact method,Landline,0,90,0.0,0.0,share,caution
+Who won,Audrey Clement,answer,Contact method,Landline,,,,,share,suppressed
+Who won,Jeramy Olmack,answer,Contact method,Landline,0,90,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Contact method,Landline,0,90,0.0,0.0,share,caution
+Who won,Not Sure,answer,Contact method,Landline,,,,,share,suppressed
+Results,Very Satisfied,answer,Contact method,Landline,31,50,21.2,0.504,share,ok
+Results,Somewhat Satisfied,answer,Contact method,Landline,,,,,share,suppressed
+Results,Somewhat Dissatisfied,answer,Contact method,Landline,,,,,share,suppressed
+Results,Very Dissatisfied,answer,Contact method,Landline,,,,,share,suppressed
+Results,Not Sure,answer,Contact method,Landline,,,,,share,suppressed
+Ranked in future,"Yes, Strongly Support",answer,Contact method,Landline,39,90,27.1,0.3968,share,ok
+Ranked in future,"Yes, Somewhat Support",answer,Contact method,Landline,20,90,17.4,0.2554,share,caution
+Ranked in future,"No, Somewhat Oppose",answer,Contact method,Landline,,,,,share,suppressed
+Ranked in future,"No, Strongly Oppose",answer,Contact method,Landline,,,,,share,suppressed
+Ranked in future,Not Sure,answer,Contact method,Landline,,,,,share,suppressed
+Ranked in future,Support (strongly or somewhat),rollup,Contact method,Landline,59,90,44.6,0.6522,share,ok
+Ranked in future,Oppose (somewhat or strongly),rollup,Contact method,Landline,26,90,16.4,0.2396,share,caution
+Ranked one and concerned,Yes,answer,Contact method,Landline,11,90,6.7,0.0978,share,caution
+Ranked one and concerned,No,answer,Contact method,Landline,79,90,61.6,0.9022,share,ok
+"Ranked one, did not know enough",Yes,answer,Contact method,Landline,12,90,8.2,0.1207,share,caution
+"Ranked one, did not know enough",No,answer,Contact method,Landline,78,90,60.1,0.8793,share,ok
+Ranked in future,Net support (support minus oppose),net,Contact method,Landline,,90,,41.3,points,ok
+How voted,On Election Day,answer,Contact method,Live Operator,30,50,25.9,0.6169,share,ok
+How voted,Early In Person,answer,Contact method,Live Operator,,,,,share,suppressed
+How voted,By Mail Or Absentee Ballot,answer,Contact method,Live Operator,,,,,share,suppressed
+How many ranked,More Than One,answer,Contact method,Live Operator,38,50,33.3,0.7938,share,ok
+How many ranked,Only One,answer,Contact method,Live Operator,,,,,share,suppressed
+How many ranked,Did Not Rank Any,answer,Contact method,Live Operator,,,,,share,suppressed
+How many ranked,Not Sure,answer,Contact method,Live Operator,,,,,share,suppressed
+Only liked one,Yes,answer,Contact method,Live Operator,,,,,share,suppressed
+Only liked one,No,answer,Contact method,Live Operator,,,,,share,suppressed
+Didn't know enough,Yes,answer,Contact method,Live Operator,,,,,share,suppressed
+Didn't know enough,No,answer,Contact method,Live Operator,,,,,share,suppressed
+Concerned,Yes,answer,Contact method,Live Operator,,,,,share,suppressed
+Concerned,No,answer,Contact method,Live Operator,,,,,share,suppressed
+Felt about ballot,Very Confident,answer,Contact method,Live Operator,,,,,share,suppressed
+Felt about ballot,Mostly Confident,answer,Contact method,Live Operator,,,,,share,suppressed
+Felt about ballot,Not Very Confident,answer,Contact method,Live Operator,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Contact method,Live Operator,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Contact method,Live Operator,47,50,39.4,0.9382,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Contact method,Live Operator,,,,,share,suppressed
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Contact method,Live Operator,34,50,30.2,0.7185,share,ok
+Ranked choice,"No, Learned When Received Ballot",answer,Contact method,Live Operator,16,50,11.8,0.2815,share,caution
+Ranked choice,Not Sure,answer,Contact method,Live Operator,0,50,0.0,0.0,share,caution
+Understand how counted,"Yes, You're Confident",answer,Contact method,Live Operator,33,50,30.6,0.7278,share,ok
+Understand how counted,Pretty Sure You Know,answer,Contact method,Live Operator,11,50,7.6,0.182,share,caution
+Understand how counted,You're Not Sure,answer,Contact method,Live Operator,,,,,share,suppressed
+Understand how counted,"No, You Don't Understand How",answer,Contact method,Live Operator,,,,,share,suppressed
+Understand how counted,Understands counting (confident or pretty sure),rollup,Contact method,Live Operator,44,50,38.2,0.9098,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,Contact method,Live Operator,,,,,share,suppressed
+Who won,Takis Karantonis,answer,Contact method,Live Operator,12,50,8.1,0.1929,share,caution
+Who won,Bob Cambridge,answer,Contact method,Live Operator,0,50,0.0,0.0,share,caution
+Who won,Audrey Clement,answer,Contact method,Live Operator,0,50,0.0,0.0,share,caution
+Who won,Jeramy Olmack,answer,Contact method,Live Operator,0,50,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Contact method,Live Operator,0,50,0.0,0.0,share,caution
+Who won,Not Sure,answer,Contact method,Live Operator,38,50,33.9,0.8071,share,ok
+Results,Very Satisfied,answer,Contact method,Live Operator,,,,,share,suppressed
+Results,Somewhat Satisfied,answer,Contact method,Live Operator,,,,,share,suppressed
+Results,Somewhat Dissatisfied,answer,Contact method,Live Operator,,,,,share,suppressed
+Results,Very Dissatisfied,answer,Contact method,Live Operator,,,,,share,suppressed
+Results,Not Sure,answer,Contact method,Live Operator,,,,,share,suppressed
+Ranked in future,"Yes, Strongly Support",answer,Contact method,Live Operator,20,50,20.7,0.4937,share,caution
+Ranked in future,"Yes, Somewhat Support",answer,Contact method,Live Operator,11,50,7.9,0.1878,share,caution
+Ranked in future,"No, Somewhat Oppose",answer,Contact method,Live Operator,,,,,share,suppressed
+Ranked in future,"No, Strongly Oppose",answer,Contact method,Live Operator,,,,,share,suppressed
+Ranked in future,Not Sure,answer,Contact method,Live Operator,,,,,share,suppressed
+Ranked in future,Support (strongly or somewhat),rollup,Contact method,Live Operator,31,50,28.6,0.6815,share,ok
+Ranked in future,Oppose (somewhat or strongly),rollup,Contact method,Live Operator,13,50,8.0,0.1916,share,caution
+Ranked one and concerned,Yes,answer,Contact method,Live Operator,,,,,share,suppressed
+Ranked one and concerned,No,answer,Contact method,Live Operator,,,,,share,suppressed
+"Ranked one, did not know enough",Yes,answer,Contact method,Live Operator,,,,,share,suppressed
+"Ranked one, did not know enough",No,answer,Contact method,Live Operator,,,,,share,suppressed
+Ranked in future,Net support (support minus oppose),net,Contact method,Live Operator,,50,,49.0,points,ok
+How voted,On Election Day,answer,Contact method,SMS-to-Web,167,377,171.2,0.4747,share,ok
+How voted,Early In Person,answer,Contact method,SMS-to-Web,162,377,141.6,0.3927,share,ok
+How voted,By Mail Or Absentee Ballot,answer,Contact method,SMS-to-Web,48,377,47.8,0.1325,share,ok
+How many ranked,More Than One,answer,Contact method,SMS-to-Web,199,377,190.3,0.5278,share,ok
+How many ranked,Only One,answer,Contact method,SMS-to-Web,148,377,137.9,0.3825,share,ok
+How many ranked,Did Not Rank Any,answer,Contact method,SMS-to-Web,16,377,21.5,0.0595,share,caution
+How many ranked,Not Sure,answer,Contact method,SMS-to-Web,14,377,10.9,0.0302,share,caution
+Only liked one,Yes,answer,Contact method,SMS-to-Web,81,148,79.9,0.5791,share,ok
+Only liked one,No,answer,Contact method,SMS-to-Web,67,148,58.1,0.4209,share,ok
+Didn't know enough,Yes,answer,Contact method,SMS-to-Web,41,148,36.0,0.2608,share,ok
+Didn't know enough,No,answer,Contact method,SMS-to-Web,107,148,101.9,0.7392,share,ok
+Concerned,Yes,answer,Contact method,SMS-to-Web,37,148,30.9,0.2242,share,ok
+Concerned,No,answer,Contact method,SMS-to-Web,111,148,107.0,0.7758,share,ok
+Felt about ballot,Very Confident,answer,Contact method,SMS-to-Web,319,377,303.2,0.8408,share,ok
+Felt about ballot,Mostly Confident,answer,Contact method,SMS-to-Web,50,377,47.1,0.1307,share,ok
+Felt about ballot,Not Very Confident,answer,Contact method,SMS-to-Web,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Contact method,SMS-to-Web,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Contact method,SMS-to-Web,369,377,350.3,0.9715,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Contact method,SMS-to-Web,,,,,share,suppressed
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Contact method,SMS-to-Web,272,377,252.2,0.6994,share,ok
+Ranked choice,"No, Learned When Received Ballot",answer,Contact method,SMS-to-Web,90,377,96.6,0.2679,share,ok
+Ranked choice,Not Sure,answer,Contact method,SMS-to-Web,15,377,11.8,0.0327,share,caution
+Understand how counted,"Yes, You're Confident",answer,Contact method,SMS-to-Web,246,377,223.3,0.6193,share,ok
+Understand how counted,Pretty Sure You Know,answer,Contact method,SMS-to-Web,81,377,88.0,0.2442,share,ok
+Understand how counted,You're Not Sure,answer,Contact method,SMS-to-Web,30,377,23.9,0.0664,share,ok
+Understand how counted,"No, You Don't Understand How",answer,Contact method,SMS-to-Web,20,377,25.3,0.0702,share,caution
+Understand how counted,Understands counting (confident or pretty sure),rollup,Contact method,SMS-to-Web,327,377,311.3,0.8634,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,Contact method,SMS-to-Web,50,377,49.2,0.1366,share,ok
+Who won,Takis Karantonis,answer,Contact method,SMS-to-Web,232,377,216.5,0.6004,share,ok
+Who won,Bob Cambridge,answer,Contact method,SMS-to-Web,0,377,0.0,0.0,share,caution
+Who won,Audrey Clement,answer,Contact method,SMS-to-Web,,,,,share,suppressed
+Who won,Jeramy Olmack,answer,Contact method,SMS-to-Web,0,377,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Contact method,SMS-to-Web,0,377,0.0,0.0,share,caution
+Who won,Not Sure,answer,Contact method,SMS-to-Web,,,,,share,suppressed
+Results,Very Satisfied,answer,Contact method,SMS-to-Web,157,234,137.4,0.6312,share,ok
+Results,Somewhat Satisfied,answer,Contact method,SMS-to-Web,34,234,32.6,0.1499,share,ok
+Results,Somewhat Dissatisfied,answer,Contact method,SMS-to-Web,14,234,17.8,0.0815,share,caution
+Results,Very Dissatisfied,answer,Contact method,SMS-to-Web,17,234,18.0,0.0828,share,caution
+Results,Not Sure,answer,Contact method,SMS-to-Web,12,234,11.9,0.0546,share,caution
+Ranked in future,"Yes, Strongly Support",answer,Contact method,SMS-to-Web,135,377,127.8,0.3544,share,ok
+Ranked in future,"Yes, Somewhat Support",answer,Contact method,SMS-to-Web,110,377,105.3,0.2922,share,ok
+Ranked in future,"No, Somewhat Oppose",answer,Contact method,SMS-to-Web,35,377,34.4,0.0955,share,ok
+Ranked in future,"No, Strongly Oppose",answer,Contact method,SMS-to-Web,63,377,67.4,0.187,share,ok
+Ranked in future,Not Sure,answer,Contact method,SMS-to-Web,34,377,25.6,0.0709,share,ok
+Ranked in future,Support (strongly or somewhat),rollup,Contact method,SMS-to-Web,245,377,233.1,0.6466,share,ok
+Ranked in future,Oppose (somewhat or strongly),rollup,Contact method,SMS-to-Web,98,377,101.9,0.2825,share,ok
+Ranked one and concerned,Yes,answer,Contact method,SMS-to-Web,37,377,30.9,0.0857,share,ok
+Ranked one and concerned,No,answer,Contact method,SMS-to-Web,340,377,329.6,0.9143,share,ok
+"Ranked one, did not know enough",Yes,answer,Contact method,SMS-to-Web,41,377,36.0,0.0998,share,ok
+"Ranked one, did not know enough",No,answer,Contact method,SMS-to-Web,336,377,324.6,0.9002,share,ok
+Ranked in future,Net support (support minus oppose),net,Contact method,SMS-to-Web,,377,,36.4,points,ok
+How voted,On Election Day,answer,Contact method,Web Panel,36,67,68.2,0.6549,share,ok
+How voted,Early In Person,answer,Contact method,Web Panel,,,,,share,suppressed
+How voted,By Mail Or Absentee Ballot,answer,Contact method,Web Panel,,,,,share,suppressed
+How many ranked,More Than One,answer,Contact method,Web Panel,35,67,51.9,0.4987,share,ok
+How many ranked,Only One,answer,Contact method,Web Panel,25,67,40.2,0.3863,share,caution
+How many ranked,Did Not Rank Any,answer,Contact method,Web Panel,,,,,share,suppressed
+How many ranked,Not Sure,answer,Contact method,Web Panel,,,,,share,suppressed
+Only liked one,Yes,answer,Contact method,Web Panel,,,,,share,suppressed
+Only liked one,No,answer,Contact method,Web Panel,,,,,share,suppressed
+Didn't know enough,Yes,answer,Contact method,Web Panel,,,,,share,suppressed
+Didn't know enough,No,answer,Contact method,Web Panel,,,,,share,suppressed
+Concerned,Yes,answer,Contact method,Web Panel,,,,,share,suppressed
+Concerned,No,answer,Contact method,Web Panel,,,,,share,suppressed
+Felt about ballot,Very Confident,answer,Contact method,Web Panel,,,,,share,suppressed
+Felt about ballot,Mostly Confident,answer,Contact method,Web Panel,,,,,share,suppressed
+Felt about ballot,Not Very Confident,answer,Contact method,Web Panel,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Contact method,Web Panel,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Contact method,Web Panel,64,67,97.3,0.9338,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Contact method,Web Panel,,,,,share,suppressed
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Contact method,Web Panel,42,67,66.2,0.6354,share,ok
+Ranked choice,"No, Learned When Received Ballot",answer,Contact method,Web Panel,,,,,share,suppressed
+Ranked choice,Not Sure,answer,Contact method,Web Panel,,,,,share,suppressed
+Understand how counted,"Yes, You're Confident",answer,Contact method,Web Panel,,,,,share,suppressed
+Understand how counted,Pretty Sure You Know,answer,Contact method,Web Panel,,,,,share,suppressed
+Understand how counted,You're Not Sure,answer,Contact method,Web Panel,,,,,share,suppressed
+Understand how counted,"No, You Don't Understand How",answer,Contact method,Web Panel,,,,,share,suppressed
+Understand how counted,Understands counting (confident or pretty sure),rollup,Contact method,Web Panel,63,67,99.0,0.9504,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,Contact method,Web Panel,,,,,share,suppressed
+Who won,Takis Karantonis,answer,Contact method,Web Panel,23,67,33.2,0.3183,share,caution
+Who won,Bob Cambridge,answer,Contact method,Web Panel,,,,,share,suppressed
+Who won,Audrey Clement,answer,Contact method,Web Panel,,,,,share,suppressed
+Who won,Jeramy Olmack,answer,Contact method,Web Panel,0,67,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Contact method,Web Panel,0,67,0.0,0.0,share,caution
+Who won,Not Sure,answer,Contact method,Web Panel,41,67,66.0,0.634,share,ok
+Results,Very Satisfied,answer,Contact method,Web Panel,16,26,23.8,0.625,share,caution
+Results,Somewhat Satisfied,answer,Contact method,Web Panel,,,,,share,suppressed
+Results,Somewhat Dissatisfied,answer,Contact method,Web Panel,,,,,share,suppressed
+Results,Very Dissatisfied,answer,Contact method,Web Panel,,,,,share,suppressed
+Results,Not Sure,answer,Contact method,Web Panel,0,26,0.0,0.0,share,caution
+Ranked in future,"Yes, Strongly Support",answer,Contact method,Web Panel,20,67,31.0,0.2978,share,caution
+Ranked in future,"Yes, Somewhat Support",answer,Contact method,Web Panel,24,67,43.0,0.4132,share,caution
+Ranked in future,"No, Somewhat Oppose",answer,Contact method,Web Panel,,,,,share,suppressed
+Ranked in future,"No, Strongly Oppose",answer,Contact method,Web Panel,,,,,share,suppressed
+Ranked in future,Not Sure,answer,Contact method,Web Panel,,,,,share,suppressed
+Ranked in future,Support (strongly or somewhat),rollup,Contact method,Web Panel,44,67,74.0,0.711,share,ok
+Ranked in future,Oppose (somewhat or strongly),rollup,Contact method,Web Panel,15,67,18.9,0.1817,share,caution
+Ranked one and concerned,Yes,answer,Contact method,Web Panel,,,,,share,suppressed
+Ranked one and concerned,No,answer,Contact method,Web Panel,,,,,share,suppressed
+"Ranked one, did not know enough",Yes,answer,Contact method,Web Panel,,,,,share,suppressed
+"Ranked one, did not know enough",No,answer,Contact method,Web Panel,,,,,share,suppressed
+Ranked in future,Net support (support minus oppose),net,Contact method,Web Panel,,67,,52.9,points,ok
+How voted,On Election Day,answer,How voted,By Mail Or Absentee Ballot,0,72,0.0,0.0,share,caution
+How voted,Early In Person,answer,How voted,By Mail Or Absentee Ballot,0,72,0.0,0.0,share,caution
+How voted,By Mail Or Absentee Ballot,answer,How voted,By Mail Or Absentee Ballot,72,72,64.0,1.0,share,ok
+How many ranked,More Than One,answer,How voted,By Mail Or Absentee Ballot,41,72,32.5,0.5077,share,ok
+How many ranked,Only One,answer,How voted,By Mail Or Absentee Ballot,19,72,21.8,0.3409,share,caution
+How many ranked,Did Not Rank Any,answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+How many ranked,Not Sure,answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+Only liked one,Yes,answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+Only liked one,No,answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+Didn't know enough,Yes,answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+Didn't know enough,No,answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+Concerned,Yes,answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+Concerned,No,answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+Felt about ballot,Very Confident,answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+Felt about ballot,Mostly Confident,answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+Felt about ballot,Not Very Confident,answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,How voted,By Mail Or Absentee Ballot,68,72,61.4,0.9593,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,How voted,By Mail Or Absentee Ballot,47,72,43.0,0.6723,share,ok
+Ranked choice,"No, Learned When Received Ballot",answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+Ranked choice,Not Sure,answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+Understand how counted,"Yes, You're Confident",answer,How voted,By Mail Or Absentee Ballot,44,72,39.1,0.6114,share,ok
+Understand how counted,Pretty Sure You Know,answer,How voted,By Mail Or Absentee Ballot,16,72,17.1,0.2666,share,caution
+Understand how counted,You're Not Sure,answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+Understand how counted,"No, You Don't Understand How",answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+Understand how counted,Understands counting (confident or pretty sure),rollup,How voted,By Mail Or Absentee Ballot,60,72,56.2,0.878,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,How voted,By Mail Or Absentee Ballot,12,72,7.8,0.122,share,caution
+Who won,Takis Karantonis,answer,How voted,By Mail Or Absentee Ballot,39,72,33.6,0.5259,share,ok
+Who won,Bob Cambridge,answer,How voted,By Mail Or Absentee Ballot,0,72,0.0,0.0,share,caution
+Who won,Audrey Clement,answer,How voted,By Mail Or Absentee Ballot,0,72,0.0,0.0,share,caution
+Who won,Jeramy Olmack,answer,How voted,By Mail Or Absentee Ballot,0,72,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,How voted,By Mail Or Absentee Ballot,0,72,0.0,0.0,share,caution
+Who won,Not Sure,answer,How voted,By Mail Or Absentee Ballot,33,72,30.3,0.4741,share,ok
+Results,Very Satisfied,answer,How voted,By Mail Or Absentee Ballot,28,39,20.0,0.595,share,caution
+Results,Somewhat Satisfied,answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+Results,Somewhat Dissatisfied,answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+Results,Very Dissatisfied,answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+Results,Not Sure,answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+Ranked in future,"Yes, Strongly Support",answer,How voted,By Mail Or Absentee Ballot,31,72,24.5,0.3828,share,ok
+Ranked in future,"Yes, Somewhat Support",answer,How voted,By Mail Or Absentee Ballot,13,72,14.4,0.2246,share,caution
+Ranked in future,"No, Somewhat Oppose",answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+Ranked in future,"No, Strongly Oppose",answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+Ranked in future,Not Sure,answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+Ranked in future,Support (strongly or somewhat),rollup,How voted,By Mail Or Absentee Ballot,44,72,38.8,0.6074,share,ok
+Ranked in future,Oppose (somewhat or strongly),rollup,How voted,By Mail Or Absentee Ballot,20,72,19.4,0.3031,share,caution
+Ranked one and concerned,Yes,answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+Ranked one and concerned,No,answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+"Ranked one, did not know enough",Yes,answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+"Ranked one, did not know enough",No,answer,How voted,By Mail Or Absentee Ballot,,,,,share,suppressed
+Ranked in future,Net support (support minus oppose),net,How voted,By Mail Or Absentee Ballot,,72,,30.4,points,ok
+How voted,On Election Day,answer,How voted,Early In Person,0,238,0.0,0.0,share,caution
+How voted,Early In Person,answer,How voted,Early In Person,238,238,213.1,1.0,share,ok
+How voted,By Mail Or Absentee Ballot,answer,How voted,Early In Person,0,238,0.0,0.0,share,caution
+How many ranked,More Than One,answer,How voted,Early In Person,137,238,127.5,0.5982,share,ok
+How many ranked,Only One,answer,How voted,Early In Person,86,238,73.4,0.3446,share,ok
+How many ranked,Did Not Rank Any,answer,How voted,Early In Person,,,,,share,suppressed
+How many ranked,Not Sure,answer,How voted,Early In Person,,,,,share,suppressed
+Only liked one,Yes,answer,How voted,Early In Person,54,86,48.1,0.6551,share,ok
+Only liked one,No,answer,How voted,Early In Person,32,86,25.3,0.3449,share,ok
+Didn't know enough,Yes,answer,How voted,Early In Person,24,86,23.4,0.3184,share,caution
+Didn't know enough,No,answer,How voted,Early In Person,62,86,50.0,0.6816,share,ok
+Concerned,Yes,answer,How voted,Early In Person,21,86,19.1,0.2602,share,caution
+Concerned,No,answer,How voted,Early In Person,65,86,54.3,0.7398,share,ok
+Felt about ballot,Very Confident,answer,How voted,Early In Person,,,,,share,suppressed
+Felt about ballot,Mostly Confident,answer,How voted,Early In Person,,,,,share,suppressed
+Felt about ballot,Not Very Confident,answer,How voted,Early In Person,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,How voted,Early In Person,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,How voted,Early In Person,235,238,209.1,0.9813,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,How voted,Early In Person,,,,,share,suppressed
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,How voted,Early In Person,189,238,168.7,0.7916,share,ok
+Ranked choice,"No, Learned When Received Ballot",answer,How voted,Early In Person,,,,,share,suppressed
+Ranked choice,Not Sure,answer,How voted,Early In Person,,,,,share,suppressed
+Understand how counted,"Yes, You're Confident",answer,How voted,Early In Person,149,238,132.4,0.6213,share,ok
+Understand how counted,Pretty Sure You Know,answer,How voted,Early In Person,56,238,55.6,0.2611,share,ok
+Understand how counted,You're Not Sure,answer,How voted,Early In Person,23,238,16.6,0.0779,share,caution
+Understand how counted,"No, You Don't Understand How",answer,How voted,Early In Person,10,238,8.5,0.0397,share,caution
+Understand how counted,Understands counting (confident or pretty sure),rollup,How voted,Early In Person,205,238,188.0,0.8824,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,How voted,Early In Person,33,238,25.1,0.1176,share,ok
+Who won,Takis Karantonis,answer,How voted,Early In Person,142,238,119.4,0.5605,share,ok
+Who won,Bob Cambridge,answer,How voted,Early In Person,,,,,share,suppressed
+Who won,Audrey Clement,answer,How voted,Early In Person,,,,,share,suppressed
+Who won,Jeramy Olmack,answer,How voted,Early In Person,0,238,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,How voted,Early In Person,0,238,0.0,0.0,share,caution
+Who won,Not Sure,answer,How voted,Early In Person,92,238,90.8,0.4263,share,ok
+Results,Very Satisfied,answer,How voted,Early In Person,94,146,72.2,0.5905,share,ok
+Results,Somewhat Satisfied,answer,How voted,Early In Person,23,146,23.1,0.1887,share,caution
+Results,Somewhat Dissatisfied,answer,How voted,Early In Person,,,,,share,suppressed
+Results,Very Dissatisfied,answer,How voted,Early In Person,14,146,9.3,0.0763,share,caution
+Results,Not Sure,answer,How voted,Early In Person,,,,,share,suppressed
+Ranked in future,"Yes, Strongly Support",answer,How voted,Early In Person,89,238,82.8,0.3887,share,ok
+Ranked in future,"Yes, Somewhat Support",answer,How voted,Early In Person,73,238,68.1,0.3198,share,ok
+Ranked in future,"No, Somewhat Oppose",answer,How voted,Early In Person,28,238,23.7,0.1114,share,caution
+Ranked in future,"No, Strongly Oppose",answer,How voted,Early In Person,32,238,25.6,0.12,share,ok
+Ranked in future,Not Sure,answer,How voted,Early In Person,16,238,12.8,0.0601,share,caution
+Ranked in future,Support (strongly or somewhat),rollup,How voted,Early In Person,162,238,151.0,0.7085,share,ok
+Ranked in future,Oppose (somewhat or strongly),rollup,How voted,Early In Person,60,238,49.3,0.2314,share,ok
+Ranked one and concerned,Yes,answer,How voted,Early In Person,21,238,19.1,0.0897,share,caution
+Ranked one and concerned,No,answer,How voted,Early In Person,217,238,194.0,0.9103,share,ok
+"Ranked one, did not know enough",Yes,answer,How voted,Early In Person,24,238,23.4,0.1097,share,caution
+"Ranked one, did not know enough",No,answer,How voted,Early In Person,214,238,189.7,0.8903,share,ok
+Ranked in future,Net support (support minus oppose),net,How voted,Early In Person,,238,,47.7,points,ok
+How voted,On Election Day,answer,How voted,On Election Day,274,274,298.0,1.0,share,ok
+How voted,Early In Person,answer,How voted,On Election Day,0,274,0.0,0.0,share,caution
+How voted,By Mail Or Absentee Ballot,answer,How voted,On Election Day,0,274,0.0,0.0,share,caution
+How many ranked,More Than One,answer,How voted,On Election Day,149,274,161.0,0.5404,share,ok
+How many ranked,Only One,answer,How voted,On Election Day,100,274,104.1,0.3494,share,ok
+How many ranked,Did Not Rank Any,answer,How voted,On Election Day,14,274,19.7,0.0661,share,caution
+How many ranked,Not Sure,answer,How voted,On Election Day,11,274,13.1,0.044,share,caution
+Only liked one,Yes,answer,How voted,On Election Day,58,100,63.5,0.6095,share,ok
+Only liked one,No,answer,How voted,On Election Day,42,100,40.7,0.3905,share,ok
+Didn't know enough,Yes,answer,How voted,On Election Day,30,100,29.2,0.2804,share,ok
+Didn't know enough,No,answer,How voted,On Election Day,70,100,74.9,0.7196,share,ok
+Concerned,Yes,answer,How voted,On Election Day,30,100,28.8,0.2761,share,ok
+Concerned,No,answer,How voted,On Election Day,70,100,75.4,0.7239,share,ok
+Felt about ballot,Very Confident,answer,How voted,On Election Day,224,274,230.8,0.7746,share,ok
+Felt about ballot,Mostly Confident,answer,How voted,On Election Day,40,274,47.7,0.16,share,ok
+Felt about ballot,Not Very Confident,answer,How voted,On Election Day,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,How voted,On Election Day,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,How voted,On Election Day,264,274,278.5,0.9347,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,How voted,On Election Day,10,274,19.5,0.0653,share,caution
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,How voted,On Election Day,187,274,196.1,0.6581,share,ok
+Ranked choice,"No, Learned When Received Ballot",answer,How voted,On Election Day,77,274,91.3,0.3063,share,ok
+Ranked choice,Not Sure,answer,How voted,On Election Day,10,274,10.6,0.0355,share,caution
+Understand how counted,"Yes, You're Confident",answer,How voted,On Election Day,187,274,185.7,0.6231,share,ok
+Understand how counted,Pretty Sure You Know,answer,How voted,On Election Day,56,274,71.9,0.2412,share,ok
+Understand how counted,You're Not Sure,answer,How voted,On Election Day,15,274,15.0,0.0504,share,caution
+Understand how counted,"No, You Don't Understand How",answer,How voted,On Election Day,16,274,25.4,0.0853,share,caution
+Understand how counted,Understands counting (confident or pretty sure),rollup,How voted,On Election Day,243,274,257.5,0.8643,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,How voted,On Election Day,31,274,40.4,0.1357,share,ok
+Who won,Takis Karantonis,answer,How voted,On Election Day,,,,,share,suppressed
+Who won,Bob Cambridge,answer,How voted,On Election Day,0,274,0.0,0.0,share,caution
+Who won,Audrey Clement,answer,How voted,On Election Day,,,,,share,suppressed
+Who won,Jeramy Olmack,answer,How voted,On Election Day,0,274,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,How voted,On Election Day,0,274,0.0,0.0,share,caution
+Who won,Not Sure,answer,How voted,On Election Day,137,274,147.9,0.4965,share,ok
+Results,Very Satisfied,answer,How voted,On Election Day,87,137,93.4,0.6226,share,ok
+Results,Somewhat Satisfied,answer,How voted,On Election Day,19,137,21.2,0.1412,share,caution
+Results,Somewhat Dissatisfied,answer,How voted,On Election Day,,,,,share,suppressed
+Results,Very Dissatisfied,answer,How voted,On Election Day,14,137,14.4,0.0961,share,caution
+Results,Not Sure,answer,How voted,On Election Day,,,,,share,suppressed
+Ranked in future,"Yes, Strongly Support",answer,How voted,On Election Day,94,274,99.3,0.3333,share,ok
+Ranked in future,"Yes, Somewhat Support",answer,How voted,On Election Day,79,274,91.2,0.3061,share,ok
+Ranked in future,"No, Somewhat Oppose",answer,How voted,On Election Day,24,274,26.5,0.0889,share,caution
+Ranked in future,"No, Strongly Oppose",answer,How voted,On Election Day,48,274,50.0,0.1679,share,ok
+Ranked in future,Not Sure,answer,How voted,On Election Day,29,274,30.9,0.1038,share,caution
+Ranked in future,Support (strongly or somewhat),rollup,How voted,On Election Day,173,274,190.5,0.6394,share,ok
+Ranked in future,Oppose (somewhat or strongly),rollup,How voted,On Election Day,72,274,76.5,0.2568,share,ok
+Ranked one and concerned,Yes,answer,How voted,On Election Day,30,274,28.8,0.0965,share,ok
+Ranked one and concerned,No,answer,How voted,On Election Day,244,274,269.2,0.9035,share,ok
+"Ranked one, did not know enough",Yes,answer,How voted,On Election Day,30,274,29.2,0.098,share,ok
+"Ranked one, did not know enough",No,answer,How voted,On Election Day,244,274,268.8,0.902,share,ok
+Ranked in future,Net support (support minus oppose),net,How voted,On Election Day,,274,,38.3,points,ok
+How voted,On Election Day,answer,Race and ethnicity,White,195,444,183.8,0.4693,share,ok
+How voted,Early In Person,answer,Race and ethnicity,White,189,444,158.2,0.4039,share,ok
+How voted,By Mail Or Absentee Ballot,answer,Race and ethnicity,White,60,444,49.7,0.1268,share,ok
+How many ranked,More Than One,answer,Race and ethnicity,White,241,444,208.8,0.5332,share,ok
+How many ranked,Only One,answer,Race and ethnicity,White,162,444,145.7,0.372,share,ok
+How many ranked,Did Not Rank Any,answer,Race and ethnicity,White,23,444,20.8,0.0532,share,caution
+How many ranked,Not Sure,answer,Race and ethnicity,White,18,444,16.3,0.0417,share,caution
+Only liked one,Yes,answer,Race and ethnicity,White,97,162,92.4,0.6344,share,ok
+Only liked one,No,answer,Race and ethnicity,White,65,162,53.3,0.3656,share,ok
+Didn't know enough,Yes,answer,Race and ethnicity,White,48,162,43.8,0.301,share,ok
+Didn't know enough,No,answer,Race and ethnicity,White,114,162,101.8,0.699,share,ok
+Concerned,Yes,answer,Race and ethnicity,White,40,162,32.3,0.2219,share,ok
+Concerned,No,answer,Race and ethnicity,White,122,162,113.3,0.7781,share,ok
+Felt about ballot,Very Confident,answer,Race and ethnicity,White,375,444,325.7,0.8317,share,ok
+Felt about ballot,Mostly Confident,answer,Race and ethnicity,White,56,444,47.2,0.1205,share,ok
+Felt about ballot,Not Very Confident,answer,Race and ethnicity,White,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Race and ethnicity,White,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Race and ethnicity,White,431,444,372.9,0.9522,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Race and ethnicity,White,13,444,18.7,0.0478,share,caution
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Race and ethnicity,White,325,444,277.4,0.7084,share,ok
+Ranked choice,"No, Learned When Received Ballot",answer,Race and ethnicity,White,105,444,103.4,0.2642,share,ok
+Ranked choice,Not Sure,answer,Race and ethnicity,White,14,444,10.7,0.0274,share,caution
+Understand how counted,"Yes, You're Confident",answer,Race and ethnicity,White,296,444,257.5,0.6576,share,ok
+Understand how counted,Pretty Sure You Know,answer,Race and ethnicity,White,98,444,94.0,0.24,share,ok
+Understand how counted,You're Not Sure,answer,Race and ethnicity,White,32,444,24.7,0.0631,share,ok
+Understand how counted,"No, You Don't Understand How",answer,Race and ethnicity,White,18,444,15.4,0.0393,share,caution
+Understand how counted,Understands counting (confident or pretty sure),rollup,Race and ethnicity,White,394,444,351.5,0.8976,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,Race and ethnicity,White,50,444,40.1,0.1024,share,ok
+Who won,Takis Karantonis,answer,Race and ethnicity,White,256,444,221.4,0.5654,share,ok
+Who won,Bob Cambridge,answer,Race and ethnicity,White,0,444,0.0,0.0,share,caution
+Who won,Audrey Clement,answer,Race and ethnicity,White,,,,,share,suppressed
+Who won,Jeramy Olmack,answer,Race and ethnicity,White,0,444,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Race and ethnicity,White,0,444,0.0,0.0,share,caution
+Who won,Not Sure,answer,Race and ethnicity,White,,,,,share,suppressed
+Results,Very Satisfied,answer,Race and ethnicity,White,172,261,138.2,0.6163,share,ok
+Results,Somewhat Satisfied,answer,Race and ethnicity,White,36,261,33.4,0.1488,share,ok
+Results,Somewhat Dissatisfied,answer,Race and ethnicity,White,,,,,share,suppressed
+Results,Very Dissatisfied,answer,Race and ethnicity,White,26,261,22.3,0.0995,share,caution
+Results,Not Sure,answer,Race and ethnicity,White,,,,,share,suppressed
+Ranked in future,"Yes, Strongly Support",answer,Race and ethnicity,White,166,444,147.1,0.3756,share,ok
+Ranked in future,"Yes, Somewhat Support",answer,Race and ethnicity,White,129,444,118.9,0.3037,share,ok
+Ranked in future,"No, Somewhat Oppose",answer,Race and ethnicity,White,46,444,42.6,0.1088,share,ok
+Ranked in future,"No, Strongly Oppose",answer,Race and ethnicity,White,67,444,54.5,0.1392,share,ok
+Ranked in future,Not Sure,answer,Race and ethnicity,White,36,444,28.5,0.0728,share,ok
+Ranked in future,Support (strongly or somewhat),rollup,Race and ethnicity,White,295,444,266.0,0.6793,share,ok
+Ranked in future,Oppose (somewhat or strongly),rollup,Race and ethnicity,White,113,444,97.1,0.248,share,ok
+Ranked one and concerned,Yes,answer,Race and ethnicity,White,40,444,32.3,0.0825,share,ok
+Ranked one and concerned,No,answer,Race and ethnicity,White,404,444,359.3,0.9175,share,ok
+"Ranked one, did not know enough",Yes,answer,Race and ethnicity,White,48,444,43.8,0.112,share,ok
+"Ranked one, did not know enough",No,answer,Race and ethnicity,White,396,444,347.8,0.888,share,ok
+Ranked in future,Net support (support minus oppose),net,Race and ethnicity,White,,444,,43.1,points,ok
+How voted,On Election Day,answer,Race and ethnicity,Black,24,49,25.7,0.5349,share,caution
+How voted,Early In Person,answer,Race and ethnicity,Black,,,,,share,suppressed
+How voted,By Mail Or Absentee Ballot,answer,Race and ethnicity,Black,,,,,share,suppressed
+How many ranked,More Than One,answer,Race and ethnicity,Black,33,49,32.6,0.68,share,ok
+How many ranked,Only One,answer,Race and ethnicity,Black,10,49,10.7,0.2238,share,caution
+How many ranked,Did Not Rank Any,answer,Race and ethnicity,Black,,,,,share,suppressed
+How many ranked,Not Sure,answer,Race and ethnicity,Black,,,,,share,suppressed
+Only liked one,Yes,answer,Race and ethnicity,Black,,,,,share,suppressed
+Only liked one,No,answer,Race and ethnicity,Black,,,,,share,suppressed
+Didn't know enough,Yes,answer,Race and ethnicity,Black,,,,,share,suppressed
+Didn't know enough,No,answer,Race and ethnicity,Black,,,,,share,suppressed
+Concerned,Yes,answer,Race and ethnicity,Black,,,,,share,suppressed
+Concerned,No,answer,Race and ethnicity,Black,,,,,share,suppressed
+Felt about ballot,Very Confident,answer,Race and ethnicity,Black,,,,,share,suppressed
+Felt about ballot,Mostly Confident,answer,Race and ethnicity,Black,,,,,share,suppressed
+Felt about ballot,Not Very Confident,answer,Race and ethnicity,Black,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Race and ethnicity,Black,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Race and ethnicity,Black,47,49,46.3,0.9654,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Race and ethnicity,Black,,,,,share,suppressed
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Race and ethnicity,Black,34,49,34.8,0.7251,share,ok
+Ranked choice,"No, Learned When Received Ballot",answer,Race and ethnicity,Black,,,,,share,suppressed
+Ranked choice,Not Sure,answer,Race and ethnicity,Black,,,,,share,suppressed
+Understand how counted,"Yes, You're Confident",answer,Race and ethnicity,Black,,,,,share,suppressed
+Understand how counted,Pretty Sure You Know,answer,Race and ethnicity,Black,,,,,share,suppressed
+Understand how counted,You're Not Sure,answer,Race and ethnicity,Black,,,,,share,suppressed
+Understand how counted,"No, You Don't Understand How",answer,Race and ethnicity,Black,,,,,share,suppressed
+Understand how counted,Understands counting (confident or pretty sure),rollup,Race and ethnicity,Black,39,49,40.9,0.8518,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,Race and ethnicity,Black,10,49,7.1,0.1482,share,caution
+Who won,Takis Karantonis,answer,Race and ethnicity,Black,18,49,19.7,0.4099,share,caution
+Who won,Bob Cambridge,answer,Race and ethnicity,Black,,,,,share,suppressed
+Who won,Audrey Clement,answer,Race and ethnicity,Black,,,,,share,suppressed
+Who won,Jeramy Olmack,answer,Race and ethnicity,Black,0,49,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Race and ethnicity,Black,0,49,0.0,0.0,share,caution
+Who won,Not Sure,answer,Race and ethnicity,Black,28,49,24.4,0.5084,share,caution
+Results,Very Satisfied,answer,Race and ethnicity,Black,15,21,17.2,0.7307,share,caution
+Results,Somewhat Satisfied,answer,Race and ethnicity,Black,,,,,share,suppressed
+Results,Somewhat Dissatisfied,answer,Race and ethnicity,Black,,,,,share,suppressed
+Results,Very Dissatisfied,answer,Race and ethnicity,Black,,,,,share,suppressed
+Results,Not Sure,answer,Race and ethnicity,Black,0,21,0.0,0.0,share,caution
+Ranked in future,"Yes, Strongly Support",answer,Race and ethnicity,Black,17,49,20.9,0.4359,share,caution
+Ranked in future,"Yes, Somewhat Support",answer,Race and ethnicity,Black,14,49,12.0,0.2503,share,caution
+Ranked in future,"No, Somewhat Oppose",answer,Race and ethnicity,Black,,,,,share,suppressed
+Ranked in future,"No, Strongly Oppose",answer,Race and ethnicity,Black,,,,,share,suppressed
+Ranked in future,Not Sure,answer,Race and ethnicity,Black,,,,,share,suppressed
+Ranked in future,Support (strongly or somewhat),rollup,Race and ethnicity,Black,31,49,32.9,0.6862,share,ok
+Ranked in future,Oppose (somewhat or strongly),rollup,Race and ethnicity,Black,14,49,12.7,0.2639,share,caution
+Ranked one and concerned,Yes,answer,Race and ethnicity,Black,,,,,share,suppressed
+Ranked one and concerned,No,answer,Race and ethnicity,Black,,,,,share,suppressed
+"Ranked one, did not know enough",Yes,answer,Race and ethnicity,Black,,,,,share,suppressed
+"Ranked one, did not know enough",No,answer,Race and ethnicity,Black,,,,,share,suppressed
+Ranked in future,Net support (support minus oppose),net,Race and ethnicity,Black,,49,,42.2,points,ok
+How voted,On Election Day,answer,Race and ethnicity,Hispanic,23,37,40.1,0.6715,share,caution
+How voted,Early In Person,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+How voted,By Mail Or Absentee Ballot,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+How many ranked,More Than One,answer,Race and ethnicity,Hispanic,18,37,24.9,0.4172,share,caution
+How many ranked,Only One,answer,Race and ethnicity,Hispanic,10,37,18.0,0.3017,share,caution
+How many ranked,Did Not Rank Any,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+How many ranked,Not Sure,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Only liked one,Yes,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Only liked one,No,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Didn't know enough,Yes,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Didn't know enough,No,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Concerned,Yes,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Concerned,No,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Felt about ballot,Very Confident,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Felt about ballot,Mostly Confident,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Felt about ballot,Not Very Confident,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Race and ethnicity,Hispanic,35,37,56.2,0.9406,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Race and ethnicity,Hispanic,,,,,share,suppressed
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Race and ethnicity,Hispanic,17,37,27.1,0.454,share,caution
+Ranked choice,"No, Learned When Received Ballot",answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Ranked choice,Not Sure,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Understand how counted,"Yes, You're Confident",answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Understand how counted,Pretty Sure You Know,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Understand how counted,You're Not Sure,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Understand how counted,"No, You Don't Understand How",answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Understand how counted,Understands counting (confident or pretty sure),rollup,Race and ethnicity,Hispanic,31,37,46.2,0.7728,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,Race and ethnicity,Hispanic,,,,,share,suppressed
+Who won,Takis Karantonis,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Who won,Bob Cambridge,answer,Race and ethnicity,Hispanic,0,37,0.0,0.0,share,caution
+Who won,Audrey Clement,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Who won,Jeramy Olmack,answer,Race and ethnicity,Hispanic,0,37,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Race and ethnicity,Hispanic,0,37,0.0,0.0,share,caution
+Who won,Not Sure,answer,Race and ethnicity,Hispanic,25,37,41.0,0.6864,share,caution
+Results,Very Satisfied,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Results,Somewhat Satisfied,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Results,Somewhat Dissatisfied,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Results,Very Dissatisfied,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Results,Not Sure,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Ranked in future,"Yes, Strongly Support",answer,Race and ethnicity,Hispanic,10,37,10.6,0.1783,share,caution
+Ranked in future,"Yes, Somewhat Support",answer,Race and ethnicity,Hispanic,12,37,21.7,0.3629,share,caution
+Ranked in future,"No, Somewhat Oppose",answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Ranked in future,"No, Strongly Oppose",answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Ranked in future,Not Sure,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Ranked in future,Support (strongly or somewhat),rollup,Race and ethnicity,Hispanic,22,37,32.3,0.5412,share,caution
+Ranked in future,Oppose (somewhat or strongly),rollup,Race and ethnicity,Hispanic,10,37,20.9,0.3498,share,caution
+Ranked one and concerned,Yes,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Ranked one and concerned,No,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+"Ranked one, did not know enough",Yes,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+"Ranked one, did not know enough",No,answer,Race and ethnicity,Hispanic,,,,,share,suppressed
+Ranked in future,Net support (support minus oppose),net,Race and ethnicity,Hispanic,,37,,19.1,points,caution
+How voted,On Election Day,answer,Race and ethnicity,Asian,14,23,24.5,0.6571,share,caution
+How voted,Early In Person,answer,Race and ethnicity,Asian,,,,,share,suppressed
+How voted,By Mail Or Absentee Ballot,answer,Race and ethnicity,Asian,,,,,share,suppressed
+How many ranked,More Than One,answer,Race and ethnicity,Asian,12,23,21.1,0.5663,share,caution
+How many ranked,Only One,answer,Race and ethnicity,Asian,,,,,share,suppressed
+How many ranked,Did Not Rank Any,answer,Race and ethnicity,Asian,0,23,0.0,0.0,share,caution
+How many ranked,Not Sure,answer,Race and ethnicity,Asian,,,,,share,suppressed
+Only liked one,Yes,answer,Race and ethnicity,Asian,,,,,share,suppressed
+Only liked one,No,answer,Race and ethnicity,Asian,,,,,share,suppressed
+Didn't know enough,Yes,answer,Race and ethnicity,Asian,,,,,share,suppressed
+Didn't know enough,No,answer,Race and ethnicity,Asian,,,,,share,suppressed
+Concerned,Yes,answer,Race and ethnicity,Asian,,,,,share,suppressed
+Concerned,No,answer,Race and ethnicity,Asian,,,,,share,suppressed
+Felt about ballot,Very Confident,answer,Race and ethnicity,Asian,,,,,share,suppressed
+Felt about ballot,Mostly Confident,answer,Race and ethnicity,Asian,,,,,share,suppressed
+Felt about ballot,Not Very Confident,answer,Race and ethnicity,Asian,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Race and ethnicity,Asian,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Race and ethnicity,Asian,22,23,32.1,0.8622,share,caution
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Race and ethnicity,Asian,,,,,share,suppressed
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Race and ethnicity,Asian,,,,,share,suppressed
+Ranked choice,"No, Learned When Received Ballot",answer,Race and ethnicity,Asian,,,,,share,suppressed
+Ranked choice,Not Sure,answer,Race and ethnicity,Asian,0,23,0.0,0.0,share,caution
+Understand how counted,"Yes, You're Confident",answer,Race and ethnicity,Asian,,,,,share,suppressed
+Understand how counted,Pretty Sure You Know,answer,Race and ethnicity,Asian,,,,,share,suppressed
+Understand how counted,You're Not Sure,answer,Race and ethnicity,Asian,,,,,share,suppressed
+Understand how counted,"No, You Don't Understand How",answer,Race and ethnicity,Asian,,,,,share,suppressed
+Understand how counted,Understands counting (confident or pretty sure),rollup,Race and ethnicity,Asian,20,23,28.6,0.7678,share,caution
+Understand how counted,Not sure or does not understand counting,rollup,Race and ethnicity,Asian,,,,,share,suppressed
+Who won,Takis Karantonis,answer,Race and ethnicity,Asian,13,23,21.9,0.5888,share,caution
+Who won,Bob Cambridge,answer,Race and ethnicity,Asian,0,23,0.0,0.0,share,caution
+Who won,Audrey Clement,answer,Race and ethnicity,Asian,0,23,0.0,0.0,share,caution
+Who won,Jeramy Olmack,answer,Race and ethnicity,Asian,0,23,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Race and ethnicity,Asian,0,23,0.0,0.0,share,caution
+Who won,Not Sure,answer,Race and ethnicity,Asian,10,23,15.3,0.4112,share,caution
+Results,Very Satisfied,answer,Race and ethnicity,Asian,,,,,share,suppressed
+Results,Somewhat Satisfied,answer,Race and ethnicity,Asian,,,,,share,suppressed
+Results,Somewhat Dissatisfied,answer,Race and ethnicity,Asian,0,13,0.0,0.0,share,caution
+Results,Very Dissatisfied,answer,Race and ethnicity,Asian,0,13,0.0,0.0,share,caution
+Results,Not Sure,answer,Race and ethnicity,Asian,,,,,share,suppressed
+Ranked in future,"Yes, Strongly Support",answer,Race and ethnicity,Asian,,,,,share,suppressed
+Ranked in future,"Yes, Somewhat Support",answer,Race and ethnicity,Asian,,,,,share,suppressed
+Ranked in future,"No, Somewhat Oppose",answer,Race and ethnicity,Asian,,,,,share,suppressed
+Ranked in future,"No, Strongly Oppose",answer,Race and ethnicity,Asian,,,,,share,suppressed
+Ranked in future,Not Sure,answer,Race and ethnicity,Asian,,,,,share,suppressed
+Ranked in future,Support (strongly or somewhat),rollup,Race and ethnicity,Asian,19,23,27.9,0.7475,share,caution
+Ranked in future,Oppose (somewhat or strongly),rollup,Race and ethnicity,Asian,,,,,share,suppressed
+Ranked one and concerned,Yes,answer,Race and ethnicity,Asian,,,,,share,suppressed
+Ranked one and concerned,No,answer,Race and ethnicity,Asian,,,,,share,suppressed
+"Ranked one, did not know enough",Yes,answer,Race and ethnicity,Asian,,,,,share,suppressed
+"Ranked one, did not know enough",No,answer,Race and ethnicity,Asian,,,,,share,suppressed
+Ranked in future,Net support (support minus oppose),net,Race and ethnicity,Asian,,,,,points,suppressed
+How voted,On Election Day,answer,Race and ethnicity,American Indian,,,,,share,suppressed
+How voted,Early In Person,answer,Race and ethnicity,American Indian,,,,,share,suppressed
+How voted,By Mail Or Absentee Ballot,answer,Race and ethnicity,American Indian,,,,,share,suppressed
+How many ranked,More Than One,answer,Race and ethnicity,American Indian,,,,,share,suppressed
+How many ranked,Only One,answer,Race and ethnicity,American Indian,,,,,share,suppressed
+How many ranked,Did Not Rank Any,answer,Race and ethnicity,American Indian,,,,,share,suppressed
+How many ranked,Not Sure,answer,Race and ethnicity,American Indian,0,11,0.0,0.0,share,caution
+Only liked one,Yes,answer,Race and ethnicity,American Indian,,,,,share,suppressed
+Only liked one,No,answer,Race and ethnicity,American Indian,,,,,share,suppressed
+Didn't know enough,Yes,answer,Race and ethnicity,American Indian,,,,,share,suppressed
+Didn't know enough,No,answer,Race and ethnicity,American Indian,,,,,share,suppressed
+Concerned,Yes,answer,Race and ethnicity,American Indian,,,,,share,suppressed
+Concerned,No,answer,Race and ethnicity,American Indian,,,,,share,suppressed
+Felt about ballot,Very Confident,answer,Race and ethnicity,American Indian,,,,,share,suppressed
+Felt about ballot,Mostly Confident,answer,Race and ethnicity,American Indian,,,,,share,suppressed
+Felt about ballot,Not Very Confident,answer,Race and ethnicity,American Indian,0,11,0.0,0.0,share,caution
+Felt about ballot,Did Not Understand,answer,Race and ethnicity,American Indian,0,11,0.0,0.0,share,caution
+Felt about ballot,Confident marking (very or mostly),rollup,Race and ethnicity,American Indian,11,11,19.8,1.0,share,caution
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Race and ethnicity,American Indian,0,11,0.0,0.0,share,caution
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Race and ethnicity,American Indian,,,,,share,suppressed
+Ranked choice,"No, Learned When Received Ballot",answer,Race and ethnicity,American Indian,,,,,share,suppressed
+Ranked choice,Not Sure,answer,Race and ethnicity,American Indian,,,,,share,suppressed
+Understand how counted,"Yes, You're Confident",answer,Race and ethnicity,American Indian,,,,,share,suppressed
+Understand how counted,Pretty Sure You Know,answer,Race and ethnicity,American Indian,,,,,share,suppressed
+Understand how counted,You're Not Sure,answer,Race and ethnicity,American Indian,0,11,0.0,0.0,share,caution
+Understand how counted,"No, You Don't Understand How",answer,Race and ethnicity,American Indian,0,11,0.0,0.0,share,caution
+Understand how counted,Understands counting (confident or pretty sure),rollup,Race and ethnicity,American Indian,11,11,19.8,1.0,share,caution
+Understand how counted,Not sure or does not understand counting,rollup,Race and ethnicity,American Indian,0,11,0.0,0.0,share,caution
+Who won,Takis Karantonis,answer,Race and ethnicity,American Indian,,,,,share,suppressed
+Who won,Bob Cambridge,answer,Race and ethnicity,American Indian,0,11,0.0,0.0,share,caution
+Who won,Audrey Clement,answer,Race and ethnicity,American Indian,0,11,0.0,0.0,share,caution
+Who won,Jeramy Olmack,answer,Race and ethnicity,American Indian,0,11,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Race and ethnicity,American Indian,0,11,0.0,0.0,share,caution
+Who won,Not Sure,answer,Race and ethnicity,American Indian,,,,,share,suppressed
+Results,Very Satisfied,answer,Race and ethnicity,American Indian,,,,,share,suppressed
+Results,Somewhat Satisfied,answer,Race and ethnicity,American Indian,,,,,share,suppressed
+Results,Somewhat Dissatisfied,answer,Race and ethnicity,American Indian,,,,,share,suppressed
+Results,Very Dissatisfied,answer,Race and ethnicity,American Indian,,,,,share,suppressed
+Results,Not Sure,answer,Race and ethnicity,American Indian,,,,,share,suppressed
+Ranked in future,"Yes, Strongly Support",answer,Race and ethnicity,American Indian,,,,,share,suppressed
+Ranked in future,"Yes, Somewhat Support",answer,Race and ethnicity,American Indian,,,,,share,suppressed
+Ranked in future,"No, Somewhat Oppose",answer,Race and ethnicity,American Indian,,,,,share,suppressed
+Ranked in future,"No, Strongly Oppose",answer,Race and ethnicity,American Indian,,,,,share,suppressed
+Ranked in future,Not Sure,answer,Race and ethnicity,American Indian,0,11,0.0,0.0,share,caution
+Ranked in future,Support (strongly or somewhat),rollup,Race and ethnicity,American Indian,10,11,18.7,0.9423,share,caution
+Ranked in future,Oppose (somewhat or strongly),rollup,Race and ethnicity,American Indian,,,,,share,suppressed
+Ranked one and concerned,Yes,answer,Race and ethnicity,American Indian,0,11,0.0,0.0,share,caution
+Ranked one and concerned,No,answer,Race and ethnicity,American Indian,11,11,19.8,1.0,share,caution
+"Ranked one, did not know enough",Yes,answer,Race and ethnicity,American Indian,,,,,share,suppressed
+"Ranked one, did not know enough",No,answer,Race and ethnicity,American Indian,,,,,share,suppressed
+Ranked in future,Net support (support minus oppose),net,Race and ethnicity,American Indian,,,,,points,suppressed
+How voted,On Election Day,answer,Race and ethnicity,Other race,,,,,share,suppressed
+How voted,Early In Person,answer,Race and ethnicity,Other race,,,,,share,suppressed
+How voted,By Mail Or Absentee Ballot,answer,Race and ethnicity,Other race,,,,,share,suppressed
+How many ranked,More Than One,answer,Race and ethnicity,Other race,12,16,22.9,0.7936,share,caution
+How many ranked,Only One,answer,Race and ethnicity,Other race,,,,,share,suppressed
+How many ranked,Did Not Rank Any,answer,Race and ethnicity,Other race,,,,,share,suppressed
+How many ranked,Not Sure,answer,Race and ethnicity,Other race,,,,,share,suppressed
+Only liked one,Yes,answer,Race and ethnicity,Other race,,,,,share,suppressed
+Only liked one,No,answer,Race and ethnicity,Other race,,,,,share,suppressed
+Didn't know enough,Yes,answer,Race and ethnicity,Other race,,,,,share,suppressed
+Didn't know enough,No,answer,Race and ethnicity,Other race,,,,,share,suppressed
+Concerned,Yes,answer,Race and ethnicity,Other race,,,,,share,suppressed
+Concerned,No,answer,Race and ethnicity,Other race,,,,,share,suppressed
+Felt about ballot,Very Confident,answer,Race and ethnicity,Other race,,,,,share,suppressed
+Felt about ballot,Mostly Confident,answer,Race and ethnicity,Other race,,,,,share,suppressed
+Felt about ballot,Not Very Confident,answer,Race and ethnicity,Other race,0,16,0.0,0.0,share,caution
+Felt about ballot,Did Not Understand,answer,Race and ethnicity,Other race,0,16,0.0,0.0,share,caution
+Felt about ballot,Confident marking (very or mostly),rollup,Race and ethnicity,Other race,16,16,28.9,1.0,share,caution
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Race and ethnicity,Other race,0,16,0.0,0.0,share,caution
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Race and ethnicity,Other race,14,16,25.8,0.8941,share,caution
+Ranked choice,"No, Learned When Received Ballot",answer,Race and ethnicity,Other race,,,,,share,suppressed
+Ranked choice,Not Sure,answer,Race and ethnicity,Other race,,,,,share,suppressed
+Understand how counted,"Yes, You're Confident",answer,Race and ethnicity,Other race,,,,,share,suppressed
+Understand how counted,Pretty Sure You Know,answer,Race and ethnicity,Other race,,,,,share,suppressed
+Understand how counted,You're Not Sure,answer,Race and ethnicity,Other race,,,,,share,suppressed
+Understand how counted,"No, You Don't Understand How",answer,Race and ethnicity,Other race,,,,,share,suppressed
+Understand how counted,Understands counting (confident or pretty sure),rollup,Race and ethnicity,Other race,13,16,24.7,0.8555,share,caution
+Understand how counted,Not sure or does not understand counting,rollup,Race and ethnicity,Other race,,,,,share,suppressed
+Who won,Takis Karantonis,answer,Race and ethnicity,Other race,,,,,share,suppressed
+Who won,Bob Cambridge,answer,Race and ethnicity,Other race,0,16,0.0,0.0,share,caution
+Who won,Audrey Clement,answer,Race and ethnicity,Other race,0,16,0.0,0.0,share,caution
+Who won,Jeramy Olmack,answer,Race and ethnicity,Other race,0,16,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Race and ethnicity,Other race,0,16,0.0,0.0,share,caution
+Who won,Not Sure,answer,Race and ethnicity,Other race,,,,,share,suppressed
+Results,Very Satisfied,answer,Race and ethnicity,Other race,,,,,share,suppressed
+Results,Somewhat Satisfied,answer,Race and ethnicity,Other race,,,,,share,suppressed
+Results,Somewhat Dissatisfied,answer,Race and ethnicity,Other race,,,,,share,suppressed
+Results,Very Dissatisfied,answer,Race and ethnicity,Other race,,,,,share,suppressed
+Results,Not Sure,answer,Race and ethnicity,Other race,,,,,share,suppressed
+Ranked in future,"Yes, Strongly Support",answer,Race and ethnicity,Other race,,,,,share,suppressed
+Ranked in future,"Yes, Somewhat Support",answer,Race and ethnicity,Other race,,,,,share,suppressed
+Ranked in future,"No, Somewhat Oppose",answer,Race and ethnicity,Other race,,,,,share,suppressed
+Ranked in future,"No, Strongly Oppose",answer,Race and ethnicity,Other race,,,,,share,suppressed
+Ranked in future,Not Sure,answer,Race and ethnicity,Other race,,,,,share,suppressed
+Ranked in future,Support (strongly or somewhat),rollup,Race and ethnicity,Other race,13,16,23.7,0.8191,share,caution
+Ranked in future,Oppose (somewhat or strongly),rollup,Race and ethnicity,Other race,,,,,share,suppressed
+Ranked one and concerned,Yes,answer,Race and ethnicity,Other race,0,16,0.0,0.0,share,caution
+Ranked one and concerned,No,answer,Race and ethnicity,Other race,16,16,28.9,1.0,share,caution
+"Ranked one, did not know enough",Yes,answer,Race and ethnicity,Other race,,,,,share,suppressed
+"Ranked one, did not know enough",No,answer,Race and ethnicity,Other race,,,,,share,suppressed
+Ranked in future,Net support (support minus oppose),net,Race and ethnicity,Other race,,,,,points,suppressed
+How voted,On Election Day,answer,Race and ethnicity,Prefer not to say,28,59,23.8,0.4775,share,caution
+How voted,Early In Person,answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+How voted,By Mail Or Absentee Ballot,answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+How many ranked,More Than One,answer,Race and ethnicity,Prefer not to say,33,59,27.7,0.5543,share,ok
+How many ranked,Only One,answer,Race and ethnicity,Prefer not to say,23,59,19.8,0.396,share,caution
+How many ranked,Did Not Rank Any,answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+How many ranked,Not Sure,answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Only liked one,Yes,answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Only liked one,No,answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Didn't know enough,Yes,answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Didn't know enough,No,answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Concerned,Yes,answer,Race and ethnicity,Prefer not to say,11,23,10.5,0.5299,share,caution
+Concerned,No,answer,Race and ethnicity,Prefer not to say,12,23,9.3,0.4701,share,caution
+Felt about ballot,Very Confident,answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Felt about ballot,Mostly Confident,answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Felt about ballot,Not Very Confident,answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Race and ethnicity,Prefer not to say,58,59,49.4,0.9893,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Race and ethnicity,Prefer not to say,47,59,41.3,0.8285,share,ok
+Ranked choice,"No, Learned When Received Ballot",answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Ranked choice,Not Sure,answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Understand how counted,"Yes, You're Confident",answer,Race and ethnicity,Prefer not to say,31,59,25.5,0.512,share,ok
+Understand how counted,Pretty Sure You Know,answer,Race and ethnicity,Prefer not to say,14,59,14.1,0.2834,share,caution
+Understand how counted,You're Not Sure,answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Understand how counted,"No, You Don't Understand How",answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Understand how counted,Understands counting (confident or pretty sure),rollup,Race and ethnicity,Prefer not to say,45,59,39.7,0.7954,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,Race and ethnicity,Prefer not to say,14,59,10.2,0.2046,share,caution
+Who won,Takis Karantonis,answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Who won,Bob Cambridge,answer,Race and ethnicity,Prefer not to say,0,59,0.0,0.0,share,caution
+Who won,Audrey Clement,answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Who won,Jeramy Olmack,answer,Race and ethnicity,Prefer not to say,0,59,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Race and ethnicity,Prefer not to say,0,59,0.0,0.0,share,caution
+Who won,Not Sure,answer,Race and ethnicity,Prefer not to say,29,59,23.7,0.4743,share,caution
+Results,Very Satisfied,answer,Race and ethnicity,Prefer not to say,15,30,15.3,0.5831,share,caution
+Results,Somewhat Satisfied,answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Results,Somewhat Dissatisfied,answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Results,Very Dissatisfied,answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Results,Not Sure,answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Ranked in future,"Yes, Strongly Support",answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Ranked in future,"Yes, Somewhat Support",answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Ranked in future,"No, Somewhat Oppose",answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Ranked in future,"No, Strongly Oppose",answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Ranked in future,Not Sure,answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Ranked in future,Support (strongly or somewhat),rollup,Race and ethnicity,Prefer not to say,26,59,20.2,0.4053,share,caution
+Ranked in future,Oppose (somewhat or strongly),rollup,Race and ethnicity,Prefer not to say,27,59,25.9,0.5182,share,caution
+Ranked one and concerned,Yes,answer,Race and ethnicity,Prefer not to say,11,59,10.5,0.2098,share,caution
+Ranked one and concerned,No,answer,Race and ethnicity,Prefer not to say,48,59,39.4,0.7902,share,ok
+"Ranked one, did not know enough",Yes,answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+"Ranked one, did not know enough",No,answer,Race and ethnicity,Prefer not to say,,,,,share,suppressed
+Ranked in future,Net support (support minus oppose),net,Race and ethnicity,Prefer not to say,,59,,-11.3,points,caution
+How voted,On Election Day,answer,Pooled,"Hispanic, Asian or 65+",106,274,107.9,0.4684,share,ok
+How voted,Early In Person,answer,Pooled,"Hispanic, Asian or 65+",127,274,93.3,0.4051,share,ok
+How voted,By Mail Or Absentee Ballot,answer,Pooled,"Hispanic, Asian or 65+",41,274,29.1,0.1265,share,ok
+How many ranked,More Than One,answer,Pooled,"Hispanic, Asian or 65+",145,274,120.2,0.5216,share,ok
+How many ranked,Only One,answer,Pooled,"Hispanic, Asian or 65+",99,274,79.4,0.3447,share,ok
+How many ranked,Did Not Rank Any,answer,Pooled,"Hispanic, Asian or 65+",15,274,19.6,0.0849,share,caution
+How many ranked,Not Sure,answer,Pooled,"Hispanic, Asian or 65+",15,274,11.2,0.0488,share,caution
+Only liked one,Yes,answer,Pooled,"Hispanic, Asian or 65+",62,99,50.3,0.6331,share,ok
+Only liked one,No,answer,Pooled,"Hispanic, Asian or 65+",37,99,29.1,0.3669,share,ok
+Didn't know enough,Yes,answer,Pooled,"Hispanic, Asian or 65+",29,99,24.6,0.3092,share,caution
+Didn't know enough,No,answer,Pooled,"Hispanic, Asian or 65+",70,99,54.9,0.6908,share,ok
+Concerned,Yes,answer,Pooled,"Hispanic, Asian or 65+",29,99,22.5,0.2837,share,caution
+Concerned,No,answer,Pooled,"Hispanic, Asian or 65+",70,99,56.9,0.7163,share,ok
+Felt about ballot,Very Confident,answer,Pooled,"Hispanic, Asian or 65+",,,,,share,suppressed
+Felt about ballot,Mostly Confident,answer,Pooled,"Hispanic, Asian or 65+",,,,,share,suppressed
+Felt about ballot,Not Very Confident,answer,Pooled,"Hispanic, Asian or 65+",,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Pooled,"Hispanic, Asian or 65+",,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Pooled,"Hispanic, Asian or 65+",267,274,219.5,0.9525,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Pooled,"Hispanic, Asian or 65+",,,,,share,suppressed
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Pooled,"Hispanic, Asian or 65+",202,274,161.4,0.7005,share,ok
+Ranked choice,"No, Learned When Received Ballot",answer,Pooled,"Hispanic, Asian or 65+",60,274,57.3,0.2485,share,ok
+Ranked choice,Not Sure,answer,Pooled,"Hispanic, Asian or 65+",12,274,11.7,0.051,share,caution
+Understand how counted,"Yes, You're Confident",answer,Pooled,"Hispanic, Asian or 65+",175,274,136.3,0.5917,share,ok
+Understand how counted,Pretty Sure You Know,answer,Pooled,"Hispanic, Asian or 65+",55,274,50.7,0.2201,share,ok
+Understand how counted,You're Not Sure,answer,Pooled,"Hispanic, Asian or 65+",28,274,20.9,0.0905,share,caution
+Understand how counted,"No, You Don't Understand How",answer,Pooled,"Hispanic, Asian or 65+",16,274,22.5,0.0977,share,caution
+Understand how counted,Understands counting (confident or pretty sure),rollup,Pooled,"Hispanic, Asian or 65+",230,274,187.0,0.8118,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,Pooled,"Hispanic, Asian or 65+",44,274,43.4,0.1882,share,ok
+Who won,Takis Karantonis,answer,Pooled,"Hispanic, Asian or 65+",146,274,115.1,0.4994,share,ok
+Who won,Bob Cambridge,answer,Pooled,"Hispanic, Asian or 65+",0,274,0.0,0.0,share,caution
+Who won,Audrey Clement,answer,Pooled,"Hispanic, Asian or 65+",,,,,share,suppressed
+Who won,Jeramy Olmack,answer,Pooled,"Hispanic, Asian or 65+",0,274,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Pooled,"Hispanic, Asian or 65+",0,274,0.0,0.0,share,caution
+Who won,Not Sure,answer,Pooled,"Hispanic, Asian or 65+",,,,,share,suppressed
+Results,Very Satisfied,answer,Pooled,"Hispanic, Asian or 65+",105,153,75.0,0.6244,share,ok
+Results,Somewhat Satisfied,answer,Pooled,"Hispanic, Asian or 65+",21,153,20.4,0.17,share,caution
+Results,Somewhat Dissatisfied,answer,Pooled,"Hispanic, Asian or 65+",,,,,share,suppressed
+Results,Very Dissatisfied,answer,Pooled,"Hispanic, Asian or 65+",14,153,9.1,0.076,share,caution
+Results,Not Sure,answer,Pooled,"Hispanic, Asian or 65+",,,,,share,suppressed
+Ranked in future,"Yes, Strongly Support",answer,Pooled,"Hispanic, Asian or 65+",96,274,74.9,0.3253,share,ok
+Ranked in future,"Yes, Somewhat Support",answer,Pooled,"Hispanic, Asian or 65+",72,274,67.3,0.292,share,ok
+Ranked in future,"No, Somewhat Oppose",answer,Pooled,"Hispanic, Asian or 65+",37,274,25.2,0.1095,share,ok
+Ranked in future,"No, Strongly Oppose",answer,Pooled,"Hispanic, Asian or 65+",46,274,40.8,0.1769,share,ok
+Ranked in future,Not Sure,answer,Pooled,"Hispanic, Asian or 65+",23,274,22.2,0.0963,share,caution
+Ranked in future,Support (strongly or somewhat),rollup,Pooled,"Hispanic, Asian or 65+",168,274,142.2,0.6173,share,ok
+Ranked in future,Oppose (somewhat or strongly),rollup,Pooled,"Hispanic, Asian or 65+",83,274,66.0,0.2864,share,ok
+Ranked one and concerned,Yes,answer,Pooled,"Hispanic, Asian or 65+",29,274,22.5,0.0978,share,caution
+Ranked one and concerned,No,answer,Pooled,"Hispanic, Asian or 65+",245,274,207.9,0.9022,share,ok
+"Ranked one, did not know enough",Yes,answer,Pooled,"Hispanic, Asian or 65+",29,274,24.6,0.1066,share,caution
+"Ranked one, did not know enough",No,answer,Pooled,"Hispanic, Asian or 65+",245,274,205.9,0.8934,share,ok
+Ranked in future,Net support (support minus oppose),net,Pooled,"Hispanic, Asian or 65+",,274,,33.1,points,ok
+How voted,On Election Day,answer,Pooled,Age 30 and older,262,562,253.2,0.5057,share,ok
+How voted,Early In Person,answer,Pooled,Age 30 and older,229,562,186.9,0.3732,share,ok
+How voted,By Mail Or Absentee Ballot,answer,Pooled,Age 30 and older,71,562,60.6,0.1211,share,ok
+How many ranked,More Than One,answer,Pooled,Age 30 and older,316,562,281.9,0.563,share,ok
+How many ranked,Only One,answer,Pooled,Age 30 and older,195,562,167.5,0.3345,share,ok
+How many ranked,Did Not Rank Any,answer,Pooled,Age 30 and older,28,562,32.4,0.0647,share,caution
+How many ranked,Not Sure,answer,Pooled,Age 30 and older,23,562,18.9,0.0378,share,caution
+Only liked one,Yes,answer,Pooled,Age 30 and older,118,195,105.8,0.6316,share,ok
+Only liked one,No,answer,Pooled,Age 30 and older,77,195,61.7,0.3684,share,ok
+Didn't know enough,Yes,answer,Pooled,Age 30 and older,56,195,47.5,0.2836,share,ok
+Didn't know enough,No,answer,Pooled,Age 30 and older,139,195,120.0,0.7164,share,ok
+Concerned,Yes,answer,Pooled,Age 30 and older,50,195,38.1,0.2278,share,ok
+Concerned,No,answer,Pooled,Age 30 and older,145,195,129.3,0.7722,share,ok
+Felt about ballot,Very Confident,answer,Pooled,Age 30 and older,469,562,405.9,0.8107,share,ok
+Felt about ballot,Mostly Confident,answer,Pooled,Age 30 and older,79,562,77.6,0.1551,share,ok
+Felt about ballot,Not Very Confident,answer,Pooled,Age 30 and older,,,,,share,suppressed
+Felt about ballot,Did Not Understand,answer,Pooled,Age 30 and older,,,,,share,suppressed
+Felt about ballot,Confident marking (very or mostly),rollup,Pooled,Age 30 and older,548,562,483.5,0.9658,share,ok
+Felt about ballot,Not confident marking (not very or did not understand),rollup,Pooled,Age 30 and older,14,562,17.1,0.0342,share,caution
+Ranked choice,"Yes, Knew You Would Be Using Ranked Choice",answer,Pooled,Age 30 and older,406,562,354.6,0.7083,share,ok
+Ranked choice,"No, Learned When Received Ballot",answer,Pooled,Age 30 and older,135,562,126.8,0.2533,share,ok
+Ranked choice,Not Sure,answer,Pooled,Age 30 and older,21,562,19.2,0.0384,share,caution
+Understand how counted,"Yes, You're Confident",answer,Pooled,Age 30 and older,367,562,316.1,0.6314,share,ok
+Understand how counted,Pretty Sure You Know,answer,Pooled,Age 30 and older,121,562,115.7,0.2311,share,ok
+Understand how counted,You're Not Sure,answer,Pooled,Age 30 and older,46,562,36.4,0.0728,share,ok
+Understand how counted,"No, You Don't Understand How",answer,Pooled,Age 30 and older,28,562,32.4,0.0647,share,caution
+Understand how counted,Understands counting (confident or pretty sure),rollup,Pooled,Age 30 and older,488,562,431.8,0.8625,share,ok
+Understand how counted,Not sure or does not understand counting,rollup,Pooled,Age 30 and older,74,562,68.8,0.1375,share,ok
+Who won,Takis Karantonis,answer,Pooled,Age 30 and older,304,562,266.2,0.5317,share,ok
+Who won,Bob Cambridge,answer,Pooled,Age 30 and older,0,562,0.0,0.0,share,caution
+Who won,Audrey Clement,answer,Pooled,Age 30 and older,,,,,share,suppressed
+Who won,Jeramy Olmack,answer,Pooled,Age 30 and older,0,562,0.0,0.0,share,caution
+Who won,Carlos DC De Castro Pretelt,answer,Pooled,Age 30 and older,0,562,0.0,0.0,share,caution
+Who won,Not Sure,answer,Pooled,Age 30 and older,,,,,share,suppressed
+Results,Very Satisfied,answer,Pooled,Age 30 and older,206,312,174.4,0.6376,share,ok
+Results,Somewhat Satisfied,answer,Pooled,Age 30 and older,44,312,41.9,0.1533,share,ok
+Results,Somewhat Dissatisfied,answer,Pooled,Age 30 and older,19,312,16.5,0.0603,share,caution
+Results,Very Dissatisfied,answer,Pooled,Age 30 and older,28,312,22.3,0.0813,share,caution
+Results,Not Sure,answer,Pooled,Age 30 and older,15,312,18.4,0.0674,share,caution
+Ranked in future,"Yes, Strongly Support",answer,Pooled,Age 30 and older,207,562,186.6,0.3726,share,ok
+Ranked in future,"Yes, Somewhat Support",answer,Pooled,Age 30 and older,155,562,138.4,0.2765,share,ok
+Ranked in future,"No, Somewhat Oppose",answer,Pooled,Age 30 and older,59,562,48.5,0.0969,share,ok
+Ranked in future,"No, Strongly Oppose",answer,Pooled,Age 30 and older,88,562,77.7,0.1552,share,ok
+Ranked in future,Not Sure,answer,Pooled,Age 30 and older,53,562,49.5,0.0988,share,ok
+Ranked in future,Support (strongly or somewhat),rollup,Pooled,Age 30 and older,362,562,325.0,0.6491,share,ok
+Ranked in future,Oppose (somewhat or strongly),rollup,Pooled,Age 30 and older,147,562,126.2,0.2521,share,ok
+Ranked one and concerned,Yes,answer,Pooled,Age 30 and older,50,562,38.1,0.0762,share,ok
+Ranked one and concerned,No,answer,Pooled,Age 30 and older,512,562,462.5,0.9238,share,ok
+"Ranked one, did not know enough",Yes,answer,Pooled,Age 30 and older,56,562,47.5,0.0949,share,ok
+"Ranked one, did not know enough",No,answer,Pooled,Age 30 and older,506,562,453.2,0.9051,share,ok
+Ranked in future,Net support (support minus oppose),net,Pooled,Age 30 and older,,562,,39.7,points,ok

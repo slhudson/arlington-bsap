@@ -10286,12 +10286,17 @@
 
 @dataset{rcva2026subgroups,
   author      = {{Ranked Choice Virginia}},
-  title       = {Arlington 2025 Post-Election Survey: Support, Awareness and
-                 Understanding of Ranked Choice Voting by Group},
+  title       = {Arlington 2025 Post-Election Survey: Answers by Group, and
+                 What the Weights Do to Precision},
   publisher   = {Ranked Choice Virginia},
   date        = {2026-10-04},
-  annotation  = {Thirty-three rows, one per group category, held in
-                 data/raw/rcva/survey_rcv_by_group.csv. Tabulated from
+  annotation  = {Two tables, held in data/raw/rcva/. The first,
+                 survey_rcv_answers_by_group.csv, is 1,683 rows: one per
+                 question per group category per answer, with the rollups and
+                 nets the report prints. The second, survey_rcv_precision.csv,
+                 is one row per group category giving Kish's effective sample
+                 size, the design effect and the 95 per cent margin on a share
+                 near half. Both tabulated from
                  SurveyUSA's respondent file 27714 for the Arlington County
                  2025 post-election survey of voters, fielded 6 to 13 November
                  2025, 584 completed interviews, the survey reported in
@@ -10301,7 +10306,11 @@
                  Each measure carries the unweighted number of respondents
                  behind it and a status - ok, caution or suppressed - so a
                  share resting on too few respondents cannot be read as one
-                 that does not. Race and ethnicity are the respondent's own
+                 that does not; a count of one to nine is hidden outright,
+                 together with any other that would reveal it by subtraction,
+                 so the five answer options survive only for the larger
+                 categories while the share supporting survives for all.
+                 Race and ethnicity are the respondent's own
                  yes or no answers and overlap, so those rows do not sum to
                  the total. The respondent file itself is not public and is
                  not in this repository: 477 of its 585 rows are unique on

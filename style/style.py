@@ -137,6 +137,18 @@ CYCLE = {
     "delegates": ("House of Delegates year", OKABE_ITO["black"]),
 }
 
+# The ranked choice voting survey's five-point support scale, left to right,
+# in the same hues as AGREEMENT: the slides the County Board saw use green to
+# red, which is the one pairing a red-green colourblind reader cannot separate
+# at the two ends that matter. See docs/figures.md.
+SUPPORT = {
+    "Yes, Strongly Support": ("strongly support", OKABE_ITO["blue"]),
+    "Yes, Somewhat Support": ("somewhat support", OKABE_ITO["sky_blue"]),
+    "Not Sure":              ("not sure", UNRECORDED),
+    "No, Somewhat Oppose":   ("somewhat oppose", OKABE_ITO["orange"]),
+    "No, Strongly Oppose":   ("strongly oppose", OKABE_ITO["vermilion"]),
+}
+
 # The survey's five-point agreement and satisfaction scales, left to right.
 # Bipolar rather than ordered by magnitude, so two hues from Okabe-Ito rather
 # than the sequential ramp, and the middle point takes the no-evidence grey:
