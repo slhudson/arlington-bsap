@@ -63,7 +63,7 @@ PAPERS = ("ARLnow", "InsideNoVa", "Sun Gazette", "Connection", "Washington Post"
 
 # Magazines are press, like papers. A historical society's magazine is scholarship: books.
 MAGAZINES = ("Arlington Magazine",)
-JOURNALS = ("Arlington Historical Magazine",)
+JOURNALS = ("Arlington Historical Magazine", "Florida State University Law Review")
 
 # Biography pages by publisher, and campaign material by publisher or title.
 BIO_ORG = re.compile(r"County Board Members|Arlington Historical Society|Center for Local History|Senate of Virginia|Library of Virginia|"

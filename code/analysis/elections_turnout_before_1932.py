@@ -3,7 +3,9 @@
 The presidential vote, 1872 to 1928, as O'Leary counts it, set against the
 census population interpolated in a straight line between censuses. A year
 whose count is complete is joined to the next complete year, with a dotted
-segment across a year that is not; a year whose count is incomplete is an
+segment across a year that is not; a year whose count is incomplete (1896,
+1904 and 1908 by O'Leary's own account) is not drawn at all (Sally, 4 October
+2026: the hollow markers were a distraction), so the dotted segment crosses it as an
 open marker, since the votes it records are fewer than were cast. The Board's
 vote is the three districts' counts added together, drawn only in the years
 all three seats were held and counted: 1901, 1907 and 1915.
@@ -50,7 +52,6 @@ for profile in style.PROFILES:
     label, colour = style.PRESIDENT
     charts.lines(ax, president.index.to_numpy(), {label: (rate.where(complete).to_numpy(), colour)},
                  bridge=True)
-    charts.marks(ax, president.index[~complete], rate[~complete], colour, filled=False)
     label, colour = style.BOARD_VOTE_DISTRICTS
     charts.marks(ax, board_rate.index, board_rate, colour, marker="s")
 
