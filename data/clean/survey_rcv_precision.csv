@@ -1,0 +1,35 @@
+group,category,respondents,effective_respondents,design_effect,margin_points
+All respondents,All respondents,584,360.4,1.62,5.16
+Gender,Female,282,166.6,1.693,7.59
+Gender,Male,284,183.4,1.548,7.24
+Gender,Prefer Not To Say,18,11.7,1.538,28.64
+Age band,18-29,22,19.9,1.108,21.99
+Age band,30-44,87,79.1,1.099,11.02
+Age band,45-64,250,220.2,1.135,6.6
+Age band,65+,225,120.3,1.871,8.94
+Age 18-49 or 50+,18-49,171,123.9,1.38,8.8
+Age 18-49 or 50+,50+,413,277.4,1.489,5.88
+Education,4-year College Degree,175,109.3,1.601,9.37
+Education,Graduate Degree,309,182.7,1.691,7.25
+Education,High School,22,13.5,1.634,26.71
+Education,Prefer Not To Say,16,10.7,1.492,29.93
+Education,Some College,61,44.8,1.361,14.64
+Homeownership,Homeowner,441,282.2,1.562,5.83
+Homeownership,No answer,23,15.6,1.47,24.78
+Homeownership,Renter,120,76.6,1.566,11.2
+Contact method,Landline,90,49.7,1.81,13.9
+Contact method,Live Operator,50,37.4,1.336,16.02
+Contact method,SMS-to-Web,377,247.0,1.526,6.24
+Contact method,Web Panel,67,43.4,1.544,14.88
+How voted,By Mail Or Absentee Ballot,72,51.0,1.411,13.72
+How voted,Early In Person,238,154.1,1.545,7.89
+How voted,On Election Day,274,163.6,1.674,7.66
+Race and ethnicity,White,444,290.3,1.529,5.75
+Race and ethnicity,Black,49,36.8,1.333,16.16
+Race and ethnicity,Hispanic,37,23.0,1.606,20.41
+Race and ethnicity,Asian,23,18.1,1.27,23.03
+Race and ethnicity,American Indian,11,7.6,1.451,35.59
+Race and ethnicity,Other race,16,11.6,1.383,28.82
+Race and ethnicity,Prefer not to say,59,44.9,1.314,14.62
+Pooled,"Hispanic, Asian or 65+",274,157.1,1.744,7.82
+Pooled,Age 30 and older,562,392.2,1.433,4.95

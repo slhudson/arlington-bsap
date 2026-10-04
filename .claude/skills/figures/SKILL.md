@@ -151,6 +151,9 @@ neither repeats the reasons.
 - **A bipolar scale is not an ordered one.** A five-point agreement or
   satisfaction scale takes `style.AGREEMENT`: two hues from Okabe-Ito for the
   two ends and the no-evidence grey for the middle, never the sequential ramp.
+- **A share from a sample carries its interval** where the groups being
+  compared differ in size, through `charts.hwhiskers()`, which holds the
+  interval inside the scale.
 - **A cell its source marked as resting on too few respondents is faded, not
   dropped**, at `style.THIN_ALPHA`, and the caption gives its respondents.
 - **Ordered categories take `style.ramp(n)`; unordered take Okabe-Ito.** Age

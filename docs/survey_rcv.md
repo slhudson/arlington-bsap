@@ -4,11 +4,14 @@ SurveyUSA interviewed 584 Arlington voters between 6 and 13 November 2025,
 after the first County Board general election run by ranked choice voting,
 and FairVote, the Ranked Choice Voting Resource Center and Ranked Choice
 Virginia reported the results to the County Board in February 2026
-(`rcva2026evaluation`). This project reads one table from it:
-`data/raw/rcva/survey_rcv_by_group.csv`, thirty-three rows giving support for
-ranked choice voting, awareness that it would be used, and understanding of
-how ballots are counted, each cut by the respondents' gender, age, race and
-ethnicity, education, homeownership, contact method and how they voted.
+(`rcva2026evaluation`). This project reads two tables from it. The first,
+`data/raw/rcva/survey_rcv_answers_by_group.csv`, is one row per question per
+group category per answer: support for ranked choice voting, awareness that
+it would be used, understanding of how ballots are counted and the rest of
+the instrument, each cut by the respondents' gender, age, race and ethnicity,
+education, homeownership, contact method and how they voted. The second,
+`survey_rcv_precision.csv`, is one row per group category giving the margin
+those shares carry.
 
 ## Why a table and not the respondents
 
@@ -36,6 +39,28 @@ not in the copy we hold. Every share carries the unweighted number of
 respondents in its category and the unweighted number who answered that way,
 so a share resting on thirty-seven people cannot be read as one resting on
 four hundred.
+
+## What a small group can and cannot show
+
+A count of one to nine respondents is hidden outright, together with any
+other count that would reveal it by subtraction. That is a rule about
+exposing people, not about precision, and it decides the shape of every
+figure drawn from this survey. Splitting thirty-seven Hispanic respondents
+across five answer options puts most of those cells under ten, so the five
+answers survive for White and for nobody else among the race categories,
+while the share supporting - strongly or somewhat - survives for all of them
+because a rollup is published even when its parts are not. The figures follow
+that: `survey_rcv_support` draws the whole scale for the cuts whose answers
+all clear the floor, and `survey_rcv_by_race` draws the share supporting with
+its margin.
+
+The margin is the one the weights imply rather than the one a headcount
+would give. The 584 respondents behave like 360 once the weights are counted,
+a design effect of 1.6, so the full sample carries five points and not four.
+A category of thirty-seven behaves like twenty-three and carries twenty. The
+report's claim that Hispanic voters lag on support rests on 54 per cent
+against 66, and twenty points is the width of the interval around the first
+of those.
 
 The preparers marked each cell `ok`, `caution` or `suppressed`.
 `code/clean/survey_rcv.py` keeps a `caution` cell and flags it `thin`, rather

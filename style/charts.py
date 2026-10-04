@@ -111,11 +111,9 @@ def _hcategories(ax, ticks, names, headings=()):
     ax.tick_params(axis="y", length=0)
 
 
-def hbars(ax, labels, values, color, groups=None, alphas=None):
-    """Horizontal bars over named categories, first at the top. `groups` is
-    an ordered {heading: n} splitting them into blocks, each under a heading
-    that sits in the axis labels so nothing is hand-placed. `alphas` fades
-    the bars that carry it, one per label."""
+def _hrows(labels, groups=None):
+    """Row positions for a horizontal chart: (tick positions, tick names,
+    the centre of each bar), with a gap and a heading above each block."""
     ticks, names, centres = [], [], []
     y = 0.0
     for heading, n in (groups or {"": len(labels)}).items():
@@ -126,26 +124,36 @@ def hbars(ax, labels, values, color, groups=None, alphas=None):
         for label in labels[len(centres):len(centres) + n]:
             ticks.append(y); names.append(label); centres.append(y)
             y += 1.0
+    return ticks, names, np.array(centres, dtype=float)
+
+
+def hbars(ax, labels, values, color, groups=None, alphas=None):
+    """Horizontal bars over named categories, first at the top. `groups` is
+    an ordered {heading: n} splitting them into blocks, each under a heading
+    that sits in the axis labels so nothing is hand-placed. `alphas` fades
+    the bars that carry it, one per label."""
+    ticks, names, centres = _hrows(labels, groups)
     ax.barh(centres, values, height=0.72, color=color, zorder=3,
             alpha=None if alphas is None else 1.0)
     if alphas is not None:
         for bar, a in zip(ax.containers[-1], alphas):
             bar.set_alpha(a)
     _hcategories(ax, ticks, names, groups or {})
-    ax.set_ylim(y - 0.5, -0.8)
+    ax.set_ylim(max(ticks) + 0.5, -0.8)
 
 
-def hstacked_bars(ax, labels, entries, height=0.55):
+def hstacked_bars(ax, labels, entries, height=0.55, groups=None):
     """Horizontal stacked bars, one row per label, first at the top, from the
-    left edge rightward over an ordered {label: (values, colour)}."""
-    y = np.arange(len(labels), dtype=float)
+    left edge rightward over an ordered {label: (values, colour)}. `groups`
+    splits the rows into blocks the way hbars() does."""
+    ticks, names, y = _hrows(labels, groups)
     left = np.zeros(len(labels))
     for label, (values, color) in entries.items():
         v = np.asarray(values, dtype=float)
         ax.barh(y, v, left=left, height=height, color=color, label=label, zorder=3)
         left = left + v
-    _hcategories(ax, y, labels)
-    ax.set_ylim(len(labels) - 0.5, -0.5)
+    _hcategories(ax, ticks, names, groups or {})
+    ax.set_ylim(max(ticks) + 0.5, -0.5 if not groups else -0.8)
 
 
 def hdots(ax, labels, entries, line=True):
@@ -178,6 +186,19 @@ def hgrouped_bars(ax, labels, entries, height=0.36):
                 color=color, label=label, zorder=3)
     _hcategories(ax, y, labels)
     ax.set_ylim(len(labels) - 0.5, -0.5)
+
+
+def hwhiskers(ax, centres, values, margins, color, within=(0, 100)):
+    """A 95 per cent interval through each bar, drawn over the fill so the
+    eye reads the bar's end as one estimate among a range. The interval is
+    held inside `within`, since a share cannot pass either end of its own
+    scale and an arrow through 100 per cent would say it had."""
+    low, high = within
+    v = np.asarray(values, dtype=float)
+    m = np.asarray(margins, dtype=float)
+    ax.errorbar(v, centres, xerr=[np.minimum(m, v - low), np.minimum(m, high - v)],
+                fmt="none", ecolor=color, elinewidth=1.4, capsize=4,
+                capthick=1.4, zorder=4)
 
 
 def share_axis(ax, label, top=100, step=20):

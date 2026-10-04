@@ -259,6 +259,15 @@ would leave the figure silent on five of seven groups and answer the question
 by removing the evidence; fading them says the share is real and thin, and
 the caption gives the respondents behind it.
 
+A share from a sample carries its interval where the groups differ in size
+enough for the difference to matter. The ranked choice voting survey's
+Hispanic respondents are thirty-seven against the White category's
+four hundred and forty-four, and the weights make that gap wider still -
+twenty-three effective respondents against two hundred and ninety. Drawn as
+bare bars those two shares look equally firm. The interval is held inside the
+scale, since a share cannot pass either end of its own axis and a whisker
+through 100 per cent would say it had.
+
 ## Size and margins
 
 Every figure is exactly the profile's width: 6.25 inches for the memo's PDF,
