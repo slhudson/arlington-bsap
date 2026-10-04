@@ -25,19 +25,18 @@ the member rests on the name, on the district he sat for or on Arlington, and,
 where the record gives one, on an occupation, a household or a street. No
 census holds Casto, H. L. Brown Jr, Fisher, Lowry or T. W. Richards of the
 later era, or H. Dwight Smith, Crocker, Schutt, Robinson or Willson of the
-earlier. R. Henry Phillips has a record whose household is his father's, not
-his own, so it gives him nothing (below).
+earlier. R. Henry Phillips's only census household is his father's, so his
+birth year rests on an obituary and a railroad notice, not a census (below).
 
 **Birth years.** Birth years are held for most members, and they rest
 on the ages in census listings and on an age stated in an obituary or a
 profile. Each is right to within a year. The age figure draws a year only where
 every sitting member either has a birth year or is one of the eight the
-figure names, and it runs the Board's full span, 1870 to the present. Five are
-H. Dwight Smith, Lott W. Crocker, William H. Robinson, Walter G. Willson and
-R. Henry Phillips, each found in no census under any spelling tried and in no
-Gazette item that gives an age (above). The other three are W. P. Ames, found
-in no census, and Susan Cunningham and Tannia Talento, recent enough that a
-stated age should be findable. Naming them rather than allowing a count of
+figure names, and it runs the Board's full span, 1870 to the present. Four are
+H. Dwight Smith, Lott W. Crocker, William H. Robinson and Walter G. Willson,
+each found in no census under any spelling tried and in no Gazette item that
+gives an age (above). The other two are Susan Cunningham and Tannia Talento,
+recent enough that a stated age should be findable. Naming them rather than allowing a count of
 unknowns is what makes the gap a known quantity: a member who arrives without
 a birth year and is not among them stops the build. Every member seated in
 1900-2026 has a birth year.
@@ -85,7 +84,7 @@ for the remaining members under any spelling tried, R. Henry Phillips among
 them — the one household read against him is his father's
 (`residence-pre-1932`). The Gazette places two of them without a census:
 Willson on six acres by Ballston and Smith on the Arlington township's party
-committee (below, "Smith, Crocker, Robinson, Willson and Phillips").
+committee (below, "Smith, Crocker, Robinson and Willson have no birth year").
 
 **The seat itself places nobody before 1932.** No instrument required a
 supervisor to live in the district he represented before 1903, so a member
@@ -1348,9 +1347,9 @@ with both sets of figures when the table below stops matching.
 |---|---|---|---|---|---|
 | Street address | 14 | 19 | 8 | 0 | 41 |
 | Street name | 2 | 0 | 1 | 0 | 3 |
-| Neighborhood | 10 | 0 | 4 | 2 | 16 |
+| Neighborhood | 10 | 1 | 4 | 2 | 17 |
 | Side of the County | 1 | 1 | 0 | 0 | 2 |
-| Nothing | | | | | 14 |
+| Nothing | | | | | 13 |
 
 So most members have a place of some kind and many a street address, but
 only a minority are placed by a source dated to their service. The
@@ -1635,9 +1634,9 @@ the member of 1893–95, nothing: his race (**White**) rests on the default, as
 it does for every member before 1912 except Roach, and he has no residence
 claim at all, standing with the members for whom no census record has
 been found (`residence-pre-1932`). Robert Henry Phillips himself is in no
-record found for Alexandria County or Arlington; if one turns up later, it is
-the one to try, and his father's household in the Washington district is a
-reason to look there.
+census record found for Alexandria County; his birth year comes from the
+obituary instead (below, "Smith, Crocker, Robinson and Willson have no birth
+year").
 
 **Members the census places, not the era default.** The censuses of the years
 each served were searched for every member whose gender rests on the default,
@@ -1723,9 +1722,13 @@ reading and the 1930 census record (above) now make moot. **Edward Duncan** has 
 after 1920: Arlington County holds no Duncan of his age in 1930, so the 1920
 sheet is the later of his two.
 
-**Smith, Crocker, Robinson, Willson and Phillips have no birth year, and two
-have a place.** No record found gives any of the five an age, so `members_age`
-names all five in its UNKNOWN set and draws the span their months leave open.
+**Smith, Crocker, Robinson and Willson have no birth year, and two have a
+place.** No record found gives any of the four an age, so `members_age` names
+all four in its UNKNOWN set and draws the span their months leave open. Beyond
+the Gazette, searched without result: the Evening Star for Willson's death in
+mid-1892, the Gazette's full text for Crocker (no hit on either given-name
+spelling) and for Smith (ten hits, all the items below), and the web for each
+name with Alexandria County, Ballston and the Arlington Turnpike.
 
 - **Willson** is printed Walter G. Wilson: "Walter G. Wilson, of Washington
   District" at the Board's meeting of 10 June 1890, where he is authorized to
@@ -1763,12 +1766,17 @@ names all five in its UNKNOWN set and draws the span their months leave open.
 - **Phillips** is paid as a member of the Board in the accounts for the year
   to 30 June 1895, with mileage of 60 miles against Hume's 36 and Clark's 54,
   and the same accounts pay an "R A Phillips" 203.50 for stone
-  (`gazette1895phillips`). Robert Henry Phillips, who is "R. Henry" in the
-  record of the 1900 household's elder son, was born 21 January 1865 in
-  Georgetown by the *Evening Star* obituary of 10 March 1942 and in May 1865
-  in Arlington by Find a Grave, and died in Washington on 9 March 1942, a
-  trolley-line engineer and Lehigh graduate of 1887. Nothing in either puts
-  him on the Board, so no birth year is entered.
+  (`gazette1895phillips`). The Board's Phillips is Robert Henry Phillips,
+  born 21 January 1865 in Georgetown by the *Evening Star* obituary of 10
+  March 1942 (`star1942phillips`), which makes him a Lehigh engineer of 1887
+  and for many years a builder of car lines in Virginia and Maryland. Two
+  things beyond the name tie him to the Board: the Gazette of 15 January 1895
+  names "Mr. R. Henry Phillips" manager of the Washington, Arlington and Falls
+  Church Railroad Company, then grading from the Aqueduct bridge toward Falls
+  Church (`gazette1895phillipsrailway`), while he sat; and his father's
+  household of 1900 stands in the Washington district, the district he sat
+  for. The year 1865 is entered on those two. Find a Grave's May 1865 in
+  Arlington agrees on the year and is not cited.
 
 **B. M. Smith, 1930 and 1940.** The member appointed in June 1933 is
 **Benjamin M. Smith**, a real-estate salesman in 1930 and a broker in 1940,
@@ -1792,7 +1800,13 @@ sheet, stamped 223, and image 67 is 63B. The stamp runs one to a sheet, so
 Detwiler's is the sheet after 62. The bib entry and the filed image's name
 carry 63A.
 
-**Ames, 1940.** Sheet 21B, read at full resolution,
+**Ames, 1940.** The head of the sheet-21B household is William P. Ames, 46,
+president of a lumber company, with a daughter Mary F., 21, in Clarendon. That
+daughter is the Mary Farley Ames of Clarendon whom the *Sun* of 14 May 1936
+lists, "daughter of Mr. and Mrs. W. P. Ames", among the Arlington Hall Junior
+College graduates (`sun1936ames`), the same weekly naming a W. P. Ames of
+Rosslyn on the Board; the household is the second tie, and gives him a birth
+year of 1894, within a year, and White. Sheet 21B, read at full resolution,
 gives W. P. Ames's house no street. The label W. Lee, with an abbreviation
 of a looped capital (H, P or B) and one or two letters, is written against
 lines 72 to 76, and a heavy wavy rule crosses the location columns between
