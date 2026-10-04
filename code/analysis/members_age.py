@@ -1,4 +1,4 @@
-"""Ages of the Board, 1870-2026 -> figures/members_age.pdf, .png
+"""Ages of the Board, 1900-2026 -> figures/members_age.pdf, .png
 
 A Lexis diagram: age against year. Behind, the youngest-to-oldest span of the
 members holding a seat in each month, drawn where every member in it either
@@ -15,19 +15,17 @@ import members
 import paths
 import style
 
-FIRST, LAST = members.FIRST, members.LAST
+FIRST, LAST = members.AGE_FIRST, members.LAST
 
 # The members whose birth year no source gives. The span is still drawn in
 # their months, understating the spread by whatever they would add at either
 # edge, and naming them is what keeps that a known quantity: a member who
 # arrives without a birth year and is not named here stops the build rather
-# than quietly widening the tolerance. H. Dwight Smith, Lott W. Crocker,
-# William H. Robinson and Walter G. Willson are in no
-# census under any spelling tried and in no Gazette item that gives an age
-# (docs/members.md); Susan Cunningham and Tannia Talento are recent enough that a stated age
-# should be findable (docs/members.md, "What rests on an assumption").
-UNKNOWN = {"H. Dwight Smith", "Lott W. Crocker", "William H. Robinson",
-           "Walter G. Willson", "Susan R. Cunningham", "Tannia Talento"}
+# than quietly widening the tolerance. Susan Cunningham and Tannia Talento
+# are recent enough that a stated age should be findable (docs/members.md,
+# "What rests on an assumption"). The four members before 1900 with no birth
+# year sit outside the figure's span.
+UNKNOWN = {"Susan R. Cunningham", "Tannia Talento"}
 MERGE_WITHIN = 12           # months between terms that still make one stroke
 
 

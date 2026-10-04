@@ -1,4 +1,4 @@
-"""How many sitting members have a birth year, 1870-2026
+"""How many sitting members have a birth year, 1900-2026
 -> figures/members_age_coverage.pdf, .png
 
 A stacked step area of the members sitting on 1 July of each year, those
@@ -13,7 +13,7 @@ import paths
 import style
 
 rows = []
-for year, s in members.by_year():
+for year, s in members.by_year(members.AGE_FIRST):
     known = int(s.birth_year.notna().sum())
     rows.append({"year": year, "known": known, "unknown": len(s) - known})
 d = pd.DataFrame(rows)
@@ -28,7 +28,7 @@ for profile in style.PROFILES:
     fig, ax = charts.figure(profile)
     charts.stacked_steps(ax, d.year.to_numpy(), series, spans)
     charts.seats(ax)
-    charts.years(ax, members.FIRST, 2020, step=20, label="year", through=members.LAST + 1)
+    charts.years(ax, members.AGE_FIRST, 2020, step=20, label="year", through=members.LAST + 1)
     charts.rule(ax)
     charts.legend(fig, series)
     paths.save(fig, profile)

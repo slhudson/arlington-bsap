@@ -13,6 +13,7 @@ import paths
 
 _years = paths.read("members_by_year").year
 FIRST, LAST = int(_years.min()), int(_years.max())
+AGE_FIRST = 1900    # the age figures begin with the censuses' ages (docs/members.md, "Birth years")
 
 
 def sitting(members, year):

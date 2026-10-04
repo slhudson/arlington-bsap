@@ -31,15 +31,17 @@ birth year rests on an obituary and a railroad notice, not a census (below).
 **Birth years.** Birth years are held for most members, and they rest
 on the ages in census listings and on an age stated in an obituary or a
 profile. Each is right to within a year. The age figure draws a year only where
-every sitting member either has a birth year or is one of the eight the
-figure names, and it runs the Board's full span, 1870 to the present. Four are
-H. Dwight Smith, Lott W. Crocker, William H. Robinson and Walter G. Willson,
-each found in no census under any spelling tried and in no Gazette item that
-gives an age (above). The other two are Susan Cunningham and Tannia Talento,
-recent enough that a stated age should be findable. Naming them rather than allowing a count of
-unknowns is what makes the gap a known quantity: a member who arrives without
-a birth year and is not among them stops the build. Every member seated in
-1900-2026 has a birth year.
+every sitting member either has a birth year or is one of the two the figure
+names, and it runs from 1900 to the present, the first census whose ages the
+residents figures can set beside the Board's. Four members before 1900 have no
+birth year: H. Dwight Smith, Lott W. Crocker, William H. Robinson and Walter G.
+Willson, each found in no census under any spelling tried and in no Gazette
+item that gives an age (above); they sit outside the figure. The two it names
+are Susan Cunningham and Tannia Talento, recent enough that a stated age
+should be findable. Naming them rather than allowing a count of unknowns is
+what makes the gap a known quantity: a member who arrives without a birth year
+and is not among them stops the build. Every other member seated in 1900-2026
+has a birth year.
 
 **1912–1931 rests on no assumption.** `arlhist1967officials`, the Historical
 Society's own compilation from the Board's minute books, names all three

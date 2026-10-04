@@ -487,12 +487,12 @@ there the labels can be shortened and here the years cannot.
   band's edges and the band moves only when the Board changes (Sally). There
   is no legend: the caption names the
   band and the strokes (same decision).
-  The figure runs the Board's full span, 1870 to the present. Before 1932
-  the Board has three seats, not five, and eight members across that stretch
-  have no birth year (named in UNKNOWN along with three later members), so
-  the band there is fragments rather than one continuous ribbon, by the same
-  rule above. The 1932 rule is drawn, since it is no longer the figure's left
-  edge and the fragments it explains sit only to its left. A member seated
+  The figure runs from 1900 to the present, where the censuses' ages begin
+  and every sitting member has a birth year but two recent ones (named in
+  UNKNOWN), so the band is one continuous ribbon; the four early members
+  without a birth year sit before it (Sally, 4 October 2026). Before 1932 the
+  Board has three seats, not five. The 1932 rule is drawn, since it is no
+  longer the figure's left edge. A member seated
   before 1932 who was still sitting after it is clipped at the edge, and one
   who left earlier is not drawn. The
   band takes the near-neutral sand and the strokes the growth figure's dark
