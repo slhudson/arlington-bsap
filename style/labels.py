@@ -13,6 +13,7 @@ holds the reasoning for the conventions the constants state.
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.text import Text
+from matplotlib.transforms import Bbox
 
 import style
 
@@ -56,6 +57,8 @@ def dot_label(ax, x, y, text, area, color="black", bold=False, first=None, leade
     ann = ax.annotate(text, (x, y), xytext=(0, 0), textcoords="offset points",
                       color=color, fontweight="bold" if bold else "normal",
                       fontsize=plt.rcParams["font.size"], arrowprops=line)
+    # Placed last, against the final geometry, so layout must not make room for it.
+    ann.set_in_layout(False)
     if not hasattr(ax, "dot_labels"):
         ax.dot_labels = []
     ax.dot_labels.append((ann, x, y, area, first, bold, leader))
@@ -75,6 +78,13 @@ def place(fig):
         if not labels:
             continue
         frame = ax.get_window_extent(r)
+        # Either side of a broken axis lets a name run on into the gap
+        # between them: nothing is drawn there.
+        beyond = getattr(ax, "label_overflow", None)
+        if beyond is not None:
+            other = beyond.get_window_extent(r)
+            frame = Bbox.from_extents(min(frame.x0, other.x1), frame.y0,
+                                      max(frame.x1, other.x0), frame.y1)
         dots = [(*ax.transData.transform((x, y)), np.sqrt(a) / 2 * px)
                 for x, y, a in getattr(ax, "dots_drawn", [])]
 

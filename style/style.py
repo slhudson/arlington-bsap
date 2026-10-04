@@ -195,6 +195,8 @@ DEFAULT_PROFILE = "print"
 # charts.fit() solves the height from it. See docs/figures.md, Size and margins.
 NARROW = 0.7          # the fraction of the profile's width a few-category figure takes; see docs/figures.md
 SQUARE = 2.0          # the aspect of a scatter, whose two axes are both measures; see docs/figures.md
+PAIR = 0.9            # the aspect of two scatters side by side, each panel about as tall as wide; see docs/figures.md
+PAIR_SPLIT = (1.9, 1)  # widths of the broken panel and the plain one, the first wider to hold its far side's tick label
 STRIP = 7.0           # the aspect of a timeline of events, whose y axis carries no measure; see docs/figures.md
 BROKEN = (5, 1)       # widths of the two sides of a broken x axis, near and far
 MARGIN = 0.037        # white on all four sides, as a fraction of the width, measured to ink

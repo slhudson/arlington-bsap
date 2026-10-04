@@ -12,7 +12,7 @@ import paths
 import style
 
 SMALLEST = 100_000
-LEGEND = {label: c for label, c in style.LOCALITIES.values()}
+LEGEND = {**{label: c for label, c in style.LOCALITIES.values()}, "Arlington": style.ARLINGTON}
 
 
 def load(profile) -> pd.DataFrame:

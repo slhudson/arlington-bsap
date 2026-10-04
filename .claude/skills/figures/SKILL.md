@@ -68,7 +68,10 @@ neither repeats the reasons.
 - Start both axes at zero where possible; break an axis (`charts.broken_scatter()`)
   rather than lose a far point or start above zero.
 - Squarer than the time series: `charts.scatter()` takes `style.SQUARE`.
-  Two scatters with different x axes are two figures, each with its own legend.
+  Two scatters with different x axes may share one figure as two panels when
+  they answer one question and one legend and one note serve both:
+  `charts.scatter_pair()`, which takes `style.PAIR`. The peer localities are
+  the case.
 - One dot size. Area does not carry a third measure a reader can read.
 - Name dots with `charts.dot_label()` and let `labels.place()` choose
   where; never hand-place a name. Every cluster gets at least one name; a dot

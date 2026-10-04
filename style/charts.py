@@ -12,6 +12,7 @@ each placement is in docs/figures.md.
     age_band()      youngest to oldest as a band; strokes() draws tenures over it
     scatter()       one scatter, squarer than a time series
     broken_scatter() the same with a broken x axis; break_x() draws the break
+    scatter_pair()  two scatters side by side, the first with a broken x axis; title_broken() titles it
     dots()          a scatter, dot area from dot_area(), named by dot_label()
     events()        a timeline strip: a dot per event at its year, filled or a ring
     legend()        one legend for the figure, one row, below the axes
@@ -463,15 +464,38 @@ def broken_scatter(profile=style.DEFAULT_PROFILE):
     return fig, (near, far)
 
 
-def break_x(near, far, label, far_limits, far_tick):
+def scatter_pair(profile=style.DEFAULT_PROFILE):
+    """Two scatters side by side, at full width. The first has its x axis
+    broken, as in broken_scatter(): returns (near, far) for it, then the
+    second panel's axes, a plain scatter. Title the first with
+    title_broken(), so that it is centred over both of its sides."""
+    fig = plt.figure(figsize=style.figsize(profile))
+    outer = fig.add_gridspec(1, 2, width_ratios=style.PAIR_SPLIT, wspace=0.1)
+    inner = outer[0].subgridspec(1, 2, width_ratios=style.BROKEN, wspace=0.0)
+    near = fig.add_subplot(inner[0])
+    far = fig.add_subplot(inner[1], sharey=near)
+    second = fig.add_subplot(outer[1])
+    fig.plot_aspect = style.PAIR
+    return fig, (near, far), second
+
+
+def title_broken(near, text):
+    """A panel title centred over a broken axis's two sides, not over the
+    near side alone."""
+    near.set_title(text, x=sum(style.BROKEN) / 2 / style.BROKEN[0])
+
+
+def break_x(near, far, label, far_limits, far_tick, per=1):
     """The break between the two sides of a broken x axis: the facing
     spines hidden and a short slash across the axis line on each side,
     and the axis label under the near side, which holds the data. The far
     side runs over `far_limits` with one labelled tick at `far_tick`."""
     near.set_xlabel(label)
+    near.label_overflow = far
+    far.label_overflow = near
     far.set_xlim(*far_limits)
     far.xaxis.set_major_locator(FixedLocator([far_tick]))
-    far.xaxis.set_major_formatter(THOUSANDS)
+    far.xaxis.set_major_formatter(THOUSANDS if per == 1 else FuncFormatter(lambda v, _: f"{int(v / per):,}"))
     near.spines["right"].set_visible(False)
     far.spines["left"].set_visible(False)
     far.tick_params(axis="y", left=False, labelleft=False)
@@ -544,13 +568,14 @@ def events(ax, x, filled, colour, profile=style.DEFAULT_PROFILE):
     ax.grid(False, axis="y")
 
 
-def comma_axis(axis, top, step, label):
+def comma_axis(axis, top, step, label, per=1):
     """A count axis from 0 to `top`, labelled every `step` with thousands
-    separators. `axis` is ax.xaxis or ax.yaxis."""
+    separators. `axis` is ax.xaxis or ax.yaxis. `per` divides the labels, for
+    an axis whose label says "(thousands)"."""
     ax = axis.axes
     (ax.set_xlim if axis is ax.xaxis else ax.set_ylim)(0, top)
     axis.set_major_locator(MultipleLocator(step))
-    axis.set_major_formatter(THOUSANDS)
+    axis.set_major_formatter(THOUSANDS if per == 1 else FuncFormatter(lambda v, _: f"{int(v / per):,}"))
     axis.set_label_text(label)
 
 

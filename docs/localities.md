@@ -20,8 +20,8 @@ Nothing. Which localities are shown is a decision, and it is below.
 Virginia independent city and of fourteen counties: the thirteen largest
 other than Arlington, and Rockingham. The figures show those of 100,000
 residents or more and leave the choice of peer to the
-reader: places Arlington's size in `localities_residents`, places as dense
-in `localities_density`.
+reader: places Arlington's size in panel (a) of `localities_peers`, places as
+dense in panel (b).
 
 A city's council is the Richmond Charter Review Commission's count
 (`richmond2023`, Appendix D). A Mayor elected at large counts as a member,

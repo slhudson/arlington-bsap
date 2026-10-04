@@ -421,8 +421,7 @@ there the labels can be shortened and here the years cannot.
   exist, and the two differ where a seat sat vacant, which the label "residents per
   seat" says and which keeps a vacancy from drawing a spike. A cube-root-law benchmark is not drawn: the law is
   descriptive, not normative, its reference class is national parliaments,
-  and as drawn it implied a 62-member Board (localities_residents and
-  localities_density are the comparison instead).
+  and as drawn it implied a 62-member Board (localities_peers is the comparison instead).
 - **residents_by_race.** Counts as unstacked lines, because a stacked band
   of height zero and one that has not started are the same picture, and a
   line simply begins the year the Census first reported that group. White
@@ -601,25 +600,29 @@ there the labels can be shortened and here the years cannot.
   over through 1970 and 18 and over from 1971, and nothing marks the change:
   as with residents_by_race at 1980, it is real but small, no line steps at
   it, and a rule would claim more for it than it has. The caption carries it.
-- **localities_residents, localities_density.** Arlington beside every
-  Virginia city and county of 100,000 or more, two separate figures rather
-  than panels, because each answers a different question about who
-  Arlington's peers are: places its size, and places as dense. Both axes
-  start at zero; the residents axis breaks so that Fairfax, at 1.15
-  million, stays in view without pressing the other seventeen into a third
-  of the width. Squarer than the time series, but only just (`style.SQUARE`, 2.0 against
-  2.2): both axes are measures and neither is time, and the two figures share
-  a page in the paper. At 1.2 each took most of a page; below 2.0 the names
-  in `localities_southeastern` stopped finding places beside their dots, and
-  Norfolk names that figure's cluster where Richmond did. Dots are one size: area was tried
-  for population and for density, and in both a reader could not read the
-  third measure off it. Residents per member rather than members per
-  resident, to match residents_per_seat. Names are placed by
+- **localities_peers.** Arlington beside every Virginia city and county of
+  100,000 or more, in two panels that share a legend and a note: (a)
+  members against residents, (b) residents per member against density. They
+  were two figures, because each answers a different question about who
+  Arlington's peers are (places its size, places as dense), and are one now
+  because the paper reads them together and one legend and one set of notes
+  serve both. Both axes start at zero; panel (a)'s residents axis breaks so
+  that Fairfax, at 1.15 million, stays in view. Each panel is half the page,
+  so the figure is taller than a scatter alone (`style.PAIR`, 0.9) and the
+  broken panel takes the larger share (`style.PAIR_SPLIT`): at equal widths
+  Arlington and Richmond found no place for a name. Residents and residents
+  per member are in thousands, so tick labels fit the half width. A name may
+  run on into the gap of a broken axis, where nothing is drawn. Dots are one
+  size: area was tried for population and for density, and in both a reader
+  could not read the third measure off it. Residents per member rather than
+  members per resident, to match residents_per_seat. Names are placed by
   `labels.place()`: every name sits nearer its own dot than half the
-  distance to any other, touches nothing, and a name beside a dot is
-  centred on it at three or nine o'clock; each cluster carries at least one
-  name, and a dot too crowded to name beside it (Alexandria, on the
-  7-member row) is named with a short leader.
+  distance to any other and touches nothing; a dot too crowded to name
+  beside it (Alexandria, on the 7-member row; Stafford) takes a short leader.
+  At half width not every dot can be named, so a name stands for its
+  cluster: Richmond for the two 9-member cities in (a), and in (b) the
+  Chesapeake, Newport News, Hampton and Hanover dots are named by their
+  neighbours.
 
 ## Output
 
