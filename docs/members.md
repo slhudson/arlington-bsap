@@ -1249,6 +1249,21 @@ that existed finds these:
 The month is the unit, so the seven weeks of the last count as January alone,
 and 1920 holds 2 + 11/12 seat-years.
 
+**A resignation inside a month the member still holds is no vacancy.** Ellen
+Bozman resigned the rest of her first term on 2 December 1977, because a
+statute against holding two county offices at once would otherwise have barred
+her from the term she had won for 1978 (`sun1977bozman`). Neither Novack nor the
+roll records it, and the Board left the seat unfilled over the weeks that
+remained. She held part of December, so the month stays hers and the year
+reads five seats.
+
+**The quiet stretches of the roster are corroborated, not defaulted.** The
+minute-book roster (`arlhist1967officials`) prints mid-term changes in the
+years around 1904 to 1911 and none within them. For 1960 to 1990 Novack and the
+roll agree. A sweep of the Northern Virginia Sun, 1960 to 1978, for resignations
+and vacancies on the Board found Bozman's and no other departure absent from
+both; a search by phrase can miss a resignation worded another way.
+
 ## Seat-years
 
 `data/clean/members_by_year.csv` is one row per year from 1870: seats
