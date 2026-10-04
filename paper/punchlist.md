@@ -11,6 +11,7 @@ the paper, commits, and deletes the lines it cleared. What it cannot settle
 stays, with a one-line reason under it.
 
 ## Open
+- Appendix, Sources: a small built table of which records back the terms by stretch (O'Leary only, Historical Society list and O'Leary, list only, Novack and County, County), with member counts; replaces the sentence saying the Historical Society list sets every pre-1932 term, which the data do not bear out. No per-row marks on Served or Seated By. (Sally, 4 Oct)
 
 - An introduction section is needed; the equity resolution belongs there, not as a stub at the head of Part A. Budget space for it.
 - Figure 3 (county by race) legend: consider alphabetical order (Asian & Pacific Islander first), since nothing says why Black comes first. The figures skill says a legend follows stacking order, and docs/figures.md sets the stack with the largest group on top; if the legend goes alphabetical, decide whether the stack does too, and apply the same rule to Figure 4 and the gender figure.
