@@ -226,6 +226,39 @@ plot's own span is what a reader sees as the figure, so that is what the
 legend is hung beneath. `charts.fit()` places it, after the plot is sized,
 because the plot's position is not known until then.
 
+## The survey figures
+
+The survey figures run their categories down the side rather than along the
+bottom. Their labels are phrases - "neutral or disagrees", "Asian & Pacific
+Islander", "Transparency of the County's decision-making process" - and a
+phrase along the bottom either rotates or truncates, both of which this file
+rules out elsewhere. Horizontal bars take the words at reading size, and the
+rows stack as far as the list is long without the plot changing shape.
+
+A five-point agreement or satisfaction scale is bipolar, not ordered by
+magnitude, so it takes two hues from Okabe-Ito rather than the sequential
+ramp: blue for the two agreeing points, orange and vermilion for the two
+disagreeing ones. The middle point takes the no-evidence grey. That is the
+substantive claim the figure makes: on whether the Board's structure is right
+for this community, three in four respondents who do not claim familiarity
+answer neutral, and they are abstaining rather than occupying a midpoint
+between agreement and disagreement. A sequential ramp would draw that
+abstention as a middle opinion.
+
+The three waves of the satisfaction survey are ordered, so they take the
+ramp, darkest latest, and each item is one row with a rule joining its dots.
+Eleven items over three waves is thirty-three bars and eleven dots-on-a-line;
+the second is the one a reader can take in.
+
+A cell the survey's own preparers marked as resting on too few respondents is
+drawn at `style.THIN_ALPHA` rather than dropped. Of the seven race and
+ethnicity categories in the ranked choice voting survey only White and Black
+are unmarked, and the thirty-seven Hispanic respondents are the cells the
+community-input analysis' claim about Latino voters turns on. Dropping them
+would leave the figure silent on five of seven groups and answer the question
+by removing the evidence; fading them says the share is real and thin, and
+the caption gives the respondents behind it.
+
 ## Size and margins
 
 Every figure is exactly the profile's width: 6.25 inches for the memo's PDF,

@@ -54,6 +54,15 @@ neither repeats the reasons.
   every figure that carries the mark. Notes that belong to the document, such
   as sources, caveats and definitions, go in the caption, not the image.
 
+## Horizontal bars
+
+- **Categories whose labels are phrases run down the side**, through
+  `charts.hbars()`, `charts.hgrouped_bars()`, `charts.hstacked_bars()` or
+  `charts.hdots()`, rather than along the bottom where they would rotate or
+  truncate.
+- Blocks within one such figure take a bold heading in the axis labels,
+  through `hbars(..., groups=)`; nothing is hand-placed.
+
 ## Scatters
 
 - Start both axes at zero where possible; break an axis (`charts.broken_scatter()`)
@@ -139,6 +148,11 @@ neither repeats the reasons.
   not introduce a colour that is not in it, and do not move a colour between
   groups without reading `docs/figures.md`: several are placed so that
   nothing shares a colour with anything a reader meets beside it.
+- **A bipolar scale is not an ordered one.** A five-point agreement or
+  satisfaction scale takes `style.AGREEMENT`: two hues from Okabe-Ito for the
+  two ends and the no-evidence grey for the middle, never the sequential ramp.
+- **A cell its source marked as resting on too few respondents is faded, not
+  dropped**, at `style.THIN_ALPHA`, and the caption gives its respondents.
 - **Ordered categories take `style.ramp(n)`; unordered take Okabe-Ito.** Age
   and residence coverage are ordered. Never define a ramp in a figure.
 - **Where a category's definition changes mid-figure, the legend does not

@@ -100,6 +100,96 @@ def stacked_bars(ax, x, entries, width=7):
         bottom = bottom + v
 
 
+def _hcategories(ax, ticks, names, headings=()):
+    """Name the rows of a horizontal chart, top first, with any block
+    headings in bold and no tick marks."""
+    ax.set_yticks(ticks)
+    ax.set_yticklabels(names)
+    for tick, name in zip(ax.get_yticklabels(), names):
+        if name in headings:
+            tick.set_fontweight("bold")
+    ax.tick_params(axis="y", length=0)
+
+
+def hbars(ax, labels, values, color, groups=None, alphas=None):
+    """Horizontal bars over named categories, first at the top. `groups` is
+    an ordered {heading: n} splitting them into blocks, each under a heading
+    that sits in the axis labels so nothing is hand-placed. `alphas` fades
+    the bars that carry it, one per label."""
+    ticks, names, centres = [], [], []
+    y = 0.0
+    for heading, n in (groups or {"": len(labels)}).items():
+        if heading:
+            y += style.GROUP_GAP
+            ticks.append(y); names.append(heading)
+            y += style.GROUP_GAP
+        for label in labels[len(centres):len(centres) + n]:
+            ticks.append(y); names.append(label); centres.append(y)
+            y += 1.0
+    ax.barh(centres, values, height=0.72, color=color, zorder=3,
+            alpha=None if alphas is None else 1.0)
+    if alphas is not None:
+        for bar, a in zip(ax.containers[-1], alphas):
+            bar.set_alpha(a)
+    _hcategories(ax, ticks, names, groups or {})
+    ax.set_ylim(y - 0.5, -0.8)
+
+
+def hstacked_bars(ax, labels, entries, height=0.55):
+    """Horizontal stacked bars, one row per label, first at the top, from the
+    left edge rightward over an ordered {label: (values, colour)}."""
+    y = np.arange(len(labels), dtype=float)
+    left = np.zeros(len(labels))
+    for label, (values, color) in entries.items():
+        v = np.asarray(values, dtype=float)
+        ax.barh(y, v, left=left, height=height, color=color, label=label, zorder=3)
+        left = left + v
+    _hcategories(ax, y, labels)
+    ax.set_ylim(len(labels) - 0.5, -0.5)
+
+
+def hdots(ax, labels, entries, line=True):
+    """One row per label, a dot per entry of an ordered
+    {label: (values, colour)}, joined by a rule so a row reads as one item."""
+    y = np.arange(len(labels), dtype=float)
+    if line:
+        values = np.array([v for v, _ in entries.values()], dtype=float)
+        for i, row in enumerate(values.T):
+            good = row[~np.isnan(row)]
+            if len(good) > 1:
+                ax.plot([good.min(), good.max()], [y[i], y[i]],
+                        color=style.UNRECORDED, lw=2.0, zorder=2,
+                        solid_capstyle="round")
+    for label, (values, color) in entries.items():
+        ax.scatter(np.asarray(values, dtype=float), y, s=style.DOT,
+                   color=color, label=label, zorder=3)
+    _hcategories(ax, y, labels)
+    ax.set_ylim(len(labels) - 0.5, -0.5)
+
+
+def hgrouped_bars(ax, labels, entries, height=0.36):
+    """Horizontal bars in pairs, one per entry of an ordered
+    {label: (values, colour)}, the first entry uppermost in each pair."""
+    y = np.arange(len(labels), dtype=float)
+    n = len(entries)
+    for i, (label, (values, color)) in enumerate(entries.items()):
+        offset = (i - (n - 1) / 2) * height
+        ax.barh(y + offset, np.asarray(values, dtype=float), height=height,
+                color=color, label=label, zorder=3)
+    _hcategories(ax, y, labels)
+    ax.set_ylim(len(labels) - 0.5, -0.5)
+
+
+def share_axis(ax, label, top=100, step=20):
+    """A share along the x axis, 0 to `top`, labelled every `step`."""
+    ax.set_xlim(0, top)
+    ax.xaxis.set_major_locator(MultipleLocator(step))
+    ax.xaxis.set_major_formatter(PercentFormatter(decimals=0))
+    ax.set_xlabel(label)
+    ax.grid(axis="x", color="white", alpha=0.8, linewidth=0.8)
+    ax.set_axisbelow(False)
+
+
 def off_scale(ax, series_x, series_y, color, top):
     """Mark where a series leaves the top of the axis with a triangle at the
     crossing, interpolated between the points either side. Returns the x of

@@ -137,6 +137,33 @@ CYCLE = {
     "delegates": ("House of Delegates year", OKABE_ITO["black"]),
 }
 
+# The survey's five-point agreement and satisfaction scales, left to right.
+# Bipolar rather than ordered by magnitude, so two hues from Okabe-Ito rather
+# than the sequential ramp, and the middle point takes the no-evidence grey:
+# on the Board's structure it is an abstention and not a midpoint. See
+# docs/figures.md.
+AGREEMENT = {
+    "Strongly Agree":    ("strongly agree", OKABE_ITO["blue"]),
+    "Agree":             ("agree", OKABE_ITO["sky_blue"]),
+    "Neutral":           ("neutral", UNRECORDED),
+    "Disagree":          ("disagree", OKABE_ITO["orange"]),
+    "Strongly Disagree": ("strongly disagree", OKABE_ITO["vermilion"]),
+}
+# The survey's three waves. Ordered, so the sequential profile, darkest latest.
+WAVES = dict(zip((2018, 2022, 2026), zip(("2018", "2022", "2026"), ramp(3))))
+# The sample set against the county it is drawn from: the county in the
+# reference neutral the growth figures use, the respondents in the lead.
+SAMPLE = {"county": ("Arlington residents, 2020 census", DARK),
+          "survey": ("survey respondents", OKABE_ITO["vermilion"])}
+# One share measured across several cuts of one set of respondents: one
+# series, so one colour, and the near-neutral rather than a lead.
+SURVEY_SHARE = ("share of respondents", SAND_LINE)
+# A cell the survey's own preparers marked as resting on too few
+# respondents to report plainly: drawn open rather than filled.
+THIN_ALPHA = 0.45
+# The gap between two blocks of a horizontal bar chart, in bar widths.
+GROUP_GAP = 0.8
+
 # Same figure code, two destinations: the memo's PDF and the deck's PNG.
 PROFILES = {
     "print": {"width": 6.25, "scale": 1.0, "dpi": 300, "format": "pdf", "aspect": 2.2},
