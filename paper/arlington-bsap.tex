@@ -123,15 +123,19 @@
 % white each carries above and below its ink (style.MARGIN) and are set at 0.91 of
 % the text width: at full width the pair is 31 and 45 points too tall for a page.
 \newcommand{\pairfigure}[1]{\includegraphics[width=0.91\textwidth,trim=0 14bp 0 14bp,clip]{#1}}
+% A page holding two figures anchors one at the top and one at the bottom, with
+% the white between them (Sally, 4 October 2026): the float is a box the height
+% of the text block, stretched, and \vfill sits between the two figures.
+\newenvironment{pairpage}{\begin{figure}[p]\begin{minipage}[t][\textheight][s]{\textwidth}\centering}{\end{minipage}\end{figure}}
 
-% The notes under a figure or table: Notes, then Source, in one box so the gap
-% between them is the same under every figure. Either may be empty.
+% The notes under a figure or table: Notes, then Source, run on in one
+% paragraph (Sally, 4 October 2026). Either may be empty.
 \usepackage{etoolbox}
 \newcommand{\figurenotes}[2]{\begin{minipage}[t]{\linewidth}\raggedright\footnotesize
-  \ifstrempty{#1}{}{#1\par}%
-  \ifstrempty{#1}{}{\ifstrempty{#2}{}{\vspace{3pt}}}%
-  \ifstrempty{#2}{}{#2\par}%
-  \end{minipage}\par}
+  \ifstrempty{#1}{}{#1}%
+  \ifstrempty{#1}{}{\ifstrempty{#2}{}{ }}%
+  \ifstrempty{#2}{}{#2}%
+  \par\end{minipage}\par}
 
 % A figure goes at the top of the page it lands on, centered, above the section
 % heading if the section starts there; its title sits above it and its notes
@@ -349,8 +353,7 @@ turns to.
 % gates the Board half of this section. Errors are corrected and the prose tightened;
 % no claim is added or changed except where a source contradicted the draft.
 
-\begin{figure}[p]
-  \centering
+\begin{pairpage}
   \refstepcounter{figure}\label{fig:residents-race}
   {\raggedright\MakeUppercase{Figure \thefigure}\par}
   {\raggedright\bfseries County Population by Race and Ethnicity\par}
@@ -363,16 +366,15 @@ turns to.
     falls; before then Hispanic residents were counted as Black or White,
     mostly White. White counts above 50,000 run off the top of panel (a);
     they peak at 161,329 in 1970.}{Source: US decennial census, 1870--2020.}
-  \medskip
+  \vfill
   \refstepcounter{figure}\label{fig:board-race}
   {\raggedright\MakeUppercase{Figure \thefigure}\par}
   {\raggedright\bfseries Board Members by Race and Ethnicity\par}
   \smallskip
   \pairfigure{members_by_race.pdf}
   \vspace{2pt}
-  \figurenotes{
-    Notes: No Asian American or Pacific Islander member has served.}{}
-\end{figure}
+  \figurenotes{}{}
+\end{pairpage}
 
 Arlington was a majority-Black county through 1880 and half Black in 1890.
 Between 1870 and 1950 the Black share of its residents fell from 63 percent to
@@ -510,8 +512,7 @@ are correct: each won in November and took office the following January.
 
 \section{Age}
 
-\begin{figure}[p]
-  \centering
+\begin{pairpage}
   \refstepcounter{figure}\label{fig:residents-age}
   {\raggedright\MakeUppercase{Figure \thefigure}\par}
   {\raggedright\bfseries County Population by Age\par}
@@ -519,7 +520,7 @@ are correct: each won in November and took office the following January.
   \includegraphics[width=0.7\textwidth]{residents_by_age.pdf}
   \smallskip
   \figurenotes{}{Source: US decennial census, 1910--2020.}
-  \bigskip
+  \vfill
   \refstepcounter{figure}\label{fig:board-age}
   {\raggedright\MakeUppercase{Figure \thefigure}\par}
   {\raggedright\bfseries Board Members by Age\par}
@@ -528,7 +529,7 @@ are correct: each won in November and took office the following January.
   \smallskip
   \figurenotes{
     Notes: Each diagonal line is one member, from age at first election to age at departure; the band behind runs from the youngest to the oldest member sitting in each year.}{}
-\end{figure}
+\end{pairpage}
 
 Arlington is a young county and has been one on every census since 1910. In
 2020, 52 percent of residents were under 35 and 24 percent were 25 to 34, the
@@ -664,8 +665,7 @@ nothing for Arlington.
 
 \section{Board Structure}
 
-\begin{figure}[p]
-  \centering
+\begin{pairpage}
   \refstepcounter{figure}\label{fig:localities-residents}
   {\raggedright\MakeUppercase{Figure \thefigure}\par}
   {\raggedright\bfseries Governing-Body Size and Population, Virginia Localities of 100,000 or More\par}
@@ -680,7 +680,7 @@ nothing for Arlington.
     Virginia Beach; only Prince William, Henrico, Chesterfield and Fairfax
     have more residents per member.}{Source: Richmond Charter Review
     Commission (2023), Appendix D; US decennial census, 2020.}
-  \medskip
+  \vfill
   \refstepcounter{figure}\label{fig:localities-density}
   {\raggedright\MakeUppercase{Figure \thefigure}\par}
   {\raggedright\bfseries Residents per Member and Population Density, Virginia Localities of 100,000 or More\par}
@@ -692,7 +692,7 @@ nothing for Arlington.
     23,000 residents per council member.}{Source: Richmond Charter Review
     Commission (2023), Appendix D; US decennial census, 2020; US Census
     Bureau Gazetteer, 2020.}
-\end{figure}
+\end{pairpage}
 
 The number of seats, whether the chair is
 directly elected, and how terms are set and sequenced. The Board has had five
