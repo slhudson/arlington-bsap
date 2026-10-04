@@ -175,9 +175,11 @@ reads are fetched on demand (`docs/repository.md`).
 **Each code folder writes one data layer.** `code/fetch/` writes `data/raw/`,
 `code/transcribe/` writes `data/transcribed/`, `code/build/` writes
 `data/built/`, `code/clean/` writes `data/clean/`, `code/analysis/` writes
-`figures/` and, from `code/analysis/body_text_numbers.py`, the numbers the
-prose cites that no figure carries, as LaTeX commands in
-`paper/body_text_numbers.tex`. `code/paper.py` sits outside the stages, like
+`figures/` and, from two steps that write LaTeX instead, what the paper
+inputs: `code/analysis/body_text_numbers.py` writes the numbers the prose cites
+that no figure carries as commands in `paper/body_text_numbers.tex`, and
+`code/analysis/members_roster.py` writes the appendix roster's rows to
+`paper/members_roster.tex`. `code/paper.py` sits outside the stages, like
 `code/tests.py`, and writes `paper/arlington-bsap.pdf` on demand.
 `code/sources/` is outside them too, and writes no data layer: it holds the
 tools that serve `paper/sources.bib` and the Drive copies - fetching and

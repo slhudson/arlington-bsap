@@ -19,7 +19,10 @@
 
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage{longtable}
 \input{body_text_numbers}  % numbers the prose cites, written by code/analysis/body_text_numbers.py
+% One row of the appendix roster, written by code/analysis/members_roster.py.
+\newcommand{\roster}[6]{#1 & #2 & #3 & #4 & #5 & #6 \\}
 \usepackage[margin=1in]{geometry}
 \usepackage[hidelinks]{hyperref}
 
@@ -763,6 +766,38 @@ County records may identify where Board members lived: payroll and personnel
 records, candidate filings and oaths of office, and voter registration records.
 Even an aggregate unit, such as the side of the County, the civic association,
 zip code or precinct, would place members the census and the press cannot.
+
+\subsubsection*{The Roster}
+Table~\ref{tab:roster} lists every person who has served, in the order they
+first took a seat, with the gender, race and birth year the figures use and a
+mark after each saying what it rests on. The full record behind each cell,
+source by source, is in the repository's members table and in the archive
+delivered to the County.
+
+\refstepcounter{table}\label{tab:roster}
+{\raggedright\MakeUppercase{Table \thetable}\par}
+{\raggedright\bfseries Board Members, 1870--2026\par}
+\medskip
+\footnotesize
+\begin{longtable}{@{}llllll@{}}
+\toprule
+\textit{Member} & \textit{Years} & \textit{Seated by} & \textit{Gender} & \textit{Race} & \textit{Born} \\
+\midrule
+\endfirsthead
+\toprule
+\textit{Member} & \textit{Years} & \textit{Seated by} & \textit{Gender} & \textit{Race} & \textit{Born} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\input{members_roster}
+\end{longtable}
+\normalsize
+\figurenotes{Notes: A mark after a value says what it rests on:
+\textsuperscript{c} a census sheet, \textsuperscript{p} a newspaper or a
+published profile, \textsuperscript{a} assumed because no source says
+otherwise; a dash is a value no source gives. A birth year from a census sheet
+is within a year. ``Seated by'' is how the member first took a seat.}{}
 
 \subsubsection*{Seat-Years}
 Fractional seat values arise when members served part of a year: a member who sat four
