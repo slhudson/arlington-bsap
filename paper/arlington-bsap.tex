@@ -56,7 +56,7 @@
 \newcommand{\rosterpanelend}{\end{longtable}\par\smallskip
   \noindent\figurenotes{Notes: \rostermarks{} The source for each member's entry
     is in the repository's members table and in the archive delivered to the
-    County. Assumptions are described under the headings that follow.}{}\endgroup}
+    County. Assumptions are described in the text above.}{}\endgroup}
 \usepackage[margin=1in]{geometry}
 \usepackage[hidelinks]{hyperref}
 
@@ -954,23 +954,27 @@ more races.
 
 \section{Board Members}
 
-\subsection{Seat-Years}
-A member who sat part of a year counts as a fraction of a seat: four months is a
-third, so a year in which one member replaced another shows fractions. The Board's
-first members sat from 1 July 1870, so 1870 counts only the six months the Board
-existed.
+\subsection{Sources}
+Four sources name who served on the Board. Frank O'Leary's electoral history,
+compiled from the Alexandria Gazette and other newspapers, covers the first
+decades.\autocite{oleary2010} The Arlington Historical Society's 1967 list of
+county officials, compiled from the Board's own minute books, names the Board
+from 1870 to 1960.\autocite{arlhist1967officials} Norman Novack's roster covers
+1932 through 1994.\autocite{novack1994} The County's own roll of members and its
+history of candidates and elections, which runs to 2021, cover the recent
+decades and date departures the others leave out.\autocite{arlingtonva2026members,arlingtonelections2021}
+Where these sources disagree about a name, a date or whether a seat changed
+hands, the Historical Society's list, which comes from the minute books, sets
+the terms before 1932 and the County's roll dates the departures. The
+repository records each disagreement and how it was settled.
 
-In 11 years a seat stood empty: four in the district years (1870, 1873, 1879 and 1920) and seven since 1932 (1990, 1997, 1999,
-2003, 2012, 2014 and 2020), each while a special election was called.
-
-\subsection{The Roster}
-Table~\ref{tab:roster} lists every person who has served, in the order they
-first took a seat, with the gender, race and birth year used in the figures, each
-followed by a superscript giving its source. The sources for every cell, one by
-one, are in the repository's members table and in the archive
-delivered to the County.
-
-\rosterinput members_roster.tex
+A member's traits come from three kinds of source: the US census, which
+describes members who served through the 1960s; the press, in news reports and
+obituaries; and published profiles. In the roster at the end of this appendix
+each value carries a superscript for its source: the census (c), the press or a
+published profile (p), or an assumption (a). Two superscripts mean two kinds
+of source agree, and a dash means no source gives the value. The census closes
+for 72 years, so the 1950 census is the last open.
 
 \subsection{Gender}
 Gender comes from two sources. Census sheets give it for members who served
@@ -1012,24 +1016,10 @@ no Black candidate ran for the Board between 1958 and 1964, so nothing shows
 whether the paper would have named Herbert L.\ Brown, Jr.\ or Thomas W.\
 Richards as White.\autocite{star1957seating}
 
-Figure~\ref{fig:board-race-coverage} shows where the assumption matters
-most. Most of the members it covers were seated after 1962, when no census
-sheet is open to read, and they are living people in Arlington who can confirm
-or correct it.
-
-\begin{figure}
-  \centering
-  \refstepcounter{figure}\label{fig:board-race-coverage}
-  {\raggedright\MakeUppercase{Figure \thefigure}\par}
-  {\raggedright\bfseries Data Availability: Board Member Race\par}
-  \medskip
-  \includegraphics[width=\textwidth]{members_race_coverage.pdf}
-  \smallskip
-  \figurenotes{
-    Notes: Shading shows the source for each member's race: darkest the
-    census, paler a published or press account, grey an assumption that the
-    member was White because no source says otherwise.}{}
-\end{figure}
+Figure~\ref{fig:board-race-coverage}, on page~\pageref{fig:board-race-coverage},
+shows where the assumption matters most. Most of the members it covers were
+seated after 1962, when no census sheet is open to read, and they are living
+people in Arlington who can confirm or correct it.
 
 \subsection{Age}
 Birth years come from census records for members seated before 1960 and from obituaries
@@ -1044,24 +1034,6 @@ census age bands.
 \subsection{Residence}
 % waits on: residence-county-records
 % Residence stays in the data appendix until better data arrive.
-
-\begin{figure}
-  \centering
-  \refstepcounter{figure}\label{fig:board-residence}
-  {\raggedright\MakeUppercase{Figure \thefigure}\par}
-  {\raggedright\bfseries Data Availability: Board Member Residence\par}
-  \medskip
-  \includegraphics[width=\textwidth]{members_residence_coverage.pdf}
-  \smallskip
-  \figurenotes{
-    Notes: Shading shows the most specific place on record for each member's
-    home: darkest a street address, palest a magisterial district or a
-    side of the County, grey none. Census sheets give street
-    addresses in the mid-twentieth century; before 1932 they mostly name
-    only a magisterial district. More recent members are located largely
-    by neighborhoods named in the press and in public profiles.}{}
-\end{figure}
-
 Homes are easiest to find in the middle years. From 1932 to 1971, census sheets
 and newspaper reports place at least four of the five members at a street address
 or a street name. From 1972 through 1995, two or three members have no known home
@@ -1069,6 +1041,33 @@ at all, and from 1998 none has a street address. The
 census closes for 72 years --- the 1950 census is the last open --- and
 no public source takes its place. Since 2013 the most precise location available for
 all five members is a neighborhood named in press coverage.
+
+\begin{pairpage}
+  \refstepcounter{figure}\label{fig:board-race-coverage}
+  {\raggedright\MakeUppercase{Figure \thefigure}\par}
+  {\raggedright\bfseries Data Availability: Board Member Race\par}
+  \smallskip
+  \pairfigure{members_race_coverage.pdf}
+  \vspace{2pt}
+  \figurenotes{
+    Notes: Shading shows the source for each member's race: darkest the
+    census, paler a published or press account, grey an assumption that the
+    member was White because no source says otherwise.}{}
+  \vfill
+  \refstepcounter{figure}\label{fig:board-residence}
+  {\raggedright\MakeUppercase{Figure \thefigure}\par}
+  {\raggedright\bfseries Data Availability: Board Member Residence\par}
+  \smallskip
+  \pairfigure{members_residence_coverage.pdf}
+  \vspace{2pt}
+  \figurenotes{
+    Notes: Shading shows the most specific place on record for each member's
+    home: darkest a street address, palest a magisterial district or a
+    side of the County, grey none. Census sheets give street
+    addresses in the mid-twentieth century; before 1932 they mostly name
+    only a magisterial district. More recent members are located largely
+    by neighborhoods named in the press and in public profiles.}{}
+\end{pairpage}
 
 Before 1932 only the census places a member, and outside the towns its sheets
 name a magisterial district and leave the street column blank. Of the 41
@@ -1093,6 +1092,22 @@ County records may identify where Board members lived: payroll and personnel
 records, candidate filings and oaths of office, and voter registration records.
 Even an aggregate unit, such as the side of the County, the civic association,
 zip code or precinct, would place members the census and the press cannot.
+
+\subsection{Seat-Years}
+A member who sat part of a year counts as a fraction of a seat: four months is a
+third, so a year in which one member replaced another shows fractions. The Board's
+first members sat from 1 July 1870, so 1870 counts only the six months the Board
+existed.
+
+In 11 years a seat stood empty: four in the district years (1870, 1873, 1879 and 1920) and seven since 1932 (1990, 1997, 1999,
+2003, 2012, 2014 and 2020), each while a special election was called.
+
+Table~\ref{tab:roster} lists every person who has served, in the order they
+first took a seat, with the gender, race and birth year used in the figures. The
+sources for every cell, one by one, are in the repository's members table and in
+the archive delivered to the County.
+
+\rosterinput members_roster.tex
 
 \clearpage
 \printbibliography[title={Works Cited}]
