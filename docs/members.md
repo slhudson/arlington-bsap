@@ -1943,10 +1943,54 @@ One secondary source, the Congressional Research Service's history of the Act
   claims under Section 2, which the report ties to the 1982 amendment's
   attention to at-large elections (Table 2, p. 5; p. 22).
 
-No source held says what preclearance covered in Arlington, whether the
-County or its Board's election method ever came before it, or whether either
-case touched Arlington; the report names no Virginia locality, so the
-timeline can say nothing about Arlington from it.
+Arlington is covered by Section 5 from the start, and the Justice Department's
+published records name it in submissions but in no objection.
+
+- **Coverage.** Virginia is covered in its entirety under the 1965 formula,
+  coverage dating from 1 November 1964, so the state and all its political
+  subdivisions need preclearance for voting changes
+  (`doj2023section4bailouts`; `doj2023section5covered`, the Virginia row).
+  Neither page names a locality as covered. Arlington is not among the
+  Virginia jurisdictions listed as bailed out, the first being the City of
+  Fairfax on 21 October 1997 (`doj2023section4bailouts`, the bailout list).
+- **Submissions naming Arlington.** The Division's periodic notices of
+  preclearance activity list each submission by state, county and subject.
+  Twelve notices between 19 February 1999 and 6 July 2001 carry a line for
+  Arlington County, one submission each: a vacancy special-election procedure
+  (99-0392, `doj1999notice0219`; 2000-2791, `doj2000notice0714`); voter
+  registration hours or locations (99-1480, `doj1999notice0604`; 2000-4119,
+  `doj2000notice1027`); a changed polling place (99-1860, `doj1999notice0716`;
+  99-1628, `doj1999notice0809`; 98-3449, `doj1999notice0903`; 1999-3616,
+  `doj1999notice1126`); a bond election (2000-2967, `doj2000notice0922`;
+  2000-3923, `doj2000notice1013`); a voting machine (2001-1309,
+  `doj2001notice0629`); and a precinct realignment with polling places
+  (2001-1893, `doj2001notice0706`). The notices record receipt and requests
+  only; none states an outcome, and the notices do not say whether the
+  vacancy procedures concerned Board seats.
+- **Objections naming Arlington.** None. The Division's list of Virginia
+  objection letters runs from 26 June 1970 to 21 October 2003, 33 entries
+  for the State of Virginia and named cities and counties, and does not name
+  Arlington (`doj2015section5virginiaobjections`).
+- **Statewide records covering Arlington without naming it.** The objections
+  to the State's own changes - Senate and House multi-member districts
+  (7 May 1971), redistricting (1981, 1982 and 1991) and a prohibition on
+  candidates assisting voters (3 August 1984) - apply to every Virginia
+  locality including Arlington
+  (`doj2015section5virginiaobjections`, entries for the State of Virginia);
+  they are the State's changes and the list does not say what they meant for
+  Arlington.
+
+No submission or objection on election method is found. The Board's at-large
+election dates from November 1931, before the Act, and no record found in
+the notices or the objection list shows the method itself, or any change to
+it, going before the Justice Department. The 479 notices held run from April 1998 to August 2008, as published
+at the two addresses the Division uses for them; submissions before April 1998 or after August 2008 are not in
+anything held, and the Division's own list of changes by type and year is
+national and names no locality. Whether Arlington submitted anything between
+1965 and 1998, and what became of the twelve submissions, rests on
+the County's own record of its submissions; no published Division record
+found gives an outcome for a submission it did not object to. Neither *City of Mobile v. Bolden* nor *Thornburg v. Gingles* is tied to
+Arlington by any source held.
 
 ## Party of Board members
 
