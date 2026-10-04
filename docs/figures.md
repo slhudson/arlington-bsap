@@ -339,6 +339,8 @@ anything by then.
 
 **Two-panel figures go side by side**, not stacked, because a composition
 panel needs to be taller than it is wide when its early values are small.
+The exception is a pair of scatters, which stack so that each has the full
+width for its names (localities_peers).
 
 **Stacked bars** for composition at intervals, at a width about twice the
 gap between bars, which is Urban's rule. No band is textured: a single
@@ -605,7 +607,7 @@ there the labels can be shortened and here the years cannot.
   that Fairfax, at 1.15 million, stays in view. The two panels are stacked,
   one above the other, each at full width (Sally, 4 October 2026: side by
   side, at half width, they made no sense and could not carry their names);
-  the figure is a page tall (`style.PAIR`, 1.0). Residents and residents
+  the figure is a page tall (`style.PAIR`, 0.88). Residents and residents
   per member are in thousands, so the tick labels stay short. A name may
   run on into the gap of a broken axis, where nothing is drawn. Dots are one
   size: area was tried for population and for density, and in both a reader
@@ -614,7 +616,7 @@ there the labels can be shortened and here the years cannot.
   `labels.place()`: every name sits nearer its own dot than half the
   distance to any other and touches nothing; a dot too crowded to name
   beside it (Alexandria, on the 7-member row; Stafford) takes a short leader.
-  At half width not every dot can be named, so a name stands for its
+  Not every dot can be named, so a name stands for its
   cluster: Richmond for the two 9-member cities in (a), and in (b) the
   Chesapeake, Newport News, Hampton and Hanover dots are named by their
   neighbours.

@@ -20,7 +20,7 @@ in a magisterial district by the same reading of each enumeration district
 cannot place a person differently. Each district's head count here is
 checked against the one `residents_by_district.csv` writes, to the person.
 
-Two readings are decided here:
+Three readings are decided here:
 
 - A man or woman of any race code but 1 (white) and 2 (Black) is `men_other`, as in
   residents_by_district: code 3 is American Indian, and any other code

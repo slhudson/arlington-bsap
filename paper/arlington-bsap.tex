@@ -123,9 +123,9 @@
 
 % The paper includes the PDF versions; figures/png/ is for slides and email.
 \graphicspath{{../figures/pdf/}}
-% Two figures that share a float page, race and the peer localities, give up the
-% white each carries above and below its ink (style.MARGIN) and are set at 0.91 of
-% the text width: at full width the pair is 31 and 45 points too tall for a page.
+% Figures that share a page in a pair (race, and the two coverage panels) give
+% up the white each carries above and below its ink (style.MARGIN) and are set at
+% 0.91 of the text width: at full width a pair is too tall for a page.
 \newcommand{\pairfigure}[1]{\includegraphics[width=0.91\textwidth,trim=0 14bp 0 14bp,clip]{#1}}
 % A page holding two figures anchors one at the top and one at the bottom, with
 % the white between them (Sally, 4 October 2026): the float is a box the height
@@ -151,10 +151,9 @@
 \renewcommand{\textfraction}{0.1}
 \renewcommand{\floatpagefraction}{0.8}
 
-% Every section starts on a new page. \clearpage also flushes pending figures,
-% so a section's figures stay with it.
 % A part starts a page and its first section follows on the same page; every
-% other section starts a new page.
+% other section starts a new page while \sectionbreaks is true. \clearpage also
+% flushes pending figures, so a section's figures stay with it.
 \newif\ifafterpart
 \let\oldpart\part
 \renewcommand{\part}{\clearpage\afterparttrue\oldpart}

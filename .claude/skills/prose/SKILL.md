@@ -247,8 +247,11 @@ a figure was built, goes in the Data Appendix (Residents, then Board Members, ea
 with gender, race and ethnicity, age, residence in parallel), and only what changes how
 a reader interprets a number stays at all. Individual member sources are not printed.
 
-**Structure.** Part A Historical Background, Part B Community Input, Part C Future Work;
-sections numbered within a part (A.1), each starting a new page, headings in title case.
+**Structure.** Part A Historical Background, Part B Community Input, Part C Future Work,
+Part D Data Appendix. Parts A and C carry the same four sections, Board Structure,
+Election Method, Demographic Representation and Local Authority; sections are numbered
+within a part (A.1), headings in title case. Part A's sections each start a new page;
+the later parts run on while they are short (`\sectionbreaksfalse` in the preamble).
 
 **Figures and tables.** Top of the page, centered: FIGURE n, bold title, the figure, Notes,
 Source (Urban's form). Notes only when a reader needs them. Two type sizes, 11 and 9.

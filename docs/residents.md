@@ -281,6 +281,14 @@ holds.
 | Jefferson | 322 | 545 | 769 | 1,107 |
 | Washington | 199 | 364 | 439 | 1,084 |
 
+The table also counts the women 21 and over (`women_white`, `women_black`,
+`women_other`, `women_all`) and the two together (`adults_all`), by the same
+placement. Women could not vote in Virginia before 1920, so the figure that
+reads them, `elections_turnout_before_1932_adults`, takes men for the
+denominator through 1916 and everyone 21 and over from 1920. 1930 is one county
+row from the census volume's printed counts of males and females 21 and over,
+with no race and no district.
+
 **Arlington's 1900 count is a floor.** The database holds 2,701 of the 3,200
 people the volume prints for the district, so the 746 men are fewer than the
 district's. The row is written, since a turnout rate needs a denominator and

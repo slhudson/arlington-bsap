@@ -24,8 +24,7 @@ The roster is printed as panels, one page each, 2A, 2B and 2C in the paper:
 breaks only between decades, so a page is filled with whole decades until the
 next would not fit (PANEL_LINES). The subsets are the women and the members of
 color, in the same rows and columns under a bold heading each, and the paper
-\input{}s them into one table. The design is Sally's choice among four
-prototypes (4 October 2026); the roster and the evidence behind each cell are
+\input{}s them into one table. The roster and the evidence behind each cell are
 data/clean/members.csv.
 """
 from typing import NamedTuple

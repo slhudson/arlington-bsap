@@ -122,7 +122,7 @@ else
   echo "build: skipped, its inputs have not changed"
 fi
 
-# The tests prove the guards still fire, about fifteen seconds. A filtered run
+# The tests prove the guards still fire, under a minute. A filtered run
 # is for editing one thing; the full run that gates a commit runs them.
 if [ $# -eq 0 ]; then
   echo "tests"
