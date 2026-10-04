@@ -74,9 +74,14 @@
 % The paper includes the PDF versions; figures/png/ is for slides and email.
 \graphicspath{{../figures/pdf/}}
 
-% The notes under a figure or table, set in a box of their own so the first
-% line is spaced like the rest.
-\newcommand{\figurenote}[1]{\begin{minipage}[t]{\linewidth}\raggedright\footnotesize #1\par\end{minipage}\par}
+% The notes under a figure or table: Notes, then Source, in one box so the gap
+% between them is the same under every figure. Either may be empty.
+\usepackage{etoolbox}
+\newcommand{\figurenotes}[2]{\begin{minipage}[t]{\linewidth}\raggedright\footnotesize
+  \ifstrempty{#1}{}{#1\par}%
+  \ifstrempty{#1}{}{\ifstrempty{#2}{}{\vspace{3pt}}}%
+  \ifstrempty{#2}{}{#2\par}%
+  \end{minipage}\par}
 
 % A figure goes at the top of the page it lands on, centered, above the section
 % heading if the section starts there; its title sits above it and its notes
@@ -154,8 +159,8 @@ Board at once.\autocite[37]{arlhist1967officials}
   \medskip
   \includegraphics[width=\textwidth]{residents_per_seat.pdf}
   \smallskip
-  \figurenote{
-    Source: US decennial census, 1870--2020.}
+  \figurenotes{
+    }{Source: US decennial census, 1870--2020.}
 \end{figure}
 
 For its first 60 years Arlington was a small county that grew slowly: about
@@ -194,8 +199,8 @@ petitioned.\autocite{vaacts1954c151,vaacts1958c207}
   \medskip
   \includegraphics[width=\textwidth]{members_by_gender.pdf}
   \smallskip
-  \figurenote{
-    Notes: Census records identify gender for \genderCensusShareMembers{} percent of members. Pronouns and honorifics in press coverage identify gender for nearly all the rest. Two members who served before 1900 could not be identified through either method and are assumed to be men.}
+  \figurenotes{
+    Notes: Census records identify gender for \genderCensusShareMembers{} percent of members. Pronouns and honorifics in press coverage identify gender for nearly all the rest. Two members who served before 1900 could not be identified through either method and are assumed to be men.}{}
 \end{figure}
 
 Elizabeth Magruder was the Board's first woman. She won a seat in the county's
@@ -234,6 +239,8 @@ In all the years since 1932, women have held a majority of the Board twice, in
   \begin{center}
   \begin{tabular}{@{}ll@{}}
   \toprule
+  \textit{Member} & \textit{Years of Board Service} \\
+  \midrule
   \textbf{Elizabeth B. Magruder}* & 1932--1947 \\
   \textbf{Florence Cannon}*       & 1948--1951 \\
   \textbf{Leone B. Buchholz}*     & 1952--1958 \\
@@ -252,8 +259,8 @@ In all the years since 1932, women have held a majority of the Board twice, in
   \end{center}
   \vspace{6pt}
   \par\smallskip
-  \figurenote{
-    Notes: Bold names are members listed as women in US census records. Asterisks identify members referred to with female pronouns or honorifics in the press.}
+  \figurenotes{
+    Notes: Bold names are members listed as women in US census records. Asterisks identify members referred to with female pronouns or honorifics in the press.}{}
 \end{table}
 
 \section{Race and Ethnicity}
@@ -270,14 +277,12 @@ In all the years since 1932, women have held a majority of the Board twice, in
   \medskip
   \includegraphics[width=\textwidth]{residents_by_race.pdf}
   \smallskip
-  \figurenote{
+  \figurenotes{
     Notes: Panel (a) gives counts and panel (b) shares. Hispanic origin
     was first asked of every household in 1980, where the dashed rule
     falls; before then Hispanic residents were counted as Black or White,
     mostly White. White counts above 50,000 run off the top of panel (a);
-    they peak at 161,329 in 1970.}
-  \figurenote{
-    Source: US decennial census, 1870--2020.}
+    they peak at 161,329 in 1970.}{Source: US decennial census, 1870--2020.}
 \end{figure}
 
 Arlington was a majority-Black county through 1880 and half Black in 1890.
@@ -308,8 +313,8 @@ so the Hispanic series cannot start earlier.
   \medskip
   \includegraphics[width=\textwidth]{members_by_race.pdf}
   \smallskip
-  \figurenote{
-    Notes: No Asian American or Pacific Islander member has served.}
+  \figurenotes{
+    Notes: No Asian American or Pacific Islander member has served.}{}
 \end{figure}
 
 For two decades after the Board was created, Black members held one or two of
@@ -370,6 +375,8 @@ vote, and the courts said no.
   \begin{center}
   \begin{tabular}{@{}ll@{}}
   \toprule
+  \textit{Member} & \textit{Years of Board Service} \\
+  \midrule
   \textbf{William A. Rowe}     & 1871--1883 \\
   \textbf{John B. Syphax}      & 1872 \\
   \textbf{Travis B. Pinn}      & 1879--1881 \\
@@ -387,9 +394,9 @@ vote, and the courts said no.
   \end{center}
   \vspace{6pt}
   \par\smallskip
-  \figurenote{
-    Notes: Bold names are members listed in 1880 census records. Asterisks identify members named in documents from the Arlington Historical Society, the Center for Local History, or local press coverage. % waits on: member-demographics-lists
-  }
+  % waits on: member-demographics-lists
+  \figurenotes{
+    Notes: Bold names are members listed in 1880 census records. Asterisks identify members named in documents from the Arlington Historical Society, the Center for Local History, or local press coverage.}{}
 \end{table}
 
 The Historical Society dates Newman's election 1987, Monroe's 1999, Dorsey's
@@ -406,10 +413,8 @@ are correct: each won in November and took office the following January.
   \medskip
   \includegraphics[width=0.7\textwidth]{residents_by_age.pdf}
   \smallskip
-  \figurenote{
-    Notes: Share of the county in each age band, youngest at the bottom.}
-  \figurenote{
-    Source: US decennial census, 1910--2020.}
+  \figurenotes{
+    Notes: Share of the county in each age band, youngest at the bottom.}{Source: US decennial census, 1910--2020.}
 \end{figure}
 
 This is context for the Board's ages, not a comparison with them. There is no
@@ -438,8 +443,8 @@ Board's age range is about the Board, not about who lives in Arlington.
   \medskip
   \includegraphics[width=\textwidth]{members_age.pdf}
   \smallskip
-  \figurenote{
-    Notes: Each diagonal line is one member, from age at first election to age at departure; the band behind runs from the youngest to the oldest member sitting in each year.}
+  \figurenotes{
+    Notes: Each diagonal line is one member, from age at first election to age at departure; the band behind runs from the youngest to the oldest member sitting in each year.}{}
 \end{figure}
 
 From 2008 to 2011 the Board sat inside the narrowest age span in the series:
@@ -513,13 +518,16 @@ surveys, is in progress. This part is a placeholder until it arrives.
 
 \part{Future Work}
 
-\section{Themes for Future Work}
-
 This report's five topics and the legal history in Section~\ref{sec:manager} point toward six themes
 the Board may want to take up next. Naming them is not a recommendation on
-any of them.
+any of them. The six overlap: a question about Board structure is also a question about
+voting systems, and a change to either runs into the legal constraints. The
+report raises them as what its findings point toward, not as a sequence or a
+priority among them.
 
-\textbf{Board duties} --- how authority divides between the elected Board, the
+\section{Board Duties}
+
+How authority divides between the elected Board, the
 County Manager, and County staff. The 1985 \textit{County Board of Arlington
 v. Brown} decision, in Section~\ref{sec:manager}, is this report's sharpest
 evidence on the question: the Board directed its own Manager to sign a lease,
@@ -534,13 +542,17 @@ who serve it.\autocite{richmondcouncilvwilder2007} Richmond's charter is not the
 County Manager Plan, and no appeal of the ruling turns up, so it settles
 nothing for Arlington.
 
-\textbf{Board structure} --- the number of seats, whether the chair is
+\section{Board Structure}
+
+The number of seats, whether the chair is
 directly elected, and how terms are set and sequenced. The Board has had five
 seats since 1932; Figure~\ref{fig:residents-per-seat} shows what that holds
 fixed while the county around it keeps growing, and the report takes no
 position on what, if anything, should follow.
 
-\textbf{Voting systems} --- at-large election against district election,
+\section{Voting Systems}
+
+At-large election against district election,
 single-member against multi-member districts, and ranked choice voting
 against plurality rules, each weighed for what it does to representation.
 The Race section is this report's most developed evidence on the
@@ -548,7 +560,9 @@ question: at-large election and staggered terms are two separable
 mechanisms, and the break in Black representation opens under the district
 system, before either reform arrives.
 
-\textbf{Civic engagement and public participation} --- the commissions,
+\section{Civic Engagement and Public Participation}
+
+The commissions,
 advisory groups, public comment rules, meeting requirements, and records
 access through which residents reach their government, and where gaps in
 that access fall. This report does not examine any of it directly. The
@@ -556,24 +570,18 @@ data appendix comes closest: where Board members have lived is
 hardest to know for the years, 1972 to 1995, that the County's own records
 should document best.
 
-\textbf{Legal constraints} --- what Virginia law lets Arlington decide for
+\section{Legal Constraints}
+
+What Virginia law lets Arlington decide for
 itself. Dillon's Rule, the three Arlington decisions that have tested it, the
 1968--71 failure to loosen it statewide, and the 1976 \textit{Vollin} petition
 that could not use the 1930 referendum statute a second time are in the
 Race section and in Section~\ref{sec:manager}.
 
-\textbf{Comparative governance} --- how Arlington's Board compares to peer
+\section{Comparative Governance}
+
+How Arlington's Board compares to peer
 Virginia localities and to jurisdictions elsewhere.
-
-These six overlap: a question about Board structure is also a question about
-voting systems, and a change to either runs into the legal constraints. The
-report raises them as what its findings point toward, not as a sequence or a
-priority among them.
-
-% Flush every pending figure before the notes. The running text is short and
-% the figures are floats, so without this they queue up behind the prose and
-% the notes print in front of the figures they describe.
-\clearpage
 
 \section*{Data Appendix}
 
@@ -611,7 +619,8 @@ sources identify the six members of color seated since 1988.
 
 Walter G. Willson is the one member of color identified only by a newspaper: the Alexandria
 Gazette calls him ``colored'' in its reports of the elections of 1889 and 1891 and of his death in
-1892, and no census record holds him.\autocite{alexandriagazette18890525p3,alexandriagazette18910529p3,gazette1892wilsondeath}
+1892, and no census record holds him. The Gazette prints his name Wilson; the minute books and
+O'Leary spell it Willson.\autocite{alexandriagazette18890525p3,alexandriagazette18910529p3,gazette1892wilsondeath}
 
 One default runs underneath the figure: every member across 156 years who is not
 named below as a member of color is recorded as White because no source says
@@ -648,10 +657,10 @@ or correct the record.
   \medskip
   \includegraphics[width=\textwidth]{members_race_coverage.pdf}
   \smallskip
-  \figurenote{
+  \figurenotes{
     Notes: Shading shows what each member's race rests on: darkest a
     census sheet, paler a published or press account, grey a member
-    recorded as White because no source says otherwise.}
+    recorded as White because no source says otherwise.}{}
 \end{figure}
 
 \subsubsection*{Age}
@@ -674,13 +683,13 @@ found in any source, so the age band there spans only the members whose birth ye
   \medskip
   \includegraphics[width=\textwidth]{members_residence_coverage.pdf}
   \smallskip
-  \figurenote{
+  \figurenotes{
     Notes: Shading shows the most specific record held for each member's
     home: darkest a street address, palest a magisterial district or a
     side of the County, grey nothing. Census records carry street
     addresses in the mid-twentieth century; before 1932 they mostly name
     only a magisterial district. More recent members are located largely
-    by neighborhoods named in the press and in public profiles.}
+    by neighborhoods named in the press and in public profiles.}{}
 \end{figure}
 
 The record is fullest in the middle. From 1932 to 1971, at least four of the
