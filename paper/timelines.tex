@@ -46,6 +46,10 @@
   \end{tabular}
   \end{center}}
 
+% Every section starts on a new page, as in the paper.
+\let\oldsection\section
+\renewcommand{\section}{\clearpage\oldsection}
+
 \title{Timelines for the Arlington County Board report}
 \author{Sally Hudson and Alex Keena}
 \date{\today}
