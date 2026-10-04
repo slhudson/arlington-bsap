@@ -67,14 +67,14 @@ def stage(folder, *names):
  members_roster_results, residents, residents_by_district, elections,
  elections_results, elections_turnout, clean_survey_satisfaction,
  clean_survey_rcv, localities, members_residence, localities_southeastern,
- elections_nominations, elections_margins) = stage(
+ elections_nominations, elections_margins, residents_by_district_adults) = stage(
     "clean", "paths", "candidates", "census", "members", "members_census", "members_chairs",
     "members_by_year", "members_roster", "members_roster_arlhist",
     "members_roster_oleary", "members_roster_results", "residents",
     "residents_by_district", "elections", "elections_results",
     "elections_turnout", "survey_satisfaction", "survey_rcv", "localities",
     "members_residence", "localities_southeastern", "elections_nominations",
-    "elections_margins")
+    "elections_margins", "residents_by_district_adults")
 
 registration, = stage("fetch", "registration")
 
@@ -275,6 +275,42 @@ def test_a_tolerance_too_wide_to_catch_a_move_is_refused():
         if started:
             os.environ["RUN_STARTED"] = started
     assert err and "do not identify the mapping" in err, f"not caught: {err}"
+
+
+def test_men_of_voting_age_cannot_be_everyone():
+    """The age filter lost, so every man, woman and child is counted as a
+    voter. The county still ties and the shares between races still look
+    like a district's; only the share of the district that is men of voting
+    age, a little under a third, is wrong, and the step checks it."""
+    err = breaks_aside(residents_by_district_adults, "ADULT", lambda orig: 0)
+    assert err and "not a plausible share" in err, f"not caught: {err}"
+
+
+def test_adult_men_cannot_be_placed_differently_from_the_race_table():
+    """ED 12 read into Jefferson for the adults and not for the race table.
+    Each table would tie to itself; only the head count the two share sees
+    that they no longer place the same people in the same district."""
+    err = breaks_aside(residents_by_district_adults.rbd, "ED_READ_BY_HAND",
+                       lambda orig: {**orig, 1920: {**orig[1920], "11": "Jefferson"}},
+                       build=residents_by_district_adults.build)
+    assert err and "place enumeration districts differently" in err, f"not caught: {err}"
+
+
+def test_the_adults_county_is_only_written_where_every_district_is_whole():
+    """1900's Arlington is short, so no county is written for that census;
+    and a county that is written is its three districts added, race by race."""
+    started = os.environ.pop("RUN_STARTED", None)   # reads last run's race table
+    try:
+        d = residents_by_district_adults.build()
+    finally:
+        if started:
+            os.environ["RUN_STARTED"] = started
+    assert not ((d.year == 1900) & (d.district == "county")).any()
+    for year, g in d.groupby("year"):
+        county = g[g.district == "county"]
+        if not county.empty:
+            parts = g[g.district != "county"][["men_white", "men_black", "men_other", "men_all"]].sum()
+            assert (county.iloc[0][parts.index] == parts).all(), f"{year}: county is not its districts"
 
 
 def test_an_age_group_left_out_of_every_band_is_refused():
