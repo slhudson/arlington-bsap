@@ -5,7 +5,9 @@ members holding a seat in each month, drawn where every member in it either
 has a birth year or is named in UNKNOWN below, so its edges lie on the
 strokes and move only when the Board changes. Over it, one diagonal per member with a birth year, from
 the age at which they arrived to the age at which they left; terms less than
-a year apart are one stroke. Diagonals are clipped at the left edge.
+a year apart are one stroke. Diagonals are clipped at the left edge. A dashed
+line over both is the county's own adult median age at each census
+(`residents.adult_median_age`, docs/residents.md).
 """
 import numpy as np
 import pandas as pd
@@ -92,18 +94,32 @@ def tenures():
     return segs
 
 
+def county_median():
+    """(years, ages): the census years with an adult median age."""
+    c = paths.read("residents")[["year", "adult_median_age"]].dropna()
+    return c.year.to_numpy(), c.adult_median_age.to_numpy()
+
+
 for profile in style.PROFILES:
     style.apply(profile)
     d = span_by_month()
     spans = charts.runs(d.oldest.notna().to_numpy())
+    cx, cage = county_median()
 
     fig, ax = charts.figure(profile)
     charts.age_band(ax, d.x.to_numpy(), d.youngest.to_numpy(), d.oldest.to_numpy(),
                     spans, style.AGE_SPAN["band"][1], width=1 / 12)
     charts.strokes(ax, tenures(), style.AGE_SPAN["member"][1])
+    county_label, county_color = style.AGE_SPAN["county_median"]
+    charts.lines(ax, cx, {county_label: (cage, county_color)}, marker=False, dashed=True, zorder=5)
     charts.ages(ax, 0, 100)
     charts.years(ax, FIRST, 2020, step=20, label="year", through=LAST + 1)
     ax.set_xlim(FIRST, LAST + 1)
     charts.rule(ax)
+    charts.legend(fig, {style.AGE_SPAN["member"][0]: style.AGE_SPAN["member"][1],
+                        style.AGE_SPAN["band"][0]: style.AGE_SPAN["band"][1],
+                        county_label: county_color},
+                 lines=(style.AGE_SPAN["member"][0], county_label),
+                 dashed=(county_label,))
     paths.save(fig, profile)
 

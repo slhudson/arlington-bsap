@@ -107,9 +107,12 @@ RACE_BASIS = dict(zip(
 RACE_BASIS["default"] = ("assumed White, no source", UNRECORDED)
 # The sitting Board's ages on a Lexis diagram: the span from youngest to
 # oldest in the near-neutral, each member's tenure a stroke in the dark grey.
+# The county's own adult median age is a dashed reference line over it, in
+# the one saturated colour the figure uses. See docs/figures.md.
 AGE_SPAN = {
-    "band":   ("youngest to oldest sitting", SAND),
-    "member": ("member", DARK),
+    "band":   ("member age range", SAND),
+    "member": ("member age", DARK),
+    "county_median": ("county adult median age", OKABE_ITO["vermilion"]),
 }
 # How exactly the sitting Board's homes are known: ordered, so the sequential
 # profile, darker the more exactly the place is named, and the no-evidence

@@ -26,8 +26,10 @@ column: a figure takes it as total minus the four. `hisp` is blank before 1980
 and the age bands in the censuses above that are not listed. The seven bands
 and `ageunknown` sum to `total` from 1930; in 1910 and 1920 they sum to
 the people the schedules hold, a few short of `total` in each, within
-AGE_TOO_FAR. The adult population is the six bands above `ageunder18`; neither
-has a column of its own. docs/residents.md says what backs each year and why.
+AGE_TOO_FAR. The adult population is the six bands above `ageunder18`; it has
+no column of its own, but its interpolated median age does, in
+`adult_median_age`, the one column here built by interpolating rather than
+reading a printed cut. docs/residents.md says what backs each year and why.
 """
 import pandas as pd
 
@@ -44,8 +46,12 @@ from paths import write
 AGE_BANDS = ("ageunder18", "age18to24", "age25to34", "age35to44", "age45to54",
              "age55to64", "age65plus")
 ADULT_BANDS = AGE_BANDS[1:]
+# The upper edge of each adult band, age65plus's taken as 65 to 85: the same
+# open-top convention code/analysis/members_age.py draws its own figure to
+# (docs/residents.md).
+ADULT_EDGES = (25, 35, 45, 55, 65, 85)
 COLUMNS = ["year", "total", "white", "black", "hisp", "aapi", *AGE_BANDS, "ageunknown",
-           "board_seats", "residents_per_seat"]
+           "adult_median_age", "board_seats", "residents_per_seat"]
 CENSUSES = range(1870, 2021, 10)
 # The censuses whose age bands are counted from the full-count schedules. 1890's
 # burned and 1900's database lacks 499 people whose ages cannot be recovered;
@@ -390,6 +396,24 @@ def schedule_ages(year, total):
     return out, counted
 
 
+def adult_median_age(row):
+    """The interpolated median age among the six adult bands, assuming
+    residents are spread evenly within whichever band holds the midpoint:
+    the one column here that is interpolated rather than read off a printed
+    cut (docs/residents.md). NaN where a year has no age bands."""
+    counts = [row[b] for b in ADULT_BANDS]
+    if any(pd.isna(c) for c in counts):
+        return float("nan")
+    total = sum(counts)
+    target = total / 2
+    cum = 0
+    for c, lo, hi in zip(counts, (18, *ADULT_EDGES[:-1]), ADULT_EDGES):
+        if cum + c >= target:
+            return lo + ((target - cum) / c if c else 0) * (hi - lo)
+        cum += c
+    return float(ADULT_EDGES[-1])
+
+
 def stf1a(year, table):
     """Arlington's row of one archived Summary Tape File extract."""
     return census.row(f"raw/us_census_bureau/{year}/stf1a_{table}_virginia_counties.csv")
@@ -575,6 +599,7 @@ def build() -> pd.DataFrame:
             {1980: citekeys.CENSUS_1980_STF1A,
              1990: citekeys.CENSUS_1990_STF1A}.get(year, citekeys.CENSUS_DATA_FILE))
 
+    d["adult_median_age"] = d.apply(adult_median_age, axis=1)
     d["residents_per_seat"] = d["total"] / d["board_seats"]
     # Int64 keeps a blank blank.
     d["year"] = d["year"].astype(int)

@@ -66,14 +66,19 @@ def series(frame, table, keys=None):
             if keys is None or k in keys}
 
 
-def lines(ax, x, entries, marker=True, bridge=False):
+def lines(ax, x, entries, marker=True, bridge=False, dashed=False, zorder=3):
     """One line per entry of an ordered {label: (values, colour)}. A marker
-    on every point unless marker=False. A missing value breaks the line;
-    with bridge=True a dotted segment joins the points either side of the
-    gap, so the gap reads as a gap and not as the end of a series
-    (docs/figures.md)."""
+    on every point unless marker=False, dashed in the figure's standard dash
+    (style.EXPANSION_LINE) if dashed=True - a reference series laid over
+    something busier, where a marker at every point would be clutter and the
+    dash says "not the thing itself" (docs/figures.md). A missing value
+    breaks the line; with bridge=True a dotted segment joins the points
+    either side of the gap, so the gap reads as a gap and not as the end of
+    a series (docs/figures.md)."""
+    ls = style.EXPANSION_LINE["ls"] if dashed else "-"
     for label, (values, color) in entries.items():
-        ax.plot(x, values, color=color, marker="o" if marker else None, zorder=3, label=label)
+        ax.plot(x, values, color=color, ls=ls, marker="o" if marker else None,
+                zorder=zorder, label=label)
         if bridge:
             known = [i for i, v in enumerate(values) if v == v]  # not NaN
             for a, b in zip(known, known[1:]):
@@ -428,18 +433,27 @@ def _row_major(items, ncol):
     return [row[c] for c in range(ncol) for row in rows if c < len(row)]
 
 
-def legend(fig, entries, ncol=None, hollow=()):
+def legend(fig, entries, ncol=None, hollow=(), lines=(), dashed=()):
     """One legend for the whole figure, below it, one row unless ncol is
     given. entries is ordered {label: colour} or the {label: (values, colour)}
     a chart took; the labels in `hollow` get an open swatch, as the open
-    markers they stand for. A legend that wraps reads left to right along
+    markers they stand for, and the labels in `lines` a line swatch instead
+    of a box, solid unless the label is also in `dashed`, matching whichever
+    the chart drew it with. A legend that wraps reads left to right along
     each row."""
     colors = [v if isinstance(v, str) else v[1] for v in entries.values()]
     pairs = list(zip(list(entries), colors))
     if ncol:
         pairs = _row_major(pairs, ncol)
-    fig.legend(handles=[Patch(facecolor="white", edgecolor=c, linewidth=1.5) if label in hollow
-                        else Patch(facecolor=c) for label, c in pairs],
+
+    def handle(label, c):
+        if label in lines:
+            return Line2D([0], [0], color=c, ls=style.EXPANSION_LINE["ls"] if label in dashed else "-")
+        if label in hollow:
+            return Patch(facecolor="white", edgecolor=c, linewidth=1.5)
+        return Patch(facecolor=c)
+
+    fig.legend(handles=[handle(label, c) for label, c in pairs],
                labels=[label for label, _ in pairs],
                loc="outside lower center", ncol=ncol or len(entries))
 

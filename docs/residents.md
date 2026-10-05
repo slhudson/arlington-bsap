@@ -545,6 +545,17 @@ inventing a number. Every cut the bands do use — 18, 25, 35, 45, 55, 65 — is
 a boundary printed for all ten censuses, so no year is interpolated and the
 bands are the same object in 1930 as in 2020.
 
+**`adult_median_age` is the one interpolated column.** `members_age` sets it
+against the Board's own ages, and a band count alone has no single age to
+plot, so `code/clean/residents.py` finds the band holding the midpoint of the
+six adult bands and assumes residents are spread evenly within it: the
+median falls where that fraction of the band's width sits above its lower
+cut. `age65plus` has no printed upper edge; it is treated as 65 to 85, the
+same open-top convention `members_age.py` draws its own band to. A reader
+comparing this line to `residents_by_age`, which plots the printed bands
+directly with no assumption at all, should read the two differently: one is
+the county's own data, the other this project's reading of it.
+
 **1930 to 1970 are keyed in from the census volumes**, one file per printed
 table under `data/transcribed/by_claude/us_census_bureau/`, every line of
 Arlington's block as printed. Each was read off the rendered page and ties
