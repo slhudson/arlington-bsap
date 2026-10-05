@@ -150,14 +150,22 @@ for that year is marked incomplete; the Jefferson and Washington districts'
 sum (McKinley 553, Bryan 228) cannot be checked against the state's 713 and
 322 without it. For 1872 the two townships sum to 77 D, 327 R, well short of
 O'Leary's 125 D, 455 R; nothing in the issues checked explains the gap, and
-with no state return either, the two stand unreconciled. 1920's Arlington and Washington districts
-were not found in the issues checked (`gazette-1920-arlington-washington-returns`,
-questions.csv); by subtraction from the county total they sum to 695 D, 857 R.
-1880, 1884, 1888, 1908, 1912 and 1916 print no district breakdown in the
-Gazette issues checked, only a city total and, from 1888 on, a single county
-line inside a multi-county congressional-district roundup (`gazette-1880-district-returns`
-and five further rows, questions.csv); 1904 prints only the county total too,
-but it agrees with the state and O'Leary already.
+with no state return either, the two stand unreconciled. 1920's Arlington and
+Washington districts were not found in the issues read page by page, and a
+full-text search of the Gazette on Virginia Chronicle from 6 to 30 November
+1920 for "Arlington district", "Washington district" and "Jefferson district
+Harding" turns up nothing either; by subtraction from the county total they
+sum to 695 D, 857 R. 1880, 1884, 1888, 1908, 1912 and 1916 print no district
+breakdown in the Gazette issues read page by page, only a city total and,
+from 1888 on, a single county line inside a multi-county congressional-
+district roundup; a full-text search of the Gazette on Virginia Chronicle
+extending each year's window to four weeks after the election, for
+"Arlington district", "Washington district" and "Jefferson district", finds
+no further table in any of the six years either (5 October 2026). 1904
+prints only the county total too, but it agrees with the state and O'Leary
+already. The full-text search is a weaker check than reading the page image
+-- the OCR on these scans is poor -- so a later page-by-page read of the
+same weeks is not foreclosed if the question matters enough to redo it.
 
 **1896, 1904 and 1908 are complete in the state's return.** The state prints
 322, 713 and four others for 1896 where O'Leary has no Washington-district
