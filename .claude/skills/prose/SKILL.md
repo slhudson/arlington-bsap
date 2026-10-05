@@ -35,10 +35,14 @@ a sentence that restates its own footnote ("the County Board's staff describes i
 method in those terms", with the citation right there), which the footnote already
 carries; a reason given before the event it explains, which a reader cannot place
 until the event arrives, so the referendum comes before the court case the county
-reasoned from; and a detail kept because it is true. A detail earns its place by
-showing a mechanism or a consequence: the Walton Act's line through three-fourths
-of a name shows how a ballot disfranchised, and stays; the four precincts that
-voted against staggering show nothing, and go. And a subsection whose point has
+reasoned from; and a detail kept because it is true. A detail earns its place in one of three
+ways (Sally, 5 October 2026): it proves that a non-obvious claim is in fact true
+(why); it illuminates a non-obvious claim by example (how); or it illustrates the
+specific consequences of an idea (so what). The Walton Act's line through
+three-fourths of a name shows how a ballot disfranchised, and stays; Lynchburg's
+three-seat sweep shows what a block vote does, and stays; the four precincts that
+voted against staggering do none of the three, and go. A detail that fails all
+three is filed, not kept. And a subsection whose point has
 not been stated cannot be scrubbed at all: the test needs the point first.
 
 So the procedure for a section of `paper/` is: state its point in a sentence
