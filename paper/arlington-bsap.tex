@@ -87,22 +87,26 @@
 \titlecontents{section}[2.4em]{}{\contentslabel{2.4em}}{\hspace*{-2.4em}}{\hfill\contentspage}
 \renewcommand{\thepart}{\Alph{part}}
 \titleformat{\part}{\normalfont\normalsize\bfseries}{Part \thepart.}{0.5em}{}
-\titlespacing*{\part}{0pt}{12pt}{12pt}
+% One scheme, set once, for every level (Sally, 5 October 2026): one unit,
+% a line of body text (\baselineskip), and every heading's space above is
+% 1, 2 or 3 of it, never a point value chosen by eye. A run-in head gets a
+% line, a subsection two, a section three, so where sections run on with no
+% page break between them (Parts B, C and D), a section still reads as a
+% bigger break than a subsection, and a subsection bigger than a run-in
+% head. Space below is one line throughout, so a heading sits close to its
+% own text and the hierarchy reads in the space above, not below. Weight
+% still marks the level, not size: a section stays bold, a subsection and
+% a run-in head stay italic.
+\titlespacing*{\part}{0pt}{3\baselineskip}{2\baselineskip}
 % Sections are numbered within their part: A.1, A.2, ..., C.1.
 \counterwithin*{section}{part}
 \renewcommand{\thesection}{\thepart.\arabic{section}}
-% One scheme, set once, for every level below a part (Sally, 5 October 2026):
-% each level's space above is roughly double the next one down, so where
-% sections run on with no page break between them (Parts B, C and D), a
-% section still reads as a bigger break than a subsection, and a subsection
-% bigger than a run-in head. Weight still marks the level, not size: a
-% section stays bold, a subsection and a run-in head stay italic.
-\titlespacing*{\section}{0pt}{22pt}{10pt}
-\titlespacing*{\subsection}{0pt}{12pt}{6pt}
+\titlespacing*{\section}{0pt}{3\baselineskip}{\baselineskip}
+\titlespacing*{\subsection}{0pt}{2\baselineskip}{\baselineskip}
 % Third level, used inside Demographic Representation: unnumbered, italic, run on the
 % way a subsection is, a little closer to its text.
 \titleformat{\subsubsection}{\normalfont\normalsize\itshape}{}{0em}{}
-\titlespacing*{\subsubsection}{0pt}{8pt}{4pt}
+\titlespacing*{\subsubsection}{0pt}{\baselineskip}{\baselineskip}
 
 \usepackage{fontspec}
 % All four faces are declared, because the report sets case names in italic
