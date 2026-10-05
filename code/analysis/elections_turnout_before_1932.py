@@ -1,8 +1,8 @@
 """Votes cast per 100 residents, 1872-1928 -> figures/elections_turnout_before_1932.pdf, .png
 
 The presidential vote, 1872 to 1928, set against the census population
-interpolated in a straight line between censuses. Every year is drawn; 1872
-and 1920, which have only O'Leary's count, are open markers. The Board's
+interpolated in a straight line between censuses. Every year is drawn; 1920,
+which has only O'Leary's count, is an open marker. The Board's
 vote is the three districts' counts added together, drawn only in the years
 all three seats were held and counted: 1901, 1907 and 1915.
 

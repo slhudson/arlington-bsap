@@ -13,17 +13,18 @@ the reasoning.
 
 Three sources for the presidential vote, and a year takes the first that has it:
 
-  the Commonwealth's return   1876-1916, 1924, 1928   the Almanack's official
+  the Commonwealth's return   1872, 1876-1916, 1924, 1928   the county's own
+                             certified return for 1872, the Almanack's official
                              vote to 1916 and the Secretary's report from 1924,
                              keyed in elections_results_state.csv; a ticket is
                              Democratic, Republican or other by its printed party
-  oleary2010     1872, 1920  the county's returns as O'Leary compiled them,
-                             for the two years no state return was found;
+  oleary2010     1920        the county's returns as O'Leary compiled them,
+                             for the one year no state return was found;
                              party is the nominee's, named in NOMINEES
   vaelections    1932-2024   the state's canvassed locality totals
 
-A year with a state return never takes O'Leary's (OLEARY_ONLY names the two
-that do), and build() refuses a year in neither. The county's own
+A year with a state return never takes O'Leary's (OLEARY_ONLY names the one
+that does), and build() refuses a year in neither. The county's own
 presidential returns are read as a check on the state's, and the build
 reports the years they differ by more than TOLERANCE.
 """
@@ -48,8 +49,7 @@ NOMINEES = {
 }
 # The presidential years with no state return found (docs/elections.md, "The
 # state's return, read against O'Leary's"), which take O'Leary's.
-OLEARY_ONLY = {1872: "O'Leary's count; no state return found",
-               1920: "O'Leary's count; no state return found"}
+OLEARY_ONLY = {1920: "O'Leary's count; no state return found"}
 LINE = re.compile(r"^(?P<name>[A-Za-z.'’ /]+?)(?:\s*\([^)]*\))?\s+(?P<counts>[\d,? ]+)$")
 TOLERANCE = 0.05
 BANDS = ["dem", "rep", "abc", "other", "unrecorded"]
