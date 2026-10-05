@@ -55,8 +55,11 @@
   \bottomrule \endfoot}
 \newcommand{\rosterpanelend}{\end{longtable}\par\smallskip
   \noindent\figurenotes{Notes: \rostermarks{} The source for each member's entry
-    is in the repository's members table and in the archive delivered to the
-    County. Assumptions are described in the text above.}{}\endgroup}
+    is in the archive delivered to the County. Assumptions are described in
+    the text above.}{}\endgroup}
+% One row of the Sources table (Table~\ref{tab:sources}), written by
+% code/analysis/members_by_source.py: \sourcerow{O'Leary only}{29}
+\newcommand{\sourcerow}[2]{#1 & #2 \\}
 \usepackage[margin=1in]{geometry}
 \usepackage[hidelinks]{hyperref}
 
@@ -266,8 +269,8 @@ reach past him to the staff.
 For the 60 years after 1870 the Board was three supervisors, one each from the
 Arlington, Jefferson and Washington districts, and a voter chose only his own
 district's supervisor. The same referendum of 4 November 1930 that adopted the
-Plan chose election at large over election by district, 1,689 to
-1,149.\autocite[194--196]{rose1976} The first Board under the Plan, five members
+Plan also chose election at large over election by district; the vote is in
+Section~\ref{sec:method}. The first Board under the Plan, five members
 elected at large in November 1931, took its seats in January 1932, and it
 differed from its predecessor in three ways at once: five seats in place of
 three, election at large in place of districts, and members who were no longer
@@ -677,8 +680,8 @@ report does not claim a cause for the years from 1888 to 1893.
 
 \subsubsection{Four Forces}
 
-Four forces may have kept the Board white once Willson was gone, and the record
-bears on each differently. The county's Black population fell, from a majority
+Four forces may have kept the Board white once Willson was gone, and the sources
+bear on each differently. The county's Black population fell, from a majority
 in 1870 to one resident in eight by 1930. The three magisterial districts never
 guaranteed a Black seat, even where Black residents were the majority. The
 electorate shrank after the Walton Act of 1894 and the constitution of 1902,
@@ -801,9 +804,9 @@ vote-dilution claim, and it failed. The 1976 state case asked whether voters
 could use the referendum statute a second time to put district election to a
 vote, and the courts said no.
 
-\subsubsection{What the Record Settles}
+\subsubsection{What the Sources Settle}
 
-The record settles three things. The absence began in 1888, before either
+The sources settle three things. The absence began in 1888, before either
 disfranchising law and in a district that was still a Black majority; neither
 the fall in the county's Black population nor the district system, taken alone,
 explains it; and the collapse of the electorate after 1902 is the one force
@@ -1085,17 +1088,16 @@ the structure and the election method have anything to do with it.
 
 Women have held a majority of the Board twice since 1932, in 1983 and 2024, and
 neither majority lasted more than a year; the Woman's Democratic Club's 1938
-objection to staggered terms (Section~\ref{sec:method}) is the one claim on the
-record that the election method bears on it.
+objection to staggered terms (Section~\ref{sec:method}) is the only source
+connecting the election method to it.
 
 \subsection{Race and Ethnicity}
 
 No member of color served for 96 years, from 1892 to 1988, and no more than one
 has sat at a time since; the Race and Ethnicity subsection of Part A weighs the
 forces behind the absence and finds the shrinking of the electorate after 1902
-the one that fits how long it lasted. Whether at-large election would prevent a
-reversal is the question the record cannot test, because no Black candidate ran
-between 1932 and 1986.
+the one that fits how long it lasted. No Black candidate ran between 1932 and
+1986, so whether at-large election would prevent a reversal has no test.
 
 \subsection{Age}
 
@@ -1155,16 +1157,35 @@ from 1870 to 1960.\autocite{arlhist1967officials} Norman Novack's roster covers
 history of candidates and elections, which runs to 2021, cover the recent
 decades and date departures the others leave out.\autocite{arlingtonva2026members,arlingtonelections2021}
 Where these sources disagree about a name, a date or whether a seat changed
-hands, the Historical Society's list, which comes from the minute books, sets
-the terms before 1932 and the County's roll dates the departures. The
-repository records each disagreement and how it was settled.
+hands, the County's roll dates the departures. Table~\ref{tab:sources} shows
+which of the four backs each stretch of terms, and how many members each
+stretch covers; a member who served across a boundary between two stretches is
+counted in both. The archive delivered to the County records each
+disagreement and how it was settled.
+
+\begin{table}[t]
+  \refstepcounter{table}\label{tab:sources}
+  {\raggedright\MakeUppercase{Table \thetable}\par}
+  {\raggedright\bfseries Which Source Backs Each Stretch of Terms\par}
+  \medskip
+  \begingroup\footnotesize\setlength{\tabcolsep}{8pt}
+  \begin{tabular}{@{}lr@{}}
+  \toprule
+  \textit{Backed By} & \textit{Members} \\
+  \midrule
+  \rosterinput members_by_source.tex
+  \bottomrule
+  \end{tabular}\endgroup
+  \par\smallskip
+  \figurenotes{Notes: A term's stretch is the roster or rosters that name it;
+    the roll of individual terms is in the archive delivered to the
+    County.}{}
+\end{table}
 
 A member's traits come from three kinds of source: the US census, which
 describes members who served through the 1960s; the press, in news reports and
-obituaries; and published profiles. In the roster at the end of this appendix
-each value carries a superscript for its source: the census (c), the press or a
-published profile (p), or an assumption (a). Two superscripts mean two kinds
-of source agree, and a dash means no source gives the value. The census closes
+obituaries; and published profiles. Table~\ref{tab:roster}'s note explains the
+superscript each value in the roster carries for its source. The census closes
 for 72 years, so the 1950 census is the last open.
 
 \subsection{Gender}
@@ -1185,7 +1206,7 @@ O'Leary spell it Willson.\autocite{alexandriagazette18890525p3,alexandriagazette
 
 Figure~\ref{fig:board-race} carries one assumption: every member across 156 years
 who is not named below as a member of color is recorded as White, because no source
-says otherwise. For the 95 years between 1892 and 1987 the only evidence is one
+says otherwise. For the 96 years between 1892 and 1988 the only evidence is one
 sentence, the Arlington Historical Society's statement that William T. Newman,
 Jr. was the first African American elected to the Board since Reconstruction;
 no roster by race corroborates it.
@@ -1285,8 +1306,8 @@ In 11 years a seat stood empty: four in the district years (1870, 1873, 1879 and
 
 Table~\ref{tab:roster} lists every person who has served, in the order they
 first took a seat, with the gender, race and birth year used in the figures. The
-sources for every cell, one by one, are in the repository's members table and in
-the archive delivered to the County.
+sources for every cell, one by one, are in the archive delivered to the
+County.
 
 \rosterinput members_roster.tex
 
