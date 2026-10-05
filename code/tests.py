@@ -2615,6 +2615,96 @@ def test_every_cited_entry_is_complete():
     assert not bad, "cited entries the Works Cited would print incompletely:\n  " + "\n  ".join(bad)
 
 
+# --- merging a thread's branch ---------------------------------------------------
+
+def merge_fixture(tmp):
+    """A bare remote and a clone with main pushed, a branch `thread` that
+    appends a tracker row and edits note.txt, and main moved on by another
+    tracker row, so the merge has a union file to resolve and a clean file
+    to carry. Returns the clone's path."""
+    tmp = Path(tmp)
+    remote, work = tmp / "remote.git", tmp / "work"
+    subprocess.run(["git", "init", "-q", "--bare", str(remote)], check=True)
+    subprocess.run(["git", "clone", "-q", str(remote), str(work)], check=True,
+                   stderr=subprocess.DEVNULL)
+
+    def git(*args):
+        return subprocess.run(["git", "-C", str(work), *args], check=True,
+                              capture_output=True, text=True).stdout.strip()
+
+    git("config", "user.email", "t@t"); git("config", "user.name", "t")
+    (work / "code").mkdir(); (work / "docs").mkdir()
+    shutil.copy(ROOT / "code" / "merge.sh", work / "code" / "merge.sh")
+    (work / ".gitattributes").write_text("docs/questions.csv merge=union\n")
+    (work / "docs" / "questions.csv").write_text("a,b\n1,2\n")
+    (work / "note.txt").write_text("x\n")
+    git("add", "-A"); git("commit", "-qm", "base"); git("branch", "-M", "main")
+    git("push", "-q", "-u", "origin", "main")
+    git("checkout", "-qb", "thread")
+    with open(work / "docs" / "questions.csv", "a") as f:
+        f.write("3,4\n")
+    (work / "note.txt").write_text("thread\n")
+    git("commit", "-qam", "thread"); git("push", "-q", "-u", "origin", "thread")
+    git("checkout", "-q", "main")
+    with open(work / "docs" / "questions.csv", "a") as f:
+        f.write("5,6\n")
+    git("commit", "-qam", "main2"); git("push", "-q", "origin", "main")
+    return work, git
+
+
+def merge(work, build, compile_):
+    """Run code/merge.sh thread in the clone with the build and compile
+    commands substituted. Returns the completed process."""
+    return subprocess.run(["bash", "code/merge.sh", "thread"], cwd=work, text=True,
+                          capture_output=True,
+                          env={**os.environ, "BUILD": build, "COMPILE": compile_})
+
+
+def test_a_merge_whose_build_fails_leaves_main_alone():
+    """The first slip: a commit chained after a failing build. The script
+    stops at step 3, main is where it was, and no worktree is left behind."""
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git = merge_fixture(tmp)
+        before = git("rev-parse", "main")
+        run = merge(work, build="false", compile_="true")
+        assert run.returncode != 0, "a failing build did not stop the merge"
+        assert "build failed" in run.stderr, run.stderr
+        assert git("rev-parse", "main") == before, "main moved after a failing build"
+        assert git("rev-parse", "origin/main") == before, "origin/main moved after a failing build"
+        assert git("worktree", "list").count("\n") == 0, "the scratch worktree was left behind"
+
+
+def test_a_merge_whose_build_passes_lands_with_what_the_build_rewrote():
+    """The happy path, and the third slip: a file the build rewrote in the
+    worktree reaches main instead of going with the worktree. The union
+    file keeps both sides' rows, the branch is gone here and on the remote."""
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git = merge_fixture(tmp)
+        run = merge(work, build="echo built > note.txt", compile_="true")
+        assert run.returncode == 0, run.stdout + run.stderr
+        assert (work / "note.txt").read_text() == "built\n", "the build's rewrite was lost"
+        assert (work / "docs" / "questions.csv").read_text() == "a,b\n1,2\n5,6\n3,4\n", \
+            "the union merge did not keep both sides' rows"
+        assert git("rev-parse", "main") == git("rev-parse", "origin/main"), "main was not pushed"
+        assert "thread" not in git("branch", "-a"), "the merged branch was not removed"
+        assert git("worktree", "list").count("\n") == 0, "the scratch worktree was left behind"
+
+
+def test_a_merge_with_a_real_conflict_stops_before_building():
+    """A conflict outside the union-merged files is a person's decision:
+    the script names the file and leaves main alone."""
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git = merge_fixture(tmp)
+        (work / "note.txt").write_text("main side\n")
+        git("commit", "-qam", "main3"); git("push", "-q", "origin", "main")
+        before = git("rev-parse", "main")
+        run = merge(work, build="true", compile_="true")
+        assert run.returncode != 0, "a conflicting merge went through"
+        assert "note.txt" in run.stderr and "conflicts" in run.stderr, run.stderr
+        assert git("rev-parse", "main") == before, "main moved despite the conflict"
+        assert git("worktree", "list").count("\n") == 0, "the scratch worktree was left behind"
+
+
 def run_one(name):
     """Run one test in a worker process: (name, None) if it passed, else
     (name, what it said). A test that raises anything but an AssertionError

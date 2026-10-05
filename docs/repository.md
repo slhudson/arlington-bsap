@@ -138,6 +138,34 @@ push. The build itself is reproducible: the same sources in a fresh virtualenv
 give byte-identical figures, so two people who pull the same commit hold the
 same `figures/`.
 
+## Why merging a thread's branch is a script
+
+A thread works in a worktree on a branch and ends with a push; its branch
+comes back to main through `bash code/merge.sh <branch>`. The steps were done
+by hand six times on 5 October 2026 - a scratch worktree, the merge, `bash
+run.sh`, `code/paper.py`, the fast-forward, the push, the worktree and branch
+removed - and three slips repeated: a commit chained after a failing build,
+a brace dropped between two appended bibliography entries, and a figure
+rebuilt in the worktree and lost when the worktree went.
+
+The script does the same steps in the same order and refuses at each place a
+hand slipped. It merges in a worktree taken from `origin/main` after a fetch,
+so the merge is against what is pushed; a conflict outside the union-merged
+files (`.gitattributes`) stops it with the files named and main untouched,
+because two sessions editing one line is a person's decision; the build and
+both compiles run on the merged tree and a failure stops it before anything
+reaches main; what the build rewrote is committed in the worktree before the
+fast-forward, so a rebuilt figure travels with the merge; then main
+fast-forwards, pushes, the compiled PDFs are copied to the primary checkout,
+and the worktree and the branch go, here and on origin. One line prints per
+step, and the primary checkout must be on main and clean, or it declines to
+start.
+
+`code/tests.py` builds a throwaway remote and clone and runs the script three
+ways, with the build and compile commands substituted: a failing build leaves
+main where it was, a passing build lands with the file it rewrote, and a real
+conflict stops before building. Those are the three slips, each reintroduced.
+
 ## Why the paper compiles with lualatex, and the two ways it fails
 
 `paper/arlington-bsap.tex` sets its body text in Lato, the typeface

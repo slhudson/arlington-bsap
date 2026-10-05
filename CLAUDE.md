@@ -180,8 +180,10 @@ inputs: `code/analysis/body_text_numbers.py` writes the numbers the prose cites
 that no figure carries as commands in `paper/body_text_numbers.tex`, and
 `code/analysis/members_roster.py` writes the appendix roster's rows to
 `paper/members_roster.tex`. `code/figures.py` runs the steps of `code/analysis/` in one process for
-`run.sh`; it and `code/paper.py` sit outside the stages, like `code/tests.py`,
-and `code/paper.py` writes `paper/arlington-bsap.pdf` on demand.
+`run.sh`; it, `code/paper.py` and `code/merge.sh` sit outside the stages, like
+`code/tests.py`: `code/paper.py` writes `paper/arlington-bsap.pdf` on demand, and
+`code/merge.sh <branch>` brings a thread's branch into main once the build and
+the compile pass on the merged tree (`docs/repository.md`).
 `code/sources/` is outside them too, and writes no data layer: it holds the
 tools that serve `paper/sources.bib` and the Drive copies - fetching and
 entering a source, filing the archive, cutting a web print back to its
