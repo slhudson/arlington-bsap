@@ -207,7 +207,7 @@ reporter; an act without its chapter and series; a book without a publisher and
 year) and one that carries what the sheet forbids (a masthead that opens with
 *The*, a title not in headline style, an unsigned piece whose `sortname` is not
 braced, a signed one that has a `sortname`, an author equal to the journaltitle or
-organization, a report whose institution is inside its author, a thesis url that
+organization, a report whose institution is inside its author, an article read online with a url and no `entrysubtype = {magazine}`, a thesis url that
 is a repository's home page, primary law typed as anything but `@jurisdiction` or
 `@legislation`, a census record that is not `skipbib`, and a `note` over 80
 characters). A field the copy does not give is declared in the annotation ("The
@@ -252,8 +252,9 @@ looking the paper up.
 outlet as it names itself (ARLnow, InsideNoVa); `date`; `url`. Set in roman as
 Chicago sets a website. A piece a print paper wrote and a site reproduces is an
 `@article` of that paper, never "via" the host: *Sun Gazette* (Arlington, Va.),
-with the URL saying where it was read and the annotation saying the copy gives no
-page. Unsigned: `sortname` is the outlet, braced. A page that carries no date has
+with the URL saying where it was read, the annotation saying the copy gives no
+page, and `entrysubtype = {magazine}` so the footnote, which drops the URL, does not
+end in a comma. Unsigned: `sortname` is the outlet, braced. A page that carries no date has
 no `date` field and the annotation says "The page gives no date".
 
 **Report or document by a body** (`@report`). `author` the body or the person;

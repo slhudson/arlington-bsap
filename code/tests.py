@@ -2367,6 +2367,9 @@ def incomplete(e):
         need += [f for f in ("title", "journaltitle", "location", "date") if not has(f)]
         if not has("pages") and not NO_PAGE.search(ann):
             need.append("pages (or an annotation saying the copy gives no page)")
+        if not has("pages") and has("url") and e.get("entrysubtype") != "magazine":
+            out.append("has a url and no page: entrysubtype = {magazine}, or the footnote, which drops "
+                       "the url, ends in a comma")
         if re.match(r"The\s", archive.plain(e.get("journaltitle", ""))):
             out.append("has a masthead that opens with The, which Chicago drops: Sun, not The Sun")
         for f in ("volume", "number", "issue", "note"):
@@ -2482,6 +2485,7 @@ def test_an_incomplete_entry_is_refused():
             ({"date": ""}, "date"),
             ({"journaltitle": ""}, "journaltitle"),
             ({"journaltitle": "The Sun"}, "opens with The"),
+            ({"pages": "", "url": "https://example.org", "annotation": "The copy gives no page."}, "magazine"),
             ({"sortname": ""}, "sortname"),
             ({"sortname": "Sun"}, "sortname"),
             ({"author": "Sawicki, Phillip"}, "no sortname"),
