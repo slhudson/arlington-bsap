@@ -257,6 +257,9 @@ labor are their own sections.
 told under the same four headings, so that a reader can follow one question across all
 three. The report makes no recommendation on any of them." is the wrong tone for the
 body. The contents page shows the structure; a section opens on its subject.
+The one exception is Local Authority (A.4), whose opening says it sits outside the
+equity-resolution lens and is treated briefly by agreement with County Board staff;
+Sally wants that staple visible (4 and 5 October 2026).
 
 **The Data Appendix is written for a researcher replicating the work for the first
 time (Sally, 5 October 2026).** It is their roadmap: which document to open for which
