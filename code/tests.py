@@ -10,6 +10,7 @@ input, run by the loop at the bottom.
 import csv
 import hashlib
 import importlib
+import math
 import os
 import re
 import shutil
@@ -1271,6 +1272,43 @@ def test_a_body_text_number_is_the_clean_tables_number():
     expected["notWhiteMenMembers"] = str(not_white_men)
     expected["whiteMenMembers"] = str(len(m) - not_white_men)
 
+    # The turnout rates, worked out here without code/analysis/elections.py:
+    # the county's presidential vote over the men of voting age (to 1916) or
+    # all adults (from 1920) on a straight line between censuses, and a
+    # district's Board contest over the men the nearest census counted there.
+    def said(year):                    # 1904 -> NineteenFour, 1928 -> NineteenTwentyEight
+        ones = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine",
+                "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen",
+                "Seventeen", "Eighteen", "Nineteen"]
+        tens = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"]
+        c, r = divmod(year, 100)
+        return ones[c] + ("Hundred" if r == 0 else ones[r] if r < 20 else tens[r // 10] + ones[r % 10])
+
+    def half_up(rate):
+        return str(int(math.floor(rate + 0.5)))
+
+    adults = pd.read_csv(ROOT / "data" / "clean" / "residents_by_district_adults.csv")
+    county = adults[adults.district == "county"].set_index("year").sort_index()
+    results = pd.read_csv(ROOT / "data" / "clean" / "elections_results.csv")
+    for r in results[(results.office == "president") & results.year.between(1880, 1928)].itertuples():
+        column = "men_all" if r.year < 1920 else "adults_all"
+        series = county[column].dropna()
+        before = series[series.index <= r.year].index.max()
+        after = series[series.index >= r.year].index.min()
+        if before == after:
+            eligible = series[before]
+        else:
+            eligible = series[before] + (series[after] - series[before]) * (r.year - before) / (after - before)
+        expected[f"turnout{said(r.year)}"] = half_up(r.total / eligible * 100)
+    margins = pd.read_csv(ROOT / "data" / "clean" / "elections_margins.csv")
+    board = margins[margins.contest.str.endswith("District") & margins.votes_cast.notna()
+                    & margins.year.between(1893, 1919)]
+    men = adults.set_index(["district", "year"]).men_all
+    for r in board.itertuples():
+        district = r.contest.replace(" District", "")
+        census = min((1880, 1900, 1910, 1920), key=lambda c: (abs(c - r.year), c))
+        expected[f"boardTurnout{district}{said(r.year)}"] = half_up(r.votes_cast / men[(district, census)] * 100)
+
     wrong = [f"\\{name} is {value}, the table gives {expected.get(name, 'nothing')}"
              for name, value, _ in body_text_numbers() if expected.get(name) != value]
     assert not wrong, "paper/body_text_numbers.tex:\n  " + "\n  ".join(wrong)
@@ -2044,7 +2082,7 @@ def test_a_step_and_a_module_are_told_apart():
     something anyway, or one it lists that writes nothing.
 
     Half of code/clean/ is modules the steps import - the roster readers, the
-    terms, the contests - and two of code/analysis/ are too. Nothing in a
+    terms, the contests - and three of code/analysis/ are too. Nothing in a
     name or a folder says which half a file is in, so the only reading of it
     is run.sh's own list, and a step left out of that list silently never
     runs. The other reading is the file itself: a step writes what it is

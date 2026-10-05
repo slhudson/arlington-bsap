@@ -68,8 +68,8 @@ checks that each step wrote its file, and warns about figures in `figures/`
 that no step produces.
 
 **Not every file in a stage folder is a step.** Half of `code/clean/` is
-modules the steps import, and so are `code/analysis/members.py` and
-`code/analysis/localities.py`. `run.sh` lists the steps in the order they run,
+modules the steps import, and so are `code/analysis/members.py`,
+`code/analysis/localities.py` and `code/analysis/elections.py`. `run.sh` lists the steps in the order they run,
 one array per stage; a step is the file with a `__main__` block, or in
 `code/analysis/` the one that calls `paths.save()`. `code/tests.py` holds the
 two readings to each other, so a new step cannot be missing from run.sh and a

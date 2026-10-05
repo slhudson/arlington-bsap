@@ -82,8 +82,15 @@ echo "  clean"
 BUILT_BY=(data/raw data/transcribed code/build code/citekeys.py)
 CLEANED_BY=(code/clean code/citekeys.py)
 STAMP=data/built/.inputs      # line 1: when the build stage started; then one line per input
+# stat's flags differ between the Mac (BSD) and Linux (GNU coreutils); each
+# function prints the same three fields, name, size in bytes, modification time.
+if stat --version >/dev/null 2>&1; then
+  STAT_FINGERPRINT=(stat -c '%n %s %Y'); STAT_BYTES=(stat -c %s)
+else
+  STAT_FINGERPRINT=(stat -f '%N %z %m'); STAT_BYTES=(stat -f %z)
+fi
 fingerprint() {
-  find "$@" -type f -not -path '*/__pycache__/*' -print0 | sort -z | xargs -0 stat -f '%N %z %m' | sort -u
+  find "$@" -type f -not -path '*/__pycache__/*' -print0 | sort -z | xargs -0 "${STAT_FINGERPRINT[@]}" | sort -u
 }
 changed() {                   # inputs under "$@" whose line is not in the stamp, or that left it
   comm -3 <(tail -n +2 "$STAMP" | grep -E "^($(IFS='|'; echo "$*"))" || true) <(fingerprint "$@") \
@@ -220,7 +227,7 @@ fi
 kb=0; text_kb=0
 while IFS= read -r -d '' f; do
   [ -f "$f" ] || continue
-  size=$(( $(stat -f%z "$f") / 1024 ))
+  size=$(( $("${STAT_BYTES[@]}" "$f") / 1024 ))
   kb=$(( kb + size ))
   case "$f" in *.pdf|*.png|*.ttf|*.gz|*.xlsx|*.xls|*.zip|*.docx) ;; *) text_kb=$(( text_kb + size ));; esac
 done < <(git ls-files -z 2>/dev/null) || true

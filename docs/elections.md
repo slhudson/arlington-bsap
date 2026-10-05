@@ -372,6 +372,17 @@ Cast` appears only for 2025. The Department's precinct turnout files from
 2007 were not used; 2008's lacks the central absentee precinct, and in several
 years a precinct's row is repeated once per district it sits in.
 
+**The rates the prose cites are the figures' own.** The two pre-1932 turnout
+figures take their denominators from `code/analysis/elections.py`: the
+presidential vote per 100 residents of voting age, and a district's Board
+contest per 100 men of voting age the nearest census counted there.
+`code/analysis/body_text_numbers.py` reads the same module and writes each rate
+as a command (`\turnoutNineteenFour`, `\boardTurnoutJeffersonNineteenOne`), and
+the Race section's electorate paragraph cites the commands rather than numbers
+typed from the figure, so a change of denominator reaches the prose in the same
+build. `code/tests.py` works the rates out again without the module and refuses
+a command that disagrees.
+
 **What the series shows.** The Board's vote is drawn as four series by what
 else the November ballot carried (the `cycle` column: president, governor,
 midterm, delegates), because drawn as one line it is a sawtooth whose teeth

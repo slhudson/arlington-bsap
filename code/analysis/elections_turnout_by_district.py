@@ -16,26 +16,20 @@ Two things a reader of the figure needs, and the caption carries:
   Washington District's 1915 point reads near 100 because the district
   doubled between the 1910 count it is divided by and the 1920 one.
 
-The two rules are the Walton Act of 1894 and the constitution of 1902.
+The two rules are the Walton Act of 1894 and the constitution of 1902. The
+denominator is code/analysis/elections.py's, which body_text_numbers reads
+too, so the prose cites the rates this figure draws.
 """
-import pandas as pd
-
 import charts
 import paths
 import style
-
-CENSUSES = (1880, 1900, 1910, 1920)
-
-
-def nearest(year):
-    """The census closest to `year`, the earlier where two are as close."""
-    return min(CENSUSES, key=lambda c: (abs(c - year), c))
+from elections import per_100_district_men
 
 
 for profile in style.PROFILES:
     style.apply(profile)
 
-    adults = paths.read("residents_by_district_adults").set_index(["district", "year"]).men_all
+    adults = paths.read("residents_by_district_adults")
     contests = paths.read("elections_margins")
     contests = contests[contests.contest.str.endswith("District") & contests.votes_cast.notna()
                         & contests.year.between(1893, 1919)]
@@ -43,7 +37,7 @@ for profile in style.PROFILES:
     fig, ax = charts.figure(profile)
     for district, (label, colour) in style.DISTRICTS.items():
         votes = contests[contests.contest == f"{district} District"].set_index("year").votes_cast
-        rate = pd.Series({y: v / adults[(district, nearest(y))] * 100 for y, v in votes.items()})
+        rate = per_100_district_men(votes, district, adults)
         charts.lines(ax, rate.index.to_numpy(), {label: (rate.to_numpy(), colour)})
 
     charts.counts(ax, 120, 20, label="votes per 100 men of voting age")

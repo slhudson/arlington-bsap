@@ -8,27 +8,15 @@ line between censuses (1880, 1910, 1920 and 1930 for the county; 1900 is not
 counted whole). The elections before 1880 are not drawn: no census before 1880
 counts adults, and holding 1880's count back would invent the denominator.
 Everything else is as the all-residents figure: the same three rules, the
-same Board squares.
+same Board squares. The denominator is code/analysis/elections.py's, which
+body_text_numbers reads too, so the prose cites the rates this figure draws.
 """
-import numpy as np
-
 import charts
 import paths
 import style
+from elections import per_100_adults as per_100
 
 FIRST, LAST = 1880, 1928
-WOMEN_VOTE = 1920
-
-
-def per_100(votes, adults):
-    """Votes per 100 residents of voting age: men through 1916, everyone from
-    1920, the count interpolated between the censuses either side."""
-    county = adults[adults.district == "county"].set_index("year")
-    men, everyone = county.men_all.dropna(), county.adults_all.dropna()
-    eligible = np.where(votes.index < WOMEN_VOTE,
-                        np.interp(votes.index, men.index, men.to_numpy()),
-                        np.interp(votes.index, everyone.index, everyone.to_numpy()))
-    return votes / eligible * 100
 
 
 for profile in style.PROFILES:
