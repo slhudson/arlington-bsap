@@ -35,6 +35,19 @@ Each is a row in `docs/questions.csv`, with whose court it waits in and what wou
 
 ---
 
+## Election Method (A.2)
+
+The paper's Election Method section opens with the general mechanics of
+single-winner districts, multi-winner block elections and ranked choice, in
+the Charlottesville series' language and sources, then turns to Arlington in
+four subsections: districts, 1870-1930; at large, 1930 to the present;
+staggered terms, 1938 to the present; and ranked choice, 2020 to the present.
+The nominating stage is not a subsection of its own: whether the report makes
+a nominating-stage argument at all is parked (`nominations-1931-1978` and
+three further rows, `docs/questions.csv`), and until that is decided the
+nominating material stays in the timelines and in "How the Board's candidates
+were nominated," below.
+
 ## Results
 
 `data/clean/elections_results.csv` is Arlington's vote by party for two offices, one row
