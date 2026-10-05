@@ -153,17 +153,24 @@ if [ $# -gt 0 ]; then
   done
   [ ${#selected[@]} -gt 0 ] || { echo "  no figure matches: $*"; exit 1; }
 fi
-for s in "${selected[@]}"; do
-  printf '  %-34s' "$s"
-  outputs=("figures/pdf/$s.pdf" "figures/png/$s.png")
-  case "$s" in
-    body_text_numbers) outputs=("paper/$s.tex");;
-    members_roster) outputs=("paper/$s.tex" "paper/${s}_subsets.tex");;
+outputs_of() {                # the files a figure step writes
+  case "$1" in
+    body_text_numbers) outputs=("paper/$1.tex");;
+    members_roster) outputs=("paper/$1.tex" "paper/${1}_subsets.tex");;
+    *) outputs=("figures/pdf/$1.pdf" "figures/png/$1.png");;
   esac
-  # Removed first, so a script that writes nothing cannot pass on a previous
-  # run's copy.
+}
+# Removed first, so a script that writes nothing cannot pass on a previous
+# run's copy.
+for s in "${selected[@]}"; do
+  outputs_of "$s"
   rm -f "${outputs[@]}"
-  (cd code/analysis && ../../"$PY" "$s.py") >/dev/null
+done
+# One process draws them all (code/figures.py), so Python, pandas and
+# matplotlib start once and not once per figure.
+"$PY" code/figures.py "${selected[@]}"
+for s in "${selected[@]}"; do
+  outputs_of "$s"
   for out in "${outputs[@]}"; do
     [ -f "$out" ] || {
       echo "FAILED"
@@ -172,7 +179,6 @@ for s in "${selected[@]}"; do
       echo "    file after the script - check that the call is there."
       exit 1; }
   done
-  echo "ok"
 done
 echo "-> figures/pdf, figures/png ($(ls figures/pdf | wc -l | tr -d ' ') each)"
 
