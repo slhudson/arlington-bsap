@@ -30,6 +30,17 @@ question nobody asked, narrating the report's own structure, and detail that
 is accurate but beside the point. All three distract from understanding, and
 understanding is the whole job.
 
+Three shapes the test catches most often, from the first pass (5 October 2026):
+a sentence that restates its own footnote ("the County Board's staff describes its
+method in those terms", with the citation right there), which the footnote already
+carries; a reason given before the event it explains, which a reader cannot place
+until the event arrives, so the referendum comes before the court case the county
+reasoned from; and a detail kept because it is true. A detail earns its place by
+showing a mechanism or a consequence: the Walton Act's line through three-fourths
+of a name shows how a ballot disfranchised, and stays; the four precincts that
+voted against staggering show nothing, and go. And a subsection whose point has
+not been stated cannot be scrubbed at all: the test needs the point first.
+
 So the procedure for a section of `paper/` is: state its point in a sentence
 before drafting, draft, then read each sentence and ask only "does the reader
 need this to understand the point?" What answers no is not deleted; it is
