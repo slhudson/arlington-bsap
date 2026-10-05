@@ -17,6 +17,8 @@ import socket
 import subprocess
 import sys
 import tempfile
+import traceback
+from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
 import pandas as pd
@@ -2358,15 +2360,32 @@ def test_every_cited_entry_is_complete():
     assert not bad, "cited entries the Works Cited would print incompletely:\n  " + "\n  ".join(bad)
 
 
+def run_one(name):
+    """Run one test in a worker process: (name, None) if it passed, else
+    (name, what it said). A test that raises anything but an AssertionError
+    is a failure too, reported with its traceback."""
+    try:
+        globals()[name]()
+        return name, None
+    except AssertionError as e:
+        return name, str(e)
+    except Exception:
+        return name, traceback.format_exc()
+
+
 if __name__ == "__main__":
-    tests = [(n, f) for n, f in sorted(globals().items()) if n.startswith("test_")]
+    # The tests are independent - each builds its own input in memory or in a
+    # temporary folder - so they run in a few processes at once, which takes
+    # the suite from a minute to well under half of one.
+    names = sorted(n for n in globals() if n.startswith("test_"))
+    with ProcessPoolExecutor(max_workers=min(4, os.cpu_count() or 1)) as pool:
+        results = list(pool.map(run_one, names))
     failed = 0
-    for name, fn in tests:
-        try:
-            fn()
+    for name, said in results:
+        if said is None:
             print(f"  ok    {name}")
-        except AssertionError as e:
+        else:
             failed += 1
-            print(f"  FAIL  {name}\n        {e}")
-    print(f"\n{len(tests) - failed}/{len(tests)} passed")
+            print(f"  FAIL  {name}\n        {said}")
+    print(f"\n{len(names) - failed}/{len(names)} passed")
     sys.exit(1 if failed else 0)
