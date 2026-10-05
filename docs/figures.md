@@ -479,6 +479,17 @@ there the labels can be shortened and here the years cannot.
   split. `docs/residents.md` has what places each census's enumeration
   districts.
 
+- **residents_by_district_race_adults.** The same figure as
+  residents_by_district_race with the men aged 21 and over in place of every
+  resident, because family size may differ by race and children are in the
+  all-residents count. Men only, since the table carries race for men and
+  women but the turnout figures it sits beside count men before 1920. Four
+  censuses, 1880, 1900, 1910 and 1920, with a dotted segment across the years
+  between and across 1890. Arlington district's 1900 point is a share of the
+  men the database holds there, which are fewer than the district's, and the
+  county line breaks at 1900 for the same reason. `docs/residents.md` has the
+  adults table.
+
 - **members_by_race, members_by_gender, members_by_party.** Seat counts rather than
   shares, so the 1932 expansion is legible on the axis. All bands are drawn,
   men and White included: they are the denominator, and without them two
