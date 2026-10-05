@@ -47,3 +47,7 @@
   \printbibliography[heading=subbibliography,title={Cases},type=jurisdiction]%
   \printbibliography[heading=subbibliography,title={Constitutions},filter=constitutions]%
   \printbibliography[heading=subbibliography,title={Statutes},filter=statutes]}
+
+% A case name is italic, in the notes and in the table.
+\DeclareFieldFormat[jurisdiction]{title}{\mkbibemph{#1}}
+\DeclareFieldFormat[jurisdiction]{shorttitle}{\mkbibemph{#1}}
