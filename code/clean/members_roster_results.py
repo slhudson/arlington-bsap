@@ -10,6 +10,16 @@ assembles it with the rest.
 
 board_elections(), special_candidates() and general_winners() are the
 lookups members_roster_novack.py cuts Novack's spans with.
+
+From 1995 a November win starts a four-year term the following January, and
+a special election fills the rest of a term that ended early, closing the
+member who left at that month. Where two members' terms end in the same
+year, the county's own annotation ("to fill Eisenberg's unexpired term")
+says whose seat it was, and terms() refuses to guess without it. The five
+members still serving when Novack published have their last term closed
+the same way. members_roster.py checks every month from 1932: five members,
+six only in a month a seat changed hands mid-term, four in a month the roll
+names empty.
 """
 import pandas as pd
 

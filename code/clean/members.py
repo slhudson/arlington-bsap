@@ -16,6 +16,14 @@ gender are `assumed`, a white man, and the birth year is blank and
 `unsourced`. An attributed name must match a roster name exactly.
 docs/members.md has the reasoning.
 
+The claim files keep words, not categories: `race_words`, `gender_words`
+and `party_words` as the source prints them (a pronoun, an honorific, a
+description), decoded by RACE_WORDS, GENDER_WORDS and PARTY_WORDS below,
+where a word not listed stops the build. A press or obituary age is keyed
+as printed, `age` and `age_date` ("25 April 2019", "1960"), and
+`birth_year` only where a source prints a birth date or year; the
+transcriber never subtracts, birth_years_from_ages() does.
+
 Party, per term, from the first of three sources that speaks:
 
   1. data/transcribed/by_claude/members_party.csv - reporting, cited and

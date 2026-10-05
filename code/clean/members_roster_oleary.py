@@ -5,7 +5,15 @@ From 1903 an entry lists every candidate with a vote count and the highest
 wins; earlier it names the holder, with replacements in prose. A November
 win is a four-year term, or shorter where the next listed election seats a
 successor first. Each handover in the prose ends the sitting member's term
-and begins the successor's.
+and begins the successor's: "Replaced by H. Dwight Smith in Dec.; replaced
+by Lott W. Crocker in March 1873, replaced by Francis D. Schutt in April"
+is a term for each man in the Arlington seat of 1872-73. A month without a
+year takes the previous handover's year, rolling forward when the month
+goes backwards. Schutt's April appointment and his May 1873 election are
+two terms, not a duplicate. From 1907 O'Leary gives surnames only, so
+"Corbett" and "Duncan" from 1907 are rows of their own until NAMES in
+members_roster_arlhist.py and apply_duncan_join in members_roster.py join
+them to the full names.
 """
 import re
 

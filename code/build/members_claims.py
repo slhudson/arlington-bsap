@@ -15,13 +15,13 @@ the Board, with the `office` held that year and, where the roll dates one,
 an `event` and its `event_date`). A field a row does not carry is blank. Nothing is coded, matched
 or chosen here; code/clean/members_roster.py reads the terms,
 code/clean/members_census.py the census rows, and code/clean/members.py
-and members_residence.py resolve the rest. docs/members.md, "Census
-records", has what each column holds.
+and members_residence.py resolve the rest. The docstring of
+code/clean/members_census.py has what each census column holds.
 
 Three rows are refused. A census row that does not say what was read
 against the image, the sheet or the index; a place on a census row the
 sheet was never read against, since a street is the field the index gets
-wrong (docs/members.md, "Reading an image"); and a demographics or residence
+wrong (the sources skill, "Reading an image"); and a demographics or residence
 row citing a census record, which belongs in the census file, one row per
 record, where code/transcribe/members_census.py moves it.
 """
