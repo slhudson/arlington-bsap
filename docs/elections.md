@@ -14,10 +14,10 @@ still open.
   found (`referendum-1938-canvass`).
 - The presidential figure stacks three bands, and the pre-1924 nominees are a
   table in the build (`president-figure-form`).
-- The county's presidential totals for 1872 and 1920 are O'Leary's, since no
-  state return has been found for either (`state-returns-1872-1920`), and the
-  Almanack that prints the others before 1924 has not been tested against the
-  Secretary's own return (`almanack-against-secretary`).
+- The county's presidential total for 1920 is O'Leary's, since no state
+  return has been found (`state-returns-1920`), and the Almanack that
+  prints the others before 1924 has not been tested against the Secretary's
+  own return (`almanack-against-secretary`).
 - Turnout's denominators: adults after 2020 carried forward
   (`adults-after-2020`), registration before 2010
   (`registration-before-2010`), and votes per seat standing in for ballots
@@ -47,21 +47,22 @@ voters, not residents, and before 1966 the electorate was the one the 1902
 constitution allowed, poll tax and literacy test, and before 1920 it was men.
 The comparison the figures invite is therefore the Board against the people
 who were allowed to vote, which the file name and axis label say so that no
-caption has to. 1876–1916 is the Commonwealth's return for the county as the
-*Warrock-Richardson Almanack* prints the official vote, and 1924 and 1928 are
-the Secretary of the Commonwealth's reports, keyed in
-`data/transcribed/by_claude/elections_results_state.csv` and read by the build
-as they stand: the clean step sums each year's tickets into the bands (a Funder
-and a Readjuster column for Hancock in 1880 are one Democratic vote; a dotted
-ticket is 0; where the Almanack prints only the highest candidates, 1904, 1908,
-1912 and 1916, the other band is what it prints). For 1928 the Secretary's 26
-minor-party votes are kept and the year's note says the state database's
-locality rows leave them out. 1872 and 1920 are O'Leary's compilation of the
-*Alexandria Gazette*, the only count held, marked as his in the row's note and
-drawn as open markers; the build takes nothing from him in a year with a state
-return, and refuses a year that is in neither. Every year in the
-return is complete, 1896, 1904 and 1908 included
-(see "The state's return, read against O'Leary's"). Party in 1872 and 1920 is
+caption has to. 1872 is the county electoral board's own certified return,
+printed in the *Alexandria Gazette*; 1876–1916 is the Commonwealth's return
+for the county as the *Warrock-Richardson Almanack* prints the official vote;
+and 1924 and 1928 are the Secretary of the Commonwealth's reports. All are
+keyed in `data/transcribed/by_claude/elections_results_state.csv` and read by
+the build as they stand: the clean step sums each year's tickets into the
+bands (a Funder and a Readjuster column for Hancock in 1880 are one Democratic
+vote; a dotted ticket is 0; where the Almanack prints only the highest
+candidates, 1904, 1908, 1912 and 1916, the other band is what it prints). For
+1928 the Secretary's 26 minor-party votes are kept and the year's note says
+the state database's locality rows leave them out. 1920 is O'Leary's
+compilation of the *Alexandria Gazette*, the only count held, marked as his
+in the row's note and drawn as an open marker; the build takes nothing from
+him in a year with a state return, and refuses a year that is in neither.
+Every year in the return is complete, 1896, 1904 and 1908 included
+(see "The state's return, read against O'Leary's"). Party in 1920 is
 the nominee's, named in the build, since O'Leary prints it for 1912 only; a name
 the build does not know stops it rather than falling into "other". 1932–2024
 is the state database's locality rows, which carry party on every candidate; its
@@ -75,22 +76,28 @@ read better than three stacked bands has not been tried.
 
 **The state's return, read against O'Leary's.** The Commonwealth's county
 returns for President are keyed in `data/transcribed/by_claude/elections_results_state.csv`,
-one row per ticket, each read off the page image. Before 1924 no Secretary of
-the Commonwealth's report prints them: the reports held in HathiTrust for
-1904 to 1921 are rosters of officers and boards. What prints the official vote
-by county is the *Warrock-Richardson Almanack*, a Richmond annual that heads
-its tables "The Official Vote of Virginia" and says of the 1892 and 1896 votes
-that they are "taken from the official returns for this Almanack"
-(`warrock1868`, `warrock1892`, `warrock1900`, `warrock1911`); from 1924 the
-Secretary's own report prints them (`vasecretary1924`, `vasecretary1928`). The
-Almanack's tables keep Alexandria County and Alexandria city in separate rows,
-and the county's is the row keyed. 1872 and 1920 have no state return in
-anything held. Where the Almanack prints only the highest candidates (1904,
-1908, 1912, 1916) the minor tickets' votes are not recorded.
+one row per ticket, each read off the page image. For 1872 no Commonwealth
+canvass by county has been found, but the county electoral board's own
+certified return is printed in the *Alexandria Gazette* of 7 November 1872
+(`alexandriagazette1872official`), the "Alexandria County Official" table, one
+row per magisterial township (Arlington, Jefferson, Washington); the rows keyed
+are the three townships' Grant and Greeley columns summed. Before 1924 no
+Secretary of the Commonwealth's report prints a county canvass: the reports
+held in HathiTrust for 1904 to 1921 are rosters of officers and boards. What
+prints the official vote by county from 1876 is the *Warrock-Richardson
+Almanack*, a Richmond annual that heads its tables "The Official Vote of
+Virginia" and says of the 1892 and 1896 votes that they are "taken from the
+official returns for this Almanack" (`warrock1868`, `warrock1892`,
+`warrock1900`, `warrock1911`); from 1924 the Secretary's own report prints
+them (`vasecretary1924`, `vasecretary1928`). The Almanack's tables keep
+Alexandria County and Alexandria city in separate rows, and the county's is
+the row keyed. 1920 has no state return in anything held. Where the Almanack
+prints only the highest candidates (1904, 1908, 1912, 1916) the minor
+tickets' votes are not recorded.
 
 | Year | State's return | O'Leary | The two |
 |---|---|---|---|
-| 1872 | none found | 125 D, 455 R | O'Leary only |
+| 1872 | 126 D, 464 R (the county's own return) | 125 D, 455 R | close but not exact |
 | 1876 | 237 D, 587 R | 237 D, 587 R | agree |
 | 1880 | 262 D (Funder) and 2 D (Readjuster), 489 R | 262 D, 459 R | Garfield 489 against 459 |
 | 1884 | 264 D, 509 R | 264 D, 508 R | one vote |
@@ -107,7 +114,7 @@ anything held. Where the Almanack prints only the highest candidates (1904,
 | 1928 | 1,444 D, 4,274 R, 26 other | the build reads 1,444 D, 4,274 R, 0 other | the 26 minor-party votes |
 
 The build takes the state's return wherever one is keyed and O'Leary's
-only for 1872 and 1920; for 1892 and 1900 it then takes the Gazette's own
+only for 1920; for 1892 and 1900 it then takes the Gazette's own
 district sum over the Almanack's, below. O'Leary compiled his from the *Alexandria Gazette*
 and states that party is inferred and the record ragged; the state's figures
 are printed from the official returns, and in 1888 and 1900 the two disagree
