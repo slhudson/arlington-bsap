@@ -1420,6 +1420,50 @@ def test_the_district_share_table_in_the_write_up_is_current():
                                   "match the clean tables:\n  " + "\n  ".join(wrong))
 
 
+def unsearched_defaults(members, negatives):
+    """Each (member, field) of a member first seated before 1962 whose race
+    or gender is the default, or whose birth year has no source, with no row
+    in members_negatives.csv saying what was searched for it. Before 1962 a
+    census is open, so a default there is a search that came back empty, and
+    the search is the only evidence the default has."""
+    searched = {(r["member"], f.strip()) for r in negatives for f in r["field"].split(";")}
+    first, gaps = {}, set()
+    for m in members:
+        first[m["name"]] = min(first.get(m["name"], 9999), int(m["start_year"]))
+    for m in members:
+        if first[m["name"]] >= 1962:
+            continue
+        for field in ("race", "gender", "birth_year"):
+            if m[f"{field}_source"] in ("assumed", "unsourced") and \
+                    (m["name"], field) not in searched:
+                gaps.add((m["name"], field))
+    return sorted(gaps)
+
+
+def test_every_early_default_has_its_search_on_record():
+    """The real tables: every pre-1962 default names the search behind it,
+    and every row of the negatives table names a roster member."""
+    members = list(csv.DictReader((ROOT / "data/clean/members.csv").open(newline="")))
+    negatives = list(csv.DictReader(
+        (ROOT / "data/transcribed/by_claude/members_negatives.csv").open(newline="")))
+    gaps = unsearched_defaults(members, negatives)
+    assert not gaps, ("members resting on a default with no search on record in "
+                      "members_negatives.csv:\n  " + "\n  ".join(f"{n}: {f}" for n, f in gaps))
+    names = {m["name"] for m in members} | {"the Board"}
+    strays = sorted({r["member"] for r in negatives} - names)
+    assert not strays, f"members_negatives.csv names no roster member: {strays}"
+
+
+def test_a_default_whose_search_is_dropped_is_refused():
+    """Take Robinson's gender search out: the check must name him."""
+    members = [{"name": "William H. Robinson", "start_year": "1877",
+                "race_source": "assumed", "gender_source": "assumed",
+                "birth_year_source": "unsourced"}]
+    negatives = [{"member": "William H. Robinson", "field": "race; birth_year"}]
+    assert unsearched_defaults(members, negatives) == [("William H. Robinson", "gender")], \
+        "a default with no search on record was accepted"
+
+
 def test_the_residence_coverage_table_in_the_write_up_is_current():
     """The table in docs/members.md, "Where members lived", counted by hand.
     Every census read moves it, and a stale table is the kind of wrongness
