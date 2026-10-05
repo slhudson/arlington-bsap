@@ -11,6 +11,8 @@ the paper, commits, and deletes the lines it cleared. What it cannot settle
 stays, with a one-line reason under it.
 
 ## Open
+- Table 1 (Women and Members of Color): one list in seating order under three headings, 1800s, 1900s, 2000s, in place of the two panels, so the pattern reads off the page: Black men, then white women, then both. Each member appears once (Talento now appears in both panels). Written by code/analysis/members_roster.py's subsets_tex; the title may need to change to say what the table is. (Sally, 5 Oct)
+- Table 1 must sit at the foot of the A.3 opening page (page 10 now), under the two paragraphs, not on the next page: raise \bottomfraction (and \textfraction down) in the preamble, or place it [!b], and confirm in the PDF that the page holds the two paragraphs and the table and Gender starts the next page. (Sally, 5 Oct)
 - Table 3 (the roster) lost its notes entirely when the per-panel notes were cut. It needs one note, under the last panel only, with the superscript key (c census, p press or profile, a assumption; two marks where two kinds agree) and the dash for a missing value, so the table stands on its own; the census-age caveat stays in the appendix's Age text. (Sally, 5 Oct)
 - Data Appendix: move the Elections section before Board Members, since it is short and the roster then closes the appendix; update the figure notes that point to "the Data Appendix, Elections" only if the wording depends on order. (Sally, 5 Oct)
 
