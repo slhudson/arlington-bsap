@@ -16,8 +16,9 @@ still open.
   table in the build (`president-figure-form`).
 - The county's presidential total for 1920 is O'Leary's, since no state
   return has been found (`state-returns-1920`), and the Almanack that
-  prints the others before 1924 has not been tested against the Secretary's
-  own return (`almanack-against-secretary`).
+  prints the others before 1924 cannot be tested against the Secretary's
+  own return with anything held online; only a visit to the Library of
+  Virginia would settle it (`almanack-against-secretary`).
 - Turnout's denominators: adults after 2020 carried forward
   (`adults-after-2020`), registration before 2010
   (`registration-before-2010`), and votes per seat standing in for ballots
@@ -126,6 +127,25 @@ state's 346 gives 585. The Almanack is a compilation and not the Secretary's
 own return, and the two are held side by side for no election: the Secretary's
 reports print county returns from 1924 and the Almanack volumes held end with
 the 1920 edition.
+
+**Why they cannot be tested against each other.** No Almanack edition printed
+after the 1920 one is held anywhere found: the bound volumes on HathiTrust and
+the Internet Archive run 1868-1891, 1892-1898, 1899, 1900-1910 and 1911-1920,
+and the serial's own catalog record (the annual ran 1878-<1935>) carries no
+further digitized volume from any contributing library, so no Almanack edition
+printed after the November 1924 or 1928 elections exists to set against the
+Secretary's reports for those years. Before 1924 the gap runs the other way:
+the Secretary's own reports carry no county table, as `vasecretary1924`'s
+annotation already records for the volumes searched (1905, 1908/09, 1909,
+1912/13, 1913, 1917, 1920/21), confirmed again by a second library's copy of
+the 1904/05 report, which does not mention Roosevelt, the losing 1904
+candidate. Nothing found in the General Assembly's journals or documents on
+HathiTrust prints a county-by-county presidential canvass either. The Almanack
+and the Secretary are therefore untestable against each other with anything
+held online; only the Library of Virginia's own county abstracts of votes,
+filed with the pre-1946 records of the Secretary of the Commonwealth, would
+settle it (`almanack-against-secretary`).
+
 The Secretary's 1928 report prints 26 votes for three minor tickets that the
 state database's locality rows, which the build reads for 1928, leave out; the
 database's total of 5,718 is therefore 26 short of the Secretary's 5,744.
