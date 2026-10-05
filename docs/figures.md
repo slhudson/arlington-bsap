@@ -209,9 +209,13 @@ Hispanic, so the label is true there by construction.
 
 ## Legend
 
-One legend for the whole figure, built from patches rather than collected
-from the axes, so a figure with two panels showing the same groups gets one
-legend rather than two. One row, in stacking order, which is the order Urban
+One legend for the whole figure, built from its own handles rather than
+collected from the axes, so a figure with two panels showing the same groups
+gets one legend rather than two. A swatch is a box unless the series is
+drawn as a line and named in `lines=`, in which case it is a line, solid or
+(if also named in `dashed=`) the figure's standard dash - `members_age`'s
+county median is the case, a line series the box convention would have
+misrepresented as an area. One row, in stacking order, which is the order Urban
 asks a legend to follow. Wrapped onto more rows where a single row would be
 read by scanning a line of text rather than glanced at: five long category
 names, or more entries than a row can hold at all, which is what seven age
@@ -576,8 +580,30 @@ there the labels can be shortened and here the years cannot.
   crosses the band's edge, and around 2013, where four lines sit inside ten
   years, thin strokes separate without it. The age axis runs 0 to 100, read
   from zero; the year axis steps by twenty, like the other 1870-2026 axes.
-  There is no legend and no direct label; the caption says what band and
-  stroke are.
+
+  A dashed line carries the county's own adult median age at each census
+  (`residents.adult_median_age`), added once the question was not whether
+  the Board's ages differ from the county's but by how much (Sally, 5
+  October 2026). It is the one series in the figure that is a category
+  rather than a measurement of the band or the strokes, so it takes a
+  saturated colour, vermilion, where the rest of the figure is near-neutral
+  - the same choice `residents_per_seat` and `localities_peers` make for
+  Arlington's own series against reference lines, even though here it marks
+  the reference (the county) and not the subject (the Board); Sally chose
+  it anyway; see "Colour" above for where that convention usually points
+  the other way. The county's shown as a flat 18-and-over adult median, not
+  a voting-age cutoff: a first attempt switched to 21-and-over before 1971
+  and labelled the line "voting-age eligible", which claimed more than an
+  age cutoff can support - neither sex (women couldn't vote in 1910 or the
+  January 1920 census) nor disenfranchisement (poll taxes and other Jim Crow
+  mechanisms through the mid-1960s) is modelled. Tracked as
+  `members-age-voting-threshold` in `docs/questions.csv` if the fuller
+  question is taken up later. Now that a category needs naming, the figure
+  has a legend after all: member age, member age range, county adult median
+  age, in that order, the first and last as line swatches rather than boxes
+  since that is how the figure draws them (`charts.legend(..., lines=,
+  dashed=)`, general enough for the next figure that mixes line and area
+  series in one legend).
 - **candidates.** A timeline strip of every candidacy a source says
   was a Black candidate's, in a regular or special election, filled if won
   and a ring if lost, from `candidates.csv`. It answers whether Black
