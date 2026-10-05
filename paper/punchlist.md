@@ -11,8 +11,6 @@ the paper, commits, and deletes the lines it cleared. What it cannot settle
 stays, with a one-line reason under it.
 
 ## Open
-- The Data Appendix shows that white space is not separating sections: a section head gets 12pt above, the same as a subsection, so the levels run together where sections run on. Set a scheme once for the whole report (part, section, subsection, run-in) and show before and after; this is the same job as the headings-and-spacing line under Could not settle, so do both at once. (Sally, 5 Oct)
-  One unit, a line of body text (`\baselineskip`), every heading's space above a multiple of it: a subsection and a run-in head (already the same italic weight) get 1 line, a section and a part (bold) get 2; 3 lines read as excessive for a section, so the scale dropped from three steps to two. Space below is 1 line throughout. Rendered before and after, sent for Sally to judge; this line and the headings-and-spacing line under Could not settle both wait on her yes before they clear. (Fable, 5 Oct)
 - Table 2 (Which Source Backs Each Stretch of Terms) is inside baseball. Rewrite the Data Appendix's Board Members, Sources, and the table, for a researcher replicating the roster for the first time: their roadmap, in plain words, which document to open for which years and what to do where two disagree. Stretch labels like "list only" and "Novack and County" mean nothing to that reader. (Sally, 5 Oct)
 - Board Duties (A.1) and Board Seats (A.1) each get a storytelling rework, not line edits; the point of each is recorded for the next pass: Board Duties answers what the Board is, what a Manager is, who does what, and how that changed; Board Seats says the county has grown a lot and why, and the Board has grown once, and therefore. A reader who finishes should be able to tell that story back. (Sally, 5 Oct)
 
@@ -29,5 +27,3 @@ stays, with a one-line reason under it.
   Adds a claim about an unwritten custom the paper does not yet carry; wants a Fable session.
 - Figure 3 (county by race) legend: consider alphabetical order (Asian & Pacific Islander first), since nothing says why Black comes first. The figures skill says a legend follows stacking order, and docs/figures.md sets the stack with the largest group on top; if the legend goes alphabetical, decide whether the stack does too, and apply the same rule to Figure 4 and the gender figure.
   A decision on stacking order, for Sally.
-- Headings and spacing are not yet nailed for skimmability (Sally, 4 October 2026, looking at the data appendix): the part, section, subsection and run-in levels need a deliberate scheme of weight, style and white space above and below so the eye finds the structure at a glance; a typographic pass over the whole document, one scheme applied everywhere, shown before and after.
-  Same scheme as the Open line above (one line-height unit, 1 or 2 lines by level), applied and rendered before/after; waits on Sally's yes. (Fable, 5 Oct)
