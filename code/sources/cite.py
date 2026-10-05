@@ -80,18 +80,52 @@ def text_problem(pdf):
     return None
 
 
-def entry_text(a, filename, folder):
-    today = date.today().isoformat()
-    fields = [("author", "{" + a.author + "}"), ("title", a.title)]
-    if a.organization:
-        fields.append(("organization", a.organization))
-    if a.journal:
-        fields.append(("journaltitle", a.journal))
+LAW = ("jurisdiction", "legislation")
+
+
+def sheet_fields(a):
+    """The entry's fields as the style sheet in docs/repository.md has them:
+    the title in headline style with year ranges in en dashes, a newspaper's
+    masthead without its leading The, an unsigned piece with no author and a
+    braced sortname (the paper or outlet is not its author), a law with no
+    author and its sovereign in organization, and an article read online with
+    no page marked magazine-style so its footnote does not end in a comma."""
+    law = a.type in LAW
+    title = re.sub(r"(\d{4})-(\d{2,4})", r"\1--\2", a.title)
+    if not law:
+        title = archive.headline_case(title)
+    fields = []
+    if a.author and not law:
+        fields.append(("author", "{" + a.author + "}"))
+    fields.append(("title", title))
+    organization = a.organization or (a.author if law else "")
+    journal = re.sub(r"^The\s+", "", a.journal)
+    if organization:
+        fields.append(("organization", organization))
+    if journal:
+        fields.append(("journaltitle", journal))
     if a.location:
         fields.append(("location", a.location))
-    fields += [("date", a.date), ("url", a.url), ("urldate", today)]
+    fields.append(("date", a.date))
+    if a.pages:
+        fields.append(("pages", a.pages))
+    for extra in a.field:
+        name, _, value = extra.partition("=")
+        fields.append((name.strip(), value.strip()))
+    if not a.author and not law and (journal or organization):
+        fields.append(("sortname", "{" + (journal or organization) + "}"))
+    if journal and not a.pages and a.url:
+        fields.append(("entrysubtype", "magazine"))
+    return fields
+
+
+def entry_text(a, filename, folder):
+    today = date.today().isoformat()
+    fields = sheet_fields(a) + [("url", a.url), ("urldate", today)]
     if a.cite_note:
         fields.append(("note", a.cite_note))     # prints in the footnote
+    if a.journal and not a.pages:
+        a.note = "The copy gives no page. " + a.note
     fields += [("annotation", f'{a.note.rstrip(".")}. Read {today}. Filed in Drive as "{folder}/{filename}", '
                               + (a.how if a.how
                                  else "saved as published" if a.url.lower().endswith(AS_PUBLISHED)
@@ -112,7 +146,13 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("key", help="the citekey, new to sources.bib")
     ap.add_argument("url")
-    ap.add_argument("--author", required=True, help='as the bib prints it, e.g. "Hanover County"')
+    ap.add_argument("--author", default="", help='as the bib prints it, e.g. "Hanover County"; '
+                    'omit for an unsigned piece, which files under its paper or outlet, and for a law, '
+                    'where it is the sovereign')
+    ap.add_argument("--pages", default="", help="the page as printed, e.g. 3 or A-26")
+    ap.add_argument("--field", action="append", default=[], metavar="NAME=VALUE",
+                    help="another bib field, repeatable: a case's journaltitle, volume and pages, "
+                         "an act's titleaddon, shortjournal and volume")
     ap.add_argument("--title", required=True)
     ap.add_argument("--date", required=True, help="YYYY or YYYY-MM-DD, the document's own date")
     ap.add_argument("--note", required=True,
@@ -136,6 +176,8 @@ def main():
     if not a.documents.is_dir():
         sys.exit(f"the Drive documents folder is not mounted at {a.documents}")
 
+    if not (a.author or a.organization or a.journal):
+        sys.exit("give --author, or --organization or --journal for an unsigned piece")
     entry = {"type": a.type, "key": a.key, "title": a.title,
              "organization": a.organization, "author": a.author}
     if a.journal:
@@ -155,7 +197,7 @@ def main():
     year = a.date[:4]
     # A press copy is named for its outlet, not its byline; archive.canonical()
     # has the rule, so a copy is filed under the name the archive would give it.
-    stem = archive.canonical(entry, re.sub(r"[/:]", "-", f"{a.author} {year} - {a.title}"))
+    stem = archive.canonical(entry, re.sub(r"[/:]", "-", f"{a.author or a.organization or a.journal} {year} - {a.title}"))
     filename = stem + ext
     # Three kinds are filed in subfolders, so the folder is archive.subfolder()'s
     # and not the bare kind: a copy lands where the archive would put it, and

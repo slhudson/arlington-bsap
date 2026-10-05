@@ -2107,12 +2107,44 @@ def test_a_source_note_is_filed_in_the_annotation_not_the_footnote():
     a = types.SimpleNamespace(
         key="k", url="https://example.org/x.pdf", author="A", title="T", organization="",
         journal="", location="", date="2026", note="The page says seven members.",
-        cite_note="", how="", copy=None, type="online")
+        cite_note="", how="", copy=None, type="online", pages="", field=[])
     entry = cite.entry_text(a, "A 2026 - T.pdf", "documents")
     assert "\n  note " not in entry, "the reading is filed as a note, which prints in the footnote"
     assert "The page says seven members." in entry
     a.cite_note = "Vol. 3, no. 4"
     assert "note        = {Vol. 3, no. 4}" in cite.entry_text(a, "A 2026 - T.pdf", "documents")
+
+
+def test_cite_writes_entries_the_style_sheet_accepts():
+    """What cite.py appends is held to the same sheet as an entry written by
+    hand, so a new source does not start life failing test_every_cited_entry_
+    is_complete: an unsigned newspaper piece (no author, a braced sortname, a
+    masthead without The, a headline-style title), the same read online with no
+    page, a case and an act (no author, the sovereign in organization)."""
+    import types
+    base = dict(key="k", url="https://example.org/x", author="", title="T", organization="",
+                journal="", location="", date="2026-01-02", note="Says so.", cite_note="",
+                how="", copy=None, type="online", pages="", field=[])
+
+    def made(**change):
+        a = types.SimpleNamespace(**{**base, **change})
+        e = archive.entries(cite.entry_text(a, "x.pdf", "press"))[0]
+        return e, incomplete(e)
+
+    e, problems = made(type="article", journal="The Daily Sun", location="Arlington, Va.", pages="1",
+                       title="City charter for Arlington soundly beaten")
+    assert problems == [], problems
+    assert e["journaltitle"] == "Daily Sun" and e["sortname"] == "{Daily Sun}" and "author" not in e
+    assert e["title"] == "City Charter for Arlington Soundly Beaten"
+    e, problems = made(type="article", journal="Sun Gazette", location="Arlington, Va.")
+    assert problems == [], problems
+    assert e["entrysubtype"] == "magazine"
+    e, problems = made(organization="ARLnow", title="Board votes 1952-1954")
+    assert "sortname" in e and "--" in e["title"]
+    e, problems = made(type="jurisdiction", author="Commonwealth of Virginia", title="Bennett v.\\ Garrett",
+                       field=["journaltitle=Va.", "volume=132", "pages=397"])
+    assert problems == [], problems
+    assert "author" not in e and e["organization"] == "Commonwealth of Virginia"
 
 
 def test_a_paper_build_that_lost_something_is_refused():
@@ -2318,38 +2350,6 @@ NOTE_LIMIT = 80
 NO_PAGE = re.compile(r"\bcopy (?:gives|shows|prints) no page", re.I)
 NO_DATE = re.compile(r"\bpage (?:gives|shows|prints) no date", re.I)
 
-# Words a headline-style title (Chicago 8.159) leaves lower case unless they
-# open the title or follow a colon.
-SMALL_WORDS = {"a", "an", "the", "and", "but", "or", "for", "nor", "of", "in", "on", "at",
-               "to", "by", "up", "as", "from", "with", "over", "into", "onto", "upon",
-               "off", "per", "via", "than", "through", "without", "among", "between"}
-
-
-def headline_case(title):
-    """A title in headline style: the small words lower case, every other word
-    upper case, a word that is already all capitals or has capitals inside it
-    (UPDATED, InsideNoVa) left alone, and the first word and the first after a
-    colon or semicolon always capitalised."""
-    out, opening = [], True
-    for tok in re.split(r"(\s+)", title):
-        if not tok.strip():
-            out.append(tok)
-            continue
-        pre, core, post = re.match(r"^([^A-Za-z0-9]*)(.*?)([^A-Za-z0-9]*)$", tok).groups()
-        small = core.lower() in SMALL_WORDS
-        if not core or core[0].isdigit() or (core != core.lower() and core != core.capitalize() and not small):
-            new = core
-        elif core.isupper() and len(core) > 1 and not small:
-            new = core
-        elif opening or not small:
-            new = core[0].upper() + core[1:]
-        else:
-            new = core.lower()
-        out.append(pre + new + post)
-        opening = bool(re.search(r"[:;?!]$", tok))
-    return "".join(out)
-
-
 def incomplete(e):
     """What a cited entry lacks that the bibliography's style sheet requires of
     its kind, or carries that the sheet forbids, as a list of sentences; empty
@@ -2438,8 +2438,8 @@ def incomplete(e):
         out.append("is a single record, cited in notes only: options = {skipbib}")
     if t not in ("jurisdiction", "legislation") and kind != "legal":
         title = archive.plain(e.get("title", ""))
-        if title and headline_case(title) != title:
-            out.append(f"has a title that is not in headline style: {headline_case(title)!r}")
+        if title and archive.headline_case(title) != title:
+            out.append(f"has a title that is not in headline style: {archive.headline_case(title)!r}")
     if re.search(r"\d{4}-\d{2,4}", e.get("title", "")):
         out.append("has a hyphen in a year range in its title: use an en dash (--)")
     # An unsigned piece files under its paper or outlet, braced so biber reads an
