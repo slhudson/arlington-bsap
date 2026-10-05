@@ -170,6 +170,31 @@ tables print a whole row for the county in each year and carry no note of a
 precinct missing; whether every precinct was counted is not something a table
 can show.
 
+**The 1930 referendum campaign** is in Anderson 1958, a first-hand account by
+the chairman of the committee that ran it (`anderson1958` pp. 57-64). The
+Arlington County Civic Federation resolved on 6 May 1930 to study a change of
+government; its committee joined with the Chamber of Commerce's and the Bar
+Association's in July, reported on 2 September for the County Manager form,
+and on 16 September the Federation adopted the report with election of the
+Board at large; a petition of 1,027 voters brought the circuit court's order
+for an election on 4 November. Against it were the Voters' Service Club,
+announced on 4 October under the county's zoning officer as executive
+secretary, the county weekly *Chronicle* with a half-page editorial on 17
+October headed "Dangerous Plan to Fasten on the County", its editor Crandal
+Mackey, the attorney Clarence Ahalt, J. C. Pepper, and on 2 November the
+Sheriff; the Board of Supervisors made no statement. For it, beside the
+committee's sixteen-page pamphlet delivered to 6,000 homes on 23-25 October,
+were Delegate Hugh Reid from 28 October, Senator Frank Ball in a radio
+broadcast on 31 October with Alexandria's city manager and the school
+superintendent, and the Commissioner of Revenue on 3 November. Anderson's
+footnote declines to set out the arguments on either side, so what the
+*Chronicle* or the Club said about election at large as against districts is
+not in anything held (`method-1930-advocacy`). He also prints the three
+questions' totals as 2,067 to 1,031 for a change, 1,908 to 485 for the Manager
+form and 1,659 to 1,179 for election at large; Rose 1976 prints 1,936 to 428
+and 1,689 to 1,149 for the second and third, and the paper cites Rose's
+(`at-large-vote-1930`).
+
 **The 1938 staggered-terms referendum** is in the county's candidate history
 (`arlingtonelections2021` p.11) as 1,539 for, 1,487 against. The *Sun* of
 11 November 1938 (`sun1938referendum`) prints returns for all eleven
