@@ -253,6 +253,80 @@ def check_district_seats(d: pd.DataFrame, first=1870, last=arlhist.LAST_YEAR):
                         f"seat, expected {expected}: {held}")
 
 
+# Ten mid-term handovers O'Leary and the article both record without saying
+# how; the press this settles for, keyed on the roster's name, district and
+# the term's start year and month: how the term began, the citekey the
+# finding adds (or "" where the article's own prose already carries it), and
+# why. docs/members.md.
+SEATED_BY_FOUND = {
+    ("James C. Roach", "Jefferson", 1870, 9): (APPOINTMENT, "",
+        "The article's own block for this term reads \"James C. Roach, "
+        "Jefferson Township (Appointed)\" -- its own word for how the seat "
+        "was filled, which O'Leary's bare \"replaced by\" does not carry "
+        "(Sally, 5 October 2026)."),
+    ("H. Dwight Smith", "Arlington", 1872, 12): (APPOINTMENT, "gazette1872smithappointed",
+        "The Alexandria Gazette's County Court report of 5 December 1872: "
+        "\"The resignation of John Syphax, colored, as Supervisor of "
+        "Arlington Township, was accepted, and H. D. Smith appointed to fill "
+        "the vacancy\" (Sally, 5 October 2026)."),
+    ("Lott W. Crocker", "Arlington", 1873, 3): (APPOINTMENT, "gazette1873crockerappointed",
+        "The Alexandria Gazette's County Court report of 3 March 1873: "
+        "\"W. J. Douglas was appointed Clerk of Arlington township, and "
+        "L. W. Crocker Supervisor of same township, vice H. D. Smith, "
+        "resigned\" (Sally, 5 October 2026)."),
+    ("Francis G. Schutt", "Arlington", 1873, 4): (APPOINTMENT, "gazette1873schuttqualified",
+        "The Alexandria Gazette's County Court report of 8 April 1873: "
+        "\"F. G. Schutt qualified as Supervisor of Arlington Township, vice "
+        "G. W. Wibert, who failed to qualify\" -- a different man, elected "
+        "to succeed Crocker, who never took the seat, the same pattern as "
+        "Storm V. Boyd's in 1870 (Sally, 5 October 2026)."),
+    ("William N. Febrey", "Washington", 1892, 7): (APPOINTMENT, "gazette1892febreyappointed",
+        "The Alexandria Gazette of 18 July 1892: \"Judge Chichester, of the "
+        "County Court, has appointed Mr. W. N. Febrey County Supervisor of "
+        "Washington district to fill the vacancy caused by the death of "
+        "Walter G. Wilson, colored, deceased\", following the court's notice "
+        "of 5 July that an appointment would be made during vacation "
+        "(gazette1892wilsondeath) (Sally, 5 October 2026)."),
+    ("W. C. Wibirt", "Arlington", 1912, 1): (ELECTION, "gazette1911districtcandidates",
+        "The Alexandria Gazette's preview of the 7 November 1911 election "
+        "names W. C. Wilbert and R. Gordon Finney the Arlington district's "
+        "two candidates for supervisor; the Gazette's own returns table "
+        "prints no district-only supervisor tally (alexandriagazette19111108p2), "
+        "so the winner rests on this article naming the field and the "
+        "article's own record of who then held the seat (Sally, 5 October "
+        "2026)."),
+    ("Robert L. Walker", "Washington", 1912, 1): (ELECTION, "gazette1911districtcandidates",
+        "The same preview names R. L. Walker, W. N. Febrey and Charles V. "
+        "Grunwell the Washington district's three candidates for supervisor; "
+        "the Gazette's returns table prints no district-only supervisor "
+        "tally (alexandriagazette19111108p2) (Sally, 5 October 2026)."),
+    ("Thomas J. DeLashmutt", "Arlington", 1920, 1): (ELECTION, "alexandriagazette19191105p1",
+        "The Alexandria Gazette's election returns of 5 November 1919: \"For "
+        "supervisor in Arlington district Thomas J. De Lashmutt was elected. "
+        "The vote was De Lashmutt, 411; F. C. Hall, 191; J. R. Robinson, 110; "
+        "Richard E. Babcock, 34\" (Sally, 5 October 2026)."),
+}
+
+
+def apply_seated_by_found(d: pd.DataFrame) -> pd.DataFrame:
+    """`d` with SEATED_BY_FOUND's readings written onto the matching term: how
+    it began, the citekey the finding adds, and why. Every key must match
+    exactly one roster row, or the reading is keyed to a term that has moved
+    and the build stops."""
+    d = d.copy()
+    for (who, district, year, month), (how, cite, note) in SEATED_BY_FOUND.items():
+        hit = ((d.name == who) & (d.district == district)
+               & (d.start_year == year) & (d.start_month == month))
+        if hit.sum() != 1:
+            raise ValueError(f"SEATED_BY_FOUND matches {hit.sum()} roster rows, "
+                             f"expected one: {who!r} {district} {year}-{month:02d}")
+        d.loc[hit, "seated_by"] = how
+        if cite:
+            d.loc[hit, "source"] = d.loc[hit, "source"] + f"; {cite}"
+        d.loc[hit, "note"] = [" ".join(filter(None, [n, note])) for n in d.loc[hit, "note"]]
+    return d
+
+
 def build() -> pd.DataFrame:
     d = pd.DataFrame(list(oleary.terms()) + list(results.keyed_terms()) + list(novack.terms()))
     # The article settles what a member is called before anything matches on
@@ -270,6 +344,7 @@ def build() -> pd.DataFrame:
     d = pd.concat([d, pd.DataFrame(list(roll.terms(d, cut)))], ignore_index=True)
     d = roll.witnessed(d)
     d = roll.overruled(d)
+    d = apply_seated_by_found(d)
     check_names(d)
     check_seated_by(d)
     roll.check_empty_is_the_roll(d)
