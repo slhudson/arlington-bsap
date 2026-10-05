@@ -19,13 +19,14 @@ in groups by the decade of first seating, each under a bold heading;
 \rosterk is a row the page may not break after, used so that no group leaves a
 single row alone at the foot or head of a page.
 
-The roster is printed as panels, one page each, 2A, 2B and 2C in the paper:
-\rosterpanel{A}{1870--1919} opens one and \rosterpanelend closes it, and a panel
-breaks only between decades, so a page is filled with whole decades until the
-next would not fit (PANEL_LINES). The subsets are the women and the members of
-color, in the same rows and columns under a bold heading each, and the paper
-\input{}s them into one table. The roster and the evidence behind each cell are
-data/clean/members.csv.
+The roster is printed as four panels, one era each, 3A through 3D in the
+paper: \rosterpanel{A}{1870--1899} opens one and \rosterpanelend closes it.
+The eras are fixed (1870-1899, 1900-1949, 1950-1999, 2000-present), each a
+whole run of decades; a panel breaks only between decades, and longtable
+carries it across as many pages as it needs. The subsets are the women and
+the members of color, in the same rows and columns under a bold heading
+each, and the paper \input{}s them into one table. The roster and the
+evidence behind each cell are data/clean/members.csv.
 """
 from typing import NamedTuple
 
@@ -100,25 +101,21 @@ def rows(members: pd.DataFrame) -> list:
     return out
 
 
-# A page holds this many lines of a panel: a row is one, a decade's heading
-# and the gap above it 1.4, with the panel's title and notes already taken out.
-PANEL_LINES = 49
-HEADING_LINES = 1.4
+# The four fixed eras a panel covers, in place of pagination by line count;
+# the last is open-ended, to the most recent year the seat table covers.
+ERAS = [(1870, 1899), (1900, 1949), (1950, 1999), (2000, None)]
 
 
 def panels(table: list) -> list:
-    """The decades, each a list of rows, packed in order into pages: a decade
-    joins the page it follows unless that would pass PANEL_LINES, and then it
-    opens the next. A panel never breaks inside a decade."""
-    out, used = [], 0.0
-    for d in sorted({r.decade for r in table}):
-        group = [r for r in table if r.decade == d]
-        size = len(group) + HEADING_LINES
-        if not out or used + size > PANEL_LINES:
-            out.append([])
-            used = 0.0
-        out[-1].append((d, group))
-        used += size
+    """The decades, each a list of rows, grouped into the four fixed eras.
+    An era with no decade in it is skipped. A panel never breaks inside a
+    decade; longtable carries a panel across as many pages as it needs."""
+    out = []
+    decades = sorted({r.decade for r in table})
+    for start, end in ERAS:
+        group = [d for d in decades if d >= start and (end is None or d <= end)]
+        if group:
+            out.append((start, end, [(d, [r for r in table if r.decade == d]) for d in group]))
     return out
 
 
@@ -144,10 +141,10 @@ def tex(table: list, present: int) -> str:
     \rosterk (no page break after) goes on a group's first row and on the row
     before its last, so a break never strands one row."""
     out = [COMMENT]
-    for k, panel in enumerate(panels(table)):
-        first, last = panel[0][0], panel[-1][0] + 9
-        out.append("\\rosterpanel{%s}{%d--%d}\n" % (chr(ord("A") + k), first, min(last, present)))
-        for j, (d, group) in enumerate(panel):
+    for k, (start, end, decade_groups) in enumerate(panels(table)):
+        last = present if end is None else end
+        out.append("\\rosterpanel{%s}{%d--%d}\n" % (chr(ord("A") + k), start, min(last, present)))
+        for j, (d, group) in enumerate(decade_groups):
             out.append(("\\rosterheading{%ds}" if j == 0 else "\\rosterdecade{%ds}") % d + "\n")
             for i, r in enumerate(group):
                 out.append(line(r, len(group) > 1 and i in (0, len(group) - 2)) + "\n")
