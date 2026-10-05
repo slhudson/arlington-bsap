@@ -2419,7 +2419,7 @@ def incomplete(e):
                 out.append(f"has {f}: a case prints its caption and its reporter, and the court "
                            f"and the day go in location, date and annotation")
         if not has("sortname"):
-            need.append("a sortname, braced (a location would otherwise file it): the Table of Authorities sorts by it")
+            need.append("a sortname, braced (a location would otherwise file it): Legal Authorities sorts by it")
     elif t == "legislation":
         title = archive.plain(e.get("title", ""))
         need += [f for f in ("title", "date", "organization") if not has(f)]
@@ -2432,7 +2432,7 @@ def incomplete(e):
             if "datedintitle" not in e.get("keywords", ""):
                 need.append("keywords = {datedintitle}, since the date is in the title")
         if e.get("sorttitle", "") != e.get("date", "x"):
-            need.append("sorttitle equal to its date, which orders the Table of Authorities")
+            need.append("sorttitle equal to its date, which orders Legal Authorities")
         if "Const" in title and e.get("entrysubtype") != "constitution":
             need.append("entrysubtype = {constitution}")
     elif kind == "legal":

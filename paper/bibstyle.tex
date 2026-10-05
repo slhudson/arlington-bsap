@@ -20,7 +20,7 @@
   \legaldates}
 
 % Primary law is cited in the notes and kept out of the Works Cited; it is listed
-% once, with the pages that cite it, in the Table of Authorities after it
+% once, with the pages that cite it, in the Legal Authorities after it
 % (docs/repository.md). biblatex-chicago skips these types in any list unless told
 % not to, and \printworkscited then leaves them out by type. The documents load
 % biblatex-chicago with backref=true, which is what supplies the pages.
@@ -43,7 +43,8 @@
 % The law: cases by name, constitutions and then statutes by date (a
 % legislation entry's sorttitle is its date).
 \newcommand{\printauthorities}{%
-  \printbibheading[title={Table of Authorities}]%
+  \clearpage
+  \printbibheading[title={Legal Authorities}]%
   \printbibliography[heading=subbibliography,title={Cases},type=jurisdiction]%
   \printbibliography[heading=subbibliography,title={Constitutions},filter=constitutions]%
   \printbibliography[heading=subbibliography,title={Statutes},filter=statutes]}

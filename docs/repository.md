@@ -272,7 +272,8 @@ and year and the annotation says the copy prints neither.
 `institution`, `date`, and a `url` that reaches the document itself (the repository's
 handle), not the repository's home page.
 
-**Primary law is cited in notes and listed once, in the Table of Authorities, not the
+**Primary law is cited in notes and listed once, in Legal Authorities (a plainer name for what a legal brief calls
+its Legal Authorities), not the
 Works Cited.** Chicago 14.275 and the Bluebook agree that law is not a bibliography
 item. `\printworkscited` leaves the two legal types out, and `\printauthorities`
 (`paper/bibstyle.tex`) lists them after it under Cases, Constitutions and Statutes,
