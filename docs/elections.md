@@ -18,6 +18,9 @@ still open.
   return has been found (`state-returns-1920`), and the Almanack that
   prints the others before 1924 has not been tested against the Secretary's
   own return (`almanack-against-secretary`).
+- The Board's own totals for 1907 and 1915 are O'Leary's alone; no Gazette
+  page naming the district counts for either election has been read
+  (`oleary-regrounded`).
 - Turnout's denominators: adults after 2020 carried forward
   (`adults-after-2020`), registration before 2010
   (`registration-before-2010`), and votes per seat standing in for ballots
