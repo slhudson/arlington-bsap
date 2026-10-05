@@ -452,7 +452,10 @@ def scatter_pair(profile=style.DEFAULT_PROFILE):
     axis broken: returns (near, far) for it, then the
     second panel's axes, a plain scatter. Title the first with
     title_broken(), so that it is centred over both of its sides."""
-    fig = plt.figure(figsize=style.figsize(profile))
+    # Two plots need more than the default start; at 0.62 of the width the
+    # first draw collapses constrained layout and fit() warns before it recovers.
+    width = style.figsize(profile)[0]
+    fig = plt.figure(figsize=(width, width * 1.25))
     outer = fig.add_gridspec(2, 1, hspace=0.25)
     inner = outer[0].subgridspec(1, 2, width_ratios=style.BROKEN, wspace=0.0)
     near = fig.add_subplot(inner[0])
