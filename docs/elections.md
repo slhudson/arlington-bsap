@@ -107,7 +107,8 @@ anything held. Where the Almanack prints only the highest candidates (1904,
 | 1928 | 1,444 D, 4,274 R, 26 other | the build reads 1,444 D, 4,274 R, 0 other | the 26 minor-party votes |
 
 The build takes the state's return wherever one is keyed and O'Leary's
-only for 1872 and 1920. O'Leary compiled his from the *Alexandria Gazette*
+only for 1872 and 1920; for 1892 and 1900 it then takes the Gazette's own
+district sum over the Almanack's, below. O'Leary compiled his from the *Alexandria Gazette*
 and states that party is inferred and the record ragged; the state's figures
 are printed from the official returns, and in 1888 and 1900 the two disagree
 on which party carried the county. For 1908 the state's Bryan figure is the one
@@ -122,7 +123,8 @@ The Secretary's 1928 report prints 26 votes for three minor tickets that the
 state database's locality rows, which the build reads for 1928, leave out; the
 database's total of 5,718 is therefore 26 short of the Secretary's 5,744.
 
-**The Gazette's own district returns settle four of the nine.** The
+**The Gazette's own district returns settle four of the nine, and the build
+now reads two of those over the Almanack.** The
 *Alexandria Gazette* printed Arlington, Jefferson and Washington districts'
 own presidential vote, not just the county total, after the 1876, 1892,
 1896 and 1900 elections, and the Jefferson district alone after 1920; 1872
@@ -132,7 +134,9 @@ tie to O'Leary's exactly for 1876 (237 D, 587 R), 1892 (338 D, 426 R) and
 1900 (418 D, 408 R), and the 1920 county total (835 D, 996 R) matches him
 too: O'Leary compiled from these same reports, and for those years his
 figure is the Gazette's own canvass, independent of the Almanack's
-compilation, read off the page image and not taken on O'Leary's word
+compilation, read off the page image and not taken on O'Leary's word; for
+1892 and 1900, `code/clean/gazette_vs_almanack.py` now reads it in place of
+the Almanack's, pending a spot-check of the page reads
 (`gazette-vs-almanack-1892-1900`, questions.csv). The 1896 Washington district prints only
 McKinley's 25-vote majority, not raw totals, which is why O'Leary's total
 for that year is marked incomplete; the Jefferson and Washington districts'
