@@ -111,7 +111,7 @@
 % sources.bib is the registry the data shares: the `source` columns in
 % data/clean/ hold citekeys from it, and bash run.sh refuses to build if one
 % of them names an entry that is not here.
-\usepackage[notes, backend=biber]{biblatex-chicago}
+\usepackage[notes, backend=biber, backref=true]{biblatex-chicago}
 \addbibresource{sources.bib}
 
 \input{bibstyle}
@@ -1215,6 +1215,7 @@ the archive delivered to the County.
 \rosterinput members_roster.tex
 
 \clearpage
-\printbibliography[title={Works Cited}]
+\printworkscited{Works Cited}
+\printauthorities
 
 \end{document}

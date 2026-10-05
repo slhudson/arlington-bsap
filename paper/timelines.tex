@@ -26,7 +26,7 @@
   BoldItalicFont = *-BoldItalic,
 ]
 
-\usepackage[notes, backend=biber]{biblatex-chicago}
+\usepackage[notes, backend=biber, backref=true]{biblatex-chicago}
 \addbibresource{sources.bib}
 \input{bibstyle}
 
@@ -392,6 +392,7 @@
 }
 
 \clearpage
-\printbibliography[title={Works cited}]
+\printworkscited{Works cited}
+\printauthorities
 
 \end{document}
