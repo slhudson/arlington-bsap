@@ -562,6 +562,31 @@ has held the Board's seats and who has not: how many seats there were, who sat i
 them, and how that has changed for women, for residents of color and for the
 young.
 
+Of the \membersTotal{} people who have served on the Board since 1870,
+\whiteMenMembers{} have been white men. Table~\ref{tab:subsets} lists the
+other \notWhiteMenMembers{}: the 13 women and the 12 members of color, one of
+them in both panels.
+
+% waits on: member-demographics-lists
+\begin{table}[b]
+  \refstepcounter{table}\label{tab:subsets}
+  {\raggedright\MakeUppercase{Table \thetable}\par}
+  {\raggedright\bfseries Women and Members of Color on the Board\par}
+  \medskip
+  \begingroup\footnotesize\setlength{\tabcolsep}{8pt}
+  \begin{tabular}{Q}
+  \toprule
+  \rosterhead
+  \midrule
+  \rosterinput members_roster_subsets.tex
+  \bottomrule
+  \end{tabular}\endgroup
+  \par\smallskip
+  \figurenotes{
+    Notes: \rostermarks{} Each panel is a subset of the full roster, Table~\ref{tab:roster} in the Data Appendix.}{}
+\end{table}
+
+\clearpage
 \subsection{Gender}
 
 \begin{figure}
@@ -599,28 +624,8 @@ held two seats nearly every year since, with one exception: in 2024 Libby Garvey
 Maureen Coffey and Susan Cunningham made a second majority.
 
 In all the years since 1932, women have held a majority of the Board twice, in
-1983 and 2024, and neither lasted more than a year. Table~\ref{tab:subsets}
-lists the 13 women, and beside them the 12 members of color the next section
-turns to.
+1983 and 2024, and neither lasted more than a year.
 
-% waits on: member-demographics-lists
-\begin{table}[t]
-  \refstepcounter{table}\label{tab:subsets}
-  {\raggedright\MakeUppercase{Table \thetable}\par}
-  {\raggedright\bfseries Women and Members of Color on the Board\par}
-  \medskip
-  \begingroup\footnotesize\setlength{\tabcolsep}{8pt}
-  \begin{tabular}{Q}
-  \toprule
-  \rosterhead
-  \midrule
-  \rosterinput members_roster_subsets.tex
-  \bottomrule
-  \end{tabular}\endgroup
-  \par\smallskip
-  \figurenotes{
-    Notes: \rostermarks{} Each panel is a subset of the full roster, Table~\ref{tab:roster} in the Data Appendix.}{}
-\end{table}
 
 \subsection{Race and Ethnicity}
 
@@ -832,7 +837,7 @@ The Historical Society dates Newman's election 1987, Monroe's 1999, Dorsey's
 2015 and Spain's 2024, and this study lists each as taking the seat a year later. Both
 are correct: each won in November and took office the following January.
 
-\subsection{Age}
+\clearpage\subsection{Age}
 
 \begin{pairpage}
   \refstepcounter{figure}\label{fig:residents-age}

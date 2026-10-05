@@ -207,7 +207,7 @@ LEGEND_GAP = 0.2      # inches between the lowest ink of the plot and the legend
 DENSE_TICKS = 0.85    # tick label size, as a fraction of the profile's, where an axis names every year of a close sequence; see docs/figures.md
 
 EXPANSION_YEAR = 1932
-EXPANSION_NOTE = "1932: Board expands from 3 to 5 seats"
+EXPANSION_NOTE = "1932: Board expansion"
 EXPANSION_LINE = dict(color="#000000", lw=1.0, ls=(0, (4, 2)))
 
 

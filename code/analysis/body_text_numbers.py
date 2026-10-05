@@ -36,9 +36,14 @@ def member_shares() -> dict:
                                 source says otherwise
     membersTotal               people who have served, one per name
     birthYearMissingMembers    of them, those with no birth year found
+    notWhiteMenMembers         of them, those who were a woman, or not White, or both
+    whiteMenMembers            the rest
     """
     m = paths.read("members").drop_duplicates(subset="name")
+    not_white_men = int(((m.gender != "man") | (m.race != "White")).sum())
     return {
+        "notWhiteMenMembers": str(not_white_men),
+        "whiteMenMembers": str(len(m) - not_white_men),
         "genderCensusShareMembers": per_cent(m.gender_source.str.contains("census").sum(), len(m)),
         "raceAssumedShareMembers": per_cent((m.race_source == "assumed").sum(), len(m)),
         "membersTotal": str(len(m)),
