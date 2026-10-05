@@ -15,6 +15,8 @@ stays, with a one-line reason under it.
 - Data Appendix: move the Elections section before Board Members, since it is short and the roster then closes the appendix; update the figure notes that point to "the Data Appendix, Elections" only if the wording depends on order. (Sally, 5 Oct)
 
 ## Could not settle
+- Table 2 (Where to Find the Board, by Year) took "written for a replicator" too literally: the headings "Open First" and "Read Beside It" turn a table of sources into an instruction manual. Revisit the form with Sally; the likely shape is Years, Sources (the documents that name the Board in those years, primary first), Members, with the roadmap voice kept in the prose, not the column heads. (Sally, 5 Oct)
+  A decision on the table's form, for Sally.
 - Board Seats: the federal-office statute (Acts 1883-84 ch. 145) that emptied Perkins W. Squier's seat in 1884 is, as Code 1950 § 2-27, the one Dean v. Paolicelli applied to take the Board's Non-Partisan majority in 1952, so Arlington held four Board contests on 4 November 1952; one provision at both ends of the period, not yet in the paper (paolicelli1952, dailysun1952appointees). (members.md split, 4 Oct)
   Adds a claim tying one statute to two events 68 years apart; wants a Fable session.
 - Election Method: the vacancy rule's history is not in the paper: a writ of election at the next November until 1975 c. 636 (a special election in 45-60 days, appointment within 180 days of a term's end), the 1998 filing-deadline amendments, the 2014 window of 60-80 days; and 1993 c. 731, which removed the referendum paragraphs, is unread (vaacts1958c207, vaacts1975c636, vaacts1998c345, vaacts2014c573, vacode152705). (members.md split, 4 Oct)
