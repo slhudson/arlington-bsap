@@ -122,6 +122,31 @@ The Secretary's 1928 report prints 26 votes for three minor tickets that the
 state database's locality rows, which the build reads for 1928, leave out; the
 database's total of 5,718 is therefore 26 short of the Secretary's 5,744.
 
+**The Gazette's own district returns settle four of the nine.** The
+*Alexandria Gazette* printed Arlington, Jefferson and Washington districts'
+own presidential vote, not just the county total, after the 1876, 1892,
+1896 and 1900 elections, and the Jefferson district alone after 1920; 1872
+printed Jefferson and Arlington townships but no Washington, which does not
+appear to have existed as a district yet. Summed, the Gazette's own figures
+tie to O'Leary's exactly for 1876 (237 D, 587 R), 1892 (338 D, 426 R) and
+1900 (418 D, 408 R), and the 1920 county total (835 D, 996 R) matches him
+too: O'Leary compiled from these same reports, and for those years his
+figure is the Gazette's own canvass, not a separate count, so it is the one
+to prefer over the Almanack's. The 1896 Washington district prints only
+McKinley's 25-vote majority, not raw totals, which is why O'Leary's total
+for that year is marked incomplete; the Jefferson and Washington districts'
+sum (McKinley 553, Bryan 228) cannot be checked against the state's 713 and
+322 without it. For 1872 the two townships sum to 77 D, 327 R, well short of
+O'Leary's 125 D, 455 R; nothing in the issues checked explains the gap, and
+with no state return either, the two stand unreconciled. 1920's Arlington and Washington districts
+were not found in the issues checked (`gazette-1920-arlington-washington-returns`,
+questions.csv); by subtraction from the county total they sum to 695 D, 857 R.
+1880, 1884, 1888, 1908, 1912 and 1916 print no district breakdown in the
+Gazette issues checked, only a city total and, from 1888 on, a single county
+line inside a multi-county congressional-district roundup (`gazette-1880-district-returns`
+and five further rows, questions.csv); 1904 prints only the county total too,
+but it agrees with the state and O'Leary already.
+
 **1896, 1904 and 1908 are complete in the state's return.** The state prints
 322, 713 and four others for 1896 where O'Leary has no Washington-district
 figure and no total; its 1,039 replaces his 337. For 1904 it prints the same
