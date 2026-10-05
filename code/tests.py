@@ -627,19 +627,35 @@ def test_a_county_candidate_printed_with_two_labels_is_refused():
 
 
 def test_a_presidential_year_with_neither_nominee_is_refused():
-    """O'Leary's 1896 returns with the nominees' names changed. With no
+    """O'Leary's 1920 returns with the nominees' names changed. With no
     guard both nominees are zero and the whole vote lands in `other`, so
-    the figure draws 1896 as a year nobody voted for either party."""
+    the figure draws 1920 as a year nobody voted for either party."""
     def mangle(orig):
         def patched(kind, *a, **k):
             d = orig(kind, *a, **k)
             if kind == elections.PRESIDENT:
-                d = d.assign(entry=d.entry.where(d.year != 1896,
-                                                 d.entry.str.replace(r"Bryan|McKinley", "Nobody", regex=True)))
+                d = d.assign(entry=d.entry.where(d.year != 1920,
+                                                 d.entry.str.replace(r"Cox|Harding", "Nobody", regex=True)))
             return d
         return patched
     err = breaks(elections, "oleary", mangle, build=elections_results.oleary)
     assert err and "no line matched either nominee" in err, f"not caught: {err}"
+
+
+def test_a_year_with_a_state_return_cannot_fall_back_to_oleary():
+    """The state's return for 1888 dropped from the keyed rows. O'Leary
+    prints 1888 too (407 Democratic, 314 Republican, against the state's 255
+    and 462, which reverse the county's winner), so a build that took
+    whatever source had the year would draw his count with nothing to say
+    the return was missing. Only the years in OLEARY_ONLY take his."""
+    def mangle(orig):
+        def patched(*a, **k):
+            d = orig(*a, **k)
+            return d[d.year != 1888].reset_index(drop=True)
+        return patched
+    err = breaks_aside(elections, "state_return", mangle,
+                       build=elections_results.presidential)
+    assert err and "no state return keyed" in err, f"not caught: {err}"
 
 
 def test_a_candidacy_on_two_source_pages_collapses_to_one_row():

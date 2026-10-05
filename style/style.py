@@ -130,6 +130,8 @@ DISTRICTS = {
 WHOLE_COUNTY = ("Arlington County", DARK)
 
 PRESIDENT = ("voted for President", DARK)
+# The two presidential years with no state return found, drawn hollow on the line.
+PRESIDENT_OLEARY = ("O'Leary's count, no state return found", DARK)
 # The Board's own vote before 1931, set against the presidential vote: the
 # per-seat vermilion, as the other Board series before the expansion take.
 BOARD_VOTE_DISTRICTS = ("voted for the Board, all three districts", OKABE_ITO["vermilion"])

@@ -1,18 +1,21 @@
 year,cycle,board_votes,board_seats,board_voters,board_complete,board_source,board_note,registered,registered_all,registered_source,voting_age,voting_age_source,voting_age_21,voting_age_21_source,voting_age_est,voting_age_est_source,president_votes,president_source
 1872,,,,,,,,,,,,,,,,,580,derived
 1876,,,,,,,,,,,,,,,,,824,derived
-1880,,,,,,,,,,,,,,,,,721,derived
-1884,,,,,,,,,,,,,,,,,772,derived
-1888,,,,,,,,,,,,,,,,,721,derived
-1892,,,,,,,,,,,,,,,,,764,derived
-1900,,,,,,,,,,,,,,,,,826,derived
+1880,,,,,,,,,,,,,,,,,753,derived
+1884,,,,,,,,,,,,,,,,,773,derived
+1888,,,,,,,,,,,,,,,,,717,derived
+1892,,,,,,,,,,,,,,,,,840,derived
+1896,,,,,,,,,,,,,,,,,1039,derived
+1900,,,,,,,,,,,,,,,,,836,derived
+1904,,,,,,,,,,,,,,,,,256,derived
 1907,,756,3,252,True,oleary2010 p.25,"one seat per district, so one vote per voter",,,,,,,,,,,
-1912,,,,,,,,,,,,,,,,,485,derived
+1908,,,,,,,,,,,,,,,,,519,derived
+1912,,,,,,,,,,,,,,,,,585,derived
 1915,,876,3,292,True,oleary2010 p.27,"one seat per district, so one vote per voter",,,,,,,,,,,
-1916,,,,,,,,,,,,,,,,,804,derived
+1916,,,,,,,,,,,,,,,,,927,derived
 1920,,,,,,,,,,,,,,,,,1831,derived
 1924,,,,,,,,,,,,,,,,,2921,derived
-1928,,,,,,,,,,,,,,,,,5718,derived
+1928,,,,,,,,,,,,,,,,,5744,derived
 1930,,,,,,,,,,,,,16443,census1930v3p2 table 13 p.1161,16443,derived,,
 1931,delegates,9760,5,1952,False,arlingtonelections2021 p.6,(others not mentioned),,,,,,,,18768,derived,,
 1932,president,,,,,,,,,,,,,,21093,derived,6234,derived

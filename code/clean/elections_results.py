@@ -11,13 +11,19 @@ the winner. A year whose returns are not the county's whole vote is marked
 incomplete, on the rule in elections.contest_rows(). docs/elections.md has
 the reasoning.
 
-Two sources for the presidential vote, joined at 1924:
+Three sources for the presidential vote, and a year takes the first that has it:
 
-  oleary2010     1872-1920   the county's returns as O'Leary compiled them;
+  the Commonwealth's return   1876-1916, 1924, 1928   the Almanack's official
+                             vote to 1916 and the Secretary's report from 1924,
+                             keyed in elections_results_state.csv; a ticket is
+                             Democratic, Republican or other by its printed party
+  oleary2010     1872, 1920  the county's returns as O'Leary compiled them,
+                             for the two years no state return was found;
                              party is the nominee's, named in NOMINEES
-  vaelections    1924-2024   the state's canvassed locality totals
+  vaelections    1932-2024   the state's canvassed locality totals
 
-The years in INCOMPLETE are kept but marked so. The county's own
+A year with a state return never takes O'Leary's (OLEARY_ONLY names the two
+that do), and build() refuses a year in neither. The county's own
 presidential returns are read as a check on the state's, and the build
 reports the years they differ by more than TOLERANCE.
 """
@@ -40,9 +46,10 @@ NOMINEES = {
     1908: ("Bryan", "Taft"), 1912: ("Wilson", "Taft"), 1916: ("Wilson", "Hughes"),
     1920: ("Cox", "Harding"),
 }
-INCOMPLETE = {1896: "Washington district and the total are printed '?'",
-              1904: "O'Leary: the returns 'appear incomplete'",
-              1908: "O'Leary: the returns 'appear incomplete'"}
+# The presidential years with no state return found (docs/elections.md, "The
+# state's return, read against O'Leary's"), which take O'Leary's.
+OLEARY_ONLY = {1872: "O'Leary's count; no state return found",
+               1920: "O'Leary's count; no state return found"}
 LINE = re.compile(r"^(?P<name>[A-Za-z.'’ /]+?)(?:\s*\([^)]*\))?\s+(?P<counts>[\d,? ]+)$")
 TOLERANCE = 0.05
 BANDS = ["dem", "rep", "abc", "other", "unrecorded"]
@@ -64,9 +71,10 @@ CANDIDATE_PARTY_WORDS = {
 
 
 def oleary() -> pd.DataFrame:
+    """O'Leary's presidential totals for the years in OLEARY_ONLY."""
     d = elections.oleary(elections.PRESIDENT)
     rows = []
-    for year, g in d.groupby("year"):
+    for year, g in d[d.year.isin(OLEARY_ONLY)].groupby("year"):
         dem, rep = NOMINEES[int(year)]
         votes = {"dem": 0, "rep": 0, "other": 0}
         for _, r in g.iterrows():
@@ -88,10 +96,29 @@ def oleary() -> pd.DataFrame:
             raise ValueError(f"{year}: no line matched either nominee {NOMINEES[int(year)]}")
         rows.append({"year": int(year), **votes,
                      "total": sum(votes.values()),
-                     "complete": int(year) not in INCOMPLETE,
+                     "complete": True,
                      "source": f"{citekeys.OLEARY} p.{g.page.iloc[0]}",
-                     "note": INCOMPLETE.get(int(year), "")})
+                     "note": OLEARY_ONLY[int(year)]})
     return pd.DataFrame(rows)
+
+
+def state_return() -> pd.DataFrame:
+    """The Commonwealth's return, its tickets summed into the three bands: a
+    Democratic ticket (Hancock's Funder and Readjuster electors are one) is
+    dem, a Republican one rep, any other other. Where the Almanack prints
+    only the highest candidates, other is what it prints. A dotted ticket
+    was keyed as 0. A year's source is its citekey; every ticket in a year
+    shares one."""
+    r = elections.state_return()
+    r["band"] = r.party.map({"Democratic": "dem", "Republican": "rep"}).fillna("other")
+    g = r.pivot_table(index="year", columns="band", values="votes", aggfunc="sum",
+                      fill_value=0).reset_index()
+    sources = r.groupby("year").source.agg(lambda v: "; ".join(sorted(set(v))))
+    g["total"] = g[["dem", "rep", "other"]].sum(axis=1)
+    g["complete"] = True
+    g["source"] = g.year.map(sources)
+    g["note"] = ""
+    return g[["year", "dem", "rep", "other", "total", "complete", "source", "note"]]
 
 
 def state() -> pd.DataFrame:
@@ -106,6 +133,39 @@ def state() -> pd.DataFrame:
     g["source"] = [f"{citekeys.VA_ELECTIONS} contest {c}" for c in g.contest]
     g["note"] = ""
     return g[["year", "dem", "rep", "other", "total", "complete", "source", "note"]]
+
+
+def presidential() -> pd.DataFrame:
+    """One row per presidential year: the state's return where one is keyed,
+    O'Leary's for OLEARY_ONLY, and the state database's from the first year
+    neither covers. A year in both the return and the database must agree on
+    the two parties; the return's other votes may exceed the database's,
+    which leaves a minor ticket out of its locality rows (1928), and the
+    year's note says so."""
+    ret, olearys, database = state_return(), oleary(), state()
+    both = set(ret.year) & set(olearys.year)
+    if both:
+        raise ValueError(f"{sorted(both)}: a year with a state return keyed takes nothing "
+                         f"from O'Leary; remove it from OLEARY_ONLY")
+    covered = set(ret.year) | set(olearys.year)
+    uncovered = {y for y in range(1872, int(database.year.min()) + 1, 4)} - covered
+    if uncovered:
+        raise ValueError(f"{sorted(uncovered)}: no state return keyed and not in OLEARY_ONLY, "
+                         f"so no presidential count; key the state's return or name the year")
+    db = database.set_index("year")
+    for i, r in ret.iterrows():
+        if r.year not in db.index:
+            continue
+        d = db.loc[r.year]
+        if (r.dem, r.rep) != (d.dem, d.rep) or r.other < d.other:
+            raise ValueError(f"{r.year}: the Commonwealth's return ({r.dem}, {r.rep}, {r.other}) "
+                             f"and the state database ({d.dem}, {d.rep}, {d.other}) disagree "
+                             f"on more than minor tickets")
+        if r.other > d.other:
+            ret.loc[i, "note"] = (f"the Secretary's return prints {r.other - d.other} votes for minor "
+                                  f"tickets that the state database's locality rows leave out")
+    return pd.concat([ret, olearys, database[~database.year.isin(ret.year)]],
+                     ignore_index=True)
 
 
 def county_check(d: pd.DataFrame):
@@ -198,7 +258,7 @@ def county_board() -> pd.DataFrame:
 
 
 def build() -> pd.DataFrame:
-    pres = pd.concat([oleary(), state()], ignore_index=True)
+    pres = presidential()
     pres["office"] = "president"
     pres["abc"] = 0
     pres["unrecorded"] = 0

@@ -428,15 +428,18 @@ def _row_major(items, ncol):
     return [row[c] for c in range(ncol) for row in rows if c < len(row)]
 
 
-def legend(fig, entries, ncol=None):
+def legend(fig, entries, ncol=None, hollow=()):
     """One legend for the whole figure, below it, one row unless ncol is
     given. entries is ordered {label: colour} or the {label: (values, colour)}
-    a chart took. A legend that wraps reads left to right along each row."""
+    a chart took; the labels in `hollow` get an open swatch, as the open
+    markers they stand for. A legend that wraps reads left to right along
+    each row."""
     colors = [v if isinstance(v, str) else v[1] for v in entries.values()]
     pairs = list(zip(list(entries), colors))
     if ncol:
         pairs = _row_major(pairs, ncol)
-    fig.legend(handles=[Patch(facecolor=c) for _, c in pairs],
+    fig.legend(handles=[Patch(facecolor="white", edgecolor=c, linewidth=1.5) if label in hollow
+                        else Patch(facecolor=c) for label, c in pairs],
                labels=[label for label, _ in pairs],
                loc="outside lower center", ncol=ncol or len(entries))
 
