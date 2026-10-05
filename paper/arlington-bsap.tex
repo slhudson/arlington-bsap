@@ -89,20 +89,20 @@
 \titleformat{\part}{\normalfont\normalsize\bfseries}{Part \thepart.}{0.5em}{}
 % One scheme, set once, for every level (Sally, 5 October 2026): one unit,
 % a line of body text (\baselineskip), and every heading's space above is
-% 1, 2 or 3 of it, never a point value chosen by eye. A run-in head gets a
-% line, a subsection two, a section three, so where sections run on with no
-% page break between them (Parts B, C and D), a section still reads as a
-% bigger break than a subsection, and a subsection bigger than a run-in
-% head. Space below is one line throughout, so a heading sits close to its
-% own text and the hierarchy reads in the space above, not below. Weight
-% still marks the level, not size: a section stays bold, a subsection and
-% a run-in head stay italic.
-\titlespacing*{\part}{0pt}{3\baselineskip}{2\baselineskip}
+% 1 or 2 of it, never a point value chosen by eye. A subsection and a
+% run-in head, which already share the same italic weight, get a line; a
+% section and a part, bold, get two, so where sections run on with no page
+% break between them (Parts B, C and D), a section still reads as a bigger
+% break than a subsection. Three lines read as excessive for a section
+% (Sally, 5 October 2026). Space below is one line throughout, so a
+% heading sits close to its own text and the hierarchy reads in the space
+% above, not below.
+\titlespacing*{\part}{0pt}{2\baselineskip}{2\baselineskip}
 % Sections are numbered within their part: A.1, A.2, ..., C.1.
 \counterwithin*{section}{part}
 \renewcommand{\thesection}{\thepart.\arabic{section}}
-\titlespacing*{\section}{0pt}{3\baselineskip}{\baselineskip}
-\titlespacing*{\subsection}{0pt}{2\baselineskip}{\baselineskip}
+\titlespacing*{\section}{0pt}{2\baselineskip}{\baselineskip}
+\titlespacing*{\subsection}{0pt}{\baselineskip}{\baselineskip}
 % Third level, used inside Demographic Representation: unnumbered, italic, run on the
 % way a subsection is, a little closer to its text.
 \titleformat{\subsubsection}{\normalfont\normalsize\itshape}{}{0em}{}
