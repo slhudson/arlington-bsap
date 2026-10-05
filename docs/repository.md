@@ -198,16 +198,20 @@ undefined citations mean biber did not run.
 ## Why the bibliography is checked entry by entry
 
 `test_every_cited_entry_is_complete` reads the keys the paper's `.tex` files
-cite and refuses an entry that would print incompletely: a newspaper piece
-without a journaltitle, location, date, title or page; an online piece without
-an organization or author, a date or a url; a report without an institution or
-author and a date; a thesis without a school; a legal case without a reporter
-citation or court in `note`; a book without a publisher and year. A field the
-copy does not give is declared in the annotation ("The copy gives no page",
-"The page gives no date"). It also refuses an author equal to the journaltitle
-or organization, which prints a paper's name twice, since an unsigned piece has
-no author, and a `note` over 80 characters, since a footnote is the citation
-and the page and commentary belongs in `annotation`.
+cite and holds each entry to the style sheet below, through `incomplete()` in
+`code/tests.py`. It refuses an entry that lacks what its kind prints (a newspaper
+piece without a journaltitle, location, date, title or page; an online piece
+without an organization or author, a date or a url; a report without an
+institution or author and a date; a thesis without a school; a case without a
+reporter; an act without its chapter and series; a book without a publisher and
+year) and one that carries what the sheet forbids (a masthead that opens with
+*The*, a title not in headline style, an unsigned piece whose `sortname` is not
+braced, a signed one that has a `sortname`, an author equal to the journaltitle or
+organization, a report whose institution is inside its author, a thesis url that
+is a repository's home page, primary law typed as anything but `@jurisdiction` or
+`@legislation`, a census record that is not `skipbib`, and a `note` over 80
+characters). A field the copy does not give is declared in the annotation ("The
+copy gives no page", "The page gives no date").
 
 ## The bibliography's style sheet, 4 October 2026
 
@@ -246,10 +250,11 @@ looking the paper up.
 
 **Online-only piece** (`@online`). `author` if signed; `title`; `organization` the
 outlet as it names itself (ARLnow, InsideNoVa); `date`; `url`. Set in roman as
-Chicago sets a website. A piece a print paper wrote and a site reproduces is cited
-to the paper (`organization = {Sun Gazette}`), never "via" the host; the URL says
-where it was read. Unsigned: `sortname` is the outlet, braced. A page that carries
-no date has no `date` field.
+Chicago sets a website. A piece a print paper wrote and a site reproduces is an
+`@article` of that paper, never "via" the host: *Sun Gazette* (Arlington, Va.),
+with the URL saying where it was read and the annotation saying the copy gives no
+page. Unsigned: `sortname` is the outlet, braced. A page that carries no date has
+no `date` field and the annotation says "The page gives no date".
 
 **Report or document by a body** (`@report`). `author` the body or the person;
 `title`; `institution` the publisher, only when it differs from the author (the same
@@ -284,15 +289,18 @@ reporter or the volume (`organization` holds it for filing).
   carried is dropped because "Va." says it.
 - *Act*: `Act of Mar. 20, 1930, ch. 167, 1930 Va. Acts 450.` `title` "Act of" and the
   date of approval, `titleaddon` the chapter, `shortjournal` the session-law series,
-  `volume` its year, `pages` the first page, `keywords = {datedintitle}` because the
-  date is already in the title. The act's own long title is in `annotation`. A volume
+  `volume` its year, `pages` the first page, `shorttitle` the same as the title (a
+  later note would otherwise print the chapter alone), `keywords = {datedintitle}`
+  because the date is already in the title, which `paper/bibstyle.tex` reads. The
+  act's own long title is in `annotation`. A volume
   cited at several chapters (the Acts of 1869–70) is one entry, titled "Acts of the
   General Assembly, Session of 1869–70", and the chapters go in the pin.
 - *Constitution*: `Va. Const. of 1869, art. VII, sec. 2.` `title` "Va. Const. of 1869",
   `entrysubtype = {constitution}`, the article and section in the pin.
-- *Code*: `Va. Code Ann. § 15.2-1422 (2020).` `title` "Va. Code Ann.", `pages` the
-  section, `bookpagination = {section}`; an old code is cited like a volume of acts
-  (`Code of Virginia of 1860, ch. 53, secs. 1 and 3`).
+- *Code*: `Va. Code Ann. § 15.2-1422 (2020).` `title` carries the section
+  (`Va.\ Code Ann.\ \S~15.2-1422`), `date` the year of the text read; the section's
+  heading goes in `annotation`. An old code is cited like a volume of acts, its
+  title carrying its year (`Code of Virginia of 1860, ch. 53, secs. 1 and 3`).
 
 **Census record** (`@misc`, built by `code/sources/ancestry.py`). A single
 enumeration line is cited in notes only (`options = {skipbib}`); the Works Cited
