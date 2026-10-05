@@ -24,7 +24,7 @@ NAMED_B = {"Arlington", "Alexandria", "Fairfax", "Chesterfield", "Henrico", "Pri
            "Roanoke"}
 # Named with a short line to the dot: too close to its neighbours to name beside it.
 LEADERS_A = {"Alexandria"}
-LEADERS_B = {"Stafford"}
+LEADERS_B = {"Stafford", "Chesterfield"}  # too close to Henrico once panel (b) shrank for the 5 October height fix
 
 for profile in style.PROFILES:
     style.apply(profile)

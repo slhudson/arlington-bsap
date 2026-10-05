@@ -11,13 +11,9 @@ the paper, commits, and deletes the lines it cleared. What it cannot settle
 stays, with a one-line reason under it.
 
 ## Open
-- Figure 9 (Arlington among Virginia's larger cities and counties): the top panel is squished, about 60 percent of the bottom panel's height. The fix measured on 5 October: `height_ratios=(1.5, 1)` on the outer gridspec in `charts.scatter_pair` makes the two panels equal; apply it through the style layer and check both panels print the same height. (Sally, 5 Oct)
-- The southeastern-peers figure (`localities_southeastern`, built, not in the paper since the two Virginia scatters became one stacked figure on 4 October) goes back into C.1 Board Structure after Figure 9, with a caption in the same form. (Sally, 5 Oct)
 - The Data Appendix shows that white space is not separating sections: a section head gets 12pt above, the same as a subsection, so the levels run together where sections run on. Set a scheme once for the whole report (part, section, subsection, run-in) and show before and after; this is the same job as the headings-and-spacing line under Could not settle, so do both at once. (Sally, 5 Oct)
+  A scheme is applied (section 12pt/6pt -> 22pt/10pt above/below; subsection 10pt/4pt -> 12pt/6pt; run-in 8pt/3pt -> 8pt/4pt) and rendered before and after, sent for Sally to judge; this line and the headings-and-spacing line under Could not settle both wait on her yes before they clear. (Fable, 5 Oct)
 - Table 2 (Which Source Backs Each Stretch of Terms) is inside baseball. Rewrite the Data Appendix's Board Members, Sources, and the table, for a researcher replicating the roster for the first time: their roadmap, in plain words, which document to open for which years and what to do where two disagree. Stretch labels like "list only" and "Novack and County" mean nothing to that reader. (Sally, 5 Oct)
-- Data Appendix, Residence: replace the subsection with a placeholder, one bracketed italic sentence, until the County's records settle the addresses; the prose it holds now moves to the archive, not the paper. (Sally, 5 Oct)
-- Table 3 (the roster): break the panels into four eras, 1870-1899, 1900-1949, 1950-1999 and 2000-present, in place of the decades. Cut the note under each panel (the superscript key, the dashes, the census-age caveat); the source key lives in the appendix's Sources text. (Sally, 5 Oct)
-- Paired figure pages still need formatting work (two figures, notes and source on one page); fold into the spacing scheme above. (Sally, 5 Oct)
 - Board Duties (A.1) and Board Seats (A.1) each get a storytelling rework, not line edits; the point of each is recorded for the next pass: Board Duties answers what the Board is, what a Manager is, who does what, and how that changed; Board Seats says the county has grown a lot and why, and the Board has grown once, and therefore. A reader who finishes should be able to tell that story back. (Sally, 5 Oct)
 
 ## Could not settle
@@ -34,4 +30,4 @@ stays, with a one-line reason under it.
 - Figure 3 (county by race) legend: consider alphabetical order (Asian & Pacific Islander first), since nothing says why Black comes first. The figures skill says a legend follows stacking order, and docs/figures.md sets the stack with the largest group on top; if the legend goes alphabetical, decide whether the stack does too, and apply the same rule to Figure 4 and the gender figure.
   A decision on stacking order, for Sally.
 - Headings and spacing are not yet nailed for skimmability (Sally, 4 October 2026, looking at the data appendix): the part, section, subsection and run-in levels need a deliberate scheme of weight, style and white space above and below so the eye finds the structure at a glance; a typographic pass over the whole document, one scheme applied everywhere, shown before and after.
-  Sets a scheme for the whole document; wants a Fable session.
+  Same scheme as the Open line above, applied and rendered before/after; waits on Sally's yes. (Fable, 5 Oct)

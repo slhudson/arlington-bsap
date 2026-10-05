@@ -53,10 +53,7 @@
   \toprule \rosterhead \midrule \endfirsthead
   \toprule \rosterhead \midrule \endhead
   \bottomrule \endfoot}
-\newcommand{\rosterpanelend}{\end{longtable}\par\smallskip
-  \noindent\figurenotes{Notes: \rostermarks{} The source for each member's entry
-    is in the archive delivered to the County. Assumptions are described in
-    the text above.}{}\endgroup}
+\newcommand{\rosterpanelend}{\end{longtable}\par\smallskip\endgroup}
 % One row of the Sources table (Table~\ref{tab:sources}), written by
 % code/analysis/members_by_source.py: \sourcerow{O'Leary only}{29}
 \newcommand{\sourcerow}[2]{#1 & #2 \\}
@@ -94,12 +91,18 @@
 % Sections are numbered within their part: A.1, A.2, ..., C.1.
 \counterwithin*{section}{part}
 \renewcommand{\thesection}{\thepart.\arabic{section}}
-\titlespacing*{\section}{0pt}{12pt}{6pt}
-\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+% One scheme, set once, for every level below a part (Sally, 5 October 2026):
+% each level's space above is roughly double the next one down, so where
+% sections run on with no page break between them (Parts B, C and D), a
+% section still reads as a bigger break than a subsection, and a subsection
+% bigger than a run-in head. Weight still marks the level, not size: a
+% section stays bold, a subsection and a run-in head stay italic.
+\titlespacing*{\section}{0pt}{22pt}{10pt}
+\titlespacing*{\subsection}{0pt}{12pt}{6pt}
 % Third level, used inside Demographic Representation: unnumbered, italic, run on the
 % way a subsection is, a little closer to its text.
 \titleformat{\subsubsection}{\normalfont\normalsize\itshape}{}{0em}{}
-\titlespacing*{\subsubsection}{0pt}{8pt}{3pt}
+\titlespacing*{\subsubsection}{0pt}{8pt}{4pt}
 
 \usepackage{fontspec}
 % All four faces are declared, because the report sets case names in italic
@@ -1072,6 +1075,24 @@ nothing for Arlington.
   Bureau Gazetteer, 2020.}
 \end{figure}
 
+\begin{figure}[p]
+  \centering
+  \refstepcounter{figure}\label{fig:localities-southeastern}
+  {\raggedright\MakeUppercase{Figure \thefigure}\par}
+  {\raggedright\bfseries Residents per Member, Arlington Among Cities and
+  Counties of Its Size in the Southeast\par}
+  \medskip
+  \includegraphics[width=\textwidth]{localities_southeastern.pdf}
+  \smallskip
+  \figurenotes{Notes: Every incorporated place and county of 150,000 to
+  300,000 residents in 2020 in Alabama, Arkansas, Georgia, Louisiana,
+  Maryland, Mississippi, North Carolina, South Carolina, Tennessee and
+  Virginia; Maryland has no incorporated place that size and enters by
+  county.}{Source: Richmond Charter Review Commission (2023), Appendix E;
+  each other body's own page, in \texttt{docs/localities.md}; US decennial
+  census, 2020; US Census Bureau Gazetteer, 2020.}
+\end{figure}
+
 \subsection{Board Seats}
 
 The number of seats, whether the chair is
@@ -1198,9 +1219,13 @@ disagreement and how it was settled.
 
 A member's traits come from three kinds of source: the US census, which
 describes members who served through the 1960s; the press, in news reports and
-obituaries; and published profiles. Table~\ref{tab:roster}'s note explains the
-superscript each value in the roster carries for its source. The census closes
-for 72 years, so the 1950 census is the last open.
+obituaries; and published profiles. A superscript on a value in Table~\ref{tab:roster}
+marks its source: the census (c), the press or a published profile (p), or an
+assumption (a) where no source says otherwise; two superscripts together mean
+two kinds of source agree, and a dash means no source gives the value. Census
+birth years are derived from the age recorded when the census was taken, so
+each is accurate only to within a year. The census closes for 72 years, so the
+1950 census is the last open.
 
 \subsection{Gender}
 Gender comes from two sources. Census sheets give it for members who served
@@ -1258,13 +1283,7 @@ census age bands.
 
 \subsection{Residence}
 % waits on: residence-county-records
-% Residence stays in the data appendix until better data arrive.
-Homes are easiest to find in the middle years. From 1932 to 1971, census sheets
-and newspaper reports place at least four of the five members at a street address
-or a street name. From 1972 through 1995, two or three members have no known home
-at all, and from 1998 none has a street address. No
-public source takes the closed census's place. Since 2013 the most precise location available for
-all five members is a neighborhood named in press coverage.
+\textit{[Where Board members have lived awaits the County's own records.]}
 
 \begin{figure}[p]
   \centering
@@ -1284,30 +1303,6 @@ all five members is a neighborhood named in press coverage.
   before 1932 the census names only a magisterial district, and since 2013 the
   press names only a neighborhood.}{}
 \end{figure}
-
-Before 1932 only the census places a member, and outside the towns its sheets
-name a magisterial district and leave the street column blank. Of the 41
-members seated from 1870 to 1911, 33 have a census record, and for nearly all of
-them the sheet gives a district and nothing finer; the county had only
-three.
-
-The district a man represented says nothing more about where he lived. Until 1903
-no law required a supervisor to live in it, so the Board's minute books, which name
-all three seats in every year from 1870, show who sat but not where he lived.
-
-The later gap runs from 1972 to 1995, when two or three of the five members have
-no known home, in years the modern County documented for itself and outside
-sources run out. Of the members with an address, about a third have one dated to
-their service. The rest have one dated before or after it, and an obituary address is where someone died, not where they lived when
-elected.
-
-Figure~\ref{fig:board-residence} counts any dated address, so a member whose only
-address comes from after their service still appears at that level of detail.
-
-County records may identify where Board members lived: payroll and personnel
-records, candidate filings and oaths of office, and voter registration records.
-Even an aggregate unit, such as the side of the County, the civic association,
-zip code or precinct, would place members the census and the press cannot.
 
 \subsection{Seat-Years}
 A member who sat part of a year counts as a fraction of a seat: four months is a

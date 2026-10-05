@@ -473,7 +473,7 @@ def scatter_pair(profile=style.DEFAULT_PROFILE):
     # first draw collapses constrained layout and fit() warns before it recovers.
     width = style.figsize(profile)[0]
     fig = plt.figure(figsize=(width, width * 1.25))
-    outer = fig.add_gridspec(2, 1, hspace=0.25)
+    outer = fig.add_gridspec(2, 1, hspace=0.25, height_ratios=(1.5, 1))
     inner = outer[0].subgridspec(1, 2, width_ratios=style.BROKEN, wspace=0.0)
     near = fig.add_subplot(inner[0])
     far = fig.add_subplot(inner[1], sharey=near)
