@@ -12,6 +12,7 @@ stays, with a one-line reason under it.
 
 ## Open
 - Table 3 (the roster) lost its notes entirely when the per-panel notes were cut. It needs one note, under the last panel only, with the superscript key (c census, p press or profile, a assumption; two marks where two kinds agree) and the dash for a missing value, so the table stands on its own; the census-age caveat stays in the appendix's Age text. (Sally, 5 Oct)
+- Data Appendix: move the Elections section before Board Members, since it is short and the roster then closes the appendix; update the figure notes that point to "the Data Appendix, Elections" only if the wording depends on order. (Sally, 5 Oct)
 
 ## Could not settle
 - Board Seats: the federal-office statute (Acts 1883-84 ch. 145) that emptied Perkins W. Squier's seat in 1884 is, as Code 1950 § 2-27, the one Dean v. Paolicelli applied to take the Board's Non-Partisan majority in 1952, so Arlington held four Board contests on 4 November 1952; one provision at both ends of the period, not yet in the paper (paolicelli1952, dailysun1952appointees). (members.md split, 4 Oct)
