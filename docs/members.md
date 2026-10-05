@@ -49,7 +49,14 @@ are Susan Cunningham and Tannia Talento, recent enough that a stated age
 should be findable. Naming them rather than allowing a count of unknowns is
 what makes the gap a known quantity: a member who arrives without a birth year
 and is not among them stops the build. Every other member seated in 1900-2026
-has a birth year.
+has a birth year. The figure compares the Board to the county's adults, 18
+and over, rather than to a voting-age cutoff (21 before the Twenty-sixth
+Amendment in 1971, 18 after): a cutoff labelled "voting-age eligible" would
+overclaim, since neither sex (women couldn't vote in 1910 or the January 1920
+census) nor disenfranchisement (poll taxes and other Jim Crow mechanisms
+through the mid-1960s) is modelled by age alone. Sally shelved the
+voting-eligibility comparison for the flat adult one on 5 October 2026 and
+confirmed the figure on 6 October.
 
 **1912–1931 rests on no assumption.** `arlhist1967officials`, the Historical
 Society's own compilation from the Board's minute books, names all three
