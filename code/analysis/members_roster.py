@@ -1,4 +1,4 @@
-r"""The roster the data appendix prints -> paper/members_roster.tex, and the two subsets
+r"""The roster the data appendix prints -> paper/members_roster.tex, and the subset
 the body prints -> paper/members_roster_subsets.tex
 
 One row per person who has served, in the order they first took a seat, with
@@ -23,10 +23,11 @@ The roster is printed as four panels, one era each, 3A through 3D in the
 paper: \rosterpanel{A}{1870--1899} opens one and \rosterpanelend closes it.
 The eras are fixed (1870-1899, 1900-1949, 1950-1999, 2000-present), each a
 whole run of decades; a panel breaks only between decades, and longtable
-carries it across as many pages as it needs. The subsets are the women and
-the members of color, in the same rows and columns under a bold heading
-each, and the paper \input{}s them into one table. The roster and the
-evidence behind each cell are data/clean/members.csv.
+carries it across as many pages as it needs. The subset is every member who
+was a woman or a member of color, once each, in the same rows and columns
+under a bold heading for the century they first took a seat, and the paper
+\input{}s it into one table. The roster and the evidence behind each cell are
+data/clean/members.csv.
 """
 from typing import NamedTuple
 
@@ -153,15 +154,16 @@ def tex(table: list, present: int) -> str:
 
 
 def subsets_tex(table: list) -> str:
-    """The women and then the members of color, in the roster's order and
-    columns, each under a bold panel heading."""
+    """Every member who was a woman or a member of color, once each, in the
+    roster's order and columns, under the century they first took a seat."""
     out = [COMMENT]
-    for k, (title, pick) in enumerate((("Panel A. Women", lambda r: r.woman),
-                                       ("Panel B. Members of Color", lambda r: r.of_color))):
-        group = [r for r in table if pick(r)]
-        assert group, f"{title} is empty"
-        out.append(("\\rosterheading{%s}" if k == 0 else "\\rosterdecade{%s}") % title + "\n")
-        out += [line(r) + "\n" for r in group]
+    group = [r for r in table if r.woman or r.of_color]
+    assert group, "no woman or member of color found"
+    centuries = sorted({r.decade // 100 * 100 for r in group})
+    for k, c in enumerate(centuries):
+        heading = f"{c}s"
+        out.append(("\\rosterheading{%s}" if k == 0 else "\\rosterdecade{%s}") % heading + "\n")
+        out += [line(r) + "\n" for r in group if r.decade // 100 * 100 == c]
     return "".join(out)
 
 

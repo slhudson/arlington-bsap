@@ -39,8 +39,7 @@
 \newcommand{\rostermarks}{Superscripts indicate the source for each record: the
   US census (c), press or published profile (p), or assumption (a). Two
   superscripts mean two kinds of source agree. A dash means no source gives the
-  value. Census birth years are derived from the age recorded when the census
-  was taken, and are therefore accurate to within a year.}
+  value.}
 % One page of the full roster, written by members_roster.py: \rosterpanel{A}{1870--1919}
 % opens panel 2A, with its own title, and \rosterpanelend closes it with its notes.
 \newcommand{\rosterpanel}[2]{\clearpage\begingroup
@@ -53,7 +52,8 @@
   \toprule \rosterhead \midrule \endfirsthead
   \toprule \rosterhead \midrule \endhead
   \bottomrule \endfoot}
-\newcommand{\rosterpanelend}{\end{longtable}\par\smallskip\endgroup}
+\newcommand{\rosterpanelend}{\end{longtable}\par\smallskip
+  \noindent\figurenotes{Notes: \rostermarks}{}\endgroup}
 % One row of the Sources table (Table~\ref{tab:sources}), written by
 % code/analysis/members_by_source.py: \sourcerow{1870--1911}{Historical Society list}{O'Leary}{41}
 \newcommand{\sourcerow}[4]{#1 & #2 & #3 & #4 \\}
@@ -162,6 +162,7 @@
 \renewcommand{\fps@figure}{t}
 \makeatother
 \renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
 \renewcommand{\textfraction}{0.1}
 \renewcommand{\floatpagefraction}{0.8}
 
@@ -495,8 +496,8 @@ young.
 
 Of the \membersTotal{} people who have served on the Board since 1870,
 \whiteMenMembers{} have been white men. Table~\ref{tab:subsets} lists the
-other \notWhiteMenMembers{}: the 13 women and the 12 members of color, one of
-them in both panels.
+other \notWhiteMenMembers{}, in the order they first took a seat: 13 women
+and 12 members of color, Tannia Talento among both.
 
 % waits on: member-demographics-lists
 \begin{table}[b]
@@ -514,7 +515,7 @@ them in both panels.
   \end{tabular}\endgroup
   \par\smallskip
   \figurenotes{
-    Notes: \rostermarks{} Each panel is a subset of the full roster, Table~\ref{tab:roster} in the Data Appendix.}{}
+    Notes: \rostermarks{} This table is a subset of the full roster, Table~\ref{tab:roster} in the Data Appendix.}{}
 \end{table}
 
 \clearpage
@@ -1118,6 +1119,38 @@ in that one year.
 ``Other or Multiracial'' is American Indian and Alaska Native, some other race, and two or
 more races.
 
+\section{Elections}
+
+\subsection{Votes for President}
+The county's vote for President is the Commonwealth's official return by
+county wherever one is printed. For 1876 through 1916 that is the
+\textit{Warrock-Richardson Almanack}, a Richmond annual that prints "The
+Official Vote of Virginia" from the official returns; from 1924 it is the
+Secretary of the Commonwealth's own report, and from 1932 the Department of
+Elections' database.\autocite{warrock1868,warrock1892,warrock1900,warrock1911,vasecretary1924,vasecretary1928,vaelections}
+Two elections have no state return: for 1872 the county electoral board's own
+certified table, printed in the \textit{Alexandria Gazette}, is used, and for
+1920 Frank O'Leary's compilation of the \textit{Gazette}, the only count
+held.\autocite{alexandriagazette1872official,oleary2010} For 1892 and 1900 the
+\textit{Gazette}'s own district tables, summed, replace the Almanack's county
+figure, which they contradict; in 1900 the two name different winners. The
+Almanack is a compilation of the official returns and has not been checked
+against the Secretary's own canvass for any year. Where the Almanack prints
+only the leading tickets (1904 to 1916), minor-party votes are missing. The
+county's candidate history prints the same returns from 1920 and agrees with
+the state within five percent in every year but 1980, where the state's
+canvass is kept.\autocite{arlingtonelections2021}
+
+\subsection{Votes for County Board}
+Before 1932 the Board's vote is the \textit{Alexandria Gazette}'s returns by
+magisterial district in the issues after each election, read off the page
+images, and the figures show it only in the years all three districts' counts
+survive; each year's issue is cited in the archive delivered to the County.
+From 1932 it is the Department of Elections'
+locality rows, with the county's candidate history read as a check. A year with
+two seats on the ballot records each voter twice, once per contest, so votes
+per seat stand in for ballots cast in those years.
+
 \section{Board Members}
 
 \subsection{Sources}
@@ -1281,38 +1314,6 @@ sources for every cell, one by one, are in the archive delivered to the
 County.
 
 \rosterinput members_roster.tex
-
-\section{Elections}
-
-\subsection{Votes for President}
-The county's vote for President is the Commonwealth's official return by
-county wherever one is printed. For 1876 through 1916 that is the
-\textit{Warrock-Richardson Almanack}, a Richmond annual that prints "The
-Official Vote of Virginia" from the official returns; from 1924 it is the
-Secretary of the Commonwealth's own report, and from 1932 the Department of
-Elections' database.\autocite{warrock1868,warrock1892,warrock1900,warrock1911,vasecretary1924,vasecretary1928,vaelections}
-Two elections have no state return: for 1872 the county electoral board's own
-certified table, printed in the \textit{Alexandria Gazette}, is used, and for
-1920 Frank O'Leary's compilation of the \textit{Gazette}, the only count
-held.\autocite{alexandriagazette1872official,oleary2010} For 1892 and 1900 the
-\textit{Gazette}'s own district tables, summed, replace the Almanack's county
-figure, which they contradict; in 1900 the two name different winners. The
-Almanack is a compilation of the official returns and has not been checked
-against the Secretary's own canvass for any year. Where the Almanack prints
-only the leading tickets (1904 to 1916), minor-party votes are missing. The
-county's candidate history prints the same returns from 1920 and agrees with
-the state within five percent in every year but 1980, where the state's
-canvass is kept.\autocite{arlingtonelections2021}
-
-\subsection{Votes for County Board}
-Before 1932 the Board's vote is the \textit{Alexandria Gazette}'s returns by
-magisterial district in the issues after each election, read off the page
-images, and the figures show it only in the years all three districts' counts
-survive; each year's issue is cited in the archive delivered to the County.
-From 1932 it is the Department of Elections'
-locality rows, with the county's candidate history read as a check. A year with
-two seats on the ballot records each voter twice, once per contest, so votes
-per seat stand in for ballots cast in those years.
 
 \clearpage
 \printworkscited{Works Cited}
