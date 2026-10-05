@@ -4,9 +4,9 @@ year,cycle,board_votes,board_seats,board_voters,board_complete,board_source,boar
 1880,,,,,,,,,,,,,,,,,753,derived
 1884,,,,,,,,,,,,,,,,,773,derived
 1888,,,,,,,,,,,,,,,,,717,derived
-1892,,,,,,,,,,,,,,,,,840,derived
+1892,,,,,,,,,,,,,,,,,765,derived
 1896,,,,,,,,,,,,,,,,,1039,derived
-1900,,,,,,,,,,,,,,,,,836,derived
+1900,,,,,,,,,,,,,,,,,828,derived
 1904,,,,,,,,,,,,,,,,,256,derived
 1907,,756,3,252,True,oleary2010 p.25,"one seat per district, so one vote per voter",,,,,,,,,,,
 1908,,,,,,,,,,,,,,,,,519,derived

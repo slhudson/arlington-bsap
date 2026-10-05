@@ -10,9 +10,11 @@ every ticket of the Commonwealth's return for President as keyed.
 code/clean/elections.py selects from it.
 
     record      "county" (arlingtonelections2021, to 2021), "state"
-                (vaelections, 2000 on), "oleary" (oleary2010, 1870-1920) or
+                (vaelections, 2000 on), "oleary" (oleary2010, 1870-1920),
                 "state_return" (the Almanack's and the Secretary's printed
-                county returns for President, 1876-1916, 1924, 1928)
+                county returns for President, 1876-1916, 1924, 1928) or
+                "gazette_return" (the Alexandria Gazette's printed district
+                returns for President, 1872, 1876, 1892, 1896, 1900, 1920)
     entry       O'Leary's printed line, unparsed; `district` the magisterial
                 district it is listed under
     contest     an id shared by the contest's rows: for the county, the
@@ -57,6 +59,9 @@ OLEARY = {BY_CLAUDE / "arlington_county" / "members_1870-1920.csv": "Board of Su
 
 # The Commonwealth's county returns for President, one row per ticket as keyed.
 STATE_RETURN = BY_CLAUDE / "elections_results_state.csv"
+# The Alexandria Gazette's own district returns for President, one row per
+# ticket per district as keyed.
+GAZETTE_RETURN = BY_CLAUDE / "elections_results_gazette.csv"
 
 NAMED = re.compile(r"^[*A-Z]")                          # a row naming a candidate
 # The qualifiers a contest heading carries.
@@ -149,6 +154,20 @@ def state_return() -> pd.DataFrame:
         "source": r.source, "read_from": r.read_from, "quote": r.quote, "note": r.note})
 
 
+def gazette_return() -> pd.DataFrame:
+    """Every ticket of the Alexandria Gazette's own district returns for
+    President as keyed, one row each, with the district, the page it prints
+    on and the line it was read from. The office stays as keyed; the clean
+    stage decides what each ticket is."""
+    r = source(GAZETTE_RETURN, dtype=str).fillna("")
+    return pd.DataFrame({
+        "record": "gazette_return", "office": r.office, "district": r.district,
+        "contest": r.year + " " + r.office + " " + r.district, "year": r.year, "page": r.page,
+        "candidate": r.candidate, "name": r.candidate, "votes": r.votes, "party": r.party,
+        "person": True, "writein": False, "prose": False,
+        "source": r.source, "read_from": r.read_from, "quote": r.quote, "note": r.note})
+
+
 COLUMNS = ["record", "contest", "office", "district", "year", "election_date", "election_kind",
            "page", "month", "november", "primary", "special", "seats", "fills", "candidate",
            "name", "entry", "votes", "person", "writein", "prose", "party", "primary_party",
@@ -157,7 +176,8 @@ COLUMNS = ["record", "contest", "office", "district", "year", "election_date", "
 
 def build() -> pd.DataFrame:
     d = pd.concat([county()] + [state(p) for p in STATE]
-                  + [oleary(p, office) for p, office in OLEARY.items()] + [state_return()],
+                  + [oleary(p, office) for p, office in OLEARY.items()]
+                  + [state_return(), gazette_return()],
                   ignore_index=True)
     return d[COLUMNS]
 

@@ -4,9 +4,9 @@ year,office,dem,rep,abc,other,unrecorded,total,complete,source,note
 1880,president,264,489,0,0,0,753,True,warrock1868,
 1884,president,264,509,0,0,0,773,True,warrock1868,
 1888,president,255,462,0,0,0,717,True,warrock1892,
-1892,president,340,499,0,1,0,840,True,warrock1892,
+1892,president,338,426,0,1,0,765,True,warrock1892; alexandriagazette18921109p3,"dem and rep are the Gazette's own district return, which replaces the Almanack's county figure; docs/elections.md"
 1896,president,322,713,0,4,0,1039,True,warrock1892,
-1900,president,413,421,0,2,0,836,True,warrock1900,
+1900,president,418,408,0,2,0,828,True,warrock1900; alexandriagazette19001107p3,"dem and rep are the Gazette's own district return, which replaces the Almanack's county figure; docs/elections.md"
 1904,president,157,99,0,0,0,256,True,warrock1900,
 1908,president,354,165,0,0,0,519,True,warrock1900,
 1912,president,346,86,0,153,0,585,True,warrock1911,

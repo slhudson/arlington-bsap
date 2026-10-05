@@ -233,3 +233,15 @@ def state_return() -> pd.DataFrame:
     r["year"] = r.year.astype(int)
     r["votes"] = pd.to_numeric(r.votes).astype(int)
     return r.reset_index(drop=True)
+
+
+def gazette_return() -> pd.DataFrame:
+    """The Alexandria Gazette's own district returns for President, one row
+    per ticket per district as keyed: year as a number, votes as a number
+    where the Gazette printed one (1896's Washington district gives only a
+    majority, so its two rows carry no votes), the rest as printed."""
+    e = paths.built("elections")
+    r = e[e.record == "gazette_return"].copy()
+    r["year"] = r.year.astype(int)
+    r["votes"] = pd.to_numeric(r.votes, errors="coerce")
+    return r.reset_index(drop=True)

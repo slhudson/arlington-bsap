@@ -26,6 +26,12 @@ A year with a state return never takes O'Leary's (OLEARY_ONLY names the two
 that do), and build() refuses a year in neither. The county's own
 presidential returns are read as a check on the state's, and the build
 reports the years they differ by more than TOLERANCE.
+
+For 1892 and 1900, gazette_vs_almanack.apply() then replaces the
+Commonwealth return's dem and rep with the Alexandria Gazette's own district
+sum, which ties to O'Leary's figure independent of him; docs/elections.md,
+"The Gazette's own district returns settle four of the nine," and
+docs/questions.csv, gazette-vs-almanack-1892-1900.
 """
 import re
 
@@ -34,6 +40,7 @@ import pandas as pd
 import members_terms
 import citekeys
 import elections
+import gazette_vs_almanack
 import paths
 from elections import COUNTY_HISTORY_THROUGH
 from paths import write
@@ -108,7 +115,8 @@ def state_return() -> pd.DataFrame:
     dem, a Republican one rep, any other other. Where the Almanack prints
     only the highest candidates, other is what it prints. A dotted ticket
     was keyed as 0. A year's source is its citekey; every ticket in a year
-    shares one."""
+    shares one. gazette_vs_almanack.apply() then replaces YEARS with the
+    Gazette's own district return."""
     r = elections.state_return()
     r["band"] = r.party.map({"Democratic": "dem", "Republican": "rep"}).fillna("other")
     g = r.pivot_table(index="year", columns="band", values="votes", aggfunc="sum",
@@ -118,6 +126,7 @@ def state_return() -> pd.DataFrame:
     g["complete"] = True
     g["source"] = g.year.map(sources)
     g["note"] = ""
+    g = gazette_vs_almanack.apply(g)
     return g[["year", "dem", "rep", "other", "total", "complete", "source", "note"]]
 
 
