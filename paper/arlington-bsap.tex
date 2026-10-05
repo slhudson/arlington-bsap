@@ -69,16 +69,25 @@
 \usepackage{titlesec}
 % Heading conventions, set once for the whole report, the Data Appendix included.
 % A part (Part A to Part D) opens a page. A section (A.1) is numbered within its
-% part and starts a new page. A subsection (D.2.1) is numbered within its section
-% and runs on. All three are bold at the body size, and there is no run-in
-% heading and no heading in italic. Paragraphs are never indented and are
+% part and starts a new page. A subsection is unnumbered and italic (Sally,
+% 5 October 2026) and runs on; the contents page lists parts and sections.
+% Paragraphs are never indented and are
 % separated by a line of space (Sally, 4 October 2026), so a heading, a figure
 % or a table never changes how one begins.
 \usepackage{parskip}
 \usepackage{chngcntr}
 \titleclass{\part}{straight}
 \titleformat{\section}{\normalfont\normalsize\bfseries}{\thesection}{1em}{}
-\titleformat{\subsection}{\normalfont\normalsize\itshape}{\thesubsection}{1em}{}
+\titleformat{\subsection}{\normalfont\normalsize\itshape}{}{0em}{}
+\setcounter{tocdepth}{1}
+% The contents page: a part prints as "Part A." the way its heading does, and a
+% section's number gets room before its title.
+\usepackage{titletoc}
+\makeatletter
+\renewcommand{\ttl@tocpart}{\def\ttl@a{\protect\numberline{\thepart}}}
+\makeatother
+\titlecontents{part}[0pt]{\addvspace{10pt}\bfseries}{Part \thecontentslabel.\hspace{0.5em}}{}{\hfill\contentspage}
+\titlecontents{section}[2.4em]{}{\contentslabel{2.4em}}{\hspace*{-2.4em}}{\hfill\contentspage}
 \renewcommand{\thepart}{\Alph{part}}
 \titleformat{\part}{\normalfont\normalsize\bfseries}{Part \thepart.}{0.5em}{}
 \titlespacing*{\part}{0pt}{12pt}{12pt}
@@ -168,11 +177,12 @@
 % The title page. Affiliations are \thanks notes, marked with symbols rather
 % than numbers so they do not count among the report's footnotes. Two of the
 % notes are placeholders Sally fills: her conflict-of-interest disclosure and
-% the acknowledgments.
+% the acknowledgments. Sally appears without an institution; Ranked Choice
+% Virginia belongs in the disclosure, not as an affiliation.
 \title{Report for Arlington County Board}
-\author{Sally Hudson\thanks{Ranked Choice Virginia. Conflict of interest:
+\author{Sally Hudson\thanks{Conflict of interest:
     \textit{[disclosure to come, Sally].}}
-  \and Alex Keena\thanks{Virginia Commonwealth University.}
+  \and Alex Keena\thanks{Virginia Commonwealth University.}  % whether Alex appears as VCU is his to say
   \and Nick Vlahos\thanks{National Civic League.}}
 \date{\today\thanks{Notes and acknowledgments: \textit{[to come].}}}
 
@@ -191,7 +201,11 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 \end{abstract}
 
 \clearpage
-\section*{Introduction}
+\tableofcontents
+
+\clearpage
+\section*{Executive Summary}
+\addcontentsline{toc}{section}{Executive Summary}
 
 % Introduction: a summary of the Board's charge, from the scope of work; Sally
 % writes the final text.
@@ -204,20 +218,24 @@ participation today; a synthesis of the community feedback the Board has
 received on it and of how future engagement might proceed; and an outline of
 the concepts and questions the Board might take up in any future work on its
 structure and on public participation. The National Civic League leads the
-work, with researchers from Virginia Commonwealth University and Ranked
-Choice Virginia.
+work, with Sally Hudson and Alex Keena.
 
 This report answers the charge in three parts, one for each deliverable. Part A
 is the history of the Board: how it has been built, how its members have been
 elected, who has served on it, and what Virginia law has let the County decide
 for itself. Part B is what residents have said, in public comment, in letters to
 the Board and in the County's surveys. Part C sets out the questions the first
-two parts point toward. Each part is told under the same four headings, Board
-Structure, Election Method, Demographic Representation and Local Authority, so
-that a reader can follow one question across all three. The report makes no
-recommendation on any of them.
+two parts point toward.
 
 \part{Historical Background}
+
+% Preamble to Part A: what its four sections cover and how they fit; placeholder
+% text until it is written.
+\textit{[Preamble to come.]} Lorem ipsum dolor sit amet, consectetur adipiscing
+elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+cillum dolore eu fugiat nulla pariatur.
 
 \section{Board Structure}
 

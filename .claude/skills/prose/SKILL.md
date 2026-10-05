@@ -242,6 +242,14 @@ defend a decision the reader never saw (the cube-root law, the palette). A secti
 holds only things that happened; failed efforts and the Board-Manager division of
 labor are their own sections.
 
+**Do not refute a question nobody asked (Sally, 5 October 2026).** A clause that
+pre-empts an objection the text never raised reads as tedious to her: "giving the
+board a name it could sue by", "so the seat count did not move", "neither names
+Alexandria County, so the court's role here follows from the law that applied to
+every county". Those answer the build's worries, not a reader's. Say what happened;
+if a reader would actually wonder, answer it in the sentence that raises it, and
+otherwise cut it. The test: would a resident reading this have asked?
+
 **What the body may say.** The body states the data. Where the data come from, and how
 a figure was built, goes in the Data Appendix (Residents, then Board Members, each
 with gender, race and ethnicity, age, residence in parallel), and only what changes how
