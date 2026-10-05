@@ -1,0 +1,20 @@
+% How a citation prints, shared by the report and its timelines so the two
+% cannot differ. The rules themselves are in docs/repository.md, "The
+% bibliography's style sheet".
+
+% A footnote names the source and the page; the web address and the access date
+% appear only in the bibliography.
+\AtEveryCitekey{%
+  \clearfield{url}\clearfield{urldate}\clearfield{urlyear}\clearfield{urlmonth}\clearfield{urlday}%
+  % A case is dated by its year, whatever day it was decided.
+  \ifentrytype{jurisdiction}{\clearfield{month}\clearfield{day}}{}%
+  % An act or a constitution already carries its date in its title.
+  \ifkeyword{datedintitle}{\clearfield{date}\clearfield{year}\clearfield{month}\clearfield{day}}{}}
+
+% The bibliography keeps the web address and drops the access date.
+\AtEveryBibitem{\clearfield{urldate}\clearfield{urlyear}\clearfield{urlmonth}\clearfield{urlday}}
+
+% A web address that starts a line and has no spaces to stretch took all of the
+% line's stretch from its own characters, printing "https : / / www . site . com".
+% Only the spaces between words stretch; the address breaks where it must.
+\appto{\biburlsetup}{\Urlmuskip=0mu}

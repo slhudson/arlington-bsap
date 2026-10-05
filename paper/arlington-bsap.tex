@@ -114,12 +114,7 @@
 \usepackage[notes, backend=biber]{biblatex-chicago}
 \addbibresource{sources.bib}
 
-% A footnote names the source and the page; the web address and the access date
-% appear only in the bibliography.
-\AtEveryCitekey{\clearfield{url}\clearfield{urldate}\clearfield{urlyear}\clearfield{urlmonth}\clearfield{urlday}}
-
-% The bibliography keeps the web address and drops the access date.
-\AtEveryBibitem{\clearfield{urldate}\clearfield{urlyear}\clearfield{urlmonth}\clearfield{urlday}}
+\input{bibstyle}
 
 % The paper includes the PDF versions; figures/png/ is for slides and email.
 \graphicspath{{../figures/pdf/}}
