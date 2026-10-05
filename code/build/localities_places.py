@@ -10,7 +10,7 @@ import pandas as pd
 
 from paths import RAW, source, write
 
-PLACES = RAW / "us_census_bureau" / "2020" / "censusapi_dec_pl_P1_race_us_places.csv"
+PLACES = RAW / "us_census_bureau" / "2020" / "censusapi_dec_pl_P1_race_us_places.csv.gz"
 
 
 def build() -> pd.DataFrame:

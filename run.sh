@@ -214,7 +214,7 @@ while IFS= read -r -d '' f; do
   [ -f "$f" ] || continue
   size=$(( $(stat -f%z "$f") / 1024 ))
   kb=$(( kb + size ))
-  case "$f" in *.pdf|*.png|*.ttf|*.gz) ;; *) text_kb=$(( text_kb + size ));; esac
+  case "$f" in *.pdf|*.png|*.ttf|*.gz|*.xlsx|*.xls|*.zip|*.docx) ;; *) text_kb=$(( text_kb + size ));; esac
 done < <(git ls-files -z 2>/dev/null) || true
 if [ "$kb" -ge 81920 ]; then
   echo
