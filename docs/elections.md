@@ -131,8 +131,9 @@ appear to have existed as a district yet. Summed, the Gazette's own figures
 tie to O'Leary's exactly for 1876 (237 D, 587 R), 1892 (338 D, 426 R) and
 1900 (418 D, 408 R), and the 1920 county total (835 D, 996 R) matches him
 too: O'Leary compiled from these same reports, and for those years his
-figure is the Gazette's own canvass, not a separate count, so it is the one
-to prefer over the Almanack's. The 1896 Washington district prints only
+figure is the Gazette's own canvass, independent of the Almanack's
+compilation, read off the page image and not taken on O'Leary's word
+(`gazette-vs-almanack-1892-1900`, questions.csv). The 1896 Washington district prints only
 McKinley's 25-vote majority, not raw totals, which is why O'Leary's total
 for that year is marked incomplete; the Jefferson and Washington districts'
 sum (McKinley 553, Bryan 228) cannot be checked against the state's 713 and
