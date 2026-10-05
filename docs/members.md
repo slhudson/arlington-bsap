@@ -98,7 +98,7 @@ committee (`gazette1894wilson`, `gazette1874smith`).
 **The seat itself places nobody before 1932.** No instrument required a
 supervisor to live in the district he represented before 1903, so a member
 seated for a magisterial district has no claim from the office, and every place
-comes from a record. See "Residence in the district" below.
+comes from a record (below, "Residence in the district").
 
 **Modern residence is transcribed but not yet coded.** The 1973 Post map that
 places a whole Board at once has not been seen (`mathews1973-map`). Some
@@ -115,147 +115,14 @@ and what would settle it.
 ---
 ## Residence in the district
 
-A supervisor is required to live in the district he represents only from
-1903, by sec. 32 of the 1902 constitution. Nothing before that requires it.
-
-The 1869 constitution creates the office without a residence qualification.
-Art. VII sec. 2, under the running head "Townships", provides that "In each
-township there shall be elected annually: one Supervisor", and that "The
-Supervisors of each township shall constitute the Board of Supervisors for
-that county" (`vaconstitution1869`). Where the same constitution does speak
-to who may hold office, it points the other way: Art. III, headed "Elective
-Franchise and Qualifications for Office", makes the residence a voter needs
-twelve months in the state and three months in "the county, city or town in
-which he shall offer to vote" (sec. 1), and then provides that "all persons
-entitled to vote shall be eligible to any office within the gift of the
-people, except as restricted in this Constitution" (sec. 2). Eligibility
-follows the vote, the vote is seated in the county, and the exceptions are
-reserved to the constitution itself.
-
-The statutes keep the office as the constitution left it. Ch. 76 of the acts
-of 1874-5, approved 5 February 1875, declares the townships as they stood on
-3 November 1874 to be "the magisterial districts into which the counties are
-directed to be distracted" [sic], carrying over their boundaries, names and
-voting places; it renames the unit and says nothing about the officer.
-Ch. 158 sec. 4, approved 8 March 1875, provides that "In each magisterial
-district of the commonwealth there shall be chosen by the qualified voters of
-the same, respectively... one supervisor, one constable, three justices, and
-one overseer of the poor" (`vaacts1875`). The Code of 1887 carries this
-forward in ch. 9 sec. 96 in the same terms (`vacode1887`). In each the
-district names the electorate, not a qualification on the candidate.
-
-The Code of 1873 settles it by contrast, because it states a district
-residence requirement for other offices in the same breath and not for this
-one. Ch. 6 sec. 9 provides that "In each township of the commonwealth there
-shall be chosen by the qualified voters of the townships respectively...
-one supervisor, one assessor, one township clerk, one collector, one
-commissioner of roads, and one Overseer of the poor". Sec. 10, the next
-section on the same page, elects "one overseer of roads, who shall be a
-resident of the road district". Ch. 33 sec. 2 provides that "Each assessor
-and commissioner shall reside in the township, city or town for which he was
-elected, and his removal therefrom shall vacate his office"
-(`vacode1873`). In 1546 pages the phrase "resident of the township" occurs
-once, of the registrar, and "reside in the township" once, of the assessor.
-Neither reaches the supervisor. The Code of 1887 is the same: "resident of
-the district" does not occur in it at all, and the one office tied to
-residence in a district is the road surveyor, whom sec. 963 requires to be
-"a resident and voter thereof" (`vacode1887`).
-
-Nothing local supplies what the general law omits. The office is created by
-the constitution and filled under general law, qualifications for it are
-reserved to the constitution by Art. III sec. 2, and a Virginia county in
-this period holds only the powers the General Assembly grants it
-(`commonwealthvarlington1977`), so the instrument that could carry a local
-rule is a special act for Alexandria County rather than an order of the
-Board. The 1869-70 and 1874-5 session volumes carry no such act; the
-remaining sessions to 1902 have not been searched one by one.
-
-No statute required it, but the Board observed it. The minute books, as the
-Arlington Historical Society read them in 1967 (`arlhist1967officials`),
-record two supervisors leaving their seats on moving out of their district:
-Francis G. Schutt in June 1877, on a notation that "he had moved from
-Arlington District", and William A. Rowe on 2 April 1879, "moved from
-Jefferson to Arlington District". Rowe stood for Arlington District that
-July and won it, the same office in his new district. The practice is in the
-primary record three times in eleven years, Tibbett Allen's being the third,
-and it is a custom rather than a qualification: nothing made a supervisor
-ineligible, and the men resigned.
-
-Allen's departure differs in how it was enforced. The Alexandria Gazette of
-3 September 1888 reports that "A rule was issued against Tibbett Allen to
-show cause why he should not be removed as supervisor of roads Jefferson
-District on account of non-residence", in the same sitting of the county
-court that removed every previously appointed policeman except Robert
-Walker; on 3 October it reports that "Judge Chichester yesterday, before the
-adjournment of the County Court, appointed Mr. Frank Hume supervisor of
-Jefferson district, in place of Tibbett Allen, resigned"
-(`alexandriagazette1888rule`, `alexandriagazette1888hume`). Allen was the
-Board's only Black member that year; Willson, whom the Gazette calls colored,
-takes the Washington seat in 1889, and Newman in 1988 is the next Black member
-after him. Schutt and Rowe went on their own
-and no process issued against either.
-
-The record does not support three things it would be easy to assume.
-
-First, the office named in the rule is not certain. "Supervisor of roads" is
-the Gazette's phrase, and the Code of 1887 ties district residence to the road
-surveyor (sec. 963), not to the Board seat (ch. 9 sec. 96) — while the seat is
-what fell vacant.
-
-Second, Freedman's Village cannot be the cause. The 1890 census puts it inside
-Arlington district, not Allen's Jefferson (`census1890`), so the clearing that
-began in December 1887 was emptying a settlement in another district.
-
-Third, Frank Hume is not simply the instrument of a purge. By 1890 he was
-running for Congress as an independent Democrat, and the Washington Bee
-endorsed him, writing that "he should receive the undivided colored vote
-because he is the colored man's friend" (`washingtonbee1890hume`). That is two
-years later, and it is no evidence about 1888.
-
-Where Allen lived is unknown, and no account of why the rule issued has been
-found. The episode reached no newspaper that took his side: the Washington
-Bee carries nothing on it in any issue from August to December 1888, the
-Richmond Planet has one digitized issue in all of 1888 and it is silent, the
-People's Advocate had ceased publishing by 1884, and the National
-Republican's digitized run ends in May 1888. What would settle it is the
-Alexandria County court order book for 1888, which would carry the rule and
-its disposition and name the policemen removed at the same sitting, and the
-Board's own minute books; neither is online (`allen-1888`).
-
-## Seats that changed hands
-
-### Squier, the control
-
-The same roster prints a fourth Jefferson-adjacent departure in Pendleton's
-year: Perkins W. Squier, Arlington district. A footnote in
-`arlhist1967officials` explains his term without ambiguity —
-"Postmaster of Alexandria City. Court declared seat vacant under the
-Virginia law prohibiting Federal employees from holding office in the
-State, and appointed a successor." Squier was White. Where Allen's rule
-alleged non-residence and was never brought to a disposition, Squier's
-removal named a statute and Squier held a second public office the statute
-reached; the Historical Society's own record, not a newspaper search, is
-what settles this one. The county court removed a White supervisor on a
-stated legal ground in the same window it moved against Allen on an
-unresolved one.
-
-The statute the court applied is the one that empties three more seats
-seventy years later. Virginia barred holders of federal office from state
-and county office in 1788, and the General Assembly added the clause making
-acceptance of a federal post *ipso facto* vacate the Virginia one by Acts of
-1883-84, ch. 145, approved 22 February 1884 and in force from its passage —
-five weeks before the county court seated Squier's successor. The Supreme
-Court of Appeals upheld that provision, by then Code of 1950 sec. 2-27, in
-*Dean v. Paolicelli*, declaring Alan L. Dean's seat vacant from the first day
-of January 1952 because he held a post at the Bureau of the Budget, and
-restraining the treasurer from paying him (`paolicelli1952`). The decision
-took the Board's whole Non-Partisan majority at once — Dean, Robert W. Cox
-and Daniel A. Dugan — so Arlington held four County Board contests on 4
-November 1952, the three unexpired terms and the seat Alfred E. Frisbie was
-leaving on 31 December (`dailysun1952appointees`). One provision reaches the
-Board at both ends of the period this report covers.
-
----
+No instrument required a supervisor to live in the district he represented
+until sec. 32 of the 1902 constitution, from 1903, so the seat places nobody
+before then and every place comes from a record. The reading of each
+constitution, act and Code behind that is in its entry in `paper/sources.bib`
+(`vaconstitution1869`, `vaacts1875`, `vacode1873`, `vacode1887`,
+`vaconstitution1902`), and the departures it bears on, Schutt's, Rowe's and
+Tibbett Allen's, are in `arlhist1967officials` and the Gazette entries; why
+Allen left is `allen-1888`.
 
 ## The roster
 
@@ -307,116 +174,11 @@ Bozman resigned the rest of her first term on 2 December 1977 (`sun1977bozman`);
 she held part of December, so the month stays hers and the year reads five
 seats.
 
-### What the law made the Board, and when a term ran
-
-**The constitution created the Board; the acts of 1870 stood it up.** The
-constitution framed in 1868 and ratified in 1869 divides every county into not
-fewer than three townships, has one supervisor elected annually in each, and
-provides that "The Supervisors of each township shall constitute the Board of
-Supervisors for that county" (art. VII sec. 2, `vaconstitution1869`). The
-mechanism is the constitution itself, not an enabling act. Three acts of the 1869–70
-session then made it exist in fact: ch. 39, approved 2 April 1870, has the
-governor appoint five commissioners in each county to lay it off into
-townships; ch. 76 sec. 14, approved 11 May 1870, has one supervisor chosen in
-each township at the May general election; and ch. 188 sec. 2, approved 11
-July 1870, repeats the constitutional sentence and gives the board a corporate
-name it can sue and be sued by (`vaacts1870`). That order is why the roster
-starts at the May 1870 election and not at ratification.
-
-**Townships became magisterial districts in 1875, without a change of unit.**
-The amendment to art. VII respecting county organization, agreed to 31
-March 1873 and ratified by the people 3 November 1874, struck the section
-dividing counties into townships and inserted one dividing them into
-magisterial districts instead, each electing one supervisor, three
-justices, one constable and one overseer of the poor (`vaacts1873amendment`,
-ch. 301 of the 1872–73 session). Ch. 76 of the 1874–75 session, approved 5
-February 1875, then declares the townships as they stood on the date of
-ratification to be the magisterial districts the amendment directs, keeping
-their boundaries, names and voting places; ch. 69, approved 2 February
-1875, makes "township" in any earlier statute read as those districts
-(`vaacts1875`). The conversion renames units Alexandria County already had,
-which is why the roster shows no seat-count change at that point.
-
-**Before 1870 the county court governed, and its justices were elected by
-district from 1852.** The 1851 constitution puts a County Court in each
-county, "held monthly, by not less than three nor more than five Justices",
-with the jurisdiction of the existing county courts, and lays each county off
-into districts in which the voters elect four Justices of the Peace for four
-years (art. VI secs. 25–27, `vaconstitution1851`). The administrative work is
-that court's: the Code of Virginia in force through the period has the county
-levy laid by the court of the county, made up annually in May or June "when a
-majority of the acting justices of the county is present" (ch. 53 secs. 1 and
-3), and the court held "by the justices of the county or corporation, or any
-four or more of them" (ch. 157 sec. 1, `vacode1860`). So the 1870 Board is the
-county's first elected governing body of this kind, and the elected element
-before it reached only the justices who composed the court. Both sources apply
-by their terms to every county and name none, so this is Alexandria County's
-arrangement by generality, not from a document about this county; nothing held
-says the county was treated as an exception.
-
-**The Board's name changed with its form.** Members elected by magisterial
-district were supervisors: the county's own returns print "Supervisor Jefferson
-District" for the election of 8 November 1927 (arlingtonelections2021 p.4), and
-Corbett's 1910 census occupation is "Supervisor, County". Arlington adopted the
-County Manager Plan by referendum on 4 November 1930 (rose1976 pp. 194-196:
-2,067 to 1,031 for a change of government, 1,936 to 428 for the Manager Plan
-over a Modified Commission Plan, 1,689 to 1,149 for election at large over
-election by district) and has operated under it since 1932;
-samuel2026 note 8 records that the Plan "appears to be the only county form of
-government that does not refer to its Board members as 'supervisors'". The
-name, the at-large method and the five seats therefore arrive together.
-
-**The Board won the power to appoint department heads in 1951, and 1952
-c. 443 bars its members from the appointments below it.** The Board appointed
-the department heads until 1937, when it delegated that power to the manager.
-It took the power back by resolution on 27 January 1951 (dailysun1951spicer),
-and on 20 March 1951 Judge McCarthy ruled for it on a petition for a
-declaratory judgment from Commonwealth's Attorney Denman T. Hucker: the Board
-had no right to relinquish the power in 1937, and a change could come only by
-amending the manager act (sun1951rulingboard). The police chief lay outside the
-ruling, because a special act gave that appointment to the manager and both
-sides agreed it was not at issue (sun1951rulingboard). That is the direction
-the *Daily Sun* gives on 19 July 1952 (dailysun1952petitions); its 28 November
-1951 line that the ruling overruled the Board over the police chief
-(dailysun1951policechief) is the one account that runs the other way, and the
-report of the day governs. By the winter the Board's advisory committee and the
-Arlington Civic Federation wanted the power returned to the manager
-(dailysun1951spicer), the new chairman named the same change among the bills he
-hoped for in January 1952 (star1952cox), and 1952 c. 198 put it to the voters
-(vaacts1952c198).
-
-c. 443 does not move that power. Enacted outright on 1 April 1952, it exempts
-"persons appointed by" the Board, and has the Board deal with the
-administrative services through the manager and the heads of departments
-"whom it may be empowered to appoint" (vaacts1952c443). What prompted it is not
-documented in anything held. It is in neither the League's proposals of 29
-September 1951 (dailysun1951institute) nor the delegation's bill list of 4
-December 1951 (dailysun1951bills), and the Board's friction with its manager
-that autumn (dailysun1951lundberg) is context, not a stated cause. No held
-report covers its introduction or passage, and the *Daily Sun*'s digitised run
-has no issue between 31 December 1951 and 22 April 1952. What would show who
-introduced S 431 and why is the Senate's journal for the 1952 session and the
-Board's own minutes for February and March 1952.
-
-**A separate County Attorney needed its own act, and its 1952 referendum was
-never called.** The League of Women Voters proposed a Board-appointed counsel
-apart from the Commonwealth's Attorney on 29 September 1951
-(dailysun1951institute), and 1952 c. 569 offered the voters a referendum on
-creating the office (vaacts1952c569); it was not among the seven questions on
-the 4 November 1952 ballot (dailysun1952lwv), so it was never held. Unlike the
-election-term referendum of the same 1952 package, reopened in 1954 and 1958
-(vaacts1954c151, vaacts1958c207), no later session is known to have reopened
-this one: the 1962 recodification carries the act forward essentially
-unchanged as sec. 15.1-680, still opening "in the year nineteen hundred
-fifty-two", and today's Title 15.2 chapter 7 carries no county attorney
-section the way its neighbors carry secs. 15.2-707 to 15.2-709
-(vaacts1962c623). Edmund D. Campbell was already acting as the Board's
-counsel in the autumn of 1952, before any such office existed
-(paolicelli1952), so his role rests on something other than this act.
+### When a term runs
 
 **When a term begins depends on the constitution in force.** Under the
 magisterial system elections were held in May and the winners took office on
-1 July following, so those terms run July to June (below). The 1902
+1 July following, so those terms run July to June. The 1902
 constitution moved county and district
 elections to November and seated their winners on 1 January following (sec.
 112, `vaconstitution1902`), so from the November 1903 election a term runs
@@ -445,295 +207,47 @@ makes it four years, so a November win closes four years on. O'Leary lists the
 board in 1907 and in 1915 and not in 1911; reading the 1907 winners through to
 1915 would put three named men in a seat for eight years on a source that
 speaks to four. Their terms close in January 1912, where the Historical
-Society's article picks the seats up (below). The note on such a row says the end is the statute's; where
+Society's article picks the seats up. The note on such a row says the end is the statute's; where
 the next listed election seats a successor on the same date the departure is
 sourced and carries no note.
 
-### The election section after 1962
+**The Board's year ran 1 July to 30 June through 1901.** Elected in November,
+start in January; elected in May, start in July. Being elected is not taking
+office, and the two halves rest on different things:
+`members_roster_oleary.seated()` carries the November half on
+`vaconstitution1902` sec. 112, and the May half on ch. 76 sec. 4 of the 1870
+acts: the term of "all corporation and township officers chosen at a general
+election ... shall commence on the first day of July next thereafter," and
+sec. 14 of the same chapter makes a supervisor a township officer, chosen at
+the May general election (`vaacts1870`). Every term block
+the article prints for 1870–1901 runs 1 July to 30 June. Its own footnote at
+1901 corroborates the arithmetic. The 1902 constitution moved the Board to
+four-year calendar terms, and "the extra six months of this Board covered the
+transition period" — a term running 1 July 1901 to 31 December 1903, which is
+thirty months on a July–June year and thirty-two on a May one. `BOARD_FROM`
+moves with it: the Board elected in May 1870 first sat on 1 July, so the three
+seats are empty for six months of 1870, not four.
 
-**The rules for electing members of the Board change at the edges after 1958,
-and the 1952 questions never return.** The section that opened with the
-referendum on biennial elections (§ 15.1-676 after the 1962 recodification,
-§ 15.2-705 today) is amended in 1975, 1993, 1997, 1998, 2014 and 2020
-(`vacode152705`), and none of the amendments reopens the 1952 package. No
-petition was filed in the 1958 window (`vaacts1958c207`), and nothing offers the
-voters a second chance.
+The article prints "township" through the block ending 30 June 1874 and
+"district" from 1 July 1874 on, four months before the amendment was ratified.
+The roster says districts throughout, and that is correct, not a
+simplification: ch. 76 sec. 1 of the 1874–75 acts, approved 5 February 1875,
+declares the townships as they stood on 3 November 1874 to be the magisterial
+districts, keeping their boundaries, names and voting places, and ch. 69 sec. 1
+directs that "township" in any earlier statute be read as the district
+(`vaacts1875`). Same lines, same three names. The townships began with the 1869
+constitution and did not predate 1870, so nothing is carried back across a
+boundary change that never happened.
 
-**1975 c. 636 replaces the vacancy rule.** Until then a vacancy was filled by a
-writ of election, held at the next regular November election when the term had
-a year or more to run, and the member so elected served the rest of the term
-(`vaacts1958c207`). Chapter 636, approved 24 March 1975, has the circuit judge
-call a special election for the remainder of the term, to be held not less
-than forty-five and not more than sixty days afterward; where the vacancy
-falls within 180 days of the term's end, the remaining members fill it by
-appointment within thirty days, after a public hearing (`vaacts1975c636`). A
-clause written for 1975 alone has the Board appoint, before 4 November, a
-person to hold the seat expiring on 31 December of that year from 5 November
-on, and lets the judge's appointee serve until that person qualifies. The act
-leaves the 1958 referendum paragraphs standing, apart from updated
-cross-references, and chapter 517 of the same session carries them through again
-(`vaacts1975c517`). The acts do not say why the rule changed.
+### The law behind the Board
 
-**By 1996 the referendum paragraphs are gone and the Board is elected at
-large.** The Code Commission's draft of the 1997 recodification prints the
-section as it then stood: it opens "in any county operating as of December 1,
-1993, under the county manager plan", provides for two members in November
-1995 and one each in 1994, 1996 and 1997, and sets four-year terms beginning on
-1 January, with no petition, no ballot question and no districts
-(`vacodecommission1997sd5`, p. 104). The history line names one act between 1975
-and 1997, 1993 c. 731, so that act made the change. Its text is not in a source
-held: the 1993 volume of the Acts is not in full view at HathiTrust and
-needs a law-library login.
-
-**1997 c. 587 moves the at-large sentence and repeals § 15.1-691.** The
-Commission draft folds the sentence "The members of the board shall be elected
-from the county at large" into § 15.2-705(A), relocated from § 15.1-691, and
-repeals § 15.1-691, which carried the 1930 text that abolished the magisterial
-districts and let the referendum choose districts or the county at large
-(`vacodecommission1997sd5`, pp. 104, 128; `vaacts1930c167`, sec. 2773-k). The
-draft calls the whole section "no substantive change in the law". The enrolled
-act, H 1667, prints only its title at the Legislative Information System, so
-the report is the text read.
-
-**Three later acts adjust the vacancy rule and add the ranked-choice option.**
-Chapters 345 (S 61) and 369 (H 396) of 1998, both approved 11 April, add to
-subsection C that the local electoral board announces the candidate filing
-deadline for the special election within three business days after the judge's
-call (`vaacts1998c345`, `vaacts1998c369`). Chapter 573 of 2014, approved 4 April,
-lengthens the window for the special election to between sixty and eighty days
-(`vaacts2014c573`). Chapter 713 of 2020, approved 6 April, adds to subsection B
-that the board may provide by ordinance for nomination or election by instant
-runoff voting, and adds § 15.2-705.1, which defines the method, authorizes it
-for the nomination and election of members in a county under the manager plan,
-and has the State Board of Elections write the rules; the Department of
-Elections' technology costs fall on the localities that choose it
-(`vaacts2020c713`).
-
-### What the County Code and the Board's own papers add to the split
-
-**The statute draws the line; the County's written rules for the Board and the
-Manager are few and mostly procedural.** The 1930 act has the Board appoint a
-manager, who holds the county's administrative and executive powers and
-"the power of appointment of all officers and employees whose appointment or
-election is not otherwise provided by law", while the Board may not change a
-budget allocation without the manager's recommendation and may not move any
-allocation by more than ten per cent (`vaacts1930c167`, secs. 2773-g and
-2773-h). The County Code restates the Manager's half of it in one place, Chapter 6, and
-the rest of its chapters show the Manager as the officer who runs permits and
-enforcement. None of them sets rules for how a Board member deals with the
-Manager's staff; that rule is § 15.2-703 and nothing else (`vaacts1962c623`).
-
-**Chapter 6 gives the Manager the County's hiring and firing and keeps the
-Board to the pay plan.** The chapter's authority is § 15.2-721; the Board
-created the Civil Service Commission under it on 15 June 1951
-(`arlingtoncode6civilservice`, § 6-1). The Commission has five members, qualified voters with
-management or public-affairs experience who may hold no paid County
-employment, candidacy or party office while serving; the Board appoints them
-for four-year terms, reconsiders its choice of chair at its first meeting each
-year, and removes a member only "for good cause shown by a majority vote",
-after a written statement and a public hearing (§§ 6-2, 6-3, 6-5, 6-7). The Commission advises the Board, the Manager and the
-Director of Personnel on policy and hears appeals; its finding on a
-disciplinary appeal "shall be binding", and it may order back pay (§§ 6-8,
-6-18). The Manager, not the Board, "appoint[s] and, when necessary for the good
-of the service, remove[s] employees in the competitive service", appoints the
-Director of Personnel, and adopts the administrative regulations, which take
-effect "when approved by the Manager" after the Commission has reviewed a
-draft (§§ 6-10, 6-11, 6-15). The chapter sorts every employee into one of three
-services. The competitive service is every position under the Manager's control
-and appointed by him; the executive management service, which the Code created
-on 15 June 2003 (Ord. No. 03-15), is the Deputy and Assistant County Managers,
-the department directors and the legislative liaison, who "serve at the will of
-the County Manager" and fall outside the merit rules; and the noncompetitive
-service is the Board's members, the other elected officials, the County
-Manager, the County Attorney, the Clerk to the County Board, "heads of
-departments whose appointment is vested by law in the County Board", and the
-staffs of the constitutional officers (§ 6-14). The Manager is
-himself outside the merit rules, and nothing in the chapter gives his office a
-term or a ground for removal. The Board's share is the pay plan. The Manager
-forwards the plan with the Commission's comments, the Board approves it, and
-the Board "shall not increase or decrease any salaries of individual members of
-the competitive service" (§ 6-20); the Board also approves the classification
-system (§ 6-19) and decides, by appropriation, whether the housing and retiree
-medical benefits are paid (§§ 6-28, 6-29).
-
-The chapter reaches the Board's own seats in three places. A County employee
-elected to a Board seat must resign on taking office, and a department director
-or an employee in the Offices of the Manager or the County Attorney must resign
-on becoming a candidate (§ 6-23). Collective bargaining runs through the
-Manager, who names the County's negotiators in his "sole discretion"; a
-tentative agreement binds the County only after a fiscal impact study, a public
-hearing and a Board resolution committing to fund it, and the resolution "remains
-subject to actual appropriation" (§ 6-30). Where a non-binding arbitration
-award is not implemented, the Manager explains why "at the next meeting of the
-County Board". The copy held is the Code as updated in July 2023.
-
-**The County Attorney's office rests on a general statute, not on the manager
-plan and not on the Code.** The 1952 act that would have created the office
-for a county under the plan was a referendum that never took place
-(`vaacts1952c569`, `vaacts1962c623`). Chapter 695 of 1968, approved 5 April,
-added § 15.1-9.1:1 for every county: "the governing body of any county may
-create the office of county attorney", appointed "to serve at the pleasure of
-the governing body" at a salary the body fixes, with the Commonwealth's
-attorney relieved of civil advice, ordinances and civil suits, and the county
-attorney "accountable to the governing body" (`vaacts1968c695`). No vote of the
-people is required. It survives as § 15.2-1542 (`vacode1521542`). No chapter of
-the County Code creates the office. Chapter 6 puts the County Attorney in the
-noncompetitive service beside the Manager and the Clerk to the County Board,
-sends his employees through the merit rules with their own appointing authority
-and the Commission's jurisdiction, and counts his office among the
-"confidential" ones for collective bargaining and among the Group 2 offices for
-political activity (`arlingtoncode6civilservice`, §§ 6-14, 6-17, 6-23, 6-30). The Board appointed Ryan Samuel by a
-4-0 vote at a special meeting on 2 December 2025, and the office reports to the
-Board, not the Manager (`arlnow2025countyattorney`, `arlingtonva2025samuel`).
-The resolution that made the appointment is not in a source held, and
-§ 15.2-1542 is the only authority found for it.
-
-**The Independent Policing Auditor moved from the Manager to the Board in 2026,
-and the state act came first.** Chapter 372 of the 2026 Acts, approved 8 April,
-added § 15.2-709.3: the board of a county under the manager plan "may appoint an
-independent policing auditor to support any law-enforcement civilian oversight
-body", who has the oversight body's powers "to the extent such powers are
-delegated", may have staff "independent of the administrative staff of the
-county", and "shall serve at the pleasure of the board" (`vaacts2026c372`). The
-Board followed with Ordinance No. 26-12, adopted 13 June 2026 and effective 1
-July, which Chapter 69, the 2021 chapter that created the Law Enforcement
-Community Oversight Board, names as the history of every section but four.
-Section 69-11 now reads
-"The County Board shall hire an Independent Policing Auditor", on the basis of
-merit and at the existing pay scales, in an office outside any Police
-Department facility, to "serve at the pleasure of the County Board"; § 69-12(k)
-carries the oversight board's delegated powers to the auditor, as the statute
-does (`arlingtoncode69oversight`). The Manager keeps three places in the
-chapter: he signs the memorandum of understanding between the oversight board
-and the Police Department with its chair, the auditor and the Police Chief
-(§ 69-2(c)); the Police Department withholds records tied to an open matter
-until it is completed or the Manager determines that release will not
-compromise it (§ 69-8(c)); and when the auditor cannot get a witness or record
-from the Department, the Manager decides within four business days whether to
-require it, may not deny the request "unreasonably", and if he does deny it the
-oversight board may by a two-thirds vote have the auditor apply to the Arlington
-Circuit Court for a subpoena (§ 69-9). Any dispute over what the chapter means among the
-oversight board, the Police Chief, the auditor and the Manager is the Board's to
-settle with the County Attorney, and its decision "shall be final" (§ 69-13).
-ARLnow reports the change and that the Board approved the auditor's employment
-agreement in August (`arlnow2026policingauditor`); the amendment's wording is
-in the chapter, but the ordinance's staff report and the agreement are not in a
-source held, and the text of §§ 69-11 and 69-12 before the amendment is not
-either, so what the Manager's hand in the office was before 1 July is known only
-from the press.
-
-**The County Auditor is the Board's by a statute older than the Policing
-Auditor's.** Section 15.2-709.2, added in 2015 (c. 282), lets the board of a
-county under the plan appoint a county auditor "for the audit and review of
-county agencies and county-funded functions", with the power to review
-performance and make "such special studies and reports as the board directs";
-the auditor serves at the board's pleasure, and a removal "shall not be subject
-to review by any other employee, agency, board, or commission of the county" or
-to the grievance procedure (`vacode1527092`). The Policing Auditor's statute
-copies the staffing and pleasure language of this one. Chapter 6 does not name the County Auditor; the office falls under "heads of
-departments whose appointment is vested by law in the County Board" only on the
-reading that § 15.2-709.2 is that law.
-
-**The Audit Committee gives the Board a channel to the Manager, not around the
-office.** Its charter seats the County Manager and the Director of Management
-and Finance with two Board members, who co-chair, and says its creation "is not
-intended to materially alter the responsibility and authority of either the
-County Board, OCA, or the County Manager". The committee advises the Manager on
-the resources the County Auditor's office needs before the proposed budget,
-gives feedback on the Board's annual review of the County Auditor, and, when it
-wants staff to explain corrective action, "may request that the County Manager
-direct staff" to attend (`arlingtonva2025auditcharter`).
-
-**The Board appropriates by department, and the Manager moves money within one.**
-The FY 2027 appropriations resolution lists the County Board, County Manager,
-County Attorney and the other departments with an amount each, returns any
-general-fund surplus to the General Fund and carries unspent capital and
-restricted balances forward; it contains no transfer clause. The budget's own
-glossary supplies the rule: "the County Manager has the authority to approve
-transfer of funds within a department or agency"
-(`arlingtonva2026budgetresolution`). Against the 1930 act, which forbids any
-change in an allocation without Board approval, that is a delegation to the
-Manager; the sources held do not show when it was made. The Financial and Debt
-Management Policies, updated in 2024, reserve to the Board any draw on the
-operating or self-insurance reserve and any use of the contingent, and have the
-Manager submit the ten-year Capital Improvement Plan every two years
-(`arlingtonva2024debtpolicies`).
-
-**The Purchasing Resolution keeps large construction contracts with the Board.**
-"No contract for a capital construction improvement project or professional
-services related to a capital construction improvement project that exceeds
-$1,000,000 shall be awarded without the approval of the County Board", in the
-July 2025 text of a resolution first adopted in December 1982
-(`arlingtonva2025purchasingresolution`).
-
-**The Chair controls the agenda, and the Manager drafts it.** Under the Board's
-2026 meeting procedures the Manager prepares a list of proposed items about
-two weeks before a regular meeting, the Chair approves the agenda, and a Board
-member adds an item by writing to the Chair eight days ahead. The Manager may
-recommend items for the consent agenda "with the consent of the County Board
-Chair" (`arlingtonva2026procedures`).
-
-### Where the 1930 act's text comes from
-
-**The 1930 act matches neither model it could have followed.** Chapter 167 of the
-1930 session, approved 20 March 1930 [H B 342], adds chapter 109-a to the Code
-with two optional forms for a county of 500 or more people to the square mile,
-a "modified commission plan" and the "county manager plan", chosen with the
-question of at-large or district election at a single referendum on the
-petition of two hundred voters (`vaacts1930c167`). Gilbertson's *The County*
-(1917) prints a county manager bill introduced in the New York legislature
-(Appendix D) and argues the plan in chapter form (`gilbertson1917county`). The
-act shares no run of eight words with Appendix D and two with the whole book;
-against the National Municipal League's 1916 Model City Charter it shares four
-(`nml1916modelcharter`). The phrases that recur are generic ones ("need not be
-a resident", "elect one of its members as chairman", "a majority of those
-voting thereon"). The text the act does carry is its own: section 2773-f, on the
-five-member board, the chairman "with a vote but no veto" and the manager who
-"need not be a resident of the county or of the State", reappears in the Code
-Commission's draft of § 15.2-702 with "Commonwealth" for "State"
-(`vacodecommission1997sd5`, p. 102), so the phrasing the Code still carries
-is the 1930 act's.
-
-**The carve-out that lets a council discuss appointments with its manager is
-not in the Model City Charter before 1958.** The three editions between 1916
-and the Richland charter each carry the clause on council interference and none
-has a sentence letting the council discuss appointments. The revised edition of
-1927, sec. 48, bars the council, its committees and members from directing or
-requesting an appointment or removal "or in any manner" taking part in it, and
-makes a violation a misdemeanor that forfeits the office
-(`nml1927modelcharter`, printed p. 34). The fifth edition of 1941, a complete
-revision, keeps the same bar in sec. 11, adds that a councilman who votes for
-a resolution or ordinance in violation of it is guilty of the misdemeanor, and
-also has no such sentence (`nml1941modelcharter`). The League's 1957 imprint of
-the fifth edition reads sec. 11 in the same words (`nml1957modelcharter`).
-Richland's charter of 1958 then adds the sentence to the same clause
-(`richland1958charter`), so the carve-out is Richland's or a source between
-1957 and 1958 that is not held, and it is not the League's text before then.
-Each edition's page is filed as a transcript of the text layer HathiTrust
-serves, and only the page with the clause. The 1933 edition (HathiTrust
-`uiug.30112106251876`) and the League's 1948 revision are not read; no sentence
-in 1927, 1941 or 1957 suggests the clause changed between them.
-
-**Whether Arlington was the first county to adopt the form by popular vote is
-unconfirmed from the sources held.** The Arlington Historical Society's
-account calls it "the first county in the United States to adopt by popular
-vote any kind of a County Manager system" without naming a source, and
-nothing held covers the North Carolina counties that adopted the form after
-1927.
-
-### What remains unread
-
-The 1993 act (c. 731) is not read: HathiTrust does not show the volume in full
-view and the Acts for 1993 need a law-library login. Wager's *County
-Government Across the Nation* (1950), which covers the North Carolina counties
-that adopted the form after 1927, is unread and needs a library copy, so the
-first-county claim is open; so are the North Carolina session laws for
-the counties that adopted it, which would say whether any did so by act or by
-vote. The Manager's employment agreement and the Board's real-estate signing
-authority are not in a source held; the County would have to supply the
-agreement and whatever resolution lets the Manager sign deeds and leases.
-Ordinance No. 26-12's staff report and the Policing Auditor's agreement are the
-County's too.
+How the constitutions, acts, the County Code and the Board's own papers made
+the Board and divide its work with the Manager is the report's, in Part A, and
+each source's reading is in its entry's `annotation` in `paper/sources.bib`.
+What is not held is tracked: `law-library-access` for 1993 c. 731,
+`county-code-board-manager` for the County's papers, and
+`county-manager-statutes-other-states` for whether Arlington was the first
+county to adopt the plan by vote.
 
 ### The article and the other sources, 1870 to 1931
 
@@ -778,36 +292,6 @@ resignation, and Washington in January 1920, after Clarence R. Ahalt, elected
 to it, moved from the district before the term began. A gap anywhere else
 stops the build, and so does filling one of these.
 
-### When the Board's year ran
-
-**The Board's year ran 1 July to 30 June through 1901.** Elected in November,
-start in January; elected in May, start in July. Being elected is not taking
-office, and the two halves rest on different things:
-`members_roster_oleary.seated()` carries the November half on
-`vaconstitution1902` sec. 112, and the May half on ch. 76 sec. 4 of the 1870
-acts: the term of "all corporation and township officers chosen at a general
-election ... shall commence on the first day of July next thereafter," and
-sec. 14 of the same chapter makes a supervisor a township officer, chosen at
-the May general election (`vaacts1870`). Every term block
-the article prints for 1870–1901 runs 1 July to 30 June. Its own footnote at
-1901 corroborates the arithmetic. The 1902 constitution moved the Board to
-four-year calendar terms, and "the extra six months of this Board covered the
-transition period" — a term running 1 July 1901 to 31 December 1903, which is
-thirty months on a July–June year and thirty-two on a May one. `BOARD_FROM`
-moves with it: the Board elected in May 1870 first sat on 1 July, so the three
-seats are empty for six months of 1870, not four.
-
-The article prints "township" through the block ending 30 June 1874 and
-"district" from 1 July 1874 on, four months before the amendment was ratified.
-The roster says districts throughout, and that is correct, not a
-simplification: ch. 76 sec. 1 of the 1874–75 acts, approved 5 February 1875,
-declares the townships as they stood on 3 November 1874 to be the magisterial
-districts, keeping their boundaries, names and voting places, and ch. 69 sec. 1
-directs that "township" in any earlier statute be read as the district
-(`vaacts1875`). Same lines, same three names. The townships began with the 1869
-constitution and did not predate 1870, so nothing is carried back across a
-boundary change that never happened.
-
 ## Seat-years
 
 `data/clean/members_by_year.csv` is one row per year from 1870: seats
@@ -819,7 +303,9 @@ the election dates others — so the month is the unit, and **the handover month
 belongs to the incoming member** (Sally). An end no source
 records holds to the end of the term's first year. Both rules are applied once,
 in `held_from` and `held_to` on `members.csv`; the seat-years and the figures
-of who was sitting on 1 July read those columns, not the dates.
+of who was sitting on 1 July read those columns, not the dates. Prorating within a
+month would be more exact and would make a seat-year a fraction of a month,
+which nothing else here counts below.
 
 The denominator is the months the Board existed that year, which is twelve for
 every year but its first. Arlington's Board came into existence at the May
@@ -850,55 +336,18 @@ which would make the growth figure depend on the roster, is open.
 
 ## The chair
 
-The Board elects its chair and vice-chair from among its own members at its
-first meeting of the year, which the roll dates to the first days of January
-(`arlingtonva2026members`). The statute, `vacode2020chairelection`, enacted in 1997,
-lets a governing body set the officer's term, makes it one year where none is
-set and allows successive terms, so nothing in law gives the chairship to a
-member in the year the seat is up. `data/clean/members_chairs.csv` holds the
-chair of every year from 1932 and the vice-chair from 1967, read off the
-county's roll (`arlingtonva2026members`), and the table is kept out of
-`members.csv`, where every row is a term.
-
-**The custom is succession, not the ballot.** The ARLnow report of the January
-2026 meeting says the new vice-chair, Maureen Coffey, "will rotate in as chair
-in 2027, assuming all goes as is typical" (`arlnow2026chair`). Since 1990 the
-roll bears that out: each year's vice-chair is the next year's chair, and the
-four breaks each have a reason in the Board's own membership. James B. Hunter III took the chair
-in 1996 ahead of Ellen Bozman, the vice-chair, who took it in 1997; Charles Monroe, vice-chair
-in 2002, left the Board in January 2003; J. Walter Tejada's term ended in
-December 2015; and Erik Gutshall, vice-chair in 2020, left the Board that April.
-Between the first vice-chair in 1967 and 1989 the vice-chair was often passed
-over: A. Leslie Phillips and Jay E. Ricks held the office and never chaired.
-
-The test the custom was first put as, that a member chairs in the year the
-seat is up, fails. Jay Fisette chaired in 2010 and 2014, each the first year of
-a term he had just won, and Katie Cristol in 2018 and 2022, the third year of
-hers. The five-member Board gives each member a turn about every fifth year
-whatever the election calendar says, and the long gaps, Bozman from 1976 to
-1983 and Whipple from 1986 to 1994, are members the order skipped over, not
-members waiting for a ballot.
-
-Before 1967 the roll names no vice-chair and the chair changes almost every
-year. The years that break the pattern are the Board's own crises: Lyman
-Kelley was removed in November 1934, a court removed the chairman in September
-1952, Elizabeth Magruder resigned the chair in March 1947, and Eisenberg resigned
-his in February 1999. Magruder alone chaired three years running, 1938 to 1940;
-Harry Fellows, Wesley Cooper and Bozman chaired two. No source found reports a
-chair election contested on the floor: the County's releases and ARLnow for 2025
-and 2026 report none, and the press before them is unread (ProQuest).
-
-Members of colour who served a full term took the chair in turn: William
-Newman in 1991, the fourth year of his first term, Walter Tejada in 2008 and
-2013, Christian Dorsey in 2019 and 2023. The members who never chaired are those
-the order never reached, the part-term members, among them Gutshall and Monroe,
-each of them vice-chair when they left.
+`data/clean/members_chairs.csv` holds the chair of every year from 1932 and the
+vice-chair from 1967, read off the county's roll (`arlingtonva2026members`), and
+is kept out of `members.csv`, where every row is a term. The Board elects both
+at its first meeting of the year, and nothing in law ties the chair to a seat's
+election year (`vacode2020chairelection`); since 1990 the custom is succession,
+each vice-chair the next year's chair (`arlnow2026chair`).
 
 **A figure of chair-years by race and gender is not built.** Because the chair
-follows the vice-chair, who follows the order of the Board, chair-years by race
-and gender would repeat the seat-years figures with a year's delay. The report
-can state the first Black chair, Newman in 1991, and the first woman to chair in the roll, Magruder
-in 1938, in a sentence of prose.
+follows the vice-chair, who follows the order of the Board, it would repeat the
+seat-years figures with a year's delay. The first Black chair, Newman in 1991,
+and the first woman to chair in the roll, Magruder in 1938, are a sentence of
+prose.
 
 ## Where members lived
 
