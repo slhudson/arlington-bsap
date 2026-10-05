@@ -257,6 +257,9 @@ the later parts run on while they are short (`\sectionbreaksfalse` in the preamb
 Source (Urban's form). Notes only when a reader needs them. Two type sizes, 11 and 9.
 Paragraphs are not indented; a line of space separates them (4 October 2026).
 
+**Banned in `paper/`: "the record".** It is the build's shorthand for what the sources
+show (Sally, 4 October 2026). Name the source, the census, the press or the evidence.
+
 **Citations.** A footnote is the citation and the page, nothing else: a bib `note` prints
 in the footnote, so commentary goes in `annotation` (`cite.py --note` does this). No
 URL or access date in a footnote. Adjacent notes are one note or take `\fnsep`.
