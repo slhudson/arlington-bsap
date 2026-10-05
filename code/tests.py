@@ -2380,6 +2380,10 @@ def run_one(name):
     """Run one test in a worker process: (name, None) if it passed, else
     (name, what it said). A test that raises anything but an AssertionError
     is a failure too, reported with its traceback."""
+    # run.sh exports RUN_STARTED, which makes a clean table older than the run
+    # an error, and the tests run before the clean stage rewrites them. The
+    # one test of that guard sets it for itself.
+    os.environ.pop("RUN_STARTED", None)
     try:
         globals()[name]()
         return name, None
