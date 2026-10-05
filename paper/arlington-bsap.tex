@@ -111,15 +111,10 @@
 % sources.bib is the registry the data shares: the `source` columns in
 % data/clean/ hold citekeys from it, and bash run.sh refuses to build if one
 % of them names an entry that is not here.
-\usepackage[notes, backend=biber]{biblatex-chicago}
+\usepackage[notes, backend=biber, backref=true]{biblatex-chicago}
 \addbibresource{sources.bib}
 
-% A footnote names the source and the page; the web address and the access date
-% appear only in the bibliography.
-\AtEveryCitekey{\clearfield{url}\clearfield{urldate}\clearfield{urlyear}\clearfield{urlmonth}\clearfield{urlday}}
-
-% The bibliography keeps the web address and drops the access date.
-\AtEveryBibitem{\clearfield{urldate}\clearfield{urlyear}\clearfield{urlmonth}\clearfield{urlday}}
+\input{bibstyle}
 
 % The paper includes the PDF versions; figures/png/ is for slides and email.
 \graphicspath{{../figures/pdf/}}
@@ -1296,6 +1291,7 @@ the archive delivered to the County.
 \rosterinput members_roster.tex
 
 \clearpage
-\printbibliography[title={Works Cited}]
+\printworkscited{Works Cited}
+\printauthorities
 
 \end{document}

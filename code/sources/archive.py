@@ -157,6 +157,38 @@ def kind(e):
     return "reports"
 
 
+# Words a headline-style title (Chicago 8.159) leaves lower case unless they
+# open the title or follow a colon.
+SMALL_WORDS = {"a", "an", "the", "and", "but", "or", "for", "nor", "of", "in", "on", "at",
+               "to", "by", "up", "as", "from", "with", "over", "into", "onto", "upon",
+               "off", "per", "via", "than", "through", "without", "among", "between"}
+
+
+def headline_case(title):
+    """A title in headline style: the small words lower case, every other word
+    upper case, a word that is already all capitals or has capitals inside it
+    (UPDATED, InsideNoVa) left alone, and the first word and the first after a
+    colon or semicolon always capitalised."""
+    out, opening = [], True
+    for tok in re.split(r"(\s+)", title):
+        if not tok.strip():
+            out.append(tok)
+            continue
+        pre, core, post = re.match(r"^([^A-Za-z0-9]*)(.*?)([^A-Za-z0-9]*)$", tok).groups()
+        small = core.lower() in SMALL_WORDS
+        if not core or core[0].isdigit() or (core != core.lower() and core != core.capitalize() and not small):
+            new = core
+        elif core.isupper() and len(core) > 1 and not small:
+            new = core
+        elif opening or not small:
+            new = core[0].upper() + core[1:]
+        else:
+            new = core.lower()
+        out.append(pre + new + post)
+        opening = bool(re.search(r"[:;?!]$", tok))
+    return "".join(out)
+
+
 # --- reading ------------------------------------------------------------------
 
 # An outlet as a filename wants the paper, not how we reached it or where it
@@ -352,6 +384,13 @@ def legal_subfolder(e, base):
         return f"legal/{whose} constitutions"
     if CHARTER.search(plain(e["title"])):
         return f"legal/{whose} charters"
+    # An act cited as "Act of <date>" has no "An act" or "Acts of" in its title,
+    # so the sheet's own forms are read from the type: biblatex-chicago's
+    # entrysubtype says a constitution, and any other legislation is a statute.
+    if e.get("entrysubtype") == "constitution":
+        return f"legal/{whose} constitutions"
+    if e["type"] == "legislation":
+        return f"legal/{whose} statutes"
     sys.exit(f'legal copy "{base}" is not an opinion, a statute, a constitution '
              f'or a charter: '
              f'file it under another kind, or name what it is in archive.legal_subfolder()')

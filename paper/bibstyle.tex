@@ -1,0 +1,54 @@
+% How a citation prints, shared by the report and its timelines so the two
+% cannot differ. The rules themselves are in docs/repository.md, "The
+% bibliography's style sheet".
+
+% A footnote names the source and the page; the web address and the access date
+% appear only in the bibliography.
+% How a law is dated: a case by its year, whatever day it was decided; an act or
+% a constitution not at all, since its title already carries the date.
+\newcommand{\legaldates}{%
+  \ifentrytype{jurisdiction}{\clearfield{month}\clearfield{day}}{}%
+  \ifkeyword{datedintitle}{\clearfield{date}\clearfield{year}\clearfield{month}\clearfield{day}}{}}
+
+\AtEveryCitekey{%
+  \clearfield{url}\clearfield{urldate}\clearfield{urlyear}\clearfield{urlmonth}\clearfield{urlday}%
+  \legaldates}
+
+% The bibliography keeps the web address and drops the access date.
+\AtEveryBibitem{%
+  \clearfield{urldate}\clearfield{urlyear}\clearfield{urlmonth}\clearfield{urlday}%
+  \legaldates}
+
+% Primary law is cited in the notes and kept out of the Works Cited; it is listed
+% once, with the pages that cite it, in the Legal Authorities after it
+% (docs/repository.md). biblatex-chicago skips these types in any list unless told
+% not to, and \printworkscited then leaves them out by type. The documents load
+% biblatex-chicago with backref=true, which is what supplies the pages.
+\ExecuteBibliographyOptions[jurisdiction,legislation]{skipbib=false}
+\defbibfilter{constitutions}{type=legislation and subtype=constitution}
+\defbibfilter{statutes}{type=legislation and not subtype=constitution}
+
+% "Cited on page 8" after an authority, in its own sentence.
+\renewbibmacro*{pageref}{%
+  \iflistundef{pageref}{}{%
+    \setunit{\addperiod\addspace}%
+    \printtext{\ifnumgreater{\value{pageref}}{1}{\bibstring{backrefpages}}{\bibstring{backrefpage}}%
+      \ppspace\printlist[pageref][-\value{listtotal}]{pageref}}}}
+\DefineBibliographyStrings{english}{backrefpage={Cited on page},backrefpages={Cited on pages}}
+
+% The sources a reader looks up: everything but the law, without the pages.
+\newcommand{\printworkscited}[1]{%
+  {\renewbibmacro*{pageref}{}\printbibliography[title={#1},nottype=jurisdiction,nottype=legislation]}}
+
+% The law: cases by name, constitutions and then statutes by date (a
+% legislation entry's sorttitle is its date).
+\newcommand{\printauthorities}{%
+  \clearpage
+  \printbibheading[title={Legal Authorities}]%
+  \printbibliography[heading=subbibliography,title={Cases},type=jurisdiction]%
+  \printbibliography[heading=subbibliography,title={Constitutions},filter=constitutions]%
+  \printbibliography[heading=subbibliography,title={Statutes},filter=statutes]}
+
+% A case name is italic, in the notes and in the table.
+\DeclareFieldFormat[jurisdiction]{title}{\mkbibemph{#1}}
+\DeclareFieldFormat[jurisdiction]{shorttitle}{\mkbibemph{#1}}

@@ -2107,12 +2107,44 @@ def test_a_source_note_is_filed_in_the_annotation_not_the_footnote():
     a = types.SimpleNamespace(
         key="k", url="https://example.org/x.pdf", author="A", title="T", organization="",
         journal="", location="", date="2026", note="The page says seven members.",
-        cite_note="", how="", copy=None, type="online")
+        cite_note="", how="", copy=None, type="online", pages="", field=[])
     entry = cite.entry_text(a, "A 2026 - T.pdf", "documents")
     assert "\n  note " not in entry, "the reading is filed as a note, which prints in the footnote"
     assert "The page says seven members." in entry
     a.cite_note = "Vol. 3, no. 4"
     assert "note        = {Vol. 3, no. 4}" in cite.entry_text(a, "A 2026 - T.pdf", "documents")
+
+
+def test_cite_writes_entries_the_style_sheet_accepts():
+    """What cite.py appends is held to the same sheet as an entry written by
+    hand, so a new source does not start life failing test_every_cited_entry_
+    is_complete: an unsigned newspaper piece (no author, a braced sortname, a
+    masthead without The, a headline-style title), the same read online with no
+    page, a case and an act (no author, the sovereign in organization)."""
+    import types
+    base = dict(key="k", url="https://example.org/x", author="", title="T", organization="",
+                journal="", location="", date="2026-01-02", note="Says so.", cite_note="",
+                how="", copy=None, type="online", pages="", field=[])
+
+    def made(**change):
+        a = types.SimpleNamespace(**{**base, **change})
+        e = archive.entries(cite.entry_text(a, "x.pdf", "press"))[0]
+        return e, incomplete(e)
+
+    e, problems = made(type="article", journal="The Daily Sun", location="Arlington, Va.", pages="1",
+                       title="City charter for Arlington soundly beaten")
+    assert problems == [], problems
+    assert e["journaltitle"] == "Daily Sun" and e["sortname"] == "{Daily Sun}" and "author" not in e
+    assert e["title"] == "City Charter for Arlington Soundly Beaten"
+    e, problems = made(type="article", journal="Sun Gazette", location="Arlington, Va.")
+    assert problems == [], problems
+    assert e["entrysubtype"] == "magazine"
+    e, problems = made(organization="ARLnow", title="Board votes 1952-1954")
+    assert "sortname" in e and "--" in e["title"]
+    e, problems = made(type="jurisdiction", author="Commonwealth of Virginia", title="Bennett v.\\ Garrett",
+                       field=["journaltitle=Va.", "volume=132", "pages=397"])
+    assert problems == [], problems
+    assert "author" not in e and e["organization"] == "Commonwealth of Virginia"
 
 
 def test_a_paper_build_that_lost_something_is_refused():
@@ -2310,31 +2342,40 @@ def cited_keys():
     return cited
 
 
-# What a footnote may carry in `note`: a page, a volume, a reporter citation.
-# The longest of those is "132 Va. 397, 112 S.E. 772 (Supreme Court of Appeals
-# of Virginia, 1922)"; a sentence of commentary is longer than any of them.
+# What a footnote may carry in `note`: a page, a volume, a short citation. The
+# longest of those is a few words; a sentence of commentary is longer than any
+# of them.
 NOTE_LIMIT = 80
-REPORTER = re.compile(r"\d+\s+(?:Va\.|S\.E\.|U\.S\.|F\.)[\w. ]*\s+\d+")
 # An entry that lacks a field the copy does not give says so in its annotation.
 NO_PAGE = re.compile(r"\bcopy (?:gives|shows|prints) no page", re.I)
 NO_DATE = re.compile(r"\bpage (?:gives|shows|prints) no date", re.I)
 
-
 def incomplete(e):
-    """What a cited entry lacks that its type needs, as a list of sentences;
-    empty when it is complete. A newspaper piece, an online piece, a report, a
-    thesis, a legal case and a book each print differently, so each needs a
-    different field: a paper's name, place, date and page; or who published a
-    page and when; or an institution; or a school; or a reporter citation; or a
-    publisher and a year."""
+    """What a cited entry lacks that the bibliography's style sheet requires of
+    its kind, or carries that the sheet forbids, as a list of sentences; empty
+    when the entry follows the sheet (docs/repository.md, "The bibliography's
+    style sheet"). A newspaper piece, an online piece, a report, a thesis, a
+    case, an act and a census record each print differently, so each needs
+    different fields and refuses different ones."""
     t, ann, note = e["type"], e.get("annotation", ""), archive.plain(e.get("note", ""))
     has = lambda *fields: any(e.get(f, "").strip() for f in fields)
-    need = []
-    if t == "article" and archive.kind(e) == "press":
+    kind = archive.kind(e)
+    need, out = [], []
+    press = t == "article" and kind == "press"
+    if press:
         # An unsigned piece has no author: the paper prints once, as journaltitle.
         need += [f for f in ("title", "journaltitle", "location", "date") if not has(f)]
         if not has("pages") and not NO_PAGE.search(ann):
             need.append("pages (or an annotation saying the copy gives no page)")
+        if not has("pages") and has("url") and e.get("entrysubtype") != "magazine":
+            out.append("has a url and no page: entrysubtype = {magazine}, or the footnote, which drops "
+                       "the url, ends in a comma")
+        if re.match(r"The\s", archive.plain(e.get("journaltitle", ""))):
+            out.append("has a masthead that opens with The, which Chicago drops: Sun, not The Sun")
+        for f in ("volume", "number", "issue", "note"):
+            if has(f):
+                out.append(f"has {f}, which a newspaper piece does not carry: "
+                           f"the date and the page find it, and the rest goes in annotation")
     elif t == "article":
         need += [f for f in ("author", "title", "journaltitle", "date") if not has(f)]
     elif t == "online":
@@ -2343,26 +2384,78 @@ def incomplete(e):
             need.append("an organization or an author")
         if not has("date") and not NO_DATE.search(ann):
             need.append("date (or an annotation saying the page gives no date)")
+        if re.search(r"\bvia\b", e.get("organization", "")):
+            out.append("names a host as well as the outlet (\"via\"): cite the paper that wrote the piece "
+                       "as an @article, or the site as the organization, and the url says where it was read")
     elif t == "report":
         need += [f for f in ("title", "date") if not has(f)]
         if not has("institution", "author"):
             need.append("an institution or an author")
+        if has("organization"):
+            out.append("has organization, which a report does not print: the publisher is the institution")
+        if has("author", "institution") and archive.plain(e.get("institution", "\0")) in archive.plain(e.get("author", "")):
+            out.append(f"has {archive.plain(e['institution'])!r} as institution and inside its author, "
+                       f"which prints twice; the institution is a publisher that differs from the author")
     elif t in ("phdthesis", "mastersthesis", "thesis"):
         need += [f for f in ("author", "title", "date") if not has(f)]
         if not has("institution", "school"):
             need.append("a school")
+        if has("url") and re.fullmatch(r"https?://[^/]+/?", e["url"].strip()):
+            out.append("has a url that is the repository's home page, not the document: use its handle")
     elif t == "book":
         need += [f for f in ("author", "title", "publisher") if not has(f)]
         if not has("date", "year"):
             need.append("a year")
-    elif t == "jurisdiction" or (t == "misc" and re.search(r" v\. ", e.get("title", ""))):
+    elif t == "jurisdiction":
         if not has("date"):
             need.append("date")
-        if not (REPORTER.search(note) or re.search(r"Court|\bD\. ?Va\.", note)):
-            need.append("a reporter citation, or a court, in note")
-    out = [f"lacks {n}" for n in need]
+        if not re.search(r" v\.", e.get("title", "")):
+            need.append("a caption with \"v.\" as its title")
+        if not (has("journaltitle", "shortjournal") and has("volume") and has("pages")) \
+                and not (has("number") and has("location")):
+            need.append("a reporter (journaltitle, volume, pages), or for an unreported case a number and a court")
+        for f in ("author", "note"):
+            if has(f):
+                out.append(f"has {f}: a case prints its caption and its reporter, and the court "
+                           f"and the day go in location, date and annotation")
+        if not has("sortname"):
+            need.append("a sortname, braced (a location would otherwise file it): Legal Authorities sorts by it")
+    elif t == "legislation":
+        title = archive.plain(e.get("title", ""))
+        need += [f for f in ("title", "date", "organization") if not has(f)]
+        for f in ("author", "editor", "note"):
+            if has(f):
+                out.append(f"has {f}: a law is named by its own title, the sovereign goes in organization "
+                           f"(it files the copy), and the rest goes in annotation")
+        if title.startswith("Act of"):
+            need += [f for f in ("titleaddon", "shortjournal", "volume", "shorttitle") if not has(f)]
+            if "datedintitle" not in e.get("keywords", ""):
+                need.append("keywords = {datedintitle}, since the date is in the title")
+        if e.get("sorttitle", "") != e.get("date", "x"):
+            need.append("sorttitle equal to its date, which orders Legal Authorities")
+        if "Const" in title and e.get("entrysubtype") != "constitution":
+            need.append("entrysubtype = {constitution}")
+    elif kind == "legal":
+        out.append(f"is a {t} about primary law, which prints in the Works Cited: "
+                   f"cases are @jurisdiction and acts, constitutions and code sections are @legislation")
+    if kind in ("census", "vital records") and "skipbib" not in e.get("options", ""):
+        out.append("is a single record, cited in notes only: options = {skipbib}")
+    if t not in ("jurisdiction", "legislation") and kind != "legal":
+        title = archive.plain(e.get("title", ""))
+        if title and archive.headline_case(title) != title:
+            out.append(f"has a title that is not in headline style: {archive.headline_case(title)!r}")
+    if re.search(r"\d{4}-\d{2,4}", e.get("title", "")):
+        out.append("has a hyphen in a year range in its title: use an en dash (--)")
+    # An unsigned piece files under its paper or outlet, braced so biber reads an
+    # organization and not a person ("Daily Sun" unbraced files under S).
+    if press or (t == "online" and kind == "press"):
+        sortname = e.get("sortname", "")
+        if not has("author") and not (sortname.startswith("{") and sortname.endswith("}")):
+            out.append("is unsigned and files under its paper: sortname = {{Name}}, braced")
+        if has("author") and sortname:
+            out.append("is signed and files under its author: no sortname")
+    out = [f"lacks {n}" for n in need] + out
     # The same name as author and as publisher prints twice.
-    # (A report prints its institution, not its organization.)
     for f in ("journaltitle", "organization") if t in ("article", "online") else ():
         if has("author") and archive.plain(e["author"]) == archive.plain(e.get(f, "")):
             out.append(f"has {archive.plain(e['author'])!r} as author and as {f}, which prints twice; "
@@ -2374,42 +2467,100 @@ def incomplete(e):
 
 
 def test_an_incomplete_entry_is_refused():
-    """Each mistake the Works Cited printed before this check existed, built
-    as an entry and handed to incomplete(). A newspaper entry whose author is
-    the paper printed its name twice, in the Gazette's and the Sun's; one with
-    no place or no page printed a citation that could not be found again."""
-    paper = {"type": "article", "key": "k", "title": "T", "journaltitle": "The Sun",
-             "location": "Arlington, Va.", "date": "1938-11-11", "pages": "1"}
+    """Each mistake the Works Cited printed before the style sheet existed,
+    built as an entry of its kind and handed to incomplete(). A newspaper entry
+    whose author is the paper printed its name twice; one with no place or no
+    page printed a citation that could not be found again; an unsigned one
+    sorted by its title, or, with its sortname unbraced, under the last word of
+    the paper's name. Each valid entry first shows the check is not simply
+    refusing everything."""
+    def refuses(base, change, saying):
+        got = incomplete({**base, **change})
+        assert any(saying in g for g in got), f"{change} not caught ({saying!r}): {got}"
+
+    paper = {"type": "article", "key": "k", "title": "T", "journaltitle": "Sun",
+             "location": "Arlington, Va.", "date": "1938-11-11", "pages": "1",
+             "sortname": "{Sun}"}
     assert incomplete(paper) == [], incomplete(paper)
     for change, saying in (
-            ({"author": "{The Sun}"}, "prints twice"),
+            ({"author": "{Sun}"}, "prints twice"),
             ({"location": ""}, "location"),
             ({"pages": ""}, "pages"),
             ({"date": ""}, "date"),
             ({"journaltitle": ""}, "journaltitle"),
-            ({"note": "x" * (NOTE_LIMIT + 1)}, "footnote")):
-        got = incomplete({**paper, **change})
-        assert any(saying in g for g in got), f"{change} not caught: {got}"
+            ({"journaltitle": "The Sun"}, "opens with The"),
+            ({"pages": "", "url": "https://example.org", "annotation": "The copy gives no page."}, "magazine"),
+            ({"sortname": ""}, "sortname"),
+            ({"sortname": "Sun"}, "sortname"),
+            ({"author": "Sawicki, Phillip"}, "no sortname"),
+            ({"note": "Vol. III, no. 49"}, "note"),
+            ({"volume": "3"}, "volume"),
+            ({"title": "Referendum wins by 61 votes"}, "headline style"),
+            ({"title": "Voters in 1952-1954"}, "en dash")):
+        refuses(paper, change, saying)
     # A copy that numbers no pages says so, and then needs none.
     assert incomplete({**paper, "pages": "", "annotation": "The copy gives no page number."}) == []
+
     web = {"type": "online", "key": "k", "title": "T", "organization": "ARLnow",
-           "date": "2020-05-07", "url": "https://example.org"}
-    assert incomplete(web) == []
+           "date": "2020-05-07", "url": "https://example.org", "sortname": "{ARLnow}"}
+    assert incomplete(web) == [], incomplete(web)
     for change, saying in (({"author": "ARLnow"}, "prints twice"), ({"url": ""}, "url"),
-                           ({"organization": ""}, "organization"), ({"date": ""}, "date")):
-        got = incomplete({**web, **change})
-        assert any(saying in g for g in got), f"{change} not caught: {got}"
+                           ({"organization": ""}, "organization"), ({"date": ""}, "date"),
+                           ({"organization": "Sun Gazette, via InsideNoVa"}, "via")):
+        refuses(web, change, saying)
     assert incomplete({**web, "date": "", "annotation": "The page gives no date."}) == []
-    assert any("school" in g for g in incomplete(
-        {"type": "phdthesis", "key": "k", "author": "A", "title": "T", "date": "2017"}))
-    assert any("year" in g for g in incomplete(
-        {"type": "book", "key": "k", "author": "A", "title": "T", "publisher": "P"}))
-    assert any("institution" in g for g in incomplete(
-        {"type": "report", "key": "k", "title": "T", "date": "2020"}))
-    case = {"type": "jurisdiction", "key": "k", "title": "A v. B", "date": "1922",
-            "note": "132 Va. 397, 112 S.E. 772 (Supreme Court of Appeals of Virginia, 1922)"}
-    assert incomplete(case) == []
-    assert any("reporter" in g for g in incomplete({**case, "note": ""}))
+
+    report = {"type": "report", "key": "k", "author": "{FairVote}", "title": "T", "date": "2026-02-23"}
+    assert incomplete(report) == []
+    refuses(report, {"institution": "FairVote"}, "prints twice")
+    refuses(report, {"organization": "FairVote"}, "organization")
+    refuses({**report, "author": ""}, {}, "institution")
+
+    thesis = {"type": "phdthesis", "key": "k", "author": "A", "title": "T", "date": "2017",
+              "institution": "George Mason University", "url": "https://hdl.handle.net/1920/11125"}
+    assert incomplete(thesis) == []
+    refuses(thesis, {"url": "https://mars.gmu.edu/"}, "home page")
+    refuses(thesis, {"institution": ""}, "school")
+    refuses({"type": "book", "key": "k", "author": "A", "title": "T", "publisher": "P"}, {}, "year")
+
+    # Primary law is cited in notes and never listed, so it must be a type
+    # biblatex-chicago skips: a case, or an act, constitution or code section.
+    case = {"type": "jurisdiction", "key": "k", "title": "Bennett v.\\ Garrett", "date": "1922-06-15",
+            "journaltitle": "Va.", "volume": "132", "pages": "397",
+            "sortname": "{Bennett v. Garrett}"}
+    assert incomplete(case) == [], incomplete(case)
+    refuses(case, {"sortname": ""}, "sortname")
+    refuses(case, {"pages": ""}, "reporter")
+    refuses(case, {"date": ""}, "date")
+    refuses(case, {"note": "132 Va. 397 (1922)"}, "note")
+    refuses(case, {"title": "Bennett"}, "caption")
+    act = {"type": "legislation", "key": "k", "title": "Act of Mar.\\ 20, 1930", "date": "1930-03-20",
+           "organization": "Commonwealth of Virginia", "titleaddon": "ch.\\ 167",
+           "shortjournal": "Va. Acts", "volume": "1930", "shorttitle": "Act of Mar.\\ 20, 1930",
+           "keywords": "datedintitle", "sorttitle": "1930-03-20"}
+    assert incomplete(act) == [], incomplete(act)
+    refuses(act, {"sorttitle": ""}, "sorttitle")
+    for change, saying in (({"author": "{Commonwealth of Virginia}"}, "author"),
+                           ({"note": "printed pp. 450--456"}, "note"),
+                           ({"organization": ""}, "organization"),
+                           ({"keywords": ""}, "datedintitle"),
+                           ({"titleaddon": ""}, "titleaddon")):
+        refuses(act, change, saying)
+    constitution = {"type": "legislation", "key": "k", "title": "Va.\\ Const.\\ of 1869", "date": "1869",
+                    "organization": "Commonwealth of Virginia", "entrysubtype": "constitution",
+                    "sorttitle": "1869"}
+    assert incomplete(constitution) == [], incomplete(constitution)
+    refuses(constitution, {"entrysubtype": ""}, "constitution")
+    # The mistake that listed some of Virginia's law and not the rest: an act typed @misc.
+    refuses({"type": "misc", "key": "k", "title": "Acts of the General Assembly, Session of 1869--70",
+             "date": "1870"}, {}, "primary law")
+
+    # A single census line is cited in notes only.
+    census = {"type": "misc", "key": "k", "title": "A in the 1880 United States Federal Census, Alexandria County, Virginia",
+              "howpublished": "Ancestry.com, 1880 United States Federal Census [database on-line], record 1",
+              "date": "1880-06-01", "options": "skipbib"}
+    assert incomplete(census) == [], incomplete(census)
+    refuses(census, {"options": ""}, "skipbib")
 
 
 def test_every_cited_entry_is_complete():
