@@ -229,7 +229,7 @@ lacks what its kind needs says so in `annotation` ("The page gives no date", "Th
 copy gives no page"). A citekey never changes.
 
 **Newspaper piece, signed** (`@article`). `author` is the byline; `title` the
-headline; `journaltitle` the masthead without its leading *The* (Chicago 14.185:
+headline; `journaltitle` the masthead without its leading *The* (Chicago:
 *Sun*, *Daily Sun*, *Evening Star*), set once, the same in every entry of that
 paper; `location` the place of publication where the name does not give it
 (Arlington, Va.); `date` the full date; `pages` the page as printed (A-26). Footnote
