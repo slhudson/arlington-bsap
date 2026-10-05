@@ -57,5 +57,6 @@ for profile in style.PROFILES:
     charts.years(ax, 1870, 1930, step=10, label="year", minor=5)
     for year, note, ha in style.ELECTORATE_RULES_TO_1932:
         charts.rule(ax, year, note, ha=ha)
-    charts.legend(fig, dict([style.PRESIDENT, style.BOARD_VOTE_DISTRICTS]))
+    board_label = f"{label} ({', '.join(str(y) for y in board_rate.index)})"
+    charts.legend(fig, dict([style.PRESIDENT, (board_label, colour)]))
     paths.save(fig, profile)
