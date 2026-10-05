@@ -187,13 +187,26 @@ committee's sixteen-page pamphlet delivered to 6,000 homes on 23-25 October,
 were Delegate Hugh Reid from 28 October, Senator Frank Ball in a radio
 broadcast on 31 October with Alexandria's city manager and the school
 superintendent, and the Commissioner of Revenue on 3 November. Anderson's
-footnote declines to set out the arguments on either side, so what the
-*Chronicle* or the Club said about election at large as against districts is
-not in anything held (`method-1930-advocacy`). He also prints the three
+footnote declines to set out the arguments on either side, and neither the
+*Chronicle*'s 17 October 1930 editorial nor the Federation's pamphlet is held
+in Virginia Chronicle or anywhere else searched. He also prints the three
 questions' totals as 2,067 to 1,031 for a change, 1,908 to 485 for the Manager
 form and 1,659 to 1,179 for election at large; Rose 1976 prints 1,936 to 428
-and 1,689 to 1,149 for the second and third, and the paper cites Rose's
-(`at-large-vote-1930`).
+and 1,689 to 1,149 for the second and third. The precinct table in the
+*Evening Star* of 5 November 1930 (`eveningstar19301105b1`) settles it: its
+totals tie to Rose's exactly on all three questions, and the paper cites
+Rose's.
+
+The *Star* of 26 October 1930 (`eveningstar19301026b2`) carries what the
+Chronicle and the Federation's pamphlet are not held to supply: Robert H.
+Forman of the Voters' Service Club opposed the manager plan on cost, not on
+election at large as such; Capt. Crandal Mackey and Clarence R. Ahalt called
+abolishing the magisterial districts for at-large election "a direct
+departure from representative government"; and, for the change, John A.
+Petty of the Livingstone Heights Civic League called it the step that made
+"Arlington County a single unit" and gave "every voter the right to cast his
+ballot for or against each of the members of the county board." Anderson
+1958 dates Forman's statement to 23 October; the Star printed it on the 26th.
 
 **The 1938 staggered-terms referendum** is in the county's candidate history
 (`arlingtonelections2021` p.11) as 1,539 for, 1,487 against. The *Sun* of
