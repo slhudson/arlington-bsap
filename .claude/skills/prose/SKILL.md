@@ -235,6 +235,8 @@ slide and the sources disagree, the sources win: say so and cut what no source h
 with a tracker row. The paper is not Board-facing yet: no "requests", no "confirm
 this list". Work in a worktree on a branch, commit and push, and do not narrate git.
 
+**Dates** print month, day, year: November 4, 1930 (Sally, 5 October 2026), never 4 November 1930; the bibliography already does.
+
 **Voice.** Narrative and journalistic: one thread per section, named people and bodies
 acting, the finding first, the stake last. Numbers are rounded to what the argument
 needs, numerals above 10, "percent" as one word. A digression is a footnote. Never
