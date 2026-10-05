@@ -352,6 +352,13 @@ def legal_subfolder(e, base):
         return f"legal/{whose} constitutions"
     if CHARTER.search(plain(e["title"])):
         return f"legal/{whose} charters"
+    # An act cited as "Act of <date>" has no "An act" or "Acts of" in its title,
+    # so the sheet's own forms are read from the type: biblatex-chicago's
+    # entrysubtype says a constitution, and any other legislation is a statute.
+    if e.get("entrysubtype") == "constitution":
+        return f"legal/{whose} constitutions"
+    if e["type"] == "legislation":
+        return f"legal/{whose} statutes"
     sys.exit(f'legal copy "{base}" is not an opinion, a statute, a constitution '
              f'or a charter: '
              f'file it under another kind, or name what it is in archive.legal_subfolder()')
