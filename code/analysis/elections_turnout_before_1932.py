@@ -1,10 +1,10 @@
 """Votes cast per 100 residents, 1872-1928 -> figures/elections_turnout_before_1932.pdf, .png
 
 The presidential vote, 1872 to 1928, set against the census population
-interpolated in a straight line between censuses. Every year is drawn; 1920,
-which has only O'Leary's count, is an open marker. The Board's
-vote is the three districts' counts added together, drawn only in the years
-all three seats were held and counted: 1901, 1907 and 1915.
+interpolated in a straight line between censuses, every year drawn alike;
+which source each year's count comes from is the Data Appendix's business,
+not the figure's. The Board's vote is the three districts' counts added
+together, drawn only in the years all three seats were held and counted.
 
 Two rules mark the dated changes to who could vote, the Walton Act of 1894
 and the constitution of 1902. The denominator is all residents, not the men
@@ -35,7 +35,6 @@ for profile in style.PROFILES:
     president = president[(president.office == "president")
                           & president.year.between(FIRST, LAST)].set_index("year")
     rate = per_100(president.total, paths.read("residents"))
-    oleary = president.source.str.startswith("oleary")
 
     board = paths.read("elections_margins")
     board = board[board.contest.str.endswith("District") & board.votes_cast.notna()
@@ -47,8 +46,6 @@ for profile in style.PROFILES:
     fig, ax = charts.figure(profile)
     label, colour = style.PRESIDENT
     charts.lines(ax, president.index.to_numpy(), {label: (rate.to_numpy(), colour)})
-    olabel, _ = style.PRESIDENT_OLEARY
-    charts.marks(ax, rate.index[oleary], rate[oleary], colour, filled=False)
     label, colour = style.BOARD_VOTE_DISTRICTS
     charts.marks(ax, board_rate.index, board_rate, colour, marker="s")
 
@@ -56,6 +53,5 @@ for profile in style.PROFILES:
     charts.years(ax, 1870, 1930, step=10, label="year", minor=5)
     for year, note, ha in style.ELECTORATE_RULES_TO_1932:
         charts.rule(ax, year, note, ha=ha)
-    charts.legend(fig, dict([style.PRESIDENT, style.PRESIDENT_OLEARY, style.BOARD_VOTE_DISTRICTS]),
-                  hollow=[olabel])
+    charts.legend(fig, dict([style.PRESIDENT, style.BOARD_VOTE_DISTRICTS]))
     paths.save(fig, profile)
