@@ -10,8 +10,14 @@ sheet image, because a site behind a sign-in cannot be fetched again by
 anyone reading this repository. Ancestry refuses an automated request, so
 the copy is not the page itself: it is the record as the row already holds
 it, the index listing in the row's `quote`, set on a plain page with the
-record's url and the date it was read. docs/members.md, "Census records", says
-what the row holds.
+record's url and the date it was read. The docstring of
+code/clean/members_census.py says what the row holds. The page says on its
+face that it is derived. It does not repeat Ancestry's statement that the
+facts in a collection were found using artificial intelligence and may
+contain errors, since the 1930 and 1940 record pages carry no such
+statement. A record cited in the bib but kept out of the table (William
+Duncan's 1910, while duncan-birth-year is open) has no row to build from,
+and the script says so each time it runs.
 
 The page is therefore derived, not fetched, which is why this script exists
 rather than a filing step done by hand: the row is the only thing anyone

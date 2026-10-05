@@ -1162,36 +1162,10 @@ carry the family tie (`occupation; household`), which is why
 
 ### How each source is cut into terms
 
-**Mid-term handovers are terms like any other.** O'Leary records them as
-prose beside the elected member ("Replaced by H. Dwight Smith in Dec.;
-replaced by Lott W. Crocker in March 1873, replaced by Francis D. Schutt in
-April"), and those are parsed into their own rows: the Arlington seat in
-1872–73 is a term for each man. Where a month is given without a year, the year carries
-from the previous handover and rolls forward when the month goes backwards.
-Francis D. Schutt holds two consecutive terms in 1873, appointed in April and
-elected in May; that is two terms, not a duplicate. From 1907 O'Leary gives
-surnames only, so "Corbett" from 1907 is a different person in the roster from
-"Frederick S. Corbett" before it and starts again at term 1. Corbett and Duncan
-appear under both forms; joining them needs a rule (surname plus
-district plus continuity) or a note per case.
-
-**Novack's spans are split at elections.** He lists a person once with their
-whole service compressed into a string ("1932-1947" for Elizabeth Magruder),
-so a span is cut at each November election the person contested, using the
-county's candidate history, and the months come from his parentheticals. He
-sometimes dates a span from the election rather than from taking office
-(Fisher "1963-1974" won in November 1963 and sat from January 1964), so a span
-whose first year is one the person won without having stood the year before
-begins the following January. A cut at an election the person stood in and
-lost continues however the span began: Frisbie, appointed in November 1947,
-stood that month and did not win, and his 1948 term is still the appointment.
-A member appointed to a vacancy who then wins the seat at a same-day special
-election is seated by it that November and the appointment ends then: Wilt,
-appointed in January 1960, won the special for Krupsaw's unexpired term that
-November, which Novack's note does not record and the county's does. Where an
-appointment is dated and no departure accounts for it, the one member whose
-span ends that year undated left in the month of the appointment; more than
-one candidate stops the build.
+How each source is cut into terms is in the docstrings of the modules that
+cut it: `code/clean/members_roster_oleary.py` for O'Leary's prose handovers,
+`members_roster_novack.py` for Novack's spans, and `members_roster_results.py`
+for election results from 1995.
 
 **Gall resigned; he did not die in office.** The
 Historical Society's article for 1932-1960
@@ -1394,59 +1368,13 @@ and the window matters to the neighborhood analysis, which is not yet built.
 
 ## Census records
 
-A census listing names a person, not a Board member, and gives several
-traits at once, so each record matched to a member is one row of
-`data/transcribed/by_claude/members_census.csv`, and the build derives each
-trait from it rather than each trait being keyed separately. The table holds
-records from the 1870, 1880, 1900, 1910, 1920, 1930, 1940 and
-1950 schedules. Its columns:
-
-| Column | Holds |
-|---|---|
-| `name`, `source` | the roster name and the record's citekey, `census<year><surname>` |
-| `year` | the census year |
-| `basis` | what ties the record to the member, stated once: the name, the place, and an occupation, a spouse or a house number where one agrees; where the index misreads a name, what it reads |
-| `match` | what ties the record to the member besides the name, from a fixed list, several joined with `; `: `district` (the district he sat for), `occupation`, `household` (a spouse or child another source names), `address` (a house or street a newspaper also prints), `unique` (the only person of the name in the county's index that year), or `none`. Blank where no one has yet read the record for a tie |
-| `checked` | what was read against the image: `read against the sheet, which agrees`, or what the sheet gives where it differs from the index. Every row names the sheet; see "Reading an image" |
-| `gender`, `race`, `age`, `birthplace`, `occupation` | as the index prints them: `Male`, `Mulatto`, `39` |
-| `birth_year` | a birth year the index prints as a date, not as its `abt` estimate from the age (the 1900 schedule records a month and year); blank otherwise |
-| `place` | the street and house number as read for residence, from the sheet where the sheet was read; blank where no one has read it for that purpose |
-| `quote` | the index listing verbatim |
-| `sheet` | the sheet's lines verbatim, where they were read |
-
-A name alone with nothing else in agreement is no match. A row whose
-`match` is `none` stays in the table, so that the search and the reading are
-on record, and gives the member nothing: no birth year, race, gender or
-place, which then fall to the default or to the member's other sources
-(Sally). A blank `match` has not been read for a tie
-and stands until it is; which rows are blank, and the revisit once the age
-and neighborhood analyses are settled, are `census-match-quality`.
-
-`code/clean/members_census.py` codes the printed values: `Male` a man,
-`Female` a woman, `White` White, and both `Black` and `Mulatto` Black, as
-Hjerpe codes Pinn's 1880 record. A printed value it has no code for stops
-the build, since a dropped claim would fall silently into the default, and
-so does a row whose `checked` names neither the sheet nor the index. The
-birth year is the one the index prints as a date, or else the census year
-less the age, and the note on it says which. The place joins the claims in
-`data/transcribed/by_claude/members_residence.csv` in
-`data/clean/members_residence.csv`, one row per claim, none chosen over
-another and nothing coded.
-
-The claim files keep words, not categories. `members_demographics.csv` has
-`race_words` and `gender_words` (the pronoun, honorific or description as
-the source prints it), and `members_party.csv` has `party_words`; the tables
-that say what each means are `RACE_WORDS`, `GENDER_WORDS` and `PARTY_WORDS`
-in `code/clean/members.py`, where a word not listed stops the build.
-`members_terms.csv` keeps the election date the county prints; the January
-start, the missing end and the election as how the seat was gained are
-`code/clean/members_roster_results.py`'s. A press or obituary age is keyed the
-same way: `members_demographics.csv` has
-`age` and `age_date` (as printed: "25 April 2019", "1960"), and
-`birth_year` only where a source prints a birth date or year. The transcriber
-never subtracts. `code/clean/members.py` takes the year of the date
-less the age, refuses an age with no year in its date, and refuses a row that
-gives both a birth year and an age.
+Each census record matched to a member is one row of
+`data/transcribed/by_claude/members_census.csv`, holding records from the
+1870, 1880, 1900, 1910, 1920, 1930, 1940 and 1950 schedules. What each column
+holds, what counts as a match and how the printed values are coded is in the
+docstring of `code/clean/members_census.py`; how the claim files keep words
+rather than categories is in `code/clean/members.py`. Which rows have not
+yet been read for a tie is `census-match-quality`.
 
 One record is filed and cited but kept out of the
 table, since it gives a birth year that disagrees with the member's other
@@ -1551,47 +1479,10 @@ of its blocks from 1912 to 1931, which is the minute books' own confirmation
 of the continuity the Gazette pieces establish; it is cited on the joined term
 with the rest.
 
-The filed copy of each record's Ancestry page is written by
-`code/sources/ancestry.py` from the row's own `quote`, since Ancestry refuses an
-automated request and the page cannot be fetched by anyone reading this
-repository. The page says on its face that it is derived. It does not repeat
-Ancestry's statement that the facts in the collection were found using
-artificial intelligence and may contain errors, since the 1930 and 1940 census
-record pages carry no such statement. The one page the script does not write
-is William Duncan's 1910: the record is cited but kept out of the table while
-`duncan-birth-year` is open, so there is no row to build it from, and the
-script says so each time it runs.
-
-Only the census record itself goes in this table. What a newspaper, an
-obituary or a secondary source says, Hjerpe's reading of an 1880 record
-included, is a separate claim and stays in `members_demographics.csv` or
-`members_residence.csv`. `code/transcribe/members_census.py` moves any row that
-cites a census record out of those two files and into the table, merging
-it with the record's row where there is one, and stops where the two
-disagree. A new record is keyed into the table directly, and the build
-refuses a row citing a census record in either claim file, so the script
-is run when it does.
-
 ### Reading an image
 
-**Nothing leaves an image on one reading.** A census record is read against
-its own enumeration sheet before any of its fields is used, and its `checked`
-column says what the sheet gives. Ancestry's index is a finding aid, the same
-standing as the OCR under `data/transcribed/by_ocr/`: it locates the line, it
-does not read it. That is a second reading of every record, not a sample,
-because the records are few and the cost of a wrong one is silent.
-
-`code/build/members_claims.py` enforces the half of that rule a machine can
-check. A row whose `checked` names neither the sheet nor the index stops the
-build, and so does a `place` on a row the sheet was never read against, since
-a street is the field the index gets wrong. `code/tests.py` reintroduces both
-mistakes.
-
-For a page read through OCR — a newspaper claim in `members_residence.csv` —
-the quoted sentence is read off the page image before the row is written, and
-any house number in it is read off the image, never off the OCR. Rows entered
-before this rule are cleared a page at a time, whole pages, not a sample of
-rows, since opening the page is the cost and the rows on it are then free.
+How a record or a page is read off its image is in the `sources` skill,
+"Reading an image".
 
 That reading has found one wrong value. Across the census records that
 had only ever been indexed, and the newspaper pages carrying quoted addresses,

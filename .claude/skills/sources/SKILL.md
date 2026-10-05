@@ -29,6 +29,37 @@ sign-in and cannot be fetched at all: it sets the record out on a plain page
 from the row that already holds it, so the filed copy follows the row rather
 than being made by hand.
 
+## Reading an image
+
+**Nothing leaves an image on one reading.** A census record is read against
+its own enumeration sheet before any of its fields is used, and the row's
+`checked` column says what the sheet gives. Ancestry's index is a finding
+aid, the same standing as the OCR under `data/transcribed/by_ocr/`: it
+locates the line, it does not read it. That is a second reading of every
+record, not a sample, because the records are few and the cost of a wrong
+one is silent. `code/build/members_claims.py` enforces the half a machine
+can check: a row whose `checked` names neither the sheet nor the index stops
+the build, and so does a `place` on a row the sheet was never read against,
+since a street is the field the index gets wrong. `code/tests.py`
+reintroduces both mistakes.
+
+A field that stays uncertain is read a second time off the filed image,
+enlarged with its column heading and set against the same enumerator's hand
+elsewhere on the sheet (his D in *Daughter*, his 0 in another age). Where
+the two readings still disagree, a source outside the sheet settles it, not
+a third reading of the same smudge.
+
+For a page read through OCR, a newspaper claim in `members_residence.csv`,
+the quoted sentence is read off the page image before the row is written,
+and any house number in it is read off the image, never off the OCR. Rows
+entered before this rule are cleared a page at a time, whole pages, not a
+sample of rows, since opening the page is the cost and the rows on it are
+then free.
+
+What each census column holds is in the docstring of
+`code/clean/members_census.py`; a row's `basis` and `match` say what ties
+the record to the member, and a name alone is no match.
+
 ## The Drive folder
 
 The folder is filed by kind, and its index is generated.

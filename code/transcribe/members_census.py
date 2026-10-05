@@ -10,7 +10,12 @@ other. Run by hand, output committed.
 
     .venv/bin/python code/transcribe/members_census.py
 
-What each column holds is in docs/members.md, "Census records".
+Only the census record itself goes in the table: what a newspaper, an
+obituary or a secondary source says, Hjerpe's reading of an 1880 record
+included, is a separate claim and stays where it is. A new record is keyed
+into the table directly; code/build/members_claims.py refuses a row citing a
+census record in either claim file, which is when this is run. What each
+column holds is in the docstring of code/clean/members_census.py.
 """
 import csv
 import re
