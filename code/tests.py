@@ -1263,6 +1263,9 @@ def test_a_body_text_number_is_the_clean_tables_number():
     expected["genderCensusShareMembers"] = rounded(m.gender_source.str.contains("census").sum(), len(m))
     expected["raceAssumedShareMembers"] = rounded((m.race_source == "assumed").sum(), len(m))
     expected["membersTotal"] = str(len(m))
+    white_men = int(((m.gender == "man") & (m.race == "White")).sum())
+    expected["whiteMenMembers"] = str(white_men)
+    expected["notWhiteMenMembers"] = str(len(m) - white_men)
     expected["birthYearMissingMembers"] = str(int(m.birth_year.isna().sum()))
 
     wrong = [f"\\{name} is {value}, the table gives {expected.get(name, 'nothing')}"
