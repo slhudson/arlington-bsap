@@ -9,6 +9,37 @@ The report is read by a county board, by the people it is about, and by
 collaborators who will check it. Write so that a reader who knows the subject
 but not this project understands a sentence the first time.
 
+## Two homes, two tests (Sally, 5 October 2026)
+
+Everything this project writes goes to one of two places, and each has one
+test.
+
+**`docs/`, the tracker, the bibliography annotations and the Data Appendix are
+written to be unfalsifiable.** Every source, every disagreement, every caveat,
+every negative result, stated so that a reviewer or a replicating researcher
+can check it and find nothing missing. A defensive sentence is right at home
+here.
+
+**`paper/` is written to be understood.** The reader is a Board member, and
+the test of every sentence is whether it helps that reader understand the
+section's point. A sentence that is there because a source worried about it,
+a build check caught it, or a reviewer might one day ask, fails the test even
+when it is true: it moves to `docs/` or the appendix, where it is wanted, or
+it goes. Three faults are the same fault seen from three sides: refuting a
+question nobody asked, narrating the report's own structure, and detail that
+is accurate but beside the point. All three distract from understanding, and
+understanding is the whole job.
+
+So the procedure for a section of `paper/` is: state its point in a sentence
+before drafting, draft, then read each sentence and ask only "does the reader
+need this to understand the point?" What answers no is not deleted; it is
+filed where unfalsifiable writing lives. Structure follows the same test:
+headings, order and symmetry serve the reader's path through the argument,
+not a scheme, so a heading changes when the content under it wants a different
+name. What this file cannot teach is which point a section makes and what a
+given reader finds interesting; that is Sally's, and the `argument` skill is
+how to ask her.
+
 ## The sample
 
 The voice is Sally's, and it is published. Two samples, and the second is
