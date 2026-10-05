@@ -1267,6 +1267,9 @@ def test_a_body_text_number_is_the_clean_tables_number():
     expected["whiteMenMembers"] = str(white_men)
     expected["notWhiteMenMembers"] = str(len(m) - white_men)
     expected["birthYearMissingMembers"] = str(int(m.birth_year.isna().sum()))
+    not_white_men = int(((m.gender != "man") | (m.race != "White")).sum())
+    expected["notWhiteMenMembers"] = str(not_white_men)
+    expected["whiteMenMembers"] = str(len(m) - not_white_men)
 
     wrong = [f"\\{name} is {value}, the table gives {expected.get(name, 'nothing')}"
              for name, value, _ in body_text_numbers() if expected.get(name) != value]
