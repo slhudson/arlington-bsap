@@ -161,6 +161,15 @@ supervisors: one referendum, one date. Carrying any one of them back across
 "supervisors" in 1935, or about at-large election in 1920, is wrong in the same
 way.
 
+## Before the prose: is the argument itself settled?
+
+The rules in this file are about a sentence and a paragraph. Whether a
+section's claim is right, what belongs in it, and what's missing is a
+different kind of question, asked earlier — usually before anything is
+drafted. That's the `argument` skill. Reach for it when a section's
+structure or claim is still being worked out, not when you're polishing
+text that already has one.
+
 ## Reading it back
 
 Read the passage aloud. Where you stumble, the reader stops. That test finds
@@ -243,6 +252,17 @@ needs, numerals above 10, "percent" as one word. A digression is a footnote. Nev
 defend a decision the reader never saw (the cube-root law, the palette). A section
 holds only things that happened; failed efforts and the Board-Manager division of
 labor are their own sections.
+
+**No narration of the report's own structure (Sally, 5 October 2026).** "Each part is
+told under the same four headings, so that a reader can follow one question across all
+three. The report makes no recommendation on any of them." is the wrong tone for the
+body. The contents page shows the structure; a section opens on its subject.
+
+**The Data Appendix is written for a researcher replicating the work for the first
+time (Sally, 5 October 2026).** It is their roadmap: which document to open for which
+years, what each gives and lacks, what to do where two disagree. Labels that mean
+something only inside the build ("list only", "Novack and County") are inside baseball
+and do not print.
 
 **Do not refute a question nobody asked (Sally, 5 October 2026).** A clause that
 pre-empts an objection the text never raised reads as tedious to her: "giving the

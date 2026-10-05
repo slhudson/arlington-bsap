@@ -31,6 +31,17 @@ these win. **The reasoning behind every convention lives in `docs/figures.md`**,
 nowhere else. This file states the rules; the style layer states the values;
 neither repeats the reasons.
 
+## A figure has a one-sentence point
+
+Before building or keeping a figure, say in one sentence what a reader should take
+from it. If the prose already says that sentence and the picture does not make it
+plainer, the figure leaves the paper and stays in the repository (the by-district
+turnout figure, 5 October 2026). The denominator is the population the section is
+about: a section on who could vote divides by residents of voting age, not by
+everyone. Where points are spaced irregularly because of what survives rather than
+when things happened, the figure itself says so, in the legend or the caption; "if
+I'm confused it needs explaining" (Sally, 5 October 2026).
+
 ## Content
 
 - No title inside the image. The LaTeX caption carries it, which is also

@@ -1,0 +1,4 @@
+# Rows are appended at the end by parallel sessions; a merge keeps both sides.
+docs/questions.csv merge=union
+paper/punchlist.md merge=union
+data/transcribed/by_claude/members_negatives.csv merge=union
