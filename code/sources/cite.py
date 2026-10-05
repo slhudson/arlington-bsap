@@ -13,6 +13,12 @@ assigns, named "<author> <year> - <title>", and the entry is appended to
 sources.bib with the url, today's urldate and an annotation naming the file,
 which is what code/tests.py and code/sources/archive.py check.
 
+The entry is written as the bibliography's style sheet (docs/repository.md) has
+it, so it passes code/tests.py when the paper cites it: a headline-style title,
+a newspaper's masthead without its leading The, no author on an unsigned piece or
+a law (--author is the sovereign for a law; --field adds a case's reporter or an
+act's chapter), and the sortname or sorttitle that files it.
+
 --note is the reader's: what the document says that the report relies on,
 built from the document in hand (CLAUDE.md). It goes into the annotation,
 which the paper does not print. biblatex prints a `note` field in the footnote
@@ -112,6 +118,10 @@ def sheet_fields(a):
     for extra in a.field:
         name, _, value = extra.partition("=")
         fields.append((name.strip(), value.strip()))
+    if a.type == "jurisdiction":
+        fields.append(("sortname", "{" + title.replace("\\ ", " ") + "}"))
+    if a.type == "legislation":
+        fields.append(("sorttitle", a.date))
     if not a.author and not law and (journal or organization):
         fields.append(("sortname", "{" + (journal or organization) + "}"))
     if journal and not a.pages and a.url:

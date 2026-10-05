@@ -2418,6 +2418,8 @@ def incomplete(e):
             if has(f):
                 out.append(f"has {f}: a case prints its caption and its reporter, and the court "
                            f"and the day go in location, date and annotation")
+        if not has("sortname"):
+            need.append("a sortname, braced (a location would otherwise file it): the Table of Authorities sorts by it")
     elif t == "legislation":
         title = archive.plain(e.get("title", ""))
         need += [f for f in ("title", "date", "organization") if not has(f)]
@@ -2429,6 +2431,8 @@ def incomplete(e):
             need += [f for f in ("titleaddon", "shortjournal", "volume", "shorttitle") if not has(f)]
             if "datedintitle" not in e.get("keywords", ""):
                 need.append("keywords = {datedintitle}, since the date is in the title")
+        if e.get("sorttitle", "") != e.get("date", "x"):
+            need.append("sorttitle equal to its date, which orders the Table of Authorities")
         if "Const" in title and e.get("entrysubtype") != "constitution":
             need.append("entrysubtype = {constitution}")
     elif kind == "legal":
@@ -2522,8 +2526,10 @@ def test_an_incomplete_entry_is_refused():
     # Primary law is cited in notes and never listed, so it must be a type
     # biblatex-chicago skips: a case, or an act, constitution or code section.
     case = {"type": "jurisdiction", "key": "k", "title": "Bennett v.\\ Garrett", "date": "1922-06-15",
-            "journaltitle": "Va.", "volume": "132", "pages": "397"}
+            "journaltitle": "Va.", "volume": "132", "pages": "397",
+            "sortname": "{Bennett v. Garrett}"}
     assert incomplete(case) == [], incomplete(case)
+    refuses(case, {"sortname": ""}, "sortname")
     refuses(case, {"pages": ""}, "reporter")
     refuses(case, {"date": ""}, "date")
     refuses(case, {"note": "132 Va. 397 (1922)"}, "note")
@@ -2531,8 +2537,9 @@ def test_an_incomplete_entry_is_refused():
     act = {"type": "legislation", "key": "k", "title": "Act of Mar.\\ 20, 1930", "date": "1930-03-20",
            "organization": "Commonwealth of Virginia", "titleaddon": "ch.\\ 167",
            "shortjournal": "Va. Acts", "volume": "1930", "shorttitle": "Act of Mar.\\ 20, 1930",
-           "keywords": "datedintitle"}
+           "keywords": "datedintitle", "sorttitle": "1930-03-20"}
     assert incomplete(act) == [], incomplete(act)
+    refuses(act, {"sorttitle": ""}, "sorttitle")
     for change, saying in (({"author": "{Commonwealth of Virginia}"}, "author"),
                            ({"note": "printed pp. 450--456"}, "note"),
                            ({"organization": ""}, "organization"),
@@ -2540,7 +2547,8 @@ def test_an_incomplete_entry_is_refused():
                            ({"titleaddon": ""}, "titleaddon")):
         refuses(act, change, saying)
     constitution = {"type": "legislation", "key": "k", "title": "Va.\\ Const.\\ of 1869", "date": "1869",
-                    "organization": "Commonwealth of Virginia", "entrysubtype": "constitution"}
+                    "organization": "Commonwealth of Virginia", "entrysubtype": "constitution",
+                    "sorttitle": "1869"}
     assert incomplete(constitution) == [], incomplete(constitution)
     refuses(constitution, {"entrysubtype": ""}, "constitution")
     # The mistake that listed some of Virginia's law and not the rest: an act typed @misc.

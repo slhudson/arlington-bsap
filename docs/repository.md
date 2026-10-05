@@ -209,7 +209,7 @@ year) and one that carries what the sheet forbids (a masthead that opens with
 braced, a signed one that has a `sortname`, an author equal to the journaltitle or
 organization, a report whose institution is inside its author, an article read online with a url and no `entrysubtype = {magazine}`, a thesis url that
 is a repository's home page, primary law typed as anything but `@jurisdiction` or
-`@legislation`, a census record that is not `skipbib`, and a `note` over 80
+`@legislation` (a case with no `sortname`, a law with no `sorttitle`), a census record that is not `skipbib`, and a `note` over 80
 characters). A field the copy does not give is declared in the annotation ("The
 copy gives no page", "The page gives no date").
 
@@ -272,14 +272,19 @@ and year and the annotation says the copy prints neither.
 `institution`, `date`, and a `url` that reaches the document itself (the repository's
 handle), not the repository's home page.
 
-**Primary law is cited in notes and never listed.** Chicago 14.275 and the Bluebook
-agree, and biblatex-chicago skips it by default for `@jurisdiction` and
-`@legislation`; `@misc` and `@online` do not skip it, which is how the Works Cited
-came to list some Commonwealth entries and not others. Every case, act, session-law
-volume, constitution and code section is therefore a `@jurisdiction` or a
-`@legislation`, and scholarship or a memo about law is an ordinary article, report or
-book and does print. A legal entry carries no `author`: the sovereign is named by the
-reporter or the volume (`organization` holds it for filing).
+**Primary law is cited in notes and listed once, in the Table of Authorities, not the
+Works Cited.** Chicago 14.275 and the Bluebook agree that law is not a bibliography
+item. `\printworkscited` leaves the two legal types out, and `\printauthorities`
+(`paper/bibstyle.tex`) lists them after it under Cases, Constitutions and Statutes,
+each with the pages that cite it (`backref=true`). `@misc` and `@online` would have
+printed in the Works Cited, which is how some Commonwealth entries listed and some
+did not. Every case, act, session-law volume, constitution and code section is
+therefore a `@jurisdiction` or a `@legislation`; scholarship or a memo about law is an
+ordinary article, report or book and prints in the Works Cited. A legal entry carries
+no `author`: the sovereign is named by the reporter or the volume (`organization`
+holds it for filing). Cases sort by a braced `sortname` equal to the caption, and
+statutes and constitutions by a `sorttitle` equal to their date, which is what orders
+the table. `code/sources/cite.py` writes all of this.
 
 - *Case* (`@jurisdiction`): `title` the caption with "v."; `journaltitle` the
   reporter abbreviation, `volume`, `pages` the first page; `origlocation` the parallel
