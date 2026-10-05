@@ -56,6 +56,45 @@ motivating principle, and their percentages divide by a universe this index
 does not reproduce. The `file` column holds the County's own path to each
 message for that reason: it is the one key both sides already have.
 
+## What the letters say about the County's authority under state law
+
+Read on 5 October 2026 from the Drive copies, every distinct body the index
+holds except seven the connector would not deliver (c074, c100, c137, c185,
+c205, c206, c208, each 7MB or more; with their duplicates, 11 of the 250), so
+the counts below are over 188 of the 195 distinct bodies. A message counts
+only where the writer's own words raise the Commonwealth's authority; four
+that merely quote the Board's draft charge ("Assess the impact of state laws,
+including the Dillon Rule") do not.
+
+Fifty-one of the 188 raise it, 62 of the 250 with duplicates, and they raise
+it on one premise: that Arlington's form of government is fixed by its own
+chapter of the Code of Virginia, so the Board's size, election from districts,
+a directly elected chair, staggered terms and the election calendar can change
+only with the General Assembly's leave, and Delegate Hope's bill (HB 1225 in
+2024, HB 2768 in 2025) is the way to get it. Twelve say the County cannot do a
+named thing without that leave: change the Board from five (seven messages),
+elect from districts or elect the chair directly (six), alter the staggered
+terms or the schedule (five), create neighborhood commissions (four), exceed
+the statutory salary caps (one), adopt proportional ranked choice voting
+(one). Thirty-one ask the Board to seek or back enabling legislation, fifteen
+of them the Hope bill by name; five ask it to hold the bill off, to the 2027
+session or past the advisory panel's work, and none of those five says the
+County could act on its own. The Board's own statement to the Governor on HB
+2768 says the bill "was not solicited by the Arlington County Board" (c153).
+No letter argues that the County already has the authority over its form of
+government; four say it for narrower things, ranked choice voting under
+§ 15.2-705.1 among them. One message cites the Code by section: the Civic
+Federation's TiGER report, attached to c017, which names §§ 15.2-702, 15.2-705
+and 15.2-705.1 and the School Board sections. "Dillon Rule" appears in five
+writers' own words, "home rule" in one, about other states. The messages, by
+comment id, with the sentences each says it in, are in the findings memo "Comments on
+state authority - findings, 5 October 2026" in the Drive folder's Working notes;
+the index carries no body text, so the quotations are not here.
+
+The Local Authority section of Part B states this or the National Civic
+League's coding of the same theme, whichever the author team settles on
+(`comments-local-authority`).
+
 ## What rests on an assumption
 
 - That two messages with the same body, flattened for whitespace and case,
@@ -64,3 +103,7 @@ message for that reason: it is the one key both sides already have.
 - That the advisory group's 72 form receipts are 72 separate submissions.
   Every one carries the same sender and the same subject, so nothing in the
   envelope distinguishes them and the index trusts the body.
+- That a message raising state authority is one whose writer says so. The
+  seven large messages the connector did not deliver are counted in neither
+  column; Drive's own index returns no "Dillon" or "Richmond" in them, which
+  is weak evidence because the indexed text may be cut short.
