@@ -198,16 +198,124 @@ undefined citations mean biber did not run.
 ## Why the bibliography is checked entry by entry
 
 `test_every_cited_entry_is_complete` reads the keys the paper's `.tex` files
-cite and refuses an entry that would print incompletely: a newspaper piece
-without a journaltitle, location, date, title or page; an online piece without
-an organization or author, a date or a url; a report without an institution or
-author and a date; a thesis without a school; a legal case without a reporter
-citation or court in `note`; a book without a publisher and year. A field the
-copy does not give is declared in the annotation ("The copy gives no page",
-"The page gives no date"). It also refuses an author equal to the journaltitle
-or organization, which prints a paper's name twice, since an unsigned piece has
-no author, and a `note` over 80 characters, since a footnote is the citation
-and the page and commentary belongs in `annotation`.
+cite and holds each entry to the style sheet below, through `incomplete()` in
+`code/tests.py`. It refuses an entry that lacks what its kind prints (a newspaper
+piece without a journaltitle, location, date, title or page; an online piece
+without an organization or author, a date or a url; a report without an
+institution or author and a date; a thesis without a school; a case without a
+reporter; an act without its chapter and series; a book without a publisher and
+year) and one that carries what the sheet forbids (a masthead that opens with
+*The*, a title not in headline style, an unsigned piece whose `sortname` is not
+braced, a signed one that has a `sortname`, an author equal to the journaltitle or
+organization, a report whose institution is inside its author, an article read online with a url and no `entrysubtype = {magazine}`, a thesis url that
+is a repository's home page, primary law typed as anything but `@jurisdiction` or
+`@legislation` (a case with no `sortname`, a law with no `sorttitle`), a census record that is not `skipbib`, and a `note` over 80
+characters). A field the copy does not give is declared in the annotation ("The
+copy gives no page", "The page gives no date").
+
+## The bibliography's style sheet, 4 October 2026
+
+The Works Cited and the footnotes follow *The Chicago Manual of Style*, notes and
+bibliography, as biblatex-chicago prints it. This sheet says, for each kind of
+source, which fields an entry carries, how it reads in a footnote and in the Works
+Cited, and where it sorts. `test_every_cited_entry_is_complete` enforces it for the
+entries the paper cites. A rule says "Chicago" when the manual and the package
+agree; a departure is marked **departs** and says why.
+
+**For every entry.** A footnote is the citation and the page, nothing else: no URL,
+no access date, no commentary (`note` carries a page, a volume or a reporter
+citation, at most 80 characters; the rest goes in `annotation`, which biblatex does
+not print). The Works Cited keeps the URL and drops the access date. Titles are in
+headline-style capitalization whatever the source printed, with its spelling kept
+(Chicago 8.159); a range in a title takes an en dash. A corporate author is braced,
+`{{Arlington County Board}}`, and joint authors are joined with `and`. An entry that
+lacks what its kind needs says so in `annotation` ("The page gives no date", "The
+copy gives no page"). A citekey never changes.
+
+**Newspaper piece, signed** (`@article`). `author` is the byline; `title` the
+headline; `journaltitle` the masthead without its leading *The* (Chicago:
+*Sun*, *Daily Sun*, *Evening Star*), set once, the same in every entry of that
+paper; `location` the place of publication where the name does not give it
+(Arlington, Va.); `date` the full date; `pages` the page as printed (A-26). Footnote
+and Works Cited read `Sawicki, “Casto Enters Board Race,” *Northern Virginia Sun*
+(Arlington, Va.), July 4, 1963, 1.` Sorts under the author's surname.
+
+**Newspaper piece, unsigned** (`@article`). The same, with no `author`: the paper is
+not an author, so its name is not repeated there, and `sortname` is the masthead,
+braced as an organization (`{{Alexandria Gazette}}`; unbraced, biber reads it as a
+person and files "Daily Sun" under S). Sorts under the masthead, then by title.
+**Departs:** Chicago would open the entry with the paper's name; the drafting rules
+open with the headline and file under the paper, which reads the same to a reader
+looking the paper up.
+
+**Online-only piece** (`@online`). `author` if signed; `title`; `organization` the
+outlet as it names itself (ARLnow, InsideNoVa); `date`; `url`. Set in roman as
+Chicago sets a website. A piece a print paper wrote and a site reproduces is an
+`@article` of that paper, never "via" the host: *Sun Gazette* (Arlington, Va.),
+with the URL saying where it was read, the annotation saying the copy gives no
+page, and `entrysubtype = {magazine}` so the footnote, which drops the URL, does not
+end in a comma. Unsigned: `sortname` is the outlet, braced. A page that carries no date has
+no `date` field and the annotation says "The page gives no date".
+
+**Report or document by a body** (`@report`). `author` the body or the person;
+`title`; `institution` the publisher, only when it differs from the author (the same
+name twice prints twice); `date`; `url` when the public can reach it. Sorts under the
+author.
+
+**Journal article** (`@article`, with a volume). `author`, `title`, `journaltitle`,
+`volume`, `number`, `date`, `pages`, `url`. Where the copy prints no volume or
+issue (the *Arlington Historical Magazine* pages we hold), the entry gives the month
+and year and the annotation says the copy prints neither.
+
+**Book** (`@book`). `author` or `editor`, `title`, `location`, `publisher`, `date`;
+`url` for a scan. **Thesis** (`@phdthesis`): `author`, `title`, `subtype`,
+`institution`, `date`, and a `url` that reaches the document itself (the repository's
+handle), not the repository's home page.
+
+**Primary law is cited in notes and listed once, in Legal Authorities (a plainer name for what a legal brief calls
+its Legal Authorities), not the
+Works Cited.** Chicago 14.275 and the Bluebook agree that law is not a bibliography
+item. `\printworkscited` leaves the two legal types out, and `\printauthorities`
+(`paper/bibstyle.tex`) lists them after it under Cases, Constitutions and Statutes,
+each with the pages that cite it (`backref=true`). `@misc` and `@online` would have
+printed in the Works Cited, which is how some Commonwealth entries listed and some
+did not. Every case, act, session-law volume, constitution and code section is
+therefore a `@jurisdiction` or a `@legislation`; scholarship or a memo about law is an
+ordinary article, report or book and prints in the Works Cited. A legal entry carries
+no `author`: the sovereign is named by the reporter or the volume (`organization`
+holds it for filing). Cases sort by a braced `sortname` equal to the caption, and
+statutes and constitutions by a `sorttitle` equal to their date, which is what orders
+the table. `code/sources/cite.py` writes all of this.
+
+- *Case* (`@jurisdiction`): `title` the caption with "v."; `journaltitle` the
+  reporter abbreviation, `volume`, `pages` the first page; `origlocation` the parallel
+  reporter; `location` the court only when the reporter does not say (a circuit
+  court); `date` the decision, printed as its year. `Bennett v. Garrett, 132 Va. 397,
+  112 S.E. 772 (1922).` An unreported case gives its number and court
+  (`number`, `location`). **Departs:** none; the court name that the old `note`
+  carried is dropped because "Va." says it.
+- *Act*: `Act of Mar. 20, 1930, ch. 167, 1930 Va. Acts 450.` `title` "Act of" and the
+  date of approval, `titleaddon` the chapter, `shortjournal` the session-law series,
+  `volume` its year, `pages` the first page, `shorttitle` the same as the title (a
+  later note would otherwise print the chapter alone), `keywords = {datedintitle}`
+  because the date is already in the title, which `paper/bibstyle.tex` reads. The
+  act's own long title is in `annotation`. A volume
+  cited at several chapters (the Acts of 1869–70) is one entry, titled "Acts of the
+  General Assembly, Session of 1869–70", and the chapters go in the pin.
+- *Constitution*: `Va. Const. of 1869, art. VII, sec. 2.` `title` "Va. Const. of 1869",
+  `entrysubtype = {constitution}`, the article and section in the pin.
+- *Code*: `Va. Code Ann. § 15.2-1422 (2020).` `title` carries the section
+  (`Va.\ Code Ann.\ \S~15.2-1422`), `date` the year of the text read; the section's
+  heading goes in `annotation`. An old code is cited like a volume of acts, its
+  title carrying its year (`Code of Virginia of 1860, ch. 53, secs. 1 and 3`).
+
+**Census record** (`@misc`, built by `code/sources/ancestry.py`). A single
+enumeration line is cited in notes only (`options = {skipbib}`); the Works Cited
+does not list individuals from a schedule. The footnote gives the person, the
+census and place, the database and the record number.
+
+**Dataset or database page** (`@dataset`, or `@online` for a page): `author` the
+publisher, `title`, `version` if any, `date` if the page gives one, `url`.
 
 ## What `code/tests.py` guards, 1 October 2026
 

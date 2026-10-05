@@ -5,9 +5,19 @@ assembles it with the rest.
 Novack lists a person once, with their whole service as one string,
 "1932-1947", and records no elections, so the span is split at each
 election they contested, from the county's candidate history
-(members_roster_results.py). Months come from the notes. A member appointed
-to a vacancy who then wins a same-day special election is seated by it in
-November.
+(members_roster_results.py). Months come from the notes. Novack
+sometimes dates a span from the election rather than from taking office
+(Fisher "1963-1974" won in November 1963 and sat from January 1964), so a
+span whose first year the person won without having stood the year before
+begins the following January. A cut at an election the person stood in and
+lost continues however the span began: Frisbie, appointed in November 1947,
+lost that month, and his 1948 term is still the appointment. A member
+appointed to a vacancy who then wins a same-day special election is seated
+by it in November: Wilt, appointed in January 1960, won the special for
+Krupsaw's unexpired term that November, which the county's record has and
+Novack's note does not. Where an appointment is dated and no departure
+accounts for it, the one member whose span ends that year undated left in
+the month of the appointment; more than one stops the build.
 """
 import re
 

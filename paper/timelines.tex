@@ -26,9 +26,9 @@
   BoldItalicFont = *-BoldItalic,
 ]
 
-\usepackage[notes, backend=biber]{biblatex-chicago}
+\usepackage[notes, backend=biber, backref=true]{biblatex-chicago}
 \addbibresource{sources.bib}
-\AtEveryCitekey{\clearfield{url}\clearfield{urldate}\clearfield{urlyear}\clearfield{urlmonth}\clearfield{urlday}}
+\input{bibstyle}
 
 % A footnote inside a tabular is silently dropped by LaTeX: the mark prints
 % and the note never appears. Timeline rows carry citations, so make tabular
@@ -392,6 +392,7 @@
 }
 
 \clearpage
-\printbibliography[title={Works cited}]
+\printworkscited{Works cited}
+\printauthorities
 
 \end{document}

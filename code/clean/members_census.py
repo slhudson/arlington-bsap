@@ -3,7 +3,49 @@
 Reads the census rows of data/built/members_claims.csv, one per record, and
 gives members.py race, gender and birth year and members_residence.py
 the place, each as a claim row in the shape of the claim files beside it.
-docs/members.md, "Census records", has what each column holds and why.
+
+A census listing names a person, not a Board member, and gives several
+traits at once, so each record matched to a member is one row of
+data/transcribed/by_claude/members_census.csv and every trait is derived
+from that row rather than keyed separately. Its columns:
+
+    name, source  the roster name and the record's citekey, census<year><surname>
+    year          the census year
+    basis         what ties the record to the member, stated once: the name,
+                  the place, and an occupation, a spouse or a house number
+                  where one agrees; where the index misreads a name, what it
+                  reads
+    match         what ties it besides the name, from MATCH below, several
+                  joined with "; ": district (the district he sat for),
+                  occupation, household (a spouse or child another source
+                  names), address (a house or street a newspaper also
+                  prints), unique (the only person of the name in the
+                  county's index that year), or none. Blank where no one has
+                  yet read the record for a tie
+    checked       what was read against the image: "read against the sheet,
+                  which agrees", or what the sheet gives where it differs
+                  from the index (the sources skill, "Reading an image")
+    gender, race, age, birthplace, occupation
+                  as the index prints them: Male, Mulatto, 39
+    birth_year    a birth year the index prints as a date, not its "abt"
+                  estimate from the age (the 1900 schedule records a month
+                  and year); blank otherwise
+    place         the street and house number as read for residence, from
+                  the sheet where the sheet was read; blank where no one has
+                  read it for that purpose
+    quote         the index listing verbatim
+    sheet         the sheet's lines verbatim, where they were read
+
+A name alone with nothing else in agreement is no match. A row whose match
+is `none` stays in the table, so the search and the reading are on record,
+and gives the member nothing, so his traits fall to the default or to his
+other sources (Sally). Male is a man, Female a woman, White White, and both
+Black and Mulatto Black, as Hjerpe codes Pinn's 1880 record; a printed value
+with no code here stops the build, since a dropped claim would fall silently
+into the default. The birth year is the one the index prints as a date, or
+else the census year less the age, and the claim's basis says which. The
+place joins the claims of members_residence.csv in
+data/clean/members_residence.csv, none chosen over another.
 """
 import pandas as pd
 
@@ -13,8 +55,8 @@ import paths
 GENDER = {"Male": "man", "Female": "woman"}
 RACE = {"White": "White", "Black": "Black", "Mulatto": "Black"}
 
-# What may tie a record to a member besides the name (docs/members.md, "Census
-# records"). Several are joined with "; ". A row that states `none` stays in
+# What may tie a record to a member besides the name (the docstring above).
+# Several are joined with "; ". A row that states `none` stays in
 # the table and feeds nothing; a blank has not been read for a tie and stands
 # until it is (census-match-quality in docs/questions.csv).
 MATCH = ("district", "occupation", "household", "address", "unique", "none", "")
@@ -24,7 +66,7 @@ WEAK = "none"
 # with another record with nothing to arbitrate between them, so no birth
 # year is read from them. Where a third record gives a printed date instead
 # (Febrey), the member still gets a birth year; where it does not (Duncan),
-# he gets none. docs/members.md, "Census records", says which record and why.
+# he gets none. Each record's own row says why in its `checked` and `basis`.
 # A key here that no census row uses would drop nothing and say nothing, so
 # records() refuses one.
 AGE_MISREPORTED = ("census1910febrey", "census1920febrey", "census1910duncan", "census1920duncan")
@@ -84,7 +126,7 @@ def residences() -> pd.DataFrame:
     members_residence.csv: the match, then what was checked where the match
     does not already say it. The quote is the sheet where it was read.
     The build stage has already refused a place from a record read only
-    in the index (docs/members.md, "Reading an image")."""
+    in the index (the sources skill, "Reading an image")."""
     r = records()
     r = r[r.place != ""]
     basis = ["; ".join([b] + [c for c in checked.split("; ") if c not in b])
