@@ -434,6 +434,35 @@ sentence after it says that in every presidential year from 1940 through 2024
 with a one-seat count, the Board's vote beat the governor's year's after it
 (`\boardPairs`, 18 pairs); the build stops if a pair ever fails to.
 
+**The 1870s rate: 68 in 1872 and 89 in 1876 are the county's own vote over
+its own men.** The 1872 vote, 590, is the county electoral board's certified
+return in the Gazette (`alexandriagazette1872official`), by three townships,
+Arlington, Jefferson and Washington; the 1876 vote, 824, is the Almanack's row
+for Alexandria County (`warrock1868`) and agrees with the Gazette's district
+table. Neither includes the city, whose wards are a separate page of the
+Gazette and a separate row of the Almanack (2,960 for President in 1876); the
+Almanack's 1876 column that carries the cities inside their counties reads
+1,854 and 1,930 for Alexandria, which is 824 plus 2,960. The denominator is
+the county net of the city on both sides: the 1870 volume's county row is the
+city's 13,570 and the county's 3,185 people, so 4,080 men less the city's
+3,233 leaves 847, and the 1880 count of 973 is the three districts' (the
+volume's county-with-city row prints 4,218 men, which leaves the city 3,245,
+within 12 of its 1870 count). Held to the same arithmetic for 1876 on a
+straight line between the two counts, the rate reads 76 for Virginia, 77 for
+Loudoun, 78 for Prince William, 83 for Fairfax, 89 for Alexandria County and
+91 for Alexandria city (`data/transcribed/by_claude/elections_turnout_neighbours.csv`).
+In 1880, a census year with nothing interpolated, the same ratio is 64 for the
+state, 74 to 81 for the three neighbours, 77 for the county and 78 for the
+city. So the 1876 point is the electorate as recorded and not an artifact of
+the denominator: the two Alexandria jurisdictions, the only urban ones, sit
+7 to 14 points above their neighbours in that one year and with them in 1880.
+The count of 1876 men is the weakest part, a line across a decade in which
+the county grew by 15 percent, but the city's men barely moved (3,233 to
+3,245) and it reads 91, so the line is not what produces the height. What
+makes 1876 high in Alexandria is not established; the sources held do not
+say who voted. For 1872 no county table for Virginia is held, so the
+comparison stops at the county's own 68.
+
 **Votes are not voters.** A Board ballot carries one vote per seat being
 filled, so `board_voters` divides the votes by the seats: exactly the number
 of people who voted for the Board when one seat was filled, and a lower bound

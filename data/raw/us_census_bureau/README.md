@@ -1,6 +1,6 @@
 # Census volumes not kept in git
 
-Twenty-four scans the build never reads are not in this repository, because
+Twenty-five scans the build never reads are not in this repository, because
 together they are about 250MB and would push Overleaf past its ceiling. `data/contents.csv`
 has each one's URL and checksum. To fetch them, refusing any byte that differs:
 
@@ -11,6 +11,7 @@ and race counts were read from:
 
 - `1880/1880_v1-12.pdf`
 - `1880/1880_v1-13.pdf`
+- `1880/1880_v1-16.pdf`, Table XXIII, males of voting age by county
 - `1890/1890a_v1-11.pdf`
 - `1890/1890a_v1-12.pdf`
 - `1890/1890a_v1-13.pdf`

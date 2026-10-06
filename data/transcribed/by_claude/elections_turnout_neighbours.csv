@@ -1,0 +1,34 @@
+year,place,measure,value,source,page,read_from,quote
+1876,Fairfax,president_democratic,1652,warrock1868,printed p. 31 (HathiTrust scan 445),page image,Fairfax 1201 | 993 | 1652 | 1390
+1876,Fairfax,president_republican,1390,warrock1868,printed p. 31 (HathiTrust scan 445),page image,Fairfax 1201 | 993 | 1652 | 1390
+1876,Loudoun,president_democratic,2475,warrock1868,printed p. 31 (HathiTrust scan 445),page image,Loudoun 2141 | 1239 | 2475 | 1651
+1876,Loudoun,president_republican,1651,warrock1868,printed p. 31 (HathiTrust scan 445),page image,Loudoun 2141 | 1239 | 2475 | 1651
+1876,Prince William,president_democratic,1044,warrock1868,printed p. 31 (HathiTrust scan 445),page image,Prince William 765 | 386 | 1044 | 488
+1876,Prince William,president_republican,488,warrock1868,printed p. 31 (HathiTrust scan 445),page image,Prince William 765 | 386 | 1044 | 488
+1876,Alexandria city,president_democratic,1617,warrock1868,printed p. 31 (HathiTrust scan 445),page image,Alexandria City 1296 | 1132 | 1617 | 1343
+1876,Alexandria city,president_republican,1343,warrock1868,printed p. 31 (HathiTrust scan 445),page image,Alexandria City 1296 | 1132 | 1617 | 1343
+1876,Virginia,president_democratic,139670,warrock1868,printed p. 31 (HathiTrust scan 701),page image,"Totals.--In 1876, for Tilden, 139,670; for Hayes, 95,558."
+1876,Virginia,president_republican,95558,warrock1868,printed p. 31 (HathiTrust scan 701),page image,"Totals.--In 1876, for Tilden, 139,670; for Hayes, 95,558."
+1880,Fairfax,president_hancock_funder,1512,warrock1868,printed p. 30 (HathiTrust scan 700),page image,Fairfax 1652 | 1390 | 1512 | 214 | 1398
+1880,Fairfax,president_hancock_readjuster,214,warrock1868,printed p. 30 (HathiTrust scan 700),page image,Fairfax 1652 | 1390 | 1512 | 214 | 1398
+1880,Fairfax,president_garfield,1398,warrock1868,printed p. 30 (HathiTrust scan 700),page image,Fairfax 1652 | 1390 | 1512 | 214 | 1398
+1880,Loudoun,president_hancock_funder,2635,warrock1868,printed p. 30 (HathiTrust scan 700),page image,Loudoun 2475 | 1651 | 2635 | 145 | 1792
+1880,Loudoun,president_hancock_readjuster,145,warrock1868,printed p. 30 (HathiTrust scan 700),page image,Loudoun 2475 | 1651 | 2635 | 145 | 1792
+1880,Loudoun,president_garfield,1792,warrock1868,printed p. 30 (HathiTrust scan 700),page image,Loudoun 2475 | 1651 | 2635 | 145 | 1792
+1880,Prince William,president_hancock_funder,1095,warrock1868,printed p. 30 (HathiTrust scan 700),page image,Pr. William 1044 | 488 | 1095 | 24 | 459
+1880,Prince William,president_hancock_readjuster,24,warrock1868,printed p. 30 (HathiTrust scan 700),page image,Pr. William 1044 | 488 | 1095 | 24 | 459
+1880,Prince William,president_garfield,459,warrock1868,printed p. 30 (HathiTrust scan 700),page image,Pr. William 1044 | 488 | 1095 | 24 | 459
+1880,Alexandria city,president_hancock_funder,1458,warrock1868,printed p. 31 (HathiTrust scan 701),page image,Alexandria 1458 | 82 | 994
+1880,Alexandria city,president_hancock_readjuster,82,warrock1868,printed p. 31 (HathiTrust scan 701),page image,Alexandria 1458 | 82 | 994
+1880,Alexandria city,president_garfield,994,warrock1868,printed p. 31 (HathiTrust scan 701),page image,Alexandria 1458 | 82 | 994
+1880,Virginia,president_hancock,128586,warrock1868,printed p. 31 (HathiTrust scan 701),page image,"In 1880, for Hancock, 128,586; for Garfield, 84,020."
+1880,Virginia,president_garfield,84020,warrock1868,printed p. 31 (HathiTrust scan 701),page image,"In 1880, for Hancock, 128,586; for Garfield, 84,020."
+1870,Fairfax,males_21_and_over,3272,walker1872,printed p. 637 (Table XXIV),page image,Fairfax 12952 6730 6222 2072 1835 2455 3272 3229
+1870,Loudoun,males_21_and_over,4938,walker1872,printed p. 637 (Table XXIV),page image,Loudon 20929 10190 10739 2178 3178 3654 4938 4892
+1870,Prince William,males_21_and_over,1730,walker1872,printed p. 637 (Table XXIV),page image,Prince William 7504 3680 3824 1197 1085 1320 1730 1702
+1870,Virginia,males_21_and_over,269242,walker1872,printed p. 637 (Table XXIV),page image,Total 1225163 597058 628105 200103 196709 206658 269242 266680
+1880,Fairfax,males_21_and_over,3963,census1880,printed p. 665 (Table XXIII),page image,Fairfax 16025 8112 7913 2570 2540 2900 3963
+1880,Loudoun,males_21_and_over,5625,census1880,printed p. 665 (Table XXIII),page image,Loudoun 23634 11599 12035 3611 3513 4283 5625
+1880,Prince William,males_21_and_over,2130,census1880,printed p. 665 (Table XXIII),page image,Prince William 9180 4588 4592 1529 1421 1584 2130
+1880,Alexandria County and city,males_21_and_over,4218,census1880,printed p. 665 (Table XXIII),page image,Alexandria 17546 8399 9147 2578 2634 3078 4218
+1880,Virginia,males_21_and_over,334505,census1880,printed p. 665 (Table XXIII),page image,The State 1512565 ... 334505
