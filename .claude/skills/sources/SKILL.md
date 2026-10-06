@@ -18,6 +18,20 @@ saved into `data/raw/` under the name of who published it, given a row in
 the network, so the build reads only what is committed. `docs/web_access.md`
 says what each site needs from this machine.
 
+## Which browser reads a page
+
+A site that puts a human check in front of its pages - loc.gov, Virginia
+Chronicle, HathiTrust, Ancestry, ProQuest, the Post; `docs/web_access.md`
+names each - is read in Sally's own Chrome through Claude in Chrome, from the
+first request. The built-in browser pane is a fresh browser with no history:
+the check refuses it and shows a button nobody can click from inside Claude,
+so a session that starts there and switches to Chrome after the refusal has
+spent the first half for nothing. The pane is for sites that do not check.
+A step that needs Sally's click - the check itself, a sign-in, a download the
+site will not give a script - is set up for her: the page open in her Chrome
+and the ask at the top of the message; it is never logged as a row with the
+session reporting "done".
+
 ## Citing and filing a source the prose reads
 
 `code/sources/cite.py` fetches such a source, files it and writes its bib entry in one
