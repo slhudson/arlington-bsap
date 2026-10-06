@@ -208,7 +208,11 @@ land Alexandria sought in 1911 was in Jefferson.
 Race below the county is printed in one volume only, 1870's. For 1880, 1900,
 1910 and 1920 it is counted person by person out of the full-count schedules
 instead, and `residents_by_district.csv` carries all five censuses. The figure
-is `residents_by_district_race`. Two cells are empty, each for a reason below:
+is `residents_by_district_race`; the paper carries
+`residents_by_district_race_adults`, the same shares among men of voting age,
+because the passage it sits in is about who could vote and family size may
+differ by race (Sally, 6 October 2026; `turnout-figures-rebuild`). Two cells
+are empty, each for a reason below:
 every district in 1890, whose schedules burned, and Arlington in 1900, which
 the database is short of by one resident in six.
 
@@ -360,8 +364,12 @@ series is a Reconstruction moment rather than a stable starting point. See
 
 `data/clean/residents_by_district_adults.csv` counts the men aged 21 and over
 in each district at 1880, 1900, 1910 and 1920, by race, and the county where
-all three districts are counted. It is the denominator of
-`elections_turnout_by_district`. The build carries sex beside race and age
+all three districts are counted. It is the pre-1932 denominator of
+`elections_turnout` and the denominator of `residents_by_district_race_adults`,
+and of the district rates the Race prose cites for Jefferson. The county's
+men before 1930 are therefore three censuses, 1880, 1910 and 1920, and the
+1870, 1890 and 1900 volumes print the count the schedules cannot give
+(`adults-1870-1900`). The build carries sex beside race and age
 (`data/built/ipums.csv`); that the age is 21 and the unit a man is decided in
 `code/clean/residents_by_district_adults.py`. Each census's enumeration
 districts are placed in a magisterial district by `residents_by_district.placed()`
@@ -378,7 +386,7 @@ holds.
 The table also counts the women 21 and over (`women_white`, `women_black`,
 `women_other`, `women_all`) and the two together (`adults_all`), by the same
 placement. Women could not vote in Virginia before 1920, so the figure that
-reads them, `elections_turnout_before_1932_adults`, takes men for the
+reads them, `elections_turnout`, takes men for the
 denominator through 1916 and everyone 21 and over from 1920. 1930 is one county
 row from the census volume's printed counts of males and females 21 and over,
 with no race and no district.

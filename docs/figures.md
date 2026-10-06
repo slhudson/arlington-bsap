@@ -513,10 +513,11 @@ there the labels can be shortened and here the years cannot.
   `style.SWATCH` and `style.AREA_EDGE`. What the lines rest on is in
   `docs/residents.md`, "Where the lines ran".
 
-- **residents_by_district_race_adults.** The same figure as
-  residents_by_district_race with the men aged 21 and over in place of every
-  resident, because family size may differ by race and children are in the
-  all-residents count. Men only, since the table carries race for men and
+- **residents_by_district_race_adults.** The figure the paper carries, in
+  place of residents_by_district_race (Sally, 6 October 2026): the same
+  picture with the men aged 21 and over in place of every resident, because
+  the passage it sits in is about who could vote, and family size may differ
+  by race and children are in the all-residents count. Men only, since the table carries race for men and
   women but the turnout figures it sits beside count men before 1920. Four
   censuses, 1880, 1900, 1910 and 1920, with a dotted segment across the years
   between and across 1890. Arlington district's 1900 point is a share of the
@@ -654,32 +655,34 @@ there the labels can be shortened and here the years cannot.
 - **elections_board.** A step area, because the series is annual. A separate
   figure from elections_president rather than a panel, because they are not the
   same voters and a shared frame would say they were.
-- **turnout.** The Board's voters as four series, one per place in the
-  four-year cycle, each every fourth year. Drawn as one annual line the
-  series is a sawtooth, and the teeth are the ballot, not the Board; drawn
-  as four, the trend in each is visible. The presidential vote is the
-  reference line. The district-era counts and the registered voters are in
-  the table and not drawn: the registration series is fifteen years long,
-  and the prose can state it in a sentence. The share panel starts where its
-  denominator does, so its frame is not half empty. Its adults are 21 and
-  over through 1970 and 18 and over from 1971, and nothing marks the change:
-  as with residents_by_race at 1980, it is real but small, no line steps at
-  it, and a rule would claim more for it than it has. The caption carries it.
-- **elections_turnout_before_1932, elections_turnout_before_1932_adults.**
-  The presidential vote, 1872 to 1928, and the Board's vote in the three years
-  all three seats were counted, per 100 residents and per 100 residents of
-  voting age: men 21 and over through 1916, everyone 21 and over from 1920.
-  The second begins in 1880, the first census that counts adults. A year the
-  source gives as incomplete (1896, 1904, 1908) is not drawn, and a dotted
-  segment crosses it, since a hollow marker drew the eye to a count nobody
-  can use. Three dated rules, the Walton Act of 1894, the constitution of
-  1902 and women voting in 1920. Both denominators are interpolated in a
-  straight line between censuses.
-- **elections_turnout_by_district.** Votes for each district's Board seat
-  per 100 men of voting age at the nearest census, 1893 to 1919, one line per
-  district joining the contests a count was recovered for. Men only: no
-  woman voted before 1920 and the figure stops before it. Two rules, 1894
-  and 1902.
+- **elections_turnout.** One panel, 1872 to the present, shares only, since
+  the counts say nothing the shares do not (Sally, 6 October 2026). The
+  presidential vote is one grey line throughout and the thread of the
+  figure. The Board's vote is one colour family in two forms: a square for
+  each of the five district-era elections every district's count survives,
+  named by year in the legend, because five points in sixty years are not a
+  line; and from 1935 three shades by what led the ballot, presidential,
+  midterm and governor's year, darkest first, drawn only in years with one
+  seat on the ballot. One family so the Board reads as one thing against the
+  presidential line, three shades so the trend in each cycle is visible;
+  drawn as one annual line the series is a sawtooth, and the teeth are the
+  ballot, not the Board. The legend names the family once and its four
+  entries under it. A two-seat year is a gap, not a floor, because it
+  records votes and not voters; from 1943 that is every House of Delegates
+  year, and the caption says so. Four dated rules, the Walton Act of 1894,
+  the constitution of 1902, women voting in 1920 and the poll tax falling in
+  1966, their notes placed not to collide. The denominator is men 21 and
+  over through 1916, everyone 21 and over from 1920 and 18 and over from
+  1971, a count at every census and a straight line between; nothing marks
+  1971, which, as with residents_by_race at 1980, is real but small, and a
+  rule would claim more for it than it has. The caption carries it, and that
+  the denominator is every resident of voting age, citizen or not,
+  disfranchised or not. The registered voters are in the table and not
+  drawn: the series is fifteen years long, and the prose can state it in a
+  sentence. The two pre-1932 figures and the by-district figure are retired
+  (Sally, 6 October 2026): the first two are this figure's left third, and
+  the third's one finding, that Jefferson fell steepest, is a sentence in
+  the prose with its own built numbers.
 - **localities_peers.** Arlington beside every Virginia city and county of
   100,000 or more, in two panels that share a legend and a note: (a)
   members against residents, (b) residents per member against density. They

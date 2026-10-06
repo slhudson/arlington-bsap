@@ -97,6 +97,39 @@ it arrived and how it's been used so far leaves the section's own argument
 untested against its own last case. State directly whether the new rule
 changes the pattern the section just built, and where it doesn't.
 
+## Shapes from a whole part, not a section
+
+Found by talking out Part C with Sally (6 October 2026), where every
+section was a stub and the question was what the part was for.
+
+**Read the charge before stating a part's job.** For a section, the draft
+or its proposal memo is the place to start. For a whole part, start from
+what commissioned it: the scope of work, the proposal, the brief that
+promised it. Those were the first answer to "what is this for," and
+refining from them beats inferring a purpose from stubs that were never
+thought through. The draft is read against the charge, not the other way
+round.
+
+**Split a "should" question into its research half.** Every question a
+review body would ask has two halves: "should we change this" and "what
+would tell you whether to." A report that may not recommend is barred from
+the first and owns the second. The section is the second half: what the
+evidence held already settles, and what evidence would settle the rest. The
+split does most of the work of sorting what belongs, and it is what keeps a
+section from reading as advice.
+
+**A section of pointers is a section without a claim.** When every
+paragraph in a section says where the evidence already is ("the Race
+subsection is this report's most developed evidence on the question"), the
+section has not stated what it claims. Pointers are not a claim and better
+pointers are not the fix; the fix is the point, after which most of the
+pointers become one cross-reference or nothing.
+
+**"Offer a default" means a placeholder, not a position.** When Sally pins
+a section and asks for a default, the memo gets a serviceable shape marked
+unsettled, so a drafter has something to work from. It is not a
+recommendation to the report's reader and is not written as one.
+
 ## After the argument is settled
 
 Hand off to the `prose` skill for how to write it — voice, sentence shape,

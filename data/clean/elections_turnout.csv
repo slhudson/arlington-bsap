@@ -8,10 +8,10 @@ year,cycle,board_votes,board_seats,board_voters,board_complete,board_source,boar
 1896,,,,,,,,,,,,,,,,,1039,derived
 1900,,,,,,,,,,,,,,,,,828,derived
 1904,,,,,,,,,,,,,,,,,256,derived
-1907,,756,3,252,True,oleary2010 p.25,"one seat per district, so one vote per voter",,,,,,,,,,,
+1907,,756,3,252,True,alexandriagazette1907election p.2,"one seat per district, so one vote per voter",,,,,,,,,,,
 1908,,,,,,,,,,,,,,,,,519,derived
 1912,,,,,,,,,,,,,,,,,585,derived
-1915,,876,3,292,True,oleary2010 p.27,"one seat per district, so one vote per voter",,,,,,,,,,,
+1915,,876,3,292,True,alexandriagazette1915election p.2,"one seat per district, so one vote per voter",,,,,,,,,,,
 1916,,,,,,,,,,,,,,,,,927,derived
 1920,,,,,,,,,,,,,,,,,1831,derived
 1924,,,,,,,,,,,,,,,,,2921,derived

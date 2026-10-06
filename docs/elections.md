@@ -19,13 +19,12 @@ still open.
   prints the others before 1924 cannot be tested against the Secretary's
   own return with anything held online; only a visit to the Library of
   Virginia would settle it (`almanack-against-secretary`).
-- The Board's own totals for 1907 and 1915 are O'Leary's alone; no Gazette
-  page naming the district counts for either election has been read
-  (`oleary-regrounded`).
 - Turnout's denominators: adults after 2020 carried forward
-  (`adults-after-2020`), registration before 2010
-  (`registration-before-2010`), and votes per seat standing in for ballots
-  cast (`ballots-cast`).
+  (`adults-after-2020`), and the county's men of voting age before 1910
+  counted at three censuses until the 1870, 1890 and 1900 volumes are keyed
+  in (`adults-1870-1900`). The modern figure's two-seat years are gaps until
+  ballots cast are found (`ballots-cast`), and the settled forms of the
+  figures are not yet built (`turnout-figures-rebuild`).
 
 - The nominating stage is recorded for at least one winner in 20 of the 89 Board election years since
   1931 (`nominations-1931-1978`, `nominations-1979-2011`,
@@ -46,6 +45,9 @@ single-winner districts, multi-winner block elections and ranked choice, in
 the Charlottesville series' language and sources, then turns to Arlington in
 four subsections: districts, 1870-1930; at large, 1930 to the present;
 staggered terms, 1938 to the present; and ranked choice, 2020 to the present.
+The turnout figure sits under staggered terms, as the electorate each seat
+is filled by ("Turnout", below), and districts, 1870-1930, owes one sentence
+on the electorate its last 28 years ran on, pointing at the same figure.
 The nominating stage is not a subsection of its own: whether the report makes
 a nominating-stage argument at all is parked (`nominations-1931-1978` and
 three further rows, `docs/questions.csv`), and until that is decided the
@@ -382,9 +384,8 @@ where a candidate has no label and no other candidate has a non-Democratic,
 non-ABC one.
 
 Before 1931 each district's seat is its own contest. The Gazette's counts
-give ten district margins (1893-1901, 1919), each read off the page image; O'Leary prints the
-counts for 1907 and 1915, and the highest count there is checked against the
-roster. The nominating stage is keyed for 1885 only, where the Gazette names
+give sixteen district margins (1893-1901, 1907, 1915, 1919), each read off the page image, and the
+highest count is checked against the roster. The nominating stage is keyed for 1885 only, where the Gazette names
 the "regular republican" nominee and a "citizens'" candidate against them in
 Arlington District; the other years and districts are gaps.
 
@@ -398,6 +399,38 @@ voters, the population 18 and over, and the presidential vote. It also carries
 the seats those Board votes filled and the number of people the votes
 represent. Each of the four measures has its own source column, because a row
 draws on up to four documents at once.
+
+**One figure, 1872 to the present, and what it argues.** Election Method's
+claim is that what separates the three methods is how many seats one ballot
+fills and who counts as the electorate for each, and turnout is the evidence
+for the second half. `elections_turnout` is one panel, votes per 100
+residents of voting age: the presidential vote as one grey line from 1872,
+which is the thread, who could vote, from four men in five in 1880 to one in
+eleven in 1904, the dip at 1920 when women double the denominator, the climb
+from the 1940s and the plateau above 60 percent since 2008. The Board's vote
+sits on it in one colour family: squares for the five district-era
+elections every district's count survives (the county recorded the Board's
+vote in five of 29, two of them O'Leary's alone, which is a table and not a
+line), and from 1935 three shades by what led the ballot, so the Board reads
+as one family against the presidential line and the trend in each cycle is
+still visible. A two-seat year is a gap, because it records votes and not
+voters, and that takes every House of Delegates year from 1943
+(`ballots-cast`). The figure goes in Election Method under Staggered Terms,
+because that is what it shows about the method: one seat on every November
+ballot means each seat is chosen by whoever turned out for that year's top
+of the ticket, about half the county's adults in a presidential year and a
+quarter to a third in a governor's, two members of one Board with
+electorates of different size. Race keeps its electorate paragraph and
+points at the figure's left third for the collapse after 1894 and 1902,
+which is a fact about the electorate and not about districts: a poll tax
+shrinks an at-large electorate the same way. The denominator is every
+resident of voting age, non-citizens and the disfranchised included, the
+one denominator that can be held constant across the period, and the
+caption says so. The all-residents version, the pre-1932 adults figure and
+the by-district figure are retired: the first two are the left third of this
+one, and the third's one finding, that Jefferson fell steepest, is a
+sentence in the prose with its own built numbers (Sally, 6 October 2026;
+`turnout-figures-rebuild`).
 
 **Votes are not voters.** A Board ballot carries one vote per seat being
 filled, so `board_voters` divides the votes by the seats: exactly the number
@@ -421,9 +454,14 @@ decides for `elections_results.csv` and `elections_turnout.csv` alike. A year is
 where a named candidate has no count (1942, 1949, and Frisbie in 1947, whose
 page also says its totals are from 8 of 11 precincts) or where the page says
 others ran who are not listed (1931). Before 1932 the Board was elected by
-district, one seat each, so every voter cast one vote; O'Leary reports the
-count for 1907 (756 voters across three districts) and 1915 (876) and "(No
-returns.)" for the rest. Both are in the table and not drawn.
+district, one seat each, so every voter cast one vote; the Gazette prints the
+count for 1907 (756 voters across three districts, issue of 6 November) and 1915 (876, 3
+November) in every district, read off the page image, and O'Leary reports "(No
+returns.)" for the rest. O'Leary's own counts for the two years agree with the
+Gazette's on all sixteen candidates; they differ only in spelling (Hagen for
+Hagan, Wibirt for Wilbert, the initials W.M., J.W. and E.J. for W. N.
+Febrey, G. W. Donaldson and C. J. Costello), and nothing in the table rests on him.
+Both are in the table and not drawn.
 
 **The denominators.** Votes for the Board are the county's candidate history
 1931–2021 and the state database from 2022, write-ins included. Registered
@@ -454,10 +492,11 @@ Cast` appears only for 2025. The Department's precinct turnout files from
 2007 were not used; 2008's lacks the central absentee precinct, and in several
 years a precinct's row is repeated once per district it sits in.
 
-**The rates the prose cites are the figures' own.** The two pre-1932 turnout
-figures take their denominators from `code/analysis/elections.py`: the
-presidential vote per 100 residents of voting age, and a district's Board
-contest per 100 men of voting age the nearest census counted there.
+**The rates the prose cites are the figures' own.** The turnout figure
+and the prose take their pre-1932 denominators from `code/analysis/elections.py`:
+the presidential vote per 100 residents of voting age, and a district's Board
+contest per 100 men of voting age the nearest census counted there, which
+the Race section cites for Jefferson though no figure draws it.
 `code/analysis/body_text_numbers.py` reads the same module and writes each rate
 as a command (`\turnoutNineteenFour`, `\boardTurnoutJeffersonNineteenOne`), and
 the Race section's electorate paragraph cites the commands rather than numbers
@@ -465,18 +504,18 @@ typed from the figure, so a change of denominator reaches the prose in the same
 build. `code/tests.py` works the rates out again without the module and refuses
 a command that disagrees.
 
-**What the series shows.** The Board's vote is drawn as four series by what
-else the November ballot carried (the `cycle` column: president, governor,
-midterm, delegates), because drawn as one line it is a sawtooth whose teeth
-are the ballot and not the Board. In a presidential year most of
-the county's presidential voters also vote for the Board.
+**What the series shows.** The Board's vote is drawn by what else the
+November ballot carried (the `cycle` column: president, governor, midterm,
+delegates), because drawn as one line it is a sawtooth whose teeth are the
+ballot and not the Board. In a presidential year most of the county's
+presidential voters also vote for the Board.
 
-As a share of the county's adults, the four series move differently:
+As a share of the county's adults, the cycles move differently:
 
 - **presidential years** rose from the 1940s to 1968, fell back by 1980, and
   reach a majority of adults in 2024;
 - **House of Delegates years**, when the Board tops the ballot, run below the
-  other cycles and rise in 2023;
+  other cycles; from 1943 every one is a two-seat year and is not drawn;
 - **midterm and governor's years** sat well below presidential years for
   decades and have converged on them since 2017.
 
