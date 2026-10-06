@@ -303,8 +303,11 @@ add a sentence the paper does not yet have; `low`, it sharpens a footnote or
 the bibliography and can wait for closeout. The ranking is Sally's; a blank
 means she has not ranked the row, not that it is low. The `Physical` and
 `Digital` rows were ranked on 7 October 2026: the county abstracts of votes
-and the 1888 court order book at the Library of Virginia, and the 1982 act
-through a law-library login, are the three that would change the paper.
+and the 1888 court order book at the Library of Virginia, the 1982 act
+through a law-library login, and the Post's 1973 map of where officials
+lived, are the four that would change the paper; the map is high because
+residence is County-gated, and members placed from it are the case for the
+County releasing its records (Sally, 7 October 2026).
 
 `waiting_on` names who owes the next move, not who would do the work. Eight
 courts: `Sally`; `Alex` for work Sally has offered him, which waits on his yes
