@@ -290,10 +290,21 @@ in the present tense, ending with a list of what still rests on an
 assumption. `paper/sources.bib` is the registry of sources, and each entry's
 `annotation` holds the notes on it. `docs/questions.csv` is the tracker: one row per open item, with a
 stable slug for an id, its kind, whose court it waits in, the figure or table
-it bites, the question in a sentence, and what would settle it. Three kinds: `source`, a
+it bites, the question in a sentence, what would settle it, and its
+priority. Three kinds: `source`, a
 document to find or read; `decision`, a choice about how a number is built
 or shown; and `scope`, a proposal for analysis the report does not yet do,
 such as comparing Arlington's Board to peer localities.
+
+`priority` says what answering the row would do to the report, so a
+co-author choosing what to chase reads it first. Three values: `high`, the
+answer would change a figure or a claim the paper makes; `medium`, it would
+add a sentence the paper does not yet have; `low`, it sharpens a footnote or
+the bibliography and can wait for closeout. The ranking is Sally's; a blank
+means she has not ranked the row, not that it is low. The `Physical` and
+`Digital` rows were ranked on 7 October 2026: the county abstracts of votes
+and the 1888 court order book at the Library of Virginia, and the 1982 act
+through a law-library login, are the three that would change the paper.
 
 `waiting_on` names who owes the next move, not who would do the work. Eight
 courts: `Sally`; `Alex` for work Sally has offered him, which waits on his yes
