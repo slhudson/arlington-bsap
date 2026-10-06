@@ -189,6 +189,13 @@ SAMPLE = {"county": ("Arlington residents, 2020 census", DARK),
 # One share measured across several cuts of one set of respondents: one
 # series, so one colour, and the near-neutral rather than a lead.
 SURVEY_SHARE = ("share of respondents", SAND_LINE)
+# A document naming the Board either records who held a seat or who won one
+# - the one substantive distinction among the sources themselves, so it
+# stays in the one neutral family rather than taking a category's hue.
+SOURCE_KIND = {
+    "election": ("members elected", SAND),
+    "service": ("members served", SAND_LINE),
+}
 # The gap between two blocks of a horizontal bar chart, in bar widths.
 GROUP_GAP = 0.8
 
@@ -205,6 +212,7 @@ NARROW = 0.7          # the fraction of the profile's width a few-category figur
 SQUARE = 2.0          # the aspect of a scatter, whose two axes are both measures; see docs/figures.md
 PAIR = 0.88           # the aspect of two scatters stacked one above the other, each the SQUARE shape at full width, filling most of a page; see docs/figures.md
 STRIP = 7.0           # the aspect of a timeline of events, whose y axis carries no measure; see docs/figures.md
+SPAN_TICK = 0.6        # the width, in years, of a dated item drawn as a tick on an hspans() row; see docs/figures.md
 BROKEN = (5, 1)       # widths of the two sides of a broken x axis, near and far
 MARGIN = 0.037        # white on all four sides, as a fraction of the width, measured to ink
 LEGEND_GAP = 0.2      # inches between the lowest ink of the plot and the legend
