@@ -304,8 +304,8 @@ series is a Reconstruction moment rather than a stable starting point. See
 
 `data/clean/residents_by_district_adults.csv` counts the men aged 21 and over
 in each district at 1880, 1900, 1910 and 1920, by race, and the county where
-all three districts are counted. It is the denominator of
-`elections_turnout_before_1932_adults` and of `residents_by_district_race_adults`,
+all three districts are counted. It is the pre-1932 denominator of
+`elections_turnout` and the denominator of `residents_by_district_race_adults`,
 and of the district rates the Race prose cites for Jefferson. The county's
 men before 1930 are therefore three censuses, 1880, 1910 and 1920, and the
 1870, 1890 and 1900 volumes print the count the schedules cannot give
@@ -326,7 +326,7 @@ holds.
 The table also counts the women 21 and over (`women_white`, `women_black`,
 `women_other`, `women_all`) and the two together (`adults_all`), by the same
 placement. Women could not vote in Virginia before 1920, so the figure that
-reads them, `elections_turnout_before_1932_adults`, takes men for the
+reads them, `elections_turnout`, takes men for the
 denominator through 1916 and everyone 21 and over from 1920. 1930 is one county
 row from the census volume's printed counts of males and females 21 and over,
 with no race and no district.

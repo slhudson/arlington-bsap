@@ -45,6 +45,9 @@ single-winner districts, multi-winner block elections and ranked choice, in
 the Charlottesville series' language and sources, then turns to Arlington in
 four subsections: districts, 1870-1930; at large, 1930 to the present;
 staggered terms, 1938 to the present; and ranked choice, 2020 to the present.
+The turnout figure sits under staggered terms, as the electorate each seat
+is filled by ("Turnout", below), and districts, 1870-1930, owes one sentence
+on the electorate its last 28 years ran on, pointing at the same figure.
 The nominating stage is not a subsection of its own: whether the report makes
 a nominating-stage argument at all is parked (`nominations-1931-1978` and
 three further rows, `docs/questions.csv`), and until that is decided the
@@ -397,29 +400,37 @@ the seats those Board votes filled and the number of people the votes
 represent. Each of the four measures has its own source column, because a row
 draws on up to four documents at once.
 
-**Two figures, with a break at 1932.** The report's Board turnout series
-runs from 1935. Before 1932 the county recorded the Board's vote in five of
-29 elections, two of them O'Leary's alone, which is a table and not a series;
-what is reliable before 1932 is the presidential vote, every fourth year from
-1872. So turnout is two figures with a stated break where district election
-ends, not one series. `elections_turnout_before_1932_adults`, in Race under A
-Shrinking Electorate, is the presidential vote per 100 residents of voting
-age, 1872 to 1928, with the five Board elections every district's count
-survives as squares. `elections_turnout` is the share panel alone: the
-presidential vote in grey and the Board's vote in one-seat years as three
-shades of orange by what led the ballot, so the Board reads as one family
-against the presidential line and the trend in each cycle is still visible.
-A two-seat year is a gap, because it records votes and not voters, and that
-takes every House of Delegates year from 1943 (`ballots-cast`). Where the
-modern figure sits in the report, and what point it makes, is not decided;
-Part C, as a contemporary comparison, is the live option. Both figures
-divide by every resident of voting age, non-citizens and the disfranchised
-included, because that is the one denominator that can be held constant
-from 1872 to today, and the caption says so. The all-residents version and
-the by-district figure are retired: the first has no job once the adults
-figure divides by a count at every census, and the second's one finding,
-that Jefferson fell steepest, is a sentence in the prose with its own built
-numbers (Sally, 6 October 2026; `turnout-figures-rebuild`).
+**One figure, 1872 to the present, and what it argues.** Election Method's
+claim is that what separates the three methods is how many seats one ballot
+fills and who counts as the electorate for each, and turnout is the evidence
+for the second half. `elections_turnout` is one panel, votes per 100
+residents of voting age: the presidential vote as one grey line from 1872,
+which is the thread, who could vote, from four men in five in 1880 to one in
+eleven in 1904, the dip at 1920 when women double the denominator, the climb
+from the 1940s and the plateau above 60 percent since 2008. The Board's vote
+sits on it in one colour family: squares for the five district-era
+elections every district's count survives (the county recorded the Board's
+vote in five of 29, two of them O'Leary's alone, which is a table and not a
+line), and from 1935 three shades by what led the ballot, so the Board reads
+as one family against the presidential line and the trend in each cycle is
+still visible. A two-seat year is a gap, because it records votes and not
+voters, and that takes every House of Delegates year from 1943
+(`ballots-cast`). The figure goes in Election Method under Staggered Terms,
+because that is what it shows about the method: one seat on every November
+ballot means each seat is chosen by whoever turned out for that year's top
+of the ticket, about half the county's adults in a presidential year and a
+quarter to a third in a governor's, two members of one Board with
+electorates of different size. Race keeps its electorate paragraph and
+points at the figure's left third for the collapse after 1894 and 1902,
+which is a fact about the electorate and not about districts: a poll tax
+shrinks an at-large electorate the same way. The denominator is every
+resident of voting age, non-citizens and the disfranchised included, the
+one denominator that can be held constant across the period, and the
+caption says so. The all-residents version, the pre-1932 adults figure and
+the by-district figure are retired: the first two are the left third of this
+one, and the third's one finding, that Jefferson fell steepest, is a
+sentence in the prose with its own built numbers (Sally, 6 October 2026;
+`turnout-figures-rebuild`).
 
 **Votes are not voters.** A Board ballot carries one vote per seat being
 filled, so `board_voters` divides the votes by the seats: exactly the number
@@ -481,8 +492,8 @@ Cast` appears only for 2025. The Department's precinct turnout files from
 2007 were not used; 2008's lacks the central absentee precinct, and in several
 years a precinct's row is repeated once per district it sits in.
 
-**The rates the prose cites are the figures' own.** The pre-1932 turnout
-figure and the prose take their denominators from `code/analysis/elections.py`:
+**The rates the prose cites are the figures' own.** The turnout figure
+and the prose take their pre-1932 denominators from `code/analysis/elections.py`:
 the presidential vote per 100 residents of voting age, and a district's Board
 contest per 100 men of voting age the nearest census counted there, which
 the Race section cites for Jefferson though no figure draws it.

@@ -625,34 +625,34 @@ there the labels can be shortened and here the years cannot.
 - **elections_board.** A step area, because the series is annual. A separate
   figure from elections_president rather than a panel, because they are not the
   same voters and a shared frame would say they were.
-- **elections_turnout.** The share panel alone, since the counts say
-  nothing the shares do not (Sally, 6 October 2026). The presidential vote
-  is the reference line in grey. The Board's vote is drawn only in years
-  with one seat on the ballot, as three shades of orange by what led the
-  ballot, presidential, midterm and governor's year, darkest first: one hue
-  so the Board reads as one family against the presidential line, three
-  shades so the trend in each cycle is visible. Drawn as one annual line the
-  series is a sawtooth, and the teeth are the ballot, not the Board. A
-  two-seat year is a gap, not a floor, because it records votes and not
-  voters; from 1943 that is every House of Delegates year, and the caption
-  says so. The registered voters are in the table and not drawn: the series
-  is fifteen years long, and the prose can state it in a sentence. The
-  adults are 21 and over through 1970 and 18 and over from 1971, and nothing
-  marks the change: as with residents_by_race at 1980, it is real but small,
-  no line steps at it, and a rule would claim more for it than it has. The
-  caption carries it, and that the denominator is every resident of voting
-  age, citizen or not, disfranchised or not.
-- **elections_turnout_before_1932_adults.** The presidential vote, 1872 to
-  1928, per 100 residents of voting age: men 21 and over through 1916,
-  everyone 21 and over from 1920, the count at each census and a straight
-  line between. The Board's vote in the five years all three districts'
-  counts survive is a square, named by year in the legend: five points in
-  sixty years are not a line. Three dated rules, the Walton Act of 1894, the
-  constitution of 1902 and women voting in 1920. The all-residents version
-  and the by-district figure are retired (Sally, 6 October 2026): the first
-  showed the same shape over a denominator that answers a question the
-  section does not ask, and the second's one finding, that Jefferson fell
-  steepest, is a sentence in the prose with its own built numbers.
+- **elections_turnout.** One panel, 1872 to the present, shares only, since
+  the counts say nothing the shares do not (Sally, 6 October 2026). The
+  presidential vote is one grey line throughout and the thread of the
+  figure. The Board's vote is one colour family in two forms: a square for
+  each of the five district-era elections every district's count survives,
+  named by year in the legend, because five points in sixty years are not a
+  line; and from 1935 three shades by what led the ballot, presidential,
+  midterm and governor's year, darkest first, drawn only in years with one
+  seat on the ballot. One family so the Board reads as one thing against the
+  presidential line, three shades so the trend in each cycle is visible;
+  drawn as one annual line the series is a sawtooth, and the teeth are the
+  ballot, not the Board. The legend names the family once and its four
+  entries under it. A two-seat year is a gap, not a floor, because it
+  records votes and not voters; from 1943 that is every House of Delegates
+  year, and the caption says so. Four dated rules, the Walton Act of 1894,
+  the constitution of 1902, women voting in 1920 and the poll tax falling in
+  1966, their notes placed not to collide. The denominator is men 21 and
+  over through 1916, everyone 21 and over from 1920 and 18 and over from
+  1971, a count at every census and a straight line between; nothing marks
+  1971, which, as with residents_by_race at 1980, is real but small, and a
+  rule would claim more for it than it has. The caption carries it, and that
+  the denominator is every resident of voting age, citizen or not,
+  disfranchised or not. The registered voters are in the table and not
+  drawn: the series is fifteen years long, and the prose can state it in a
+  sentence. The two pre-1932 figures and the by-district figure are retired
+  (Sally, 6 October 2026): the first two are this figure's left third, and
+  the third's one finding, that Jefferson fell steepest, is a sentence in
+  the prose with its own built numbers.
 - **localities_peers.** Arlington beside every Virginia city and county of
   100,000 or more, in two panels that share a legend and a note: (a)
   members against residents, (b) residents per member against density. They
