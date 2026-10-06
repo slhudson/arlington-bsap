@@ -6,9 +6,9 @@ the men aged 21 and over at the four censuses whose schedules are held, 1880,
 1900, 1910 and 1920. Arlington district in 1900 is a share of the men the
 database holds there, which are fewer than the district's.
 
-1870 is a ring on each line's axis position, unjoined to anything: the volume
-prints race by township for every resident and not for men 21 and over, and
-the 1870 extract places no one in a township, so the ring is the share of all
+1870 is an open ring joined to 1880 by a solid segment: the volume prints race
+by township for every resident and not for men 21 and over, and the 1870
+extract places no one in a township, so the ring is the share of all
 residents, a different count from the line's (docs/residents.md).
 """
 import pandas as pd
@@ -51,6 +51,11 @@ for profile in style.PROFILES:
     assert s.notna().any().all(), f"a place with nothing to draw:\n{s}"
     ring = residents_1870()
     assert ring.notna().all(), f"1870 is missing a place:\n{ring}"
+
+    # The 1870 ring is a row of its own, so each line runs on from it to 1880;
+    # the ring is then drawn open over the line's filled marker.
+    s = pd.concat([ring.to_frame().T.rename(index={0: FIRST_RING}), s])[list(s.columns)]
+    s.index = s.index.astype(int)
 
     fig, ax = charts.figure(profile)
     charts.lines(ax, s.index.to_numpy(),

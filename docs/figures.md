@@ -514,10 +514,11 @@ there the labels can be shortened and here the years cannot.
   between and across 1890. Arlington district's 1900 point is a share of the
   men the database holds there, which are fewer than the district's, and the
   county line breaks at 1900 for the same reason. 1870 is an open ring on
-  each line, unjoined: the volume prints race by township for all residents
+  each line, joined to 1880 by a solid segment: the volume prints race by township for all residents
   and the extract places no one in a township, so the ring is a share of
-  residents of every age and sex, a different count from the line's, and the
-  caption says so (Sally, 6 October 2026). The axis starts at 1870 so the ring
+  residents of every age and sex, a different count from the line's, which the
+  caption says, and the segment is solid because it joins two censuses and
+  crosses no gap (Sally, 6 October 2026). The axis starts at 1870 so the ring
   sits at its own census. `docs/residents.md` has the adults table.
 
 - **members_by_race, members_by_gender, members_by_party.** Seat counts rather than

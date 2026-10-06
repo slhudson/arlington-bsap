@@ -212,10 +212,10 @@ is `residents_by_district_race_adults`, the Black share among men of voting
 age, because the passage it sits in is about who could vote and family size may
 differ by race (Sally, 6 October 2026). The 1870 point is the exception: the
 volume prints race by township for all residents, and the 1870 extract
-(`us1870c`) carries no variable that places a person in a township (`CITY`
+(the 1870 100 per cent database) carries no variable that places a person in a township (`CITY`
 separates Alexandria city and nothing finer; `ENUMDIST`, `MCDSTR`, `SUPDIST`
 and `MCD` are not offered for it), so the figure draws 1870 as an open ring of
-all residents, unjoined to the lines. Placing the men by the order of the
+all residents, joined to 1880 by a solid segment (Sally, 6 October 2026). Placing the men by the order of the
 schedule was tested and declined: it comes within a few Black residents per
 township of the printed counts but rests on position, not on a tag, as every
 other point does (Sally, 6 October 2026). Two cells
