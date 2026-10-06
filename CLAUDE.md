@@ -389,6 +389,19 @@ choice between git commands, which is ours to make.
 The one thing worth her attention is plumbing that has stopped the work and
 only she can unstop. Then one line saying what is blocked, in her terms.
 
+Four things are not worth it, each handed to her on 6 October 2026 and
+handed back. A failure that may be transient (a push refused, a key not
+answering, a download that did not start) gets a second try, and a third
+after a pause, before it is reported; "I don't understand why you can't
+merge" was the answer to a key that worked on the next attempt. An
+assumption she can rule on later is proceeded under, logged as a row, and
+said in one line, not put to her as a question first; "are you able to
+proceed under a reasonable assumption and flag it?" is her standing answer.
+"Tell me when it's settled" and "say done when saved" are not sent: the
+next message from her is the signal. And that the build, the tests and the
+compile passed is never narrated; the merge proves it, and a failure is the
+only news.
+
 ## Register
 
 This repository is read by collaborators. Write about artifacts and open

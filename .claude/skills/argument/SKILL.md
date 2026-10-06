@@ -14,9 +14,16 @@ of it is phrased.
 
 ## How to work this with Sally
 
-Conversational, not a drafting pass. Read the section as it stands (or the
-proposal it's rewritten from) and state its argument back to her in plain
-words before asking anything. Then go one question at a time, in bullets,
+Conversational, not a drafting pass. Start from the charge: the County's
+scope of work and the proposal say what each part is for, and a talk-out
+that opens with the thread's own guess at a section's point gets sent back
+to them ("start by reading the charge", 6 October 2026). Read the section
+as it stands (or the proposal it's rewritten from) and state its argument
+back to her in plain words before asking anything. Who writes what is not
+the thread's to settle: never route a section to another author or to the
+National Civic League ("the division of labor between authors is not your
+job to manage"); say what the section needs and leave the assignment to
+her. Then go one question at a time, in bullets,
 plain language, no project idiom, and wait for her answer before the next.
 Label pieces with letters/numbers only once she's asked for that — don't
 pre-impose a numbering scheme on a section that hasn't been discussed yet.
@@ -135,3 +142,9 @@ recommendation to the report's reader and is not written as one.
 Hand off to the `prose` skill for how to write it — voice, sentence shape,
 the project's register. That skill assumes the claim and structure are
 already decided; this one is how they got decided.
+
+A brief's evidence list is checked before it is handed over: open every
+citekey it names and confirm the entry says what the brief claims. The Part
+C briefs of 6 October 2026 named `vaacts1952c569` as the referendum act;
+it is the County Attorney question, never put to voters, and the drafting
+thread had to find `vaacts1952c198` itself.

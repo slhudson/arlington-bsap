@@ -36,6 +36,22 @@ permission for newspaper page PDFs from loc.gov and Virginia Chronicle, a
 page or two at a time), reads the file, and moves it on to Drive. Asking her
 to click it is the friction this line removes.
 
+## Before saying no source exists
+
+Grep `paper/sources.bib`, `docs/` and `data/transcribed/` for the subject
+first. A thread concluded on 6 October 2026 that no map drew the district
+lines while `hjerpe2021` sat in the bibliography; a held source outranks a
+search, and the search is not finished until the held ones are read.
+
+## A hard read is a tracker row
+
+A number read off a scan where two digits print alike (the 1890 volume's
+1,620 or 1,820) is keyed with the reading chosen and why, and the row goes
+in `docs/questions.csv` in the same commit, naming the other reading and what
+it would move. A flag in `data/contents.csv` or a sentence in `docs/` is not
+enough: nothing reads those for open questions, and Sally had to ask for the
+row.
+
 ## Citing and filing a source the prose reads
 
 `code/sources/cite.py` fetches such a source, files it and writes its bib entry in one

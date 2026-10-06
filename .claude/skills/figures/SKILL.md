@@ -249,6 +249,17 @@ revisit.
 - Render the figure, look at the image, and show it, before saying anything
   about it. Check it against this file first. Every rule above has been broken at least once by
   not looking.
+- Every revision goes to Sally as a picture, in the message, not as a path
+  or a description of what changed. A thread on 6 October 2026 described
+  three rounds of label changes and she had to ask to see them.
+- A figure proposed to her comes as two or three rendered options, not one
+  sketch and a question; she chooses by looking ("see more than one
+  option", 6 October 2026). A mark she has not asked for is a question she
+  will ask (a stream, a dot for a place), so nothing goes on a proposal
+  that the legend or caption does not answer.
+- Where a figure sits in the paper is settled before it is built in place.
+  The district map moved three times on 6 October 2026 and each move was
+  a merge; propose the placement with the picture, build once she says.
 - After any change to the style layer, rebuild every figure and look at all of
   them. A change to a shared colour, size or placement is never local to the
   figure that prompted it. `run.sh` names the figures a run changed; if it
