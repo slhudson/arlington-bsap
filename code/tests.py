@@ -1381,6 +1381,17 @@ def test_a_body_text_number_is_the_clean_tables_number():
         expected[f"boardVote{said(year)}"] = half_up(
             turnout.board_voters[year] / turnout.voting_age_est[year] * 100)
 
+    # Presidential years set against the governor's year after them, among
+    # the years that filled one seat.
+    one = turnout[(turnout.board_seats == 1) & (turnout.board_complete == True)  # noqa: E712
+                  & (turnout.index >= 1935)]
+    per = one.board_voters / one.voting_age_est
+    pairs = [y for y in per.index if y % 4 == 0 and y + 1 in per.index]
+    assert all(per[y] > per[y + 1] for y in pairs), "a governor's year out-polls its presidential year"
+    expected["boardPairs"] = str(len(pairs))
+    expected["boardPairsFirst"] = str(pairs[0])
+    expected["boardPairsLast"] = str(pairs[-1])
+
     # The seat comparisons, worked out again from the clean tables: residents
     # per member to the nearest thousand, halves up.
     def thousand(x):

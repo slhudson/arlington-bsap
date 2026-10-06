@@ -430,7 +430,10 @@ sentence in the prose with its own built numbers (Sally, 6 October 2026).
 The sentence beside the figure sets 2012, a presidential year, against 2013,
 the governor's year after it, in two commands built from the figure's own
 rates (`\boardVoteTwoThousandTwelve`), so the pair is chosen once, in
-`code/analysis/body_text_numbers.py`, and the prose never types a rate.
+`code/analysis/body_text_numbers.py`, and the prose never types a rate. The
+sentence after it says that in every presidential year from 1940 through 2024
+with a one-seat count, the Board's vote beat the governor's year's after it
+(`\boardPairs`, 18 pairs); the build stops if a pair ever fails to.
 
 **Votes are not voters.** A Board ballot carries one vote per seat being
 filled, so `board_voters` divides the votes by the seats: exactly the number

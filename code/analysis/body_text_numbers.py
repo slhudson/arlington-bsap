@@ -159,6 +159,16 @@ def turnout() -> dict:
         assert t.board_seats[y] == 1 and t.board_complete[y], f"{y}'s Board vote is not one seat's"
         out[f"boardVote{year_words(y)}"] = whole(
             per_100_voting_age(t.board_voters[[y]], adults, t.voting_age_est).iloc[0])
+    # Each presidential year's Board vote against the governor's year after
+    # it, in the years both filled one seat. The prose says the first is
+    # always higher, so a pair that is not stops the build.
+    one_seat = t[(t.board_seats == 1) & t.board_complete.eq(True) & (t.index >= 1935)]
+    rate = one_seat.board_voters / one_seat.voting_age_est * 100
+    pairs = [(y, y + 1) for y in rate.index if y % 4 == 0 and y + 1 in rate.index]
+    assert all(rate[a] > rate[b] for a, b in pairs), "a governor's year now out-polls the presidential year before it"
+    out["boardPairs"] = str(len(pairs))
+    out["boardPairsFirst"] = str(pairs[0][0])
+    out["boardPairsLast"] = str(pairs[-1][0])
     return out
 
 
