@@ -367,9 +367,10 @@ in each district at 1880, 1900, 1910 and 1920, by race, and the county where
 all three districts are counted. It is the pre-1932 denominator of
 `elections_turnout` and the denominator of `residents_by_district_race_adults`,
 and of the district rates the Race prose cites for Jefferson. The county's
-men before 1930 are therefore three censuses, 1880, 1910 and 1920, and the
-1870, 1890 and 1900 volumes print the count the schedules cannot give
-(`adults-1870-1900`). The build carries sex beside race and age
+men are counted from the schedules at 1880, 1910 and 1920 and, where the
+schedules cannot give them, read off the volumes that print the county's men
+21 and over: 1870, 1890, 1900 and 1930. The county therefore has a count at
+every census from 1870 to 1930. The build carries sex beside race and age
 (`data/built/ipums.csv`); that the age is 21 and the unit a man is decided in
 `code/clean/residents_by_district_adults.py`. Each census's enumeration
 districts are placed in a magisterial district by `residents_by_district.placed()`
@@ -390,6 +391,35 @@ reads them, `elections_turnout`, takes men for the
 denominator through 1916 and everyone 21 and over from 1920. 1930 is one county
 row from the census volume's printed counts of males and females 21 and over,
 with no race and no district.
+
+**The county's men 21 and over, 1870 to 1930.**
+
+| Census | Men | Basis |
+|---|---|---|
+| 1870 | 847 | Table XXIV (`walker1872` p.637) less Table XXV's city line (p.655): 4,080 less 3,233 |
+| 1880 | 973 | the schedules, three districts added |
+| 1890 | 1,161 | Table 79 (`census1890` p.786) less Table 80's city line (p.823): 4,740 less 3,579 |
+| 1900 | 2,086 | Table 11 of Census Bulletin 102 (`census1900b102` p.4); the aggregate in its Table 20 agrees |
+| 1910 | 3,435 | the schedules |
+| 1920 | 5,097 | the schedules |
+| 1930 | printed | Table 13 of the 1930 volume, males 21 and over |
+
+What each is net of: the 1870 and 1890 volumes' county rows include
+Alexandria city (the 1870 row's 16,755 are the city's 13,570 and the county's
+3,185; the 1890 row's 18,597 are the city's 14,339 and the county's 4,258),
+so the city's own line is keyed beside each and subtracted in
+`county_published`, and each net population is checked against the three
+districts' in `residents_by_district`. The 1900 county row is the county
+alone: the bulletin prints the city as a line of its own, and the 6,430 are
+the three districts'. The counts are all males 21 and over, as the schedules
+count them; 1870 also prints male citizens, 4,027 for the county and nothing
+for the city, and the county's row is keyed as males so that the two sides of
+the subtraction are the same thing. One cell is a hard read: 1890's colored
+men in the county row, 1,620, sit on a scan where 6 and 8 print alike, and
+1,820 would put them out of proportion to the 1,120 colored men 18 to 44
+beside them, which the city's 1,117 to 781 and the white men in both rows
+keep. Between censuses the figure still draws a straight line, but no line
+now crosses more than the ten years between two counts.
 
 **Arlington's 1900 count is a floor.** The database holds 2,701 of the 3,200
 people the volume prints for the district, so the 746 men are fewer than the
