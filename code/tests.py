@@ -1409,6 +1409,20 @@ def test_a_row_does_not_describe_work_in_flight():
         "the thread ends and the row stays.")
 
 
+def test_a_row_has_one_line():
+    """Two rows of docs/questions.csv with the same id.
+
+    The tracker merges by union, so a row narrowed on main and edited on a
+    branch comes through the merge twice, once in each wording, and the next
+    reader cannot tell which is current. oleary-regrounded sat in the file
+    twice for a morning on 6 October 2026 after exactly that."""
+    ids = [r["id"] for r in tracker_rows()]
+    twice = sorted({i for i in ids if ids.count(i) > 1})
+    assert not twice, (
+        "docs/questions.csv holds more than one row for:\n  " + "\n  ".join(twice) +
+        "\nKeep the wording that is current and delete the other line.")
+
+
 def residence_coverage():
     """The coverage table docs/members.md prints: for the members first seated
     from 1932 on, the most exact kind of place any source gives each, and how
