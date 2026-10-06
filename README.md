@@ -62,8 +62,9 @@ python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflak
 bash run.sh
 ```
 
-`bash run.sh residents_per` rebuilds only matching figures, skips the tests,
-and reruns the data stages only if their inputs changed. Invoke through
+`bash run.sh residents_per` rebuilds only matching figures and skips the
+tests. Either way, a stage whose inputs are unchanged since a cached run is
+copied back instead of rerun (`code/cache.py`). Invoke through
 `bash`, not `./run.sh` — `run.sh` says why at the top. `code/transcribe/` and
 `code/fetch/` need `pymupdf` as well, `code/fetch/ipums.py` needs `ipumspy`, and the
 OCR needs a Mac; none of it is needed to rebuild.

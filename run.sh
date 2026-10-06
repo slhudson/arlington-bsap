@@ -2,9 +2,11 @@
 # Rebuild everything from data/. The only entry point (CLAUDE.md).
 #
 #   bash run.sh                  build, test, then every figure
-#   bash run.sh residents_per    only figures whose names match; the data
-#                                stages run only if their inputs changed,
-#                                and the tests not at all
+#   bash run.sh residents_per    only figures whose names match, and no tests
+#
+# A stage whose inputs are the same bytes as a run already cached has that
+# run's outputs copied back instead (code/cache.py); a filtered run always
+# draws the figures it names.
 #
 # Invoke through bash, not ./run.sh: Overleaf strips the executable bit.
 set -euo pipefail
@@ -73,62 +75,40 @@ echo "lint"
 "$PY" -m pyflakes code style || { echo "  pyflakes: fix the above"; exit 1; }
 echo "  clean"
 
-# What the data stages depend on. A full run always runs both; a filtered
-# run reruns build only if one of its inputs changed since the last run that
-# completed the data stages, and clean from the first step whose script
-# changed (a change to a module every step imports reruns them all). The
-# fingerprints live in data/built/, which is not committed, and are size and
-# modification time, not content: a touched file only costs a rebuild.
-BUILT_BY=(data/raw data/transcribed code/build code/citekeys.py)
-CLEANED_BY=(code/clean code/citekeys.py)
-STAMP=data/built/.inputs      # line 1: when the build stage started; then one line per input
-# stat's flags differ between the Mac (BSD) and Linux (GNU coreutils); each
-# function prints the same three fields, name, size in bytes, modification time.
-if stat --version >/dev/null 2>&1; then
-  STAT_FINGERPRINT=(stat -c '%n %s %Y'); STAT_BYTES=(stat -c %s)
-else
-  STAT_FINGERPRINT=(stat -f '%N %z %m'); STAT_BYTES=(stat -f %z)
-fi
-fingerprint() {
-  find "$@" -type f -not -path '*/__pycache__/*' -print0 | sort -z | xargs -0 "${STAT_FINGERPRINT[@]}" | sort -u
-}
-changed() {                   # inputs under "$@" whose line is not in the stamp, or that left it
-  comm -3 <(tail -n +2 "$STAMP" | grep -E "^($(IFS='|'; echo "$*"))" || true) <(fingerprint "$@") \
-    | sed 's/^\t//' | cut -d' ' -f1 | sort -u
-}
-mkdir -p data/built
-
-build=yes; from=0
-if [ $# -gt 0 ] && [ -f "$STAMP" ]; then
-  if [ -z "$(changed "${BUILT_BY[@]}")" ]; then
-    build=no; from=${#CLEAN[@]}
-    for f in $(changed "${CLEANED_BY[@]}"); do
-      i=0; step=${#CLEAN[@]}
-      for s in "${CLEAN[@]}"; do [ "$f" = "code/clean/$s.py" ] && step=$i; i=$((i + 1)); done
-      [ "$step" -lt "${#CLEAN[@]}" ] || step=0        # not a step: a module the steps import
-      [ "$step" -lt "$from" ] && from=$step
-    done
-  fi
-fi
+# What each stage reads. A stage whose inputs are the same bytes as a run
+# whose outputs are cached gets those outputs copied back instead of running
+# (code/cache.py, docs/repository.md). run.sh is an input to every stage,
+# because it says which steps run.
+BUILT_BY=(data/raw data/transcribed code/build code/citekeys.py run.sh)
+CLEANED_BY=(code/clean code/citekeys.py run.sh)       # and data/built/, by its key
+DRAWN_BY=(data/clean code/analysis code/figures.py style run.sh)
+CACHE=("$PY" code/cache.py)
+# stat's flag for a file's size differs between the Mac (BSD) and Linux (GNU).
+if stat --version >/dev/null 2>&1; then STAT_BYTES=(stat -c %s); else STAT_BYTES=(stat -f %z); fi
+REPORT=$(mktemp)
+trap 'rm -rf "$LOCK" "$REPORT"' EXIT
 
 # Both data stages read `import citekeys` from here; nothing else is on the path.
 export PYTHONPATH="$PWD/code"
 
-# code/clean/paths.py refuses a built or clean table older than this. When
-# the build stage is skipped, its tables are from the run the stamp records.
-if [ "$build" = yes ]; then
-  export RUN_STARTED=$(date +%s)
-  # data/built/ is not committed, so it is made before anything reads it, and
-  # emptied first: a table left by a step that no longer exists would fail the
-  # inventory test in any checkout that had built before.
+# code/clean/paths.py refuses a built or clean table older than this, and
+# every table is written or copied back after it.
+export RUN_STARTED=$(date +%s)
+
+# data/built/ is not committed, so it is made before anything reads it, and
+# emptied first: a table left by a step that no longer exists would fail the
+# inventory test in any checkout that had built before.
+rm -f data/built/*.csv
+built_key=$("${CACHE[@]}" key "${BUILT_BY[@]}")
+if ! "${CACHE[@]}" restore built "$built_key" > "$REPORT"; then
   echo "build"
-  rm -f data/built/*.csv
   for s in "${BUILD[@]}"; do
     (cd code/build && ../../"$PY" "$s.py")
-  done
+  done | tee "$REPORT"
+  "${CACHE[@]}" save built "$built_key" --report "$REPORT" data/built/*.csv
 else
-  export RUN_STARTED=$(head -1 "$STAMP")
-  echo "build: skipped, its inputs have not changed"
+  echo "build: inputs unchanged since a cached run, its tables copied back"
+  cat "$REPORT"
 fi
 
 # The tests prove the guards still fire, under a minute. A filtered run
@@ -140,15 +120,17 @@ else
   echo "tests: skipped on a filtered run"
 fi
 
-if [ "$from" -lt "${#CLEAN[@]}" ]; then
-  [ "$from" -eq 0 ] && echo "clean" || echo "clean: from ${CLEAN[$from]}, earlier steps unchanged"
-  for s in "${CLEAN[@]:$from}"; do
+clean_key=$("${CACHE[@]}" key --also "$built_key" "${CLEANED_BY[@]}")
+if ! "${CACHE[@]}" restore clean "$clean_key" > "$REPORT"; then
+  echo "clean"
+  for s in "${CLEAN[@]}"; do
     (cd code/clean && ../../"$PY" "$s.py")
-  done
+  done | tee "$REPORT"
+  "${CACHE[@]}" save clean "$clean_key" --report "$REPORT" data/clean/*.csv
 else
-  echo "clean: skipped, no script changed"
+  echo "clean: inputs unchanged since a cached run, its tables copied back"
+  cat "$REPORT"
 fi
-{ echo "$RUN_STARTED"; fingerprint "${BUILT_BY[@]}" "${CLEANED_BY[@]}"; } > "$STAMP"
 
 # A figure script reads `import style` and `import charts` from here.
 export PYTHONPATH="$PWD/style"
@@ -169,26 +151,43 @@ outputs_of() {                # the files a figure step writes
     *) outputs=("figures/pdf/$1.pdf" "figures/png/$1.png");;
   esac
 }
-# Removed first, so a script that writes nothing cannot pass on a previous
-# run's copy.
-for s in "${selected[@]}"; do
-  outputs_of "$s"
-  rm -f "${outputs[@]}"
-done
-# One process draws them all (code/figures.py), so Python, pandas and
-# matplotlib start once and not once per figure.
-"$PY" code/figures.py "${selected[@]}"
-for s in "${selected[@]}"; do
-  outputs_of "$s"
-  for out in "${outputs[@]}"; do
-    [ -f "$out" ] || {
-      echo "FAILED"
-      echo "    $s.py did not write $out"
-      echo "    A figure script ends in paths.save(fig, profile), which names the"
-      echo "    file after the script - check that the call is there."
-      exit 1; }
+draw() {
+  # Removed first, so a script that writes nothing cannot pass on a previous
+  # run's copy.
+  for s in "${selected[@]}"; do
+    outputs_of "$s"
+    rm -f "${outputs[@]}"
   done
-done
+  # One process draws them all (code/figures.py), so Python, pandas and
+  # matplotlib start once and not once per figure.
+  "$PY" code/figures.py "${selected[@]}"
+  for s in "${selected[@]}"; do
+    outputs_of "$s"
+    for out in "${outputs[@]}"; do
+      [ -f "$out" ] || {
+        echo "FAILED"
+        echo "    $s.py did not write $out"
+        echo "    A figure script ends in paths.save(fig, profile), which names the"
+        echo "    file after the script - check that the call is there."
+        exit 1; }
+    done
+  done
+}
+# A filtered run draws what it names, always: it is for editing a figure.
+# A full run draws them all only if their inputs changed since a cached run.
+if [ $# -eq 0 ]; then
+  drawn_key=$("${CACHE[@]}" key "${DRAWN_BY[@]}")
+  if "${CACHE[@]}" restore figures "$drawn_key"; then
+    echo "  inputs unchanged since a cached run, its figures copied back"
+  else
+    draw
+    all=()
+    for s in "${selected[@]}"; do outputs_of "$s"; all+=("${outputs[@]}"); done
+    "${CACHE[@]}" save figures "$drawn_key" "${all[@]}"
+  fi
+else
+  draw
+fi
 echo "-> figures/pdf, figures/png ($(ls figures/pdf | wc -l | tr -d ' ') each)"
 
 # Which figures this run changed. A report, never a failure.

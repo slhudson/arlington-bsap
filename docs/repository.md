@@ -166,6 +166,59 @@ ways, with the build and compile commands substituted: a failing build leaves
 main where it was, a passing build lands with the file it rewrote, and a real
 conflict stops before building. Those are the three slips, each reintroduced.
 
+The build and the compiles run on every merge, whatever the branch touched,
+and are fast when it touched little because of the cache below, not because
+the script decides what to skip.
+
+## Why the build is cached, and where
+
+A merge builds in a fresh worktree, and so does every thread. `run.sh` used to
+judge a stage unchanged by its inputs' modification times, kept in a stamp in
+`data/built/`; a fresh worktree has no stamp and gives every file the time of
+the checkout, so every merge rebuilt and recompiled everything - about ninety
+seconds on 6 October 2026, for a branch that changed one line of a write-up.
+
+Each stage now has a key: a hash of the bytes of its inputs, the Python and
+its installed packages, and `run.sh` itself. Before a stage runs,
+`code/cache.py` looks for that key; if a run anywhere in the clone already
+produced outputs from those exact inputs, they are copied back and the stage
+prints what it printed then. Otherwise the stage runs and its outputs are
+saved under the key. This is the model of ccache and of DVC's run cache,
+small enough here not to need either.
+
+| stage | inputs | outputs |
+|---|---|---|
+| build | `data/raw/`, `data/transcribed/`, `code/build/`, `code/citekeys.py` | `data/built/` |
+| clean | the build's key, `code/clean/`, `code/citekeys.py` | `data/clean/` |
+| figures, on a full run | `data/clean/`, `code/analysis/`, `code/figures.py`, `style/` | `figures/`, the three `.tex` files the analysis stage writes |
+| each compile | the files latexmk's record says the last compile read, `paper/*.bib`, `style/fonts/`, `code/paper.py`, the TeX version | the PDF |
+
+The cache lives in `.git/build-cache/`, because every worktree of a clone shares
+one `.git`: a merge worktree finds what the thread's worktree built, and nothing
+in it can be committed. Eight entries are kept per stage. Deleting the directory
+costs one full rebuild and nothing else.
+
+The inputs are what git counts as the tree - tracked files and new ones not
+ignored - read from disk, so an uncommitted edit counts and a fetched scan the
+build never reads does not. A compile's inputs come from the `.fls` record
+latexmk writes of every file lualatex opened, so no list is kept by hand. That
+record from the last compile is enough: a document can only start reading a new
+file through an edit to one it already reads, which changes the key. Two inputs
+are not in the record and are added to the key directly: the bibliography,
+which biber reads, and the typefaces, which LuaTeX loads through its own font
+cache.
+
+A filtered run (`bash run.sh <figure>`) always draws the figures it names; it
+is for editing one. The tests always run on a full run: every merge changes
+the tree, so a cached verdict would never apply.
+
+`code/tests.py` reintroduces the mistakes that would make a cached output
+silently wrong: a key that follows modification times, an uncommitted input
+left out of the key, a restored table carrying the old time that
+`code/clean/paths.py` refuses, a worktree keeping a cache of its own, the
+compile record read from the wrong directory, and a bibliography edit that
+leaves a compile's key unchanged.
+
 ## Why the paper compiles with lualatex, and the two ways it fails
 
 `paper/arlington-bsap.tex` sets its body text in Lato, the typeface

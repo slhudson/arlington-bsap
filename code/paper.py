@@ -28,12 +28,19 @@ clean; only a failure that survives that is reported.
 
 `docs/repository.md` has the reasoning, and `code/tests.py` reintroduces each
 of these mistakes against `problems()` below.
+
+A compile whose inputs are the same bytes as one already done, in any
+worktree, copies that PDF back instead (code/cache.py). Which files are its
+inputs comes from latexmk's own record of what the last compile read, so no
+list of them is kept by hand.
 """
 import re
 import shutil
 import subprocess
 import sys
 from pathlib import Path
+
+import cache
 
 ROOT = Path(__file__).resolve().parents[1]
 PAPER = ROOT / "paper"
@@ -82,10 +89,51 @@ def compile_once(clean):
     return log.read_text(errors="replace") if log.exists() else ""
 
 
+def inputs_read(fls):
+    """The files in the repository a compile read, from the record latexmk
+    keeps of it (the .fls), as paths from the repository's root. TeX's own
+    files, outside the repository, are left out; the TeX version stands for
+    them in the key."""
+    root = ROOT.resolve()
+    pwd, found = PAPER, set()
+    for line in fls.read_text(errors="replace").splitlines():
+        kind, _, path = line.partition(" ")
+        if kind == "PWD":
+            pwd = Path(path)
+        elif kind == "INPUT":
+            try:
+                found.add(str((pwd / path).resolve().relative_to(root)))
+            except ValueError:
+                pass
+    return sorted(found)
+
+
+def compile_key(inputs):
+    """What a compile's PDF is a function of: the files it read last time,
+    two things lualatex's record does not list - the bibliography, which
+    biber reads, and the typefaces, which LuaTeX loads through its own font
+    cache - this script, and the TeX installation. A file a document starts
+    to read can only be added by editing one it already reads, so the list
+    from the last compile is enough to notice the change."""
+    tex = (subprocess.run(["lualatex", "--version"], capture_output=True,
+                          text=True).stdout.split("\n")[0]
+           if shutil.which("lualatex") else "")
+    bibs = [str(p.relative_to(ROOT)) for p in sorted(PAPER.glob("*.bib"))]
+    return cache.key([*inputs, *bibs, "style/fonts", "code/paper.py"],
+                     also=f"{STEM}\n{tex}")
+
+
 def main():
     if shutil.which("latexmk") is None:
         sys.exit("latexmk is not installed. The figures build without it "
                  "(bash run.sh); only the report needs it.")
+
+    pdf = PAPER / f"{STEM}.pdf"
+    record = cache.store() / f"inputs-{STEM}"
+    if record.exists():
+        if cache.restore(f"paper-{STEM}", compile_key(record.read_text().split("\n"))):
+            print(f"-> paper/{pdf.name}: inputs unchanged since a cached compile, copied back")
+            return
 
     log = compile_once(clean=False)
     found = problems(log)
@@ -97,7 +145,6 @@ def main():
         log = compile_once(clean=True)
         found = problems(log)
 
-    pdf = PAPER / f"{STEM}.pdf"
     if found:
         # Raise rather than leave a PDF that reads as finished.
         pdf.unlink(missing_ok=True)
@@ -108,6 +155,12 @@ def main():
     if not pdf.exists():
         sys.exit(f"latexmk wrote no {pdf.name}; see {pdf.with_suffix('.log')}")
 
+    inputs = inputs_read(PAPER / f"{STEM}.fls")
+    cache.save(f"paper-{STEM}", compile_key(inputs), [pdf])
+    record.parent.mkdir(parents=True, exist_ok=True)
+    partial = record.with_name(f".{record.name}.partial")
+    partial.write_text("\n".join(inputs))
+    partial.replace(record)
     print(f"-> paper/{pdf.name} ({pdf.stat().st_size // 1024}KB), "
           "no undefined citations, references or fonts")
 

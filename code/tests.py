@@ -7,6 +7,7 @@ asserts the build stops. Only guards whose failure would be silent are
 tested. No framework: plain functions named test_*, each building its own
 input, run by the loop at the bottom.
 """
+import contextlib
 import csv
 import hashlib
 import importlib
@@ -28,6 +29,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "code"))
 sys.path.insert(0, str(ROOT / "code" / "sources"))
 import archive  # noqa: E402
+import cache  # noqa: E402
 import citekeys  # noqa: E402
 import cite  # noqa: E402
 import clippings  # noqa: E402
@@ -2724,6 +2726,117 @@ def test_a_merge_with_a_real_conflict_stops_before_building():
         assert "note.txt" in run.stderr and "conflicts" in run.stderr, run.stderr
         assert git("rev-parse", "main") == before, "main moved despite the conflict"
         assert git("worktree", "list").count("\n") == 0, "the scratch worktree was left behind"
+
+
+# --- the build cache ----------------------------------------------------------
+
+@contextlib.contextmanager
+def cache_repo():
+    """A throwaway git repository standing in for this one, so the cache
+    reads its keys and keeps its entries there and not in the real tree."""
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp).resolve()
+        subprocess.run(["git", "init", "-q", str(root)], check=True)
+        saved = cache.ROOT, paper.ROOT, paper.PAPER
+        cache.ROOT, paper.ROOT, paper.PAPER = root, root, root / "paper"
+        try:
+            yield root
+        finally:
+            cache.ROOT, paper.ROOT, paper.PAPER = saved
+
+
+def test_a_cache_key_follows_the_bytes_not_the_time():
+    """Why the cache exists: run.sh used to judge a stage unchanged by its
+    inputs' modification times, and a fresh worktree gives every file the
+    time of the checkout, so every merge rebuilt everything. The same bytes
+    at a new time give the same key; one changed byte does not."""
+    with cache_repo() as root:
+        (root / "inputs").mkdir()
+        table = root / "inputs" / "a.csv"
+        table.write_text("x,1\n")
+        before = cache.key(["inputs"])
+        os.utime(table, (1, 1))
+        assert cache.key(["inputs"]) == before, "a new modification time changed the key"
+        table.write_text("x,2\n")
+        assert cache.key(["inputs"]) != before, "a changed byte left the key the same"
+
+
+def test_an_uncommitted_input_counts_and_an_ignored_file_does_not():
+    """A new input not yet committed changes the key, or the stage that reads
+    it would be restored from before it existed. A file git ignores - a
+    fetched scan the build never reads - does not."""
+    with cache_repo() as root:
+        (root / "inputs").mkdir()
+        (root / "inputs" / "a.csv").write_text("x\n")
+        (root / ".gitignore").write_text("inputs/*.pdf\n")
+        before = cache.key(["inputs"])
+        (root / "inputs" / "scan.pdf").write_text("ignored")
+        assert cache.key(["inputs"]) == before, "an ignored file changed the key"
+        (root / "inputs" / "b.csv").write_text("y\n")
+        assert cache.key(["inputs"]) != before, "an uncommitted input did not change the key"
+
+
+def test_a_restored_table_is_the_saved_bytes_written_now():
+    """A key never saved restores nothing. A saved one puts back exactly the
+    saved bytes, with a modification time of now: code/clean/paths.py
+    refuses a table older than the run, so a copy that kept the old time
+    would stop the clean stage."""
+    with cache_repo() as root:
+        table = root / "out" / "t.csv"
+        table.parent.mkdir()
+        table.write_text("saved\n")
+        assert not cache.restore("stage", "never"), "a key never saved restored something"
+        cache.save("stage", "k", [table])
+        for saved in (cache.store() / "stage-k").rglob("*"):
+            os.utime(saved, (1, 1))         # saved long before this run
+        table.write_text("since\n")
+        assert cache.restore("stage", "k"), "a saved key did not restore"
+        assert table.read_text() == "saved\n", "the restore did not put back the saved bytes"
+        assert table.stat().st_mtime > 1, "the restored table kept its old modification time"
+
+
+def test_every_worktree_of_a_clone_shares_one_cache():
+    """The point of keeping the cache in .git: code/merge.sh merges in a
+    scratch worktree, and has to find what the thread's worktree built."""
+    with cache_repo() as root:
+        (root / "f").write_text("x\n")
+        git = ["git", "-C", str(root), "-c", "user.email=t@t", "-c", "user.name=t"]
+        subprocess.run([*git, "add", "f"], check=True)
+        subprocess.run([*git, "commit", "-qm", "f"], check=True)
+        subprocess.run([*git, "worktree", "add", "-q", str(root / "wt")], check=True,
+                       stderr=subprocess.DEVNULL)
+        here = cache.store().resolve()
+        cache.ROOT = root / "wt"
+        assert cache.store().resolve() == here, "a worktree keeps a cache of its own"
+
+
+def test_a_compiles_inputs_come_from_latexmks_record():
+    """Which files a PDF depends on is read from the .fls latexmk writes,
+    not from a list kept by hand: paths relative to where the compile ran,
+    and TeX's own files, outside the repository, left out."""
+    with tempfile.TemporaryDirectory() as tmp:
+        fls = Path(tmp) / "doc.fls"
+        fls.write_text(f"PWD {paper.PAPER}\n"
+                       "INPUT /usr/local/texlive/texmf-dist/tex/latex/base/article.cls\n"
+                       "INPUT ./arlington-bsap.tex\n"
+                       "INPUT ../figures/pdf/members_age.pdf\n"
+                       "OUTPUT arlington-bsap.pdf\n")
+        found = paper.inputs_read(fls)
+    assert found == ["figures/pdf/members_age.pdf", "paper/arlington-bsap.tex"], found
+
+
+def test_editing_the_bibliography_changes_a_compiles_key():
+    """lualatex's record does not list sources.bib, because biber reads it,
+    so a key built from the record alone would copy back a PDF whose
+    citations predate an edit to the bibliography."""
+    with cache_repo() as root:
+        (root / "paper").mkdir()
+        (root / "paper" / "doc.tex").write_text("text\n")
+        (root / "paper" / "sources.bib").write_text("@misc{a}\n")
+        before = paper.compile_key(["paper/doc.tex"])
+        (root / "paper" / "sources.bib").write_text("@misc{b}\n")
+        assert paper.compile_key(["paper/doc.tex"]) != before, \
+            "an edit to sources.bib left the compile's key the same"
 
 
 def run_one(name):

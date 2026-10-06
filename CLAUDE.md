@@ -250,10 +250,14 @@ figure it is named for.
 ```bash
 python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflakes shapely
 bash run.sh               # build, test, then every figure
-bash run.sh residents_per # only matching figures; build and clean only if their inputs changed, no tests
+bash run.sh residents_per # only matching figures, no tests
 ```
 
 Invoke through `bash`, not `./run.sh` — the reason is at the top of `run.sh`.
+A stage whose inputs are the same bytes as a run already done in any
+worktree of the clone is copied back from a cache in `.git` instead of
+rerun, and so is a compile (`code/cache.py`, `docs/repository.md`).
+`rm -rf "$(git rev-parse --git-common-dir)/build-cache"` empties it.
 `code/fetch/` and `code/transcribe/` also need `pymupdf`, and
 `code/fetch/ipums.py` needs `ipumspy`; the OCR needs a Mac. None of it is
 required to rebuild.
