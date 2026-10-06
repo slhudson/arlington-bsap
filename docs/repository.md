@@ -152,19 +152,38 @@ The script does the same steps in the same order and refuses at each place a
 hand slipped. It merges in a worktree taken from `origin/main` after a fetch,
 so the merge is against what is pushed; a conflict outside the union-merged
 files (`.gitattributes`) stops it with the files named and main untouched,
-because two sessions editing one line is a person's decision; the build and
-both compiles run on the merged tree and a failure stops it before anything
-reaches main; what the build rewrote is committed in the worktree before the
-fast-forward, so a rebuilt figure travels with the merge; then main
+because two sessions editing one line is a person's decision; what runs next
+is decided from the diff rather than run unconditionally, since the worktree
+is a fresh checkout that would otherwise rebuild everything whatever the
+branch touched; what the build rewrote is committed in the worktree before
+the fast-forward, so a rebuilt figure travels with the merge; then main
 fast-forwards, pushes, the compiled PDFs are copied to the primary checkout,
 and the worktree and the branch go, here and on origin. One line prints per
 step, and the primary checkout must be on main and clean, or it declines to
 start.
 
-`code/tests.py` builds a throwaway remote and clone and runs the script three
-ways, with the build and compile commands substituted: a failing build leaves
-main where it was, a passing build lands with the file it rewrote, and a real
-conflict stops before building. Those are the three slips, each reintroduced.
+**What runs is decided from `git diff --name-only` against `origin/main`,
+not from what a merge touches by habit.** A merge took about four minutes
+whatever the branch changed, because a fresh worktree carries no stamp and
+`bash run.sh` rebuilds from nothing. `bash run.sh` runs only if the branch
+touched a path under `code/`, `data/` or `style/`, or `run.sh` itself;
+otherwise only `code/tests.py` runs, which still guards the tracker, the
+bibliography and the Drive filing and costs under a minute.
+`arlington-bsap.pdf` recompiles if the branch touched `paper/` or `figures/`,
+or the build ran; `timelines.pdf` recompiles if it touched
+`paper/timelines.tex` or `paper/sources.bib`, or a figure `timelines.tex`
+inputs. A docs-only branch - a `docs/questions.csv` row, a write-up - now
+costs the tests alone; a branch that touches `code/clean/` still costs the
+full four minutes, because it has to.
+
+`code/tests.py` builds a throwaway remote and clone and runs the script
+several ways, with the build, the tests-only fallback and the two compiles
+substituted: a failing build leaves main where it was, a passing build lands
+with the file it rewrote, a real conflict stops before building, a docs-only
+branch does not build, a branch touching `code/clean/` does, a branch
+touching only `paper/arlington-bsap.tex` compiles the paper and not the
+timelines, and a branch touching `paper/sources.bib` compiles both. Those are
+the four slips and the skip rules, each reintroduced.
 
 ## Why the paper compiles with lualatex, and the two ways it fails
 

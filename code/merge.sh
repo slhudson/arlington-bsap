@@ -13,9 +13,19 @@
 #      (.gitattributes), so anything still conflicting is two sessions
 #      editing one line, which is a person's decision. The worktree is
 #      removed and nothing has changed.
-#   3. bash run.sh, then code/paper.py and code/paper.py timelines, in the
-#      worktree. A failure stops it before anything reaches main: a commit
-#      chained after a failing build was the first of the slips.
+#   3. The build and the compiles, decided from what the branch touched
+#      (git diff --name-only against origin/main), not run unconditionally:
+#        - bash run.sh only if a path under code/, data/, style/ or run.sh
+#          itself changed; otherwise just code/tests.py, which still guards
+#          the tracker, the bibliography and the Drive filing and stays
+#          cheap on a checkout a fresh worktree has not built.
+#        - code/paper.py (arlington-bsap.pdf) only if a path under paper/ or
+#          figures/ changed, or the build ran.
+#        - code/paper.py timelines (timelines.pdf) only if
+#          paper/timelines.tex or paper/sources.bib changed, or a figure it
+#          inputs did.
+#      A failure at any of the three stops it before anything reaches main:
+#      a commit chained after a failing build was the first of the slips.
 #   4. What the build rewrote (figures/, data/clean/, the .tex files the
 #      analysis stage writes) committed in the worktree, so a figure rebuilt
 #      there is not lost when the worktree goes - the third slip.
@@ -23,9 +33,12 @@
 #      to the primary checkout; the worktree and the branch removed, locally
 #      and on origin.
 #
-# The build and the compile are the commands BUILD and COMPILE below;
-# code/tests.py substitutes them to prove the script stops when either fails
-# and goes on when both pass. Nothing else overrides them.
+# The build, the tests-only fallback and the two compiles are the commands
+# BUILD, TESTS, COMPILE_PAPER and COMPILE_TIMELINES below; code/tests.py
+# substitutes them to prove the script stops when one fails, skips the ones
+# the diff rules out, and goes on when what runs passes. COMPILE, if set,
+# overrides both compiles at once, for a test that does not care which one
+# ran. Nothing else overrides them.
 set -euo pipefail
 
 usage() { echo "usage: bash code/merge.sh <branch>" >&2; exit 2; }
@@ -35,7 +48,9 @@ branch=$1
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
 cd "$ROOT"
 BUILD=${BUILD:-"bash run.sh"}
-COMPILE=${COMPILE:-".venv/bin/python code/paper.py && .venv/bin/python code/paper.py timelines"}
+TESTS=${TESTS:-".venv/bin/python code/tests.py"}
+COMPILE_PAPER=${COMPILE_PAPER:-${COMPILE:-".venv/bin/python code/paper.py"}}
+COMPILE_TIMELINES=${COMPILE_TIMELINES:-${COMPILE:-".venv/bin/python code/paper.py timelines"}}
 REMOTE=${REMOTE:-origin}
 
 step() { printf '%s\n' "$*"; }
@@ -80,8 +95,48 @@ $(printf '  %s\n' $conflicts)"
 fi
 
 step "3. build and compile in the worktree"
-(cd "$tree" && eval "$BUILD") || fail "the build failed after the merge; main is unchanged"
-(cd "$tree" && eval "$COMPILE") || fail "the paper did not compile after the merge; main is unchanged"
+changed=$(git -C "$tree" diff --name-only "$REMOTE/main...HEAD")
+
+build_needed=no
+if printf '%s\n' "$changed" | grep -qE '^(code/|data/|style/)|^run\.sh$'; then
+  build_needed=yes
+fi
+
+if [ "$build_needed" = yes ]; then
+  (cd "$tree" && eval "$BUILD") || fail "the build failed after the merge; main is unchanged"
+else
+  step "   figures: skipped, the branch changed nothing under code/, data/ or style/"
+  (cd "$tree" && eval "$TESTS") || fail "the tests failed after the merge; main is unchanged"
+fi
+
+paper_needed=$build_needed
+if [ "$paper_needed" = no ] && printf '%s\n' "$changed" | grep -qE '^(paper/|figures/)'; then
+  paper_needed=yes
+fi
+if [ "$paper_needed" = yes ]; then
+  (cd "$tree" && eval "$COMPILE_PAPER") || fail "the paper did not compile after the merge; main is unchanged"
+else
+  step "   arlington-bsap.pdf: skipped, the branch changed nothing under paper/ or figures/, and the build did not run"
+fi
+
+# timelines.pdf also recompiles when a figure it inputs changed, read from
+# the merged tree so a branch that adds a new \includegraphics is caught.
+timelines_figs=$(grep -oE 'figures/(pdf|png)/[A-Za-z0-9_]+\.(pdf|png)' "$tree/paper/timelines.tex" 2>/dev/null | sort -u || true)
+timelines_needed=no
+if printf '%s\n' "$changed" | grep -qxE 'paper/timelines\.tex|paper/sources\.bib'; then
+  timelines_needed=yes
+elif [ -n "$timelines_figs" ]; then
+  while IFS= read -r f; do
+    if [ -n "$f" ] && printf '%s\n' "$changed" | grep -qxF "$f"; then
+      timelines_needed=yes
+    fi
+  done <<< "$timelines_figs"
+fi
+if [ "$timelines_needed" = yes ]; then
+  (cd "$tree" && eval "$COMPILE_TIMELINES") || fail "timelines.pdf did not compile after the merge; main is unchanged"
+else
+  step "   timelines.pdf: skipped, the branch changed neither paper/timelines.tex, paper/sources.bib, nor a figure it inputs"
+fi
 
 step "4. commit what the build rewrote"
 if [ -n "$(git -C "$tree" status --porcelain --untracked-files=no)" ]; then
