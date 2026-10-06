@@ -478,30 +478,13 @@ there the labels can be shortened and here the years cannot.
   there is no defensible right age for a Board member, and a shared panel
   would imply there is. Two figures in two sections, each on the range its
   own sources support.
-- **residents_by_district_race.** The Black share of each magisterial
-  district over the censuses that give race below the county, with the county
-  behind them. Lines, because the points are observations one per census, and
-  a line breaks wherever a census has nothing rather than being drawn through
-  it, and a dotted segment bridges the gap so that the break reads as a
-  missing census and not as a series ending (Sally, 4 October 2026): 1890, whose schedules burned, for every line, and 1900 for Arlington,
-  whose schedules are short of that district by one resident in six. The
-  county line is the three districts added together, so it breaks at 1900
-  too — two districts are not a county. That it is the districts added up
-  rather than the county row of `residents.csv` means every line on the
-  figure is the same arithmetic on the same count; in 1920 it puts the county
-  0.4 points above the published share, because the schedules record 2,559
-  Black residents where the volume prints 2,507. Each share divides by the
-  people its own count records in that place, for the same reason. The axis
-  stops at 1920 rather than running on to 1930, whose districts have no race
-  split. `docs/residents.md` has what places each census's enumeration
-  districts.
 
 - **residents_by_district_map.** The county as it stood before 1915, the whole
   Virginia side of the ten-mile square less the city of Alexandria, in the
   three magisterial districts as they stood from 1870 until 1932, and the land
   Alexandria annexed in 1915 and 1930 in two tints of Jefferson's blue. It
   sits in Board Seats, where the three districts are first named, and the
-  race section points back to it, since residents_by_district_race names the
+  race section points back to it, since residents_by_district_race_adults names the
   districts without saying where they were. Nothing else is on it: a neighbourhood is a region,
   so a dot answers wrongly; a stream, a road or a railway would be a mark the
   legend does not answer; an edge between two legend colours answers itself.
@@ -518,16 +501,25 @@ there the labels can be shortened and here the years cannot.
   `docs/residents.md`, "Where the lines ran".
 
 - **residents_by_district_race_adults.** The figure the paper carries, in
-  place of residents_by_district_race (Sally, 6 October 2026): the same
-  picture with the men aged 21 and over in place of every resident, because
-  the passage it sits in is about who could vote, and family size may differ
-  by race and children are in the all-residents count. Men only, since the table carries race for men and
+  place of the all-residents version (Sally, 6 and 7 October 2026). One line
+  per district over the censuses that give race below the county, the county
+  behind them. A line breaks wherever a census has nothing and a dotted
+  segment bridges the gap, so the break reads as a missing census and not as
+  a series ending (Sally, 4 October 2026). The shares are of the men aged 21
+  and over, because the passage it sits in is about who could vote, and
+  family size may differ by race and children are in the all-residents
+  count. Men only, since the table carries race for men and
   women but the turnout figures it sits beside count men before 1920. Four
   censuses, 1880, 1900, 1910 and 1920, with a dotted segment across the years
   between and across 1890. Arlington district's 1900 point is a share of the
   men the database holds there, which are fewer than the district's, and the
-  county line breaks at 1900 for the same reason. `docs/residents.md` has the
-  adults table.
+  county line breaks at 1900 for the same reason. 1870 is an open ring on
+  each line, joined to 1880 by a solid segment: the volume prints race by township for all residents
+  and the extract places no one in a township, so the ring is a share of
+  residents of every age and sex, a different count from the line's, which the
+  caption says, and the segment is solid because it joins two censuses and
+  crosses no gap (Sally, 6 October 2026). The axis starts at 1870 so the ring
+  sits at its own census. `docs/residents.md` has the adults table.
 
 - **members_by_race, members_by_gender, members_by_party.** Seat counts rather than
   shares, so the 1932 expansion is legible on the axis. All bands are drawn,
