@@ -27,10 +27,14 @@ first request. The built-in browser pane is a fresh browser with no history:
 the check refuses it and shows a button nobody can click from inside Claude,
 so a session that starts there and switches to Chrome after the refusal has
 spent the first half for nothing. The pane is for sites that do not check.
-A step that needs Sally's click - the check itself, a sign-in, a download the
-site will not give a script - is set up for her: the page open in her Chrome
-and the ask at the top of the message; it is never logged as a row with the
-session reporting "done".
+A step that needs Sally's click - the check itself, a sign-in - is set up for
+her: the page open in her Chrome and the ask at the top of the message; it is
+never logged as a row with the session reporting "done". Saving a page's PDF
+to `~/Downloads` is not one of those: once the check is passed, Claude clicks
+the page's Download PDF button itself (Sally, 6 October 2026: standing
+permission for newspaper page PDFs from loc.gov and Virginia Chronicle, a
+page or two at a time), reads the file, and moves it on to Drive. Asking her
+to click it is the friction this line removes.
 
 ## Citing and filing a source the prose reads
 
