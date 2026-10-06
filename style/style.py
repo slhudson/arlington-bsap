@@ -176,18 +176,17 @@ def ink_on(color):
 
 PRESIDENT = ("votes for President", DARK)
 # The Board's vote is one colour family: the legend names it once and sets its
-# four entries under it, darkest first. The square marks the district-era
-# elections; the three shades are what led the ballot in a one-seat year, in
-# falling order of turnout. See docs/figures.md, Colour.
+# four entries under it, darkest first: what led the ballot, in falling order
+# of turnout. A square is a district-era election, a circle a one-seat year. See docs/figures.md, Colour.
 BOARD_VOTES = "votes for County Board"
 BOARD_FAMILY = {
-    "districts": ("#8C3D00", "s"),
-    "president": (OKABE_ITO["vermilion"], "o"),
-    "midterm":   ("#E88A44", "o"),
-    "governor":  ("#F0AC7C", "o"),
+    "president": "#B04D00",
+    "midterm":   "#C67332",
+    "governor":  "#DD9863",
+    "delegates": "#EDB088",
 }
 BOARD_CYCLES = {"president": "presidential year", "midterm": "midterm year",
-                "governor": "governor's year"}
+                "governor": "governor's year", "delegates": "House of Delegates year"}
 # The dated changes to who could vote that the turnout figure rules off:
 # (year, note, which side of the rule the note runs to, tier). Notes close
 # together stand at different heights, so no rule runs through another's note.

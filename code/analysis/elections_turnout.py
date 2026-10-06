@@ -1,18 +1,20 @@
 """Votes cast per 100 residents of voting age, 1872 to the present -> figures/elections_turnout.pdf, .png
 
 One panel. The presidential vote is one grey line throughout. The Board's
-vote is one colour family: a square for each of the district-era elections
-in which every district's count survives, and from 1935 a line for each of
-the three things that led the ballot in a one-seat year (presidential,
-midterm, governor's year). A year that filled more than one seat, or that
-the build marks incomplete, is a gap: its votes are not its voters. The
-denominator is code/analysis/elections.py's, which body_text_numbers reads
-too, so the prose cites the rates this figure draws.
+vote is one colour family, shaded by what led the November ballot
+(presidential, midterm, governor's or House of Delegates year): a square for
+each district-era election in which every district's count survives, and from
+1935 a line for each cycle in a one-seat year. A year that filled more than
+one seat, or that the build marks incomplete, is a gap: its votes are not its
+voters, and that takes every House of Delegates year from 1943, so the
+delegates shade appears only among the squares. The denominator is
+code/analysis/elections.py's, which body_text_numbers reads too, so the prose
+cites the rates this figure draws.
 """
 import charts
 import paths
 import style
-from elections import per_100_voting_age
+from elections import cycle, per_100_voting_age
 
 FIRST_ONE_SEAT = 1935
 LAST_DISTRICT_ERA = 1928
@@ -42,22 +44,20 @@ for profile in style.PROFILES:
     fig, ax = charts.figure(profile)
     label, colour = style.PRESIDENT
     charts.lines(ax, president_rate.index.to_numpy(), {label: (president_rate.to_numpy(), colour)})
-    colour, marker = style.BOARD_FAMILY["districts"]
-    charts.marks(ax, district_rate.index, district_rate, colour, marker=marker)
-    for cycle in style.BOARD_CYCLES:
-        years_of = d[d.cycle == cycle].year[lambda y: y >= FIRST_ONE_SEAT].to_numpy()
+    for year, rate in district_rate.items():
+        charts.marks(ax, [year], [rate], style.BOARD_FAMILY[cycle(year)], marker="s")
+    for name in ("president", "midterm", "governor"):
+        years_of = d[d.cycle == name].year[lambda y: y >= FIRST_ONE_SEAT].to_numpy()
         rate = board_rate.reindex(years_of)       # a two-seat year is NaN: a gap
-        charts.lines(ax, years_of, {cycle: (rate.to_numpy(), style.BOARD_FAMILY[cycle][0])})
+        charts.lines(ax, years_of, {name: (rate.to_numpy(), style.BOARD_FAMILY[name])})
 
     charts.counts(ax, 100, 10, label="votes per 100 residents of voting age")
     charts.years(ax, 1870, 2020, step=20, label="year", minor=10, through=2028)
     for year, note, ha, tier in style.ELECTORATE_RULES:
         charts.rule(ax, year, note, ha=ha, tier=tier)
 
-    family = {f"district elections ({', '.join(str(y) for y in district_rate.index)})":
-              (*style.BOARD_FAMILY["districts"], False)}
-    family.update({name: (style.BOARD_FAMILY[cycle][0], "o", True)
-                   for cycle, name in style.BOARD_CYCLES.items()})
+    family = {name: (style.BOARD_FAMILY[key], "s" if key == "delegates" else "o", key != "delegates")
+              for key, name in style.BOARD_CYCLES.items()}
     charts.legend_family(fig, {style.PRESIDENT[0]: (style.PRESIDENT[1], "o")},
                          style.BOARD_VOTES, family)
     paths.save(fig, profile)

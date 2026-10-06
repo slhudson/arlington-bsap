@@ -49,6 +49,16 @@ def per_100_voting_age(votes, adults, estimate):
                       late / estimate.loc[late.index] * 100])
 
 
+CYCLE = {0: "president", 1: "governor", 2: "midterm", 3: "delegates"}
+
+
+def cycle(year):
+    """What led the November ballot: the four-year cycle that
+    code/clean/elections_turnout.py gives each row from 1931, worked out the
+    same way for the years before."""
+    return CYCLE[year % 4]
+
+
 def nearest(year):
     """The census closest to `year`, the earlier where two are as close."""
     return min(CENSUSES, key=lambda c: (abs(c - year), c))
