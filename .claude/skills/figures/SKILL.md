@@ -44,6 +44,12 @@ I'm confused it needs explaining" (Sally, 5 October 2026).
 
 ## Content
 
+- **Every mark a reader can see is a question, and the legend or the caption
+  answers it, or the mark goes.** A line, a dot, a shade, a label. An edge
+  where two legend colours meet answers itself; a bare line does not (the
+  stream on the district map, 6 October 2026). A dot for a neighbourhood
+  answers wrongly, since a neighbourhood is a region and not a point. Before
+  showing a figure, list its marks and find each one's answer.
 - No title inside the image. The LaTeX caption carries it, which is also
   Urban's rule for PDF products.
 - No value labels on bars.

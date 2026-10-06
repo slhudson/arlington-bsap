@@ -130,9 +130,18 @@ figure is `residents_by_district_map`, a stylized rendering in
 `style.DISTRICTS`' colors, not a reproduction of the 1907 map. The two
 lines are read off the printed map, not surveyed to it: positions are good
 to within roughly a few hundred meters at this county's scale, which is
-what a figure beside `residents_by_district_race` needs and no more. Still
-open: whether the 1907 lines agree, point for point, with the NARA 1910 and
-1920 enumeration-district descriptions of each district's interior.
+what a figure beside `residents_by_district_race` needs and no more. The
+NARA 1910 and 1920 enumeration-district descriptions (`nara1910eds`,
+`nara1920eds`) describe how each district was split for enumeration, by a
+road or a railway, and not its edges, so they cannot check the lines point
+for point; what they say agrees with the 1907 map on four points: Fort Myer
+lies inside Arlington district, the Ballston and Alexandria road (Glebe
+Road) enters Arlington district from Jefferson where the 1907 line crosses
+it south of Nauck, the Bluemont branch of the Southern Railway runs inside
+Jefferson from that crossing to the city so it can divide the district in
+two, and the county's part of Falls Church town is wholly in Washington
+district, one to two kilometres north of the line's west end. `rose1964`
+adds that almost all the land Alexandria sought in 1911 was in Jefferson.
 
 ### Race by district, counted from the schedules
 

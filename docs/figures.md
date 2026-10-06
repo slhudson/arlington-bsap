@@ -674,20 +674,49 @@ there the labels can be shortened and here the years cannot.
   Chesapeake, Newport News, Hampton and Hanover dots are named by their
   neighbours.
 - **members_by_source.** A stacked timeline, one bar per document naming the
-  Board, in the order the documents start: the Historical Society's compiled
-  list, O'Leary, Novack, the County's roll of members, the County's
-  candidate history, the state's election database. A bar's span is read off
-  `data/clean/members.csv`'s source column - the first and last start year of
-  a term that cites the document anywhere, not only where it is the primary
-  citation - so two bars over the same years is the figure's own evidence
-  that two documents confirm each other, and the figure stays true as
-  sources are added. The Alexandria Gazette is too few, too scattered items
-  to read as a span, and draws as a row of ticks instead, one per citekey, at
-  the year its own date carries (`charts.hspans()`); two items the same year
-  stack rather than merge, the way `events()` stacks a timeline strip. One
-  neutral colour throughout, since nothing here is a category to tell apart
-  by hue - only a document to locate on the axis. No legend: the row labels
-  name the documents and the caption carries the citations.
+  Board, sorted by the year each bar starts rather than typed in by hand, so
+  the row order is read off the same computation as the bars - the
+  Alexandria Gazette row sorts in by its own earliest tick, not pinned to the
+  bottom (Sally, 6 October 2026). Every row label is an author-date
+  citation, the way a reader skimming the paper would expect to see a source
+  named - a person's surname or an institution's short name, parenthesised
+  year - rather than the project's own shorthand for a document: Arlington
+  Historical Society (1967), O'Leary (2010), Novack (1994), Arlington County
+  Board (2026), Arlington County Elections (2021), Virginia Department of
+  Elections. An institution's name is shortened to what names it without its
+  full legal title - Arlington County Elections, not Arlington County Office
+  of Voter Registration and Elections - and a source with no date of its own,
+  read off a page revised as the Board changes, carries no year rather than
+  the year it happened to be accessed (Sally, 6 October 2026; two earlier
+  versions tried the project's own handles for these documents - "County
+  roll", "O'Leary's history" - which read as internal shorthand rather than
+  something a first-time reader could place).
+  A bar's span is read off `data/clean/members.csv`'s source column - the
+  first and last start year of a term that cites the document anywhere, not
+  only where it is the primary citation - so two bars over the same years is
+  the figure's own evidence that two documents confirm each other, and the
+  figure stays true as sources are added. The Alexandria Gazette is too few,
+  too scattered items to read as a span, and draws as a row of narrow bars
+  instead, one per citekey, at the year its own date carries
+  (`charts.hspans()`, `style.SPAN_TICK` wide); two items the same year sit
+  side by side rather than one over the other. A first version drew these as
+  dots, which read as a different kind of mark from the bars above them
+  rather than the same row continued (Sally, 6 October 2026).
+
+  A document either records who held the seat or who won it, and that is
+  the one substantive distinction among the sources themselves, so it
+  stays in the near-neutral family rather than taking a category's hue
+  (`style.SOURCE_KIND`): the lighter sand fill for members elected, the
+  taupe stroke colour for members served, lighter first in the legend
+  (Sally, 6 October 2026). The Gazette row is the case the distinction is
+  for: an appointment, a qualification or a press mention of a sitting
+  member is service, a candidate list or an election return is a contest,
+  read off each citekey's own entry in `paper/sources.bib` rather than
+  guessed from its name (`members_by_source.GAZETTE_KIND`), so two ticks the
+  same year can be two different colours - 1919 carries both, the Gazette's
+  report of who assumed office that January beside its return of who had
+  just won. A legend names the two kinds; the row labels still name the
+  documents and the caption carries the citations.
 
 ## Output
 
