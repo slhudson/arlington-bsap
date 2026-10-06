@@ -122,7 +122,9 @@ found that draws the lines rather than only lettering each district's name
 across its own interior, which is what the two other period maps checked,
 Hopkins 1879 and Howell and Taylor 1900, do instead. The figure is
 `residents_by_district_map`, a stylized rendering in `style.DISTRICTS`'
-colors, not a reproduction of the 1907 map.
+colors, not a reproduction of the 1907 map. The vertex file, the clean step and
+the figure all exist; only the figure's DRAFT mark waits, on the 1915 line
+(`annexation-1915-line`).
 
 **How the lines are placed.** The sheet's neatline is the ten-mile square
 itself: its four corners are the diamond's, so the left edge is the square's

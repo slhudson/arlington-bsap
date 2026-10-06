@@ -195,10 +195,8 @@ the legend is one row. "ABC" rather than the full name for the same reason;
 the caption expands it.
 
 The residual band is "Other or Multiracial", not "unreported": nothing in it
-is. Before 1980 it is people in race categories the source did not break
-out, never above 0.12 per cent of the county; from 1980 it is American
-Indian and Alaska Native, some other race, and two or more races, all
-counted, and in 2020 two or more races is 12,196 of its 13,945.
+is. What it holds before and after 1980, and how large it is, is in
+`docs/residents.md`.
 
 A qualifier is stated once, in the caption, where a category means the same
 thing throughout. On the census basis every group except Hispanic or Latino

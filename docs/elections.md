@@ -63,12 +63,12 @@ voters, not residents, and before 1966 the electorate was the one the 1902
 constitution allowed, poll tax and literacy test, and before 1920 it was men.
 The comparison the figures invite is therefore the Board against the people
 who were allowed to vote, which the file name and axis label say so that no
-caption has to. 1872 is the county electoral board's own certified return,
-printed in the *Alexandria Gazette*; 1876–1916 is the Commonwealth's return
-for the county as the *Warrock-Richardson Almanack* prints the official vote;
-and 1924 and 1928 are the Secretary of the Commonwealth's reports. All are
-keyed in `data/transcribed/by_claude/elections_results_state.csv` and read by
-the build as they stand: the clean step sums each year's tickets into the
+caption has to. The state's return is the source wherever one is printed, and
+each year's source column in
+`data/transcribed/by_claude/elections_results_state.csv` names which: the
+county electoral board's certified table for 1872, the Almanack's printing of
+the official vote for 1876–1916, the Secretary's reports for 1924 and 1928.
+All are read by the build as they stand: the clean step sums each year's tickets into the
 bands (a Funder and a Readjuster column for Hancock in 1880 are one Democratic
 vote; a dotted ticket is 0; where the Almanack prints only the highest
 candidates, 1904, 1908, 1912 and 1916, the other band is what it prints). For
@@ -260,11 +260,10 @@ that the county's is the certified canvass and the Sun's the count as known
 three days out, an ordinary correction of 8 votes on one side and 1 on the
 other; it has not been shown, the *Sun* of 18 November (`sun1938womenvoters`)
 being about the ballot's wording rather than the tally. If the report uses a
-margin it should use the county's and say so. From the same page, for the
-prose: the ballot asked only whether members should be elected "as provided
-in Sec. 2773-F1 of the Code of Virginia", the Commonwealth's Attorney's office
-fielded calls from voters asking what it meant, and four of eleven precincts
-voted against.
+margin it should use the county's and say so. The same page gives the
+referendum's other facts: the ballot named only the Code section (2773-F1),
+without describing staggering, voters called the Commonwealth's Attorney's
+office to ask what it meant, and four of eleven precincts voted against.
 
 **What staggering meant in practice** is in the Historical Society's 1967
 compilation, not the ballot: "beginning with the County Board elected in 1939
@@ -464,7 +463,8 @@ returns.)" for the rest. O'Leary's own counts for the two years agree with the
 Gazette's on all sixteen candidates; they differ only in spelling (Hagen for
 Hagan, Wibirt for Wilbert, the initials W.M., J.W. and E.J. for W. N.
 Febrey, G. W. Donaldson and C. J. Costello), and nothing in the table rests on him.
-Both are in the table and not drawn.
+Both are in the table and not drawn. No Board total rests on O'Leary; the one
+figure that still does is the 1920 presidential total.
 
 **The denominators.** Votes for the Board are the county's candidate history
 1931–2021 and the state database from 2022, write-ins included. Registered

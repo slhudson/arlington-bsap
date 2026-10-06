@@ -163,9 +163,9 @@ county's roll records service too, so the roll dates the departures and
 arrivals no contest shows, Tannia Talento's appointment of 15 July 2023 among
 them, and is a second witness to Novack for 1932 to 1994.
 `code/clean/members_roster_roll.py` reads it: `check_against_novack` holds the
-two to each other, `OVERRULED` holds the one disagreement read against a third
-source (Massey's appointment, which the *Daily Sun* dates with Novack,
-`dailysun1952appointees`), and a disagreement with no third source stops the
+two to each other, `OVERRULED` holds the one disagreement a third source decides: the roll
+dates Massey's appointment later than Novack and the *Daily Sun* do
+(`dailysun1952appointees`). A disagreement with no third source stops the
 build.
 
 **A month belongs to whoever held the seat for any part of it.** Where a gap

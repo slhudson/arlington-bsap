@@ -30,11 +30,10 @@ the notes name as sitting outside it. A Mayor chosen from council is already
 among its members. A county board's count includes a chair elected at large.
 Residents are the 2020 census; land area is the 2020 Gazetteer's.
 
-Each Arlington member stands for about as many residents as each member
-in Loudoun and Virginia Beach, and for far more than each member in a city
-of its size. Alexandria, the one place as dense, has far fewer residents per
-member; only the larger counties, Henrico, Chesterfield, Prince William and
-Fairfax, have more.
+Arlington's residents per member are level with Loudoun's and Virginia
+Beach's and well above every city of its size. Alexandria, the one place as
+dense, has far fewer per member; only Henrico, Chesterfield, Prince William
+and Fairfax, all larger counties, have more.
 
 
 ## Southeastern cities and counties of Arlington's size

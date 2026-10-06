@@ -52,8 +52,21 @@ revisiting does not depend on anyone remembering; a gzipped file is counted
 against the whole, not against the text, since it is not editable. The scans the build never
 reads are already fetched on demand rather than committed, and so is the
 OCR of the census volumes (`data/transcribed/by_ocr/`, regenerated on a Mac by
-`code/transcribe/census.py`), which took 1.8MB of the text cap. If the cap
-trips again, the candidate is the state's 2MB election CSV.
+`code/transcribe/census.py`), which took 1.8MB of the text cap.
+
+The raw tables and outlines the build reads and nobody edits - everything
+under `data/raw/us_census_bureau/`, `data/raw/arlington_county/` and
+`data/raw/va_dept_of_elections/` that is a CSV or GeoJSON, 29 files, 2.1MB of
+text - are stored as `.csv.gz` and `.geojson.gz`, which is 0.4MB and clears the
+6MB warning with room. pandas reads a `.csv.gz` as it reads a `.csv`, so only the paths and the
+checksums in `data/contents.csv` changed; `data/built/` and `data/clean/` are
+byte-identical to what they were. `write_text()` in `code/fetch/paths.py` writes the
+gzipped form with no name or time in the header, so a refetch gives the same
+bytes and the checksum holds. The census tables in `data/built/census.csv`
+keep their names without the `.gz`, since clean steps look a table up by that
+name. The IPUMS codebooks, the 1980 record layout and the README stay plain
+text: nothing reads them, and a reader can open them. If the cap trips again,
+the next candidate is `data/transcribed/by_claude/`'s 306KB candidate history.
 
 **A job that depends on another waits for its tracker row, not its branch.**
 A project is finished when its row leaves `docs/questions.csv` on `main`;
@@ -150,16 +163,37 @@ rebuilt in the worktree and lost when the worktree went.
 
 The script does the same steps in the same order and refuses at each place a
 hand slipped. It merges in a worktree taken from `origin/main` after a fetch,
-so the merge is against what is pushed; a conflict outside the union-merged
-files (`.gitattributes`) stops it with the files named and main untouched,
+so the merge is against what is pushed; a conflict in a row of the tracker or
+outside the union-merged files (`.gitattributes`) stops it with the files named and main untouched,
 because two sessions editing one line is a person's decision; the build and
 both compiles run on the merged tree and a failure stops it before anything
 reaches main; what the build rewrote is committed in the worktree before the
 fast-forward, so a rebuilt figure travels with the merge; then main
 fast-forwards, pushes, the compiled PDFs are copied to the primary checkout,
-and the worktree and the branch go, here and on origin. One line prints per
-step, and the primary checkout must be on main and clean, or it declines to
-start.
+and the scratch worktree goes in the script's EXIT trap, on success as on
+failure. One line prints per step, and the primary checkout must be on main and
+clean, or it declines to start; run from a worktree it names the primary
+checkout and the command to run there. The remote is always `origin`: the
+override had no setter.
+
+**What the script removes of the thread's own.** Two threads lost their
+worktrees on 6 October 2026, probably to the leftover cleanup after a merge. The
+thread's worktree and local branch now go only if three things hold: its branch
+is merged into main, its tree is clean, and no live session holds it, which
+`git worktree lock` says. Otherwise the script prints why the worktree stays.
+`code/tests.py` merges with each of a clean, a dirty and a locked worktree.
+
+**The tracker merges by row, not by line.** `docs/questions.csv` used to merge
+by union, which keeps both sides of every differing hunk, and so resurrected
+nine rows closed on main whenever a branch touched a line near them. The unit
+of the file is the row, so `code/merge_questions.py` is a merge driver keyed on
+the row id: each row takes the one side that changed it, a row both sides changed
+differently is a conflict with both versions written between markers, and an
+edit against a deletion is such a conflict too. The result is main's rows in
+main's order, then the rows the branch added. Git keeps a driver in
+`.git/config`, so `run.sh` registers it as it registers the hook path, and
+`code/merge.sh` refuses to run without it. The union merge stays for the
+punch list and the negatives file, which are append-only.
 
 `code/tests.py` builds a throwaway remote and clone and runs the script three
 ways, with the build and compile commands substituted: a failing build leaves
@@ -171,6 +205,13 @@ and are fast when it touched little because of the cache below, not because
 the script decides what to skip.
 
 ## Why the build is cached, and where
+
+The build and clean stages each run their steps in one Python process
+(`code/stage.py`, as `code/figures.py` does for the figures), so the interpreter
+and pandas start once and not once per step. A cold `bash run.sh` went from
+103 s to 70 s. The one piece of module-level state that would carry one step's
+reads into the next, `code/build/paths.py`'s list of the tables a step read for
+`write()`'s check, is cleared before each step.
 
 A merge builds in a fresh worktree, and so does every thread. `run.sh` used to
 judge a stage unchanged by its inputs' modification times, kept in a stamp in

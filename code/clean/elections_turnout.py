@@ -27,8 +27,6 @@ Three guards: the Board's voters never exceed the registered voters, nor
 the presidential vote of the same year, and the registered never exceed
 the adults.
 """
-import re
-
 import pandas as pd
 
 import members_terms
@@ -101,9 +99,8 @@ def board_votes(roster) -> pd.DataFrame:
 
 def board_districts() -> pd.DataFrame:
     """1870-1915: the November elections with a count for every candidate in
-    all three districts. The Gazette's own returns (candidates_gazette) where
-    it printed them, O'Leary's where it did not; 1907 and 1915 are both in
-    the Gazette and agree with him to the vote, so nothing rests on him
+    all three districts, from the Gazette's own returns (candidates_gazette);
+    1907 and 1915 agree with O'Leary's to the vote, so nothing rests on him
     here (docs/elections.md, "Which years are not the county's vote")."""
     g = paths.typed(paths.built("candidates_gazette"))
     g = g[g.election_date.str[5:7] == "11"]
@@ -114,16 +111,6 @@ def board_districts() -> pd.DataFrame:
         rows.append({"year": int(year), "board_votes": int(h.votes.sum()), "board_seats": 3,
                      "board_complete": True,
                      "board_source": f"{h.source.iloc[0]} p.{h.page.iloc[0]}",
-                     "board_note": "one seat per district, so one vote per voter"})
-    d = elections.oleary(elections.SUPERVISORS)
-    for year, g in d[~d.year.isin([r["year"] for r in rows])].groupby("year"):
-        counts = [re.findall(r"(\d[\d,]*)(?=\s|$)", e) for e in g.entry]
-        if not all(counts) or len(g) != 3:
-            continue
-        total = sum(int(n.replace(",", "")) for c in counts for n in c)
-        rows.append({"year": int(year), "board_votes": total, "board_seats": 3,
-                     "board_complete": True,
-                     "board_source": f"{citekeys.OLEARY} p.{g.page.iloc[0]}",
                      "board_note": "one seat per district, so one vote per voter"})
     if not rows:
         raise AssertionError("no district election with a count in every district - "
