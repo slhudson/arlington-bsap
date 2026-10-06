@@ -8,6 +8,8 @@ each placement is in docs/figures.md.
     series()        a {label: (values, colour)} from a table and a frame
     lines()         a series over time; off_scale() marks where one leaves the axis
     stacked_bars()  composition at intervals
+    hspans()        a bar per named category over a span of years, or ticks
+                    on a row that is a set of dated items rather than a span
     stacked_steps() composition over continuous years; runs() finds the gaps
     age_band()      youngest to oldest as a band; strokes() draws tenures over it
     scatter()       one scatter, squarer than a time series
@@ -173,6 +175,31 @@ def hbars(ax, labels, values, color, groups=None):
     ticks, names, centres = _hrows(labels, groups)
     ax.barh(centres, values, height=0.72, color=color, zorder=3)
     _hcategories(ax, ticks, names, groups or {})
+    ax.set_ylim(max(ticks) + 0.5, -0.8)
+
+
+def hspans(ax, labels, spans, color):
+    """Horizontal bars over named categories, first at the top: each element
+    of `spans` is a (first, last) pair, drawn as a bar running from first to
+    last, except where it is a sequence of years instead of a pair - drawn as
+    ticks on that row rather than a bar, for a category that is a set of
+    dated items rather than a span. Two items the same year stack upward
+    from the row's centre, as events() stacks a timeline strip."""
+    ticks, names, centres = _hrows(labels)
+    step = 2 * np.sqrt(style.DOT / np.pi) / 72            # a dot's diameter, in inches
+    for y, span in zip(centres, spans):
+        if len(span) == 2 and not hasattr(span[0], "__len__") and not hasattr(span[1], "__iter__"):
+            first, last = span
+            ax.barh([y], [last - first], left=[first], height=0.72, color=color, zorder=3)
+        else:
+            level = {}
+            for xi in span:
+                k = level.get(xi, 0)
+                level[xi] = k + 1
+                lift = ScaledTranslation(0, k * step, ax.figure.dpi_scale_trans)
+                ax.scatter([xi], [y], s=style.DOT, color=color, zorder=4,
+                          transform=ax.transData + lift, clip_on=False)
+    _hcategories(ax, ticks, names)
     ax.set_ylim(max(ticks) + 0.5, -0.8)
 
 

@@ -54,9 +54,6 @@
   \bottomrule \endfoot}
 \newcommand{\rosterpanelend}{\end{longtable}\par\smallskip
   \noindent\figurenotes{Notes: \rostermarks}{}\endgroup}
-% One row of the Sources table (Table~\ref{tab:sources}), written by
-% code/analysis/members_by_source.py: \sourcerow{1870--1911}{Historical Society list}{O'Leary}{41}
-\newcommand{\sourcerow}[4]{#1 & #2 & #3 & #4 \\}
 \usepackage[margin=1in]{geometry}
 \usepackage[hidelinks]{hyperref}
 
@@ -1159,10 +1156,11 @@ per seat stand in for ballots cast in those years.
 \section{Board Members}
 
 \subsection{Sources}
-Four documents name who served on the Board, and which one to open first depends
-on the year. Table~\ref{tab:sources} lays out the stretches, and the paragraphs
-below say what each document gives, what it leaves out, and what to do where two
-disagree.
+Several independent documents name who served on the Board across the years
+since 1870, and their coverage overlaps rather than running end to end:
+Figure~\ref{fig:sources} lays out the years each names, and where two
+overlap, each confirms the other. The paragraphs below say what each
+document gives, what it leaves out, and what to do where two disagree.
 
 For 1870 through 1931, open the Arlington Historical Society's 1967 list of county
 officials. Its Research and Records Committee compiled the list from the Board's
@@ -1198,23 +1196,24 @@ results, not the members seated between elections, so the roll is the only
 document that shows an appointment such as Tannia Talento's on July 15, 2023. The
 state's election results continue the contests after 2021.
 
-\begin{table}[t]
-  \refstepcounter{table}\label{tab:sources}
-  {\raggedright\MakeUppercase{Table \thetable}\par}
+\begin{figure}[t]
+  \centering
+  \refstepcounter{figure}\label{fig:sources}
+  {\raggedright\MakeUppercase{Figure \thefigure}\par}
   {\raggedright\bfseries Where to Find the Board, by Year\par}
   \medskip
-  \begingroup\footnotesize\setlength{\tabcolsep}{8pt}
-  \begin{tabular}{@{}llp{2.3in}r@{}}
-  \toprule
-  \textit{Years} & \textit{Open First} & \textit{Read Beside It} & \textit{Members} \\
-  \midrule
-  \rosterinput members_by_source.tex
-  \bottomrule
-  \end{tabular}\endgroup
-  \par\smallskip
-  \figurenotes{Notes: Members are those who held a seat in any month of the
-    years; a member who served across two stretches is counted in both.}{}
-\end{table}
+  \includegraphics[width=\textwidth]{members_by_source.pdf}
+  \smallskip
+  \figurenotes{Notes: Each bar covers the years a term's source cites that
+    document, so two bars over the same years are two documents confirming
+    each other. The Alexandria Gazette row marks items the roster cites
+    individually rather than as a term's primary source; single citations to
+    the Washington Times, the Daily Sun and ARLnow are not shown.}
+    {Source: Arlington Historical Society's 1967 compiled list of county
+    officials; Frank O'Leary's electoral history; Norman Novack's roster;
+    Arlington County's roll of members; the County's candidate history; the
+    Virginia Department of Elections database; the Alexandria Gazette.}
+\end{figure}
 
 A member's traits come from three kinds of source: the US census, which
 describes members who served through the 1960s; the press, in news reports and

@@ -11,8 +11,6 @@ the paper, commits, and deletes the lines it cleared. What it cannot settle
 stays, with a one-line reason under it.
 
 ## Could not settle
-- Table 2 (Where to Find the Board, by Year) took "written for a replicator" too literally: the headings "Open First" and "Read Beside It" turn a table of sources into an instruction manual. Revisit the form with Sally; the likely shape is Years, Sources (the documents that name the Board in those years, primary first), Members, with the roadmap voice kept in the prose, not the column heads. (Sally, 5 Oct)
-  A decision on the table's form, for Sally.
 - Board Seats: the federal-office statute (Acts 1883-84 ch. 145) that emptied Perkins W. Squier's seat in 1884 is, as Code 1950 § 2-27, the one Dean v. Paolicelli applied to take the Board's Non-Partisan majority in 1952, so Arlington held four Board contests on 4 November 1952; one provision at both ends of the period, not yet in the paper (paolicelli1952, dailysun1952appointees). (members.md split, 4 Oct)
   Adds a claim tying one statute to two events 68 years apart; wants a Fable session.
 - Election Method: the vacancy rule's history is not in the paper: a writ of election at the next November until 1975 c. 636 (a special election in 45-60 days, appointment within 180 days of a term's end), the 1998 filing-deadline amendments, the 2014 window of 60-80 days; and 1993 c. 731, which removed the referendum paragraphs, is unread (vaacts1958c207, vaacts1975c636, vaacts1998c345, vaacts2014c573, vacode152705). (members.md split, 4 Oct)
@@ -21,5 +19,3 @@ stays, with a one-line reason under it.
   Adds a claim about the act's origins and leaves one claim unconfirmed; wants a Fable session.
 - Board Structure: the chair custom is not in the paper: since 1990 each year's vice-chair chairs the next year, with four breaks each explained by membership, and no chair election is reported contested (arlingtonva2026members, arlnow2026chair). (members.md split, 4 Oct)
   Adds a claim about an unwritten custom the paper does not yet carry; wants a Fable session.
-- Figure 3 (county by race) legend: consider alphabetical order (Asian & Pacific Islander first), since nothing says why Black comes first. The figures skill says a legend follows stacking order, and docs/figures.md sets the stack with the largest group on top; if the legend goes alphabetical, decide whether the stack does too, and apply the same rule to Figure 4 and the gender figure.
-  A decision on stacking order, for Sally.

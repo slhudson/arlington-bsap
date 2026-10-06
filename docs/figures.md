@@ -673,6 +673,21 @@ there the labels can be shortened and here the years cannot.
   cluster: Richmond for the two 9-member cities in (a), and in (b) the
   Chesapeake, Newport News, Hampton and Hanover dots are named by their
   neighbours.
+- **members_by_source.** A stacked timeline, one bar per document naming the
+  Board, in the order the documents start: the Historical Society's compiled
+  list, O'Leary, Novack, the County's roll of members, the County's
+  candidate history, the state's election database. A bar's span is read off
+  `data/clean/members.csv`'s source column - the first and last start year of
+  a term that cites the document anywhere, not only where it is the primary
+  citation - so two bars over the same years is the figure's own evidence
+  that two documents confirm each other, and the figure stays true as
+  sources are added. The Alexandria Gazette is too few, too scattered items
+  to read as a span, and draws as a row of ticks instead, one per citekey, at
+  the year its own date carries (`charts.hspans()`); two items the same year
+  stack rather than merge, the way `events()` stacks a timeline strip. One
+  neutral colour throughout, since nothing here is a category to tell apart
+  by hue - only a document to locate on the axis. No legend: the row labels
+  name the documents and the caption carries the citations.
 
 ## Output
 
