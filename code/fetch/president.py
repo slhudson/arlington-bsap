@@ -1,4 +1,4 @@
-"""Virginia elections database -> data/raw/va_dept_of_elections/president_1924-2024.csv
+"""Virginia elections database -> data/raw/va_dept_of_elections/president_1924-2024.csv.gz
 
 Run by hand after a presidential election; the build never touches the
 network (CLAUDE.md).
@@ -23,7 +23,7 @@ import pandas as pd
 import paths
 
 ROOT = paths.ROOT
-OUT = paths.RAW / "va_dept_of_elections" / "president_1924-2024.csv"
+OUT = paths.RAW / "va_dept_of_elections" / "president_1924-2024.csv.gz"
 
 ENDPOINT = "https://va2.elstats.civera.com/api/download_search.csv"
 PRESIDENT = 1                        # the database's id for the office
@@ -47,8 +47,7 @@ def main():
              & d.election_type.str.startswith("General")]
     if keep.empty:
         raise SystemExit("no Arlington County locality rows - has the database changed shape?")
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    keep.to_csv(OUT, index=False)
+    paths.write_text(OUT, keep.to_csv(index=False))
     years = sorted(pd.to_datetime(keep.election_date).dt.year.unique())
     print(f"  {OUT.relative_to(ROOT)}  ({len(keep):,} of {len(d):,} rows; {years[0]}-{years[-1]}, {len(years)} elections)")
 

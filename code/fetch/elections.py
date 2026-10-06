@@ -16,8 +16,6 @@ no votes, and party is recorded from 2007. It is the second source for a
 member's party where it overlaps the county's candidate history, and the
 only one from 2022.
 """
-import gzip
-import io
 import json
 import urllib.parse
 import urllib.request
@@ -45,12 +43,7 @@ def main():
         body = r.read()
     if not body.startswith(b"contest_id,"):
         raise SystemExit("unexpected response - not the results CSV")
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    # mtime 0 and no name in the header, so the same rows give the same bytes
-    buf = io.BytesIO()
-    with gzip.GzipFile(filename="", mode="wb", fileobj=buf, compresslevel=9, mtime=0) as z:
-        z.write(body)
-    OUT.write_bytes(buf.getvalue())
+    paths.write_text(OUT, body)
     print(f"  {OUT.relative_to(ROOT)}  ({body.count(b'\n'):,} rows)")
 
 

@@ -52,7 +52,7 @@ from paths import BY_CLAUDE, RAW, source, write
 
 COUNTY = BY_CLAUDE / "arlington_county" / "candidate_history_1920-present.csv"
 STATE = (RAW / "va_dept_of_elections" / "county_board_2000-2026.csv.gz",
-         RAW / "va_dept_of_elections" / "president_1924-2024.csv")
+         RAW / "va_dept_of_elections" / "president_1924-2024.csv.gz")
 # O'Leary's listings, and the office each is of.
 OLEARY = {BY_CLAUDE / "arlington_county" / "members_1870-1920.csv": "Board of Supervisors",
           BY_CLAUDE / "arlington_county" / "president_1872-1920.csv": "President"}

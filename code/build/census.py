@@ -7,7 +7,8 @@ data/transcribed/by_claude/us_census_bureau/, every row, since each is
 already the county's. Nothing is summed or chosen; code/clean/census.py
 gives a table back in its own shape.
 
-    table    the source file's path under data/
+    table    the source file's path under data/, without the .gz the raw
+             files are stored under
     row      its position in the source, from 0
     column   the source's column heading
     value    the cell as printed
@@ -16,7 +17,7 @@ import pandas as pd
 
 from paths import BY_CLAUDE, DATA, RAW, source, write
 
-COUNTY_FILES = sorted((RAW / "us_census_bureau").glob("*/*_virginia_counties.csv"))
+COUNTY_FILES = sorted((RAW / "us_census_bureau").glob("*/*_virginia_counties.csv.gz"))
 COUNTY_TABLES = sorted((BY_CLAUDE / "us_census_bureau").rglob("*.csv"))
 
 
@@ -34,7 +35,7 @@ def cells(frame: pd.DataFrame, path) -> pd.DataFrame:
     long = frame.reset_index(drop=True).rename_axis("row").reset_index().melt(
         id_vars="row", var_name="column", value_name="value")
     long = long.sort_values(["row"], kind="stable")
-    long.insert(0, "table", str(path.relative_to(DATA)))
+    long.insert(0, "table", str(path.relative_to(DATA)).removesuffix(".gz"))
     return long
 
 

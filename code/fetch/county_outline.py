@@ -1,4 +1,4 @@
-"""The modern county outline -> data/raw/arlington_county/county_outline.geojson
+"""The modern county outline -> data/raw/arlington_county/county_outline.geojson.gz
 
 Run by hand, output committed; the build never touches the network
 (CLAUDE.md).
@@ -20,7 +20,7 @@ import paths
 
 URL = ("https://arlgis.arlingtonva.us/arcgis/rest/services/Open_Data/"
        "od_County_Polygon/FeatureServer/0/query?where=1%3D1&outFields=*&f=geojson")
-OUT = paths.RAW / "arlington_county" / "county_outline.geojson"
+OUT = paths.RAW / "arlington_county" / "county_outline.geojson.gz"
 
 
 def main():
@@ -28,8 +28,7 @@ def main():
         data = json.load(r)
     if data.get("type") != "FeatureCollection" or len(data.get("features", [])) != 1:
         raise SystemExit(f"expected one polygon feature, got: {str(data)[:200]}")
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(json.dumps(data, indent=1))
+    paths.write_text(OUT, json.dumps(data, indent=1))
     print(f"  {OUT.relative_to(paths.ROOT)}")
 
 

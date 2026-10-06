@@ -1,7 +1,8 @@
-"""Census counties -> data/raw/us_census_bureau/2020/censusapi_dec_pl_P1_race_us_counties.csv
+"""Census counties -> data/raw/us_census_bureau/2020/censusapi_dec_pl_P1_race_us_counties.csv.gz
 
-Run by hand, output committed; the build never touches the network
-(CLAUDE.md). Needs CENSUS_API_KEY in .env at the repository root.
+Run by hand, output committed, stored gzip-compressed (fetch/paths.py); the
+build never touches the network (CLAUDE.md). Needs CENSUS_API_KEY in .env at
+the repository root.
 
     .venv/bin/python code/fetch/census_counties.py
 
@@ -17,7 +18,7 @@ import urllib.request
 
 import paths
 
-OUT = paths.RAW / "us_census_bureau" / "2020" / "censusapi_dec_pl_P1_race_us_counties.csv"
+OUT = paths.RAW / "us_census_bureau" / "2020" / "censusapi_dec_pl_P1_race_us_counties.csv.gz"
 
 
 def main():
@@ -30,11 +31,8 @@ def main():
     except urllib.error.HTTPError as e:
         raise SystemExit(f"Census API {e.code}: {e.read().decode(errors='replace')[:200].strip()}")
     head, body = rows[0], sorted(rows[1:], key=lambda r: (r[2], r[3]))
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    with OUT.open("w") as fh:
-        fh.write(",".join(head) + "\n")
-        for r in body:
-            fh.write(",".join(f'"{c}"' if "," in c else c for c in r) + "\n")
+    paths.write_text(OUT, ",".join(head) + "\n" + "".join(
+        ",".join(f'"{c}"' if "," in c else c for c in r) + "\n" for r in body))
     print(f"  {OUT.relative_to(paths.ROOT)}  {len(body)} counties")
 
 

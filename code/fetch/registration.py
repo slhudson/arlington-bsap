@@ -1,4 +1,4 @@
-"""Virginia registration statistics -> data/raw/va_dept_of_elections/registration_2010-2025.csv
+"""Virginia registration statistics -> data/raw/va_dept_of_elections/registration_2010-2025.csv.gz
 
 Run by hand after a November election, once the state has posted the
 month's report; the build never touches the network (CLAUDE.md).
@@ -25,7 +25,7 @@ import pandas as pd
 import paths
 
 ROOT = paths.ROOT
-OUT = paths.RAW / "va_dept_of_elections" / "registration_2010-2025.csv"
+OUT = paths.RAW / "va_dept_of_elections" / "registration_2010-2025.csv.gz"
 
 SITE = "https://www.elections.virginia.gov"
 PAGE = SITE + "/resultsreports/registration-statistics/{year}-registration-statistics/"
@@ -103,8 +103,7 @@ def main():
                              f"is not all {row['all']:,}")
         rows.append({"year": year, "report": f"{year}/10", **row, "file": url})
         print(f"  {year}  active {row['active']:>8,}  all {row['all']:>8,}  as of {row['as_of'] or '(not stated)'}")
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    pd.DataFrame(rows).to_csv(OUT, index=False)
+    paths.write_text(OUT, pd.DataFrame(rows).to_csv(index=False))
     print(f"  {OUT.relative_to(ROOT)}  ({len(rows)} rows)")
 
 

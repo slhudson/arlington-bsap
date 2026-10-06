@@ -1,4 +1,4 @@
-"""The modern city of Alexandria's outline -> data/raw/us_census_bureau/alexandria_outline.geojson
+"""The modern city of Alexandria's outline -> data/raw/us_census_bureau/alexandria_outline.geojson.gz
 
 Run by hand, output committed; the build never touches the network
 (CLAUDE.md).
@@ -18,7 +18,7 @@ import paths
 
 URL = ("https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/"
        "MapServer/1/query?where=GEOID%3D%2751510%27&outFields=GEOID%2CNAME&f=geojson")
-OUT = paths.RAW / "us_census_bureau" / "alexandria_outline.geojson"
+OUT = paths.RAW / "us_census_bureau" / "alexandria_outline.geojson.gz"
 
 
 def main():
@@ -27,7 +27,7 @@ def main():
     features = data.get("features", [])
     if len(features) != 1 or features[0]["properties"].get("GEOID") != "51510":
         raise SystemExit(f"expected one feature with GEOID 51510, got: {str(data)[:200]}")
-    OUT.write_text(json.dumps(data, indent=1))
+    paths.write_text(OUT, json.dumps(data, indent=1))
     print(f"  {OUT.relative_to(paths.ROOT)}")
 
 

@@ -1,4 +1,4 @@
-"""Census -> data/raw/us_census_bureau/<year>/*.csv, whole tables, 1980-2020.
+"""Census -> data/raw/us_census_bureau/<year>/*.csv.gz, whole tables, 1980-2020.
 
 Run by hand when a year is needed, output committed; the build never
 touches the network (CLAUDE.md). Needs CENSUS_API_KEY in .env at the
@@ -169,13 +169,11 @@ def archive_year(year, spec):
                                  f"file states {want:,} - check the layout")
 
     for table, (begin, names) in spec["tables"].items():
-        out = out_dir / f"stf1a_{table}_virginia_counties.csv"
-        with out.open("w") as fh:
-            fh.write("name,state,county," + ",".join(names) + "\n")
-            for r in records:
-                vals = cells(r, begin, len(names))
-                fh.write(f'"{spec["name"](r)}",51,{spec["fips"](r)},'
-                         + ",".join(str(v) for v in vals) + "\n")
+        out = out_dir / f"stf1a_{table}_virginia_counties.csv.gz"
+        paths.write_text(out, "name,state,county," + ",".join(names) + "\n" + "".join(
+            f'"{spec["name"](r)}",51,{spec["fips"](r)},'
+            + ",".join(str(v) for v in cells(r, begin, len(names))) + "\n"
+            for r in records))
         arl = next(r for r in records if spec["fips"](r) == COUNTY)
         print(f"  {out.relative_to(ROOT)}  {len(records)} counties, {len(names)} cells"
               f"  (Arlington sums to {sum(cells(arl, begin, len(names))):,})")
@@ -243,22 +241,18 @@ def main(years=None):
                 wanted.update(head[i] for i in keep
                               if head[i] not in ("NAME", "state", "county"))
 
-                out = out_dir / f"censusapi_{dataset.replace('/', '_')}_{table}_{name}_virginia_counties.csv"
-                with out.open("w") as fh:
-                    fh.write(",".join(head[i] for i in keep) + "\n")
-                    for r in sorted(rows[1:], key=lambda r: r[head.index("NAME")]):
-                        fh.write(",".join(f'"{r[i]}"' if "," in str(r[i]) else str(r[i])
-                                          for i in keep) + "\n")
+                out = out_dir / f"censusapi_{dataset.replace('/', '_')}_{table}_{name}_virginia_counties.csv.gz"
+                paths.write_text(out, ",".join(head[i] for i in keep) + "\n" + "".join(
+                    ",".join(f'"{r[i]}"' if "," in str(r[i]) else str(r[i]) for i in keep) + "\n"
+                    for r in sorted(rows[1:], key=lambda r: r[head.index("NAME")])))
                 arl = next(r for r in rows[1:] if r[head.index("NAME")].startswith("Arlington"))
                 print(f"  {out.relative_to(ROOT)}  {len(rows)-1} counties, {len(keep)} columns"
                       f"  (Arlington total {int(arl[head.index(first_value(head, table))]):,})")
 
-            dic = out_dir / f"censusapi_{dataset.replace('/', '_')}_variables.csv"
-            with dic.open("w") as fh:
-                fh.write("variable,label\n")
-                for code in sorted(wanted):
-                    label = meta.get(code, {}).get("label", "").replace("!!", " / ").strip(" /")
-                    fh.write(f'{code},"{label}"\n')
+            dic = out_dir / f"censusapi_{dataset.replace('/', '_')}_variables.csv.gz"
+            paths.write_text(dic, "variable,label\n" + "".join(
+                f'{code},"{meta.get(code, {}).get("label", "").replace("!!", " / ").strip(" /")}"\n'
+                for code in sorted(wanted)))
             print(f"  {dic.relative_to(ROOT)}  {len(wanted)} variables")
 
 

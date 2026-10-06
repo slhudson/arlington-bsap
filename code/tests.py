@@ -63,6 +63,8 @@ def stage(folder, *names):
                 del sys.modules[name]
 
 
+(fetch_paths,) = stage("fetch", "paths")
+
 (build_paths, members_claims, build_survey_satisfaction, build_census,
  build_localities) = stage(
     "build", "paths", "members_claims", "survey_satisfaction", "census",
@@ -2907,6 +2909,27 @@ def tracker_merge(base, main, branch):
         git("checkout", "-q", "main"); tracker.write_text(text(main)); git("commit", "-qam", "main")
         merged = git("merge", "-q", "-m", "m", "branch")
         return merged.returncode, tracker.read_text()
+
+
+# --- raw files stored gzip-compressed -----------------------------------------------
+
+def test_a_fetched_file_is_gzipped_the_same_way_every_time():
+    """data/contents.csv holds each raw file's checksum, and a refetch that
+    changed it would read as a source that moved. A gzip header carries the
+    time and the name by default, so fetch/paths.write_text writes neither:
+    the same text gives the same bytes at any hour, and pandas reads it back
+    unchanged."""
+    text = "name,n\nArlington,1\n"
+    with tempfile.TemporaryDirectory() as tmp:
+        a, b = Path(tmp) / "a" / "t.csv.gz", Path(tmp) / "b" / "t.csv.gz"
+        fetch_paths.write_text(a, text)
+        fetch_paths.write_text(b, text)
+        assert a.read_bytes() == b.read_bytes(), "the same text gave different gzip bytes"
+        assert a.read_bytes()[4:8] == b"\0\0\0\0", "the gzip header carries a time"
+        assert pd.read_csv(a).to_csv(index=False) == text, "pandas did not read back what was written"
+        plain = Path(tmp) / "p.csv"
+        fetch_paths.write_text(plain, text)
+        assert plain.read_text() == text, "a path not ending .gz was compressed"
 
 
 # --- one process per stage ----------------------------------------------------------

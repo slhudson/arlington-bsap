@@ -12,8 +12,6 @@ cap (the unpacked bytes are the file as fetched). Only its total is
 read: code/clean/localities_southeastern.py checks that Appendix E of
 Richmond's charter review lists every city of its size in its states.
 """
-import gzip
-import io
 import json
 import urllib.error
 import urllib.parse
@@ -34,14 +32,8 @@ def main():
     except urllib.error.HTTPError as e:
         raise SystemExit(f"Census API {e.code}: {e.read().decode(errors='replace')[:200].strip()}")
     head, body = rows[0], sorted(rows[1:], key=lambda r: (r[2], r[3]))
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    text = ",".join(head) + "\n" + "".join(
-        ",".join(f'"{c}"' if "," in c else c for c in r) + "\n" for r in body)
-    # mtime 0 and no name in the header, so the same rows give the same bytes
-    buf = io.BytesIO()
-    with gzip.GzipFile(filename="", mode="wb", fileobj=buf, compresslevel=9, mtime=0) as z:
-        z.write(text.encode())
-    OUT.write_bytes(buf.getvalue())
+    paths.write_text(OUT, ",".join(head) + "\n" + "".join(
+        ",".join(f'"{c}"' if "," in c else c for c in r) + "\n" for r in body))
     print(f"  {OUT.relative_to(paths.ROOT)}  {len(body)} places")
 
 
