@@ -144,9 +144,26 @@ I'm confused it needs explaining" (Sally, 5 October 2026).
   minor ticks at the data's interval, so a reader can find 1890 or 1910 on an
   axis that only names every twentieth year. `charts.years()` does this.
 
+## Maps
+
+- **A map draws the territory its chart counted.** The district map beside
+  `residents_by_district_race` draws the county as it stood when the census
+  counted it, with the land Alexandria annexed in 1915 and 1930 shown as
+  tints of Jefferson's colour, not today's outline (Sally, 6 October 2026).
+  The same rule as the denominator: the land is the population.
+- **No place names unless a name can be placed truthfully.** A
+  neighbourhood is a region, not a dot; a stream or a road is a mark the
+  legend has to answer. The caption names the river at the frame's edge.
+- **The legend sits inside the frame where the shape leaves a corner
+  empty**, stacked, since a map has no axes to keep clear of.
+
 ## Legend
 
 - One legend for the whole figure, not one per panel, where one is needed.
+- **Related swatches sit together, indented under their parent.** Two tints
+  of one hue read as parts of that category only when the legend shows them
+  that way: Jefferson District, then the two annexed pieces indented beneath
+  it (Sally, 6 October 2026).
 - One row, in stacking order, below the figure and outside the axes.
   `charts.legend()` puts it there.
 - **Centred on the plot region, not on the canvas.** `charts.fit()` does this
@@ -180,7 +197,9 @@ I'm confused it needs explaining" (Sally, 5 October 2026).
 - **Where a category's definition changes mid-figure, the legend does not
   relabel silently.** `residents_by_race` says "not Hispanic" (`style.RESIDENTS_CROSSED`)
   and rules off 1980; `members_by_race` keeps `style.RACE`.
-- **No textures.** Distinguish with colour. A filled dot against an open
+- **No textures.** Distinguish with colour. Tested on the district map, 6
+  October 2026: hatching for the two annexations was rendered and declined
+  for two tints. A filled dot against an open
   ring of the same colour is a fill, not a texture: `style.CANDIDACY`.
 - **A series the sources report at some censuses and not others breaks,
   and a dotted segment bridges the gap** (`charts.lines(..., bridge=True)`),
