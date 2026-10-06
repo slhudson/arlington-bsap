@@ -98,11 +98,11 @@ a rank. A figure never defines a ramp of its own.
   is named where it runs.
 - **Turnout.** The presidential vote is the reference the Board's voters are
   read against, and takes the growth figure's dark grey. The Board's voters
-  are four lines, one per place in the four-year cycle, from the top of the
-  ticket down: vermilion for the presidential year, then orange, bluish
-  green and black in falling order of turnout. Each is a category elsewhere
-  in the set and none reads as one here, because the lines are named in the
-  legend and never share a page with a race chart.
+  are one family of vermilion, darkest first: the district-era squares, then
+  the presidential year, the midterm year and the governor's year in falling
+  order of turnout. One hue, so the Board reads as one thing against the grey
+  presidential line; the earlier four hues, one per place in the cycle, read
+  as four series.
 - **Party.** The two partisan hues are the ones readers bring with them, at
   Okabe-Ito's values: sky blue for Democratic, vermilion for Republican.
   Neither is Okabe-Ito's blue, which is Asian and Pacific Islander. Yellow
@@ -686,7 +686,17 @@ there the labels can be shortened and here the years cannot.
   sentence. The two pre-1932 figures and the by-district figure are retired
   (Sally, 6 October 2026): the first two are this figure's left third, and
   the third's one finding, that Jefferson fell steepest, is a sentence in
-  the prose with its own built numbers.
+  the prose with its own built numbers. The family is
+  `style.BOARD_FAMILY`: vermilion darkened for the squares, vermilion for a
+  presidential year, then two lighter tints, the lightest tested on a
+  printed page. The legend is stacked, `charts.legend_family()`, the heading
+  with no swatch and its four entries indented beneath, because five rows
+  under one name read as one thing where five rows side by side would not.
+  The rules' notes stand at two heights, `charts.rule(tier=)`, because the
+  1894 and 1902 notes cannot sit side by side on a 150-year axis without the
+  1920 rule running through one of them. The figure sits in Election Method
+  under Staggered Terms, as the electorate half of that subsection's claim,
+  and Race's electorate paragraph cites it.
 - **localities_peers.** Arlington beside every Virginia city and county of
   100,000 or more, in two panels that share a legend and a note: (a)
   members against residents, (b) residents per member against density. They

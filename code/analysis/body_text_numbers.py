@@ -7,12 +7,17 @@ whole number, with "percent" left to the sentence.
 
     share<District><Year>       the district's share of the county, 1870-1930
     blackShare<District><Year>  the Black share of the district, 1870 and 1920
+    blackShareMen<District><Year>  the Black share of the district's men 21 and
+                                over, each census whose schedules are held
     genderCensusShareMembers    members whose gender comes from a census sheet
     raceAssumedShareMembers     members recorded White on no source's say
     turnout<Year>               votes for President per 100 residents of voting
                                 age, each presidential year 1872-1928
     boardTurnout<District><Year>  votes in a district's Board contest per 100
                                 men of voting age, each contest with a count
+    boardVote<Year>             votes for the Board per 100 residents of voting
+                                age, a one-seat year after 1971: the ones the
+                                prose sets side by side
     residentsPerSeat<Year>      residents per Board seat, to the nearest thousand
     perMember<Locality>         residents per member of a Virginia locality's
                                 governing body, 2020, to the nearest thousand
@@ -29,7 +34,10 @@ written, whether or not the prose uses it yet.
 from decimal import ROUND_HALF_UP, Decimal
 
 import paths
-from elections import per_100_adults, per_100_district_men
+import style
+from elections import per_100_adults, per_100_district_men, per_100_voting_age
+
+BOARD_VOTE_YEARS = (2012, 2013)   # a presidential year and the governor's year after it
 
 ONES = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine",
         "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen",
@@ -127,10 +135,12 @@ def member_shares() -> dict:
 
 
 def turnout() -> dict:
-    """The rates the two pre-1932 turnout figures draw, by the same arithmetic
+    """The rates the turnout figure draws, by the same arithmetic
     (code/analysis/elections.py): the presidential vote per 100 residents of
-    voting age for each election 1872-1928, and each district's Board contest
-    per 100 men of voting age for each contest with a count, 1893-1919."""
+    voting age for each election 1872-1928, each district's Board contest per
+    100 men of voting age for each contest with a count, 1893-1919, and the
+    Board's vote per 100 residents of voting age in the years the prose sets
+    a presidential year beside a governor's."""
     adults = paths.read("residents_by_district_adults")
     president = paths.read("elections_results")
     president = president[(president.office == "president")
@@ -144,6 +154,11 @@ def turnout() -> dict:
         votes = contests[contests.contest == f"{district} District"].set_index("year").votes_cast
         for y, v in per_100_district_men(votes, district, adults).items():
             out[f"boardTurnout{district}{year_words(y)}"] = whole(v)
+    t = paths.read("elections_turnout").set_index("year")
+    for y in BOARD_VOTE_YEARS:
+        assert t.board_seats[y] == 1 and t.board_complete[y], f"{y}'s Board vote is not one seat's"
+        out[f"boardVote{year_words(y)}"] = whole(
+            per_100_voting_age(t.board_voters[[y]], adults, t.voting_age_est).iloc[0])
     return out
 
 
@@ -156,6 +171,9 @@ def numbers() -> dict:
             out[f"share{r.district}{year_words(year)}"] = per_cent(r.total, g.total.sum())
     for r in d[d.black.notna()].itertuples():
         out[f"blackShare{r.district}{year_words(r.year)}"] = per_cent(r.black, r.total)
+    men = paths.read("residents_by_district_adults")
+    for r in men[men.district.isin(style.DISTRICTS) & men.men_black.notna()].itertuples():
+        out[f"blackShareMen{r.district}{year_words(r.year)}"] = per_cent(r.men_black, r.men_all)
     out.update(member_shares())
     out.update(turnout())
     out.update(seats())

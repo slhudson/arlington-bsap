@@ -21,8 +21,7 @@ still open.
   Virginia would settle it (`almanack-against-secretary`).
 - Turnout's denominators: adults after 2020 carried forward
   (`adults-after-2020`). The modern figure's two-seat years are gaps until
-  ballots cast are found (`ballots-cast`), and the settled forms of the
-  figures are not yet built (`turnout-figures-rebuild`).
+  ballots cast are found (`ballots-cast`).
 
 - The nominating stage is recorded for at least one winner in 20 of the 89 Board election years since
   1931 (`nominations-1931-1978`, `nominations-1979-2011`,
@@ -427,8 +426,11 @@ one denominator that can be held constant across the period, and the
 caption says so. The all-residents version, the pre-1932 adults figure and
 the by-district figure are retired: the first two are the left third of this
 one, and the third's one finding, that Jefferson fell steepest, is a
-sentence in the prose with its own built numbers (Sally, 6 October 2026;
-`turnout-figures-rebuild`).
+sentence in the prose with its own built numbers (Sally, 6 October 2026).
+The sentence beside the figure sets 2012, a presidential year, against 2013,
+the governor's year after it, in two commands built from the figure's own
+rates (`\boardVoteTwoThousandTwelve`), so the pair is chosen once, in
+`code/analysis/body_text_numbers.py`, and the prose never types a rate.
 
 **Votes are not voters.** A Board ballot carries one vote per seat being
 filled, so `board_voters` divides the votes by the seats: exactly the number
@@ -491,8 +493,9 @@ Cast` appears only for 2025. The Department's precinct turnout files from
 years a precinct's row is repeated once per district it sits in.
 
 **The rates the prose cites are the figures' own.** The turnout figure
-and the prose take their pre-1932 denominators from `code/analysis/elections.py`:
-the presidential vote per 100 residents of voting age, and a district's Board
+and the prose take their denominators from `code/analysis/elections.py`:
+the vote per 100 residents of voting age (`per_100_voting_age`, which is
+`per_100_adults` to 1930 and the clean table's estimate after), and a district's Board
 contest per 100 men of voting age the nearest census counted there, which
 the Race section cites for Jefferson though no figure draws it.
 `code/analysis/body_text_numbers.py` reads the same module and writes each rate

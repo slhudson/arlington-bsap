@@ -1341,7 +1341,9 @@ def test_a_body_text_number_is_the_clean_tables_number():
                 "Seventeen", "Eighteen", "Nineteen"]
         tens = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"]
         c, r = divmod(year, 100)
-        return ones[c] + ("Hundred" if r == 0 else ones[r] if r < 20 else tens[r // 10] + ones[r % 10])
+        if c == 20:                    # 2012 -> TwoThousandTwelve
+            return "TwoThousand" + (tens[r // 10] + ones[r % 10] if r >= 20 else ones[r])
+        return ones[c] +("Hundred" if r == 0 else ones[r] if r < 20 else tens[r // 10] + ones[r % 10])
 
     def half_up(rate):
         return str(int(math.floor(rate + 0.5)))
@@ -1367,6 +1369,17 @@ def test_a_body_text_number_is_the_clean_tables_number():
         district = r.contest.replace(" District", "")
         census = min((1880, 1900, 1910, 1920), key=lambda c: (abs(c - r.year), c))
         expected[f"boardTurnout{district}{said(r.year)}"] = half_up(r.votes_cast / men[(district, census)] * 100)
+
+    # The Black share of the men of voting age in each district, and the
+    # Board's vote in the two years the prose sets side by side, over the
+    # clean table's own voting-age estimate for those years.
+    for r in adults[adults.district.isin(['Arlington', 'Jefferson', 'Washington'])
+                    & adults.men_black.notna()].itertuples():
+        expected[f"blackShareMen{r.district}{said(r.year)}"] = rounded(r.men_black, r.men_all)
+    turnout = pd.read_csv(ROOT / "data" / "clean" / "elections_turnout.csv").set_index("year")
+    for year in (2012, 2013):
+        expected[f"boardVote{said(year)}"] = half_up(
+            turnout.board_voters[year] / turnout.voting_age_est[year] * 100)
 
     # The seat comparisons, worked out again from the clean tables: residents
     # per member to the nearest thousand, halves up.

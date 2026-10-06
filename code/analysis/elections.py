@@ -1,8 +1,11 @@
-"""The electorate before 1932: who could vote, as a denominator. A module,
-not a step: the two turnout figures and body_text_numbers read it, so the
-rate a figure draws and the rate the prose cites are one arithmetic.
+"""Who could vote, as a denominator. A module, not a step: the turnout figure
+and body_text_numbers read it, so the rate a figure draws and the rate the
+prose cites are one arithmetic.
 
-Two denominators, because the two figures answer different questions:
+Three denominators, for three questions:
+
+- ``per_100_voting_age`` is the whole series the turnout figure draws, 1872 to
+  the present: ``per_100_adults`` to 1930 and the clean table's estimate after.
 
 - ``per_100_adults`` is the county series, votes per 100 residents of voting
   age: the men aged 21 and over through 1916, and all residents 21 and over
@@ -15,6 +18,7 @@ Two denominators, because the two figures answer different questions:
   through years nothing records.
 """
 import numpy as np
+import pandas as pd
 
 WOMEN_VOTE = 1920
 CENSUSES = (1880, 1900, 1910, 1920)   # the censuses that count the districts' men
@@ -31,6 +35,18 @@ def per_100_adults(votes, adults):
                         np.interp(votes.index, men.index, men.to_numpy()),
                         np.interp(votes.index, everyone.index, everyone.to_numpy()))
     return votes / eligible * 100
+
+
+def per_100_voting_age(votes, adults, estimate):
+    """Votes per 100 residents of voting age, 1872 to the present: through
+    the census of 1930 as per_100_adults, and from 1930 the clean table's
+    own estimate (men 21 and over, then everyone 21 and over, then 18 and over
+    from 1971, a count at every census and a straight line between).
+    `estimate` is elections_turnout's voting_age_est, a Series by year."""
+    early = votes[votes.index < 1930]
+    late = votes[votes.index >= 1930]
+    return pd.concat([per_100_adults(early, adults),
+                      late / estimate.loc[late.index] * 100])
 
 
 def nearest(year):

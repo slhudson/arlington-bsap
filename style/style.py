@@ -175,24 +175,28 @@ def ink_on(color):
 
 
 PRESIDENT = ("votes for President", DARK)
-# The two presidential years with no state return found, drawn hollow on the line.
-# The Board's own vote before 1931, set against the presidential vote: the
-# per-seat vermilion, as the other Board series before the expansion take.
-BOARD_VOTE_DISTRICTS = ("votes for County Board", OKABE_ITO["vermilion"])
-# The two dated changes to who could vote that the pre-1932 turnout figures
-# rule off: (year, note, which side of the rule the note runs to), so two
-# notes eight years apart do not meet above the frame.
-ELECTORATE_RULES = ((1894, "1894: Walton Act", "right"),
-                    (1902, "1902: new constitution", "left"))
-# The county-wide figure runs to 1928 and adds the year women vote; the
-# by-district figure ends in 1919 and does not.
-ELECTORATE_RULES_TO_1932 = ELECTORATE_RULES + ((1920, "1920: women vote", "left"),)
-CYCLE = {
-    "president": ("presidential year", OKABE_ITO["vermilion"]),
-    "governor":  ("governor's year", OKABE_ITO["orange"]),
-    "midterm":   ("midterm year", OKABE_ITO["bluish_green"]),
-    "delegates": ("House of Delegates year", OKABE_ITO["black"]),
+# The Board's vote is one colour family: the legend names it once and sets its
+# four entries under it, darkest first. The square marks the district-era
+# elections; the three shades are what led the ballot in a one-seat year, in
+# falling order of turnout. See docs/figures.md, Colour.
+BOARD_VOTES = "votes for County Board"
+BOARD_FAMILY = {
+    "districts": ("#8C3D00", "s"),
+    "president": (OKABE_ITO["vermilion"], "o"),
+    "midterm":   ("#E88A44", "o"),
+    "governor":  ("#F0AC7C", "o"),
 }
+BOARD_CYCLES = {"president": "presidential year", "midterm": "midterm year",
+                "governor": "governor's year"}
+# The dated changes to who could vote that the turnout figure rules off:
+# (year, note, which side of the rule the note runs to, tier). Notes close
+# together stand at different heights, so no rule runs through another's note.
+ELECTORATE_RULES = ((1894, "1894: Walton Act", "right", 0),
+                    (1902, "1902: constitution", "right", 1),
+                    (1920, "1920: women vote", "left", 0),
+                    (1966, "1966: poll tax ends", "left", 0))
+# A legend entry set under a heading starts this fraction of a swatch in.
+LEGEND_INDENT = 0.5
 
 # The ranked choice voting survey's five-point support scale, left to right,
 # in the same hues as AGREEMENT: the slides the County Board saw use green to

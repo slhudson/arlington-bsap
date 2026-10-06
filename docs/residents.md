@@ -211,7 +211,7 @@ instead, and `residents_by_district.csv` carries all five censuses. The figure
 is `residents_by_district_race`; the paper carries
 `residents_by_district_race_adults`, the same shares among men of voting age,
 because the passage it sits in is about who could vote and family size may
-differ by race (Sally, 6 October 2026; `turnout-figures-rebuild`). Two cells
+differ by race (Sally, 6 October 2026). Two cells
 are empty, each for a reason below:
 every district in 1890, whose schedules burned, and Arlington in 1900, which
 the database is short of by one resident in six.

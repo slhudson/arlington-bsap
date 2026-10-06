@@ -18,6 +18,7 @@ each placement is in docs/figures.md.
     events()        a timeline strip: a dot per event at its year, filled or a ring
     map_figure()    a map of polygons, with areas() to fill them and area_names() to name them
     legend()        one legend for the figure, one row, below the axes
+    legend_family() the same, stacked, with a heading and its entries indented under it
     dot_legend()    the same with a dot per colour, or a ring
     rule()          a dated vertical rule with its note above the frame
     years() counts() comma_axis() ages() shares() seats()   the axes
@@ -31,8 +32,10 @@ import numpy as np
 import shapely.geometry as sg
 from shapely.ops import polylabel
 from matplotlib import pyplot as plt
+from matplotlib.legend_handler import HandlerBase, HandlerLine2D
 from matplotlib.lines import Line2D
 from matplotlib.patches import Patch, Polygon
+from matplotlib.text import Text
 from matplotlib.transforms import ScaledTranslation
 from matplotlib.ticker import (FixedLocator, FuncFormatter, MultipleLocator,
                                PercentFormatter)
@@ -491,6 +494,52 @@ def legend(fig, entries, ncol=None, hollow=(), lines=(), dashed=()):
                loc="outside lower center", ncol=ncol or len(entries))
 
 
+class _Under(Line2D):
+    """A legend swatch set under a heading: see legend_family()."""
+
+
+class _Heading(Line2D):
+    """A legend row that is a heading: its label is drawn by the handler,
+    flush left, because a legend's own label column starts after the swatches."""
+
+
+class _UnderHandler(HandlerLine2D):
+    def create_artists(self, legend, orig_handle, xdescent, ydescent, width, height,
+                       fontsize, trans):
+        cut = width * style.LEGEND_INDENT
+        return super().create_artists(legend, orig_handle, xdescent - cut, ydescent,
+                                      width - cut, height, fontsize, trans)
+
+
+class _HeadingHandler(HandlerBase):
+    def create_artists(self, legend, orig_handle, xdescent, ydescent, width, height,
+                       fontsize, trans):
+        return [Text(-xdescent, -ydescent + height / 2, orig_handle.get_label(),
+                     ha="left", va="center_baseline", fontsize=fontsize, transform=trans)]
+
+
+def legend_family(fig, singles, heading, family):
+    """One legend, stacked: the `singles` ({label: (colour, marker)}, a line
+    each) first, then `heading`, a name with no swatch of its own, and under
+    it the `family` ({label: (colour, marker, line)}), each indented. A
+    marker with no line is a bare mark, as the squares of a count that is not
+    a series. The heading names the family once, so its entries do not repeat
+    it (docs/figures.md, Legend)."""
+    def swatch(cls, label, colour, marker, line=True):
+        return cls([0], [0], color=colour, marker=marker, ls="-" if line else "", label=label)
+
+    handles = [swatch(Line2D, label, colour, marker) for label, (colour, marker) in singles.items()]
+    handles.append(_Heading([], [], label=heading))
+    handles += [swatch(_Under, label, colour, marker, line)
+                for label, (colour, marker, line) in family.items()]
+    fig.legend(handles=handles, labels=[h.get_label() for h in handles],
+               handler_map={_Under: _UnderHandler(), _Heading: _HeadingHandler()},
+               loc="outside lower center", ncol=1)
+    for text, handle in zip(fig.legends[-1].get_texts(), handles):
+        if isinstance(handle, _Heading):
+            text.set_text("")
+
+
 def scatter(profile=style.DEFAULT_PROFILE):
     """One scatter, squarer than a time series."""
     return figure(profile, aspect=style.SQUARE)
@@ -669,19 +718,29 @@ def comma_axis(axis, top, step, label, per=1):
     axis.set_label_text(label)
 
 
-def rule(ax, year=style.EXPANSION_YEAR, note=style.EXPANSION_NOTE, ha="center"):
+def rule(ax, year=style.EXPANSION_YEAR, note=style.EXPANSION_NOTE, ha="center", tier=0):
     """A dated vertical rule, with its note above the frame; note=None for
     the rule alone. `ha` is which way the note runs from the rule: "right"
     ends it there and "left" starts it there, so two rules close together
-    keep their notes apart."""
+    keep their notes apart. `tier` raises the note, and the rule's tick with
+    it, by that many lines, for notes the width of the frame cannot keep apart."""
     ax.axvline(year, zorder=5, **style.EXPANSION_LINE)
     if note is None:
         return
+    size = plt.rcParams["font.size"]
+    lift = ScaledTranslation(0, tier * 1.5 * size / 72, ax.figure.dpi_scale_trans)
     ax.plot([year, year], [1.0, 1.045], transform=ax.get_xaxis_transform(),
             clip_on=False, zorder=5, **style.EXPANSION_LINE)
-    ax.text(year, 1.06, note, transform=ax.get_xaxis_transform(),
-            ha=ha, va="bottom", zorder=6, clip_on=False,
-            fontsize=plt.rcParams["font.size"])
+    if tier:
+        ax.annotate("", xy=(year, 1.045), xycoords=ax.get_xaxis_transform(),
+                    xytext=(0, tier * 1.5 * size), textcoords="offset points",
+                    arrowprops=dict(arrowstyle="-", shrinkA=0, shrinkB=0,
+                                    color=style.EXPANSION_LINE["color"],
+                                    lw=style.EXPANSION_LINE["lw"],
+                                    ls=style.EXPANSION_LINE["ls"]),
+                    annotation_clip=False, zorder=5)
+    ax.text(year, 1.06, note, transform=ax.get_xaxis_transform() + lift,
+            ha=ha, va="bottom", zorder=6, clip_on=False, fontsize=size)
 
 
 def years(ax, first, last, step=10, label="census year", minor=10, through=None,

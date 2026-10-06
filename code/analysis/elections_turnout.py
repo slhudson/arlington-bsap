@@ -1,44 +1,63 @@
-"""Who votes for the County Board, by what else is on the ballot -> figures/elections_turnout.pdf, .png
+"""Votes cast per 100 residents of voting age, 1872 to the present -> figures/elections_turnout.pdf, .png
 
-Two panels with the same lines: (a) people, (b) shares of the adult
-population. The presidential vote is one line with a marker per election;
-the Board's voters are four lines, one per place in the four-year cycle.
-Years the build marks incomplete are gaps. (b) starts where its
-denominator does. One legend for both.
+One panel. The presidential vote is one grey line throughout. The Board's
+vote is one colour family: a square for each of the district-era elections
+in which every district's count survives, and from 1935 a line for each of
+the three things that led the ballot in a one-seat year (presidential,
+midterm, governor's year). A year that filled more than one seat, or that
+the build marks incomplete, is a gap: its votes are not its voters. The
+denominator is code/analysis/elections.py's, which body_text_numbers reads
+too, so the prose cites the rates this figure draws.
 """
-
 import charts
 import paths
 import style
+from elections import per_100_voting_age
+
+FIRST_ONE_SEAT = 1935
+LAST_DISTRICT_ERA = 1928
+
 
 for profile in style.PROFILES:
     style.apply(profile)
 
+    adults = paths.read("residents_by_district_adults")
     d = paths.read("elections_turnout")
-    d = d[d.year >= 1930]
-    adults = d.set_index("year").voting_age_est
+    estimate = d.set_index("year").voting_age_est
 
-    board = d.dropna(subset=["board_voters"]).copy()
-    board["people"] = board.board_voters.where(board.board_complete)   # incomplete: a gap
-    board["share"] = board.people / adults.loc[board.year].to_numpy() * 100
-    president = d.dropna(subset=["president_votes"]).copy()
-    president["people"] = president.president_votes
-    president["share"] = president.people / adults.loc[president.year].to_numpy() * 100
+    president = d.dropna(subset=["president_votes"]).set_index("year").president_votes
+    president_rate = per_100_voting_age(president, adults, estimate)
 
-    fig, (a, b) = charts.panels(profile)
-    for ax, col in ((a, "people"), (b, "share")):
-        label, colour = style.PRESIDENT
-        charts.lines(ax, president.year, {label: (president[col], colour)})
-        for cycle, (label, colour) in style.CYCLE.items():
-            part = board[board.cycle == cycle]
-            charts.lines(ax, part.year, {label: (part[col], colour)})
+    districts = paths.read("elections_margins")
+    districts = districts[districts.contest.str.endswith("District") & districts.votes_cast.notna()
+                          & (districts.year <= LAST_DISTRICT_ERA)]
+    seats = districts.groupby("year").contest.nunique()
+    votes = districts[districts.year.isin(seats[seats == 3].index)].groupby("year").votes_cast.sum()
+    district_rate = per_100_voting_age(votes, adults, estimate)
 
-    charts.counts(a, 150000, 50000, label="people", minor=25000)
-    a.set_title("(a) people")
-    charts.shares(b, label="share of adults")
-    b.set_title("(b) share of adults")
-    charts.years(a, 1930, 2020, step=20, label="November election", through=2028)
-    charts.years(b, 1930, 2020, step=20, label="November election", through=2028)
+    one_seat = d[(d.year >= FIRST_ONE_SEAT) & (d.board_seats == 1) & d.board_complete.eq(True)
+                 ].set_index("year")
+    board_rate = per_100_voting_age(one_seat.board_voters, adults, estimate)
 
-    charts.legend(fig, dict([style.PRESIDENT, *style.CYCLE.values()]), ncol=3)
+    fig, ax = charts.figure(profile)
+    label, colour = style.PRESIDENT
+    charts.lines(ax, president_rate.index.to_numpy(), {label: (president_rate.to_numpy(), colour)})
+    colour, marker = style.BOARD_FAMILY["districts"]
+    charts.marks(ax, district_rate.index, district_rate, colour, marker=marker)
+    for cycle in style.BOARD_CYCLES:
+        years_of = d[d.cycle == cycle].year[lambda y: y >= FIRST_ONE_SEAT].to_numpy()
+        rate = board_rate.reindex(years_of)       # a two-seat year is NaN: a gap
+        charts.lines(ax, years_of, {cycle: (rate.to_numpy(), style.BOARD_FAMILY[cycle][0])})
+
+    charts.counts(ax, 100, 10, label="votes per 100 residents of voting age")
+    charts.years(ax, 1870, 2020, step=20, label="year", minor=10, through=2028)
+    for year, note, ha, tier in style.ELECTORATE_RULES:
+        charts.rule(ax, year, note, ha=ha, tier=tier)
+
+    family = {f"district elections ({', '.join(str(y) for y in district_rate.index)})":
+              (*style.BOARD_FAMILY["districts"], False)}
+    family.update({name: (style.BOARD_FAMILY[cycle][0], "o", True)
+                   for cycle, name in style.BOARD_CYCLES.items()})
+    charts.legend_family(fig, {style.PRESIDENT[0]: (style.PRESIDENT[1], "o")},
+                         style.BOARD_VOTES, family)
     paths.save(fig, profile)
