@@ -33,6 +33,7 @@ import cache  # noqa: E402
 import citekeys  # noqa: E402
 import cite  # noqa: E402
 import clippings  # noqa: E402
+import merge_questions  # noqa: E402
 import paper  # noqa: E402
 import quotations  # noqa: E402
 
@@ -2448,7 +2449,6 @@ def attribute_gaps():
     placed = set(pd.read_csv(ROOT / "data/clean/members_residence.csv", dtype=str)["name"])
     return {
         "members_race_coverage": (people.race_source == citekeys.ASSUMED).mean(),
-        "members_age_coverage": (people.birth_year == "").mean(),
         "members_residence_coverage": (~people.index.isin(placed)).mean(),
     }
 
@@ -2750,7 +2750,10 @@ def merge_fixture(tmp):
     git("config", "user.email", "t@t"); git("config", "user.name", "t")
     (work / "code").mkdir(); (work / "docs").mkdir()
     shutil.copy(ROOT / "code" / "merge.sh", work / "code" / "merge.sh")
-    (work / ".gitattributes").write_text("docs/questions.csv merge=union\n")
+    shutil.copy(ROOT / "code" / "merge_questions.py", work / "code" / "merge_questions.py")
+    (work / ".gitattributes").write_text("docs/questions.csv merge=questions\n")
+    # The same driver string run.sh registers; merge.sh refuses without it.
+    git("config", "merge.questions.driver", "python3 code/merge_questions.py %O %A %B")
     (work / "docs" / "questions.csv").write_text("a,b\n1,2\n")
     (work / "note.txt").write_text("x\n")
     git("add", "-A"); git("commit", "-qm", "base"); git("branch", "-M", "main")
@@ -2767,12 +2770,12 @@ def merge_fixture(tmp):
     return work, git
 
 
-def merge(work, build, compile_):
+def merge(work, build, compile_, **env):
     """Run code/merge.sh thread in the clone with the build and compile
     commands substituted. Returns the completed process."""
     return subprocess.run(["bash", "code/merge.sh", "thread"], cwd=work, text=True,
                           capture_output=True,
-                          env={**os.environ, "BUILD": build, "COMPILE": compile_})
+                          env={**os.environ, "BUILD": build, "COMPILE": compile_, **env})
 
 
 def test_a_merge_whose_build_fails_leaves_main_alone():
@@ -2818,6 +2821,165 @@ def test_a_merge_with_a_real_conflict_stops_before_building():
         assert "note.txt" in run.stderr and "conflicts" in run.stderr, run.stderr
         assert git("rev-parse", "main") == before, "main moved despite the conflict"
         assert git("worktree", "list").count("\n") == 0, "the scratch worktree was left behind"
+
+
+def hold_thread_in_worktree(work, git):
+    """The thread's own worktree, as a session working on it would have one."""
+    git("worktree", "add", "-q", ".claude/worktrees/t", "thread")
+    return work / ".claude" / "worktrees" / "t"
+
+
+def test_a_merge_removes_the_threads_worktree_only_when_it_is_clean_and_unheld():
+    """The cleanup that removed two live threads' worktrees on 6 October 2026
+    asked nothing of them. Removal needs the branch merged (the fast-forward
+    does that), the tree clean, and no lock. A clean unlocked worktree goes;
+    a dirty one and a locked one stay, with their branch, and main still
+    lands. The remote is origin whatever the environment says."""
+    for case in ("clean", "dirty", "locked"):
+        with tempfile.TemporaryDirectory() as tmp:
+            work, git = merge_fixture(tmp)
+            held = hold_thread_in_worktree(work, git)
+            if case == "dirty":
+                (held / "scratch.txt").write_text("unsaved\n")
+            if case == "locked":
+                git("worktree", "lock", str(held))
+            run = merge(work, build="true", compile_="true", REMOTE="nowhere")
+            assert run.returncode == 0, case + ": " + run.stdout + run.stderr
+            assert git("rev-parse", "main") == git("rev-parse", "origin/main"), case + ": main was not pushed"
+            if case == "clean":
+                assert not held.exists(), "a clean, merged, unlocked worktree was left behind"
+                assert "thread" not in git("branch"), "its branch was left behind"
+            else:
+                assert held.exists(), f"a {case} worktree was removed"
+                assert "thread" in git("branch"), f"the branch of a {case} worktree was deleted"
+                assert "kept" in run.stdout, run.stdout
+
+
+def test_a_merge_from_a_worktree_says_where_to_run_it():
+    """The script refuses in a worktree, and used to refuse without saying
+    why. It names the primary checkout and the command to run there."""
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git = merge_fixture(tmp)
+        held = hold_thread_in_worktree(work, git)
+        run = subprocess.run(["bash", "code/merge.sh", "thread"], cwd=held, text=True,
+                             capture_output=True)
+        assert run.returncode != 0, "a merge from a worktree went through"
+        assert str(work.resolve()) in run.stderr and "bash code/merge.sh thread" in run.stderr, run.stderr
+
+
+def test_a_merge_without_the_tracker_driver_refuses():
+    """Without the driver git quietly falls back to its own merge of the
+    tracker, which is the line-based merge this replaced."""
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git = merge_fixture(tmp)
+        git("config", "--unset", "merge.questions.driver")
+        before = git("rev-parse", "main")
+        run = merge(work, build="true", compile_="true")
+        assert run.returncode != 0 and "merge driver" in run.stderr, run.stdout + run.stderr
+        assert git("rev-parse", "main") == before
+
+
+# --- merging the tracker by row ---------------------------------------------------
+
+TRACKER_HEADER = "id,kind,question\n"
+
+
+def tracker_merge(base, main, branch):
+    """The tracker's three versions merged by real git with the registered
+    driver, as code/merge.sh would. Each argument is a list of rows. Returns
+    (git's exit code, the file git left)."""
+    def text(rows):
+        return TRACKER_HEADER + "".join(r + "\n" for r in rows)
+    with tempfile.TemporaryDirectory() as tmp:
+        repo = Path(tmp)
+        (repo / "code").mkdir(); (repo / "docs").mkdir()
+        shutil.copy(ROOT / "code" / "merge_questions.py", repo / "code" / "merge_questions.py")
+        (repo / ".gitattributes").write_text("docs/questions.csv merge=questions\n")
+        tracker = repo / "docs" / "questions.csv"
+
+        def git(*args):
+            return subprocess.run(["git", "-C", str(repo), *args], capture_output=True, text=True)
+        git("init", "-q", "-b", "main")
+        git("config", "user.email", "t@t"); git("config", "user.name", "t")
+        git("config", "merge.questions.driver", "python3 code/merge_questions.py %O %A %B")
+        tracker.write_text(text(base)); git("add", "-A"); git("commit", "-qm", "base")
+        git("checkout", "-qb", "branch"); tracker.write_text(text(branch)); git("commit", "-qam", "branch")
+        git("checkout", "-q", "main"); tracker.write_text(text(main)); git("commit", "-qam", "main")
+        merged = git("merge", "-q", "-m", "m", "branch")
+        return merged.returncode, tracker.read_text()
+
+
+# --- one process per stage ----------------------------------------------------------
+
+def test_a_stage_runs_its_steps_in_one_process_each_checked_against_its_own_reads():
+    """code/stage.py runs a stage's steps in one process, which is where a
+    list kept at module level (build/paths.py remembers every table a step
+    read, for write()'s check) would carry step one's sources into step
+    two's check. A step starts with nothing remembered, the steps run in the
+    order given, and a step that fails stops the stage with its name."""
+    with tempfile.TemporaryDirectory() as tmp:
+        code = Path(tmp) / "code"
+        (code / "build").mkdir(parents=True)
+        shutil.copy(ROOT / "code" / "stage.py", code / "stage.py")
+        (code / "build" / "paths.py").write_text(
+            "_INPUTS = []\ndef begin_step():\n    _INPUTS.clear()\n")
+        steps = {"a": "import paths; paths._INPUTS.append(1); print('a saw', len(paths._INPUTS))",
+                 "b": "import paths; print('b saw', len(paths._INPUTS))",
+                 "c": "raise ValueError('boom')",
+                 "d": "print('d ran')"}
+        for name, body in steps.items():
+            (code / "build" / f"{name}.py").write_text(body + "\n")
+
+        def run(*names):
+            return subprocess.run([sys.executable, str(code / "stage.py"), "build", *names],
+                                  capture_output=True, text=True)
+        ok = run("a", "b")
+        assert ok.returncode == 0, ok.stderr
+        assert ok.stdout.split("\n")[:2] == ["a saw 1", "b saw 0"], \
+            "a step started with the previous step's reads, or the steps ran out of order: " + ok.stdout
+        stopped = run("a", "c", "d")
+        assert stopped.returncode != 0, "a failing step did not stop the stage"
+        assert "build step c failed" in stopped.stderr and "d ran" not in stopped.stdout, \
+            stopped.stdout + stopped.stderr
+
+
+def test_a_row_closed_on_main_is_not_resurrected_by_a_merge():
+    """The union merge kept both sides of every differing hunk, so a row main
+    had closed came back when the branch edited a row beside it. Judged by
+    id against the ancestor, a row the branch left alone stays gone."""
+    base = ["a,x,first", "b,x,second", "c,x,third"]
+    code, text = tracker_merge(base, main=["a,x,first", "c,x,third"],
+                               branch=["a,x,first", "b,x,second", "c,x,third edited"])
+    assert code == 0, text
+    assert text == TRACKER_HEADER + "a,x,first\nc,x,third edited\n", text
+
+
+def test_a_row_edited_on_both_sides_of_a_merge_is_a_conflict():
+    """Two sessions editing one row is a person's decision, and the file
+    holds both versions for them. An edit against a deletion is the same."""
+    base = ["a,x,first", "b,x,second"]
+    code, text = tracker_merge(base, main=["a,x,main edit", "b,x,second"],
+                               branch=["a,x,branch edit", "b,x,second"])
+    assert code != 0, "a row edited on both sides merged cleanly"
+    assert "main edit" in text and "branch edit" in text and "<<<<<<<" in text, text
+    code, text = tracker_merge(base, main=["a,x,first"], branch=["a,x,first", "b,x,edited"])
+    assert code != 0, "an edit against a deletion merged cleanly"
+
+
+def test_rows_each_side_added_are_both_kept_in_main_order_then_the_branchs():
+    """The merge the tracker needs most: sessions append rows in parallel.
+    Main's rows keep main's order and the branch's additions follow."""
+    code, text = tracker_merge(["a,x,first"], main=["a,x,first", "m,x,main row"],
+                               branch=["a,x,first", "n,x,branch row"])
+    assert code == 0, text
+    assert text == TRACKER_HEADER + "a,x,first\nm,x,main row\nn,x,branch row\n", text
+
+
+def test_a_quoted_row_of_the_tracker_is_compared_as_one_record():
+    """A question is quoted, with commas and doubled quotes inside; the
+    driver reads a record, not a line, and writes the bytes it was given."""
+    row = 'q,x,"has, a comma and ""quotes"""'
+    assert merge_questions.rows(TRACKER_HEADER + row + "\n")[1]["q"] == row + "\n"
 
 
 # --- the build cache ----------------------------------------------------------

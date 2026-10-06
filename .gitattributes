@@ -1,4 +1,6 @@
+# The tracker merges row by row, by id (code/merge_questions.py); a driver
+# registered by run.sh, because git keeps drivers in .git/config, not here.
+docs/questions.csv merge=questions
 # Rows are appended at the end by parallel sessions; a merge keeps both sides.
-docs/questions.csv merge=union
 paper/punchlist.md merge=union
 data/transcribed/by_claude/members_negatives.csv merge=union

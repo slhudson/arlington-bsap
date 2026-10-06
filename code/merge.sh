@@ -8,11 +8,11 @@
 #
 #   1. A scratch worktree on origin/main, after a fetch, so the merge is made
 #      against what is pushed and not against a stale local main.
-#   2. The branch merged. A conflict stops it: docs/questions.csv,
-#      paper/punchlist.md and the negatives file merge by union
-#      (.gitattributes), so anything still conflicting is two sessions
-#      editing one line, which is a person's decision. The worktree is
-#      removed and nothing has changed.
+#   2. The branch merged. A conflict stops it: docs/questions.csv merges row
+#      by row (code/merge_questions.py), paper/punchlist.md and the negatives
+#      file by union (.gitattributes), so anything still conflicting is two
+#      sessions editing one line or one row, which is a person's decision.
+#      The worktree is removed and nothing has changed.
 #   3. bash run.sh, then code/paper.py and code/paper.py timelines, in the
 #      worktree. A failure stops it before anything reaches main: a commit
 #      chained after a failing build was the first of the slips.
@@ -20,12 +20,17 @@
 #      analysis stage writes) committed in the worktree, so a figure rebuilt
 #      there is not lost when the worktree goes - the third slip.
 #   5. main fast-forwarded to the merge and pushed; the compiled PDF copied
-#      to the primary checkout; the worktree and the branch removed, locally
-#      and on origin.
+#      to the primary checkout; the branch removed on origin. The scratch
+#      worktree goes in the EXIT trap, on success and on failure alike. The
+#      thread's own worktree and local branch go only if its branch is merged
+#      into main, its tree is clean, and no live session holds it
+#      (`git worktree lock`): two threads lost their worktrees on 6 October
+#      2026 to a cleanup that asked none of the three.
 #
 # The build and the compile are the commands BUILD and COMPILE below;
 # code/tests.py substitutes them to prove the script stops when either fails
-# and goes on when both pass. Nothing else overrides them.
+# and goes on when both pass. Nothing else overrides them, and the remote is
+# always origin.
 set -euo pipefail
 
 usage() { echo "usage: bash code/merge.sh <branch>" >&2; exit 2; }
@@ -36,7 +41,7 @@ ROOT=$(cd "$(dirname "$0")/.." && pwd)
 cd "$ROOT"
 BUILD=${BUILD:-"bash run.sh"}
 COMPILE=${COMPILE:-".venv/bin/python code/paper.py && .venv/bin/python code/paper.py timelines"}
-REMOTE=${REMOTE:-origin}
+REMOTE=origin
 
 step() { printf '%s\n' "$*"; }
 fail() { printf 'stopped: %s\n' "$*" >&2; exit 1; }
@@ -44,9 +49,16 @@ fail() { printf 'stopped: %s\n' "$*" >&2; exit 1; }
 # The primary checkout must be on main and have nothing staged or modified in
 # the files the merge will move, or the fast-forward at the end cannot land.
 # Checking "clean" is the simplest form of that and the one a reader expects.
-[ "$(git rev-parse --git-dir)" = ".git" ] || fail "run this from the primary checkout, not a worktree"
+if [ "$(git rev-parse --git-dir)" != ".git" ]; then
+  primary=$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")
+  fail "this is a worktree; the merge runs from the primary checkout:
+  cd $primary && bash code/merge.sh $branch"
+fi
 [ "$(git branch --show-current)" = "main" ] || fail "the primary checkout is on $(git branch --show-current), not main"
 [ -z "$(git status --porcelain --untracked-files=no)" ] || fail "the primary checkout has uncommitted changes; commit or stash them first"
+
+[ "$(git config merge.questions.driver 2>/dev/null)" = "python3 code/merge_questions.py %O %A %B" ] \
+  || fail "the tracker merge driver is not registered; bash run.sh installs it"
 
 git fetch -q "$REMOTE" main
 git rev-parse -q --verify "$branch" >/dev/null 2>&1 || git fetch -q "$REMOTE" "$branch:$branch" 2>/dev/null \
@@ -58,11 +70,29 @@ git rev-parse -q --verify "$branch" >/dev/null 2>&1 || git fetch -q "$REMOTE" "$
 
 name=merge-$(echo "$branch" | tr '/' '-')
 tree=.claude/worktrees/$name
+# The scratch worktree is this script's own, so it goes whatever happened.
 cleanup() {
   git worktree remove --force "$tree" >/dev/null 2>&1 || true
   git branch -D -q "$name" >/dev/null 2>&1 || true
 }
 trap cleanup EXIT
+
+# The worktree holding a thread's branch belongs to the thread, not to this
+# script: say why it stays, or remove it and the local branch.
+retire() {
+  local path
+  path=$(git worktree list --porcelain | awk -v b="refs/heads/$1" '
+    /^worktree /{p=substr($0,10)} /^branch /{if($2==b)print p}')
+  if [ -n "$path" ]; then
+    if git worktree list --porcelain | awk -v p="$path" '
+        /^worktree /{cur=substr($0,10)} /^locked/{if(cur==p)f=1} END{exit !f}'; then
+      step "   kept $path: a live session holds it (locked)"; return
+    fi
+    [ -z "$(git -C "$path" status --porcelain)" ] || { step "   kept $path: its tree is not clean"; return; }
+    git worktree remove "$path"
+  fi
+  git branch -D -q "$1" 2>/dev/null || true
+}
 
 step "1. worktree $tree on $REMOTE/main ($(git rev-parse --short "$REMOTE/main"))"
 mkdir -p .claude/worktrees
@@ -99,8 +129,5 @@ git push -q "$REMOTE" main
 for pdf in arlington-bsap timelines; do
   [ -f "$tree/paper/$pdf.pdf" ] && cp "$tree/paper/$pdf.pdf" "paper/$pdf.pdf"
 done
-git worktree remove --force "$tree"
-git branch -D -q "$name"
-git branch -D -q "$branch" 2>/dev/null || true
 git push -q "$REMOTE" --delete "$branch" 2>/dev/null || true
-trap - EXIT
+retire "$branch"   # its branch is merged by the fast-forward above; the other two tests are retire's own

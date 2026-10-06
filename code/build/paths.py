@@ -22,6 +22,14 @@ BUILT = DATA / "built"
 _INPUTS = []
 
 
+def begin_step():
+    """Forget what earlier steps read. write() checks an output against the
+    tables its own step read, and code/stage.py runs every step in one
+    process, where the list would otherwise carry every step's sources into
+    every later step's check."""
+    _INPUTS.clear()
+
+
 def _reader(path):
     """The pandas reader for a source, by extension. A workbook the County
     publishes is read where it sits, like any other raw file."""

@@ -27,6 +27,14 @@ if [ "$(git config core.hooksPath 2>/dev/null)" != ".githooks" ]; then
 fi
 chmod +x .githooks/* 2>/dev/null || true
 
+# The tracker merges by row id (code/merge_questions.py). Git keeps a merge
+# driver in .git/config, never in the repository, so it is registered here
+# the way the hook path is; code/merge.sh refuses to merge without it.
+MERGE_DRIVER="python3 code/merge_questions.py %O %A %B"
+if [ "$(git config merge.questions.driver 2>/dev/null)" != "$MERGE_DRIVER" ]; then
+  git config merge.questions.driver "$MERGE_DRIVER" && echo "installed the tracker merge driver"
+fi
+
 PY=.venv/bin/python
 [ -x "$PY" ] || { echo "no venv: python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflakes shapely"; exit 1; }
 
@@ -100,9 +108,8 @@ rm -f data/built/*.csv
 built_key=$("${CACHE[@]}" key "${BUILT_BY[@]}")
 if ! "${CACHE[@]}" restore built "$built_key" > "$REPORT"; then
   echo "build"
-  for s in "${BUILD[@]}"; do
-    (cd code/build && ../../"$PY" "$s.py")
-  done | tee "$REPORT"
+  # One process runs every step (code/stage.py), in the order listed.
+  "$PY" code/stage.py build "${BUILD[@]}" | tee "$REPORT"
   "${CACHE[@]}" save built "$built_key" --report "$REPORT" data/built/*.csv
 else
   echo "build: inputs unchanged since a cached run, its tables copied back"
@@ -121,9 +128,7 @@ fi
 clean_key=$("${CACHE[@]}" key --also "$built_key" "${CLEANED_BY[@]}")
 if ! "${CACHE[@]}" restore clean "$clean_key" > "$REPORT"; then
   echo "clean"
-  for s in "${CLEAN[@]}"; do
-    (cd code/clean && ../../"$PY" "$s.py")
-  done | tee "$REPORT"
+  "$PY" code/stage.py clean "${CLEAN[@]}" | tee "$REPORT"
   "${CACHE[@]}" save clean "$clean_key" --report "$REPORT" data/clean/*.csv
 else
   echo "clean: inputs unchanged since a cached run, its tables copied back"
