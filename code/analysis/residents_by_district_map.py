@@ -33,4 +33,5 @@ for profile in style.PROFILES:
         charts.areas(ax, shapes[area], AREAS[area][1])
     charts.corner_legend(ax, {AREAS[area][0]: AREAS[area][1] for area in ORDER},
                          indented=[AREAS[a][0] for a in style.ANNEXED])
+    charts.draft_mark(ax)        # until annexation-1915-line is settled (docs/questions.csv)
     paths.save(fig, profile)

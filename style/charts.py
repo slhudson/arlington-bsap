@@ -647,6 +647,15 @@ def corner_legend(ax, entries, indented=()):
         frameon=False, pad=0, borderpad=0, bbox_to_anchor=(0, 0), bbox_transform=ax.transAxes))
 
 
+def draft_mark(ax, text=style.DRAFT_TEXT):
+    """A grey diagonal watermark across the axes, for a figure still
+    waiting on a decision, so a reader who meets it loose knows it is not
+    final. One line in the figure script adds it and one removes it."""
+    ax.text(*style.DRAFT_AT, text, transform=ax.transAxes, ha="center", va="center",
+            rotation=style.DRAFT_ANGLE, color=style.DRAFT_COLOR, alpha=style.DRAFT_ALPHA,
+            fontsize=plt.rcParams["font.size"] * style.DRAFT_SCALE, fontweight="bold", zorder=10)
+
+
 def comma_axis(axis, top, step, label, per=1):
     """A count axis from 0 to `top`, labelled every `step` with thousands
     separators. `axis` is ax.xaxis or ax.yaxis. `per` divides the labels, for

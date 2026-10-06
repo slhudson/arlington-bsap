@@ -152,6 +152,15 @@ MAP_WIDTH = 0.5
 # A map's corner legend: a swatch is this many times the type's height, an
 # entry set in under the one above is moved in by this many swatches, and the
 # line between two areas is this many points wide.
+# The watermark on a figure still waiting on a decision: its words, the
+# angle it runs at, where its centre sits in the axes, its grey, how faint, and its size as a multiple of the
+# body type.
+DRAFT_TEXT = "DRAFT"
+DRAFT_ANGLE = 35
+DRAFT_COLOR = "#444444"
+DRAFT_ALPHA = 0.22
+DRAFT_SCALE = 4.5
+DRAFT_AT = (0.5, 0.62)
 SWATCH = 1.0
 INDENT = 1.6
 AREA_EDGE = 0.6
