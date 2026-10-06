@@ -147,7 +147,7 @@ I'm confused it needs explaining" (Sally, 5 October 2026).
 ## Maps
 
 - **A map draws the territory its chart counted.** The district map beside
-  `residents_by_district_race` draws the county as it stood when the census
+  `residents_by_district_race_adults` draws the county as it stood when the census
   counted it, with the land Alexandria annexed in 1915 and 1930 shown as
   tints of Jefferson's colour, not today's outline (Sally, 6 October 2026).
   The same rule as the denominator: the land is the population.
@@ -207,7 +207,7 @@ I'm confused it needs explaining" (Sally, 5 October 2026).
   and a dotted segment bridges the gap** (`charts.lines(..., bridge=True)`),
   so the silent census reads as a gap in the record, not the end of a series
   (Sally, 4 October 2026). Never draw the solid line through it: that asserts
-  a path nothing recorded. `residents_by_district_race` is the standing
+  a path nothing recorded. `residents_by_district_race_adults` is the standing
   example, and the caption says what the gap is.
 - **Name a residual for what is in it.** Check the data before writing the
   label. `Other, multiracial or unreported` was wrong: nothing in that band

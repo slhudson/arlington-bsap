@@ -143,7 +143,7 @@ Arlington and Jefferson line up to three kilometers from the printed one and
 the Washington and Arlington line about half a kilometer. It was replaced on
 6 October 2026. The lines are read off the printed map, not surveyed to it:
 positions are good to a few hundred meters, which is what a figure beside
-`residents_by_district_race` needs. East of Cherrydale the Washington and
+`residents_by_district_race_adults` needs. East of Cherrydale the Washington and
 Arlington line runs about 200 meters southwest of the Great Falls and Old
 Dominion Railway and parallel to it; it does not lie on the right-of-way.
 
@@ -208,10 +208,17 @@ land Alexandria sought in 1911 was in Jefferson.
 Race below the county is printed in one volume only, 1870's. For 1880, 1900,
 1910 and 1920 it is counted person by person out of the full-count schedules
 instead, and `residents_by_district.csv` carries all five censuses. The figure
-is `residents_by_district_race`; the paper carries
-`residents_by_district_race_adults`, the same shares among men of voting age,
-because the passage it sits in is about who could vote and family size may
-differ by race (Sally, 6 October 2026). Two cells
+is `residents_by_district_race_adults`, the Black share among men of voting
+age, because the passage it sits in is about who could vote and family size may
+differ by race (Sally, 6 October 2026). The 1870 point is the exception: the
+volume prints race by township for all residents, and the 1870 extract
+(`us1870c`) carries no variable that places a person in a township (`CITY`
+separates Alexandria city and nothing finer; `ENUMDIST`, `MCDSTR`, `SUPDIST`
+and `MCD` are not offered for it), so the figure draws 1870 as an open ring of
+all residents, unjoined to the lines. Placing the men by the order of the
+schedule was tested and declined: it comes within a few Black residents per
+township of the printed counts but rests on position, not on a tag, as every
+other point does (Sally, 6 October 2026). Two cells
 are empty, each for a reason below:
 every district in 1890, whose schedules burned, and Arlington in 1900, which
 the database is short of by one resident in six.

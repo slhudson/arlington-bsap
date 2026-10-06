@@ -1,6 +1,6 @@
 """The county before 1915, in its three districts -> figures/residents_by_district_map.pdf, .png
 
-Orientation for residents_by_district_race: where each district was, 1870
+Orientation for residents_by_district_race_adults: where each district was, 1870
 to 1931, since the lines ended with the Board's at-large expansion in 1932
 and nothing after draws them. The land Alexandria annexed in 1915 and 1930
 is Jefferson's, in two tints of its colour. docs/residents.md, "Where the
