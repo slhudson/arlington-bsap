@@ -19,6 +19,9 @@ still open.
   prints the others before 1924 cannot be tested against the Secretary's
   own return with anything held online; only a visit to the Library of
   Virginia would settle it (`almanack-against-secretary`).
+- The Board's own totals for 1907 and 1915 are O'Leary's alone; no Gazette
+  page naming the district counts for either election has been read
+  (`oleary-regrounded`).
 - Turnout's denominators: adults after 2020 carried forward
   (`adults-after-2020`), registration before 2010
   (`registration-before-2010`), and votes per seat standing in for ballots
@@ -35,6 +38,19 @@ still open.
 Each is a row in `docs/questions.csv`, with whose court it waits in and what would settle it.
 
 ---
+
+## Election Method (A.2)
+
+The paper's Election Method section opens with the general mechanics of
+single-winner districts, multi-winner block elections and ranked choice, in
+the Charlottesville series' language and sources, then turns to Arlington in
+four subsections: districts, 1870-1930; at large, 1930 to the present;
+staggered terms, 1938 to the present; and ranked choice, 2020 to the present.
+The nominating stage is not a subsection of its own: whether the report makes
+a nominating-stage argument at all is parked (`nominations-1931-1978` and
+three further rows, `docs/questions.csv`), and until that is decided the
+nominating material stays in the timelines and in "How the Board's candidates
+were nominated," below.
 
 ## Results
 
