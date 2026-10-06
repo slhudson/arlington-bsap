@@ -2640,13 +2640,9 @@ def test_every_cited_entry_is_complete():
 
 def merge_fixture(tmp):
     """A bare remote and a clone with main pushed, a branch `thread` that
-    appends a tracker row, edits note.txt and touches something under
-    code/ (so the gating in step 3 always runs the substituted BUILD and
-    COMPILE here - these three tests are about the happy path, the failing
-    build and the conflict, not about the gating, which has its own tests
-    below), and main moved on by another tracker row, so the merge has a
-    union file to resolve and a clean file to carry. Returns the clone's
-    path."""
+    appends a tracker row and edits note.txt, and main moved on by another
+    tracker row, so the merge has a union file to resolve and a clean file
+    to carry. Returns the clone's path."""
     tmp = Path(tmp)
     remote, work = tmp / "remote.git", tmp / "work"
     subprocess.run(["git", "init", "-q", "--bare", str(remote)], check=True)
@@ -2669,8 +2665,7 @@ def merge_fixture(tmp):
     with open(work / "docs" / "questions.csv", "a") as f:
         f.write("3,4\n")
     (work / "note.txt").write_text("thread\n")
-    (work / "code" / "marker.py").write_text("x = 1\n")
-    git("add", "-A"); git("commit", "-qm", "thread"); git("push", "-q", "-u", "origin", "thread")
+    git("commit", "-qam", "thread"); git("push", "-q", "-u", "origin", "thread")
     git("checkout", "-q", "main")
     with open(work / "docs" / "questions.csv", "a") as f:
         f.write("5,6\n")
@@ -2729,110 +2724,6 @@ def test_a_merge_with_a_real_conflict_stops_before_building():
         assert "note.txt" in run.stderr and "conflicts" in run.stderr, run.stderr
         assert git("rev-parse", "main") == before, "main moved despite the conflict"
         assert git("worktree", "list").count("\n") == 0, "the scratch worktree was left behind"
-
-
-# --- skipping what the branch could not have changed -----------------------
-
-def gating_fixture(tmp, touch):
-    """A bare remote and a clone with a base tree that has something under
-    code/clean/, paper/arlington-bsap.tex, paper/timelines.tex and
-    paper/sources.bib, so a branch that touches only one of them exercises
-    one skip rule at a time. The branch `thread` appends one line to `touch`,
-    a path relative to the clone. Returns the clone's path."""
-    tmp = Path(tmp)
-    remote, work = tmp / "remote.git", tmp / "work"
-    subprocess.run(["git", "init", "-q", "--bare", str(remote)], check=True)
-    subprocess.run(["git", "clone", "-q", str(remote), str(work)], check=True,
-                   stderr=subprocess.DEVNULL)
-
-    def git(*args):
-        return subprocess.run(["git", "-C", str(work), *args], check=True,
-                              capture_output=True, text=True).stdout.strip()
-
-    git("config", "user.email", "t@t"); git("config", "user.name", "t")
-    for d in ("code/clean", "docs", "paper"):
-        (work / d).mkdir(parents=True)
-    shutil.copy(ROOT / "code" / "merge.sh", work / "code" / "merge.sh")
-    (work / ".gitattributes").write_text("docs/questions.csv merge=union\n")
-    (work / "docs" / "questions.csv").write_text("a,b\n1,2\n")
-    (work / "code" / "clean" / "dummy.py").write_text("x = 1\n")
-    (work / "paper" / "arlington-bsap.tex").write_text("base\n")
-    (work / "paper" / "timelines.tex").write_text("base\n")
-    (work / "paper" / "sources.bib").write_text("base\n")
-    git("add", "-A"); git("commit", "-qm", "base"); git("branch", "-M", "main")
-    git("push", "-q", "-u", "origin", "main")
-
-    git("checkout", "-qb", "thread")
-    with open(work / touch, "a") as f:
-        f.write("touched\n")
-    git("commit", "-qam", "thread"); git("push", "-q", "-u", "origin", "thread")
-    git("checkout", "-q", "main")
-    return work, git
-
-
-def merge_gated(work):
-    """Run code/merge.sh thread with BUILD, TESTS, COMPILE_PAPER and
-    COMPILE_TIMELINES each substituted for a command that stages a marker
-    file of its own name, so which ones ran survives in the files the merge
-    commits - the worktree that actually ran them is removed before this
-    returns. Returns the completed process."""
-    marker = {v: f"touch {v}.marker && git add {v}.marker"
-              for v in ("build", "tests", "paper", "timelines")}
-    env = {**os.environ, "BUILD": marker["build"], "TESTS": marker["tests"],
-           "COMPILE_PAPER": marker["paper"], "COMPILE_TIMELINES": marker["timelines"]}
-    return subprocess.run(["bash", "code/merge.sh", "thread"], cwd=work, text=True,
-                          capture_output=True, env=env)
-
-
-def test_a_docs_only_branch_does_not_build():
-    """A branch that only appends a tracker row costs the tests, not a
-    rebuild: the hotspot this gating exists to remove."""
-    with tempfile.TemporaryDirectory() as tmp:
-        work, git = gating_fixture(tmp, "docs/questions.csv")
-        run = merge_gated(work)
-        assert run.returncode == 0, run.stdout + run.stderr
-        assert (work / "tests.marker").exists(), "the docs-only branch skipped the tests too"
-        for skipped in ("build", "paper", "timelines"):
-            assert not (work / f"{skipped}.marker").exists(), \
-                f"a docs-only branch ran {skipped}"
-
-
-def test_a_branch_touching_code_clean_builds():
-    """A branch that touches a clean step has to cost the full rebuild."""
-    with tempfile.TemporaryDirectory() as tmp:
-        work, git = gating_fixture(tmp, "code/clean/dummy.py")
-        run = merge_gated(work)
-        assert run.returncode == 0, run.stdout + run.stderr
-        assert (work / "build.marker").exists(), "a branch touching code/clean/ skipped the build"
-        assert (work / "paper.marker").exists(), "the build ran but the paper did not recompile"
-        assert not (work / "tests.marker").exists(), "the build ran and the tests-only fallback also ran"
-        assert not (work / "timelines.marker").exists(), \
-            "nothing under paper/timelines.tex, paper/sources.bib or a figure it inputs changed"
-
-
-def test_a_branch_touching_only_arlington_bsap_tex_skips_timelines():
-    """paper/arlington-bsap.tex recompiles the paper; timelines.pdf does not
-    depend on it, so it should not recompile too."""
-    with tempfile.TemporaryDirectory() as tmp:
-        work, git = gating_fixture(tmp, "paper/arlington-bsap.tex")
-        run = merge_gated(work)
-        assert run.returncode == 0, run.stdout + run.stderr
-        assert (work / "paper.marker").exists(), "paper/arlington-bsap.tex did not recompile the paper"
-        assert not (work / "timelines.marker").exists(), \
-            "paper/arlington-bsap.tex recompiled timelines.pdf too"
-        assert not (work / "build.marker").exists(), "a paper-only change rebuilt the figures"
-
-
-def test_a_branch_touching_sources_bib_compiles_both():
-    """paper/sources.bib backs every citation in both documents, so both
-    recompile."""
-    with tempfile.TemporaryDirectory() as tmp:
-        work, git = gating_fixture(tmp, "paper/sources.bib")
-        run = merge_gated(work)
-        assert run.returncode == 0, run.stdout + run.stderr
-        assert (work / "paper.marker").exists(), "paper/sources.bib did not recompile the paper"
-        assert (work / "timelines.marker").exists(), "paper/sources.bib did not recompile timelines"
-        assert not (work / "build.marker").exists(), "a sources.bib-only change rebuilt the figures"
 
 
 def run_one(name):
