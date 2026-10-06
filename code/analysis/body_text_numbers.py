@@ -10,7 +10,7 @@ whole number, with "percent" left to the sentence.
     genderCensusShareMembers    members whose gender comes from a census sheet
     raceAssumedShareMembers     members recorded White on no source's say
     turnout<Year>               votes for President per 100 residents of voting
-                                age, each presidential year 1880-1928
+                                age, each presidential year 1872-1928
     boardTurnout<District><Year>  votes in a district's Board contest per 100
                                 men of voting age, each contest with a count
     residentsPerSeat<Year>      residents per Board seat, to the nearest thousand
@@ -129,12 +129,12 @@ def member_shares() -> dict:
 def turnout() -> dict:
     """The rates the two pre-1932 turnout figures draw, by the same arithmetic
     (code/analysis/elections.py): the presidential vote per 100 residents of
-    voting age for each election 1880-1928, and each district's Board contest
+    voting age for each election 1872-1928, and each district's Board contest
     per 100 men of voting age for each contest with a count, 1893-1919."""
     adults = paths.read("residents_by_district_adults")
     president = paths.read("elections_results")
     president = president[(president.office == "president")
-                          & president.year.between(1880, 1928)].set_index("year")
+                          & president.year.between(1872, 1928)].set_index("year")
     out = {f"turnout{year_words(y)}": whole(v)
            for y, v in per_100_adults(president.total, adults).items()}
     contests = paths.read("elections_margins")

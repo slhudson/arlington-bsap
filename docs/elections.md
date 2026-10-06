@@ -20,9 +20,7 @@ still open.
   own return with anything held online; only a visit to the Library of
   Virginia would settle it (`almanack-against-secretary`).
 - Turnout's denominators: adults after 2020 carried forward
-  (`adults-after-2020`), and the county's men of voting age before 1910
-  counted at three censuses until the 1870, 1890 and 1900 volumes are keyed
-  in (`adults-1870-1900`). The modern figure's two-seat years are gaps until
+  (`adults-after-2020`). The modern figure's two-seat years are gaps until
   ballots cast are found (`ballots-cast`), and the settled forms of the
   figures are not yet built (`turnout-figures-rebuild`).
 

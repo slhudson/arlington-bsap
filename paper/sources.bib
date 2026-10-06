@@ -111,7 +111,13 @@
   publisher   = {Government Printing Office},
   location    = {Washington, DC},
   date        = {1872},
-  annotation  = {Read from the title page of the scan held in data/raw/},
+  annotation  = {Read from the title page of the scan held in data/raw/. The
+                 men 21 and upward are Table XXIV at printed p.637 (counties,
+                 with Alexandria City inside Alexandria County) and Table XXV
+                 at p.655 (the city's own line), held as
+                 1870/population-1870a-57.pdf and 1870/population-1870a-58.pdf,
+                 not committed: code/fetch/census_volumes.py fetches them and
+                 checks each byte for byte against data/contents.csv},
 }
 
 @book{census1880,
@@ -144,7 +150,10 @@
                  P. Porter, Superintendent, and Carroll D. Wright, Commissioner
                  of Labor in charge; letter of transmittal dated 22 October
                  1894; imprint 1895. The held chunks are the Bureau's own,
-                 proven byte for byte by code/fetch/census_volumes.py The 1890 volume puts Freedman's Village inside Arlington district, not Jefferson, so the clearing of the village that began in December 1887 emptied a settlement outside the district Tibbett Allen sat for.},
+                 proven byte for byte by code/fetch/census_volumes.py. The men 21 and over
+                 are Table 79 at printed p.786 (counties, with Alexandria
+                 city inside Alexandria County) and Table 80 at p.823 (the
+                 city's own line), held as 1890a_v1-18.pdf. The 1890 volume puts Freedman's Village inside Arlington district, not Jefferson, so the clearing of the village that began in December 1887 emptied a settlement outside the district Tibbett Allen sat for.},
 }
 
 @book{census1900v1,
@@ -167,6 +176,35 @@
                  as 1900/volume-1-p1.pdf and 1900/volume-1-p8.pdf, not
                  committed: code/fetch/census_volumes.py fetches them and
                  checks each byte for byte against data/contents.csv},
+}
+
+@report{census1900b102,
+  author      = {{United States Census Office}},
+  title       = {School, Militia, and Voting Ages},
+  subtitle    = {Persons of School Age, Males of Militia Age, Males of Voting
+                 Age, and Citizenship of Foreign Born Males 21 Years of Age
+                 and Over, by Groups of States and Territories: 1900. Group
+                 11: Vermont, Virginia, Washington, West Virginia, Wisconsin,
+                 and Wyoming},
+  type        = {Twelfth Census of the United States, Census Bulletin},
+  number      = {102},
+  institution = {United States Census Office},
+  location    = {Washington, DC},
+  date        = {1901-10-09},
+  url         = {https://www2.census.gov/library/publications/decennial/1900/bulletins/demographic/102-school-militia-voting-ages-vt-va-wa-wv-wi-wy.pdf},
+  urldate     = {2026-10-06},
+  annotation  = {Read off the first page of the file held as
+                 1900/bulletin-102.pdf: Census Bulletin No. 102, Washington,
+                 October 9, 1901, prepared under the direction of William C.
+                 Hunt, chief statistician for population (held at
+                 data/raw/us_census_bureau/1900/bulletin-102.pdf); figures derived
+                 from the tabulation of the returns of June 1, 1900, and
+                 subject to correction. Alexandria County's males 21 years
+                 and over are Table 11 at printed p.4, whose aggregate
+                 reappears in Table 20 at p.13, where the City of Alexandria
+                 is a line of its own. The file is not committed:
+                 code/fetch/census_volumes.py fetches it and checks it byte
+                 for byte against data/contents.csv},
 }
 
 @book{census1910v3,

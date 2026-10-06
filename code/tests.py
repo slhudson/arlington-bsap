@@ -323,19 +323,21 @@ def test_adult_men_cannot_be_placed_differently_from_the_race_table():
 
 
 def test_the_adults_county_is_only_written_where_every_district_is_whole():
-    """1900's Arlington is short, so no county is written for that census;
-    and a county that is written is its three districts added, race by race."""
+    """1900's Arlington is short, so the county is not its three districts
+    added up and the schedules write none; the volume's printed count stands
+    for it, as it does for 1870, 1890 and 1930. A county the schedules do
+    write is its three districts added, race by race."""
     started = os.environ.pop("RUN_STARTED", None)   # reads last run's race table
     try:
         d = residents_by_district_adults.build()
     finally:
         if started:
             os.environ["RUN_STARTED"] = started
-    assert not ((d.year == 1900) & (d.district == "county")).any()
+    published = residents_by_district_adults.PUBLISHED
     for year, g in d.groupby("year"):
         county = g[g.district == "county"]
         if not county.empty:
-            if year == 1930:   # the volume prints the county only
+            if year in published or year == 1930:   # the volume prints the county only
                 continue
             parts = g[g.district != "county"][["men_white", "men_black", "men_other", "men_all",
                                                "women_white", "women_black", "women_other",
@@ -343,20 +345,42 @@ def test_the_adults_county_is_only_written_where_every_district_is_whole():
             assert (county.iloc[0][parts.index] == parts).all(), f"{year}: county is not its districts"
 
 
-def test_the_adults_women_and_men_make_the_adults():
-    """The women columns added beside the men. Each sex's races must sum to
-    its total, and men plus women must make `adults_all`, in every row the
-    schedules count and in 1930's county row, where only the totals print."""
+def test_the_adults_county_is_counted_at_every_census_from_1870_to_1930():
+    """The turnout figure divides by this table's county men and, between
+    two censuses, draws a straight line. A census with no count in it is a
+    line across a decade nothing recorded: the figure was interpolating
+    across 1880-1910 until 1870, 1890 and 1900 were keyed in from the
+    volumes, and one of the three going missing again would still draw a
+    plausible line. Every census from 1870 to 1930 must have a county row
+    with a counted number of men."""
     started = os.environ.pop("RUN_STARTED", None)
     try:
         d = residents_by_district_adults.build()
     finally:
         if started:
             os.environ["RUN_STARTED"] = started
-    counted = d[d.year != 1930]
+    county = d[d.district == "county"].set_index("year").men_all
+    missing = [y for y in range(1870, 1931, 10) if y not in county.index or pd.isna(county[y])]
+    assert not missing, f"no counted men in the county at the census of {missing}"
+
+
+def test_the_adults_women_and_men_make_the_adults():
+    """The women columns added beside the men. Each sex's races must sum to
+    its total, and men plus women must make `adults_all`, in every row the
+    schedules count and in the county rows the volumes print, where only the
+    men's total (1930: the women's too) is there."""
+    started = os.environ.pop("RUN_STARTED", None)
+    try:
+        d = residents_by_district_adults.build()
+    finally:
+        if started:
+            os.environ["RUN_STARTED"] = started
+    counted = d[d.source.str.startswith(citekeys.IPUMS_FULL_COUNT)]
     assert (counted[["women_white", "women_black", "women_other"]].sum(axis=1) == counted.women_all).all()
     assert (counted[["men_white", "men_black", "men_other"]].sum(axis=1) == counted.men_all).all()
-    assert (d.adults_all == d.men_all + d.women_all).all()
+    both = d[d.women_all.notna()]
+    assert (both.adults_all == both.men_all + both.women_all).all()
+    assert d[d.women_all.isna()].adults_all.isna().all(), "adults counted where the women are not"
     assert d[(d.year == 1930) & (d.district == "county")].shape[0] == 1, "1930 has no county row"
 
 
