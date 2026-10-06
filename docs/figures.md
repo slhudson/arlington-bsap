@@ -596,9 +596,10 @@ there the labels can be shortened and here the years cannot.
   and labelled the line "voting-age eligible", which claimed more than an
   age cutoff can support - neither sex (women couldn't vote in 1910 or the
   January 1920 census) nor disenfranchisement (poll taxes and other Jim Crow
-  mechanisms through the mid-1960s) is modelled. Tracked as
-  `members-age-voting-threshold` in `docs/questions.csv` if the fuller
-  question is taken up later. Now that a category needs naming, the figure
+  mechanisms through the mid-1960s) is modelled; Sally shelved the
+  voting-eligibility comparison for the flat adult one on 5 October 2026 and
+  confirmed the figure on 6 October (`docs/members.md`). Now that a category
+  needs naming, the figure
   has a legend after all: member age, member age range, county adult median
   age, in that order, the first and last as line swatches rather than boxes
   since that is how the figure draws them (`charts.legend(..., lines=,
