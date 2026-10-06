@@ -70,14 +70,16 @@ def stage(folder, *names):
  members_roster_results, residents, residents_by_district, elections,
  elections_results, elections_turnout, clean_survey_satisfaction,
  clean_survey_rcv, localities, members_residence, localities_southeastern,
- elections_nominations, elections_margins, residents_by_district_adults) = stage(
+ elections_nominations, elections_margins, residents_by_district_adults,
+ residents_by_district_boundaries) = stage(
     "clean", "paths", "candidates", "census", "members", "members_census", "members_chairs",
     "members_by_year", "members_roster", "members_roster_arlhist",
     "members_roster_oleary", "members_roster_results", "residents",
     "residents_by_district", "elections", "elections_results",
     "elections_turnout", "survey_satisfaction", "survey_rcv", "localities",
     "members_residence", "localities_southeastern", "elections_nominations",
-    "elections_margins", "residents_by_district_adults")
+    "elections_margins", "residents_by_district_adults",
+    "residents_by_district_boundaries")
 
 registration, = stage("fetch", "registration")
 
@@ -263,6 +265,25 @@ def test_a_wrong_enumeration_district_mapping_is_refused():
         if started:
             os.environ["RUN_STARTED"] = started
     assert err and "disagree about a district" in err, f"not caught: {err}"
+
+
+def test_a_district_line_too_short_to_cross_the_county_is_refused():
+    """A line in district_lines.csv edited (or misread) short enough that it
+    no longer reaches the county's edge on both sides: the split then
+    returns fewer than three pieces, since the county polygon is not cut
+    all the way through."""
+    def mangle(orig):
+        def patched(stem):
+            d = orig(stem)
+            if stem != "district_lines":
+                return d
+            d = d.copy()
+            keep = d[(d.boundary != "washington_arlington") | (d.seq.astype(int).between(4, 8))]
+            return keep.reset_index(drop=True)
+        return patched
+    err = breaks(residents_by_district_boundaries, "built", mangle,
+                 build=residents_by_district_boundaries.districts)
+    assert err and "not 3" in err, f"not caught: {err}"
 
 
 def test_a_tolerance_too_wide_to_catch_a_move_is_refused():

@@ -248,7 +248,7 @@ figure it is named for.
 ## Running it
 
 ```bash
-python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflakes
+python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflakes shapely
 bash run.sh               # build, test, then every figure
 bash run.sh residents_per # only matching figures; build and clean only if their inputs changed, no tests
 ```

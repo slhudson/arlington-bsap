@@ -26,7 +26,7 @@ fi
 chmod +x .githooks/* 2>/dev/null || true
 
 PY=.venv/bin/python
-[ -x "$PY" ] || { echo "no venv: python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflakes"; exit 1; }
+[ -x "$PY" ] || { echo "no venv: python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflakes shapely"; exit 1; }
 
 # One build at a time in a checkout. data/built/ is emptied and rewritten in
 # place, so a second run deletes the tables the first is reading: it fails in
@@ -53,12 +53,12 @@ trap 'rm -rf "$LOCK"' EXIT
 
 # Stage 1: data/raw/ and data/transcribed/ -> data/built/. Reshaping only;
 # each step is refused if a value its inputs carry is missing from its output.
-BUILD=(elections members_claims candidates census ipums registration localities localities_places localities_counties localities_southeastern localities_southeastern_bodies candidates_party elections_nominations candidates_gazette survey_satisfaction survey_rcv survey_satisfaction_by_year survey_rcv_precision)
+BUILD=(elections members_claims candidates census ipums registration localities localities_places localities_counties localities_southeastern localities_southeastern_bodies candidates_party elections_nominations candidates_gazette survey_satisfaction survey_rcv survey_satisfaction_by_year survey_rcv_precision district_lines county_outline)
 
 # Stage 2: data/built/ -> data/clean/. Every decision about what a number
 # is. Each step is named for the file it writes, and later steps read what
 # earlier ones wrote.
-CLEAN=(residents residents_by_district residents_by_district_adults members members_chairs candidates members_residence members_by_year elections_results elections_turnout elections_nominations elections_margins elections_margins_by_year localities localities_southeastern survey_satisfaction survey_rcv survey_satisfaction_by_year survey_rcv_precision)
+CLEAN=(residents residents_by_district residents_by_district_adults residents_by_district_boundaries members members_chairs candidates members_residence members_by_year elections_results elections_turnout elections_nominations elections_margins elections_margins_by_year localities localities_southeastern survey_satisfaction survey_rcv survey_satisfaction_by_year survey_rcv_precision)
 
 # Stage 3: data/clean/ -> figures/. Each step is named for the figure it
 # writes. Five populations, alphabetical within each; last, the one step that
@@ -67,7 +67,7 @@ CLEAN=(residents residents_by_district residents_by_district_adults members memb
 # subsets the body prints, paper/members_roster_subsets.tex, and
 # members_by_source writes the appendix's table of which source backs each
 # term, paper/members_by_source.tex.
-FIGURES=(residents_by_age residents_by_district_race residents_by_district_race_adults residents_by_race residents_per_seat elections_turnout elections_turnout_before_1932 elections_turnout_before_1932_adults elections_turnout_by_district elections_board elections_president members_age candidates members_by_gender members_by_party localities_peers localities_southeastern members_by_race members_race_coverage members_residence_coverage survey_satisfaction_structure survey_satisfaction_by_year survey_satisfaction_sample survey_rcv_support survey_rcv_by_race body_text_numbers members_roster members_by_source)
+FIGURES=(residents_by_age residents_by_district_map residents_by_district_race residents_by_district_race_adults residents_by_race residents_per_seat elections_turnout elections_turnout_before_1932 elections_turnout_before_1932_adults elections_turnout_by_district elections_board elections_president members_age candidates members_by_gender members_by_party localities_peers localities_southeastern members_by_race members_race_coverage members_residence_coverage survey_satisfaction_structure survey_satisfaction_by_year survey_satisfaction_sample survey_rcv_support survey_rcv_by_race body_text_numbers members_roster members_by_source)
 
 echo "lint"
 "$PY" -m pyflakes code style || { echo "  pyflakes: fix the above"; exit 1; }

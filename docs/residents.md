@@ -109,6 +109,31 @@ off a page. 1920 is, below.
 | Washington | 942 | 814 |
 | **County outside the city** | **4,258** | **3,887** |
 
+### Where the lines ran
+
+`noetzel1907`, a 1907 county map published under the authority of the
+Alexandria County Board of Supervisors, rules a dash-dot line between each
+pair of districts, distinct from the roads, railroads and streams it also
+draws: Washington from Arlington near Hall's Hill and the Glebe Estate, and
+Arlington from Jefferson at Four Mile Run near Nauck. It is the only source
+found that draws the lines rather than only lettering each district's name
+across its own interior, which is what the two other period maps checked,
+Hopkins 1879 and Howell and Taylor 1900, do instead; `docs/questions.csv`
+held the search before this map was found.
+`data/transcribed/by_claude/district_lines.csv` keys the two lines off that
+map against the modern street network, extended past the county's edge at
+both ends so `code/clean/residents_by_district_boundaries.py` can split the
+modern county outline (`data/raw/arlington_county/county_outline.geojson`)
+on them cleanly; using the modern outline rather than 1907's removes the
+1915 and 1930 annexations without a separate geometry for either. The
+figure is `residents_by_district_map`, a stylized rendering in
+`style.DISTRICTS`' colors, not a reproduction of the 1907 map. The two
+lines are read off the printed map, not surveyed to it: positions are good
+to within roughly a few hundred meters at this county's scale, which is
+what a figure beside `residents_by_district_race` needs and no more. Still
+open: whether the 1907 lines agree, point for point, with the NARA 1910 and
+1920 enumeration-district descriptions of each district's interior.
+
 ### Race by district, counted from the schedules
 
 Race below the county is printed in one volume only, 1870's. For 1880, 1900,

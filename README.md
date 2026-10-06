@@ -58,7 +58,7 @@ folder's `index.md` and the zip the County receives.
 ## Rebuilding
 
 ```bash
-python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflakes
+python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflakes shapely
 bash run.sh
 ```
 

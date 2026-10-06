@@ -131,6 +131,10 @@ DISTRICTS = {
     "Washington": ("Washington District", OKABE_ITO["reddish_purple"]),
 }
 WHOLE_COUNTY = ("Arlington County", DARK)
+# The county's own shape, width to height once longitude is scaled by
+# cos(latitude) so a degree reads as the same distance on both axes; close
+# to square at Arlington's latitude. See docs/figures.md.
+MAP_ASPECT = 1.0
 
 PRESIDENT = ("votes for President", DARK)
 # The two presidential years with no state return found, drawn hollow on the line.

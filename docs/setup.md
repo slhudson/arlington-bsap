@@ -94,7 +94,7 @@ writes which file — while `CLAUDE.md` holds the working rules.
 4. **Python with pandas, matplotlib, openpyxl and pyflakes**, in a virtual environment
    at `.venv` inside the repository folder:
 
-       python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflakes
+       python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflakes shapely
 
    A worktree has no `.venv` of its own; a symlink to the primary
    checkout's works, and pymupdf there renders page clips (`pdftoppm` is
