@@ -131,10 +131,30 @@ DISTRICTS = {
     "Washington": ("Washington District", OKABE_ITO["reddish_purple"]),
 }
 WHOLE_COUNTY = ("Arlington County", DARK)
-# The county's own shape, width to height once longitude is scaled by
-# cos(latitude) so a degree reads as the same distance on both axes; close
-# to square at Arlington's latitude. See docs/figures.md.
-MAP_ASPECT = 1.0
+
+
+def tint(color, strength):
+    """`color` mixed toward white: strength 1 is the colour itself, 0 is
+    white. For land that is the same place under a later name."""
+    rgb = mpl.colors.to_rgb(color)
+    return mpl.colors.to_hex(tuple(1 - strength * (1 - c) for c in rgb))
+
+
+# The land Alexandria annexed was Jefferson district's, so each year is a
+# tint of Jefferson's blue, the earlier the darker. See docs/figures.md.
+ANNEXED = {
+    "annexed 1915": ("annexed by Alexandria, 1915", tint(DISTRICTS["Jefferson"][1], 0.55)),
+    "annexed 1930": ("annexed by Alexandria, 1930", tint(DISTRICTS["Jefferson"][1], 0.28)),
+}
+# A map of the county is taller than wide, so it takes this fraction of the
+# profile's width rather than the whole. See docs/figures.md.
+MAP_WIDTH = 0.5
+# A map's corner legend: a swatch is this many times the type's height, an
+# entry set in under the one above is moved in by this many swatches, and the
+# line between two areas is this many points wide.
+SWATCH = 1.0
+INDENT = 1.6
+AREA_EDGE = 0.6
 
 PRESIDENT = ("votes for President", DARK)
 # The two presidential years with no state return found, drawn hollow on the line.

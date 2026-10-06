@@ -284,7 +284,7 @@ def test_a_district_line_too_short_to_cross_the_county_is_refused():
             return keep.reset_index(drop=True)
         return patched
     err = breaks(residents_by_district_boundaries, "built", mangle,
-                 build=residents_by_district_boundaries.districts)
+                 build=residents_by_district_boundaries.areas)
     assert err and "not 3" in err, f"not caught: {err}"
 
 

@@ -136,6 +136,13 @@ a rank. A figure never defines a ramp of its own.
   three are being read against; it leads the legend as Arlington County, and
   the districts follow in alphabetical order. `style.DISTRICTS` and
   `style.WHOLE_COUNTY`.
+- **Land Alexandria annexed.** Jefferson's blue, thinned toward white: the
+  land did not become a fourth place, it changed hands, so it keeps its
+  district's hue and loses weight. The earlier annexation, 1915, is the
+  darker tint and 1930 the paler, so the order they happened in reads as
+  the fade. Hatching was tried and declined: a texture reads as a second
+  kind of thing, and a tint reads as the same thing under a later name.
+  `style.ANNEXED`, `style.tint()`.
 - **Peers.** Cities dark grey, counties the sand stroke, Arlington the
   per-seat vermilion. The two neutrals are close on purpose: the kind of
   government is context, and a second saturated hue would compete with
@@ -339,6 +346,12 @@ The legend is re-placed after the plot is sized, 0.2 inches below the
 lowest ink, because whatever distance it was first given no longer means
 anything by then.
 
+**A map's width is `style.MAP_WIDTH`**, because the county is taller than wide:
+at the full width of the page a map of it would fill the page, and at the width
+of the other single-panel figures it would read as a thumbnail. Its plot is the
+shapes' own extent, with a degree of longitude scaled by the cosine of the
+latitude, so the aspect is read off the data and not typed.
+
 ## Chart types
 
 **Two-panel figures go side by side**, not stacked, because a composition
@@ -482,6 +495,23 @@ there the labels can be shortened and here the years cannot.
   stops at 1920 rather than running on to 1930, whose districts have no race
   split. `docs/residents.md` has what places each census's enumeration
   districts.
+
+- **residents_by_district_map.** The county as it stood before 1915, the whole
+  Virginia side of the ten-mile square less the city of Alexandria, in the
+  three magisterial districts as they stood from 1870 until 1932, and the land
+  Alexandria annexed in 1915 and 1930 in two tints of Jefferson's blue. It
+  sits beside residents_by_district_race, which names the districts without
+  saying where they were. Nothing else is on it: a neighbourhood is a region,
+  so a dot answers wrongly; a stream, a road or a railway would be a mark the
+  legend does not answer; an edge between two legend colours answers itself.
+  The city is left blank, which the caption says, and the Potomac is the
+  right-hand edge. The legend is inside the axes, bottom left, because the
+  corner the diamond leaves empty is the one place a legend takes no land
+  from the picture, and it is stacked, with the two annexations set in under
+  Jefferson because they are Jefferson's. `charts.corner_legend()`; the
+  indent, the swatch and the edge between areas are `style.INDENT`,
+  `style.SWATCH` and `style.AREA_EDGE`. What the lines rest on is in
+  `docs/residents.md`, "Where the lines ran".
 
 - **residents_by_district_race_adults.** The same figure as
   residents_by_district_race with the men aged 21 and over in place of every

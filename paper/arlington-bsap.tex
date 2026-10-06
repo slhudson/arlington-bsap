@@ -639,17 +639,33 @@ minority could elect a member.
 Population change was the background, not the break. The county's Black share
 fell from 63 percent in 1870 to 12.5 percent in 1930, but Jefferson district was
 still \blackShareJeffersonNineteenHundred{} percent Black in 1900
-(Figure~\ref{fig:residents-district-race}), and in the eight Jefferson
+(Figures~\ref{fig:residents-district-map} and~\ref{fig:residents-district-race}), and in the eight Jefferson
 contests from 1889 through 1903 no Black candidate won. A district that was
 still majority Black sent no Black member to the Board.
 
-\begin{figure}
-  \centering
+\begin{pairpage}
+  \refstepcounter{figure}\label{fig:residents-district-map}
+  {\raggedright\MakeUppercase{Figure \thefigure}\par}
+  {\raggedright\bfseries The Three Magisterial Districts, 1870--1931\par}
+  \smallskip
+  \includegraphics{residents_by_district_map.pdf}
+  \vspace{2pt}
+  \figurenotes{
+    Notes: The county as it stood before Alexandria annexed land from it in 1915
+    and 1930, with the three districts as they stood from 1870 until the Board
+    went at-large in 1932. The 1907 county map is the only map found that draws
+    the district lines, and the lines here are read from it to within a few
+    hundred meters. The paler areas are the land Alexandria annexed in 1915 and
+    1930, almost all of it Jefferson district. The city as it stood in 1912 is
+    left blank. The Potomac is the right-hand edge.}{Source: Noetzel and Boteler,
+    Map of Alexandria County (1907); Rose (1964); Census Bureau and Arlington
+    County boundary files.}
+  \vfill
   \refstepcounter{figure}\label{fig:residents-district-race}
   {\raggedright\MakeUppercase{Figure \thefigure}\par}
   {\raggedright\bfseries Black Share of Residents by Magisterial District\par}
   \medskip
-  \includegraphics[width=\textwidth]{residents_by_district_race.pdf}
+  \pairfigure{residents_by_district_race.pdf}
   \smallskip
   \figurenotes{
     Notes: Each line divides a district's Black residents by all of its
@@ -659,7 +675,7 @@ still majority Black sent no Black member to the Board.
     and Alexandria's annexations of 1915 and 1930 mean no district covers the
     same land throughout. Districts ended in 1932, and the 1930 census has no
     district split by race.}{Source: US decennial census, 1870--1920.}
-\end{figure}
+\end{pairpage}
 
 \subsubsection{Districts Without a Guarantee}
 
