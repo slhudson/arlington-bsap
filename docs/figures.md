@@ -136,6 +136,13 @@ a rank. A figure never defines a ramp of its own.
   three are being read against; it leads the legend as Arlington County, and
   the districts follow in alphabetical order. `style.DISTRICTS` and
   `style.WHOLE_COUNTY`.
+- **Land Alexandria annexed.** Jefferson's blue, thinned toward white: the
+  land did not become a fourth place, it changed hands, so it keeps its
+  district's hue and loses weight. The earlier annexation, 1915, is the
+  darker tint and 1930 the paler, so the order they happened in reads as
+  the fade. Hatching was tried and declined: a texture reads as a second
+  kind of thing, and a tint reads as the same thing under a later name.
+  `style.ANNEXED`, `style.tint()`.
 - **Peers.** Cities dark grey, counties the sand stroke, Arlington the
   per-seat vermilion. The two neutrals are close on purpose: the kind of
   government is context, and a second saturated hue would compete with
@@ -339,6 +346,12 @@ The legend is re-placed after the plot is sized, 0.2 inches below the
 lowest ink, because whatever distance it was first given no longer means
 anything by then.
 
+**A map's width is `style.MAP_WIDTH`**, because the county is taller than wide:
+at the full width of the page a map of it would fill the page, and at the width
+of the other single-panel figures it would read as a thumbnail. Its plot is the
+shapes' own extent, with a degree of longitude scaled by the cosine of the
+latitude, so the aspect is read off the data and not typed.
+
 ## Chart types
 
 **Two-panel figures go side by side**, not stacked, because a composition
@@ -483,6 +496,23 @@ there the labels can be shortened and here the years cannot.
   split. `docs/residents.md` has what places each census's enumeration
   districts.
 
+- **residents_by_district_map.** The county as it stood before 1915, the whole
+  Virginia side of the ten-mile square less the city of Alexandria, in the
+  three magisterial districts as they stood from 1870 until 1932, and the land
+  Alexandria annexed in 1915 and 1930 in two tints of Jefferson's blue. It
+  sits beside residents_by_district_race, which names the districts without
+  saying where they were. Nothing else is on it: a neighbourhood is a region,
+  so a dot answers wrongly; a stream, a road or a railway would be a mark the
+  legend does not answer; an edge between two legend colours answers itself.
+  The city is left blank, which the caption says, and the Potomac is the
+  right-hand edge. The legend is inside the axes, bottom left, because the
+  corner the diamond leaves empty is the one place a legend takes no land
+  from the picture, and it is stacked, with the two annexations set in under
+  Jefferson because they are Jefferson's. `charts.corner_legend()`; the
+  indent, the swatch and the edge between areas are `style.INDENT`,
+  `style.SWATCH` and `style.AREA_EDGE`. What the lines rest on is in
+  `docs/residents.md`, "Where the lines ran".
+
 - **residents_by_district_race_adults.** The figure the paper carries, in
   place of residents_by_district_race (Sally, 6 October 2026): the same
   picture with the men aged 21 and over in place of every resident, because
@@ -625,34 +655,34 @@ there the labels can be shortened and here the years cannot.
 - **elections_board.** A step area, because the series is annual. A separate
   figure from elections_president rather than a panel, because they are not the
   same voters and a shared frame would say they were.
-- **elections_turnout.** The share panel alone, since the counts say
-  nothing the shares do not (Sally, 6 October 2026). The presidential vote
-  is the reference line in grey. The Board's vote is drawn only in years
-  with one seat on the ballot, as three shades of orange by what led the
-  ballot, presidential, midterm and governor's year, darkest first: one hue
-  so the Board reads as one family against the presidential line, three
-  shades so the trend in each cycle is visible. Drawn as one annual line the
-  series is a sawtooth, and the teeth are the ballot, not the Board. A
-  two-seat year is a gap, not a floor, because it records votes and not
-  voters; from 1943 that is every House of Delegates year, and the caption
-  says so. The registered voters are in the table and not drawn: the series
-  is fifteen years long, and the prose can state it in a sentence. The
-  adults are 21 and over through 1970 and 18 and over from 1971, and nothing
-  marks the change: as with residents_by_race at 1980, it is real but small,
-  no line steps at it, and a rule would claim more for it than it has. The
-  caption carries it, and that the denominator is every resident of voting
-  age, citizen or not, disfranchised or not.
-- **elections_turnout_before_1932_adults.** The presidential vote, 1872 to
-  1928, per 100 residents of voting age: men 21 and over through 1916,
-  everyone 21 and over from 1920, the count at each census and a straight
-  line between. The Board's vote in the five years all three districts'
-  counts survive is a square, named by year in the legend: five points in
-  sixty years are not a line. Three dated rules, the Walton Act of 1894, the
-  constitution of 1902 and women voting in 1920. The all-residents version
-  and the by-district figure are retired (Sally, 6 October 2026): the first
-  showed the same shape over a denominator that answers a question the
-  section does not ask, and the second's one finding, that Jefferson fell
-  steepest, is a sentence in the prose with its own built numbers.
+- **elections_turnout.** One panel, 1872 to the present, shares only, since
+  the counts say nothing the shares do not (Sally, 6 October 2026). The
+  presidential vote is one grey line throughout and the thread of the
+  figure. The Board's vote is one colour family in two forms: a square for
+  each of the five district-era elections every district's count survives,
+  named by year in the legend, because five points in sixty years are not a
+  line; and from 1935 three shades by what led the ballot, presidential,
+  midterm and governor's year, darkest first, drawn only in years with one
+  seat on the ballot. One family so the Board reads as one thing against the
+  presidential line, three shades so the trend in each cycle is visible;
+  drawn as one annual line the series is a sawtooth, and the teeth are the
+  ballot, not the Board. The legend names the family once and its four
+  entries under it. A two-seat year is a gap, not a floor, because it
+  records votes and not voters; from 1943 that is every House of Delegates
+  year, and the caption says so. Four dated rules, the Walton Act of 1894,
+  the constitution of 1902, women voting in 1920 and the poll tax falling in
+  1966, their notes placed not to collide. The denominator is men 21 and
+  over through 1916, everyone 21 and over from 1920 and 18 and over from
+  1971, a count at every census and a straight line between; nothing marks
+  1971, which, as with residents_by_race at 1980, is real but small, and a
+  rule would claim more for it than it has. The caption carries it, and that
+  the denominator is every resident of voting age, citizen or not,
+  disfranchised or not. The registered voters are in the table and not
+  drawn: the series is fifteen years long, and the prose can state it in a
+  sentence. The two pre-1932 figures and the by-district figure are retired
+  (Sally, 6 October 2026): the first two are this figure's left third, and
+  the third's one finding, that Jefferson fell steepest, is a sentence in
+  the prose with its own built numbers.
 - **localities_peers.** Arlington beside every Virginia city and county of
   100,000 or more, in two panels that share a legend and a note: (a)
   members against residents, (b) residents per member against density. They

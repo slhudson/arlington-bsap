@@ -17,7 +17,9 @@ district's 1900 race split and every district's 1890 split, a gap that stays
 blank rather than resting on one ("Race by district, counted from the
 schedules", below). Where a source merges two categories, the figures carry
 the merge rather than splitting it on an assumption; the 1940 and 1980 cases
-are below.
+are below. The exception is the district map, whose lines, city outline and
+1915 area are read from a sheet and a description ("Where the lines ran",
+below), and no number is taken from it.
 
 ---
 
@@ -118,20 +120,78 @@ draws: Washington from Arlington near Hall's Hill and the Glebe Estate, and
 Arlington from Jefferson at Four Mile Run near Nauck. It is the only source
 found that draws the lines rather than only lettering each district's name
 across its own interior, which is what the two other period maps checked,
-Hopkins 1879 and Howell and Taylor 1900, do instead; `docs/questions.csv`
-held the search before this map was found.
-`data/transcribed/by_claude/district_lines.csv` keys the two lines off that
-map against the modern street network, extended past the county's edge at
-both ends so `code/clean/residents_by_district_boundaries.py` can split the
-modern county outline (`data/raw/arlington_county/county_outline.geojson`)
-on them cleanly; using the modern outline rather than 1907's removes the
-1915 and 1930 annexations without a separate geometry for either. The
-figure is `residents_by_district_map`, a stylized rendering in
-`style.DISTRICTS`' colors, not a reproduction of the 1907 map. The two
-lines are read off the printed map, not surveyed to it: positions are good
-to within roughly a few hundred meters at this county's scale, which is
-what a figure beside `residents_by_district_race` needs and no more. The
-NARA 1910 and 1920 enumeration-district descriptions (`nara1910eds`,
+Hopkins 1879 and Howell and Taylor 1900, do instead. The figure is
+`residents_by_district_map`, a stylized rendering in `style.DISTRICTS`'
+colors, not a reproduction of the 1907 map.
+
+**How the lines are placed.** The sheet's neatline is the ten-mile square
+itself: its four corners are the diamond's, so the left edge is the square's
+southwest side, the old District line, and the bottom edge its southeast
+side. `data/transcribed/by_claude/district_lines.csv` keys each line by the
+pixel position of its vertices on the 1738 by 2062 scan, converted to
+longitude and latitude by fixing the west corner and the south corner (the
+straight southwest edge of the modern county outline, carried southeast ten
+miles) to the neatline's corners. The basis column gives each pixel position.
+The conversion is checked by drawing the modern county outline on the sheet,
+where the west edge, the northwest edge and the Potomac shore fall on the
+sheet's own; the Potomac differs where the shore has been filled since 1907. Both printed dash-dots run to the neatline at their west ends, so no
+vertex is a guess there; the east end of each lies at the river, and a short
+extension past the shore is the only vertex not read.
+
+An earlier keying, read against the modern street network, put the
+Arlington and Jefferson line up to three kilometers from the printed one and
+the Washington and Arlington line about half a kilometer. It was replaced on
+6 October 2026. The lines are read off the printed map, not surveyed to it:
+positions are good to a few hundred meters, which is what a figure beside
+`residents_by_district_race` needs. East of Cherrydale the Washington and
+Arlington line runs about 200 meters southwest of the Great Falls and Old
+Dominion Railway and parallel to it; it does not lie on the right-of-way.
+
+**The county before 1915.** `code/clean/residents_by_district_boundaries.py`
+joins today's Arlington outline (the County's GIS) with the part of today's
+Alexandria (Census Bureau TIGERweb) that lies northeast of the old District
+line and northwest of the square's southeast side, since the city has since
+taken in Fairfax land beyond the line. The two outlines come from different
+surveys and disagree along their shared edges by up to a couple of hundred
+meters; a strip of Alexandria's narrower than 150 meters beside Arlington's
+edge is dropped, and a gap narrower than 20 meters is closed. The result is
+the Virginia side of the square, about 19,700 acres less the city.
+
+**The city as it stood.** The 1907 sheet draws no corporate limit, only the
+platted streets, so the city's outline is `rose1964`'s description of the 1912
+limits, which is in words ("one-half square north of First Street", "one-half
+a square west of West Street", the north side of Cameron Street, the old
+Francis Peyton lot, the old District line at Hooff's Run), plotted on today's
+street grid. `data/transcribed/by_claude/alexandria_limits_1912.csv` keeps a
+basis per vertex. The outline encloses about 940 acres of today's land
+against the 713 acres Rose gives for 1912. The gap is a third of the figure
+and is unexplained: some of it is shoreline filled since, and the polygon
+cannot say how much. The street the description calls First Street is today's
+First Street, north of Montgomery Street; a north line about 650 meters to the
+south would give Rose's area and is not what the words say.
+
+**1915.** The city's 1911 ordinance sought 866 acres from Arlington County,
+and Rose says the order "simply extended the existing north line of the City
+westward until it intersected with Braddock Road", giving the city only a part
+of that land; "the territory excluded was secured by Alexandria in the 1929
+annexation". The order gives no edge for the west side of the area.
+`data/transcribed/by_claude/alexandria_annexation_1915.csv` closes it on the
+1911 proposal's own edge, which Rose describes: Braddock Road northwest to
+Lloyd's Lane, then south to the District line. That reading gives 376 acres
+and rests on nothing more than Rose's sentence; `docs/questions.csv` holds it
+as `annexation-1915-line`. `alexandria2024` names Rosemont and Shuter's Hill
+among what the city took in 1915, and the drawn area holds both.
+
+**1930.** `alexandria2024` bounds the 1930 annexation by Duke Street on the
+south, Quaker Lane on the west and Four Mile Run on the north. The drawn
+1930 area is what is left of today's Alexandria within the square once the
+1912 city and the 1915 area are out, about 2,700 acres, so it also holds any
+land the city took from the county later; none of it lies west of Quaker
+Lane, as the document's boundary requires. About 20 acres, at the far west,
+lie north of the Arlington and Jefferson line, so the pale area is
+Jefferson district's except for those.
+
+The NARA 1910 and 1920 enumeration-district descriptions (`nara1910eds`,
 `nara1920eds`) describe how each district was split for enumeration, by a
 road or a railway, and not its edges, so they cannot check the lines point
 for point; what they say agrees with the 1907 map on four points: Fort Myer
@@ -140,8 +200,8 @@ Road) enters Arlington district from Jefferson where the 1907 line crosses
 it south of Nauck, the Bluemont branch of the Southern Railway runs inside
 Jefferson from that crossing to the city so it can divide the district in
 two, and the county's part of Falls Church town is wholly in Washington
-district, one to two kilometres north of the line's west end. `rose1964`
-adds that almost all the land Alexandria sought in 1911 was in Jefferson.
+district, north of the line's west end. `rose1964` adds that almost all the
+land Alexandria sought in 1911 was in Jefferson.
 
 ### Race by district, counted from the schedules
 
@@ -304,8 +364,8 @@ series is a Reconstruction moment rather than a stable starting point. See
 
 `data/clean/residents_by_district_adults.csv` counts the men aged 21 and over
 in each district at 1880, 1900, 1910 and 1920, by race, and the county where
-all three districts are counted. It is the denominator of
-`elections_turnout_before_1932_adults` and of `residents_by_district_race_adults`,
+all three districts are counted. It is the pre-1932 denominator of
+`elections_turnout` and the denominator of `residents_by_district_race_adults`,
 and of the district rates the Race prose cites for Jefferson. The county's
 men are counted from the schedules at 1880, 1910 and 1920 and, where the
 schedules cannot give them, read off the volumes that print the county's men
@@ -327,7 +387,7 @@ holds.
 The table also counts the women 21 and over (`women_white`, `women_black`,
 `women_other`, `women_all`) and the two together (`adults_all`), by the same
 placement. Women could not vote in Virginia before 1920, so the figure that
-reads them, `elections_turnout_before_1932_adults`, takes men for the
+reads them, `elections_turnout`, takes men for the
 denominator through 1916 and everyone 21 and over from 1920. 1930 is one county
 row from the census volume's printed counts of males and females 21 and over,
 with no race and no district.

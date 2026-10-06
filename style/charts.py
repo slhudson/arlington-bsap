@@ -16,6 +16,7 @@ each placement is in docs/figures.md.
     scatter_pair()  two scatters stacked, the first with a broken x axis; break_x() draws the break, title_broken() titles it
     dots()          a scatter, dot area from dot_area(), named by dot_label()
     events()        a timeline strip: a dot per event at its year, filled or a ring
+    map_figure()    a map of polygons, with areas() to fill them and corner_legend() to name them
     legend()        one legend for the figure, one row, below the axes
     dot_legend()    the same with a dot per colour, or a ring
     rule()          a dated vertical rule with its note above the frame
@@ -29,7 +30,8 @@ never imports: dot_label() reaches it from here.
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.lines import Line2D
-from matplotlib.patches import Patch
+from matplotlib.offsetbox import AnchoredOffsetbox, DrawingArea, HPacker, TextArea, VPacker
+from matplotlib.patches import Patch, Polygon, Rectangle
 from matplotlib.transforms import ScaledTranslation
 from matplotlib.ticker import (FixedLocator, FuncFormatter, MultipleLocator,
                                PercentFormatter)
@@ -599,6 +601,59 @@ def events(ax, x, filled, colour, profile=style.DEFAULT_PROFILE):
     ax.set_ylim(0, 1)
     ax.yaxis.set_visible(False)
     ax.grid(False, axis="y")
+
+
+def map_figure(profile, shapes):
+    """A map of `shapes`, a list of Nx2 arrays of longitude and latitude: one
+    panel at style.MAP_WIDTH, its plot exactly the shapes' extent with a
+    degree of longitude scaled by cos(latitude), and no axes."""
+    points = np.concatenate(shapes)
+    (x0, y0), (x1, y1) = points.min(axis=0), points.max(axis=0)
+    stretch = 1 / np.cos(np.radians(points[:, 1].mean()))
+    fig, ax = figure(profile, of_width=style.MAP_WIDTH, aspect=(x1 - x0) / (stretch * (y1 - y0)))
+    ax.set_xlim(x0, x1)
+    ax.set_ylim(y0, y1)
+    ax.set_aspect(stretch)
+    ax.set_axis_off()
+    return fig, ax
+
+
+def areas(ax, shapes, color):
+    """`shapes` filled `color`, each outlined in white, so two areas that
+    meet are told apart by the edge between them."""
+    for shape in shapes:
+        ax.add_patch(Polygon(shape, closed=True, facecolor=color,
+                             edgecolor="white", linewidth=style.AREA_EDGE))
+
+
+def corner_legend(ax, entries, indented=()):
+    """A legend inside the axes, bottom left, one entry to a row, a swatch
+    and its label. The labels in `indented` are set in under the entry
+    above, as a note on it. `entries` is ordered {label: colour}. For a map,
+    whose empty corner is the one place a legend can sit without taking
+    land from the picture."""
+    size = plt.rcParams["legend.fontsize"]
+    box = size * style.SWATCH            # points; a swatch is a square
+    rows = []
+    for label, color in entries.items():
+        swatch = DrawingArea(box, box)
+        swatch.add_artist(Rectangle((0, 0), box, box, facecolor=color, edgecolor="none"))
+        row = [swatch, TextArea(label, textprops={"fontsize": size})]
+        if label in indented:
+            row.insert(0, DrawingArea(box * style.INDENT, box))
+        rows.append(HPacker(children=row, align="center", pad=0, sep=size * 0.6))
+    ax.add_artist(AnchoredOffsetbox(
+        loc="lower left", child=VPacker(children=rows, align="left", pad=0, sep=size * 0.5),
+        frameon=False, pad=0, borderpad=0, bbox_to_anchor=(0, 0), bbox_transform=ax.transAxes))
+
+
+def draft_mark(ax, text=style.DRAFT_TEXT):
+    """A grey diagonal watermark across the axes, for a figure still
+    waiting on a decision, so a reader who meets it loose knows it is not
+    final. One line in the figure script adds it and one removes it."""
+    ax.text(*style.DRAFT_AT, text, transform=ax.transAxes, ha="center", va="center",
+            rotation=style.DRAFT_ANGLE, color=style.DRAFT_COLOR, alpha=style.DRAFT_ALPHA,
+            fontsize=plt.rcParams["font.size"] * style.DRAFT_SCALE, fontweight="bold", zorder=10)
 
 
 def comma_axis(axis, top, step, label, per=1):
