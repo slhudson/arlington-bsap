@@ -313,20 +313,37 @@ reached 57,000 residents in 1940 and 135,000 in 1950, five times its size 20
 years earlier.\autocite[239--40, 248]{bestebreurtje2017} It has not stopped: the
 2020 census counted 239,000.
 
-\begin{figure}
-  \centering
+\begin{pairpage}
   \refstepcounter{figure}\label{fig:residents-per-seat}
   {\raggedright\MakeUppercase{Figure \thefigure}\par}
   {\raggedright\bfseries County Population and Board Size\par}
   \medskip
-  \includegraphics[width=\textwidth]{residents_per_seat.pdf}
+  \pairfigure{residents_per_seat.pdf}
   \smallskip
   \figurenotes{
     }{Source: US decennial census, 1870--2020.}
-\end{figure}
+  \vfill
+  \refstepcounter{figure}\label{fig:residents-district-map}
+  {\raggedright\MakeUppercase{Figure \thefigure}\par}
+  {\raggedright\bfseries The Three Magisterial Districts, 1870--1931\par}
+  \smallskip
+  \includegraphics{residents_by_district_map.pdf}
+  \vspace{2pt}
+  \figurenotes{
+    Notes: The county as it stood before Alexandria annexed land from it in 1915
+    and 1930, with the three districts as they stood from 1870 until the Board
+    went at-large in 1932. The 1907 county map is the only map found that draws
+    the district lines, and the lines here are read from it to within a few
+    hundred meters. The paler areas are the land Alexandria annexed in 1915 and
+    1930, almost all of it Jefferson district. The city as it stood in 1912 is
+    left blank. The Potomac is the right-hand edge.}{Source: Noetzel and Boteler,
+    Map of Alexandria County (1907); Rose (1964); Census Bureau and Arlington
+    County boundary files.}
+\end{pairpage}
 
 The Board has changed size once. For those first 60 years it was three
-supervisors, one each from the Arlington, Jefferson and Washington districts, and
+supervisors, one each from the Arlington, Jefferson and Washington districts
+(Figure~\ref{fig:residents-district-map}), and
 the referendum of November 4, 1930, that adopted the Plan also replaced them with
 five members elected at large (Section~\ref{sec:method}); the first such Board
 took its seats in January 1932. With the population of 1930, the change cut the
@@ -639,33 +656,17 @@ minority could elect a member.
 Population change was the background, not the break. The county's Black share
 fell from 63 percent in 1870 to 12.5 percent in 1930, but Jefferson district was
 still \blackShareJeffersonNineteenHundred{} percent Black in 1900
-(Figures~\ref{fig:residents-district-map} and~\ref{fig:residents-district-race}), and in the eight Jefferson
+(Figure~\ref{fig:residents-district-race}), and in the eight Jefferson
 contests from 1889 through 1903 no Black candidate won. A district that was
 still majority Black sent no Black member to the Board.
 
-\begin{pairpage}
-  \refstepcounter{figure}\label{fig:residents-district-map}
-  {\raggedright\MakeUppercase{Figure \thefigure}\par}
-  {\raggedright\bfseries The Three Magisterial Districts, 1870--1931\par}
-  \smallskip
-  \includegraphics{residents_by_district_map.pdf}
-  \vspace{2pt}
-  \figurenotes{
-    Notes: The county as it stood before Alexandria annexed land from it in 1915
-    and 1930, with the three districts as they stood from 1870 until the Board
-    went at-large in 1932. The 1907 county map is the only map found that draws
-    the district lines, and the lines here are read from it to within a few
-    hundred meters. The paler areas are the land Alexandria annexed in 1915 and
-    1930, almost all of it Jefferson district. The city as it stood in 1912 is
-    left blank. The Potomac is the right-hand edge.}{Source: Noetzel and Boteler,
-    Map of Alexandria County (1907); Rose (1964); Census Bureau and Arlington
-    County boundary files.}
-  \vfill
+\begin{figure}
+  \centering
   \refstepcounter{figure}\label{fig:residents-district-race}
   {\raggedright\MakeUppercase{Figure \thefigure}\par}
   {\raggedright\bfseries Black Share of Residents by Magisterial District\par}
   \medskip
-  \pairfigure{residents_by_district_race.pdf}
+  \includegraphics[width=\textwidth]{residents_by_district_race.pdf}
   \smallskip
   \figurenotes{
     Notes: Each line divides a district's Black residents by all of its
@@ -675,7 +676,7 @@ still majority Black sent no Black member to the Board.
     and Alexandria's annexations of 1915 and 1930 mean no district covers the
     same land throughout. Districts ended in 1932, and the 1930 census has no
     district split by race.}{Source: US decennial census, 1870--1920.}
-\end{pairpage}
+\end{figure}
 
 \subsubsection{Districts Without a Guarantee}
 

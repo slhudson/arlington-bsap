@@ -640,7 +640,8 @@ def area_names(ax, names, beside=()):
         centre = polylabel(sg.Polygon(biggest), tolerance=1e-4)
         if label in beside:
             ax.annotate(label, (centre.x, centre.y), xytext=style.NAME_BESIDE, textcoords="offset points",
-                        ha="left", va="center", fontsize=size, color=style.INK_ON_LIGHT,
+                        ha="left" if style.NAME_BESIDE[0] > 0 else "right", va="center", fontsize=size,
+                        color=style.INK_ON_LIGHT,
                         arrowprops=dict(arrowstyle="-", color=style.INK_ON_LIGHT, lw=style.AREA_EDGE,
                                         shrinkA=2, shrinkB=0))
         else:

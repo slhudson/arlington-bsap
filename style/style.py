@@ -159,9 +159,11 @@ DRAFT_ALPHA = 0.22
 DRAFT_SCALE = 4.5
 DRAFT_AT = (0.3, 0.3)
 # The line between two areas of a map, in points, and how far a name that is
-# too big for its area sits beside it, in points across and up, on a leader.
+# too big for its area sits beside it, in points across and up, on a leader;
+# negative across is to its left, which for the 1915 area is the open ground
+# below the county's southwest edge.
 AREA_EDGE = 0.6
-NAME_BESIDE = (22, 0)
+NAME_BESIDE = (-22, 0)
 # Ink for a name set on a fill: white on a dark one, the body grey on a light.
 INK_ON_DARK, INK_ON_LIGHT, DARK_BELOW = "white", "#222222", 0.45
 

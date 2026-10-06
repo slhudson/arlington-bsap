@@ -500,8 +500,9 @@ there the labels can be shortened and here the years cannot.
   Virginia side of the ten-mile square less the city of Alexandria, in the
   three magisterial districts as they stood from 1870 until 1932, and the land
   Alexandria annexed in 1915 and 1930 in two tints of Jefferson's blue. It
-  sits beside residents_by_district_race, which names the districts without
-  saying where they were. Nothing else is on it: a neighbourhood is a region,
+  sits in Board Seats, where the three districts are first named, and the
+  race section points back to it, since residents_by_district_race names the
+  districts without saying where they were. Nothing else is on it: a neighbourhood is a region,
   so a dot answers wrongly; a stream, a road or a railway would be a mark the
   legend does not answer; an edge between two legend colours answers itself.
   The city is left blank, which the caption says, and the Potomac is the
