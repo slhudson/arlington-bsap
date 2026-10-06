@@ -100,11 +100,23 @@ def board_votes(roster) -> pd.DataFrame:
 
 
 def board_districts() -> pd.DataFrame:
-    """1870-1915: the elections for which O'Leary reports a count in every
-    district."""
-    d = elections.oleary(elections.SUPERVISORS)
+    """1870-1915: the November elections with a count for every candidate in
+    all three districts. The Gazette's own returns (candidates_gazette) where
+    it printed them, O'Leary's where it did not; 1907 and 1915 are both in
+    the Gazette and agree with him to the vote, so nothing rests on him
+    here (docs/elections.md, "Which years are not the county's vote")."""
+    g = paths.typed(paths.built("candidates_gazette"))
+    g = g[g.election_date.str[5:7] == "11"]
     rows = []
-    for year, g in d.groupby("year"):
+    for year, h in g.groupby("year"):
+        if h.district.nunique() != 3 or h.votes.isna().any():
+            continue
+        rows.append({"year": int(year), "board_votes": int(h.votes.sum()), "board_seats": 3,
+                     "board_complete": True,
+                     "board_source": f"{h.source.iloc[0]} p.{h.page.iloc[0]}",
+                     "board_note": "one seat per district, so one vote per voter"})
+    d = elections.oleary(elections.SUPERVISORS)
+    for year, g in d[~d.year.isin([r["year"] for r in rows])].groupby("year"):
         counts = [re.findall(r"(\d[\d,]*)(?=\s|$)", e) for e in g.entry]
         if not all(counts) or len(g) != 3:
             continue
@@ -116,7 +128,7 @@ def board_districts() -> pd.DataFrame:
     if not rows:
         raise AssertionError("no district election with a count in every district - "
                              "1907 and 1915 should be there")
-    return pd.DataFrame(rows)
+    return pd.DataFrame(rows).sort_values("year", ignore_index=True)
 
 
 def registration() -> pd.DataFrame:

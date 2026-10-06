@@ -1015,17 +1015,29 @@ def test_a_november_election_that_seats_more_than_five_is_refused():
 
 
 def test_no_district_election_with_a_count_in_every_district_is_refused():
-    """O'Leary's supervisor entries with their counts stripped. With no
+    """The Gazette's supervisor counts and O'Leary's both stripped. With no
     guard 1870-1915 has no board_votes at all, and the turnout figure starts
     in 1931 with nothing to say the earlier series is missing."""
-    def mangle(orig):
+    def strip_oleary(orig):
         def patched(kind, *a, **k):
             d = orig(kind, *a, **k)
             if kind == elections.SUPERVISORS:
                 d = d.assign(entry=d.entry.str.replace(r"\d", "", regex=True))
             return d
         return patched
-    err = breaks(elections, "oleary", mangle, build=elections_turnout.board_districts)
+
+    def strip_gazette(orig):
+        def patched(stem, *a, **k):
+            d = orig(stem, *a, **k)
+            return d.assign(votes="") if stem == "candidates_gazette" else d
+        return patched
+
+    built = elections_turnout.paths.built
+    elections_turnout.paths.built = strip_gazette(built)
+    try:
+        err = breaks(elections, "oleary", strip_oleary, build=elections_turnout.board_districts)
+    finally:
+        elections_turnout.paths.built = built
     assert err and "no district election with a count in every district" in err, \
         f"not caught: {err}"
 
@@ -1414,8 +1426,8 @@ def test_a_row_has_one_line():
 
     The tracker merges by union, so a row narrowed on main and edited on a
     branch comes through the merge twice, once in each wording, and the next
-    reader cannot tell which is current. oleary-regrounded sat in the file
-    twice for a morning on 6 October 2026 after exactly that."""
+    reader cannot tell which is current. One row sat in the file twice
+    for a morning on 6 October 2026 after exactly that."""
     ids = [r["id"] for r in tracker_rows()]
     twice = sorted({i for i in ids if ids.count(i) > 1})
     assert not twice, (

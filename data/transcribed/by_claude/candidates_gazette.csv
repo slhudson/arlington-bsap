@@ -42,6 +42,22 @@ year,election_date,district,name,votes,outcome,race_words,source,page,read_from,
 1901,1901-05-23,Washington,Saegmuller,110,lost,,alexandriagazette19010524p3,3,page image,"For Supervisor: Costello, 132; Saegmuller, 110.",
 1901,1901-05-23,Jefferson,Duncan,281,won,,alexandriagazette19010524p3,3,page image,"For Supervisor: Duncan, 281; Rust, 130.",'All of the present Supervisors were defeated'
 1901,1901-05-23,Jefferson,Rust,130,lost,,alexandriagazette19010524p3,3,page image,"For Supervisor: Duncan, 281; Rust, 130.",
+1907,1907-11-05,Jefferson,E. Duncan,61,won,,alexandriagazette1907election,2,page image,"Varney, 59; Duncan, 61; Walker, 41",the sentence before the counts names the winner and the two he beat
+1907,1907-11-05,Jefferson,Walter U. Varney,59,lost,,alexandriagazette1907election,2,page image,"Varney, 59; Duncan, 61; Walker, 41",
+1907,1907-11-05,Jefferson,Joseph Walker,41,lost,,alexandriagazette1907election,2,page image,"Varney, 59; Duncan, 61; Walker, 41",
+1907,1907-11-05,Washington,W. N. Febrey,98,won,,alexandriagazette1907election,2,page image,"Donaldson, 73; Febrey, 98; Costello, 22","the counts are the same as O'Leary's, who has the initials W.M., J.W. and E.J."
+1907,1907-11-05,Washington,G. W. Donaldson,73,lost,,alexandriagazette1907election,2,page image,"Donaldson, 73; Febrey, 98; Costello, 22",
+1907,1907-11-05,Washington,C. J. Costello,22,lost,,alexandriagazette1907election,2,page image,"Donaldson, 73; Febrey, 98; Costello, 22",
+1907,1907-11-05,Arlington,Corbett,213,won,,alexandriagazette1907election,2,page image,"Corbett, 213; Hagan, 189",surnames only in the Gazette; O'Leary spells the loser Hagen
+1907,1907-11-05,Arlington,Hagan,189,lost,,alexandriagazette1907election,2,page image,"Corbett, 213; Hagan, 189",
+1915,1915-11-02,Arlington,W. C. Wilbert,99,won,,alexandriagazette1915election,2,page image,"for supervisor— W. C. Wilbert, 99; E. C. Hall, 35, W. A. E. McShea, 24, and J. B. Robinson, 4.",O'Leary spells the winner Wibirt
+1915,1915-11-02,Arlington,E. C. Hall,35,lost,,alexandriagazette1915election,2,page image,"for supervisor— W. C. Wilbert, 99; E. C. Hall, 35, W. A. E. McShea, 24, and J. B. Robinson, 4.",
+1915,1915-11-02,Arlington,W. A. E. McShea,24,lost,,alexandriagazette1915election,2,page image,"for supervisor— W. C. Wilbert, 99; E. C. Hall, 35, W. A. E. McShea, 24, and J. B. Robinson, 4.",
+1915,1915-11-02,Arlington,J. B. Robinson,4,lost,,alexandriagazette1915election,2,page image,"for supervisor— W. C. Wilbert, 99; E. C. Hall, 35, W. A. E. McShea, 24, and J. B. Robinson, 4.",
+1915,1915-11-02,Washington,Robert L. Walker,249,won,,alexandriagazette1915election,2,page image,"for supervisor, Robert L. Walker, 249 and W. T. Weaver, 191.",
+1915,1915-11-02,Washington,W. T. Weaver,191,lost,,alexandriagazette1915election,2,page image,"for supervisor, Robert L. Walker, 249 and W. T. Weaver, 191.",
+1915,1915-11-02,Jefferson,Edward Duncan,181,won,,alexandriagazette1915election,2,page image,"for supervisor, Edward Duncan, 181, and Lawrence A. Hopkins, 93.",
+1915,1915-11-02,Jefferson,Lawrence A. Hopkins,93,lost,,alexandriagazette1915election,2,page image,"for supervisor, Edward Duncan, 181, and Lawrence A. Hopkins, 93.",
 1919,1919-11-04,Washington,C. N. Ahalt,241,won,,alexandriagazette19191105p1,1,page image,C. N. Ahalt elected in Washington district over W. H. Payne by a vote of 241 to 204.,no 1919 election in O'Leary
 1919,1919-11-04,Washington,W. H. Payne,204,lost,,alexandriagazette19191105p1,1,page image,C. N. Ahalt elected in Washington district over W. H. Payne by a vote of 241 to 204.,
 1919,1919-11-04,Arlington,Thomas J. DeLashmutt,411,won,,alexandriagazette19191105p1,1,page image,"For supervisor in Arlington district Thomas J. De Lashmutt was elected The vote was De Lashmutt, 411; F. C. Hall, 191; J. R. Robinson, 110; Richard E. Babcock, 34.",

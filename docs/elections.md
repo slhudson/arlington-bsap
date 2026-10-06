@@ -19,9 +19,6 @@ still open.
   prints the others before 1924 cannot be tested against the Secretary's
   own return with anything held online; only a visit to the Library of
   Virginia would settle it (`almanack-against-secretary`).
-- The Board's own totals for 1907 and 1915 are O'Leary's alone; no Gazette
-  page naming the district counts for either election has been read
-  (`oleary-regrounded`).
 - Turnout's denominators: adults after 2020 carried forward
   (`adults-after-2020`), registration before 2010
   (`registration-before-2010`), and votes per seat standing in for ballots
@@ -382,9 +379,8 @@ where a candidate has no label and no other candidate has a non-Democratic,
 non-ABC one.
 
 Before 1931 each district's seat is its own contest. The Gazette's counts
-give ten district margins (1893-1901, 1919), each read off the page image; O'Leary prints the
-counts for 1907 and 1915, and the highest count there is checked against the
-roster. The nominating stage is keyed for 1885 only, where the Gazette names
+give sixteen district margins (1893-1901, 1907, 1915, 1919), each read off the page image, and the
+highest count is checked against the roster. The nominating stage is keyed for 1885 only, where the Gazette names
 the "regular republican" nominee and a "citizens'" candidate against them in
 Arlington District; the other years and districts are gaps.
 
@@ -421,9 +417,14 @@ decides for `elections_results.csv` and `elections_turnout.csv` alike. A year is
 where a named candidate has no count (1942, 1949, and Frisbie in 1947, whose
 page also says its totals are from 8 of 11 precincts) or where the page says
 others ran who are not listed (1931). Before 1932 the Board was elected by
-district, one seat each, so every voter cast one vote; O'Leary reports the
-count for 1907 (756 voters across three districts) and 1915 (876) and "(No
-returns.)" for the rest. Both are in the table and not drawn.
+district, one seat each, so every voter cast one vote; the Gazette prints the
+count for 1907 (756 voters across three districts, issue of 6 November) and 1915 (876, 3
+November) in every district, read off the page image, and O'Leary reports "(No
+returns.)" for the rest. O'Leary's own counts for the two years agree with the
+Gazette's on all sixteen candidates; they differ only in spelling (Hagen for
+Hagan, Wibirt for Wilbert, the initials W.M., J.W. and E.J. for W. N.
+Febrey, G. W. Donaldson and C. J. Costello), and nothing in the table rests on him.
+Both are in the table and not drawn.
 
 **The denominators.** Votes for the Board are the county's candidate history
 1931–2021 and the state database from 2022, write-ins included. Registered
