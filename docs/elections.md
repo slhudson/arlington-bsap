@@ -23,9 +23,11 @@ still open.
   page naming the district counts for either election has been read
   (`oleary-regrounded`).
 - Turnout's denominators: adults after 2020 carried forward
-  (`adults-after-2020`), registration before 2010
-  (`registration-before-2010`), and votes per seat standing in for ballots
-  cast (`ballots-cast`).
+  (`adults-after-2020`), and the county's men of voting age before 1910
+  counted at three censuses until the 1870, 1890 and 1900 volumes are keyed
+  in (`adults-1870-1900`). The modern figure's two-seat years are gaps until
+  ballots cast are found (`ballots-cast`), and the settled forms of the
+  figures are not yet built (`turnout-figures-rebuild`).
 
 - The nominating stage is recorded for at least one winner in 20 of the 89 Board election years since
   1931 (`nominations-1931-1978`, `nominations-1979-2011`,
@@ -399,6 +401,30 @@ the seats those Board votes filled and the number of people the votes
 represent. Each of the four measures has its own source column, because a row
 draws on up to four documents at once.
 
+**Two figures, with a break at 1932.** The report's Board turnout series
+runs from 1935. Before 1932 the county recorded the Board's vote in five of
+29 elections, two of them O'Leary's alone, which is a table and not a series;
+what is reliable before 1932 is the presidential vote, every fourth year from
+1872. So turnout is two figures with a stated break where district election
+ends, not one series. `elections_turnout_before_1932_adults`, in Race under A
+Shrinking Electorate, is the presidential vote per 100 residents of voting
+age, 1872 to 1928, with the five Board elections every district's count
+survives as squares. `elections_turnout` is the share panel alone: the
+presidential vote in grey and the Board's vote in one-seat years as three
+shades of orange by what led the ballot, so the Board reads as one family
+against the presidential line and the trend in each cycle is still visible.
+A two-seat year is a gap, because it records votes and not voters, and that
+takes every House of Delegates year from 1943 (`ballots-cast`). Where the
+modern figure sits in the report, and what point it makes, is not decided;
+Part C, as a contemporary comparison, is the live option. Both figures
+divide by every resident of voting age, non-citizens and the disfranchised
+included, because that is the one denominator that can be held constant
+from 1872 to today, and the caption says so. The all-residents version and
+the by-district figure are retired: the first has no job once the adults
+figure divides by a count at every census, and the second's one finding,
+that Jefferson fell steepest, is a sentence in the prose with its own built
+numbers (Sally, 6 October 2026; `turnout-figures-rebuild`).
+
 **Votes are not voters.** A Board ballot carries one vote per seat being
 filled, so `board_voters` divides the votes by the seats: exactly the number
 of people who voted for the Board when one seat was filled, and a lower bound
@@ -454,10 +480,11 @@ Cast` appears only for 2025. The Department's precinct turnout files from
 2007 were not used; 2008's lacks the central absentee precinct, and in several
 years a precinct's row is repeated once per district it sits in.
 
-**The rates the prose cites are the figures' own.** The two pre-1932 turnout
-figures take their denominators from `code/analysis/elections.py`: the
-presidential vote per 100 residents of voting age, and a district's Board
-contest per 100 men of voting age the nearest census counted there.
+**The rates the prose cites are the figures' own.** The pre-1932 turnout
+figure and the prose take their denominators from `code/analysis/elections.py`:
+the presidential vote per 100 residents of voting age, and a district's Board
+contest per 100 men of voting age the nearest census counted there, which
+the Race section cites for Jefferson though no figure draws it.
 `code/analysis/body_text_numbers.py` reads the same module and writes each rate
 as a command (`\turnoutNineteenFour`, `\boardTurnoutJeffersonNineteenOne`), and
 the Race section's electorate paragraph cites the commands rather than numbers
@@ -465,18 +492,18 @@ typed from the figure, so a change of denominator reaches the prose in the same
 build. `code/tests.py` works the rates out again without the module and refuses
 a command that disagrees.
 
-**What the series shows.** The Board's vote is drawn as four series by what
-else the November ballot carried (the `cycle` column: president, governor,
-midterm, delegates), because drawn as one line it is a sawtooth whose teeth
-are the ballot and not the Board. In a presidential year most of
-the county's presidential voters also vote for the Board.
+**What the series shows.** The Board's vote is drawn by what else the
+November ballot carried (the `cycle` column: president, governor, midterm,
+delegates), because drawn as one line it is a sawtooth whose teeth are the
+ballot and not the Board. In a presidential year most of the county's
+presidential voters also vote for the Board.
 
-As a share of the county's adults, the four series move differently:
+As a share of the county's adults, the cycles move differently:
 
 - **presidential years** rose from the 1940s to 1968, fell back by 1980, and
   reach a majority of adults in 2024;
 - **House of Delegates years**, when the Board tops the ballot, run below the
-  other cycles and rise in 2023;
+  other cycles; from 1943 every one is a two-seat year and is not drawn;
 - **midterm and governor's years** sat well below presidential years for
   decades and have converged on them since 2017.
 
