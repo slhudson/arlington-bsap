@@ -13,6 +13,7 @@ stays, with a one-line reason under it.
 ## Open
 - Election Method, opening block: state that a multi-winner ranked-choice count elects any group of voters larger than the quota (ballots divided by seats plus one, plus one) wherever those voters live, as the arithmetic of the rule, citing the 2020 statute (vaacts2020c713) for the quota; cite no advocacy writing for it. Tracker row method-proportional-claim is closed on this ruling (Sally, 6 Oct).
 - Age (A.3 and the appendix): the county's age shares stand without characterizing Arlington as young or an outlier, and Virginia's share is not cited; the two "young county" sentences are already cut on main, so check nothing else in the section says it (Sally, 6 Oct).
+- Roster (appendix): an asterisk after the name of every member who has ever chaired the Board, from data/clean/members_chairs.csv through code/analysis/members_roster.py, with one note under the panels saying what it marks; no years. That table then has a reader (Sally, 7 Oct).
 
 ## Could not settle
 - Board Seats: the federal-office statute (Acts 1883-84 ch. 145) that emptied Perkins W. Squier's seat in 1884 is, as Code 1950 § 2-27, the one Dean v. Paolicelli applied to take the Board's Non-Partisan majority in 1952, so Arlington held four Board contests on 4 November 1952; one provision at both ends of the period, not yet in the paper (paolicelli1952, dailysun1952appointees). (members.md split, 4 Oct)
