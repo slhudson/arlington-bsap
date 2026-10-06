@@ -56,7 +56,10 @@ overclaim, since neither sex (women couldn't vote in 1910 or the January 1920
 census) nor disenfranchisement (poll taxes and other Jim Crow mechanisms
 through the mid-1960s) is modelled by age alone. Sally shelved the
 voting-eligibility comparison for the flat adult one on 5 October 2026 and
-confirmed the figure on 6 October.
+confirmed the figure on 6 October. The paper's Age subsection states the
+county's own age shares and does not set them against Virginia's: the
+comparison the section makes is Board against county, and a statewide share
+answers a question it does not ask (Sally, 6 October 2026).
 
 **1912–1931 rests on no assumption.** `arlhist1967officials`, the Historical
 Society's own compilation from the Board's minute books, names all three
