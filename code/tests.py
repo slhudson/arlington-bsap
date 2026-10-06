@@ -1332,6 +1332,24 @@ def test_a_body_text_number_is_the_clean_tables_number():
         census = min((1880, 1900, 1910, 1920), key=lambda c: (abs(c - r.year), c))
         expected[f"boardTurnout{district}{said(r.year)}"] = half_up(r.votes_cast / men[(district, census)] * 100)
 
+    # The seat comparisons, worked out again from the clean tables: residents
+    # per member to the nearest thousand, halves up.
+    def thousand(x):
+        return f"{int(math.floor(x / 1000 + 0.5)) * 1000:,}"
+
+    seats = pd.read_csv(ROOT / "data" / "clean" / "residents.csv").set_index("year")
+    expected["residentsPerSeatEighteenSeventy"] = thousand(seats.total[1870] / seats.board_seats[1870])
+    expected["residentsPerSeatTwoThousandTwenty"] = thousand(seats.total[2020] / seats.board_seats[2020])
+    peers = pd.read_csv(ROOT / "data" / "clean" / "localities.csv").set_index("locality")
+    for name in ("Arlington", "Loudoun", "Virginia Beach", "Norfolk", "Chesapeake"):
+        expected[f"perMember{name.replace(' ', '')}"] = thousand(peers.residents[name] / peers.members[name])
+    southeast = pd.read_csv(ROOT / "data" / "clean" / "localities_southeastern.csv")
+    others = southeast[southeast.locality != "Arlington"]
+    arlington = peers.residents["Arlington"] / peers.members["Arlington"]
+    expected["southeastPlaces"] = str(len(others))
+    expected["southeastMore"] = ["none", "one", "two", "three", "four", "five", "six", "seven",
+                                 "eight", "nine", "ten"][int((others.residents / others.members > arlington).sum())]
+
     wrong = [f"\\{name} is {value}, the table gives {expected.get(name, 'nothing')}"
              for name, value, _ in body_text_numbers() if expected.get(name) != value]
     assert not wrong, "paper/body_text_numbers.tex:\n  " + "\n  ".join(wrong)

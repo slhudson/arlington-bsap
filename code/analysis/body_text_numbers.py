@@ -13,6 +13,13 @@ whole number, with "percent" left to the sentence.
                                 age, each presidential year 1880-1928
     boardTurnout<District><Year>  votes in a district's Board contest per 100
                                 men of voting age, each contest with a count
+    residentsPerSeat<Year>      residents per Board seat, to the nearest thousand
+    perMember<Locality>         residents per member of a Virginia locality's
+                                governing body, 2020, to the nearest thousand
+    southeastPlaces             the other cities and counties of 150,000 to
+                                300,000 in the southeastern comparison
+    southeastMore               of them, those with more residents per member,
+                                spelled out
 
     Jefferson held \shareJeffersonEighteenSeventy{} percent of the county.
 
@@ -34,6 +41,8 @@ def year_words(year: int) -> str:
     """1900 -> NineteenHundred, 1904 -> NineteenFour, 1928 -> NineteenTwentyEight:
     the year as it is said, in letters, for a command name."""
     century, rest = divmod(int(year), 100)
+    if century == 20:                      # 2020 -> TwoThousandTwenty
+        return "TwoThousand" + (TENS[rest // 10] + ONES[rest % 10] if rest >= 20 else ONES[rest])
     if rest == 0:
         tail = "Hundred"
     elif rest < 20:
@@ -51,6 +60,46 @@ def per_cent(part, whole) -> str:
 def whole(rate) -> str:
     """A rate per 100 as the paper prints it: a whole number, halves rounded up."""
     return str(Decimal(float(rate)).quantize(0, ROUND_HALF_UP))
+
+
+def thousands(x) -> str:
+    """A count to the nearest thousand, as the paper prints it: 47729 -> 48,000."""
+    return f"{int(Decimal(float(x) / 1000).quantize(0, ROUND_HALF_UP)) * 1000:,}"
+
+
+def seats() -> dict:
+    """The seat comparisons Part C's Board Seats draws, against Arlington's own
+    past and against two sets of peers. Each claim the prose makes about a set
+    is asserted here, so a data change that falsifies a sentence stops the
+    build instead of printing."""
+    r = paths.read("residents").set_index("year").residents_per_seat
+    out = {f"residentsPerSeat{year_words(y)}": thousands(r[y]) for y in (1870, 2020)}
+
+    va = paths.read("localities")
+    va = va[va.residents >= 100_000].copy()
+    va["per"] = va.residents / va.members
+    me = va[va.locality == "Arlington"].iloc[0]
+    for name in ("Arlington", "Loudoun", "VirginiaBeach", "Norfolk", "Chesapeake"):
+        row = va[va.locality.str.replace(" ", "") == name].iloc[0]
+        out[f"perMember{name}"] = thousands(row.per)
+    above = va[va.per > me.per]
+    assert (above.kind == "county").all() and (above.residents > me.residents).all(), \
+        "the Virginia places above Arlington are no longer all larger counties"
+    its_size = va[(va.kind == "city") & va.residents.between(0.9 * me.residents,
+                                                             1.1 * me.residents)]
+    assert len(its_size) and (its_size.per < me.per).all(), \
+        "a city of Arlington's size now carries more residents per member"
+
+    se = paths.read("localities_southeastern")
+    se["per"] = se.residents / se.members
+    se = se[se.locality != "Arlington"]
+    above = se[se.per > me.per]
+    assert (above.kind == "county").all() and (above.members <= 5).all(), \
+        "the southeastern places above Arlington are no longer all counties of five seats or fewer"
+    assert (se[se.kind == "city"].per < me.per).all(), "a southeastern city now carries more"
+    out["southeastPlaces"] = str(len(se))
+    out["southeastMore"] = ONES[len(above)].lower()
+    return out
 
 
 def member_shares() -> dict:
@@ -109,6 +158,7 @@ def numbers() -> dict:
         out[f"blackShare{r.district}{year_words(r.year)}"] = per_cent(r.black, r.total)
     out.update(member_shares())
     out.update(turnout())
+    out.update(seats())
     return out
 
 
