@@ -10,7 +10,6 @@ import charts
 import paths
 import style
 
-# North to south on the page, which is the order the legend reads.
 AREAS = {**style.DISTRICTS, **style.ANNEXED}
 ORDER = ("Washington", "Arlington", "Jefferson", "annexed 1915", "annexed 1930")
 
@@ -31,7 +30,10 @@ for profile in style.PROFILES:
     fig, ax = charts.map_figure(profile, [s for parts in shapes.values() for s in parts])
     for area in ORDER:
         charts.areas(ax, shapes[area], AREAS[area][1])
-    charts.corner_legend(ax, {AREAS[area][0]: AREAS[area][1] for area in ORDER},
-                         indented=[AREAS[a][0] for a in style.ANNEXED])
+    # A name is wrapped after its first word, so "Arlington District" stands
+    # on two lines; the 1915 area, too small for its name, is named beside it.
+    names = {AREAS[area][0].replace(" ", "\n", 1) if area != "annexed 1915" else AREAS[area][0]:
+             (shapes[area], AREAS[area][1]) for area in ORDER}
+    charts.area_names(ax, names, beside=[AREAS["annexed 1915"][0]])
     charts.draft_mark(ax)        # until annexation-1915-line is settled (docs/questions.csv)
     paths.save(fig, profile)

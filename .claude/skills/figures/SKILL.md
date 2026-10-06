@@ -176,6 +176,8 @@ I'm confused it needs explaining" (Sally, 5 October 2026).
   narrow figure — **break it into two rows rather than shrinking the type or
   cramming the swatches.** `charts.legend(fig, entries, ncol=...)` sets the
   entries per row. Never shrink the type.
+- **A map has no legend.** Each area is named on it, `charts.area_names()`, and an
+  area too small for its name takes the name beside it on a leader.
 - A category with no data anywhere gets no swatch. An empty legend entry reads
   as a sliver too small to see rather than as zero, and the absence belongs in
   the prose. Test on the data, not on the category name.

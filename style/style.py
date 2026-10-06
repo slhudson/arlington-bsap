@@ -143,27 +143,34 @@ def tint(color, strength):
 # The land Alexandria annexed was Jefferson district's, so each year is a
 # tint of Jefferson's blue, the earlier the darker. See docs/figures.md.
 ANNEXED = {
-    "annexed 1915": ("annexed by Alexandria, 1915", tint(DISTRICTS["Jefferson"][1], 0.55)),
-    "annexed 1930": ("annexed by Alexandria, 1930", tint(DISTRICTS["Jefferson"][1], 0.28)),
+    "annexed 1915": ("annexed 1915", tint(DISTRICTS["Jefferson"][1], 0.55)),
+    "annexed 1930": ("annexed 1930", tint(DISTRICTS["Jefferson"][1], 0.28)),
 }
 # A map of the county is taller than wide, so it takes this fraction of the
 # profile's width rather than the whole. See docs/figures.md.
 MAP_WIDTH = 0.5
-# A map's corner legend: a swatch is this many times the type's height, an
-# entry set in under the one above is moved in by this many swatches, and the
-# line between two areas is this many points wide.
 # The watermark on a figure still waiting on a decision: its words, the
-# angle it runs at, where its centre sits in the axes, its grey, how faint, and its size as a multiple of the
-# body type.
+# angle it runs at, where its centre sits in the axes, its grey, how faint,
+# and its size as a multiple of the body type.
 DRAFT_TEXT = "DRAFT"
 DRAFT_ANGLE = 35
 DRAFT_COLOR = "#444444"
 DRAFT_ALPHA = 0.22
 DRAFT_SCALE = 4.5
-DRAFT_AT = (0.5, 0.62)
-SWATCH = 1.0
-INDENT = 1.6
+DRAFT_AT = (0.3, 0.3)
+# The line between two areas of a map, in points, and how far a name that is
+# too big for its area sits beside it, in points across and up, on a leader.
 AREA_EDGE = 0.6
+NAME_BESIDE = (22, 0)
+# Ink for a name set on a fill: white on a dark one, the body grey on a light.
+INK_ON_DARK, INK_ON_LIGHT, DARK_BELOW = "white", "#222222", 0.45
+
+
+def ink_on(color):
+    """The ink that reads on `color`."""
+    r, g, b = mpl.colors.to_rgb(color)
+    return INK_ON_DARK if 0.2126 * r + 0.7152 * g + 0.0722 * b < DARK_BELOW else INK_ON_LIGHT
+
 
 PRESIDENT = ("votes for President", DARK)
 # The two presidential years with no state return found, drawn hollow on the line.

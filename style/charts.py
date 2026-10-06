@@ -16,7 +16,7 @@ each placement is in docs/figures.md.
     scatter_pair()  two scatters stacked, the first with a broken x axis; break_x() draws the break, title_broken() titles it
     dots()          a scatter, dot area from dot_area(), named by dot_label()
     events()        a timeline strip: a dot per event at its year, filled or a ring
-    map_figure()    a map of polygons, with areas() to fill them and corner_legend() to name them
+    map_figure()    a map of polygons, with areas() to fill them and area_names() to name them
     legend()        one legend for the figure, one row, below the axes
     dot_legend()    the same with a dot per colour, or a ring
     rule()          a dated vertical rule with its note above the frame
@@ -28,10 +28,11 @@ The geometry of a name beside a dot is labels.py, which a figure script
 never imports: dot_label() reaches it from here.
 """
 import numpy as np
+import shapely.geometry as sg
+from shapely.ops import polylabel
 from matplotlib import pyplot as plt
 from matplotlib.lines import Line2D
-from matplotlib.offsetbox import AnchoredOffsetbox, DrawingArea, HPacker, TextArea, VPacker
-from matplotlib.patches import Patch, Polygon, Rectangle
+from matplotlib.patches import Patch, Polygon
 from matplotlib.transforms import ScaledTranslation
 from matplotlib.ticker import (FixedLocator, FuncFormatter, MultipleLocator,
                                PercentFormatter)
@@ -626,25 +627,25 @@ def areas(ax, shapes, color):
                              edgecolor="white", linewidth=style.AREA_EDGE))
 
 
-def corner_legend(ax, entries, indented=()):
-    """A legend inside the axes, bottom left, one entry to a row, a swatch
-    and its label. The labels in `indented` are set in under the entry
-    above, as a note on it. `entries` is ordered {label: colour}. For a map,
-    whose empty corner is the one place a legend can sit without taking
-    land from the picture."""
-    size = plt.rcParams["legend.fontsize"]
-    box = size * style.SWATCH            # points; a swatch is a square
-    rows = []
-    for label, color in entries.items():
-        swatch = DrawingArea(box, box)
-        swatch.add_artist(Rectangle((0, 0), box, box, facecolor=color, edgecolor="none"))
-        row = [swatch, TextArea(label, textprops={"fontsize": size})]
-        if label in indented:
-            row.insert(0, DrawingArea(box * style.INDENT, box))
-        rows.append(HPacker(children=row, align="center", pad=0, sep=size * 0.6))
-    ax.add_artist(AnchoredOffsetbox(
-        loc="lower left", child=VPacker(children=rows, align="left", pad=0, sep=size * 0.5),
-        frameon=False, pad=0, borderpad=0, bbox_to_anchor=(0, 0), bbox_transform=ax.transAxes))
+def area_names(ax, names, beside=()):
+    """Each area's name set on it, at the centre of the largest circle that
+    fits inside, in the ink that reads on its fill; a map names its areas
+    where they are and takes no legend. `names` is ordered
+    {label: (shapes, colour)}. A label in `beside` belongs to an area too
+    small to hold it, and is set beside the area on a short leader, in the
+    body ink."""
+    size = plt.rcParams["font.size"]
+    for label, (shapes, color) in names.items():
+        biggest = max(shapes, key=lambda s: sg.Polygon(s).area)
+        centre = polylabel(sg.Polygon(biggest), tolerance=1e-4)
+        if label in beside:
+            ax.annotate(label, (centre.x, centre.y), xytext=style.NAME_BESIDE, textcoords="offset points",
+                        ha="left", va="center", fontsize=size, color=style.INK_ON_LIGHT,
+                        arrowprops=dict(arrowstyle="-", color=style.INK_ON_LIGHT, lw=style.AREA_EDGE,
+                                        shrinkA=2, shrinkB=0))
+        else:
+            ax.text(centre.x, centre.y, label, ha="center", va="center", fontsize=size,
+                    color=style.ink_on(color), linespacing=1.15)
 
 
 def draft_mark(ax, text=style.DRAFT_TEXT):

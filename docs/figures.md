@@ -505,12 +505,15 @@ there the labels can be shortened and here the years cannot.
   so a dot answers wrongly; a stream, a road or a railway would be a mark the
   legend does not answer; an edge between two legend colours answers itself.
   The city is left blank, which the caption says, and the Potomac is the
-  right-hand edge. The legend is inside the axes, bottom left, because the
-  corner the diamond leaves empty is the one place a legend takes no land
-  from the picture, and it is stacked, with the two annexations set in under
-  Jefferson because they are Jefferson's. `charts.corner_legend()`; the
-  indent, the swatch and the edge between areas are `style.INDENT`,
-  `style.SWATCH` and `style.AREA_EDGE`. What the lines rest on is in
+  right-hand edge. There is no legend: each area is named where it is, which is faster to read
+  than a swatch and a key (Sally, 6 October 2026), and the districts are named
+  "Arlington District" and not "Arlington" because this report is about Arlington
+  County. The 1915 area is too small to hold its name, so its name sits beside
+  it on a short leader, the only line on the map that is not an edge. Names are
+  white on the dark fill and the body grey on the others,
+  `charts.area_names()`, `style.ink_on()`. `style.AREA_EDGE` is the edge
+  between areas. While the 1915 area waits on a decision a grey DRAFT runs across the empty
+  corner, `charts.draft_mark()`. What the lines rest on is in
   `docs/residents.md`, "Where the lines ran".
 
 - **residents_by_district_race_adults.** The figure the paper carries, in
