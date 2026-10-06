@@ -1349,7 +1349,7 @@ def test_a_body_text_number_is_the_clean_tables_number():
     adults = pd.read_csv(ROOT / "data" / "clean" / "residents_by_district_adults.csv")
     county = adults[adults.district == "county"].set_index("year").sort_index()
     results = pd.read_csv(ROOT / "data" / "clean" / "elections_results.csv")
-    for r in results[(results.office == "president") & results.year.between(1880, 1928)].itertuples():
+    for r in results[(results.office == "president") & results.year.between(1872, 1928)].itertuples():
         column = "men_all" if r.year < 1920 else "adults_all"
         series = county[column].dropna()
         before = series[series.index <= r.year].index.max()
