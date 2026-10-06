@@ -421,11 +421,12 @@ alone: the bulletin prints the city as a line of its own, and the 6,430 are
 the three districts'. The counts are all males 21 and over, as the schedules
 count them; 1870 also prints male citizens, 4,027 for the county and nothing
 for the city, and the county's row is keyed as males so that the two sides of
-the subtraction are the same thing. One cell is a hard read: 1890's colored
-men in the county row, 1,620, sit on a scan where 6 and 8 print alike, and
-1,820 would put them out of proportion to the 1,120 colored men 18 to 44
-beside them, which the city's 1,117 to 781 and the white men in both rows
-keep. Between censuses the figure still draws a straight line, but no line
+the subtraction are the same thing. One cell prints where 6 and 8 look alike, in
+every scan of the page: 1890's colored men in the county row, 1,620. The
+tables beside it fix the digit. The county row's colored males are 3,475
+(Table 22) and the city's 2,393 (Table 23), so the county alone has 1,082;
+1,620 less the city's 1,117 leaves 503 of them 21 and over, 46.5%, where the
+city's 1,117 of 2,393 is 46.7%. 1,820 would make it 65%. Between censuses the figure still draws a straight line, but no line
 now crosses more than the ten years between two counts.
 
 **Arlington's 1900 count is a floor.** The database holds 2,701 of the 3,200
