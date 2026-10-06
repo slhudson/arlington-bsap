@@ -25,6 +25,7 @@ paper/*.run.xml
 # code/fetch/census_volumes.py and checked against data/contents.csv.
 data/raw/us_census_bureau/1880/1880_v1-12.pdf
 data/raw/us_census_bureau/1880/1880_v1-13.pdf
+data/raw/us_census_bureau/1880/1880_v1-16.pdf
 data/raw/us_census_bureau/1870/population-1870a-57.pdf
 data/raw/us_census_bureau/1870/population-1870a-58.pdf
 data/raw/us_census_bureau/1890/1890a_v1-11.pdf
