@@ -687,9 +687,12 @@ there the labels can be shortened and here the years cannot.
   (Sally, 6 October 2026): the first two are this figure's left third, and
   the third's one finding, that Jefferson fell steepest, is a sentence in
   the prose with its own built numbers. The family is
-  `style.BOARD_FAMILY`: vermilion darkened for the squares, vermilion for a
-  presidential year, then two lighter tints, the lightest tested on a
-  printed page. The legend is stacked, `charts.legend_family()`, the heading
+  `style.BOARD_FAMILY`: four tints of one hue, one per thing that led the
+  ballot, darkest for a presidential year and lightest for a House of
+  Delegates year, which only the district-era squares carry because a
+  two-seat year is a gap from 1943. A square is a district-era election and a
+  circle a one-seat year, so shape and shade answer two questions and the
+  legend swatch for delegates is a square. The legend is stacked, `charts.legend_family()`, the heading
   with no swatch and its four entries indented beneath, because five rows
   under one name read as one thing where five rows side by side would not.
   The rules' notes stand at two heights, `charts.rule(tier=)`, because the
