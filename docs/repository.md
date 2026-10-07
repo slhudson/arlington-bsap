@@ -91,19 +91,16 @@ keep their names without the `.gz`, since clean steps look a table up by that
 name. The IPUMS codebooks, the 1980 record layout and the README stay plain
 text: nothing reads them, and a reader can open them.
 
-## Why `sources/documents` moved out of Drive and into the repository
+## Why `sources/documents` is committed
 
-**`sources/documents` holds, committed, what used to sit in the project's
-Drive folder**: a copy of every source the report cites that no number is
-taken from, filed by kind, with the `index.md` that `code/sources/archive.py`
-writes at its top. Moved in on 7 October 2026, 546 files and 666MB, with the
-clone after at about 770MB - plain git, no LFS, accepted at that size (Sally,
-7 October 2026). The Drive folder itself was left in place rather than
-deleted, but nothing in the project reads it any more: `archive.DOCUMENTS`
-and every script that takes a `--documents` flag point at `sources/documents`
-by default.
+**`sources/documents` holds, committed, a copy of every source the report
+cites that no number is taken from**, filed by kind, with the `index.md` that
+`code/sources/archive.py` writes at its top. 546 files and 666MB, with the
+clone at about 770MB - plain git, no LFS, accepted at that size (Sally,
+7 October 2026). `archive.DOCUMENTS` and every script that takes a
+`--documents` flag point at `sources/documents` by default.
 
-The point of moving it is the same reason `data/clean/` is committed despite
+The point of committing it is the same reason `data/clean/` is committed despite
 the usual rule against committing generated data (above): a cited copy next
 to its citation is something a reviewer can open from the same clone that
 holds `paper/bib/sources.bib`, rather than a second system with its own sharing

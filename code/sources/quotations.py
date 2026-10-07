@@ -5,7 +5,7 @@
 Rose 1976 p. 176 put "continuous, contiguous, and homogeneous community" in
 the Supreme Court of Appeals' mouth. The phrase reached a proposal, the
 paper and a slide the County was sent, and nothing here would have caught
-it: the opinion had been filed in Drive all along and no one compared the
+it: the opinion had been filed all along and no one compared the
 two. This does.
 
 Only the entries archive.kind() files under legal/ are checked. Those copies

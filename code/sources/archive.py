@@ -34,9 +34,7 @@ BIB = ROOT / "paper" / "bib" / "sources.bib"
 CONTENTS = ROOT / "data" / "contents.csv"
 
 # A copy of every source the report cites that no number is taken from,
-# committed in the repository beside its citation. Moved here from the
-# project's Drive on 7 October 2026 (docs/repository.md); the Drive folder is
-# no longer where the project reads from.
+# committed in the repository beside its citation (docs/repository.md).
 DOCUMENTS = ROOT / "sources" / "documents"
 
 # Who indexes the census schedules. Each keys the names off a scan of the same

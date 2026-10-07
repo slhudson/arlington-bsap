@@ -97,10 +97,9 @@ the record to the member, and a name alone is no match.
 
 ## sources/documents
 
-Committed in the repository, beside its citation: moved out of the
-project's Drive on 7 October 2026 (`docs/repository.md`), so a cited copy
-sits next to `paper/bib/sources.bib` rather than off in Drive. The folder is
-filed by kind, and its index is generated.
+Committed in the repository, beside its citation (`docs/repository.md`), so a
+cited copy sits next to `paper/bib/sources.bib`. The folder is filed by kind,
+and its index is generated.
 `code/sources/archive.py` files the documents folder into `legal`, `reports`, `books`, `bios`,
 `campaign websites`, `press`, `obituaries` and `census`, the kind being a rule on the
 bib entry; writes `index.md` at its top from `paper/bib/sources.bib` and

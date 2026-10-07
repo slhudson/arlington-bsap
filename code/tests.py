@@ -1919,7 +1919,7 @@ BENNETT = ('Filed in sources/documents as "legal/state courts/Supreme Court of A
 def test_a_quotation_the_document_does_not_contain_is_refused():
     """The Bennett misattribution, reintroduced: Rose's phrase written as
     the court's own. Nothing caught it for months because the opinion was
-    filed in Drive all along and no one compared the two."""
+    filed all along and no one compared the two."""
     bib = a_legal_entry("planted", 'The court held that Arlington was "a continuous, '
                                    'contiguous, and homogeneous community". ' + BENNETT)
     missing, read = quotations.unsupported(bib)
@@ -3239,12 +3239,13 @@ def cache_repo():
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp).resolve()
         subprocess.run(["git", "init", "-q", str(root)], check=True)
-        saved = cache.ROOT, paper.ROOT, paper.PAPER
+        saved = cache.ROOT, paper.ROOT, paper.PAPER, paper.BUILD
         cache.ROOT, paper.ROOT, paper.PAPER = root, root, root / "paper"
+        paper.BUILD = paper.PAPER / "build"
         try:
             yield root
         finally:
-            cache.ROOT, paper.ROOT, paper.PAPER = saved
+            cache.ROOT, paper.ROOT, paper.PAPER, paper.BUILD = saved
 
 
 def test_a_cache_key_follows_the_bytes_not_the_time():
@@ -3325,6 +3326,79 @@ def test_a_compiles_inputs_come_from_latexmks_record():
                        "OUTPUT arlington-bsap.pdf\n")
         found = paper.inputs_read(fls)
     assert found == ["figures/pdf/members_age.pdf", "paper/arlington-bsap.tex"], found
+
+
+def test_a_compile_leaves_its_files_in_build_and_the_pdf_beside_the_source():
+    """paper/ is what a co-author opens, so latexmk works in paper/build/ and
+    only the finished PDF is copied up, to the path it has always had. A
+    stand-in latexmk writes what the real one does, so this runs without
+    LaTeX: it is the copy and the location that are under test."""
+    with cache_repo() as root, tempfile.TemporaryDirectory() as bin_dir:
+        fake = Path(bin_dir) / "latexmk"
+        fake.write_text(
+            "#!/usr/bin/env python3\n"
+            "import sys, pathlib\n"
+            "out = [a.split('=', 1)[1] for a in sys.argv if a.startswith('-outdir=')][0]\n"
+            "src = pathlib.Path(sys.argv[-1])\n"
+            "d = pathlib.Path(out); d.mkdir(exist_ok=True)\n"
+            "(d / (src.stem + '.pdf')).write_bytes(b'%PDF-fake')\n"
+            "(d / (src.stem + '.log')).write_text('')\n"
+            "(d / (src.stem + '.fls')).write_text('PWD ' + str(pathlib.Path.cwd()) + '\\nINPUT ' + str(src) + '\\n')\n")
+        fake.chmod(0o755)
+        (root / "paper").mkdir()
+        (root / "paper" / "arlington-bsap.tex").write_text("x\n")
+        saved_path, saved_stem = os.environ["PATH"], paper.STEM
+        os.environ["PATH"] = f"{bin_dir}{os.pathsep}{saved_path}"
+        try:
+            paper.STEM = "arlington-bsap"
+            paper.main()
+        finally:
+            os.environ["PATH"], paper.STEM = saved_path, saved_stem
+        assert (root / "paper" / "build" / "arlington-bsap.log").exists(), "latexmk's files are not in paper/build/"
+        assert (root / "paper" / "arlington-bsap.pdf").read_bytes() == b"%PDF-fake", \
+            "the PDF was not copied up beside the source"
+        stray = sorted(f.name for f in (root / "paper").iterdir()
+                       if f.is_file() and f.suffix in (".aux", ".log", ".fls", ".bcf"))
+        assert not stray, f"latexmk left files beside the source: {stray}"
+
+
+def test_paper_holds_only_what_a_co_author_should_see():
+    """paper/ is the whole of what Overleaf shows (code/publish.py), so a
+    stray file added to it - a note, a scratch compile, a data file - reaches
+    every co-author. Everything tracked at its top level is named here; to add
+    a section folder or a generated .tex, add it to this list on purpose."""
+    allowed = {"arlington-bsap.tex", "summary.tex", "body_text_numbers.tex",
+               "a_history", "b_community_input", "c_future_work", "appendix",
+               "bib", "timelines"}
+    tracked = subprocess.run(["git", "ls-files", "paper"], cwd=ROOT, check=True,
+                             capture_output=True, text=True).stdout.split("\n")
+    top = {Path(f).parts[1] for f in tracked if f}
+    assert top <= allowed, f"paper/ holds something a co-author should not see: {sorted(top - allowed)}"
+
+
+def test_every_tex_file_under_paper_is_reached_from_a_document():
+    """The report was split into one file per section, and a file nothing
+    \\inputs is a section that silently dropped out of the PDF. Follow every
+    \\input (and the roster's \\rosterinput) from each document's root and
+    require that every tracked .tex under paper/ was reached."""
+    paper_dir = ROOT / "paper"
+    reached, todo = set(), [paper_dir / path for path in paper.SOURCES.values()]
+    while todo:
+        tex = todo.pop()
+        if tex in reached:
+            continue
+        reached.add(tex)
+        live = "\n".join(re.sub(r"(?<!\\)%.*", "", line) for line in tex.read_text().split("\n"))
+        for m in re.finditer(r"\\(?:input|rosterinput)\s*\{?([^}\s]+)\}?", live):
+            name = m.group(1)
+            target = paper_dir / (name if name.endswith(".tex") else name + ".tex")
+            if target.exists():
+                todo.append(target)
+    tracked = {ROOT / f for f in subprocess.run(
+        ["git", "ls-files", "paper/*.tex"], cwd=ROOT, check=True,
+        capture_output=True, text=True).stdout.split("\n") if f}
+    orphans = sorted(str(f.relative_to(ROOT)) for f in tracked - reached)
+    assert not orphans, "no document inputs these, so they are not in any PDF:\n  " + "\n  ".join(orphans)
 
 
 def test_editing_the_bibliography_changes_a_compiles_key():
