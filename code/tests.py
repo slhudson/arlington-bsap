@@ -11,7 +11,6 @@ import contextlib
 import csv
 import hashlib
 import importlib
-import math
 import os
 import re
 import shutil
@@ -1351,136 +1350,32 @@ def test_a_second_arlington_row_in_the_peer_table_is_refused():
 
 # --- the numbers the prose cites ------------------------------------------------
 
-def body_text_numbers():
-    """(name, value, the rest of the line) for each command
-    paper/body_text_numbers.tex defines."""
-    tex = (ROOT / "paper" / "body_text_numbers.tex").read_text()
-    return re.findall(r"^\\newcommand\{\\(\w+)\}\{([^}]*)\}(.*)$", tex, re.M)
+def regenerated_body_text_numbers():
+    """What code/analysis/body_text_numbers.py would write now, from the
+    clean tables. Run in this process with its two folders on the path, and
+    returned, never written."""
+    folders = [str(ROOT / "code" / "analysis"), str(ROOT / "style")]
+    sys.path[:0] = folders
+    try:
+        module = importlib.import_module("body_text_numbers")
+        return module.tex(module.numbers())
+    finally:
+        for f in folders:
+            sys.path.remove(f)
+        for name, m in list(sys.modules.items()):
+            file = getattr(m, "__file__", None)
+            if file and Path(file).resolve().is_relative_to(ROOT / "code" / "analysis"):
+                del sys.modules[name]
 
 
 def test_a_body_text_number_is_the_clean_tables_number():
-    """A value in paper/body_text_numbers.tex that is not the share its clean
-    table gives, worked out here separately: a hand edit, a rounding change,
-    or a file left from before the table moved."""
-    words = {1870: "EighteenSeventy", 1880: "EighteenEighty", 1890: "EighteenNinety",
-             1900: "NineteenHundred", 1910: "NineteenTen", 1920: "NineteenTwenty",
-             1930: "NineteenThirty"}
-
-    def rounded(part, whole):          # a whole per cent, halves up
-        return str((200 * int(part) + int(whole)) // (2 * int(whole)))
-
-    d = pd.read_csv(ROOT / "data" / "clean" / "residents_by_district.csv")
-    expected = {}
-    for r in d.itertuples():
-        county = d.loc[d.year == r.year, "total"].sum()
-        expected[f"share{r.district}{words[r.year]}"] = rounded(r.total, county)
-        if pd.notna(r.black):
-            expected[f"blackShare{r.district}{words[r.year]}"] = rounded(r.black, r.total)
-
-    m = pd.read_csv(ROOT / "data" / "clean" / "members.csv").drop_duplicates(subset="name")
-    expected["genderCensusShareMembers"] = rounded(m.gender_source.str.contains("census").sum(), len(m))
-    expected["raceAssumedShareMembers"] = rounded((m.race_source == "assumed").sum(), len(m))
-    expected["membersTotal"] = str(len(m))
-    white_men = int(((m.gender == "man") & (m.race == "White")).sum())
-    expected["whiteMenMembers"] = str(white_men)
-    expected["notWhiteMenMembers"] = str(len(m) - white_men)
-    expected["birthYearMissingMembers"] = str(int(m.birth_year.isna().sum()))
-    not_white_men = int(((m.gender != "man") | (m.race != "White")).sum())
-    expected["notWhiteMenMembers"] = str(not_white_men)
-    expected["whiteMenMembers"] = str(len(m) - not_white_men)
-
-    # The 2020 groups, and what a majority of one of five equal districts would
-    # take of each: more than half of total / seats, over the group's residents.
-    r20 = pd.read_csv(ROOT / "data" / "clean" / "residents.csv").set_index("year").loc[2020]
-    majority = int(r20.total // r20.board_seats // 2) + 1
-    expected["districtMajorityTwoThousandTwenty"] = f"{(majority + 500) // 1000 * 1000:,}"
-    for name, column in (("Black", "black"), ("Hispanic", "hisp"), ("Asian", "aapi")):
-        expected[f"groupShare{name}TwoThousandTwenty"] = rounded(r20[column], r20.total)
-    for name, column in (("Hispanic", "hisp"), ("Asian", "aapi")):
-        expected[f"districtNeed{name}TwoThousandTwenty"] = rounded(majority, r20[column])
-
-    # The turnout rates, worked out here without code/analysis/elections.py:
-    # the county's presidential vote over the men of voting age (to 1916) or
-    # all adults (from 1920) on a straight line between censuses, and a
-    # district's Board contest over the men the nearest census counted there.
-    def said(year):                    # 1904 -> NineteenFour, 1928 -> NineteenTwentyEight
-        ones = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine",
-                "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen",
-                "Seventeen", "Eighteen", "Nineteen"]
-        tens = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"]
-        c, r = divmod(year, 100)
-        if c == 20:                    # 2012 -> TwoThousandTwelve
-            return "TwoThousand" + (tens[r // 10] + ones[r % 10] if r >= 20 else ones[r])
-        return ones[c] +("Hundred" if r == 0 else ones[r] if r < 20 else tens[r // 10] + ones[r % 10])
-
-    def half_up(rate):
-        return str(int(math.floor(rate + 0.5)))
-
-    adults = pd.read_csv(ROOT / "data" / "clean" / "residents_by_district_adults.csv")
-    county = adults[adults.district == "county"].set_index("year").sort_index()
-    results = pd.read_csv(ROOT / "data" / "clean" / "elections_results.csv")
-    for r in results[(results.office == "president") & results.year.between(1872, 1928)].itertuples():
-        column = "men_all" if r.year < 1920 else "adults_all"
-        series = county[column].dropna()
-        before = series[series.index <= r.year].index.max()
-        after = series[series.index >= r.year].index.min()
-        if before == after:
-            eligible = series[before]
-        else:
-            eligible = series[before] + (series[after] - series[before]) * (r.year - before) / (after - before)
-        expected[f"turnout{said(r.year)}"] = half_up(r.total / eligible * 100)
-    margins = pd.read_csv(ROOT / "data" / "clean" / "elections_margins.csv")
-    board = margins[margins.contest.str.endswith("District") & margins.votes_cast.notna()
-                    & margins.year.between(1893, 1919)]
-    men = adults.set_index(["district", "year"]).men_all
-    for r in board.itertuples():
-        district = r.contest.replace(" District", "")
-        census = min((1880, 1900, 1910, 1920), key=lambda c: (abs(c - r.year), c))
-        expected[f"boardTurnout{district}{said(r.year)}"] = half_up(r.votes_cast / men[(district, census)] * 100)
-
-    # The Black share of the men of voting age in each district, and the
-    # Board's vote in the two years the prose sets side by side, over the
-    # clean table's own voting-age estimate for those years.
-    for r in adults[adults.district.isin(['Arlington', 'Jefferson', 'Washington'])
-                    & adults.men_black.notna()].itertuples():
-        expected[f"blackShareMen{r.district}{said(r.year)}"] = rounded(r.men_black, r.men_all)
-    turnout = pd.read_csv(ROOT / "data" / "clean" / "elections_turnout.csv").set_index("year")
-    for year in (2012, 2013):
-        expected[f"boardVote{said(year)}"] = half_up(
-            turnout.board_voters[year] / turnout.voting_age_est[year] * 100)
-
-    # Presidential years set against the governor's year after them, among
-    # the years that filled one seat.
-    one = turnout[(turnout.board_seats == 1) & (turnout.board_complete == True)  # noqa: E712
-                  & (turnout.index >= 1935)]
-    per = one.board_voters / one.voting_age_est
-    pairs = [y for y in per.index if y % 4 == 0 and y + 1 in per.index]
-    assert all(per[y] > per[y + 1] for y in pairs), "a governor's year out-polls its presidential year"
-    expected["boardPairs"] = str(len(pairs))
-    expected["boardPairsFirst"] = str(pairs[0])
-    expected["boardPairsLast"] = str(pairs[-1])
-
-    # The seat comparisons, worked out again from the clean tables: residents
-    # per member to the nearest thousand, halves up.
-    def thousand(x):
-        return f"{int(math.floor(x / 1000 + 0.5)) * 1000:,}"
-
-    seats = pd.read_csv(ROOT / "data" / "clean" / "residents.csv").set_index("year")
-    expected["residentsPerSeatEighteenSeventy"] = thousand(seats.total[1870] / seats.board_seats[1870])
-    expected["residentsPerSeatTwoThousandTwenty"] = thousand(seats.total[2020] / seats.board_seats[2020])
-    peers = pd.read_csv(ROOT / "data" / "clean" / "localities.csv").set_index("locality")
-    for name in ("Arlington", "Loudoun", "Virginia Beach", "Norfolk", "Chesapeake"):
-        expected[f"perMember{name.replace(' ', '')}"] = thousand(peers.residents[name] / peers.members[name])
-    southeast = pd.read_csv(ROOT / "data" / "clean" / "localities_southeastern.csv")
-    others = southeast[southeast.locality != "Arlington"]
-    arlington = peers.residents["Arlington"] / peers.members["Arlington"]
-    expected["southeastPlaces"] = str(len(others))
-    expected["southeastMore"] = ["none", "one", "two", "three", "four", "five", "six", "seven",
-                                 "eight", "nine", "ten"][int((others.residents / others.members > arlington).sum())]
-
-    wrong = [f"\\{name} is {value}, the table gives {expected.get(name, 'nothing')}"
-             for name, value, _ in body_text_numbers() if expected.get(name) != value]
-    assert not wrong, "paper/body_text_numbers.tex:\n  " + "\n  ".join(wrong)
+    """paper/body_text_numbers.tex is byte-identical to what its script writes
+    from the clean tables now: a hand edit, a rounding change, or a file left
+    from before a table moved. Per-command derivations, worked out here
+    separately, return when the paper's numbers settle."""
+    committed = (ROOT / "paper" / "body_text_numbers.tex").read_text()
+    assert committed == regenerated_body_text_numbers(), \
+        "paper/body_text_numbers.tex is not what code/analysis/body_text_numbers.py writes; run bash run.sh"
 
 
 # --- the documentation names real files ---------------------------------------
