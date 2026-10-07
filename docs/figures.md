@@ -575,7 +575,7 @@ there the labels can be shortened and here the years cannot.
   at the most exact place any source gives, whenever dated, so it can show a
   member as known from a source written after their service
   (`residence-after-service`). 1912 to 1931 reads the roster like every other
-  stretch; nobody has looked for a place for the five members the Historical
+  stretch; no place has been sought for the five members the Historical
   Society's article names there, so they draw as no location found.
 - **members_age.** A Lexis diagram, age against year, the standard demographic
   form for it. Behind, the youngest-to-oldest span of the members sitting

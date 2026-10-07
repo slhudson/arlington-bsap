@@ -1912,8 +1912,8 @@ BENNETT = ('Filed in sources as "legal/cases/Supreme Court of Appeals of Virgini
 
 def test_a_quotation_the_document_does_not_contain_is_refused():
     """The Bennett misattribution, reintroduced: Rose's phrase written as
-    the court's own. Nothing caught it for months because the opinion was
-    filed all along and no one compared the two."""
+    the court's own. It stood for months: the opinion was filed all along,
+    but nothing checked the quotation against it until this guard."""
     bib = a_legal_entry("planted", 'The court held that Arlington was "a continuous, '
                                    'contiguous, and homogeneous community". ' + BENNETT)
     missing, read = quotations.unsupported(bib)

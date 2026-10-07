@@ -43,8 +43,8 @@ without guessing: for each page, the direct link, the filename to save it
 under in `~/Downloads`, and the header line she should see on the page
 (paper, date, page number) so she can confirm she has the right one before
 saving. On 7 October 2026 a thread spent three tries on a dead Chrome, then
-asked her to hunt through an issue for the right page, and she saved the
-wrong one; the 1942 count was never found.
+asked her to hunt through an issue for the right page; the wrong page was
+saved, and the 1942 count was never found.
 
 ## Before saying no source exists
 

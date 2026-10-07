@@ -293,9 +293,9 @@ wrapper: the preamble and the list of `\input` lines, no prose (`docs/repository
 has the reasoning).
 
 These rules came from the stage the draft was at, getting it into shape, and they
-are not the limit of what Sally cares about. Expect her next feedback to be about the
-argument, the story and the structure; do not infer from the list below that format
-is what she mostly corrects.
+do not cover everything the draft still needs. Expect the next round of feedback to
+address the argument, the story and the structure; do not infer from the list below
+that format is the most common correction.
 
 **Workflow.** The 2 October "Arlington BSaP Outline - History" slides in Drive are the
 outline. Agree a section's timeline in `paper/timelines/timelines.tex` first, then write prose
@@ -328,7 +328,7 @@ something only inside the build ("list only", "Novack and County") are inside ba
 and do not print.
 
 **Do not refute a question nobody asked (Sally, 5 October 2026).** A clause that
-pre-empts an objection the text never raised reads as tedious to her: "giving the
+pre-empts an objection the text never raised has no place in the body: "giving the
 board a name it could sue by", "so the seat count did not move", "neither names
 Alexandria County, so the court's role here follows from the law that applied to
 every county". Those answer the build's worries, not a reader's. Say what happened;

@@ -39,8 +39,9 @@ plainer, the figure leaves the paper and stays in the repository (the by-distric
 turnout figure, 5 October 2026). The denominator is the population the section is
 about: a section on who could vote divides by residents of voting age, not by
 everyone. Where points are spaced irregularly because of what survives rather than
-when things happened, the figure itself says so, in the legend or the caption; "if
-I'm confused it needs explaining" (Sally, 5 October 2026).
+when things happened, the figure itself says so, in the legend or the caption:
+an irregular spacing with no stated reason is a question the figure leaves
+open (Sally, 5 October 2026).
 
 ## Content
 
@@ -238,7 +239,7 @@ revisit.
 ## Process
 
 - **A new or reshaped figure is iterated with Sally before it is finished.**
-  The first render is never what she wants (Sally, 7 October 2026). So the
+  A first render rarely matches the finished figure (Sally, 7 October 2026). So the
   order is: build the quickest honest render, show it as a picture, wait,
   change what she says, show again, and only when she says it is right do
   the finishing - caption notes, `docs/figures.md`, the full build, the
@@ -262,9 +263,9 @@ revisit.
   three rounds of label changes and she had to ask to see them.
 - A figure proposed to her comes as two or three rendered options, not one
   sketch and a question; she chooses by looking ("see more than one
-  option", 6 October 2026). A mark she has not asked for is a question she
-  will ask (a stream, a dot for a place), so nothing goes on a proposal
-  that the legend or caption does not answer.
+  option", 6 October 2026). An unrequested mark (a stream, a dot for a place)
+  is a question the legend or caption has not yet answered, so nothing goes
+  on a proposal that the legend or caption does not answer.
 - Where a figure sits in the paper is settled before it is built in place.
   The district map moved three times on 6 October 2026 and each move was
   a merge; propose the placement with the picture, build once she says.

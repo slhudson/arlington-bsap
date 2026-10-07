@@ -398,10 +398,8 @@ uncommitted files, which session is behind which, a merge, a conflict, a
 rebase, a hook that refused a commit: the lead has delegated all of it, and
 not because it does not matter. She holds that it matters and expects it done
 carefully. She delegates it because a session can see the tree and she cannot,
-so there is nothing she can add - "I rarely have anything to add on top of what
-the agents can see and resolve themselves" (1 October 2026). Those are
-different instructions: one would mean hiding the work, this one means doing it
-without narrating it.
+so there is nothing she can add. Those are different instructions: one would
+mean hiding the work, this one means doing it without narrating it.
 
 So commit and push before the status message rather than report where the work
 is saved, and keep a commit hash on the sentence describing what changed, never
@@ -416,8 +414,8 @@ only she can unstop. Then one line saying what is blocked, in her terms.
 Four things are not worth it, each handed to her on 6 October 2026 and
 handed back. A failure that may be transient (a push refused, a key not
 answering, a download that did not start) gets a second try, and a third
-after a pause, before it is reported; "I don't understand why you can't
-merge" was the answer to a key that worked on the next attempt. An
+after a pause, before it is reported; a key that failed once worked on the
+next attempt. An
 assumption she can rule on later is proceeded under, logged as a row, and
 said in one line, not put to her as a question first; "are you able to
 proceed under a reasonable assumption and flag it?" is her standing answer.
@@ -433,11 +431,12 @@ again, two sentences to her, what was blocked and the one command she could
 run, and nothing about the check itself. Never route the blocked command
 through another session or ask her to grant it; "just try it again" was her
 answer, and it worked. In a worktree, run git as single plain commands, one
-per line, no chains and no -C: the check refuses the chains, and a thread
-that keeps rephrasing one loses the afternoon.
+per line, no chains and no -C: the check refuses the chains, and rephrasing a
+refused command does not help.
 
 ## Register
 
-This repository is read by collaborators. Write about artifacts and open
-questions, never about people's performance. Early work here was exploratory by
-design.
+This repository is read by collaborators. Write about the work - what a
+file holds, what a number rests on, what is open - not about who did it or
+how. A disagreement between sources is a finding; a disagreement between
+people is not recorded here.
