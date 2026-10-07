@@ -18,18 +18,19 @@ that it is an assumption.
 
 ## How the paper is built
 
-![Four applications over one GitHub repository, arlington-bsap](how-the-paper-is-built.png)
+![Four applications over two GitHub repositories](how-the-paper-is-built.png)
 
-*Four applications, one repository: an arrow points to whatever receives
-changes, and a single arrow means that application only reads.*
+*Four applications over two GitHub repositories: an arrow points to whatever
+receives changes, and a single arrow means that application only reads.*
 
-Everything lives in one GitHub repository, `slhudson/arlington-bsap`. Claude
-Code works on the data, the figures and the files; Overleaf is where the
-prose is written; a Google Doc is where the National Civic League drafts
+Claude Code works on the data, the figures and the files; Overleaf is where
+the prose is written; a Google Doc is where the National Civic League drafts
 Part B, and Claude brings that text in; Sourcetree only displays the
 repository's history.
 
-There are two GitHub repositories, and only the first is ever cloned:
+There are two GitHub repositories, and only the first is ever cloned. Every
+collaborator needs access to both, because merging a piece of work into the
+whole project also refreshes the mirror:
 
 - **`slhudson/arlington-bsap`** is the whole project: code, data, docs, paper,
   figures and the archive of cited sources in `sources/documents/`. The
@@ -38,7 +39,7 @@ There are two GitHub repositories, and only the first is ever cloned:
   `figures/pdf/` and the fonts, and Overleaf is linked to it. Overleaf syncs a whole
   repository and has a size limit the sources exceeded. Nobody clones the
   mirror: Claude refreshes it after every merge and reads Overleaf's edits
-  back before every merge.
+  back before every merge, whoever runs the merge.
 
 The Overleaf project is "arlington-bsap-draft"
 (https://www.overleaf.com/project/6ac61fcaec98cfccb0215584), and it compiles
@@ -62,10 +63,10 @@ to write, **Push** when you stand up.
   repository from GitHub and answer questions about it — where a number came
   from, what is still open — without being able to change anything. Either
   needs a paid Claude plan; the $20-a-month one is enough.
-- **Sourcetree** (free, from Atlassian) shows the repository as a picture:
-  open the clone in it and every commit and branch is there to look at. It is
-  for looking, not operating; nothing in this project needs a typed git
-  command.
+- **Sourcetree** (optional; free, from Atlassian) shows the repository as a
+  picture: open the clone in it and every commit and branch is there to look
+  at. It is for looking, not operating; nothing in this project needs a typed
+  git command.
 
 ## The repository
 
@@ -108,12 +109,13 @@ holds the working rules.
 
 ## What a working setup looks like
 
-1. **Access to the GitHub repository and the Overleaf project.** Both are
-   private, so someone already on them has to send the invitations — the
-   repository's owner, or any collaborator with access. Two invitations are
-   pending for Alex Keena: GitHub (`arlington-bsap`) and Overleaf
-   ("arlington-bsap-draft"). Accept both; nothing else has to happen before
-   setup. Nothing else can start until the GitHub one is accepted.
+1. **Access to the two GitHub repositories and the Overleaf project.** All
+   three are private, so someone already on them has to send the invitations
+   — the repository's owner, or any collaborator with access. The invitations
+   are to `slhudson/arlington-bsap` and `slhudson/arlington-bsap-draft` on
+   GitHub, with write
+   access to both, and to the Overleaf project "arlington-bsap-draft".
+   Nothing else can start until the GitHub ones are accepted.
 
    *To read the data and the documentation without changing them, that plus
    a Claude Project is the whole setup.* Attach the repository in the
@@ -143,11 +145,14 @@ holds the working rules.
    line about `figures/pdf` and `figures/png`. That is the test that
    everything works. Invoke it through `bash`, not `./run.sh`; `run.sh` says
    why at the top.
-6. **The Overleaf project open.** Pull in Overleaf to see the latest paper.
+6. **A TeX installation with LuaLaTeX, latexmk and biber** (MacTeX on a
+   Mac). Merging compiles the paper, so whoever merges needs it.
+7. **The Overleaf project open.** Pull in Overleaf to see the latest paper.
    An edit made there reaches the repository without anyone running a
    command: Claude reads it back before every merge and refreshes the mirror
    after.
-7. **Sourcetree installed**, with the clone opened in it.
+8. **Sourcetree installed**, with the clone opened in it. Optional: it is
+   there for anyone who wants to see what is going on.
 
 ## How to help
 
@@ -167,16 +172,18 @@ Someone who is not sure can start with the Project, which is far cheaper,
 and add Claude Code when they first want to change something.
 
 Either way the invitations come first. If they do not have both, say what to
-ask for and whom to ask: an invitation to `slhudson/arlington-bsap` on GitHub
-and one to the Overleaf project, to the email address they will use, from the
-repository's owner or any existing collaborator.
+ask for and whom to ask: invitations to `slhudson/arlington-bsap` and
+`slhudson/arlington-bsap-draft` on GitHub and to the Overleaf project, to the
+email address they will use, from the repository's owner or any existing
+collaborator.
 
 For the Claude Code path, any of the tools may be new or may already be in
 place; ask rather than assume, in either direction. Where something is new,
 the setup is part of the job: installing Git and signing in to GitHub,
 installing Claude Code and signing in to it, cloning the repository,
 creating the Python environment (which happens inside Claude Code once it is
-running), and installing Sourcetree. Ask what operating system they are on
+running), and installing a TeX distribution; Sourcetree is optional, so
+offer it last. Ask what operating system they are on
 and go one step at a time: say what to type, what they should see if it
 worked, and what to do if they see something else, and wait for them to
 confirm before the next step. If a step needs something only the
@@ -187,21 +194,24 @@ Once `bash run.sh` works, the setup is done; go on to the next section.
 
 ## After setup
 
-There are three ways in, one for each kind of want.
-
-- **A document to add.** Drop it in Drive, or put it in `sources/documents/`
-  yourself, and tell Claude. Claude files it in the archive and cites it.
-- **Sentences to write or change.** Write in Overleaf, or tell Claude what
-  the sentence should say. Both land in the same files.
-- **Anything else** — a figure changed, a number checked, a source cited,
-  what is open on the tracker, a build. Open Claude Code in the repository
-  folder and say it in a sentence.
+Prose is written in Overleaf, never through Claude. Everything else goes
+through Claude Code, opened in the repository folder, in a sentence: a source
+document to add (give Claude the file or its link; it files it in
+`sources/documents/` and cites it), a figure changed, a number checked, a
+source cited, what is open on the tracker, a build.
 
 Claude takes it from there. It makes a separate branch, a private copy of
 the project where the work can go wrong without touching anyone else's,
-does the work, merges it back and pushes, and tells you in plain words what
-changed. You never carry a file from one tool to another and never type git;
-if you want to see what happened, Sourcetree shows it.
+does the work, and tells you in plain words what changed. You never carry a
+file from one tool to another and never type git.
+
+**Finish every piece of work by merging it.** Work that exists only on this
+machine, or only on a branch, is invisible to colleagues and to Overleaf:
+Overleaf reads the mirror, and the mirror is refreshed only by a merge into
+the main branch. So before ending a session, commit, run
+`bash code/merge.sh <branch>`, and confirm that `origin/main` now holds the
+work. If the merge stops, say so in plain words and say what it needs; never
+leave the work unshared.
 
 Claude will refuse two things, because the project protects them. It will not
 edit `data/raw/`, which holds the sources as published; a defect in a source
