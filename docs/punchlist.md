@@ -11,6 +11,7 @@ the paper, commits, and deletes the lines it cleared. What it cannot settle
 stays, with a one-line reason under it.
 
 ## Open
+- Part C, Board Structure: add compensation and whether the seat is a full-time job to the questions a review would take up; Portland's commission considered pay, staff and offices (Portland memo, item 2a.5), and Arlington's members are paid for what is in practice full-time work; a fact on current pay and the statute that sets it, no position (Sally, 7 Oct).
 - Election Method, opening block: state that a multi-winner ranked-choice count elects any group of voters larger than the quota (ballots divided by seats plus one, plus one) wherever those voters live, as the arithmetic of the rule, citing the 2020 statute (vaacts2020c713) for the quota; cite no advocacy writing for it. Tracker row method-proportional-claim is closed on this ruling (Sally, 6 Oct).
 - Age (A.3 and the appendix): the county's age shares stand without characterizing Arlington as young or an outlier, and Virginia's share is not cited; the two "young county" sentences are already cut on main, so check nothing else in the section says it (Sally, 6 Oct).
 - Roster (appendix): an asterisk after the name of every member who has ever chaired the Board, from data/clean/members_chairs.csv through code/analysis/members_roster.py, with one note under the panels saying what it marks; no years. That table then has a reader (Sally, 7 Oct).
