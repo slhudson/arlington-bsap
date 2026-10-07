@@ -167,7 +167,8 @@ SMALL_WORDS = {"a", "an", "the", "and", "but", "or", "for", "nor", "of", "in", "
 def headline_case(title):
     """A title in headline style: the small words lower case, every other word
     upper case, a word that is already all capitals or has capitals inside it
-    (UPDATED, InsideNoVa) left alone, and the first word and the first after a
+    (UPDATED, InsideNoVa, and a small word in capitals, as in the state OR) left
+    alone, and the first word and the first after a
     colon or semicolon always capitalised."""
     out, opening = [], True
     for tok in re.split(r"(\s+)", title):
@@ -175,7 +176,7 @@ def headline_case(title):
             out.append(tok)
             continue
         pre, core, post = re.match(r"^([^A-Za-z0-9]*)(.*?)([^A-Za-z0-9]*)$", tok).groups()
-        small = core.lower() in SMALL_WORDS
+        small = core.lower() in SMALL_WORDS and not (core.isupper() and len(core) > 1)
         if not core or core[0].isdigit() or (core != core.lower() and core != core.capitalize() and not small):
             new = core
         elif core.isupper() and len(core) > 1 and not small:
