@@ -141,8 +141,8 @@ holds the working rules.
 
        python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflakes shapely
 
-   A worktree has no `.venv` of its own; a symlink to the primary
-   checkout's works, and pymupdf there renders page clips (`pdftoppm` is
+   A worktree has no `.venv` of its own and needs none: `run.sh` finds the
+   primary checkout's (`python3 code/cache.py venv` prints the path). pymupdf in it renders page clips (`pdftoppm` is
    not installed). `code/fetch/ipums.py` needs `ipumspy` as well; like
    pymupdf it is installed into that same venv and no figure reads it.
 

@@ -63,6 +63,14 @@ every merge reaches Overleaf without anyone running a separate command.
 plain git plumbing rather than `git subtree`, which handles one prefix and
 not two.
 
+`push` first reads the paper's `.tex` files at `HEAD` (the wrapper, the
+timelines, and everything they `\input`) and refuses if any path they load - a
+font folder, a `\graphicspath` folder, a figure named outright, a bibliography, an
+included file - is outside what the mirror carries. The first mirror lacked
+the Lato files and Overleaf could not compile; nothing said so until
+someone read a screenshot. A figure passed through a macro argument is
+covered by the `\graphicspath` folders themselves.
+
 ## Why one repository, with `paper/` inside it
 
 **One repository, with `paper/` inside it**, so the paper and the figures
@@ -264,6 +272,12 @@ main's order, then the rows the branch added. Git keeps a driver in
 `.git/config`, so `run.sh` registers it as it registers the hook path, and
 `code/merge.sh` refuses to run without it. The union merge stays for the
 punch list and the negatives file, which are append-only.
+
+One conflict is settled by the script: a file under `figures/` or `data/clean/`
+that one side deleted and the other rebuilt (modify/delete) takes the branch's
+side, because the build recreates whatever the code still produces. The same
+conflict anywhere else stops it, naming the file and the two commands that
+resolve it each way.
 
 `code/tests.py` builds a throwaway remote and clone and runs the script three
 ways, with the build and compile commands substituted: a failing build leaves

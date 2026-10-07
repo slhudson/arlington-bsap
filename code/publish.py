@@ -14,7 +14,8 @@ a rewrite of it, so Overleaf keeps its common ancestor. That message is also
 how the next push recognises its own work: if the mirror's tip is not one of
 these commits, something landed there since the last publish - an edit made
 in Overleaf - and the push refuses, naming the pull command instead of
-silently discarding it. The very first push finds no such commit anywhere in
+silently discarding it. It also refuses before anything is exported if the
+paper loads a file from a path the mirror would not carry (verify_loads). The very first push finds no such commit anywhere in
 the mirror's history and runs unconditionally: on a mirror nobody has pushed
 to, as a root commit pushed as main.
 
@@ -37,6 +38,7 @@ files never mix, and persistent, so a push can read what it wrote last time
 without the working tree carrying any trace of the mirror.
 """
 import os
+import posixpath
 import re
 import shutil
 import subprocess
@@ -50,8 +52,120 @@ PUBLISHED = re.compile(r"^main ([0-9a-f]+): ")
 ALLOWED = ("paper/", "figures/pdf/", "style/fonts/")
 
 
+# The documents the mirror has to compile, from paper/ as the working directory
+# (code/paper.py's SOURCES), and the folder every relative reference starts from.
+DOCUMENTS = ("paper/arlington-bsap.tex", "paper/timelines/timelines.tex")
+COMPILE_DIR = "paper"
+GRAPHIC_EXTENSIONS = ("", ".pdf", ".png", ".jpg", ".jpeg")
+# Commands whose first braced argument names a file to read, besides \input
+# and \include (and any alias of TeX's own \input, found in the text).
+FILE_COMMANDS = ("includepdf", "lstinputlisting", "verbatiminput", "subfile",
+                 "InputIfFileExists")
+
+
 def root():
     return Path(__file__).resolve().parents[1]
+
+
+def mirrored(path, directory=False):
+    """Whether the mirror carries this repository path (or, for a folder, the
+    files in it)."""
+    return (path.rstrip("/") + "/" if directory else path).startswith(ALLOWED)
+
+
+def _without_comments(text):
+    return re.sub(r"(?<!\\)%.*", "", text)
+
+
+def unmirrored(files):
+    """Every file the paper loads from a path the mirror does not carry.
+
+    `files` maps each repository path to its text for a .tex file (the other
+    files may map to anything). The two documents are read from DOCUMENTS and
+    every file they \\input is read in turn; a reference is resolved the way
+    LaTeX does, against paper/ and not against the file that makes it, and
+    checked against ALLOWED. Returns (file, what it loads, the path) for each
+    one the mirror would not carry, so Overleaf could not compile it - the
+    Lato files were once missing from the first mirror and nothing said so
+    until someone read a screenshot. A reference through a macro argument
+    (\\pairfigure{name}) is covered by the folders \\graphicspath names."""
+    problems, seen = [], set()
+    folders, graphics = [""], []   # \\graphicspath is global: every figure is looked up in all of it
+    queue = [d for d in DOCUMENTS if d in files]
+
+    def resolve(ref):
+        return posixpath.normpath(posixpath.join(COMPILE_DIR, ref.strip()))
+
+    def found(ref, extensions):
+        path = resolve(ref)
+        return next((path + e for e in extensions if path + e in files), None)
+
+    while queue:
+        name = queue.pop()
+        if name in seen:
+            continue
+        seen.add(name)
+        text = _without_comments(files[name])
+
+        def need(what, path, directory=False):
+            if not mirrored(path, directory):
+                problems.append((name, what, path))
+
+        aliases = re.findall(r"\\let\\([A-Za-z]+)\\@@input", text)
+        reads = "|".join(["input", "include", *aliases])
+        for m in re.finditer(r"\\(?:%s)(?![A-Za-z@])\s*(?:\{([^}]*)\}|([^\s{}\\]+))" % reads, text):
+            ref = m.group(1) or m.group(2)
+            path = found(ref, ("", ".tex")) or resolve(ref) + ".tex"
+            need(m.group(0), path)
+            if mirrored(path) and path in files:
+                queue.append(path)
+        for m in re.finditer(r"\\(?:%s)(?![A-Za-z@])\s*(?:\[[^\]]*\])?\s*\{([^}]*)\}" % "|".join(FILE_COMMANDS), text):
+            need(m.group(0), resolve(m.group(1)))
+            if m.group(0).startswith("\\subfile") and resolve(m.group(1)) + ".tex" in files:
+                queue.append(resolve(m.group(1)) + ".tex")
+
+        for m in re.finditer(r"\\graphicspath\s*\{((?:\s*\{[^}]*\})+)\s*\}", text):
+            for d in re.findall(r"\{([^}]*)\}", m.group(1)):
+                need(m.group(0), resolve(d), directory=True)
+                folders.append(d)
+        for m in re.finditer(r"\\includegraphics\s*(?:\[[^\]]*\])?\s*\{([^}]*)\}", text):
+            if "#" not in m.group(1):         # a macro's argument: the folders cover it
+                graphics.append((name, m.group(0), m.group(1)))
+        for m in re.finditer(r"\\addbibresource\s*(?:\[[^\]]*\])?\s*\{([^}]*)\}", text):
+            need(m.group(0), resolve(m.group(1)))
+        for m in re.finditer(r"\\bibliography\s*\{([^}]*)\}", text):
+            for b in m.group(1).split(","):
+                need(m.group(0), resolve(b) + ".bib")
+        for m in re.finditer(r"Path\s*=\s*([^,\]\s}]+)", text):
+            need("a font's " + m.group(0), resolve(m.group(1)), directory=True)
+        for m in re.finditer(r"\\(?:documentclass|usepackage|RequirePackage|LoadClass)\s*(?:\[[^\]]*\])?\s*\{([^}]*)\}", text):
+            for pkg in m.group(1).split(","):
+                if "/" in pkg:
+                    need(m.group(0), resolve(pkg))
+    for name, what, ref in graphics:
+        hit = next((h for d in folders for h in [found(posixpath.join(d, ref), GRAPHIC_EXTENSIONS)] if h), None)
+        if hit is None:
+            problems.append((name, what, resolve(ref) + " (not in the repository)"))
+        elif not mirrored(hit):
+            problems.append((name, what, hit))
+    return problems
+
+
+def committed_files(repo):
+    """The repository's paths at HEAD, with the text of each .tex file: what
+    `push` would export, and never the working tree."""
+    listed = git("ls-tree", "-r", "--name-only", "HEAD", cwd=repo).stdout.splitlines()
+    return {f: (git("show", f"HEAD:{f}", cwd=repo).stdout if f.endswith(".tex") else "") for f in listed}
+
+
+def verify_loads(repo):
+    """Refuse a push when the paper loads anything the mirror would not carry."""
+    problems = unmirrored(committed_files(repo))
+    if problems:
+        raise SystemExit(
+            "the paper loads files the mirror does not carry (ALLOWED in code/publish.py), "
+            "so Overleaf could not compile it:\n  "
+            + "\n  ".join(f"{name}: {what} -> {path}" for name, what, path in problems))
 
 
 def git(*args, cwd, check=True):
@@ -125,6 +239,7 @@ def verify_tree(draft):
 
 def push(repo=None):
     repo = repo or root()
+    verify_loads(repo)
     draft = draft_checkout(repo)
     last, at_tip = last_published(draft)
     if last is not None and not at_tip:
@@ -143,7 +258,7 @@ def push(repo=None):
         if entry.name == ".git":
             continue
         shutil.rmtree(entry) if entry.is_dir() else entry.unlink()
-    exported = subprocess.run(["git", "archive", "HEAD", "--", "paper", "figures/pdf", "style/fonts"],
+    exported = subprocess.run(["git", "archive", "HEAD", "--", *(a.rstrip("/") for a in ALLOWED)],
                                cwd=repo, check=True, capture_output=True)
     subprocess.run(["tar", "-x", "-C", str(draft)], input=exported.stdout, check=True)
 

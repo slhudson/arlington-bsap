@@ -17,7 +17,10 @@
 #      by row (code/merge_questions.py), docs/punchlist.md and the negatives
 #      file by union (.gitattributes), so anything still conflicting is two
 #      sessions editing one line or one row, which is a person's decision.
-#      The worktree is removed and nothing has changed.
+#      The worktree is removed and nothing has changed. One conflict is
+#      settled here: a build output (under figures/ or data/clean/) that one
+#      side deleted and the other rebuilt takes the branch's side, since the
+#      build recreates whatever the code still produces.
 #   4. bash run.sh, then code/paper.py all, in the
 #      worktree. A failure stops it before anything reaches main: a commit
 #      chained after a failing build was the first of the slips.
@@ -48,7 +51,7 @@ branch=$1
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
 cd "$ROOT"
 BUILD=${BUILD:-"bash run.sh"}
-COMPILE=${COMPILE:-".venv/bin/python code/paper.py all"}
+COMPILE=${COMPILE:-"$ROOT/.venv/bin/python code/paper.py all"}
 PYTHON=${PYTHON:-".venv/bin/python"}
 REMOTE=origin
 
@@ -117,16 +120,43 @@ retire() {
 step "2. worktree $tree on $REMOTE/main ($(git rev-parse --short "$REMOTE/main"))"
 mkdir -p .claude/worktrees
 git worktree add -q "$tree" -b "$name" "$REMOTE/main"
-# The build wants the venv and run.sh wants it beside the script; a worktree
-# has neither, and .venv is gitignored, so the primary's serves.
-[ -e "$tree/.venv" ] || ln -s "$ROOT/.venv" "$tree/.venv"
 
 step "3. merge $branch ($(git rev-parse --short "$branch"))"
 if ! git -C "$tree" merge -q -m "merge $branch" "$branch" >/dev/null 2>&1; then
-  conflicts=$(git -C "$tree" diff --name-only --diff-filter=U)
-  git -C "$tree" merge --abort 2>/dev/null || true
-  fail "conflicts a person has to resolve, outside the union-merged files:
-$(printf '  %s\n' $conflicts)"
+  # A file one side deleted and the other changed (modify/delete) is not a
+  # disagreement when it is a build output: the build rewrites figures/ and
+  # data/clean/ from the code, so the branch's side is taken - a deletion
+  # stays deleted, because anything the code still produces comes back in
+  # step 4 - and the merge goes on. Anywhere else it is a person's decision,
+  # and the two commands that settle it each way are printed.
+  manual="" other=""
+  while IFS= read -r line; do
+    code=${line:0:2}; path=${line:3}
+    case "$code:$path" in
+      UD:figures/*|UD:data/clean/*) git -C "$tree" rm -q -- "$path"
+                                    step "   $path: deleted on $branch, rebuilt on main; the deletion is kept" ;;
+      DU:figures/*|DU:data/clean/*) git -C "$tree" add -- "$path"
+                                    step "   $path: deleted on main, changed on $branch; the branch's file is kept" ;;
+      UD:*) manual="$manual
+  $path  (deleted on $branch, changed on main)
+    keep the deletion:  git rm -- $path
+    keep main's file:   git checkout --ours -- $path && git add -- $path" ;;
+      DU:*) manual="$manual
+  $path  (deleted on main, changed on $branch)
+    keep the deletion:  git rm -- $path
+    keep the branch's:  git checkout --theirs -- $path && git add -- $path" ;;
+      *) other="$other
+  $path" ;;
+    esac
+  done < <(git -C "$tree" status --porcelain --untracked-files=no | grep -E '^(DD|AU|UD|UA|DU|AA|UU) ')
+  if [ -n "$manual$other" ]; then
+    git -C "$tree" merge --abort 2>/dev/null || true
+    [ -z "$other" ] || msg="conflicts a person has to resolve, outside the union-merged files:$other"
+    [ -z "$manual" ] || msg="${msg:+$msg
+}a file one side deleted and the other changed; merge $branch in a worktree of your own, then:$manual"
+    fail "$msg"
+  fi
+  git -C "$tree" commit -q --no-edit
 fi
 
 step "4. build and compile in the worktree"

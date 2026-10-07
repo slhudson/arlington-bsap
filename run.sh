@@ -35,8 +35,8 @@ if [ "$(git config merge.questions.driver 2>/dev/null)" != "$MERGE_DRIVER" ]; th
   git config merge.questions.driver "$MERGE_DRIVER" && echo "installed the tracker merge driver"
 fi
 
-PY=.venv/bin/python
-[ -x "$PY" ] || { echo "no venv: python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflakes shapely"; exit 1; }
+# A worktree has no .venv of its own; code/cache.py finds the primary checkout's.
+PY=$(python3 code/cache.py venv) || exit 1
 
 # One build at a time in a checkout. data/built/ is emptied and rewritten in
 # place, so a second run deletes the tables the first is reading: it fails in

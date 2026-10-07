@@ -2291,16 +2291,17 @@ def test_a_step_and_a_module_are_told_apart():
 
 
 def test_docs_agree_with_run_sh():
-    """A `pip install` line in the docs that differs from run.sh."""
-    run = (ROOT / "run.sh").read_text()
+    """A `pip install` line in the docs that differs from the one a missing
+    venv prints (code/cache.py, which run.sh asks for the venv)."""
+    run = (ROOT / "code" / "cache.py").read_text()
     install = re.search(r"pip install ([a-z0-9 ]+)", run).group(1).split()
     problems = []
     for doc in [ROOT / "README.md", ROOT / "CLAUDE.md", ROOT / "docs" / "setup.md"]:
         text = doc.read_text()
         for m in re.finditer(r"pip install ([a-z0-9 ]+)", text):
             if m.group(1).split() != install:
-                problems.append(f"{doc.name}: install line says {m.group(1).split()}, run.sh says {install}")
-    assert not problems, "docs disagree with run.sh:\n  " + "\n  ".join(problems)
+                problems.append(f"{doc.name}: install line says {m.group(1).split()}, code/cache.py says {install}")
+    assert not problems, "docs disagree with code/cache.py:\n  " + "\n  ".join(problems)
 
 
 def test_a_timeline_citation_reaches_the_footnote():
@@ -2921,6 +2922,52 @@ def test_a_merge_with_a_real_conflict_stops_before_building():
         assert git("worktree", "list").count("\n") == 0, "the scratch worktree was left behind"
 
 
+def delete_on_thread_change_on_main(work, git, path):
+    """The 7 October 2026 shape: the thread deletes a tracked file and main,
+    which has moved on, changes it. A second figure keeps figures/pdf from
+    being empty after the deletion, which the mirror's export needs."""
+    git("checkout", "-q", "thread")
+    git("rm", "-q", path); git("commit", "-qm", "thread deletes it"); git("push", "-q", "origin", "thread")
+    git("checkout", "-q", "main")
+    (work / path).write_bytes(b"%PDF-rebuilt on main\n")
+    (work / "figures" / "pdf" / "b.pdf").write_bytes(b"%PDF-fake-b\n")
+    git("add", "-A"); git("commit", "-qm", "main rebuilds it"); git("push", "-q", "origin", "main")
+
+
+def test_a_merge_takes_the_branchs_side_of_a_deleted_build_output():
+    """A branch deleted figures/pdf/a.pdf while main rebuilt it: git stops
+    with modify/delete and no guidance, and a thread had to resolve it in a
+    scratch worktree by hand. A build output is the build's to recreate, so
+    the branch's side is taken and the merge goes on."""
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git = merge_fixture(tmp)
+        delete_on_thread_change_on_main(work, git, "figures/pdf/a.pdf")
+        run = merge(work, build="true", compile_="true")
+        assert run.returncode == 0, run.stdout + run.stderr
+        assert not (work / "figures" / "pdf" / "a.pdf").exists(), "the deletion was not kept"
+        assert git("rev-parse", "main") == git("rev-parse", "origin/main"), "main was not pushed"
+
+
+def test_a_merge_stops_on_a_deleted_file_that_is_not_a_build_output():
+    """The same conflict on a file the build does not write is a person's
+    decision: the script names it and the two commands that settle it, and
+    main is where it was."""
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git = merge_fixture(tmp)
+        git("checkout", "-q", "thread")
+        git("rm", "-q", "note.txt"); git("commit", "-qm", "thread deletes it"); git("push", "-q", "origin", "thread")
+        git("checkout", "-q", "main")
+        (work / "note.txt").write_text("main side\n")
+        git("commit", "-qam", "main changes it"); git("push", "-q", "origin", "main")
+        before = git("rev-parse", "main")
+        run = merge(work, build="true", compile_="true")
+        assert run.returncode != 0, "a modify/delete conflict on a non-output went through"
+        assert "note.txt" in run.stderr and "git rm -- note.txt" in run.stderr \
+            and "--ours -- note.txt" in run.stderr, run.stderr
+        assert git("rev-parse", "main") == before, "main moved despite the conflict"
+        assert git("worktree", "list").count("\n") == 0, "the scratch worktree was left behind"
+
+
 def hold_thread_in_worktree(work, git):
     """The thread's own worktree, as a session working on it would have one."""
     git("worktree", "add", "-q", ".claude/worktrees/t", "thread")
@@ -3134,6 +3181,76 @@ def test_publish_push_refuses_a_tree_holding_a_path_outside_the_two_folders():
             assert "stray.txt" in str(e), e
 
 
+def wrapper(body, others=None):
+    """A repository's files as publish.unmirrored reads them: a wrapper with
+    this body, the font and figure the mirror does carry, and any others."""
+    return {"paper/arlington-bsap.tex": body,
+            "style/fonts/Lato-Regular.ttf": "", "figures/pdf/a.pdf": "",
+            "paper/bib/sources.bib": "", **(others or {})}
+
+
+def test_the_mirror_refuses_a_paper_that_loads_a_file_it_does_not_carry():
+    """The Lato files were missing from the first mirror and Overleaf could not
+    compile; Sally found it from a screenshot. Every path the paper loads from
+    outside paper/ has to be inside the mirror (publish.ALLOWED), whichever
+    way the .tex file names it: a font folder, a figure folder or a figure
+    named outright, a bibliography, a file \\input from outside paper/, or
+    a file read through an \\input that is itself nested."""
+    good = ("\\setmainfont{Lato}[Path = ../style/fonts/, Extension = .ttf]\n"
+            "\\graphicspath{{../figures/pdf/}}\n\\addbibresource{bib/sources.bib}\n"
+            "\\begin{document}\\includegraphics{a.pdf}\\end{document}\n")
+    assert publish.unmirrored(wrapper(good)) == [], publish.unmirrored(wrapper(good))
+
+    def refused(body, path, others=None):
+        found = publish.unmirrored(wrapper(body, others))
+        assert [p for _, _, p in found] == [path], (body, found)
+
+    refused(good.replace("../style/fonts/", "../style/other/"), "style/other")
+    moved = publish.unmirrored(wrapper(good.replace("{{../figures/pdf/}}", "{{../figures/png/}}"),
+                                       {"figures/png/a.pdf": ""}))
+    assert [p for _, _, p in moved] == ["figures/png", "figures/png/a.pdf"], moved
+    refused(good.replace("{a.pdf}", "{../figures/png/b.png}"), "figures/png/b.png",
+            {"figures/png/b.png": ""})
+    refused(good.replace("bib/sources.bib", "../data/refs.bib"), "data/refs.bib")
+    refused(good + "\\input{../code/macros}\n", "code/macros.tex", {"code/macros.tex": ""})
+    # Nested: paper/part.tex, read through the wrapper, loads the stray font.
+    refused(good + "\\input{part}\n", "style/other",
+            {"paper/part.tex": "\\setsansfont{X}[Path=../style/other/]\n"})
+    # TeX's own \\input, with no braces, as the roster files are read.
+    refused("\\makeatletter\\let\\rosterinput\\@@input\\makeatother\n" + good + "\\rosterinput ../data/r.tex\n",
+            "data/r.tex", {"data/r.tex": ""})
+    # A commented-out reference loads nothing.
+    assert publish.unmirrored(wrapper(good + "% \\input{../code/macros}\n")) == []
+
+
+def test_the_papers_own_references_are_all_in_the_mirror():
+    """The integration test of the guard above, against the committed paper."""
+    tracked = subprocess.run(["git", "ls-files"], cwd=ROOT, check=True,
+                             capture_output=True, text=True).stdout.splitlines()
+    files = {f: ((ROOT / f).read_text() if f.endswith(".tex") else "")
+             for f in tracked if (ROOT / f).exists()}
+    assert publish.unmirrored(files) == [], publish.unmirrored(files)
+
+
+def test_publish_push_refuses_a_paper_that_loads_outside_the_mirror():
+    """The same guard where it bites: push stops before exporting anything,
+    naming the file, and the mirror has no commit of ours."""
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git, draft_work = publish_fixture(tmp)
+        (work / "paper" / "arlington-bsap.tex").write_text(
+            "\\setmainfont{Lato}[Path=../style/other/]\n")
+        git("commit", "-qam", "loads a font from outside the mirror")
+        with draft_remote(Path(tmp) / "draft.git"):
+            try:
+                publish.push(repo=work)
+                assert False, "a push of a paper loading outside the mirror went through"
+            except SystemExit as e:
+                assert "style/other" in str(e), e
+        heads = subprocess.run(["git", "-C", str(Path(tmp) / "draft.git"), "branch"], check=True,
+                               capture_output=True, text=True).stdout
+        assert heads.strip() == "", "the mirror received a commit"
+
+
 def test_publish_pull_applies_an_overleaf_edit_on_its_own_branch():
     """The other happy path: a change Overleaf made under paper/ comes back
     on overleaf-<date>, main untouched, ready for code/merge.sh."""
@@ -3286,6 +3403,8 @@ def cache_repo():
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp).resolve()
         subprocess.run(["git", "init", "-q", str(root)], check=True)
+        (root / ".venv" / "bin").mkdir(parents=True)     # cache.environment() reads the venv
+        (root / ".venv" / "bin" / "python").write_text("")
         saved = cache.ROOT, paper.ROOT, paper.PAPER, paper.BUILD
         cache.ROOT, paper.ROOT, paper.PAPER = root, root, root / "paper"
         paper.BUILD = paper.PAPER / "build"
@@ -3373,6 +3492,45 @@ def test_a_compiles_inputs_come_from_latexmks_record():
                        "OUTPUT arlington-bsap.pdf\n")
         found = paper.inputs_read(fls)
     assert found == ["figures/pdf/members_age.pdf", "paper/arlington-bsap.tex"], found
+
+
+def test_a_worktree_with_no_venv_finds_the_primary_checkouts():
+    """Every thread that took a worktree on 7 October 2026 found .venv missing
+    (it is gitignored) and symlinked the primary's by hand. run.sh asks
+    `code/cache.py venv` for its python instead, so nothing is left to forget.
+    Run from a worktree's own copy of the script, as run.sh does; the cache
+    key reads the same packages from either checkout, or a worktree would
+    never find what the primary built."""
+    with tempfile.TemporaryDirectory() as tmp:
+        primary = Path(tmp).resolve() / "primary"
+        subprocess.run(["git", "init", "-q", str(primary)], check=True)
+        (primary / "code").mkdir()
+        shutil.copy(ROOT / "code" / "cache.py", primary / "code" / "cache.py")
+        python = primary / ".venv" / "bin" / "python"
+        python.parent.mkdir(parents=True)
+        python.write_text("")
+        site = primary / ".venv" / "lib" / "python3.0" / "site-packages" / "pandas-1.dist-info"
+        site.mkdir(parents=True)
+        git = ["git", "-C", str(primary), "-c", "user.email=t@t", "-c", "user.name=t"]
+        subprocess.run([*git, "add", "code"], check=True)
+        subprocess.run([*git, "commit", "-qm", "c"], check=True)
+        wt = primary / ".claude" / "worktrees" / "w"
+        subprocess.run([*git, "worktree", "add", "-q", str(wt)], check=True,
+                       stderr=subprocess.DEVNULL)
+        assert not (wt / ".venv").exists(), "the fixture's worktree has a venv of its own"
+        found = subprocess.run(["python3", str(wt / "code" / "cache.py"), "venv"],
+                               cwd=wt, capture_output=True, text=True)
+        assert found.stdout.strip() == str(python), found.stdout + found.stderr
+        saved = cache.ROOT
+        try:
+            cache.ROOT = wt
+            assert "pandas-1.dist-info" in cache.environment(), "a worktree's cache key ignored the venv's packages"
+        finally:
+            cache.ROOT = saved
+        python.unlink()
+        none = subprocess.run(["python3", str(wt / "code" / "cache.py"), "venv"],
+                              cwd=wt, capture_output=True, text=True)
+        assert none.returncode != 0 and "no venv" in none.stderr, "a missing venv was not reported"
 
 
 def test_a_compile_leaves_its_files_in_build_and_the_pdf_beside_the_source():
