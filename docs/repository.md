@@ -112,10 +112,10 @@ text: nothing reads them, and a reader can open them.
 
 **`sources/` holds every file as it was published, and `data/` holds the three
 layers this repository makes.** The repository used to split published
-material by who reads it: `data/raw/` for what the build reads and
-`sources/documents/` for what the prose cites, and the line sat where
-Overleaf's size cap had put it. That is not a difference in the files. The
-Richmond Charter Review Commission's report sat in `data/raw/` because one
+material by who reads it: a raw folder inside data for what the build reads
+and a documents folder inside sources for what the prose cites, and the line
+sat where Overleaf's size cap had put it. That is not a difference in the
+files. The Richmond Charter Review Commission's report sat in the raw folder because one
 appendix table feeds a figure; it is a report. The split now is published
 versus produced (Sally, 8 October 2026): everything published is under
 `sources/`, and `data/` is `transcribed/`, `built/` and `clean/`.
