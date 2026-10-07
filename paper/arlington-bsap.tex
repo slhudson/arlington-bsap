@@ -53,8 +53,23 @@
 \makeatletter
 \renewcommand{\ttl@tocpart}{\def\ttl@a{\protect\numberline{\thepart}}}
 \makeatother
+% A part-level line is bold and flush left, numbered ("Part A.") or not (the
+% Executive Summary, Works Cited, Legal Authorities, each co-equal with a
+% Part and not under one), with one fixed gap above it. A section-level line
+% (A.1, indented under the part-level line above it) carries none of its
+% own, so every part-level line sits the same distance below whatever came
+% before it --- another part-level line or a run of sections --- instead of
+% that distance depending on which kind of line happened to precede it.
 \titlecontents{part}[0pt]{\addvspace{10pt}\bfseries}{Part \thecontentslabel.\hspace{0.5em}}{}{\hfill\contentspage}
-\titlecontents{section}[2.4em]{}{\contentslabel{2.4em}}{\hspace*{-2.4em}}{\hfill\contentspage}
+\titlecontents{section}[3.6em]{}{\contentslabel{2.4em}}{\hspace*{-3.6em}}{\hfill\contentspage}
+% The two lists after the contents read the same way the contents itself
+% does --- a number, the title, the page flushed right, no dotted leader ---
+% instead of \listoffigures and \listoftables's default, which breaks a
+% longer title onto its own line and leaves the leader and page stranded
+% below it. A number wide enough for the roster's lettered panels (\tabletitle,
+% "2A") keeps a plain figure number from sitting too close to its title.
+\titlecontents{figure}[3.2em]{}{\contentslabel{3.2em}}{\hspace*{-3.2em}}{\hfill\contentspage}
+\titlecontents{table}[3.2em]{}{\contentslabel{3.2em}}{\hspace*{-3.2em}}{\hfill\contentspage}
 \renewcommand{\thepart}{\Alph{part}}
 \titleformat{\part}{\normalfont\normalsize\bfseries}{Part \thepart.}{0.5em}{}
 % One scheme, set once, for every level (Sally, 5 October 2026): one unit,

@@ -36,12 +36,14 @@
       \ppspace\printlist[pageref][-\value{listtotal}]{pageref}}}}
 \DefineBibliographyStrings{english}{backrefpage={Cited on page},backrefpages={Cited on pages}}
 
-% Works Cited and each legal list keep the look they have always had --- an
-% unnumbered \section* for Works Cited, an unnumbered \subsection* for each
-% legal list --- and add themselves to the contents at section level, so a
-% reader can click to any of them the way to a regular section.
-\defbibheading{bibintocsection}{\phantomsection\section*{#1}\addcontentsline{toc}{section}{#1}}
-\defbibheading{sublistintocsection}{\phantomsection\subsection*{#1}\addcontentsline{toc}{section}{#1}}
+% Works Cited and Legal Authorities keep the look they have always had --- an
+% unnumbered \section* --- and go into the contents at part level, bold and
+% flush left, co-equal with Part A to Part D rather than under one. Cases,
+% Constitutions and Statutes keep their own unnumbered \subsection*, findable
+% from Legal Authorities' own page, and are not listed separately in the
+% contents (Sally, 7 October 2026).
+\defbibheading{bibintocsection}{\phantomsection\section*{#1}\addcontentsline{toc}{part}{#1}}
+\defbibheading{sublistnotintoc}{\subsection*{#1}}
 
 % The sources a reader looks up: everything but the law, without the pages.
 \newcommand{\printworkscited}[1]{%
@@ -51,10 +53,10 @@
 % legislation entry's sorttitle is its date).
 \newcommand{\printauthorities}{%
   \clearpage
-  \printbibheading[title={Legal Authorities}]%
-  \printbibliography[heading=sublistintocsection,title={Cases},type=jurisdiction]%
-  \printbibliography[heading=sublistintocsection,title={Constitutions},filter=constitutions]%
-  \printbibliography[heading=sublistintocsection,title={Statutes},filter=statutes]}
+  \printbibheading[heading=bibintocsection,title={Legal Authorities}]%
+  \printbibliography[heading=sublistnotintoc,title={Cases},type=jurisdiction]%
+  \printbibliography[heading=sublistnotintoc,title={Constitutions},filter=constitutions]%
+  \printbibliography[heading=sublistnotintoc,title={Statutes},filter=statutes]}
 
 % A case name is italic, in the notes and in the table.
 \DeclareFieldFormat[jurisdiction]{title}{\mkbibemph{#1}}
