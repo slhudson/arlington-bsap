@@ -30,9 +30,9 @@ do not make the edit for them.
 receives changes, and a single arrow means that application only reads.*
 
 Claude Code works on the code, the data and the figures; Overleaf is where
-the prose is written; a Google Doc is where any team member, including the
-National Civic League drafting Part B, can draft, and Claude Code imports that
-text into the paper; Sourcetree only displays the repository's history.
+the prose is written; Google Drive is where any team member, including the
+National Civic League drafting Part B, saves draft text, and Claude Code
+imports it into the paper; Sourcetree only displays the repository's history.
 
 There are two GitHub repositories, and only the first is ever cloned. Every
 collaborator needs access to both, because merging a piece of work into the
