@@ -65,10 +65,11 @@ Ordered categories take one sequential ramp, `style.SEQUENTIAL`, drawn on by
 more of the thing. Unordered categories take Okabe-Ito, where no hue implies
 a rank. A figure never defines a ramp of its own.
 
-- Ordered: `residents_by_age` (young to old) and `members_residence_coverage`
-  (how exactly a home is named). Both draw from the one ramp, so they read as
-  a pair; the no-evidence grey stays outside it, since an absence is not a
-  step on the scale.
+- Ordered: `residents_by_age` (young to old), `members_residence_coverage`
+  (how exactly a home is named), and `elections_turnout_board` (what led the
+  ballot, by falling turnout). All three draw from the one ramp, so they read
+  as a family; the no-evidence grey in the first two stays outside it, since
+  an absence is not a step on the scale.
 - Unordered, Okabe-Ito: `members_by_race`, `members_by_gender`, `residents_by_race`,
   and the party and growth figures.
 
@@ -97,12 +98,18 @@ a rank. A figure never defines a ramp of its own.
   party chart, the one reuse in the set; it costs nothing because the line
   is named where it runs.
 - **Turnout.** The presidential vote is the reference the Board's voters are
-  read against, and takes the growth figure's dark grey. The Board's voters
-  are one family of vermilion, darkest first: the district-era squares, then
-  the presidential year, the midterm year and the governor's year in falling
-  order of turnout. One hue, so the Board reads as one thing against the grey
-  presidential line; the earlier four hues, one per place in the cycle, read
-  as four series.
+  read against, and takes the growth figure's dark grey, in both turnout
+  figures. The Board's voters, in elections_turnout_board, are ordered by
+  what led the ballot, not categorical, so they take `style.ramp(3)` off the
+  one sequential green rather than a family of their own: darkest for a
+  presidential year, lighter for a midterm, lightest for a governor's year.
+  A House of Delegates year is never drawn (every one is a two-seat gap), so
+  it carries no reserved fourth tint; the ramp spans exactly the three
+  cycles that are drawn, for the widest separation between them (Sally, 7
+  October 2026: a four-stop ramp with the lightest, most distinct step going
+  to waste on an undrawn category read as too close together). Grey against
+  green, so the Board reads as one thing against the
+  presidential line and the three shades read as steps of one scale.
 - **Party.** The two partisan hues are the ones readers bring with them, at
   Okabe-Ito's values: sky blue for Democratic, vermilion for Republican.
   Neither is Okabe-Ito's blue, which is Asian and Pacific Islander. Yellow
@@ -649,47 +656,71 @@ there the labels can be shortened and here the years cannot.
 - **elections_board.** A step area, because the series is annual. A separate
   figure from elections_president rather than a panel, because they are not the
   same voters and a shared frame would say they were.
-- **elections_turnout.** One panel, 1872 to the present, shares only, since
-  the counts say nothing the shares do not (Sally, 6 October 2026). The
-  presidential vote is one grey line throughout and the thread of the
-  figure. The Board's vote is one colour family in two forms: a square for
-  each of the five district-era elections every district's count survives,
-  named by year in the legend, because five points in sixty years are not a
-  line; and from 1935 three shades by what led the ballot, presidential,
-  midterm and governor's year, darkest first, drawn only in years with one
-  seat on the ballot. One family so the Board reads as one thing against the
-  presidential line, three shades so the trend in each cycle is visible;
-  drawn as one annual line the series is a sawtooth, and the teeth are the
-  ballot, not the Board. The legend names the family once and its four
-  entries under it. A two-seat year is a gap, not a floor, because it
-  records votes and not voters; from 1943 that is every House of Delegates
-  year, and the caption says so. Four dated rules, the Walton Act of 1894,
-  the constitution of 1902, women voting in 1920 and the poll tax falling in
-  1966, their notes placed not to collide. The denominator is men 21 and
-  over through 1916, everyone 21 and over from 1920 and 18 and over from
-  1971, a count at every census and a straight line between; nothing marks
-  1971, which, as with residents_by_race at 1980, is real but small, and a
-  rule would claim more for it than it has. The caption carries it, and that
-  the denominator is every resident of voting age, citizen or not,
-  disfranchised or not. The registered voters are in the table and not
-  drawn: the series is fifteen years long, and the prose can state it in a
-  sentence. The two pre-1932 figures and the by-district figure are retired
-  (Sally, 6 October 2026): the first two are this figure's left third, and
-  the third's one finding, that Jefferson fell steepest, is a sentence in
-  the prose with its own built numbers. The family is
-  `style.BOARD_FAMILY`: four tints of one hue, one per thing that led the
-  ballot, darkest for a presidential year and lightest for a House of
-  Delegates year, which only the district-era squares carry because a
-  two-seat year is a gap from 1943. A square is a district-era election and a
-  circle a one-seat year, so shape and shade answer two questions and the
-  legend swatch for delegates is a square. The legend is stacked, `charts.legend_family()`, the heading
-  with no swatch and its four entries indented beneath, because five rows
-  under one name read as one thing where five rows side by side would not.
-  The rules' notes stand at two heights, `charts.rule(tier=)`, because the
-  1894 and 1902 notes cannot sit side by side on a 150-year axis without the
-  1920 rule running through one of them. The figure sits in Election Method
-  under Staggered Terms, as the electorate half of that subsection's claim,
-  and Race's electorate paragraph cites it.
+- **elections_turnout_president.** One panel, 1872 to the present, shares
+  only, since the counts say nothing the shares do not (Sally, 6 October
+  2026). One grey line, the presidential vote. Three dated rules, the Walton
+  Act of 1894, the constitution of 1902 and women voting in 1920, their notes
+  placed not to collide, `charts.rule(tier=)`, because the 1894 and 1902
+  notes cannot sit side by side on a 150-year axis without the 1920 rule
+  running through one of them. The poll tax falling in 1966 is not ruled
+  off, though it is sourced (docs/elections.md, *Harper v. Virginia Board of
+  Elections*): the recovery is already underway by then, so the line shows
+  no kink there for a rule to anchor, unlike the other three (Sally, 7
+  October 2026). The denominator is men 21 and over through 1916, everyone
+  21 and over from
+  1920 and 18 and over from 1971, a count at every census and a straight line
+  between; nothing marks 1971, which, as with residents_by_race at 1980, is
+  real but small, and a rule would claim more for it than it has. The caption
+  carries it, and that the denominator is every resident of voting age,
+  citizen or not, disfranchised or not. This is the half of the old single
+  figure (Sally, 7 October 2026: cut at 1932) that Race's "A Shrinking
+  Electorate" reads: its point is the collapse after 1894 and 1902 and the
+  long recovery, and the 1876 point, the left edge, is its baseline before
+  the collapse.
+- **elections_turnout_board.** One panel, 1932 to the present, the other half
+  of the same cut. The presidential vote is one grey line throughout and the
+  thread of the figure; the Board's vote is `style.BOARD_FAMILY`, three
+  shades off the one sequential green ramp (`style.ramp(3)`, Colour above),
+  by what led the ballot, presidential, midterm and governor's year, darkest
+  first, drawn only in years with one seat on the ballot. Grey against green
+  so the Board reads as one thing against the presidential line, three shades
+  of one ramp so the trend in each cycle is visible and the three read as
+  steps rather than three unrelated hues; drawn as one annual line the series
+  is a sawtooth, and the teeth are the ballot, not the Board.
+  A two-seat year is a gap, not a floor, because it records votes and not
+  voters; from 1943 that is every House of Delegates year, and the caption
+  says so. No rule marks 1966: this section is not making a voter-suppression
+  claim, and the poll tax, like the Walton Act, the constitution and women
+  voting, is the president figure's (Sally, 7 October 2026). The five
+  district-era squares the pre-1932 figure once added up by district are the
+  president figure's too. The legend is flat, `charts.legend()` with
+  `lines=`, one row of four: the president line and the three Board shades
+  each named for what it is, "Board, presidential year" and so on, rather
+  than stacked under a heading, which read as a lot of white space for four
+  things (Sally, 7 October 2026). `style.BOARD_FAMILY` has no entry for a
+  House of Delegates year: no one-seat year is a delegates year, so the ramp
+  spans only the three cycles that are drawn rather than reserving a fourth,
+  more-distinct stop for a shade nothing uses (Sally, 7 October 2026). The
+  squares that once carried that shade are gone with the pre-1932 range. The
+  registered voters are in the table and
+  not drawn: the series is fifteen years long, and the prose can state it in
+  a sentence. The axis reads from 1930, a decade before the first point,
+  labelled every ten years, `charts.years(step=10)`: the Board's five seats
+  were filled all at once in 1931, 1935 and 1939, so no Board line starts
+  until staggered single-seat elections begin in 1940, and a reader who does
+  not already know that would otherwise read the empty decade as missing
+  data. A dashed rule marks 1940, the first staggered election, not the 1938
+  referendum that approved it (Sally, 7 October 2026: the line is where the
+  Board line starts, not where the vote happened), placed `ha="left"` because
+  it sits too close to the axis's own start for a
+  note running leftward to fit. The caption says so (Sally, 7 October 2026).
+  The two pre-1932 figures and the by-district figure stay retired (Sally, 6
+  October 2026): the first two are the president figure's left third, and the
+  third's one finding, that Jefferson fell steepest, is a sentence in the
+  prose with its own built numbers. The figure sits in Election Method under
+  Staggered Terms, as the electorate half of that subsection's claim: seats
+  elected a year apart are chosen by electorates of different size, which is
+  a 1932-on sawtooth, not a 150-year collapse.
 - **localities_peers.** Arlington beside every Virginia city and county of
   100,000 or more, in two panels that share a legend and a note: (a)
   members against residents, (b) residents per member against density. They

@@ -175,25 +175,27 @@ def ink_on(color):
 
 
 PRESIDENT = ("votes for President", DARK)
-# The Board's vote is one colour family: the legend names it once and sets its
-# four entries under it, darkest first: what led the ballot, in falling order
-# of turnout. A square is a district-era election, a circle a one-seat year. See docs/figures.md, Colour.
+# The Board's vote by cycle is ordered, not categorical: presidential,
+# midterm and governor's years fall in that order of turnout, so it takes
+# the one sequential ramp, darkest first, rather than a family of its own.
+# A House of Delegates year is never drawn (every one is a two-seat gap), so
+# it carries no tint of its own: the ramp spans exactly the three cycles
+# that are drawn, for the widest separation between them. See docs/figures.md,
+# Colour.
 BOARD_VOTES = "votes for County Board"
-BOARD_FAMILY = {
-    "president": "#B04D00",
-    "midterm":   "#C67332",
-    "governor":  "#DD9863",
-    "delegates": "#EDB088",
-}
+BOARD_FAMILY = dict(zip(("president", "midterm", "governor"), reversed(ramp(3))))
 BOARD_CYCLES = {"president": "presidential year", "midterm": "midterm year",
                 "governor": "governor's year", "delegates": "House of Delegates year"}
 # The dated changes to who could vote that the turnout figure rules off:
 # (year, note, which side of the rule the note runs to, tier). Notes close
-# together stand at different heights, so no rule runs through another's note.
+# together stand at different heights, so no rule runs through another's
+# note. 1966, the poll tax falling, is not among them: it is sourced
+# (docs/elections.md, *Harper v. Virginia Board of Elections*), but the line
+# shows no kink there to anchor it, unlike the other three (Sally, 7 October
+# 2026).
 ELECTORATE_RULES = ((1894, "1894: Walton Act", "right", 0),
                     (1902, "1902: constitution", "right", 1),
-                    (1920, "1920: women vote", "left", 0),
-                    (1966, "1966: poll tax ends", "left", 0))
+                    (1920, "1920: women vote", "left", 0))
 # A legend entry set under a heading starts this fraction of a swatch in.
 LEGEND_INDENT = 0.5
 
