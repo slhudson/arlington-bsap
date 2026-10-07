@@ -32,12 +32,12 @@ key, no connection. And an API can change its answer, so a live call could move
 a figure between runs with nothing in the repo to explain it; a committed file
 is the same evidence standard as a scanned page.
 
-The one exception is twenty-four census scans the build never reads, about
-250MB of bulk nothing reads. They are marked `in_git = no` in
+The one exception is the census volume scans the build never reads, bulk
+nothing reads. They are marked `in_git = no` in
 `data/contents.csv` with their URL and checksum; `code/fetch/census_volumes.py`
 fetches them and refuses a byte that differs, and `run.sh` says at the end of
-every build if they are missing. A raw file the build reads is always
-committed.
+every build if they are missing. A published file the build reads is
+always committed.
 
 ## The Overleaf mirror
 
