@@ -20,7 +20,26 @@ write-ups keep; some are another entry's; and some sit on a page whose scan
 the OCR did not reach, read by eye instead. Prose cannot be read for the
 difference, so each is declared in DECLARED with its reason. Anything else
 missing stops the build.
+
+A Virginia Act of Assembly prints struck and inserted text as two layers on
+the same page - struck in one type, inserted in another - and HeinOnline's
+uncorrected OCR runs both into one string with no way to tell which word came
+from which layer. A quotation read correctly off the page image can still
+fail against that text, not because it is wrong but because the copy's own
+text layer cannot support it. Before writing a quote into a new entry's
+annotation, check it against the page images already in hand:
+
+    .venv/bin/python code/sources/quotations.py --draft <path/to/filed.pdf> <<'EOF'
+    a sentence with "a candidate quotation" and "another one" in it
+    EOF
+
+prints ok or FAIL for each quoted passage of four or more words found on
+stdin, against that one PDF, before the entry exists in sources.bib. A
+passage that fails belongs in the annotation as plain words instead, or, if
+it is right and the copy's text layer merely cannot carry it, in DECLARED
+once the entry is written.
 """
+import argparse
 import re
 import sys
 from pathlib import Path
@@ -168,7 +187,37 @@ def unsupported(bib, documents=None):
 FEWEST = 30
 
 
+def check_draft(pdf):
+    """Every quoted passage of four or more words on stdin, checked against
+    `pdf` directly - an entry not yet in sources.bib has no filed name for
+    quotations() to read, so the draft is read as plain text instead."""
+    if not pdf.exists():
+        sys.exit(f"{pdf} does not exist")
+    draft = sys.stdin.read()
+    qs = [q for q in quotations(draft) if not archive.NAME.match(archive.tidy_name(q))]
+    if not qs:
+        sys.exit("no quoted passage of four or more words found on stdin")
+    text = text_of(pdf)
+    bad = [q for q in qs if not contains(text, q)]
+    for q in qs:
+        print(("FAIL" if q in bad else "ok  ") + f' "{q}"')
+    if bad:
+        sys.exit(f"\n{len(bad)} of {len(qs)} draft quotations are not in {pdf.name}. "
+                 f"Read correctly off the page image, uncorrected OCR can still fail "
+                 f"to carry a quotation; put it in the annotation as plain words.")
+    print(f"all {len(qs)} draft quotations are in {pdf.name}")
+
+
 def main():
+    ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
+    ap.add_argument("--draft", type=Path, metavar="PDF",
+                     help="check quoted passages read on stdin against this one filed "
+                          "PDF, before the entry exists in sources.bib")
+    a = ap.parse_args()
+    if a.draft:
+        check_draft(a.draft)
+        return
+
     missing, read = unsupported(archive.BIB.read_text())
     for key, q in missing:
         print(f'{key}: the filed copy does not contain "{q}"')

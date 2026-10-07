@@ -254,8 +254,17 @@ boundary change that never happened.
 How the constitutions, acts, the County Code and the Board's own papers made
 the Board and divide its work with the Manager is the report's, in Part A, and
 each source's reading is in its entry's `annotation` in `paper/sources.bib`.
-What is not held is tracked: `law-library-access` for 1993 c. 731,
-`county-code-board-manager` for the County's papers, and
+The non-interference bar vaacts1952c443 wrote and vaacts1962c623 carried
+unchanged is softened by 1982 c. 108 (vaacts1982c108): the bar on directing or
+requesting an appointment, or taking any part in one, narrows to a bar on
+dictating one outright; a sentence lets the Board discuss appointments and
+removals with the Manager; and the misdemeanor and the forfeiture of office
+are struck. Every change between the 1952 text and today's sec. 15.2-703 is
+this act's, not the 1997 recodification's. 1993 c. 731 (vaacts1993c731), the
+other act `law-library-access` tracked, touches a different section - sec.
+15.1-676's election and vacancy machinery, not the bar - and its history
+belongs with Election Method once that section is drafted. What is not held
+is tracked: `county-code-board-manager` for the County's papers, and
 `county-manager-statutes-other-states` for whether Arlington was the first
 county to adopt the plan by vote.
 
