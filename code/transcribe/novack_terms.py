@@ -12,9 +12,9 @@ import re
 
 import pymupdf
 
-from paths import BY_CLAUDE, RAW
+from paths import BY_CLAUDE, MAGAZINE, ROOT
 
-SOURCE = (RAW / "arlington_historical_magazine"
+SOURCE = (MAGAZINE
           / "novack_six_decades_of_arlington_leadership_1994.pdf")
 OUT = (BY_CLAUDE / "arlington_historical_magazine"
        / "novack_terms_1930-1994.csv")
@@ -72,7 +72,7 @@ def main():
         for r in rows:
             fh.write(",".join(f'"{str(r[k]).replace(chr(34), chr(39))}"'
                               for k in ("page", "name", "term", "notes")) + "\n")
-    print(f"  {OUT.relative_to(RAW.parents[1])}")
+    print(f"  {OUT.relative_to(ROOT)}")
     print(f"    {len(rows)} members")
 
 

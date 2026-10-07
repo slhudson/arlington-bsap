@@ -39,7 +39,7 @@ collaborator needs access to both, because merging a piece of work into the
 whole project also refreshes the mirror:
 
 - **`slhudson/arlington-bsap`** is the whole project: code, data, docs, paper,
-  figures and the archive of cited sources in `sources/documents/`. The
+  figures and the archive of cited sources in `sources/`. The
   archive is 666 MB, so the clone is about 770 MB, a one-time download.
 - **`slhudson/arlington-bsap-draft`** is a small mirror holding only `paper/`,
   `figures/pdf/` and the fonts, and Overleaf is linked to it. Overleaf syncs a whole
@@ -81,12 +81,12 @@ committed in the repository. Data flows downward through five folders of
 code, each writing one folder of data:
 
 - `code/fetch/` downloads a published source and saves it, unchanged, into
-  `data/raw/`. It runs only when a new source is needed; the file is
+  `sources/`. It runs only when a new source is needed; the file is
   committed, so nobody fetches it twice.
-- `code/transcribe/` reads the scanned documents in `data/raw/` into tables in
+- `code/transcribe/` reads the scanned documents in `sources/` into tables in
   `data/transcribed/`. It also runs only on demand, and its output is
   committed.
-- `code/build/` reshapes the raw and transcribed files into the tables in
+- `code/build/` reshapes the published and transcribed files into the tables in
   `data/built/` and decides nothing. A step is refused if a value its inputs
   carry is missing from its output.
 - `code/clean/` turns those into the tables in `data/clean/`, and can read
@@ -104,10 +104,10 @@ Alongside them: `paper/` holds the LaTeX source, with the bibliography in
 the timelines in `paper/timelines/`; `docs/` holds the open questions
 (`docs/questions.csv`), the punch list of small fixes to the paper
 (`docs/punchlist.md`), and the record of what backs every number; and
-`sources/documents/` holds a copy of every source the report cites that no
-number is taken from.
+`sources/` holds every source the report cites, as published, filed by group
+and then by publisher.
 
-Two rules to know before touching anything. `data/raw/` holds the sources as
+Two rules to know before touching anything. `sources/` holds the sources as
 published and is never edited — a defect in one is corrected in
 `code/clean/`, where the correction is visible. And `README.md` is the front
 door, with a table of which script writes which file, while `CLAUDE.md`
@@ -128,7 +128,7 @@ holds the working rules.
    Project's knowledge, with its files rather than under settings or
    connectors, using a GitHub personal access token with read access. Sync
    `code/`, `docs/`, `paper/`, `data/clean/` and `data/contents.csv`, and
-   leave out `data/raw/`, `data/transcribed/` and `sources/documents/` —
+   leave out `sources/` and `data/transcribed/` —
    the figures read only `data/clean/`, because the layers above hold scans
    and OCR that misreads digits by design. The steps below are for changing
    things.
@@ -204,7 +204,7 @@ Prose is written in Overleaf, never through Claude: if someone asks Claude to
 edit the paper's text, point them to Overleaf. Everything else goes through
 Claude Code, opened in the repository folder, in a sentence: a source
 document to add (give Claude the file or its link; it files it in
-`sources/documents/` and cites it), a figure changed, a number checked, a
+`sources/` and cites it), a figure changed, a number checked, a
 source cited, what is open on the tracker, a build.
 
 Claude takes it from there. It makes a separate branch, a private copy of
@@ -221,7 +221,7 @@ work. If the merge stops, say so in plain words and say what it needs; never
 leave the work unshared.
 
 Claude will refuse two things, because the project protects them. It will not
-edit `data/raw/`, which holds the sources as published; a defect in a source
+edit `sources/`, which holds the sources as published; a defect in a source
 is corrected in `code/clean/`, where a reviewer can see it. And it will not
 accept a figure edited in Overleaf, because every figure is redrawn from the
 data, so a hand edit would be overwritten by the next build.

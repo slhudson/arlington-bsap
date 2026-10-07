@@ -1,20 +1,19 @@
 ---
 name: sources
-description: Add, fetch, cite or file a source for the Arlington BSaP report. Use whenever a document, dataset, census record, article or web page is being brought into data/raw/, cited in paper/bib/sources.bib, or filed in sources/documents.
+description: Add, fetch, cite or file a source for the Arlington BSaP report. Use whenever a document, dataset, census record, article or web page is being brought into sources/ or cited in paper/bib/sources.bib.
 ---
 
 # Sources
 
-`CLAUDE.md` has the rules: `data/` holds what we take numbers out of, a
-source consulted only to settle a question is cited in `paper/bib/sources.bib`
-and filed in `sources/documents`, every source column holds a citekey, and a
+`CLAUDE.md` has the rules: `sources/` holds every source as published, each
+cited in `paper/bib/sources.bib`, every source column holds a citekey, and a
 bib entry is built from the document in hand. This file is the tools that do
 it.
 
 ## Fetching a source the build reads
 
 A source a figure derives from is fetched by a script in `code/fetch/`,
-saved into `data/raw/` under the name of who published it, given a row in
+saved into `sources/` under the group and the name of who published it, given a row in
 `data/contents.csv` with its checksum, and committed. `run.sh` never touches
 the network, so the build reads only what is committed. `docs/web_access.md`
 says what each site needs from this machine.
@@ -34,7 +33,7 @@ never logged as a row with the session reporting "done". Saving a page's PDF
 to `~/Downloads` is not one of those: once the check is passed, Claude clicks
 the page's Download PDF button itself (Sally, 6 October 2026: standing
 permission for newspaper page PDFs from loc.gov and Virginia Chronicle, a
-page or two at a time), reads the file, and moves it on to `sources/documents`. Asking her
+page or two at a time), reads the file, and moves it on to `sources/`. Asking her
 to click it is the friction this line removes.
 
 When Chrome is not answering - a blank sign-in page, the extension not
@@ -105,26 +104,31 @@ What each census column holds is in the docstring of
 `code/clean/members_census.py`; a row's `basis` and `match` say what ties
 the record to the member, and a name alone is no match.
 
-## sources/documents
+## sources/
 
 Committed in the repository, beside its citation (`docs/repository.md`), so a
-cited copy sits next to `paper/bib/sources.bib`. The folder is filed by kind,
-and its index is generated.
-`code/sources/archive.py` files the documents folder into `legal`, `reports`, `books`, `bios`,
-`campaign websites`, `press`, `obituaries` and `census`, the kind being a rule on the
-bib entry; writes `index.md` at its top from `paper/bib/sources.bib` and
-`data/contents.csv`, so the index cannot drift from either; and builds the
-zip the County receives, the repository at HEAD with the on-demand
-scans and the folder. Without `--apply` it only reports. It refuses to act
-while a name the bib says is filed is not in the folder, and deletes
-nothing: a file no entry names goes to `unplaced/`.
+cited copy sits next to `paper/bib/sources.bib`. The folder is filed by who
+published each copy, and its index is generated.
+`code/sources/archive.py` files `sources/` under `press`, `legal`, `government`
+(`federal`, `state`, `local`), `academic`, `genealogy` and `other`, and below
+that in a folder per publisher, `archive.shelf()` being the rule; writes
+`index.md` at its top from `paper/bib/sources.bib` and `data/contents.csv`, so
+the index cannot drift from either; and builds the zip the County receives,
+the repository at HEAD with the on-demand scans. Without `--apply` it only
+reports. It refuses to act while a name the bib says is filed is not in the
+folder, and deletes nothing: a file no entry names and no row of
+`data/contents.csv` holds goes to `unplaced/`.
 
-Three kinds are split into subfolders by `archive.subfolder()`, because one flat
-folder stopped answering a question: census by who made the copy and then the
-census year, press by outlet so a paper's run is in one place, and legal by what
-the document is — `opinions`, `statutes` or `constitutions`. A legal copy that
-is none of those three stops the run, because that folder holds primary law
-only: scholarship about law belongs in `books` and a legal memo in `reports`.
+A publisher not named in `archive.SHELVES` goes to `press/` if its entry is a
+paper's page and to `other/` if not; to add one to a group, add it there. An
+entry whose publisher no rule can read stops the run until `archive.PUBLISHER_OF`
+names it. A census copy is also filed by census year, and legal copies by what
+the document is, `cases`, `constitutions` or `statutes` (the last split into
+`state` and `federal`): a legal copy that is none of those three stops the run,
+because that folder holds primary law only.
+
+`archive.kind()` still reads an entry as press, obituary, bio, report and the
+like, for naming a copy and for the index; it no longer chooses the folder.
 
 Four press folders are one paper under four mastheads. It debuted in December
 1935 as the *Sun*; the separately published *Arlington Daily* (1939-51) merged

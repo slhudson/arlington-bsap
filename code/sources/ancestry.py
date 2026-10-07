@@ -5,7 +5,7 @@
     .venv/bin/python code/sources/ancestry.py --apply --redo census1940detwiler
 
 Every census row in data/transcribed/by_claude/members_census.csv cites a
-record on Ancestry, and sources/documents keeps a copy of each beside the
+record on Ancestry, and sources/genealogy/ancestry keeps a copy of each beside the
 sheet image, because a site behind a sign-in cannot be fetched again by
 anyone reading this repository. Ancestry refuses an automated request, so
 the copy is not the page itself: it is the record as the row already holds
@@ -113,10 +113,10 @@ def records(bib, rows):
         if entry is None:
             sys.exit(f"{row['source']} is in members_census.csv and not in sources.bib")
         annotation = entry.get("annotation", "")
-        sheet = filed(annotation, "census/US Census")
+        sheet = filed(annotation, "government/federal/us_census_bureau")
         if sheet is None:
             sys.exit(f"{row['source']}: the annotation names no sheet image")
-        name = filed(annotation, "census/Ancestry")
+        name = filed(annotation, "genealogy/ancestry")
         yield {"key": row["source"], "year": row["year"], "quote": row["quote"],
                "sheet": sheet, "name": name,
                "url": " ".join(entry["url"].split()),
@@ -142,14 +142,14 @@ def main():
                     help="rebuild these entries' pages even though they are on disk; "
                          "`all` rebuilds every one, which is how a change to the page "
                          "itself reaches the pages already filed")
-    ap.add_argument("--documents", type=Path, default=archive.DOCUMENTS)
+    ap.add_argument("--sources", type=Path, default=archive.SOURCES)
     ap.add_argument("--file", type=Path, default=CENSUS,
                     help="the census-shaped transcribed csv to file pages for "
                          "(default: members_census.csv)")
     a = ap.parse_args()
 
-    if not a.documents.is_dir():
-        sys.exit(f"the documents folder is not at {a.documents}")
+    if not a.sources.is_dir():
+        sys.exit(f"the sources folder is not at {a.sources}")
     with a.file.open(newline="") as f:
         rows = [r for r in csv.DictReader(f) if r["source"] not in ("", "unsourced")]
     bib = archive.BIB.read_text()
@@ -163,7 +163,7 @@ def main():
         if record["name"] != want:
             sys.exit(f"{record['key']}: the annotation names {record['name']!r}, "
                      f"where the title and the record number give {want!r}")
-        out = a.documents / "census" / "Ancestry" / record["year"] / want
+        out = a.sources / "genealogy" / "ancestry" / record["year"] / want
         named.add(out)
         if not out.exists() or "all" in a.redo or record["key"] in a.redo:
             todo.append((record, out))
@@ -171,16 +171,16 @@ def main():
     # A page for a record kept out of the table - one cited while a question
     # about it is open - has no row to be built from, so this script leaves it
     # as it was filed. It says so rather than passing over it.
-    loose = sorted(set((a.documents / "census" / "Ancestry").glob("*/*.pdf")) - named)
+    loose = sorted(set((a.sources / "genealogy" / "ancestry").glob("*/*.pdf")) - named)
     for f in loose:
         print(f"{f.name}: filed, and no census row cites it; left as it was made")
 
     for key, want in unnamed:
         print(f"{key}: the annotation names no filed page; it would be "
-              f'"census/Ancestry/.../{want}"')
+              f'"genealogy/ancestry/.../{want}"')
     for record, out in todo:
         print(f"{record['key']}: {'rewrite' if out.exists() else 'write'} "
-              f"census/Ancestry/{record['year']}/{out.name}")
+              f"genealogy/ancestry/{record['year']}/{out.name}")
         if a.apply:
             out.parent.mkdir(parents=True, exist_ok=True)
             to_pdf(page(record, record["sheet"]), out)

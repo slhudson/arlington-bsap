@@ -132,7 +132,7 @@ def registration() -> pd.DataFrame:
 def voting_age() -> pd.DataFrame:
     rows = []
     for year, (file, cols) in VOTING_AGE.items():
-        r = census.row("raw/us_census_bureau/" + file)
+        r = census.row("us_census_bureau/" + file)
         if cols == "from 18":
             ages = list(r.index[3:])
             cols = ages[ages.index("18"):]

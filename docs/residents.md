@@ -248,7 +248,7 @@ that does not depend on either empty cell.
 database of a census, case-selected to Virginia and to the ICPSR county code
 0130, which is Arlington under the name it held at the time. Each extract,
 and the codebook the API delivers with it, is committed under
-`data/raw/ipums/`; the query that produced it is the script, since a
+`sources/academic/ipums/`; the query that produced it is the script, since a
 microdata extract is not a published table and cannot be its own citation.
 The data are `ipumsfullcount`, and IPUMS's terms of use require that
 `ipumsusa` be cited beside it.
@@ -448,7 +448,7 @@ each and is divided by 1910's. Nothing in `data/` interpolates the men.
 ## Population and race, year by year
 
 Every total from 1870 to 2020 is taken from a published Census Bureau document
-in `data/raw/us_census_bureau/`, and so is every race figure. 1870–1890 are
+in `sources/government/federal/us_census_bureau/`, and so is every race figure. 1870–1890 are
 derived from the volumes as county minus city; 1900–1970 come from
 POP-TWPS0076 Table 47, which prints Arlington by race at every census from
 1900; 1980–2020 come from the crossed census tables.
@@ -805,5 +805,5 @@ fetched and checked the same way. None has a text layer and none is OCR'd;
 each table was found by rendering the chapter's page headers and read off
 the page at 200 dpi. The magisterial districts for 1900 to 1930 come from four
 more volumes fetched the same way, each front-matter file with the chunk
-holding the district table. `data/raw/us_census_bureau/README.md` lists all
+holding the district table. `sources/government/federal/us_census_bureau/README.md` lists all
 twenty-four files fetched on demand.

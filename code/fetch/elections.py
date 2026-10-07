@@ -1,4 +1,4 @@
-"""Virginia elections database -> data/raw/va_dept_of_elections/county_board_2000-2026.csv.gz
+"""Virginia elections database -> sources/government/state/va_dept_of_elections/county_board_2000-2026.csv.gz
 
 Run by hand when a newer election is needed; the build never touches the
 network (CLAUDE.md).
@@ -23,7 +23,7 @@ import urllib.request
 import paths
 
 ROOT = paths.ROOT
-OUT = paths.RAW / "va_dept_of_elections" / "county_board_2000-2026.csv.gz"
+OUT = paths.VA_ELECTIONS / "county_board_2000-2026.csv.gz"
 
 ENDPOINT = "https://va2.elstats.civera.com/api/download_search.csv"
 COUNTY_BOARD_MEMBER = 546            # the database's id for the office

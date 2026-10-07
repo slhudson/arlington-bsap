@@ -15,7 +15,7 @@ code/clean/elections_results.py's job.
 import pymupdf
 
 from members_1870_1920 import ELECTION, PAGE_FURNITURE, SOURCE, columns
-from paths import BY_CLAUDE, RAW
+from paths import BY_CLAUDE, ROOT
 
 OUT = BY_CLAUDE / "arlington_county" / "president_1872-1920.csv"
 
@@ -68,7 +68,7 @@ def main():
             fh.write(",".join(f'"{str(r[k]).replace(chr(34), chr(39))}"'
                               for k in ("page", "year", "election_date", "entry")) + "\n")
     years = sorted({r["year"] for r in rows})
-    print(f"  {OUT.relative_to(RAW.parents[1])}")
+    print(f"  {OUT.relative_to(ROOT)}")
     print(f"    {len(rows)} candidate lines, {years[0]}-{years[-1]}, {len(years)} elections")
 
 

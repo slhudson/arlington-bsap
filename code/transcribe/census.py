@@ -18,9 +18,9 @@ import Quartz
 import Vision
 from Foundation import NSData
 
-from paths import RAW, TRANSCRIBED
+from paths import CENSUS_BUREAU, TRANSCRIBED
 
-SCANS = RAW / "us_census_bureau"
+SCANS = CENSUS_BUREAU
 OUT = TRANSCRIBED / "by_ocr" / "us_census_bureau"
 DPI = 300
 

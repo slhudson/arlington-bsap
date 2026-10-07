@@ -1,4 +1,4 @@
-"""Virginia elections database -> data/raw/va_dept_of_elections/president_1924-2024.csv.gz
+"""Virginia elections database -> sources/government/state/va_dept_of_elections/president_1924-2024.csv.gz
 
 Run by hand after a presidential election; the build never touches the
 network (CLAUDE.md).
@@ -23,7 +23,7 @@ import pandas as pd
 import paths
 
 ROOT = paths.ROOT
-OUT = paths.RAW / "va_dept_of_elections" / "president_1924-2024.csv.gz"
+OUT = paths.VA_ELECTIONS / "president_1924-2024.csv.gz"
 
 ENDPOINT = "https://va2.elstats.civera.com/api/download_search.csv"
 PRESIDENT = 1                        # the database's id for the office

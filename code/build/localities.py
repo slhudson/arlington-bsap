@@ -23,12 +23,12 @@ import zipfile
 import pandas as pd
 
 import citekeys
-from paths import BY_CLAUDE, RAW, source, write
+from paths import BY_CLAUDE, CENSUS_BUREAU, source, write
 
 CITIES = BY_CLAUDE / "city_of_richmond" / "city_councils.csv"
 COUNTIES = BY_CLAUDE / "county_boards.csv"
-POPULATION = RAW / "us_census_bureau" / "2020" / "censusapi_dec_pl_P1_race_virginia_counties.csv.gz"
-GAZETTEER = RAW / "us_census_bureau" / "2020" / "gazetteer_counties_national.zip"
+POPULATION = CENSUS_BUREAU / "2020" / "censusapi_dec_pl_P1_race_virginia_counties.csv.gz"
+GAZETTEER = CENSUS_BUREAU / "2020" / "gazetteer_counties_national.zip"
 
 
 def gazetteer() -> pd.DataFrame:

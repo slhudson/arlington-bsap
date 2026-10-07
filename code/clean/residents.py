@@ -249,7 +249,7 @@ def twps0076() -> dict:
 
 def arlington(year, table):
     """Arlington's row from a Census data file, by the table's Census code."""
-    return census.row(f"raw/us_census_bureau/{year}/censusapi_*_{table}_*_virginia_counties.csv")
+    return census.row(f"us_census_bureau/{year}/censusapi_*_{table}_*_virginia_counties.csv")
 
 
 def early_years() -> pd.DataFrame:
@@ -416,7 +416,7 @@ def adult_median_age(row):
 
 def stf1a(year, table):
     """Arlington's row of one archived Summary Tape File extract."""
-    return census.row(f"raw/us_census_bureau/{year}/stf1a_{table}_virginia_counties.csv")
+    return census.row(f"us_census_bureau/{year}/stf1a_{table}_virginia_counties.csv")
 
 
 def partition(bands, groups, year):

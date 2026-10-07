@@ -1,4 +1,4 @@
-"""Arlington Historical Society -> data/raw/arlington_historical_magazine/1967_officials.pdf
+"""Arlington Historical Society -> sources/press/arlington_historical_magazine/1967_officials.pdf
 
 Run by hand; the build never touches the network (CLAUDE.md).
 
@@ -13,7 +13,7 @@ import urllib.request
 import paths
 
 ROOT = paths.ROOT
-OUT = paths.RAW / "arlington_historical_magazine" / "1967_officials.pdf"
+OUT = paths.MAGAZINE / "1967_officials.pdf"
 
 URL = "https://arlhist.org/wp-content/uploads/2017/02/1967-7-Officials.pdf"
 

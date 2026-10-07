@@ -532,7 +532,7 @@ def test_a_county_table_with_a_second_row_is_refused_when_it_is_read():
     """A county-level table built with another county's row ahead of
     Arlington's. census.row() would take the first row, and every figure
     reading that volume would show a neighbouring county's population."""
-    table = census.names("raw/us_census_bureau/*/stf1a_*_virginia_counties.csv")[0]
+    table = census.names("us_census_bureau/*/stf1a_*_virginia_counties.csv")[0]
 
     def mangle(orig):
         def patched():
@@ -977,10 +977,10 @@ def test_a_category_merged_in_the_build_stage_is_refused():
 
 
 def test_the_clean_stage_has_no_route_above_built():
-    """A name in code/clean/paths.py that points under data/raw/ or
+    """A name in code/clean/paths.py that points under sources/ or
     data/transcribed/. A source reaches the clean stage through a build step
     or not at all."""
-    above = (ROOT / "data" / "raw", ROOT / "data" / "transcribed")
+    above = (ROOT / "sources", ROOT / "data" / "transcribed")
     routes = [n for n, v in vars(paths).items()
               if isinstance(v, Path) and any(v == a or a in v.parents for a in above)]
     assert not routes, f"code/clean/paths.py maps a path above data/built/: {routes}"
@@ -1622,20 +1622,20 @@ def test_every_bib_entry_closes_before_the_next():
 
 
 def test_every_source_with_a_url_is_filed():
-    """A bib entry with a url that names no copy on file ("Filed in sources/documents
-    as", or a path under data/raw/); or one that says it is not filed.
+    """A bib entry with a url that names no copy on file ("Filed in sources
+    as", or a path under sources/); or one that says it is not filed.
     Either is allowed only while docs/questions.csv names the key, so an
     entry that admits to holding no copy is tracked rather than rewritten
     into a claim that it is filed."""
     problems = []
     for key, body in bib_entries():
         if re.search(r"not\s+(?:yet\s+)?filed", body, re.I) and key not in questions():
-            problems.append(f"{key}: says it is not filed - file it in sources/documents and say so, "
+            problems.append(f"{key}: says it is not filed - file it in sources/ and say so, "
                             f"or log a question naming the key")
         has_url = re.search(r"^\s*url\s*=", body, re.M)
         # Whitespace-tolerant: biblatex wraps an annotation anywhere, so a
         # literal match would fail an entry that names its copy across a line.
-        held = re.search(r"Filed\s+in\s+sources/documents\s+as", body) or "data/raw/" in body
+        held = re.search(r"Filed\s+in\s+sources\s+as", body) or "sources/" in body
         # A page cited only for a count keeps no copy, on purpose: what it said
         # is keyed into data/transcribed/ with the date it was read, and that
         # file is the source a reviewer reads. The keyed file must be named, so
@@ -1643,8 +1643,8 @@ def test_every_source_with_a_url_is_filed():
         if re.search(r"no\s+copy\s+is\s+kept", body) and "data/transcribed/" in body:
             held = True
         if has_url and not held and key not in questions():
-            problems.append(f"{key}: has a url but names no copy - add 'Filed in sources/documents as \"...\"' "
-                            f"or the path under data/raw/, or log a question naming the key")
+            problems.append(f"{key}: has a url but names no copy - add 'Filed in sources as \"...\"' "
+                            f"or the path under sources/, or log a question naming the key")
     assert not problems, "sources with no copy on file:\n  " + "\n  ".join(problems)
 
 
@@ -1653,18 +1653,18 @@ def test_a_filed_name_is_read_through_the_quotes_in_a_title():
     as far as the next quotation mark left "of American Politics.txt", which
     matches no file. archive.py reported the copy as named by nobody, and
     --apply would have moved a book the bib names into unplaced/."""
-    e = {"annotation": 'Filed in sources/documents as "books/Gilbertson, H. S. 1917 - The County, the '
+    e = {"annotation": 'Filed in sources as "books/Gilbertson, H. S. 1917 - The County, the '
                        '"Dark Continent" of American Politics.txt", the Internet Archive OCR.'}
     assert archive.filed(e) == ['books/Gilbertson, H. S. 1917 - The County, the '
                                 '"Dark Continent" of American Politics.txt'], archive.filed(e)
 
 
 def test_a_space_after_a_folder_is_a_typo_and_not_a_folder():
-    """An annotation typed "legal/state statutes/ Commonwealth ..." names a
+    """An annotation typed "legal/statutes/state/ Commonwealth ..." names a
     copy that is really there; the space made the archive call it unplaced."""
-    e = {"annotation": 'Filed in sources/documents as "legal/state statutes/ Commonwealth of Virginia '
+    e = {"annotation": 'Filed in sources as "legal/statutes/state/ Commonwealth of Virginia '
                        '1971 - An Act to Conform.pdf".'}
-    assert archive.filed(e) == ["legal/state statutes/Commonwealth of Virginia 1971 - "
+    assert archive.filed(e) == ["legal/statutes/state/Commonwealth of Virginia 1971 - "
                                 "An Act to Conform.pdf"], archive.filed(e)
 
 
@@ -1672,8 +1672,8 @@ def test_quoted_prose_in_an_annotation_is_not_a_filed_name():
     """The other half: annotations quote the sources they read, and a quoted
     sentence that happens to run past a filename must not be read as one."""
     e = {"annotation": 'The court said "a continuous, contiguous community" of it. '
-                       'Filed in sources/documents as "legal/state courts/Court 1922 - Bennett v. Garrett.pdf".'}
-    assert archive.filed(e) == ["legal/state courts/Court 1922 - Bennett v. Garrett.pdf"]
+                       'Filed in sources as "legal/cases/Court 1922 - Bennett v. Garrett.pdf".'}
+    assert archive.filed(e) == ["legal/cases/Court 1922 - Bennett v. Garrett.pdf"]
 
 
 def test_every_filed_name_in_the_bib_is_a_file_that_exists():
@@ -1682,7 +1682,7 @@ def test_every_filed_name_in_the_bib_is_a_file_that_exists():
     bib = archive.entries(archive.BIB.read_text())
     named = [(e["key"], n) for e in bib for n in archive.filed(e) if "/" in n]
     assert len(named) > 400, f"only {len(named)} filed names found - is the parser matching?"
-    missing = [f"{k}: {n}" for k, n in named if not (archive.DOCUMENTS / n).exists()]
+    missing = [f"{k}: {n}" for k, n in named if not (archive.SOURCES / n).exists()]
     assert not missing, "filed names that are not files:\n  " + "\n  ".join(missing)
 
 
@@ -1711,7 +1711,7 @@ def test_no_roster_page_in_the_bib_names_a_filed_copy():
     rosters = [e for e in bib if archive.roster_page(e)]
     assert rosters, "no roster pages found at all - has roster_page() stopped matching?"
     filed = [e["key"] for e in rosters if archive.filed(e)]
-    assert not filed, ("roster pages with a copy filed in sources/documents - cite the page and key the "
+    assert not filed, ("roster pages with a copy filed in sources/ - cite the page and key the "
                        "count instead:\n  " + "\n  ".join(filed))
     unkeyed = [e["key"] for e in rosters
                if "data/transcribed/" not in e.get("annotation", "")]
@@ -1722,7 +1722,7 @@ def test_no_roster_page_in_the_bib_names_a_filed_copy():
 def test_a_record_that_is_not_a_census_is_not_filed_as_one():
     """Four Ancestry records - a marriage, a passenger list, a draft card, a
     grave - were filed as censuses because the rule read who published them,
-    and landed in census/Ancestry/1924, 1934, 1942 and 1957, years no census
+    and landed in the census folder under 1924, 1934, 1942 and 1957, years no census
     was taken in."""
     for title, where in [
             ("John C. Gall in the Virginia, U.S., Select Marriages, 1785-1940", "vital records"),
@@ -1753,34 +1753,75 @@ def test_a_census_record_is_filed_as_one_whoever_indexed_it():
              "organization": who}
         assert archive.kind(e) == "census", f"a {who} census record filed as {archive.kind(e)}"
         base = f"{who} 1900 - United States, Census, 1900.pdf"
-        assert archive.subfolder(e, base) == f"census/{who}/1900", \
-            f"{base} does not file by maker and year"
-
+        want = {"Ancestry": "genealogy/ancestry/1900", "FamilySearch": "genealogy/familysearch/1900"}[who]
+        assert archive.shelf(e, base) == want, f"{base} files in {archive.shelf(e, base)}, not {want}"
 
 
 def test_press_files_by_outlet_and_legal_by_what_the_document_is():
-    """The two folders that outgrew being flat. A paper's run belongs in one
-    place, and a legal folder holding opinions, statutes and constitutions
-    together answers no question."""
+    """A paper's run belongs in one place, under press, and the law is split
+    the way the bibliography's Legal Authorities part is: cases,
+    constitutions, statutes, with statutes divided by whose they are."""
     e = {"type": "article", "key": "planted", "title": "Arlington Republicans",
          "organization": "Alexandria Gazette", "pages": "3", "location": "Alexandria"}
-    assert archive.subfolder(e, "Alexandria Gazette 1873 - Arlington Republicans.pdf") == \
-        "press/Alexandria Gazette"
+    assert archive.shelf(e, "Alexandria Gazette 1873 - Arlington Republicans.pdf") == \
+        "press/alexandria_gazette"
     for who, title, where in [
-            ("Supreme Court of Appeals of Virginia", "Bennett v. Garrett", "legal/state courts"),
-            ("Commonwealth of Virginia", "Code of Virginia", "legal/state statutes"),
+            ("Supreme Court of Appeals of Virginia", "Bennett v. Garrett", "legal/cases"),
+            ("Commonwealth of Virginia", "Code of Virginia", "legal/statutes/state"),
             ("Commonwealth of Virginia", "An Act to Provide for the Method of Voting by Ballot",
-             "legal/state statutes"),
+             "legal/statutes/state"),
             # the legislature acting on the constitution is a statute
             ("Commonwealth of Virginia", "Joint Resolutions Proposing Amendments to Article VII "
-             "of the Constitution of Virginia", "legal/state statutes"),
-            ("Commonwealth of Virginia", "Constitution of Virginia", "legal/state constitutions"),
+             "of the Constitution of Virginia", "legal/statutes/state"),
+            ("Commonwealth of Virginia", "Constitution of Virginia", "legal/constitutions"),
             # whose law it is: Congress retroceded the county, Virginia accepted it
             ("United States", "An Act to retrocede the County of Alexandria",
-             "legal/federal statutes")]:
+             "legal/statutes/federal")]:
         e = {"type": "legislation", "key": "planted", "title": title, "author": who}
-        got = archive.subfolder(e, f"{who} 1846 - {title}.pdf")
+        got = archive.shelf(e, f"{who} 1846 - {title}.pdf")
         assert got == where, f"{who}, {title} filed in {got}, not {where}"
+
+
+def test_every_filed_copy_is_on_its_shelf():
+    """A copy somewhere other than where archive.shelf() puts it: filed by
+    hand, or left behind by a rule that changed. archive.py's dry run would
+    list it as a move; this stops the build instead."""
+    bib = archive.entries(archive.BIB.read_text())
+    claims, missing = archive.place(bib, archive.SOURCES)
+    assert not missing, f"filed names not found: {missing[:3]}"
+    off = [f"{cur} -> {t}" for cur, (t, _) in claims.items() if cur != t]
+    assert not off, "copies off their shelf:\n  " + "\n  ".join(off)
+
+
+def test_the_stages_name_the_same_publisher_folders_and_the_cache_reads_them():
+    """code/build/, code/fetch/ and code/transcribe/ each name the folders
+    under sources/ they read or write in their own paths.py, so the three
+    have to agree, every folder has to exist, and the folders the build reads
+    have to be among the inputs run.sh keys the build cache on. A folder
+    the key leaves out would let an edited table restore a stale build."""
+    import importlib.util
+    named = {}
+    for stage in ("build", "fetch", "transcribe"):
+        spec = importlib.util.spec_from_file_location(f"{stage}_paths_probe", ROOT / "code" / stage / "paths.py")
+        mod = importlib.util.module_from_spec(spec)
+        sys.path.insert(0, str(ROOT / "code"))
+        try:
+            spec.loader.exec_module(mod)
+        finally:
+            sys.path.pop(0)
+        named[stage] = {n: v for n, v in vars(mod).items()
+                        if isinstance(v, Path) and v != mod.SOURCES and mod.SOURCES in v.parents}
+    for stage, folders in named.items():
+        for name, folder in folders.items():
+            assert folder.is_dir(), f"code/{stage}/paths.py {name} is not a folder: {folder}"
+            for other, others in named.items():
+                assert others.get(name, folder) == folder, \
+                    f"{name} is {folder} in {stage} and {others[name]} in {other}"
+    run = (ROOT / "run.sh").read_text()
+    built_by = re.search(r"^BUILT_BY=\((.*?)\)", run, re.M | re.S).group(1).split()
+    for name, folder in named["build"].items():
+        rel = str(folder.relative_to(ROOT))
+        assert rel in built_by, f"run.sh BUILT_BY does not list {rel}, which code/build/paths.py reads as {name}"
 
 
 def test_a_hyphen_is_not_crowded_against_the_word_before_it():
@@ -1854,7 +1895,7 @@ def a_legal_entry(key, annotation):
             "  annotation  = {" + annotation + "},\n}\n")
 
 
-BENNETT = ('Filed in sources/documents as "legal/state courts/Supreme Court of Appeals of Virginia 1922 - '
+BENNETT = ('Filed in sources as "legal/cases/Supreme Court of Appeals of Virginia 1922 - '
            'Bennett v. Garrett.pdf"')
 
 
@@ -2083,7 +2124,7 @@ def test_docs_name_only_paths_that_exist():
             if not (ROOT / token).exists():
                 missing.append(f"{doc.relative_to(ROOT)}: `{token}`")
     for doc in [ROOT / "paper" / "bib" / "sources.bib", ROOT / "paper" / "arlington-bsap.tex"]:
-        for m in re.finditer(r"(?<![\w/.-])(?:code|data|docs|figures|paper|style)/[\w./-]+", doc.read_text()):
+        for m in re.finditer(r"(?<![\w/.-])(?:code|data|docs|figures|paper|sources|style)/[\w./-]+", doc.read_text()):
             token = m.group(0).rstrip(".,;)}")
             if any(c in token for c in "*<>{}"):
                 continue
@@ -2114,23 +2155,24 @@ def test_a_stale_input_table_is_refused():
 
 
 def test_every_data_file_is_inventoried():
-    """A file under data/ with no row in data/contents.csv, a row with no
-    file (unless fetched on demand), a file with two rows, or a raw file
-    whose checksum has moved."""
+    """A file under data/ or sources/ with no row in data/contents.csv, a row
+    with no file (unless fetched on demand), a file with two rows, or a
+    published file whose checksum has moved."""
     data = ROOT / "data"
     listed = [r["path"] for r in csv.DictReader((data / "contents.csv").open())]
     twice = sorted({p for p in listed if listed.count(p) > 1})
     assert not twice, "files with two rows in data/contents.csv:\n  " + "\n  ".join(twice)
     rows = {r["path"]: r for r in csv.DictReader((data / "contents.csv").open())}
-    on_disk = {str(p.relative_to(ROOT)) for p in data.rglob("*")
-               if p.is_file() and not p.name.startswith(".") and p.name != "contents.csv"}
+    on_disk = {str(p.relative_to(ROOT)) for folder in (data, ROOT / "sources") for p in folder.rglob("*")
+               if p.is_file() and not p.name.startswith(".") and p.name != "contents.csv"
+               and p.name not in ("index.md", "arlington-bsap-archive.zip")}
     missing = sorted(on_disk - set(rows))
     gone = sorted(p for p in set(rows) - on_disk if rows[p]["in_git"] == "yes")
-    assert not missing, "files under data/ with no row in data/contents.csv:\n  " + "\n  ".join(missing)
+    assert not missing, "files under data/ or sources/ with no row in data/contents.csv:\n  " + "\n  ".join(missing)
     assert not gone, "rows in data/contents.csv for files that do not exist:\n  " + "\n  ".join(gone)
-    moved = [p for p, r in rows.items() if r["layer"] == "raw" and (ROOT / p).exists()
+    moved = [p for p, r in rows.items() if r["layer"] == "published" and (ROOT / p).exists()
              and hashlib.sha256((ROOT / p).read_bytes()).hexdigest()[:16] != r["sha256"]]
-    assert not moved, ("raw files whose checksum does not match data/contents.csv - data/raw/ "
+    assert not moved, ("published files whose checksum does not match data/contents.csv - sources/ "
                        "is never edited:\n  " + "\n  ".join(moved))
 
 

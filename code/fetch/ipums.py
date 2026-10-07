@@ -1,4 +1,4 @@
-"""IPUMS USA -> data/raw/ipums/<year>/, one full-count extract per census.
+"""IPUMS USA -> sources/academic/ipums/<year>/, one full-count extract per census.
 
 Run by hand when a census is needed, output committed; the build never
 touches the network (CLAUDE.md). Needs IPUMS_API_KEY in .env at the
@@ -6,7 +6,7 @@ repository root, which is gitignored, and ipumspy in the venv.
 
     .venv/bin/python code/fetch/ipums.py [1910 1920]
 
-A published table is its own citation, and the rest of data/raw/ holds
+A published table is its own citation, and the rest of sources/ holds
 published tables. A microdata extract is not one: it is a query, so the
 query is here in code and the answer is committed beside the codebook the
 API delivers with it, which names the sample, the variables and the case
@@ -48,7 +48,7 @@ from ipumspy.api.extract import Variable
 import paths
 
 ROOT = paths.ROOT
-RAW = paths.RAW / "ipums"
+RAW = paths.IPUMS
 
 # Per census: the sample, the county, and the published county total the head
 # count is checked against. The total is the one in data/clean/residents.csv,
@@ -136,7 +136,7 @@ def head_count(data: Path) -> int:
 
 
 def census(client, year, spec):
-    """Fetch one census, check the head count, and write data/raw/ipums/<year>/."""
+    """Fetch one census, check the head count, and write sources/academic/ipums/<year>/."""
     extract = request(year, spec)
     with tempfile.TemporaryDirectory() as tmp:
         files = delivered(client, extract, Path(tmp))

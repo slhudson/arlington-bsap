@@ -8,9 +8,9 @@ decides which places are cities and which of them the peer set must hold.
 """
 import pandas as pd
 
-from paths import RAW, source, write
+from paths import CENSUS_BUREAU, source, write
 
-PLACES = RAW / "us_census_bureau" / "2020" / "censusapi_dec_pl_P1_race_us_places.csv.gz"
+PLACES = CENSUS_BUREAU / "2020" / "censusapi_dec_pl_P1_race_us_places.csv.gz"
 
 
 def build() -> pd.DataFrame:

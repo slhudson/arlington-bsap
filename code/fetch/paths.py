@@ -1,6 +1,6 @@
 """Where the fetch scripts put what they download, and where their keys are.
 
-This one knows data/raw/ and nothing below it (CLAUDE.md). It also reads
+This one knows sources/ and nothing below it (CLAUDE.md). It also reads
 .env, because an account is the other thing this stage needs and the only
 stage that needs one.
 """
@@ -9,7 +9,14 @@ import io
 import pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
-RAW = ROOT / "data" / "raw"
+SOURCES = ROOT / "sources"
+# The publishers' folders this stage reads, by the short names it uses.
+CENSUS_BUREAU = SOURCES / "government" / "federal" / "us_census_bureau"
+ARLINGTON_COUNTY = SOURCES / "government" / "local" / "arlington_county"
+VA_ELECTIONS = SOURCES / "government" / "state" / "va_dept_of_elections"
+IPUMS = SOURCES / "academic" / "ipums"
+RCVA = SOURCES / "other" / "rcva"
+MAGAZINE = SOURCES / "press" / "arlington_historical_magazine"
 ENV = ROOT / ".env"
 
 
@@ -17,7 +24,7 @@ def write_text(path, text):
     """Save a fetched table or document. A path ending .gz is written
     gzip-compressed, with no name and no time in the header, so the same text
     gives the same bytes and the checksum in data/contents.csv holds across
-    fetches. The raw files the build reads and nobody edits are stored this
+    fetches. The published files the build reads and nobody edits are stored this
     way: Overleaf's 7MB cap counts text, and a compressed file is not text."""
     path.parent.mkdir(parents=True, exist_ok=True)
     data = text.encode() if isinstance(text, str) else text

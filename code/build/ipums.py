@@ -3,7 +3,7 @@
 One row per enumeration district per sex code per race code per age, with how many people the
 extract holds there, and beside it the district's transcribed description
 and the magisterial district that description names. From
-data/raw/ipums/<year>/*.csv.gz, the extract code/fetch/ipums.py asked for,
+sources/academic/ipums/<year>/*.csv.gz, the extract code/fetch/ipums.py asked for,
 and data/transcribed/by_claude/nara/<year>/, the enumeration district
 descriptions keyed in from NARA T1224.
 
@@ -29,9 +29,9 @@ descriptions have to be about the same six districts.
 """
 import pandas as pd
 
-from paths import BY_CLAUDE, RAW, source, write
+from paths import BY_CLAUDE, IPUMS, source, write
 
-EXTRACTS = sorted((RAW / "ipums").glob("*/*.csv.gz"))
+EXTRACTS = sorted((IPUMS).glob("*/*.csv.gz"))
 DESCRIPTIONS = sorted((BY_CLAUDE / "nara").glob("*/*_enumeration_districts.csv"))
 
 # IPUMS builds ENUMDIST as the county's code followed by the district's own

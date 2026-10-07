@@ -1,4 +1,4 @@
-"""The modern county outline -> data/raw/arlington_county/county_outline.geojson.gz
+"""The modern county outline -> sources/government/local/arlington_county/county_outline.geojson.gz
 
 Run by hand, output committed; the build never touches the network
 (CLAUDE.md).
@@ -20,7 +20,7 @@ import paths
 
 URL = ("https://arlgis.arlingtonva.us/arcgis/rest/services/Open_Data/"
        "od_County_Polygon/FeatureServer/0/query?where=1%3D1&outFields=*&f=geojson")
-OUT = paths.RAW / "arlington_county" / "county_outline.geojson.gz"
+OUT = paths.ARLINGTON_COUNTY / "county_outline.geojson.gz"
 
 
 def main():

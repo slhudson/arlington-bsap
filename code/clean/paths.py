@@ -1,6 +1,6 @@
 """Where real paths are assigned to the short names this stage uses.
 
-Maps data/built/ and data/clean/, and defines no route to data/raw/ or
+Maps data/built/ and data/clean/, and defines no route to sources/ or
 data/transcribed/ (CLAUDE.md). A source reaches this stage through a
 code/build/ step or not at all.
 """

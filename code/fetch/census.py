@@ -1,4 +1,4 @@
-"""Census -> data/raw/us_census_bureau/<year>/*.csv.gz, whole tables, 1980-2020.
+"""Census -> sources/government/federal/us_census_bureau/<year>/*.csv.gz, whole tables, 1980-2020.
 
 Run by hand when a year is needed, output committed; the build never
 touches the network (CLAUDE.md). Needs CENSUS_API_KEY in .env at the
@@ -34,7 +34,7 @@ import zipfile
 import paths
 
 ROOT = paths.ROOT
-RAW = paths.RAW / "us_census_bureau"
+RAW = paths.CENSUS_BUREAU
 STATE, COUNTY = "51", "013"   # Virginia, Arlington County
 
 # The tables to fetch for each census: race, race crossed with Hispanic

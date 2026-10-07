@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Rebuild everything from data/. The only entry point (CLAUDE.md).
+# Rebuild everything from sources/ and data/. The only entry point (CLAUDE.md).
 #
 #   bash run.sh                  build, test, then every figure
 #   bash run.sh residents_per    only figures whose names match, and no tests
@@ -61,7 +61,7 @@ fi
 echo $$ > "$LOCK/.pid"
 trap 'rm -rf "$LOCK"' EXIT
 
-# Stage 1: data/raw/ and data/transcribed/ -> data/built/. Reshaping only;
+# Stage 1: sources/ and data/transcribed/ -> data/built/. Reshaping only;
 # each step is refused if a value its inputs carry is missing from its output.
 BUILD=(elections members_claims candidates census ipums registration localities localities_places localities_counties localities_southeastern localities_southeastern_bodies candidates_party elections_nominations candidates_gazette survey_satisfaction survey_rcv survey_satisfaction_by_year survey_rcv_precision district_lines county_outline alexandria_outline alexandria_limits_1912 alexandria_annexation_1915)
 
@@ -85,7 +85,11 @@ echo "  clean"
 # whose outputs are cached gets those outputs copied back instead of running
 # (code/cache.py, docs/repository.md). run.sh is an input to every stage,
 # because it says which steps run.
-BUILT_BY=(data/raw data/transcribed code/build code/citekeys.py run.sh)
+# The folders under sources/ are the ones code/build/paths.py names, and code/tests.py
+# holds the two lists together.
+BUILT_BY=(sources/government/federal/us_census_bureau sources/government/local/arlington_county
+          sources/government/state/va_dept_of_elections sources/academic/ipums sources/other/rcva
+          data/transcribed code/build code/citekeys.py run.sh)
 CLEANED_BY=(code/clean code/citekeys.py run.sh)       # and data/built/, by its key
 DRAWN_BY=(data/clean code/analysis code/stage.py style run.sh)
 CACHE=("$PY" code/cache.py)

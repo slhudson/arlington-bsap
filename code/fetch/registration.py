@@ -1,4 +1,4 @@
-"""Virginia registration statistics -> data/raw/va_dept_of_elections/registration_2010-2025.csv.gz
+"""Virginia registration statistics -> sources/government/state/va_dept_of_elections/registration_2010-2025.csv.gz
 
 Run by hand after a November election, once the state has posted the
 month's report; the build never touches the network (CLAUDE.md).
@@ -25,7 +25,7 @@ import pandas as pd
 import paths
 
 ROOT = paths.ROOT
-OUT = paths.RAW / "va_dept_of_elections" / "registration_2010-2025.csv.gz"
+OUT = paths.VA_ELECTIONS / "registration_2010-2025.csv.gz"
 
 SITE = "https://www.elections.virginia.gov"
 PAGE = SITE + "/resultsreports/registration-statistics/{year}-registration-statistics/"

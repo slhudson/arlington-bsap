@@ -5,7 +5,7 @@ after the first County Board general election run by ranked choice voting,
 and FairVote, the Ranked Choice Voting Resource Center and Ranked Choice
 Virginia reported the results to the County Board in February 2026
 (`rcva2026evaluation`). This project reads two tables from it. The first,
-`data/raw/rcva/survey_rcv_answers_by_group.csv`, is one row per question per
+`sources/other/rcva/survey_rcv_answers_by_group.csv`, is one row per question per
 group category per answer: support for ranked choice voting, awareness that
 it would be used, understanding of how ballots are counted and the rest of
 the instrument, each cut by the respondents' gender, age, race and ethnicity,
@@ -27,7 +27,7 @@ It was prepared by the survey's own researchers in a private repository of
 their own, which holds the respondent file, the code that tabulates it and a
 replication of every number the February report printed; `rcva2026subgroups`
 names it.
-`data/raw/` is where a file arrives from outside already made, and this one
+`sources/` is where a file arrives from outside already made, and this one
 does: the fact that one researcher worked on both studies is a fact about
 staffing, not a path between them.
 

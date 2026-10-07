@@ -7,7 +7,7 @@ Run by hand, output committed.
 
 The County shared the correspondence its Board received with the whole study
 team: 250 Outlook messages in three folders of the project's Drive, 180MB in
-all. None of it is in data/raw/ and none of it will be. The repository is
+all. None of it is in sources/ and none of it will be. The repository is
 meant to go public, the messages carry residents' names, addresses and
 signature blocks, and a permanent indexed archive of them is a different
 object from the County's own file, whatever each letter's status under FOIA

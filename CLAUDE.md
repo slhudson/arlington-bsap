@@ -8,9 +8,9 @@ repo; prose is written in Overleaf, which syncs a mirror of `paper/`.
 
 ```
   |  code/fetch/        <- on demand: the network, output committed
-data/raw/        published sources - a file here is its own citation
+sources/         published: every file as published, a file here is its own citation
   |  code/transcribe/   <- on demand: OCR and reading, output committed
-data/transcribed/  by_ocr/ and by_claude/ read off raw/
+data/transcribed/  by_ocr/ and by_claude/ read off sources/
   |  code/build/        <- reshaping only; every value that goes in comes out
 data/built/      the sources in one shape each, not committed
   |  code/clean/        <- every subjective decision about what a number IS
@@ -21,14 +21,22 @@ figures/         pdf/ for the paper, png/ for slides
 paper/           prose -> Overleaf -> compiled PDF
 ```
 
-The five data layers are sorted by how the numbers were produced — published,
-read by software, keyed in by a person, reshaped, or decided here. Which
-folder something belongs in depends on that, not on what it is about. Inside
-`raw/`, folders are named for who published the material, not its subject.
-`data/contents.csv` is the inventory: one row per file, with its layer, its
-source, and for `raw/` a checksum;
-`code/tests.py` refuses a file with no row and a raw file whose checksum has
-moved.
+The five layers are sorted by how the numbers were produced — published
+(`sources/`), then read by software, keyed in by a person, reshaped, or decided
+here (the four under `data/`). Published versus produced is the reason for
+the split: `sources/` holds everything as someone else published it, whether
+a table feeds the build or a footnote cites it, and `data/` holds only what
+this repository makes. Which folder something belongs in depends on that, not
+on what it is about. Inside `sources/`, files are filed under six groups -
+`press`, `legal`, `government`, `academic`, `genealogy`, `other` - and then in
+folders named for who published the material, not its subject; the
+exception is `legal`, split into `cases`, `constitutions` and `statutes`
+the way the bibliography's Legal Authorities part is. `docs/repository.md`
+says where each publisher goes.
+`data/contents.csv` is the inventory: one row per file under `data/` and
+`sources/`, with its layer, its source, and for `sources/` a checksum;
+`code/tests.py` refuses a file with no row and a published file whose
+checksum has moved.
 
 **Build reshapes and never decides.** Stacking the claim files into one table,
 putting both election records in one, pulling Arlington's row out of a census
@@ -51,7 +59,7 @@ value. If they would only disagree about how to *show* it, it belongs in
 `code/analysis/`.
 
 This is enforced structurally, not by convention. `code/clean/paths.py` has no
-path to `data/raw/` or `data/transcribed/`, and `code/analysis/paths.py` has
+path to `sources/` or `data/transcribed/`, and `code/analysis/paths.py` has
 none to `data/built/` either: a script that wants to reach around the stage
 before it has nothing to reach with. `code/tests.py` checks both.
 
@@ -121,13 +129,13 @@ under `docs/`; the code carries a pointer to it, not an argument.
 **`paths.py` is where real paths are assigned to the short names a stage
 uses.** Fix the mapping once and every script in that stage follows. There is
 one per stage, and that is deliberate — see above. They cannot be merged:
-`code/build/paths.py` maps `data/raw/`, `code/clean/paths.py` maps
+`code/build/paths.py` maps `sources/`, `code/clean/paths.py` maps
 `data/built/` and no higher, `code/analysis/paths.py` maps `data/clean/` and
 no higher, and each absence is a wall.
 
 ## The rules that matter
 
-**`data/raw/` is read-only.** It is the files as published. Never edit,
+**`sources/` is read-only.** It is the files as published. Never edit,
 rename, clean or "fix" anything inside it. A defect in a source is corrected
 in `code/clean/`, where the correction is visible and reviewable, never in the
 file.
@@ -166,13 +174,13 @@ The conventions are the Urban Institute's, loaded from `style/urban.mplstyle`;
 departure from Urban. The `figures` skill has the rules for editing one.
 
 **`run.sh` never touches the network.** Fetching a source is `code/fetch/`, run on
-demand, which saves into `data/raw/` and commits the file. The build then
+demand, which saves into `sources/` and commits the file. The build then
 reads only what is committed.
 
-A raw file the build reads is always committed; the census scans it never
+A published file the build reads is always committed; the census scans it never
 reads are fetched on demand (`docs/repository.md`).
 
-**Each code folder writes one data layer.** `code/fetch/` writes `data/raw/`,
+**Each code folder writes one data layer.** `code/fetch/` writes `sources/`,
 `code/transcribe/` writes `data/transcribed/`, `code/build/` writes
 `data/built/`, `code/clean/` writes `data/clean/`, `code/analysis/` writes
 `figures/` and, from two steps that write LaTeX instead, what the paper
@@ -188,7 +196,7 @@ tracker's merge driver) sit outside the stages, like
 the compile pass on the merged tree (`docs/repository.md`).
 `code/sources/` is outside them too, and writes no data layer: it holds the
 tools that serve `paper/bib/sources.bib` and the copies filed under
-`sources/documents` - fetching and
+`sources/` - fetching and
 entering a source, filing the archive, cutting a web print back to its
 article, checking a quotation against the copy it is attributed to. Only
 `code/citekeys.py` sits loose at the top beside those two, because every stage
@@ -199,12 +207,12 @@ output is committed, so the build is reproducible without either. A script is
 named for what it produces: `code/fetch/elections.py`,
 `code/transcribe/novack_terms.py`, `code/build/census.py`.
 
-**`data/` holds what we take numbers out of.** A source consulted only to
-settle a question — a boundary history, a news article, a methods note — is
-cited in `paper/bib/sources.bib` and filed in `sources/documents`, committed in
-the repository beside its citation rather than downloaded into `data/raw/`.
-The test is whether a figure derives from it. The `sources` skill has the
-tools for fetching, citing and filing one.
+**`data/` holds what this repository makes.** Every source, whether a figure
+derives from it or only a footnote cites it - a boundary history, a news
+article, a methods note, a census table - is cited in `paper/bib/sources.bib`
+and filed in `sources/`, committed in the repository beside its citation. The
+build reads only the folders `code/build/paths.py` names. The `sources` skill
+has the tools for fetching, citing and filing one.
 
 **Every source column holds a citekey from `paper/bib/sources.bib`.** One registry
 for the prose and the data, so a footnote in the report and a cell in a table

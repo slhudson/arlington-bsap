@@ -4,7 +4,7 @@
 
 One row per member per year from 1932, and a further row for each arrival or
 departure the roll dates, with the date as the page prints it. The source is
-data/raw/arlington_county/members_roll.pdf, whose text layer is the page's own
+sources/government/local/arlington_county/members_roll.pdf, whose text layer is the page's own
 characters rather than OCR, so a date is read and not guessed
 (docs/members.md, "The county's roll").
 
@@ -43,7 +43,7 @@ import re
 import paths
 
 OUT = paths.BY_CLAUDE / "arlington_county" / "members_roll.csv"
-ROLL = paths.RAW / "arlington_county" / "members_roll.pdf"
+ROLL = paths.ARLINGTON_COUNTY / "members_roll.pdf"
 SOURCE = "arlingtonva2026members"
 
 FIELDS = ["year", "name", "office", "event", "event_date", "entry", "source"]
@@ -94,7 +94,7 @@ OFFICE = re.compile(r",?\s*(Acting Chairman|Chairman|Vice[- ]Chair(?:man)?|Chair
                     r"Vice[- ]President|Member)\b", re.I)
 
 # The years the print does not lay out one member to a line. Each is read off
-# data/raw/arlington_county/members_roll.pdf and written here as the page
+# sources/government/local/arlington_county/members_roll.pdf and written here as the page
 # would read if it had: one member's whole entry per string, in the order
 # printed. check_nothing_lost holds each block to the page's own text.
 AS_READ = {
@@ -466,7 +466,7 @@ def rows():
         raise AssertionError(
             "lines of the roll no rule reads, and no year in AS_READ covers:\n  "
             + "\n  ".join(f"{y}: {line}" for y, line in unparsed)
-            + "\n\nread the year off data/raw/arlington_county/members_roll.pdf and "
+            + "\n\nread the year off sources/government/local/arlington_county/members_roll.pdf and "
               "write it into AS_READ.")
 
 

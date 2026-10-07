@@ -96,8 +96,8 @@ fetched on demand rather than committed, and so is the OCR of the census
 volumes (`data/transcribed/by_ocr/`, regenerated on a Mac by
 `code/transcribe/census.py`): both are bulk nothing reads. The raw tables and
 outlines the build reads and nobody edits - everything under
-`data/raw/us_census_bureau/`, `data/raw/arlington_county/` and
-`data/raw/va_dept_of_elections/` that is a CSV or GeoJSON, 29 files - are
+`sources/government/federal/us_census_bureau/`, `sources/government/local/arlington_county/` and
+`sources/government/state/va_dept_of_elections/` that is a CSV or GeoJSON, 29 files - are
 stored as `.csv.gz` and `.geojson.gz`, 0.4MB in place of 2.1MB. pandas reads a
 `.csv.gz` as it reads a `.csv`, so only the paths and the checksums in
 `data/contents.csv` changed; `data/built/` and `data/clean/` are
@@ -108,24 +108,54 @@ keep their names without the `.gz`, since clean steps look a table up by that
 name. The IPUMS codebooks, the 1980 record layout and the README stay plain
 text: nothing reads them, and a reader can open them.
 
-## Why `sources/documents` is committed
+## Why `sources/` is one folder, filed by group and publisher
 
-**`sources/documents` holds, committed, a copy of every source the report
-cites that no number is taken from**, filed by kind, with the `index.md` that
-`code/sources/archive.py` writes at its top. 546 files and 666MB, with the
-clone at about 770MB - plain git, no LFS, accepted at that size (Sally,
-7 October 2026). `archive.DOCUMENTS` and every script that takes a
-`--documents` flag point at `sources/documents` by default.
+**`sources/` holds every file as it was published, and `data/` holds the three
+layers this repository makes.** The repository used to split published
+material by who reads it: `data/raw/` for what the build reads and
+`sources/documents/` for what the prose cites, and the line sat where
+Overleaf's size cap had put it. That is not a difference in the files. The
+Richmond Charter Review Commission's report sat in `data/raw/` because one
+appendix table feeds a figure; it is a report. The split now is published
+versus produced (Sally, 8 October 2026): everything published is under
+`sources/`, and `data/` is `transcribed/`, `built/` and `clean/`.
 
-The point of committing it is the same reason `data/clean/` is committed despite
-the usual rule against committing generated data (above): a cited copy next
-to its citation is something a reviewer can open from the same clone that
-holds `paper/bib/sources.bib`, rather than a second system with its own sharing
-and sign-in. `sources/documents` sits outside the five stages, the way
-`paper/` and `style/` do - nothing reshapes it, nothing in `data/` points
-into it, and it holds no decision a number rests on, which is why `data/
-holds what we take numbers out of` (CLAUDE.md) still stands: a figure never
-derives from a file under `sources/documents`, only a footnote does.
+**The groups.** Under `sources/`, a file is filed in `press/` (papers and
+magazines, one folder per title, the Arlington Historical Magazine and Metro
+Weekly among them), `legal/` (`cases/`, `constitutions/` and `statutes/`, the
+last split into `state/` and `federal/`; the three the bibliography's Legal
+Authorities part uses), `government/` (`federal/`, `state/` and `local/`, a
+folder per body), `academic/` (a body tied to a university: IPUMS, the Data
+and Democracy Lab, the law reviews), `genealogy/` (Ancestry, FamilySearch,
+Find a Grave, WikiTree and Dignity Memorial) and `other/`, a folder per
+publisher with no further grouping. `archive.SHELVES` lists the publishers in
+each; a publisher it does not list goes to `press/` if its entry is a
+paper's page and to `other/` if not. The grouping is a first scheme and is
+expected to be revisited; only the rule below it, a folder named for who
+published the file, is settled.
+
+Four calls inside it. The pages we set out ourselves from an indexer's record,
+which no one published as a file, are filed under the indexer, `genealogy/ancestry/`,
+not under the body that made the original record. Arlington Connection and
+Connection Newspapers are one folder, `connection_newspapers/`. MGGG Redistricting
+Lab and the Data and Democracy Lab are one body renamed, filed as
+`data_and_democracy_lab/`. And the Sun's mastheads stay separate folders
+(`arlington_sun`, `arlington_daily_sun`, `northern_virginia_sun`,
+`sun_gazette`, `arlington_daily`), because a citation names the masthead a page
+was printed under. Four entries name no publisher a rule can read, and
+`archive.PUBLISHER_OF` files them: Hjerpe's unpublished research under
+`other/grace_hjerpe/`, Noetzel's 1907 map under
+`government/local/alexandria_county/`, Gilbertson's book under
+`other/national_short_ballot_organization/`.
+
+**What it costs and what it commits.** `sources/` is 666MB of cited copies and the
+census sheet images, in plain git with no LFS, with the clone at about 770MB
+(accepted by Sally, 7 October 2026). The build still reads only the folders
+`code/build/paths.py` names, and `run.sh` keys the build cache on exactly those
+folders, which `code/tests.py` holds together. A copy is committed beside its
+citation for the same reason `data/clean/` is committed despite the usual rule
+against committing generated data (above): a reviewer opens it from the same
+clone that holds `paper/bib/sources.bib`.
 
 Two large files cleared the fetch-on-demand bar the census scans use - a URL,
 and no figure reads the file - but stayed committed rather than being made
@@ -139,12 +169,13 @@ so both are plain committed files like the other 544.
 
 `code/publish.py`'s mirror push only ever exports `paper/`, `figures/pdf/` and `style/fonts/`
 from `HEAD` (`ALLOWED` in that file, checked again by `verify_tree()` right
-before the mirror commits), so `sources/documents` was never at risk of
-reaching the Overleaf mirror and needed no change to keep it out.
+before the mirror commits), so `sources/` was never at risk of reaching the
+Overleaf mirror and needed no change to keep it out.
 
-Every bib entry's annotation names its copy as "Filed in sources/documents as"
-followed by the path inside that folder, and `code/sources/archive.py` refuses
-a name that is not there.
+Every bib entry's annotation names its copy as "Filed in sources as" followed
+by the path inside that folder, and `code/sources/archive.py` refuses a name
+that is not there. `data/contents.csv` has a row for every file, with a checksum,
+and `code/tests.py` refuses a file with no row or a checksum that has moved.
 
 ## Why the paper is one file per section under a folder per part
 
@@ -322,7 +353,7 @@ small enough here not to need either.
 
 | stage | inputs | outputs |
 |---|---|---|
-| build | `data/raw/`, `data/transcribed/`, `code/build/`, `code/citekeys.py` | `data/built/` |
+| build | the folders `code/build/paths.py` names under `sources/`, `data/transcribed/`, `code/build/`, `code/citekeys.py` | `data/built/` |
 | clean | the build's key, `code/clean/`, `code/citekeys.py` | `data/clean/` |
 | figures, on a full run | `data/clean/`, `code/analysis/`, `code/stage.py`, `style/` | `figures/`, the three `.tex` files the analysis stage writes |
 | each compile | the files latexmk's record says the last compile read, `paper/*.bib`, `style/fonts/`, `code/paper.py`, the TeX version | the PDF |

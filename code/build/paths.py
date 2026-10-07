@@ -1,6 +1,6 @@
 """Where real paths are assigned to the short names this stage uses.
 
-The only module with a path to data/raw/ and data/transcribed/ (CLAUDE.md).
+The only module with a path to sources/ and data/transcribed/ (CLAUDE.md).
 Every source a build step reads comes through source(), which remembers
 it, and write() then refuses an output that lost a value: this stage
 reshapes and never decides.
@@ -13,7 +13,13 @@ import citekeys
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA = ROOT / "data"
-RAW = DATA / "raw"
+SOURCES = ROOT / "sources"
+# The publishers' folders this stage reads, by the short names it uses.
+CENSUS_BUREAU = SOURCES / "government" / "federal" / "us_census_bureau"
+ARLINGTON_COUNTY = SOURCES / "government" / "local" / "arlington_county"
+VA_ELECTIONS = SOURCES / "government" / "state" / "va_dept_of_elections"
+IPUMS = SOURCES / "academic" / "ipums"
+RCVA = SOURCES / "other" / "rcva"
 TRANSCRIBED = DATA / "transcribed"
 BY_CLAUDE = TRANSCRIBED / "by_claude"
 BUILT = DATA / "built"
@@ -32,12 +38,12 @@ def begin_step():
 
 def _reader(path):
     """The pandas reader for a source, by extension. A workbook the County
-    publishes is read where it sits, like any other raw file."""
+    publishes is read where it sits, like any other published file."""
     return pd.read_excel if str(path).endswith((".xlsx", ".xls")) else pd.read_csv
 
 
 def source(path, **kw):
-    """Read a raw or transcribed table, and remember it for write()'s check.
+    """Read a published or transcribed table, and remember it for write()'s check.
     Keyword arguments go to pandas; the remembered copy is read as printed."""
     read = _reader(path)
     _INPUTS.append((path, read(path, dtype=str, keep_default_na=False)))

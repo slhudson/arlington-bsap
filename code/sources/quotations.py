@@ -155,12 +155,12 @@ def text_of(path):
     return comparable(" ".join(p.get_text(sort=True) for p in pymupdf.open(path)))
 
 
-def unsupported(bib, documents=None):
+def unsupported(bib, sources=None):
     """Every (citekey, quotation) a legal entry attributes to a copy that does
     not contain it and does not declare in DECLARED, and how many quotations
     were read. A check that silently reads nothing is worse than none, so the
     count is returned and main() refuses a run that checked too few."""
-    documents = documents or archive.DOCUMENTS
+    sources = sources or archive.SOURCES
     out, read = [], 0
     for e in archive.entries(bib):
         annotation = e.get("annotation", "")
@@ -169,10 +169,10 @@ def unsupported(bib, documents=None):
         names = archive.filed(e)
         qs = [q for q in quotations(annotation, names)
               if q not in DECLARED.get(e["key"], {})]
-        # The names an annotation gives already carry their kind folder, and
+        # The names an annotation gives already carry their folder, and
         # an entry may file more than one copy: a quotation in any of them is
         # supported.
-        paths = [documents / n for n in names if (documents / n).exists()]
+        paths = [sources / n for n in names if (sources / n).exists()]
         if not paths or not qs:
             continue                    # archive.py is the check for a missing copy
         texts = [text_of(p) for p in paths]

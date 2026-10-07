@@ -1,5 +1,5 @@
 """A source the report cites but takes no numbers from: fetched, filed in
-sources/documents and entered in paper/bib/sources.bib, in one step.
+sources/ and entered in paper/bib/sources.bib, in one step.
 
     .venv/bin/python code/sources/cite.py KEY URL --author "Hanover County" \\
         --title "Board of Supervisors" --date 2026 --note "Seven members, ..."
@@ -8,8 +8,8 @@ sources/documents and entered in paper/bib/sources.bib, in one step.
 A web page is printed to PDF with headless Chrome; a file the url names
 (.pdf, .xls, .xlsx, .csv) is saved as published. --copy takes a copy already
 in hand instead, a page printed in Sally's own browser when a site refuses
-an automated request. The copy is filed under the kind archive.kind()
-assigns, named "<author> <year> - <title>", and the entry is appended to
+an automated request. The copy is filed where archive.shelf()
+puts it, named "<author> <year> - <title>", and the entry is appended to
 sources.bib with the url, today's urldate and an annotation naming the file,
 which is what code/tests.py and code/sources/archive.py check.
 
@@ -136,7 +136,7 @@ def entry_text(a, filename, folder):
         fields.append(("note", a.cite_note))     # prints in the footnote
     if a.journal and not a.pages:
         a.note = "The copy gives no page. " + a.note
-    fields += [("annotation", f'{a.note.rstrip(".")}. Read {today}. Filed in sources/documents as "{folder}/{filename}", '
+    fields += [("annotation", f'{a.note.rstrip(".")}. Read {today}. Filed in sources as "{folder}/{filename}", '
                               + (a.how if a.how
                                  else "saved as published" if a.url.lower().endswith(AS_PUBLISHED)
                                  else "a copy printed in Sally's own browser" if a.copy
@@ -177,14 +177,14 @@ def main():
     ap.add_argument("--how", default="", help="how the copy was had, replacing the default phrase in the annotation")
     ap.add_argument("--type", default="online", help="the bib entry type (default online)")
     ap.add_argument("--copy", type=Path, help="a copy already in hand, filed instead of fetching")
-    ap.add_argument("--documents", type=Path, default=archive.DOCUMENTS)
+    ap.add_argument("--sources", type=Path, default=archive.SOURCES)
     a = ap.parse_args()
 
     bib = archive.BIB.read_text()
     if any(e["key"] == a.key for e in archive.entries(bib)):
         sys.exit(f"{a.key} is already in sources.bib")
-    if not a.documents.is_dir():
-        sys.exit(f"the documents folder is not at {a.documents}")
+    if not a.sources.is_dir():
+        sys.exit(f"the sources folder is not at {a.sources}")
 
     if not (a.author or a.organization or a.journal):
         sys.exit("give --author, or --organization or --journal for an unsigned piece")
@@ -209,11 +209,9 @@ def main():
     # has the rule, so a copy is filed under the name the archive would give it.
     stem = archive.canonical(entry, re.sub(r"[/:]", "-", f"{a.author or a.organization or a.journal} {year} - {a.title}"))
     filename = stem + ext
-    # Three kinds are filed in subfolders, so the folder is archive.subfolder()'s
-    # and not the bare kind: a copy lands where the archive would put it, and
-    # the annotation names that path.
-    folder = archive.subfolder(entry, filename)
-    target = a.documents / folder / filename
+    # A copy lands where archive.shelf() puts it, and the annotation names that path.
+    folder = archive.shelf(entry, filename)
+    target = a.sources / folder / filename
     if target.exists():
         sys.exit(f"{folder}/{filename} is already in the folder")
 

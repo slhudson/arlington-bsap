@@ -11,9 +11,9 @@ nothing here is decided.
     design_effect          respondents / effective_respondents
     margin_points          the 95 per cent margin, with the design effect
 """
-from paths import RAW, source, write
+from paths import RCVA, source, write
 
-TABLE = RAW / "rcva" / "survey_rcv_precision.csv"
+TABLE = RCVA / "survey_rcv_precision.csv"
 
 COLUMNS = {"group": "group", "category": "category", "n": "respondents",
            "n_effective": "effective_respondents", "design_effect": "design_effect",

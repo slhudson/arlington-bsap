@@ -2,7 +2,7 @@
 
 Maps data/clean/, figures/ and the files the paper inputs,
 paper/body_text_numbers.tex, paper/appendix/members_roster.tex and
-paper/appendix/members_roster_subsets.tex, and defines no route to data/raw/,
+paper/appendix/members_roster_subsets.tex, and defines no route to sources/,
 data/transcribed/ or data/built/ (CLAUDE.md).
 
 A figure is saved under the name of the script that draws it, which save()

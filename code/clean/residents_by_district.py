@@ -67,7 +67,7 @@ ED_READ_BY_HAND = {
 # there. 1900's database is missing 499 of Arlington district's 3,200 people.
 INCOMPLETE = {1900: ("Arlington",)}
 
-# IPUMS race codes, as the codebooks in data/raw/ipums/ list them, read into
+# IPUMS race codes, as the codebooks in sources/academic/ipums/ list them, read into
 # the columns this table carries. Code 3 is American Indian.
 RACE_CODES = {"1": "white", "2": "black", "3": "other"}
 

@@ -16,9 +16,9 @@ settled in code/clean/survey_rcv.py.
     unit         share or points
     status       ok, caution or suppressed, as rcva2026subgroups gives it
 """
-from paths import RAW, source, write
+from paths import RCVA, source, write
 
-TABLE = RAW / "rcva" / "survey_rcv_answers_by_group.csv"
+TABLE = RCVA / "survey_rcv_answers_by_group.csv"
 
 COLUMNS = {"question": "question", "group": "group", "category": "category",
            "measure": "answer", "kind": "kind", "base_n": "respondents",

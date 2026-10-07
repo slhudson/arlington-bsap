@@ -1,13 +1,14 @@
 """Every census table the build holds, Arlington's rows only -> data/built/census.csv
 
 One row per cell, as printed: which table, which row of it, which column,
-what value. From the Bureau's county-level files under data/raw/, the one
+what value. From the Bureau's county-level files under sources/, the one
 row naming Arlington; from the tables keyed in under
 data/transcribed/by_claude/us_census_bureau/, every row, since each is
 already the county's. Nothing is summed or chosen; code/clean/census.py
 gives a table back in its own shape.
 
-    table    the source file's path under data/, without the .gz the raw
+    table    the source file's path under data/ or, for a published file,
+             under its group's folder, without the .gz the published
              files are stored under
     row      its position in the source, from 0
     column   the source's column heading
@@ -15,9 +16,9 @@ gives a table back in its own shape.
 """
 import pandas as pd
 
-from paths import BY_CLAUDE, DATA, RAW, source, write
+from paths import BY_CLAUDE, CENSUS_BUREAU, DATA, source, write
 
-COUNTY_FILES = sorted((RAW / "us_census_bureau").glob("*/*_virginia_counties.csv.gz"))
+COUNTY_FILES = sorted(CENSUS_BUREAU.glob("*/*_virginia_counties.csv.gz"))
 COUNTY_TABLES = sorted((BY_CLAUDE / "us_census_bureau").rglob("*.csv"))
 
 
@@ -35,7 +36,8 @@ def cells(frame: pd.DataFrame, path) -> pd.DataFrame:
     long = frame.reset_index(drop=True).rename_axis("row").reset_index().melt(
         id_vars="row", var_name="column", value_name="value")
     long = long.sort_values(["row"], kind="stable")
-    long.insert(0, "table", str(path.relative_to(DATA)).removesuffix(".gz"))
+    base = DATA if DATA in path.parents else CENSUS_BUREAU.parent
+    long.insert(0, "table", str(path.relative_to(base)).removesuffix(".gz"))
     return long
 
 

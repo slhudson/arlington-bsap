@@ -1,4 +1,4 @@
-"""Census volume scans -> data/raw/us_census_bureau/<year>/<chunk>.pdf, on demand.
+"""Census volume scans -> sources/government/federal/us_census_bureau/<year>/<chunk>.pdf, on demand.
 
     .venv/bin/python code/fetch/census_volumes.py
 
@@ -33,7 +33,7 @@ def digest(b):
 
 
 def main():
-    rows = [r for r in csv.DictReader(INVENTORY.open()) if r["layer"] == "raw" and r["url"]]
+    rows = [r for r in csv.DictReader(INVENTORY.open()) if r["layer"] == "published" and r["url"]]
     for r in rows:
         path = paths.ROOT / r["path"]
         if path.exists():
@@ -41,7 +41,7 @@ def main():
             if got != r["sha256"]:
                 raise AssertionError(
                     f"{r['path']} does not match the checksum in {INVENTORY.name} "
-                    f"({got} against {r['sha256']}). data/raw/ is never edited; find out what changed.")
+                    f"({got} against {r['sha256']}). sources/ is never edited; find out what changed.")
             print(f"  {path.name:<20} on disk, matches the inventory")
             continue
         body = fetch(r["url"])

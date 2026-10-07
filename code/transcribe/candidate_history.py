@@ -14,9 +14,9 @@ import re
 
 import pymupdf
 
-from paths import BY_CLAUDE, RAW
+from paths import ARLINGTON_COUNTY, BY_CLAUDE, ROOT
 
-SOURCE = RAW / "arlington_county" / "candidate_history_1920-present.pdf"
+SOURCE = ARLINGTON_COUNTY / "candidate_history_1920-present.pdf"
 OUT = BY_CLAUDE / "arlington_county" / "candidate_history_1920-present.csv"
 
 # Column boundaries in PDF points, read off the printed header.
@@ -115,7 +115,7 @@ def main():
                                         "office", "candidate", "votes")])
     board = [r for r in rows if "County Board" in r["office"]]
     years = sorted({r["year"] for r in board if r["year"]})
-    print(f"  {OUT.relative_to(RAW.parents[1])}")
+    print(f"  {OUT.relative_to(ROOT)}")
     print(f"    {len(rows):,} rows, {doc_pages()} pages")
     print(f"    County Board rows: {len(board):,}, {years[0]}-{years[-1]}")
 

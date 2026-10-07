@@ -1,4 +1,4 @@
-"""The county's roll of Board members -> data/raw/arlington_county/members_roll.pdf
+"""The county's roll of Board members -> sources/government/local/arlington_county/members_roll.pdf
 
 Run by hand; the build never touches the network (CLAUDE.md).
 
@@ -24,7 +24,7 @@ import paths
 
 URL = ("https://www.arlingtonva.us/Government/Departments/County-Board/"
        "County-Board-Members/Historical-Members-1932-Present")
-OUT = paths.RAW / "arlington_county" / "members_roll.pdf"
+OUT = paths.ARLINGTON_COUNTY / "members_roll.pdf"
 
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 USER_AGENT = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "

@@ -160,7 +160,7 @@ def quotations(e):
     return out
 
 
-def copies(bib, documents):
+def copies(bib, sources):
     """Every filed press copy that is a print of a web page, with its entry."""
     out = []
     for e in bib:
@@ -169,7 +169,7 @@ def copies(bib, documents):
         if archive.kind(e) not in ("press", "obituaries", "bios", "campaign websites"):
             continue
         for name in archive.filed(e):
-            p = documents / name
+            p = sources / name
             if p.suffix.lower() == ".pdf" and p.exists():
                 out.append((e, p, name))
     return out
@@ -183,17 +183,17 @@ def main():
 
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[1])
     ap.add_argument("--apply", action="store_true", help="cut the pages and rewrite the bib")
-    ap.add_argument("--documents", type=Path, default=archive.DOCUMENTS,
-                    help="the documents folder")
+    ap.add_argument("--sources", type=Path, default=archive.SOURCES,
+                    help="the sources folder")
     a = ap.parse_args()
-    if not a.documents.is_dir():
-        sys.exit(f"documents folder not found: {a.documents}")
+    if not a.sources.is_dir():
+        sys.exit(f"sources folder not found: {a.sources}")
 
     bib_text = archive.BIB.read_text()
     bib = archive.entries(bib_text)
     cuts, blocked, unchanged = [], [], 0
 
-    for e, path, name in copies(bib, a.documents):
+    for e, path, name in copies(bib, a.sources):
         doc = pymupdf.open(path)
         texts = [text(p) for p in doc]
         if len(texts) == 1:                   # a scan of a printed page

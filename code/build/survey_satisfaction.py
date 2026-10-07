@@ -15,9 +15,9 @@ appears, since a blank row among the responses would mean something else.
 """
 import pandas as pd
 
-from paths import RAW, source, write
+from paths import ARLINGTON_COUNTY, source, write
 
-WORKBOOK = RAW / "arlington_county" / "survey_satisfaction_data.xlsx"
+WORKBOOK = ARLINGTON_COUNTY / "survey_satisfaction_data.xlsx"
 
 # What the published report counts, and so what this file must hold (zilo2026).
 RESPONDENTS = 1613

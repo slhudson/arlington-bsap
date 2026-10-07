@@ -17,9 +17,9 @@ import re
 
 import pymupdf
 
-from paths import BY_CLAUDE, RAW
+from paths import ARLINGTON_COUNTY, BY_CLAUDE, ROOT
 
-SOURCE = RAW / "arlington_county" / "electoral_history_1870-1920.pdf"
+SOURCE = ARLINGTON_COUNTY / "electoral_history_1870-1920.pdf"
 OUT = BY_CLAUDE / "arlington_county" / "members_1870-1920.csv"
 
 DISTRICTS = ("Arlington", "Jefferson", "Washington")
@@ -109,7 +109,7 @@ def main():
                               for k in ("page", "year", "election_date",
                                         "district", "entry")) + "\n")
     years = sorted({r["year"] for r in rows})
-    print(f"  {OUT.relative_to(RAW.parents[1])}")
+    print(f"  {OUT.relative_to(ROOT)}")
     print(f"    {len(rows)} district-entries, {years[0]}-{years[-1]}")
 
 

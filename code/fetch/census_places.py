@@ -1,4 +1,4 @@
-"""Census places -> data/raw/us_census_bureau/2020/censusapi_dec_pl_P1_race_us_places.csv.gz
+"""Census places -> sources/government/federal/us_census_bureau/2020/censusapi_dec_pl_P1_race_us_places.csv.gz
 
 Run by hand, output committed; the build never touches the network
 (CLAUDE.md). Needs CENSUS_API_KEY in .env at the repository root.
@@ -19,7 +19,7 @@ import urllib.request
 
 import paths
 
-OUT = paths.RAW / "us_census_bureau" / "2020" / "censusapi_dec_pl_P1_race_us_places.csv.gz"
+OUT = paths.CENSUS_BUREAU / "2020" / "censusapi_dec_pl_P1_race_us_places.csv.gz"
 
 
 def main():

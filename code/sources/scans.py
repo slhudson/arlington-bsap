@@ -50,17 +50,17 @@ def main():
 
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[1])
     ap.add_argument("--apply", action="store_true", help="rewrite the copies in place")
-    ap.add_argument("--documents", type=Path, default=archive.DOCUMENTS)
+    ap.add_argument("--sources", type=Path, default=archive.SOURCES)
     ap.add_argument("--floor", type=int, default=FLOOR,
                     help=f"ignore a copy smaller than this many bytes (default {FLOOR})")
     a = ap.parse_args()
-    if not a.documents.is_dir():
-        sys.exit(f"documents folder not found: {a.documents}")
+    if not a.sources.is_dir():
+        sys.exit(f"sources folder not found: {a.sources}")
 
     bib = archive.entries(archive.BIB.read_text())
-    heavy = [(e, a.documents / n) for e in bib for n in archive.filed(e)
-             if (a.documents / n).suffix.lower() == ".pdf" and (a.documents / n).exists()
-             and (a.documents / n).stat().st_size >= a.floor and not already(e)]
+    heavy = [(e, a.sources / n) for e in bib for n in archive.filed(e)
+             if (a.sources / n).suffix.lower() == ".pdf" and (a.sources / n).exists()
+             and (a.sources / n).stat().st_size >= a.floor and not already(e)]
     print(f"{len(heavy)} filed copies over {a.floor / 1e6:.0f}MB that have not been reduced")
 
     done, refused, saved = [], [], 0

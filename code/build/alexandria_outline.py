@@ -1,4 +1,4 @@
-"""data/raw/us_census_bureau/alexandria_outline.geojson.gz -> data/built/alexandria_outline.csv
+"""sources/government/federal/us_census_bureau/alexandria_outline.geojson.gz -> data/built/alexandria_outline.csv
 
 A pass-through: the one polygon's exterior ring, unpacked from GeoJSON into
 one row per vertex, in order. Every coordinate the source carries is still
@@ -13,7 +13,7 @@ import paths
 
 
 def main():
-    path = paths.RAW / "us_census_bureau" / "alexandria_outline.geojson.gz"
+    path = paths.CENSUS_BUREAU / "alexandria_outline.geojson.gz"
     with gzip.open(path, "rt") as f:
         data = json.load(f)
     ring = data["features"][0]["geometry"]["coordinates"][0]

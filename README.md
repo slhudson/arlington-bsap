@@ -17,7 +17,7 @@ decides how it is *shown*, and no stage can reach around the one before it.
 ## The pipeline
 
 ```
-code/fetch/       -> data/raw/          published sources, saved as published
+code/fetch/       -> sources/          published sources, saved as published
 code/transcribe/  -> data/transcribed/  read off the scans
 code/build/       -> data/built/        the sources reshaped; every value kept
 code/clean/       -> data/clean/        every decision about what a number is
@@ -35,7 +35,7 @@ layers above, and `data/clean/` is the layer worth pulling across people.
 A script is named for what it writes, and each stage can reach only the one
 before it; `CLAUDE.md` has the naming rules, which files in a stage folder are
 steps, and the walls between stages. What a number *is* and what backs it is in
-that subject's write-up under `docs/`; where a raw file came from is its row in
+that subject's write-up under `docs/`; where a published file came from is its row in
 `data/contents.csv`.
 
 ## Rebuilding
@@ -84,4 +84,4 @@ silently go stale.
 | `docs/setup.md` | Getting a machine set up to build; written for a collaborator joining |
 | `docs/web_access.md` | The websites the sources come from: what each needs from this machine, and what it refuses |
 | `paper/bib/sources.bib` | Every source, cited by key from both the prose and `data/clean/`; each entry's `annotation` says what the copy held supports and where it is filed |
-| `sources/documents` | Copies of the sources no number is taken from, filed by kind, with an `index.md` that `code/sources/archive.py` writes |
+| `sources/` | Every source as published, filed by group (press, legal, government, academic, genealogy, other) and then by publisher, with an `index.md` that `code/sources/archive.py` writes |

@@ -7,7 +7,7 @@ days of in-person outreach at libraries, community centres, human services
 sites and farmers markets, promoted through civic, nonprofit, educational,
 business and faith-based partners. The County shared both the published
 report and the response-level file with the project team. Both sit in
-`data/raw/arlington_county/` and are cited as `zilo2026` and `zilo2026data`.
+`sources/government/local/arlington_county/` and are cited as `zilo2026` and `zilo2026data`.
 
 The report's part on community input rests on this survey for what residents
 say about the Board and about how the County decides things. Question 4 asks

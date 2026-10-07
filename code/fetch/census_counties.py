@@ -1,4 +1,4 @@
-"""Census counties -> data/raw/us_census_bureau/2020/censusapi_dec_pl_P1_race_us_counties.csv.gz
+"""Census counties -> sources/government/federal/us_census_bureau/2020/censusapi_dec_pl_P1_race_us_counties.csv.gz
 
 Run by hand, output committed, stored gzip-compressed (fetch/paths.py); the
 build never touches the network (CLAUDE.md). Needs CENSUS_API_KEY in .env at
@@ -18,7 +18,7 @@ import urllib.request
 
 import paths
 
-OUT = paths.RAW / "us_census_bureau" / "2020" / "censusapi_dec_pl_P1_race_us_counties.csv.gz"
+OUT = paths.CENSUS_BUREAU / "2020" / "censusapi_dec_pl_P1_race_us_counties.csv.gz"
 
 
 def main():
