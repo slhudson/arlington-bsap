@@ -140,7 +140,7 @@ holds the working rules.
    its `annotation` the file it was read from under `sources/`, and
    `sources/index.md` lists the same key against the same file. A reader
    with repository access opens that file straight on GitHub. For example,
-   the footnote on `bennettvgarrett1922` in `paper/a_history/election_method.tex`
+   the footnote on `bennettvgarrett1922` in `paper/1_history/election_method.tex`
    leads to the entry of that name in `paper/bib/sources.bib`, whose
    annotation ends "Filed in sources as \"legal/cases/Supreme Court of
    Appeals of Virginia 1922 - Bennett v. Garrett.pdf\""; that path, opened at
