@@ -1782,6 +1782,17 @@ def test_press_files_by_outlet_and_legal_by_what_the_document_is():
         assert got == where, f"{who}, {title} filed in {got}, not {where}"
 
 
+def test_the_census_bureau_is_one_folder_whatever_name_an_entry_gives_it():
+    """The HH-6 table, reintroduced: its entry names the Bureau "U.S. Census
+    Bureau" where the volumes say "U.S. Bureau of the Census", and the two
+    names filed in two folders, one of them under other/."""
+    for who in ("U.S. Census Bureau", "U.S. Bureau of the Census"):
+        e = {"type": "online", "key": "planted", "title": "HH-6", "author": who,
+             "organization": "U.S. Census Bureau, Current Population Survey"}
+        got = archive.shelf(e, f"{who} 2025 - HH-6.xls")
+        assert got == "government/federal/us_census_bureau", f"{who} files in {got}"
+
+
 def test_every_filed_copy_is_on_its_shelf():
     """A copy somewhere other than where archive.shelf() puts it: filed by
     hand, or left behind by a rule that changed. archive.py's dry run would
@@ -3190,7 +3201,10 @@ def test_publish_push_refuses_a_paper_that_loads_outside_the_mirror():
 
 def test_publish_pull_applies_an_overleaf_edit_on_its_own_branch():
     """The other happy path: a change Overleaf made under paper/ comes back
-    on overleaf-<date>, main untouched, ready for code/merge.sh."""
+    on overleaf-<date>, main untouched, ready for code/merge.sh. The branch
+    is built and committed in a worktree (see
+    test_publish_pull_commits_in_a_worktree_so_a_live_session_cannot_strand_it),
+    so the primary checkout itself never leaves main."""
     with tempfile.TemporaryDirectory() as tmp:
         work, git, draft_work = publish_fixture(tmp)
         with draft_remote(Path(tmp) / "draft.git"):
@@ -3203,8 +3217,146 @@ def test_publish_pull_applies_an_overleaf_edit_on_its_own_branch():
             branch = publish.pull(repo=work)
         assert branch and branch.startswith("overleaf-"), branch
         assert git("rev-parse", "main").strip() == before, "pull moved main instead of a new branch"
-        assert git("rev-parse", "--abbrev-ref", "HEAD").strip() == branch
-        assert (work / "paper" / "arlington-bsap.tex").read_text() == "% written in Overleaf\n"
+        assert git("rev-parse", "--abbrev-ref", "HEAD").strip() == "main", \
+            "pull left the primary checkout on the new branch instead of a worktree"
+        worktree_file = subprocess.run(
+            ["git", "-C", str(work), "show", f"{branch}:paper/arlington-bsap.tex"],
+            check=True, capture_output=True, text=True).stdout
+        assert worktree_file == "% written in Overleaf\n"
+
+
+def test_publish_pull_commits_in_a_worktree_so_a_live_session_cannot_strand_it():
+    """The first fault, found 8 October 2026: pull used to commit its branch
+    directly in the primary checkout, which .githooks/pre-commit refuses
+    while another session is live there - the pull died with a staged patch
+    and no commit. The fix commits in a worktree instead, where the hook
+    never runs at all (it answers only for the primary checkout), so a live
+    session cannot block it. This reintroduces the hook and a live session
+    and checks pull still produces a commit, the primary checkout stays on
+    main with nothing staged, and the branch is reachable locally."""
+    keep = []
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git, draft_work = publish_fixture(tmp)
+        (work / ".githooks").mkdir()
+        shutil.copy(ROOT / ".githooks" / "pre-commit", work / ".githooks" / "pre-commit")
+        (work / ".githooks" / "pre-commit").chmod(0o755)
+        (work / ".claude").mkdir()
+        shutil.copy(ROOT / ".claude" / "sessions.sh", work / ".claude" / "sessions.sh")
+        git("config", "core.hooksPath", ".githooks")
+        git("add", "-A"); git("commit", "-qm", "the commit guard, for this test")
+        socks = Path(tmp) / "socks"
+        socks.mkdir()
+        old_socks = os.environ.get("CC_SOCKS")
+        os.environ["CC_SOCKS"] = str(socks)
+        try:
+            a_session(socks, work, keep)   # another session, live in this checkout
+            with draft_remote(Path(tmp) / "draft.git"):
+                publish.push(repo=work)
+                subprocess.run(["git", "-C", str(draft_work), "pull", "-q"], check=True)
+                (draft_work / "paper" / "arlington-bsap.tex").write_text("% from overleaf\n")
+                subprocess.run(["git", "-C", str(draft_work), "commit", "-qam", "overleaf edit"],
+                               check=True)
+                subprocess.run(["git", "-C", str(draft_work), "push", "-q"], check=True)
+                before = git("rev-parse", "main").strip()
+                branch = publish.pull(repo=work)
+            assert branch, "pull did not produce a branch while a session was live"
+            assert git("rev-parse", "main").strip() == before, "pull moved main"
+            assert git("branch", "--show-current").strip() == "main", \
+                "pull left the primary checkout on another branch"
+            assert git("status", "--porcelain").strip() == "", \
+                "pull left something staged in the primary checkout"
+            log = subprocess.run(["git", "-C", str(work), "log", "-1", "--format=%s", branch],
+                                 check=True, capture_output=True, text=True).stdout
+            assert log.strip().startswith("Overleaf edit:"), "the branch carries no commit"
+            assert not (work / ".claude" / "worktrees" / branch).exists(), \
+                "the worktree pull used was left behind"
+        finally:
+            if old_socks is None:
+                os.environ.pop("CC_SOCKS", None)
+            else:
+                os.environ["CC_SOCKS"] = old_socks
+            close_all(keep)
+
+
+def test_publish_pull_twice_with_nothing_new_is_a_noop():
+    """The second fault: after a pull, nothing marked the mirror's commit as
+    absorbed, so merge.sh's next run called pull again, found the same
+    diff, and tried to create the same branch - failing on "already
+    exists" and stopping the merge. A second pull with nothing new on the
+    mirror now reports the existing branch instead of recreating it, and
+    changes nothing."""
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git, draft_work = publish_fixture(tmp)
+        with draft_remote(Path(tmp) / "draft.git"):
+            publish.push(repo=work)
+            subprocess.run(["git", "-C", str(draft_work), "pull", "-q"], check=True)
+            (draft_work / "paper" / "arlington-bsap.tex").write_text("% from overleaf\n")
+            subprocess.run(["git", "-C", str(draft_work), "commit", "-qam", "overleaf edit"],
+                           check=True)
+            subprocess.run(["git", "-C", str(draft_work), "push", "-q"], check=True)
+            first = publish.pull(repo=work)
+            assert first, "the first pull produced no branch"
+            before = git("rev-parse", first).strip()
+            second = publish.pull(repo=work)
+        assert second == first, "a second pull with nothing new made a different branch"
+        assert git("rev-parse", second).strip() == before, "the second pull changed the branch"
+        assert not any((work / ".claude" / "worktrees").glob("*")), \
+            "the second pull left a worktree behind"
+
+
+def test_publish_pull_reports_nothing_to_pull_when_main_already_has_the_edit_by_hand():
+    """bd806cb reached main as dcf8391 on 8 October 2026 merged by hand, with
+    the branch pull would have made never created and no record anywhere
+    that the edit was absorbed. A pull against that state used to try to
+    apply the same patch again and fail - the text it is patching in is
+    already there. It now recognises the edit is already in main (reversing
+    the diff applies cleanly) and reports nothing to pull instead."""
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git, draft_work = publish_fixture(tmp)
+        with draft_remote(Path(tmp) / "draft.git"):
+            publish.push(repo=work)
+            subprocess.run(["git", "-C", str(draft_work), "pull", "-q"], check=True)
+            (draft_work / "paper" / "arlington-bsap.tex").write_text("% from overleaf\n")
+            subprocess.run(["git", "-C", str(draft_work), "commit", "-qam", "overleaf edit"],
+                           check=True)
+            subprocess.run(["git", "-C", str(draft_work), "push", "-q"], check=True)
+            # The hand-merge: the same change, committed straight to main,
+            # with no overleaf-<date> branch and no second push.
+            (work / "paper" / "arlington-bsap.tex").write_text("% from overleaf\n")
+            git("commit", "-qam", "merged the overleaf edit by hand")
+            before = git("rev-parse", "main").strip()
+            result = publish.pull(repo=work)
+        assert result is None, "a hand-merged edit was pulled again instead of recognised"
+        assert git("rev-parse", "main").strip() == before, "pull moved main"
+        assert not any((work / ".claude" / "worktrees").glob("*")), \
+            "a hand-merged edit still left a worktree behind"
+
+
+def test_publish_push_accepts_a_hand_merged_edit_as_absorbed():
+    """The other side of the same fault: with the edit in main by hand and no
+    second push recording it, push used to see the mirror's tip as
+    something Overleaf did that main had not absorbed and refuse. It now
+    recognises main already carries that edit and publishes on top of the
+    mirror's tip, restoring the bookkeeping pull and push both read."""
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git, draft_work = publish_fixture(tmp)
+        with draft_remote(Path(tmp) / "draft.git"):
+            publish.push(repo=work)
+            subprocess.run(["git", "-C", str(draft_work), "pull", "-q"], check=True)
+            (draft_work / "paper" / "arlington-bsap.tex").write_text("% from overleaf\n")
+            subprocess.run(["git", "-C", str(draft_work), "commit", "-qam", "overleaf edit"],
+                           check=True)
+            subprocess.run(["git", "-C", str(draft_work), "push", "-q"], check=True)
+            overleaf_tip = subprocess.run(["git", "-C", str(draft_work), "rev-parse", "HEAD"],
+                                          check=True, capture_output=True, text=True).stdout.strip()
+            (work / "paper" / "arlington-bsap.tex").write_text("% from overleaf\n")
+            git("commit", "-qam", "merged the overleaf edit by hand")
+            head = publish.push(repo=work)
+        assert head, "push refused a state main had already absorbed by hand"
+        subprocess.run(["git", "-C", str(draft_work), "pull", "-q"], check=True)
+        parent = subprocess.run(["git", "-C", str(draft_work), "rev-parse", "HEAD^"],
+                                check=True, capture_output=True, text=True).stdout.strip()
+        assert parent == overleaf_tip, "the new publish did not land on top of the mirror's tip"
 
 
 # --- merging the tracker by row ---------------------------------------------------

@@ -438,8 +438,8 @@ ALIAS = {
     "Arlington County Civic Federation, Task Force in Governance and Election Reform":
         "Arlington County Civic Federation",
     "City of Alexandria, Virginia": "City of Alexandria",
-    "U.S. Census Bureau": "U.S. Bureau of the Census",
-    "U.S. Census Bureau, Current Population Survey": "U.S. Bureau of the Census",
+    "U.S. Census Bureau": "us_census_bureau",
+    "U.S. Census Bureau, Current Population Survey": "us_census_bureau",
     "U.S. Department of Justice, Civil Rights Division": "U.S. Department of Justice",
     "Dictionary of Virginia Biography": "Library of Virginia",
     "OutHistory, Out and Elected in the USA: 1974-2000": "OutHistory",

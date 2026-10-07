@@ -77,8 +77,14 @@ pulled=$("$PYTHON" code/publish.py pull)
 step "   $pulled"
 case "$pulled" in
   "pull: branch "*)
-    waiting=$(printf '%s' "$pulled" | sed -n 's/^pull: branch \([^,]*\),.*/\1/p')
-    fail "an edit from Overleaf is waiting on $waiting; merge it first:
+    # Matches both the fresh "pull: branch X, ready for ..." and the
+    # idempotent "pull: branch X already holds the mirror's edit, merge it"
+    # (publish.py pull, called again after an earlier pull already made this
+    # branch). Either way, when X is the branch this run was asked to merge,
+    # the edit is already sitting on it and merging continues below; only a
+    # different branch stops this run.
+    waiting=$(printf '%s' "$pulled" | sed -n 's/^pull: branch \([^, ]*\).*/\1/p')
+    [ "$waiting" = "$branch" ] || fail "an edit from Overleaf is waiting on $waiting; merge it first:
   bash code/merge.sh $waiting"
     ;;
 esac

@@ -3,7 +3,11 @@
 Run by hand, output committed.
 
     .venv/bin/pip install extract_msg
-    .venv/bin/python code/transcribe/comments.py
+    ARLINGTON_CORRESPONDENCE=/path/to/the/Drive/folder .venv/bin/python code/transcribe/comments.py
+
+ARLINGTON_CORRESPONDENCE names the folder of the County's shared Outlook
+messages on this machine (docs/setup.md). Unset, or pointing at a folder that
+does not exist, the script refuses with one sentence and writes nothing.
 
 The County shared the correspondence its Board received with the whole study
 team: 250 Outlook messages in three folders of the project's Drive, 180MB in
@@ -38,6 +42,7 @@ path to each message: it is what their coding has to join on.
 """
 import csv
 import hashlib
+import os
 import pathlib
 import re
 
@@ -45,10 +50,8 @@ import extract_msg
 
 from paths import BY_CLAUDE
 
-SHARED = pathlib.Path.home() / (
-    "Library/CloudStorage/GoogleDrive-sally@rankedchoiceva.org/"
-    ".shortcut-targets-by-id/1M4kZqG-XFRNQ9jele3PcD6mfZog7E5_Q/RCVa/research/"
-    "Virginia/Arlington/2026 - Form of Government/team/sources/CBO")
+SHARED = pathlib.Path(os.environ["ARLINGTON_CORRESPONDENCE"]) \
+    if os.environ.get("ARLINGTON_CORRESPONDENCE") else None
 OUT = BY_CLAUDE / "comments.csv"
 COUNTY = "arlingtonva.us"
 
@@ -82,11 +85,12 @@ def read(path):
 
 
 def index() -> list:
-    if not SHARED.exists():
+    if SHARED is None or not SHARED.exists():
         raise SystemExit(
-            f"the County's shared folder is not on this machine:\n  {SHARED}\n"
-            f"It is not in the repository and will not be (see the docstring). "
-            f"The output of this step is committed, so nothing else needs it.")
+            "set ARLINGTON_CORRESPONDENCE to the County's shared folder on this "
+            "machine; it is not in the repository and will not be (see the "
+            "docstring), and the output of this step is committed, so nothing "
+            "else needs it.")
     files = sorted(SHARED.rglob("*.msg"), key=lambda p: str(p).lower())
     if not files:
         raise SystemExit(f"no .msg files under {SHARED}")

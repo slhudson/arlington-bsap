@@ -53,12 +53,24 @@ exactly `paper/`, `figures/pdf/` and `style/fonts/` from this repository's `HEAD
 on top of the mirror's own history rather than rewriting it, so Overleaf
 keeps its common ancestor; `pull` reads the mirror's commits back to the last
 one of ours - an edit made in Overleaf - and applies the changes under
-`paper/` to a new branch here, `overleaf-<date>`, ready for
-`bash code/merge.sh overleaf-<date>`. A change under `figures/` on the
-Overleaf side is refused outright: figures are built here, never hand-edited
-on either side. `code/merge.sh` runs `pull` as its first step, so an Overleaf
-edit is never overwritten by a thread's merge, and `push` as its last, so
-every merge reaches Overleaf without anyone running a separate command.
+`paper/` to a new branch, `overleaf-<date>`, ready for
+`bash code/merge.sh overleaf-<date>`. The branch and its commit are made in
+a worktree under `.claude/worktrees/`, never in the primary checkout, so
+`.githooks/pre-commit` - which refuses a commit there while another session
+is live - cannot strand a pull with a staged patch and nothing to show for
+it. `pull` is idempotent: run again before that branch is merged, it finds
+the branch already holding the mirror's edit and says so instead of trying
+to recreate it; and if the edit is already in main with no branch at all -
+merged by hand, as happened on 8 October 2026 - it finds that too (reversing
+the mirror's diff applies cleanly against main) and reports nothing to pull.
+`push` reads the same way: main already absorbing an edit the mirror's own
+history does not yet show as ours is not a reason to refuse, and the commit
+it makes lands on the mirror's tip to mark it absorbed even where the tree
+itself does not change. A change under `figures/` on the Overleaf side is
+refused outright: figures are built here, never hand-edited on either side.
+`code/merge.sh` runs `pull` as its first step, so an Overleaf edit is never
+overwritten by a thread's merge, and `push` as its last, so every merge
+reaches Overleaf without anyone running a separate command.
 `code/publish.py`'s own docstring has the reasoning for building this out of
 plain git plumbing rather than `git subtree`, which handles one prefix and
 not two.
@@ -157,6 +169,23 @@ citation for the same reason `data/clean/` is committed despite the usual rule
 against committing generated data (above): a reviewer opens it from the same
 clone that holds `paper/bib/sources.bib`.
 
+**`sources/` holds nothing a resident wrote to the Board.** The County's
+correspondence - 195 messages residents and others sent about the form of
+government - stays in Drive, on purpose: a permanent indexed archive of
+people's names, addresses and signature blocks is a different object from
+the County's own file, whatever each letter's status under FOIA
+(`docs/comments.md`). `data/transcribed/by_claude/comments.csv`, read from
+that folder by `code/transcribe/comments.py`, is the repository's record of
+it - a row per message with a count, never a name or a body - and is
+committed like any other transcription.
+
+**The repository is private because `sources/` and `data/` hold more than
+this project's own words.** `sources/` files copies of licensed and
+copyrighted material - HeinOnline session laws, newspaper scans, Ancestry
+images, journal articles - for the authors' use, and `data/` holds IPUMS
+extracts whose terms forbid redistribution; a public repository would
+redistribute both.
+
 Two large files cleared the fetch-on-demand bar the census scans use - a URL,
 and no figure reads the file - but stayed committed rather than being made
 `in_git = no`: the 1902 Virginia Constitution scan (50MB, from a Library of
@@ -166,6 +195,11 @@ Building a second on-demand fetcher for two files, when the whole archive's
 committed size was already weighed and accepted, is the kind of mechanism
 this project's own rule against premature infrastructure warns against,
 so both are plain committed files like the other 544.
+
+**`run.sh` warns at 900MB of tracked files**, GitHub's comfort line for a
+fresh clone being about 1GB; the fix it names is the one above, marking a
+file `in_git = no` in `data/contents.csv` and fetching it on demand the way
+the census scans already are. One warning, no hard stop.
 
 `code/publish.py`'s mirror push only ever exports `paper/`, `figures/pdf/` and `style/fonts/`
 from `HEAD` (`ALLOWED` in that file, checked again by `verify_tree()` right
