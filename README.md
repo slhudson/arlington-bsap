@@ -32,28 +32,11 @@ committed, so anyone can rebuild without a network connection, an API key,
 or a Mac. `data/built/` is not committed: it rebuilds in seconds from the
 layers above, and `data/clean/` is the layer worth pulling across people.
 
-**A script is named for what it writes**, so the folder is the index and
-there is no list to keep: `code/clean/residents.py` writes
-`data/clean/residents.csv`, and `code/analysis/members_by_race.py` writes
-`figures/pdf/members_by_race.pdf` and its `.png`. What a number *is* and what
-backs it is in that subject's write-up under `docs/`, listed at the bottom of
-this file; where a raw file came from is its row in `data/contents.csv`.
-
-**Not every file in a stage folder is a step.** Half of `code/clean/` is
-modules the steps import — the roster readers, the terms they are built on,
-an office's contests — and so are `code/analysis/members.py` and
-`code/analysis/localities.py`. `run.sh` lists the steps, in the order they
-run, one array per stage; a step is the file with a `__main__` block, or in
-`code/analysis/` the one that saves a figure. `code/tests.py` holds those two
-readings to each other, so a step cannot go missing from the list and a
-module cannot creep into it.
-
-Each stage has a `paths.py` that maps its own data folders and no higher:
-`code/clean/paths.py` has no route above `data/built/`,
-`code/analysis/paths.py` none above `data/clean/`. `code/citekeys.py` is the
-citekeys `paper/bib/sources.bib` defines, read by both data stages.
-Outside the stages, `code/sources/archive.py` writes `sources/documents`'s
-`index.md` and the zip the County receives.
+A script is named for what it writes, and each stage can reach only the one
+before it; `CLAUDE.md` has the naming rules, which files in a stage folder are
+steps, and the walls between stages. What a number *is* and what backs it is in
+that subject's write-up under `docs/`; where a raw file came from is its row in
+`data/contents.csv`.
 
 ## Rebuilding
 
@@ -96,12 +79,9 @@ silently go stale.
 |---|---|
 | `CLAUDE.md` | Working rules; the build/clean/analysis split; naming |
 | `data/contents.csv` | Every data folder and file, and where it came from |
-| `docs/residents.md`, `docs/elections.md`, `docs/members.md`, `docs/candidates.md`, `docs/localities.md` | What each number is, what backs it, what is assumed, and why; one per population |
+| `docs/<subject>.md` (`residents`, `elections`, `members`, `candidates`, `localities`, `survey_satisfaction`, `survey_rcv`, `comments`) | What each number is, what backs it, what is assumed, and why; one per subject |
 | `docs/questions.csv` | What is still open: one row per item with an owner, what it bites and what would settle it |
 | `docs/setup.md` | Getting a machine set up to build; written for a collaborator joining |
 | `docs/web_access.md` | The websites the sources come from: what each needs from this machine, and what it refuses |
 | `paper/bib/sources.bib` | Every source, cited by key from both the prose and `data/clean/`; each entry's `annotation` says what the copy held supports and where it is filed |
 | `sources/documents` | Copies of the sources no number is taken from, filed by kind, with an `index.md` that `code/sources/archive.py` writes |
-
-Open questions are logged as they arise and answered in place, so the reasoning
-survives alongside the fix.
