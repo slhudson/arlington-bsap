@@ -1,6 +1,6 @@
 # Arlington BSaP: sources archive
 
-Written by `code/sources/archive.py` on 2026-10-07 from commit dcf8391 of the `slhudson/arlington-bsap` repository. Generated: rerun the script rather than edit it.
+Written by `code/sources/archive.py` on 2026-10-07 from commit 1f79f82 of the `slhudson/arlington-bsap` repository. Generated: rerun the script rather than edit it.
 
 - `repository/` is the repository at that commit. `bash run.sh` rebuilds every figure from it; its `README.md` says how. The scans it fetches on demand rather than commits (29 files under `sources/government/federal/us_census_bureau/`) are included at their paths.
 - `repository/sources/` holds every source the report cites as it was published, filed by group and then by who published it. The first column of each table is the entry's key in `repository/paper/bib/sources.bib`; the entry's `annotation` says what the copy is and when it was taken.
@@ -11,7 +11,7 @@ A copy is filed under press, legal, government, academic, genealogy or other, an
 
 A copy is named `<who> <year> - <title>`. A press copy leads with the paper that printed it rather than the reporter who wrote it, and an obituary with the person it is for, followed by the paper; everything else leads with its author. `canonical()` in the same script has the rules.
 
-### legal (50 entries)
+### legal (53 entries)
 
 | key | author | date | title | file |
 |---|---|---|---|---|
@@ -27,6 +27,9 @@ A copy is named `<who> <year> - <title>`. A press copy leads with the paper that
 | vaconstitution1851 | Commonwealth of Virginia | 1851 | Va.\ Const.\ of 1851 | `legal/constitutions/Commonwealth of Virginia 1851 - Constitution of Virginia.pdf` |
 | vaconstitution1869 | Commonwealth of Virginia | 1869 | Va.\ Const.\ of 1869 | `legal/constitutions/Commonwealth of Virginia 1869 - Constitution of Virginia (title page, Art. III and Art. VII excerpt).pdf` |
 | vaconstitution1902 | Commonwealth of Virginia | 1902 | Va.\ Const.\ of 1902 | `legal/constitutions/Commonwealth of Virginia 1902 - Constitution of Virginia (scan).pdf`<br>`legal/constitutions/Commonwealth of Virginia 1902 - Constitution of Virginia (transcription).pdf` |
+| usstat1790residence | United States, 1st Congress, 2nd session | 1790-07-16 | Act of July 16, 1790 | `legal/statutes/federal/United States 1790 - An Act for establishing the temporary and permanent seat of the Government of the United States.pdf` |
+| usstat1801organic | United States, 6th Congress, 2nd session | 1801-02-27 | Act of Feb.\ 27, 1801 | `legal/statutes/federal/United States 1801 - An Act concerning the District of Columbia.pdf` |
+| usstat1801supplementary | United States, 6th Congress, 2nd session | 1801-03-03 | Act of Mar.\ 3, 1801 | `legal/statutes/federal/United States 1801 - An Act supplementary to the act intituled An act concerning the District of Columbia.pdf` |
 | usstat1846retrocession | United States, 29th Congress, 1st session | 1846-07-09 | Act of July 9, 1846 | `legal/statutes/federal/United States 1846 - An Act to retrocede the County of Alexandria, in the District of Columbia, to the State of Virginia.pdf` |
 | vaacts1846acceptance | Commonwealth of Virginia | 1846-02-03 | An act accepting by the state of Virginia the county of Alexandria, in the District of Columbia, when the same shall be re-ceded by the congress of the United States | `legal/statutes/state/Commonwealth of Virginia 1846 - An act accepting by the state of Virginia the county of Alexandria, in the District of Columbia, when the same shall be re-ceded by the congress of the United States.pdf` |
 | vaacts1847 | Commonwealth of Virginia | 1847-03-13 | An act to extend the jurisdiction of the commonwealth of Virginia over the county of Alexandria | `legal/statutes/state/Commonwealth of Virginia 1847 - Acts of the General Assembly of Virginia.pdf` |
@@ -66,7 +69,7 @@ A copy is named `<who> <year> - <title>`. A press copy leads with the paper that
 | vacode24 | Commonwealth of Virginia | 2026 | Code of Virginia, section 24.2-509, party nominations: method | `legal/statutes/state/Commonwealth of Virginia 2026 - Code of Virginia, section 24.2-509, party nominations - method.pdf` |
 | richland1958charter | Richland Freeholder's Charter Committee | 1958-09-17 | Charter of the City of Richland, Washington | `legal/statutes/state/Richland Freeholder's Charter Committee 1958 - Charter of the City of Richland, Washington.pdf` |
 
-### reports (54 entries)
+### reports (56 entries)
 
 | key | author | date | title | file |
 |---|---|---|---|---|
@@ -87,6 +90,7 @@ A copy is named `<who> <year> - <title>`. A press copy leads with the paper that
 | nara1910eds | U.S. National Archives and Records Administration | 1910 | Descriptions of Census Enumeration Districts, 1910: Virginia, Alexandria County | `government/federal/us_national_archives_and_records_administration/U.S. National Archives and Records Administration 1910 - Descriptions of Census Enumeration Districts, 1910 - Virginia, Alexandria County.pdf` |
 | nara1920eds | U.S. National Archives and Records Administration | 1920 | Descriptions of Census Enumeration Districts, 1920: Virginia, Alexandria County | `government/federal/us_national_archives_and_records_administration/U.S. National Archives and Records Administration 1920 - Descriptions of Census Enumeration Districts, 1920 - Virginia, Alexandria County.pdf` |
 | noetzel1907 | Noetzel, Gregor and Boteler, G. G. | 1907 | Map of Alexandria County, Virginia: Formerly Part of the District of Columbia | `government/local/alexandria_county/Noetzel, Gregor and Boteler, G. G. 1907 - Map of Alexandria County, Virginia - Formerly Part of the District of Columbia.jpg` |
+| arlingtonva2011markers | Arlington County | 2011-08-23 | The Arlington County Historical Markers (Appendix 1) | `government/local/arlington_county/Arlington County 2011 - The Arlington County Historical Markers (Appendix 1).pdf` |
 | arlingtonva2016richards | Arlington County | 2016-05-31 | Remembering Tom Richards: A Theodore Roosevelt for Arlington Parks an | `government/local/arlington_county/Arlington County 2016 - Remembering Tom Richards.pdf` |
 | arlingtonrcv2023feedback | Arlington County | 2023 | Ranked Choice Voting in Arlington: Feedback Form Results | `government/local/arlington_county/Arlington County 2023 - Ranked Choice Voting in Arlington, Feedback Form Results.pdf` |
 | arlingtonrcv2024feedback | Arlington County | 2024 | 2024 County Board General Election RCV Feedback | `government/local/arlington_county/Arlington County 2024 - 2024 County Board General Election RCV Feedback.pdf` |
@@ -116,6 +120,7 @@ A copy is named `<who> <year> - <title>`. A press copy leads with the paper that
 | rcva2026slides | FairVote, Ranked Choice Voting Resource Center and Ranked Choice Virginia | 2026-02-24 | Ranked Choice Voting in Arlington County: 2025 Post-Election Survey | `other/fairvote/FairVote 2026 - Ranked Choice Voting in Arlington County, 2025 Post-Election Survey (slides).pdf` |
 | rcva2026evaluation | FairVote and Ranked Choice Voting Resource Center and Ranked Choice Virginia | 2026-02-23 | Report to Arlington County Board: Ranked Choice Voting Evaluation | `other/fairvote/FairVote 2026 - Report to Arlington County Board, Ranked Choice Voting Evaluation.pdf` |
 | hjerpe2021 | Hjerpe, Grace | 2021-07-15 | A History of Representation on the Arlington County Board, 1870–Present | `other/grace_hjerpe/Hjerpe 2021 - A History of Representation on the Arlington County Board.pdf` |
+| nps2025rooseveltisland | National Park Service | 2025-02-13 | History and Culture: Theodore Roosevelt Island | `other/national_park_service/National Park Service 2025 - History and Culture - Theodore Roosevelt Island.pdf` |
 | tudor2023proportional | Tudor, Grant and Tremitiere, Beau | 2023-03 | Towards Proportional Representation for the U.S. House: Amending the Uniform Congressional District Act | `other/protect_democracy/Tudor and Tremitiere 2023 - Towards Proportional Representation for the U.S. House - Amending the Uniform Congressional District Act.pdf` |
 | rcva2025blockvoting | Ranked Choice Virginia | 2025-06-06 | Block Voting in Charlottesville | `other/rcva/Ranked Choice Virginia 2025 - Block Voting in Charlottesville.pdf` |
 | rcva2025fairrepresentation | Ranked Choice Virginia | 2025-06-10 | Fair Representation with Ranked Choice Voting | `other/rcva/Ranked Choice Virginia 2025 - Fair Representation with Ranked Choice Voting.pdf` |
@@ -1181,6 +1186,11 @@ Every file under `sources/`, from `data/contents.csv`: what it is, who published
 | `sources/press/washington_times/Washington Times 1930 - Vets' Memorial Approved in Arlington.pdf` | the filed copy of washingtontimes1930duncan | `e3d9af924bf3fb8c` | yes |
 | `sources/press/washington_times/Washington Times 1931 - Fields Winner in Vote for Sheriff.pdf` | the filed copy of washingtontimes1931duncan | `2cd9c2acd5e23d4a` | yes |
 | `sources/press/washington_times/Washington Times 1938 - Duncan Rites Wednesday.pdf` | the filed copy of washingtontimes1938duncan | `cd958b47f3bbf005` | yes |
+| `sources/legal/statutes/federal/United States 1790 - An Act for establishing the temporary and permanent seat of the Government of the United States.pdf` | the filed copy of usstat1790residence | `9886129e855823a6` | yes |
+| `sources/legal/statutes/federal/United States 1801 - An Act concerning the District of Columbia.pdf` | the filed copy of usstat1801organic | `1ed698a74c59baa8` | yes |
+| `sources/legal/statutes/federal/United States 1801 - An Act supplementary to the act intituled An act concerning the District of Columbia.pdf` | the filed copy of usstat1801supplementary | `74fb659d5b6e7338` | yes |
+| `sources/government/local/arlington_county/Arlington County 2011 - The Arlington County Historical Markers (Appendix 1).pdf` | the filed copy of arlingtonva2011markers | `fa11b54965f2f270` | yes |
+| `sources/other/national_park_service/National Park Service 2025 - History and Culture - Theodore Roosevelt Island.pdf` | the filed copy of nps2025rooseveltisland | `70691a6f7761fe7a` | yes |
 
 ## Sources with no copy held
 
