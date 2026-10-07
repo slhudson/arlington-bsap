@@ -18,7 +18,7 @@
 #      file by union (.gitattributes), so anything still conflicting is two
 #      sessions editing one line or one row, which is a person's decision.
 #      The worktree is removed and nothing has changed.
-#   4. bash run.sh, then code/paper.py and code/paper.py timelines, in the
+#   4. bash run.sh, then code/paper.py all, in the
 #      worktree. A failure stops it before anything reaches main: a commit
 #      chained after a failing build was the first of the slips.
 #   5. What the build rewrote (figures/, data/clean/, the .tex files the
@@ -48,7 +48,7 @@ branch=$1
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
 cd "$ROOT"
 BUILD=${BUILD:-"bash run.sh"}
-COMPILE=${COMPILE:-".venv/bin/python code/paper.py && .venv/bin/python code/paper.py timelines"}
+COMPILE=${COMPILE:-".venv/bin/python code/paper.py all"}
 PYTHON=${PYTHON:-".venv/bin/python"}
 REMOTE=origin
 
@@ -146,8 +146,8 @@ merged=$(git -C "$tree" rev-parse HEAD)
 step "6. main -> $(git rev-parse --short "$merged"), pushed; $branch removed"
 git merge -q --ff-only "$merged"
 git push -q "$REMOTE" main
-for pdf in arlington-bsap timelines; do
-  [ -f "$tree/paper/$pdf.pdf" ] && cp "$tree/paper/$pdf.pdf" "paper/$pdf.pdf"
+for pdf in "$tree"/paper/*.pdf; do
+  [ -f "$pdf" ] && cp "$pdf" paper/
 done
 git push -q "$REMOTE" --delete "$branch" 2>/dev/null || true
 retire "$branch"   # its branch is merged by the fast-forward above; the other two tests are retire's own

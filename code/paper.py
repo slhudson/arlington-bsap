@@ -1,6 +1,8 @@
 """Compile the report, and refuse a PDF that is quietly wrong.
 
-    .venv/bin/python code/paper.py
+    .venv/bin/python code/paper.py            # the report
+    .venv/bin/python code/paper.py timelines  # the other document
+    .venv/bin/python code/paper.py all        # every document in SOURCES
 
 Writes `paper/arlington-bsap.pdf`. Not part of `bash run.sh`: the figures
 build with no LaTeX installed at all, and Overleaf compiles the report for
@@ -180,8 +182,8 @@ def main():
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        STEM = sys.argv[1]          # "timelines", the other document in paper/
-        if STEM not in SOURCES:
-            sys.exit(f"no document {STEM}; one of {', '.join(SOURCES)}")
-    main()
+    wanted = sys.argv[1] if len(sys.argv) > 1 else "arlington-bsap"
+    if wanted != "all" and wanted not in SOURCES:
+        sys.exit(f"no document {wanted}; one of {', '.join(SOURCES)}, or all")
+    for STEM in (SOURCES if wanted == "all" else [wanted]):
+        main()
