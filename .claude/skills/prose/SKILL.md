@@ -143,6 +143,10 @@ over-represented in the weighted survey results." Say too what a number does
 not license: "The first two reasons do not necessarily imply that voters are
 confused about RCV."
 
+**"Rather than" opens a sentence about a choice someone made** ("Rather than pursue
+federal litigation, Charlottesville's local branch of the NAACP chose to lobby City
+Council directly"). Mid-sentence as a definition it is a tic; say "not".
+
 **A concession opens the sentence that answers it.** "Though weighting is an
 important methodological consideration, in practice weighting has little
 impact on the substantive results in this sample." Though, still, meanwhile:
@@ -222,6 +226,8 @@ Read the passage aloud. Where you stumble, the reader stops. That test finds
 more than any checklist, and it is the one to run before saying a passage is
 done.
 
+A passage offered as a reference point gets the same pass as any other.
+
 Then ask of each paragraph: what does it want the reader to know? If the
 answer takes two clauses, the paragraph is doing two jobs.
 
@@ -235,6 +241,10 @@ Not simplified. Keep the technical words the subject needs: magisterial
 district, seat-year, enumeration sheet, citekey. A reader of this report knows
 them, and a synonym for a term of art costs precision. What goes is the
 decoration around them.
+
+Not measured in words. A dense passage is dense because of how much sits in each
+sentence, not how many words the file has; the cure is more sentences, visible
+lists and an actor per clause, which costs words.
 
 Not shorter at the cost of the record. Every number in the prose is checked
 against `data/clean/` by `code/analysis/body_text_numbers.py` and
@@ -353,79 +363,3 @@ and tighten, add no claim, and mark the spot `% waits on: <tracker row>`.
 **Checks after every change.** `bash run.sh`, `code/paper.py` with the argument `all`, then `grep -c '^!' paper/build/*.log`: the compile check does not catch a LaTeX
 error. A `%` comment inside a macro argument swallows its closing brace. End a reply
 with a full-path link to the rebuilt PDF; leave no dated PDF copies in the repo.
-
-## Corrections this project has made
-
-Kept here so the voice accumulates rather than being re-derived. Add to it
-when an author rewrites a passage, with what they said.
-
-**27 September 2026, the sample.** The first draft of this file described a
-voice it had inferred from Claude's own prose and presented it back as
-Sally's: "I have no idea where you're getting the idea that you have a
-writing sample for me." She then gave the real one — the RCVa news archive,
-and the Charlottesville series in particular. Two of the rules here had been
-inventions, and the sample contradicts both: it uses dashes to carry second
-clauses constantly, and it uses negatives to state findings. Both rules were
-rewritten to the narrower fault they came from. What the sample does and this
-file had missed — named actors, numbers with their consequence attached,
-paragraphs that land on the stake — is now the first section.
-
-**27 September 2026, the Board report.** Offered as "a longer report for the
-same audience": the RCV evaluation prepared for the Arlington County Board.
-It settles the register question for `paper/`, and it adds three habits the
-Charlottesville essays show less plainly — a method taught by working one
-case, a limitation named where it bites and then sized, and a concession that
-opens the sentence answering it.
-
-**27 September 2026, no first person.** The Board report uses *we* freely for
-the project's own choices, and the paper was offered the same construction:
-"avoid we." So the fix for an impersonal, dense sentence is not first person
-but a real-world actor — the source or the institution that acted. See the
-first entry under *What the voice does*.
-
-**27 September 2026, the register of `docs/`.** Asked whether the write-ups
-should carry the narrative voice or stay flat reference prose: "i think docs
-can be more neutral but in general should have a point." Hence neutral
-register in `docs/`, but no section that merely lists.
-
-**27 September 2026, `paper/arlington-bsap.tex`, pre-1932 residence.** A
-rewrite that stated the position rather than the history was still unreadable:
-"It may read as a statement. It's terrible writing. Like, incredibly hard to
-digest." The faults were a cleft sentence, an aside that changed the subject,
-and a negative about what the project does not know. The statutory detail moved
-to `docs/members.md`, which carries it in full.
-
-Its replacement did not settle it either, and a later pass was told to
-calibrate against that replacement rather than to fix it: "Why would you leave
-unchanged the paragraph that bothered me enough to start this entire
-exercise?" A passage offered as a reference point is not exempt from the pass.
-Three sentences in it still reported the state of the project's knowledge
-instead of naming something that acted — "is known only as closely as", "who
-sat is known" — it closed on a tautology, and its one count arrived with
-nothing to say what the count cost. The census, the law and the minute books
-are now the subjects, and the count carries its consequence: the county had
-only three districts to name.
-
-**27 September 2026, length.** A first pass came back the same length, and she
-expected the voice to cut: "I'm surprised that you didn't cut more words." It
-had not padded — measured on prose words only, the eight files moved +0.6%, and
-most of that was one section that had been empty. The classical cutting tests
-(metadiscourse, expletive openings, *the fact that*, *in order to*, redundant
-pairs, stacked hedges, nominalisation-plus-*of*) find three hits in 33,000
-words. Earlier passes had already cut to the bone, which is why the prose read
-as dense: the fault was how much sat in each sentence, not how many words were
-in the file, and the cure - more sentences, visible lists, an actor per clause -
-costs words.
-
-What the pass did find was one construction doing all the contrastive work:
-"rather than" 121 times, always mid-sentence as a definition. The sample uses it
-sentence-initially, about a choice someone made ("Rather than pursue federal
-litigation, Charlottesville's local branch of the NAACP chose to lobby City
-Council directly"). 36 of the definitional ones became "not", which is shorter
-and lands harder; the rest stayed, because "not" 121 times is the same tic in a
-new coat.
-
-**27 September 2026, on hard rules.** Numeric limits were offered and
-declined: "I don't like the idea of like numeric hard rules for writing style.
-Like some some rules are meant to be broken." Hence Orwell's last rule above,
-and no counts anywhere in this file.
