@@ -266,20 +266,15 @@ rerun, and so is a compile (`code/cache.py`, `docs/repository.md`).
 required to rebuild.
 
 **The paper compiles with lualatex, not pdflatex**, because its body text is
-set in Lato and `fontspec` runs under no other engine. `run.sh` does not
-compile it — the figures build with no LaTeX installed, and Overleaf compiles
-the report for real. Locally:
+set in Lato. `run.sh` does not compile it; Overleaf does, and locally:
 
 ```bash
-.venv/bin/python code/paper.py   # writes paper/arlington-bsap.pdf
+.venv/bin/python code/paper.py all   # writes paper/arlington-bsap.pdf and paper/timelines.pdf
 ```
 
-That refuses a PDF whose log reports an undefined citation, an undefined
-cross-reference or a substituted font, because latexmk exits 0 on all three
-and a report missing its bibliography looks finished. The usual cause is a
-stale `paper/build/arlington-bsap.fdb_latexmk` calling bibtex where this paper needs
-biber, so a first failure is retried from clean before it is believed.
-`docs/repository.md` has both failure modes and the Overleaf equivalent.
+That refuses a PDF whose log shows an undefined citation, cross-reference or
+font, which latexmk itself passes. `docs/repository.md` has why, and the
+Overleaf equivalent.
 
 ## Questions and decisions
 
