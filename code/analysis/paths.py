@@ -1,8 +1,8 @@
 """Where real paths are assigned to the short names this stage uses.
 
 Maps data/clean/, figures/ and the files the paper inputs,
-paper/body_text_numbers.tex, paper/appendix/members_roster.tex and
-paper/appendix/members_roster_subsets.tex, and defines no route to sources/,
+paper/body_text_numbers.tex, paper/tables/members_roster.tex and
+paper/tables/members_subsets.tex, and defines no route to sources/,
 data/transcribed/ or data/built/ (CLAUDE.md).
 
 A figure is saved under the name of the script that draws it, which save()
@@ -18,8 +18,8 @@ ROOT = Path(__file__).resolve().parents[2]
 CLEAN = ROOT / "data" / "clean"
 FIGURES = ROOT / "figures"
 BODY_TEXT_NUMBERS = ROOT / "paper" / "body_text_numbers.tex"
-MEMBERS_ROSTER = ROOT / "paper" / "appendix" / "members_roster.tex"
-MEMBERS_ROSTER_SUBSETS = ROOT / "paper" / "appendix" / "members_roster_subsets.tex"
+MEMBERS_ROSTER = ROOT / "paper" / "tables" / "members_roster.tex"
+MEMBERS_ROSTER_SUBSETS = ROOT / "paper" / "tables" / "members_subsets.tex"
 
 
 def read(stem, **kw):

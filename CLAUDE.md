@@ -186,8 +186,8 @@ reads are fetched on demand (`docs/repository.md`).
 `figures/` and, from two steps that write LaTeX instead, what the paper
 inputs: `code/analysis/body_text_numbers.py` writes the numbers the prose cites
 that no figure carries as commands in `paper/body_text_numbers.tex`, and
-`code/analysis/members_roster.py` writes the appendix roster's rows to
-`paper/appendix/members_roster.tex`. `code/stage.py` runs the steps of `code/build/`, `code/clean/` and
+`code/analysis/members_roster.py` writes the two tables under `paper/tables/`,
+the roster and the subset the body prints. `code/stage.py` runs the steps of `code/build/`, `code/clean/` and
 `code/analysis/` in one process for `run.sh`;
 it, `code/paper.py`, `code/merge.sh` and `code/merge_questions.py` (the
 tracker's merge driver) sit outside the stages, like

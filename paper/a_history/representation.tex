@@ -17,22 +17,6 @@ other \notWhiteMenMembers{}, in the order they first took a seat: 13 women
 and 12 members of color, Tannia Talento among both.
 
 % waits on: member-demographics-lists
-\begin{table}[b]
-  \refstepcounter{table}\label{tab:subsets}
-  {\raggedright\MakeUppercase{Table \thetable}\par}
-  {\raggedright\bfseries Women and Members of Color on the Board\par}
-  \medskip
-  \begingroup\footnotesize\setlength{\tabcolsep}{8pt}
-  \begin{tabular}{Q}
-  \toprule
-  \rosterhead
-  \midrule
-  \rosterinput appendix/members_roster_subsets.tex
-  \bottomrule
-  \end{tabular}\endgroup
-  \par\smallskip
-  \figurenotes{
-    Notes: \rostermarks{} This table is a subset of the full roster, Table~\ref{tab:roster} in the Data Appendix.}{}
-\end{table}
+\input{tables/members_subsets}
 
 \clearpage

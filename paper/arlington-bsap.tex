@@ -24,36 +24,9 @@
 % A roster column of a share of the text width, set ragged right.
 \newcolumntype{R}[1]{>{\raggedright\arraybackslash}p{\dimexpr(\textwidth-10\tabcolsep)*#1/100\relax}}
 \input{body_text_numbers}  % numbers the prose cites, written by code/analysis/body_text_numbers.py
-% One row of the roster tables, written by code/analysis/members_roster.py.
-\newcommand{\roster}[6]{#1 & #2 & #3 & #4 & #5 & #6 \\}
-\newcommand{\rosterk}[6]{#1 & #2 & #3 & #4 & #5 & #6 \\*}  % no page break after
-\newcommand{\rosterheading}[1]{\multicolumn{6}{@{}l}{\bfseries #1} \\*}
-% The roster files are read with TeX's own \input, not LaTeX's: LaTeX's looks
-% ahead with \futurelet, which ends the table's search for \multicolumn at the
-% start of the first cell, so the first heading would be misplaced.
-\makeatletter\let\rosterinput\@@input\makeatother
-\newcommand{\rosterdecade}[1]{\addlinespace[1.4ex]\rosterheading{#1}}  % a gap, then the heading; not for the first group, where a gap before any row is an error
-% The columns and header of every roster table, and the notes they share.
+% The columns every table under paper/tables/ shares; a table is otherwise a
+% complete file, built and \input{}ed whole (CLAUDE.md, members_roster.py).
 \newcolumntype{Q}{@{}R{28}R{14}R{18}R{10}R{11}R{19}@{}}
-\newcommand{\rosterhead}{\textit{Name} & \textit{Served} & \textit{Seated By} & \textit{Born} & \textit{Gender} & \textit{Race and Ethnicity} \\}
-\newcommand{\rostermarks}{Superscripts indicate the source for each record: the
-  US census (c), press or published profile (p), or assumption (a). Two
-  superscripts mean two kinds of source agree. A dash means no source gives the
-  value.}
-% One page of the full roster, written by members_roster.py: \rosterpanel{A}{1870--1919}
-% opens panel 2A, with its own title, and \rosterpanelend closes it with its notes.
-\newcommand{\rosterpanel}[2]{\clearpage\begingroup
-  \ifstrequal{#1}{A}{\refstepcounter{table}\label{tab:roster}\xdef\rostertable{\thetable}}{}
-  {\raggedright\MakeUppercase{Table \rostertable#1}\par}
-  {\raggedright\bfseries Board Members, First Seated #2\par}
-  \medskip
-  \footnotesize\setlength{\tabcolsep}{8pt}\setlength{\LTpre}{0pt}\setlength{\LTpost}{0pt}
-  \begin{longtable}{Q}
-  \toprule \rosterhead \midrule \endfirsthead
-  \toprule \rosterhead \midrule \endhead
-  \bottomrule \endfoot}
-\newcommand{\rosterpanelend}{\end{longtable}\par\smallskip
-  \noindent\figurenotes{Notes: \rostermarks}{}\endgroup}
 \usepackage[margin=1in]{geometry}
 \usepackage[hidelinks]{hyperref}
 

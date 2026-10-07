@@ -184,7 +184,10 @@ The paper is one file per section, under one folder per part:
 `paper/appendix/`, plus `paper/summary.tex` for the Executive Summary.
 `paper/arlington-bsap.tex` is the wrapper: the preamble, the front matter, a
 list of `\input` lines in reading order, the bibliography call and
-`\end{document}`, and holds no prose of its own.
+`\end{document}`, and holds no prose of its own. A table under `paper/tables/`
+follows the figure convention: `code/analysis/members_roster.py` writes the
+whole file - title line, environment, rows and notes - and a section `\input`s
+it by name, so a table with numbers in it is always built, never typed.
 
 Two surfaces edit this paper, Overleaf and the repository's own Claude
 threads, and they edit it concurrently. Edits to one file collide; edits to

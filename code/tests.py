@@ -3511,7 +3511,7 @@ def test_paper_holds_only_what_a_co_author_should_see():
     a section folder or a generated .tex, add it to this list on purpose."""
     allowed = {"arlington-bsap.tex", "summary.tex", "body_text_numbers.tex",
                "a_history", "b_community_input", "c_future_work", "appendix",
-               "bib", "timelines"}
+               "tables", "bib", "timelines"}
     tracked = subprocess.run(["git", "ls-files", "paper"], cwd=ROOT, check=True,
                              capture_output=True, text=True).stdout.split("\n")
     top = {Path(f).parts[1] for f in tracked if f}
