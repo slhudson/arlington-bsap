@@ -1,20 +1,11 @@
 .venv/
 __pycache__/
 .DS_Store
-paper/*.aux
-paper/*.log
-paper/*.out
-paper/*.toc
+# code/paper.py compiles in paper/build/ - aux, log, biber and latexmk's record
+# - and copies the finished PDFs up beside the source. Overleaf does its own
+# build, so none of it belongs in the repository.
+paper/build/
 paper/*.pdf
-paper/*.synctex.gz
-# biblatex/biber and latexmk leave these behind on a local compile. Overleaf
-# does its own build, so none of it belongs in the repository.
-paper/*.bbl
-paper/*.bcf
-paper/*.blg
-paper/*.fdb_latexmk
-paper/*.fls
-paper/*.run.xml
 .env
 
 # Per-machine Claude Code settings: site permissions and the like, which
@@ -70,4 +61,4 @@ data/transcribed/by_ocr/*
 data/built/
 
 # biber leaves a copy of a file it could not save beside it.
-paper/*-SAVE-ERROR
+paper/**/*-SAVE-ERROR

@@ -1,12 +1,12 @@
 ---
 name: sources
-description: Add, fetch, cite or file a source for the Arlington BSaP report. Use whenever a document, dataset, census record, article or web page is being brought into data/raw/, cited in paper/sources.bib, or filed in sources/documents.
+description: Add, fetch, cite or file a source for the Arlington BSaP report. Use whenever a document, dataset, census record, article or web page is being brought into data/raw/, cited in paper/bib/sources.bib, or filed in sources/documents.
 ---
 
 # Sources
 
 `CLAUDE.md` has the rules: `data/` holds what we take numbers out of, a
-source consulted only to settle a question is cited in `paper/sources.bib`
+source consulted only to settle a question is cited in `paper/bib/sources.bib`
 and filed in `sources/documents`, every source column holds a citekey, and a
 bib entry is built from the document in hand. This file is the tools that do
 it.
@@ -39,7 +39,7 @@ to click it is the friction this line removes.
 
 ## Before saying no source exists
 
-Grep `paper/sources.bib`, `docs/` and `data/transcribed/` for the subject
+Grep `paper/bib/sources.bib`, `docs/` and `data/transcribed/` for the subject
 first. A thread concluded on 6 October 2026 that no map drew the district
 lines while `hjerpe2021` sat in the bibliography; a held source outranks a
 search, and the search is not finished until the held ones are read.
@@ -99,11 +99,11 @@ the record to the member, and a name alone is no match.
 
 Committed in the repository, beside its citation: moved out of the
 project's Drive on 7 October 2026 (`docs/repository.md`), so a cited copy
-sits next to `paper/sources.bib` rather than off in Drive. The folder is
+sits next to `paper/bib/sources.bib` rather than off in Drive. The folder is
 filed by kind, and its index is generated.
 `code/sources/archive.py` files the documents folder into `legal`, `reports`, `books`, `bios`,
 `campaign websites`, `press`, `obituaries` and `census`, the kind being a rule on the
-bib entry; writes `index.md` at its top from `paper/sources.bib` and
+bib entry; writes `index.md` at its top from `paper/bib/sources.bib` and
 `data/contents.csv`, so the index cannot drift from either; and builds the
 zip the County receives, the repository at HEAD with the on-demand
 scans and the folder. Without `--apply` it only reports. It refuses to act
@@ -129,7 +129,7 @@ document on the shelf asserts the corporate chain; the chain is recorded here
 instead. The *Arlington Daily* folder is a different paper, not an earlier name
 for this one. (Lineage from ARLnow, 12 December 2024, "Arlington print
 newspapers face thinning ranks after a vibrant history"; if the report comes to
-rely on it, it needs an entry in `paper/sources.bib` of its own.)
+rely on it, it needs an entry in `paper/bib/sources.bib` of its own.)
 
 A copy is named `<who> <year> - <title>.pdf`, and `archive.canonical()` decides
 the `<who>`, renaming a copy whose name does not match when it files it. Three
@@ -168,7 +168,7 @@ whichever table holds it.
 
 Three values are not citekeys and `code/citekeys.py` says what each admits
 to: `assumed`, `derived`, `unsourced`. Anything else in a source column must
-be an entry in `paper/sources.bib`, or the build stops. What is missing from
+be an entry in `paper/bib/sources.bib`, or the build stops. What is missing from
 the copy we hold goes in the entry's `annotation`, which biblatex does not
 print.
 

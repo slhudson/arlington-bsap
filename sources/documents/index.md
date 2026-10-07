@@ -3,7 +3,7 @@
 Written by `code/archive.py` on 2026-09-25 from commit d423332 of the `slhudson/arlington-bsap` repository. Generated: rerun the script rather than edit it.
 
 - `repository/` is the repository at that commit. `bash run.sh` rebuilds every figure from it; its `README.md` says how. The scans it fetches on demand rather than commits (6 files under `data/raw/us_census_bureau/`) are included at their paths.
-- `documents/` holds a copy of every source the report cites that no number is taken from, filed by kind. The first column of each table is the entry's key in `repository/paper/sources.bib`; the entry's `annotation` says what the copy is and when it was taken.
+- `documents/` holds a copy of every source the report cites that no number is taken from, filed by kind. The first column of each table is the entry's key in `repository/paper/bib/sources.bib`; the entry's `annotation` says what the copy is and when it was taken.
 
 ## Documents
 

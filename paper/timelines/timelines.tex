@@ -5,7 +5,8 @@
 % prose is written from live here, one block per timeline, grouped by the
 % section of the report they belong to, so a timeline can leave the paper
 % without being lost. Compiled the same way as the paper (lualatex, biber) and
-% drawing on the same paper/sources.bib.
+% drawing on the same paper/bib/sources.bib. Compiled from paper/ (code/paper.py
+% timelines), so every path below is relative to paper/, not to this folder.
 \documentclass[11pt]{article}
 
 \usepackage{booktabs}
@@ -27,8 +28,8 @@
 ]
 
 \usepackage[notes, backend=biber, backref=true]{biblatex-chicago}
-\addbibresource{sources.bib}
-\input{bibstyle}
+\addbibresource{bib/sources.bib}
+\input{bib/bibstyle}
 
 % A footnote inside a tabular is silently dropped by LaTeX: the mark prints
 % and the note never appears. Timeline rows carry citations, so make tabular

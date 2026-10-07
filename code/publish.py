@@ -16,7 +16,8 @@ these commits, something landed there since the last publish - an edit made
 in Overleaf - and the push refuses, naming the pull command instead of
 silently discarding it. The very first push finds no such commit anywhere in
 the mirror's history and runs unconditionally, parented on whatever the
-mirror already holds, which is Overleaf's own project history.
+mirror already holds, which is Overleaf's own project history - or, in a
+mirror nobody has pushed to, on nothing: a root commit pushed as main.
 
 `pull` reads the mirror's commits back to the last one of ours - Overleaf's
 own edits - and applies the changes they made under paper/ to a new branch
@@ -85,7 +86,13 @@ def draft_checkout(repo):
         git("config", "user.email", "publish@arlington-bsap.local", cwd=draft)
         git("config", "user.name", "code/publish.py", cwd=draft)
     git("fetch", "-q", "origin", cwd=draft)
-    git("checkout", "-q", "-B", "main", "origin/main", cwd=draft)
+    if git("rev-parse", "--verify", "-q", "origin/main", cwd=draft, check=False).returncode == 0:
+        git("checkout", "-q", "-B", "main", "origin/main", cwd=draft)
+    else:
+        # A mirror nobody has pushed to has no main. Point at an unborn main,
+        # so the first publish is a root commit pushed as main.
+        git("update-ref", "-d", "refs/heads/main", cwd=draft, check=False)
+        git("symbolic-ref", "HEAD", "refs/heads/main", cwd=draft)
     return draft
 
 
@@ -94,7 +101,8 @@ def last_published(draft):
     history, walking back from its tip, and whether the tip itself is that
     commit - meaning nothing has landed there since. (None, False) if we
     have never published to this mirror."""
-    log = git("log", "--format=%H %s", "main", cwd=draft).stdout.splitlines()
+    # An empty mirror has no commits to walk.
+    log = git("log", "--format=%H %s", "main", cwd=draft, check=False).stdout.splitlines()
     for i, line in enumerate(log):
         sha, _, subject = line.partition(" ")
         if PUBLISHED.match(subject):

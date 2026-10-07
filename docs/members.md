@@ -128,7 +128,7 @@ and what would settle it.
 No instrument required a supervisor to live in the district he represented
 until sec. 32 of the 1902 constitution, from 1903, so the seat places nobody
 before then and every place comes from a record. The reading of each
-constitution, act and Code behind that is in its entry in `paper/sources.bib`
+constitution, act and Code behind that is in its entry in `paper/bib/sources.bib`
 (`vaconstitution1869`, `vaacts1875`, `vacode1873`, `vacode1887`,
 `vaconstitution1902`), and the departures it bears on, Schutt's, Rowe's and
 Tibbett Allen's, are in `arlhist1967officials` and the Gazette entries; why
@@ -253,7 +253,7 @@ boundary change that never happened.
 
 How the constitutions, acts, the County Code and the Board's own papers made
 the Board and divide its work with the Manager is the report's, in Part A, and
-each source's reading is in its entry's `annotation` in `paper/sources.bib`.
+each source's reading is in its entry's `annotation` in `paper/bib/sources.bib`.
 The non-interference bar vaacts1952c443 wrote and vaacts1962c623 carried
 unchanged is softened by 1982 c. 108 (vaacts1982c108): the bar on directing or
 requesting an appointment, or taking any part in one, narrows to a bar on

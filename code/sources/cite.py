@@ -1,5 +1,5 @@
 """A source the report cites but takes no numbers from: fetched, filed in
-sources/documents and entered in paper/sources.bib, in one step.
+sources/documents and entered in paper/bib/sources.bib, in one step.
 
     .venv/bin/python code/sources/cite.py KEY URL --author "Hanover County" \\
         --title "Board of Supervisors" --date 2026 --note "Seven members, ..."
@@ -136,7 +136,7 @@ def entry_text(a, filename, folder):
         fields.append(("note", a.cite_note))     # prints in the footnote
     if a.journal and not a.pages:
         a.note = "The copy gives no page. " + a.note
-    fields += [("annotation", f'{a.note.rstrip(".")}. Read {today}. Filed in Drive as "{folder}/{filename}", '
+    fields += [("annotation", f'{a.note.rstrip(".")}. Read {today}. Filed in sources/documents as "{folder}/{filename}", '
                               + (a.how if a.how
                                  else "saved as published" if a.url.lower().endswith(AS_PUBLISHED)
                                  else "a copy printed in Sally's own browser" if a.copy

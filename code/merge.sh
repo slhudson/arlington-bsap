@@ -14,7 +14,7 @@
 #   2. A scratch worktree on origin/main, after a fetch, so the merge is made
 #      against what is pushed and not against a stale local main.
 #   3. The branch merged. A conflict stops it: docs/questions.csv merges row
-#      by row (code/merge_questions.py), paper/punchlist.md and the negatives
+#      by row (code/merge_questions.py), docs/punchlist.md and the negatives
 #      file by union (.gitattributes), so anything still conflicting is two
 #      sessions editing one line or one row, which is a person's decision.
 #      The worktree is removed and nothing has changed.

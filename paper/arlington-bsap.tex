@@ -8,7 +8,7 @@
 %
 % The sections follow the 2 October 2026 history outline, one section per topic,
 % each holding its figures and then its prose. The dated timelines the prose is
-% written from are in timelines.tex.
+% written from are in timelines/timelines.tex.
 %
 % Compiled with lualatex, not pdflatex: the body text uses Lato, the same
 % typeface urban.mplstyle sets for the figures, loaded via fontspec from
@@ -124,13 +124,13 @@
 % claim is - that O'Leary infers party affiliation, that Hjerpe's work is
 % unpublished - and a footnote is the only place those fit.
 %
-% sources.bib is the registry the data shares: the `source` columns in
+% bib/sources.bib is the registry the data shares: the `source` columns in
 % data/clean/ hold citekeys from it, and bash run.sh refuses to build if one
 % of them names an entry that is not here.
 \usepackage[notes, backend=biber, backref=true]{biblatex-chicago}
-\addbibresource{sources.bib}
+\addbibresource{bib/sources.bib}
 
-\input{bibstyle}
+\input{bib/bibstyle}
 
 % The paper includes the PDF versions; figures/png/ is for slides and email.
 \graphicspath{{../figures/pdf/}}

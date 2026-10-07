@@ -278,7 +278,7 @@ table, and let the sentence carry the shape. The grain is a judgment each time.
 
 Read this before editing one of the paper's section files under `paper/a_history/`,
 `paper/b_community_input/`, `paper/c_future_work/` and `paper/appendix/`, or
-`paper/summary.tex` or `paper/timelines.tex`. `paper/arlington-bsap.tex` is the
+`paper/summary.tex` or `paper/timelines/timelines.tex`. `paper/arlington-bsap.tex` is the
 wrapper: the preamble and the list of `\input` lines, no prose (`docs/repository.md`
 has the reasoning).
 
@@ -288,7 +288,7 @@ argument, the story and the structure; do not infer from the list below that for
 is what she mostly corrects.
 
 **Workflow.** The 2 October "Arlington BSaP Outline - History" slides in Drive are the
-outline. Agree a section's timeline in `paper/timelines.tex` first, then write prose
+outline. Agree a section's timeline in `paper/timelines/timelines.tex` first, then write prose
 from it; the timelines live in their own document so they can leave the paper. When a
 slide and the sources disagree, the sources win: say so and cut what no source holds,
 with a tracker row. The paper is not Board-facing yet: no "requests", no "confirm
@@ -351,7 +351,7 @@ URL or access date in a footnote. Adjacent notes are one note or take `\fnsep`.
 and tighten, add no claim, and mark the spot `% waits on: <tracker row>`.
 
 **Checks after every change.** `bash run.sh`, `code/paper.py` and `code/paper.py
-timelines`, then `grep -c '^!' paper/*.log`: the compile check does not catch a LaTeX
+timelines`, then `grep -c '^!' paper/build/*.log`: the compile check does not catch a LaTeX
 error. A `%` comment inside a macro argument swallows its closing brace. End a reply
 with a full-path link to the rebuilt PDF; leave no dated PDF copies in the repo.
 

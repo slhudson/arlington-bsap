@@ -173,8 +173,8 @@ def breaks_aside(module, attr, mangle, build=None):
 
 
 def bib_entries():
-    """(key, body) for every entry in paper/sources.bib."""
-    bib = (ROOT / "paper" / "sources.bib").read_text()
+    """(key, body) for every entry in paper/bib/sources.bib."""
+    bib = (ROOT / "paper" / "bib" / "sources.bib").read_text()
     return re.findall(r"^@\w+\{([^,\s]+)\s*,(.*?)^\}", bib, re.M | re.S)
 
 
@@ -1680,7 +1680,7 @@ def test_every_bib_entry_closes_before_the_next():
 
 
 def test_every_source_with_a_url_is_filed():
-    """A bib entry with a url that names no copy on file ("Filed in Drive
+    """A bib entry with a url that names no copy on file ("Filed in sources/documents
     as", or a path under data/raw/); or one that says it is not filed.
     Either is allowed only while docs/questions.csv names the key, so an
     entry that admits to holding no copy is tracked rather than rewritten
@@ -1688,12 +1688,12 @@ def test_every_source_with_a_url_is_filed():
     problems = []
     for key, body in bib_entries():
         if re.search(r"not\s+(?:yet\s+)?filed", body, re.I) and key not in questions():
-            problems.append(f"{key}: says it is not filed - file it in Drive and say so, "
+            problems.append(f"{key}: says it is not filed - file it in sources/documents and say so, "
                             f"or log a question naming the key")
         has_url = re.search(r"^\s*url\s*=", body, re.M)
         # Whitespace-tolerant: biblatex wraps an annotation anywhere, so a
         # literal match would fail an entry that names its copy across a line.
-        held = re.search(r"Filed\s+in\s+Drive\s+as", body) or "data/raw/" in body
+        held = re.search(r"Filed\s+in\s+sources/documents\s+as", body) or "data/raw/" in body
         # A page cited only for a count keeps no copy, on purpose: what it said
         # is keyed into data/transcribed/ with the date it was read, and that
         # file is the source a reviewer reads. The keyed file must be named, so
@@ -1701,7 +1701,7 @@ def test_every_source_with_a_url_is_filed():
         if re.search(r"no\s+copy\s+is\s+kept", body) and "data/transcribed/" in body:
             held = True
         if has_url and not held and key not in questions():
-            problems.append(f"{key}: has a url but names no copy - add 'Filed in Drive as \"...\"' "
+            problems.append(f"{key}: has a url but names no copy - add 'Filed in sources/documents as \"...\"' "
                             f"or the path under data/raw/, or log a question naming the key")
     assert not problems, "sources with no copy on file:\n  " + "\n  ".join(problems)
 
@@ -1711,7 +1711,7 @@ def test_a_filed_name_is_read_through_the_quotes_in_a_title():
     as far as the next quotation mark left "of American Politics.txt", which
     matches no file. archive.py reported the copy as named by nobody, and
     --apply would have moved a book the bib names into unplaced/."""
-    e = {"annotation": 'Filed in Drive as "books/Gilbertson, H. S. 1917 - The County, the '
+    e = {"annotation": 'Filed in sources/documents as "books/Gilbertson, H. S. 1917 - The County, the '
                        '"Dark Continent" of American Politics.txt", the Internet Archive OCR.'}
     assert archive.filed(e) == ['books/Gilbertson, H. S. 1917 - The County, the '
                                 '"Dark Continent" of American Politics.txt'], archive.filed(e)
@@ -1720,7 +1720,7 @@ def test_a_filed_name_is_read_through_the_quotes_in_a_title():
 def test_a_space_after_a_folder_is_a_typo_and_not_a_folder():
     """An annotation typed "legal/state statutes/ Commonwealth ..." names a
     copy that is really there; the space made the archive call it unplaced."""
-    e = {"annotation": 'Filed in Drive as "legal/state statutes/ Commonwealth of Virginia '
+    e = {"annotation": 'Filed in sources/documents as "legal/state statutes/ Commonwealth of Virginia '
                        '1971 - An Act to Conform.pdf".'}
     assert archive.filed(e) == ["legal/state statutes/Commonwealth of Virginia 1971 - "
                                 "An Act to Conform.pdf"], archive.filed(e)
@@ -1730,7 +1730,7 @@ def test_quoted_prose_in_an_annotation_is_not_a_filed_name():
     """The other half: annotations quote the sources they read, and a quoted
     sentence that happens to run past a filename must not be read as one."""
     e = {"annotation": 'The court said "a continuous, contiguous community" of it. '
-                       'Filed in Drive as "legal/state courts/Court 1922 - Bennett v. Garrett.pdf".'}
+                       'Filed in sources/documents as "legal/state courts/Court 1922 - Bennett v. Garrett.pdf".'}
     assert archive.filed(e) == ["legal/state courts/Court 1922 - Bennett v. Garrett.pdf"]
 
 
@@ -1769,7 +1769,7 @@ def test_no_roster_page_in_the_bib_names_a_filed_copy():
     rosters = [e for e in bib if archive.roster_page(e)]
     assert rosters, "no roster pages found at all - has roster_page() stopped matching?"
     filed = [e["key"] for e in rosters if archive.filed(e)]
-    assert not filed, ("roster pages with a copy filed in Drive - cite the page and key the "
+    assert not filed, ("roster pages with a copy filed in sources/documents - cite the page and key the "
                        "count instead:\n  " + "\n  ".join(filed))
     unkeyed = [e["key"] for e in rosters
                if "data/transcribed/" not in e.get("annotation", "")]
@@ -1912,7 +1912,7 @@ def a_legal_entry(key, annotation):
             "  annotation  = {" + annotation + "},\n}\n")
 
 
-BENNETT = ('Filed in Drive as "legal/state courts/Supreme Court of Appeals of Virginia 1922 - '
+BENNETT = ('Filed in sources/documents as "legal/state courts/Supreme Court of Appeals of Virginia 1922 - '
            'Bennett v. Garrett.pdf"')
 
 
@@ -1975,7 +1975,7 @@ def test_every_citekey_the_write_ups_name_is_in_the_bibliography():
     """Every docs/ file against the real bibliography."""
     docs = sorted((ROOT / "docs").glob("*.md")) + [ROOT / "docs" / "questions.csv"]
     bad = citekeys.dangling(docs)
-    assert not bad, "write-ups cite entries paper/sources.bib does not define:\n  " + \
+    assert not bad, "write-ups cite entries paper/bib/sources.bib does not define:\n  " + \
         "\n  ".join(f"{p.relative_to(ROOT)}: {k}" for p, k in bad)
 
 
@@ -2140,7 +2140,7 @@ def test_docs_name_only_paths_that_exist():
                 continue
             if not (ROOT / token).exists():
                 missing.append(f"{doc.relative_to(ROOT)}: `{token}`")
-    for doc in [ROOT / "paper" / "sources.bib", ROOT / "paper" / "arlington-bsap.tex"]:
+    for doc in [ROOT / "paper" / "bib" / "sources.bib", ROOT / "paper" / "arlington-bsap.tex"]:
         for m in re.finditer(r"(?<![\w/.-])(?:code|data|docs|figures|paper|style)/[\w./-]+", doc.read_text()):
             token = m.group(0).rstrip(".,;)}")
             if any(c in token for c in "*<>{}"):
@@ -2263,9 +2263,9 @@ def test_a_timeline_citation_reaches_the_footnote():
     compile that succeeds. Six citations were lost that way before
     \\makesavenoteenv{tabular} was added, so the pairing is checked rather
     than trusted."""
-    # The timelines now live in paper/timelines.tex, each with its own preamble.
-    for name in ("arlington-bsap", "timelines"):
-        tex = (ROOT / "paper" / f"{name}.tex").read_text()
+    # The timelines live in paper/timelines/timelines.tex, with a preamble of their own.
+    for name, path in paper.SOURCES.items():
+        tex = (ROOT / "paper" / path).read_text()
         live = "\n".join(re.sub(r"(?<!\\\\)%.*", "", line) for line in tex.split("\n"))
         cited = len([m for m in re.finditer(r"\\timeline\{(.*?)\n\}", live, re.S)
                      if "autocite" in m.group(1)])
@@ -2514,7 +2514,7 @@ def cited_keys():
     files they \\input. Read from the source rather than the .bcf, because the
     tests run before the paper is compiled and a .bcf is not committed."""
     cited = set()
-    for tex in (ROOT / "paper").glob("*.tex"):
+    for tex in (ROOT / "paper").rglob("*.tex"):
         live = "\n".join(re.sub(r"(?<!\\)%.*", "", line) for line in tex.read_text().split("\n"))
         for m in re.finditer(r"\\\w*cite\w*\*?(?:\[[^\]]*\])*\{([^}]*)\}", live):
             cited |= {k.strip() for k in m.group(1).split(",")}
@@ -2745,7 +2745,7 @@ def test_an_incomplete_entry_is_refused():
 def test_every_cited_entry_is_complete():
     """The keys the paper cites, each through incomplete(). A key the bib does
     not define is the citation check's to refuse, not this one's."""
-    bib = {e["key"]: e for e in archive.entries((ROOT / "paper" / "sources.bib").read_text())}
+    bib = {e["key"]: e for e in archive.entries((ROOT / "paper" / "bib" / "sources.bib").read_text())}
     bad = [f"{k}: {p}" for k in sorted(cited_keys() & set(bib)) for p in incomplete(bib[k])]
     assert not bad, "cited entries the Works Cited would print incompletely:\n  " + "\n  ".join(bad)
 
@@ -2949,13 +2949,14 @@ def draft_remote(url):
             os.environ["DRAFT_REMOTE"] = old
 
 
-def publish_fixture(tmp):
+def publish_fixture(tmp, seeded=True):
     """A bare 'whole' remote holding paper/, figures/pdf/ and a file outside
     both (code/notes.py, which a push must never carry to the mirror), and a
     bare 'draft' remote seeded with its own unrelated history - the project
     Overleaf would already hold before the first publish. Returns the work
     clone's path, its git() helper, and the draft-work clone's path for
-    simulating an edit made in Overleaf."""
+    simulating an edit made in Overleaf. With seeded=False the draft remote
+    is empty, as a mirror repository is when it has just been created."""
     tmp = Path(tmp)
     whole, draft = tmp / "whole.git", tmp / "draft.git"
     subprocess.run(["git", "init", "-q", "--bare", str(whole)], check=True)
@@ -2970,9 +2971,10 @@ def publish_fixture(tmp):
                               capture_output=True, text=True).stdout
 
     dgit("config", "user.email", "t@t"); dgit("config", "user.name", "t")
-    (draft_work / "README.md").write_text("overleaf seed\n")
-    dgit("add", "-A"); dgit("commit", "-qm", "overleaf project created")
-    dgit("branch", "-M", "main"); dgit("push", "-q", "-u", "origin", "main")
+    if seeded:
+        (draft_work / "README.md").write_text("overleaf seed\n")
+        dgit("add", "-A"); dgit("commit", "-qm", "overleaf project created")
+        dgit("branch", "-M", "main"); dgit("push", "-q", "-u", "origin", "main")
 
     work = tmp / "work"
     subprocess.run(["git", "clone", "-q", str(whole), str(work)], check=True,
@@ -3012,6 +3014,24 @@ def test_publish_push_writes_only_paper_and_figures_pdf():
         parents = subprocess.run(["git", "-C", str(draft_work), "log", "--format=%P", "-1"],
                                  check=True, capture_output=True, text=True).stdout.split()
         assert len(parents) == 1, "the first publish rewrote the mirror's history instead of building on it"
+
+
+def test_publish_push_to_an_empty_mirror_creates_main():
+    """A mirror repository just created on GitHub has no main, so
+    origin/main does not exist. The first push used to fail on checking it
+    out; it is now a root commit pushed as main, and a second push on top of
+    it finds that commit at the tip and goes through."""
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git, draft_work = publish_fixture(tmp, seeded=False)
+        with draft_remote(Path(tmp) / "draft.git"):
+            assert publish.push(repo=work), "the first push to an empty mirror reported nothing"
+            (work / "paper" / "arlington-bsap.tex").write_text("% second\n")
+            git("commit", "-qam", "second")
+            assert publish.push(repo=work), "the second push did not go through"
+        subprocess.run(["git", "-C", str(draft_work), "pull", "-q", "origin", "main"], check=True)
+        tracked = subprocess.run(["git", "-C", str(draft_work), "ls-files"], check=True,
+                                 capture_output=True, text=True).stdout.split()
+        assert set(tracked) == {"paper/arlington-bsap.tex", "figures/pdf/a.pdf"}, tracked
 
 
 def test_publish_push_refuses_when_the_mirror_is_ahead():
@@ -3334,11 +3354,11 @@ def test_editing_the_bibliography_changes_a_compiles_key():
     so a key built from the record alone would copy back a PDF whose
     citations predate an edit to the bibliography."""
     with cache_repo() as root:
-        (root / "paper").mkdir()
+        (root / "paper" / "bib").mkdir(parents=True)
         (root / "paper" / "doc.tex").write_text("text\n")
-        (root / "paper" / "sources.bib").write_text("@misc{a}\n")
+        (root / "paper" / "bib" / "sources.bib").write_text("@misc{a}\n")
         before = paper.compile_key(["paper/doc.tex"])
-        (root / "paper" / "sources.bib").write_text("@misc{b}\n")
+        (root / "paper" / "bib" / "sources.bib").write_text("@misc{b}\n")
         assert paper.compile_key(["paper/doc.tex"]) != before, \
             "an edit to sources.bib left the compile's key the same"
 

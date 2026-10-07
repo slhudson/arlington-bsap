@@ -35,7 +35,7 @@ DOCS = [
 ]
 GAZETTE = "Alexandria Gazette"
 GAZETTE_KEY = re.compile(r"(?:alexandria)?gazette(\d{4})")
-# Each item's own kind, read off its entry in paper/sources.bib: an
+# Each item's own kind, read off its entry in paper/bib/sources.bib: an
 # appointment, a qualification or a press mention of a sitting member is
 # service; a candidate list or an election return is a contest.
 GAZETTE_KIND = {

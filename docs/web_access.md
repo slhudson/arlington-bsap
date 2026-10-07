@@ -100,7 +100,7 @@ relying on one.
   address — a "Page Blocked" notice naming the Cloudflare ray, lasting about
   half an hour and reaching every route. Read the text first and fetch images
   last, or not at all: `code/sources/pages.py` makes the filed copy from the
-  page text instead, which is what every 1952-75 act in `paper/sources.bib` is
+  page text instead, which is what every 1952-75 act in `paper/bib/sources.bib` is
   filed as.
 - **ProQuest** (the Post 1877–2001, including the 11 November 1973
   residence map): a UVA or public-library login; neither was available.

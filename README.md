@@ -51,7 +51,7 @@ module cannot creep into it.
 Each stage has a `paths.py` that maps its own data folders and no higher:
 `code/clean/paths.py` has no route above `data/built/`,
 `code/analysis/paths.py` none above `data/clean/`. `code/citekeys.py` is the
-citekeys `paper/sources.bib` defines, read by both data stages.
+citekeys `paper/bib/sources.bib` defines, read by both data stages.
 Outside the stages, `code/sources/archive.py` writes `sources/documents`'s
 `index.md` and the zip the County receives.
 
@@ -75,10 +75,10 @@ Prose is written in Overleaf, in a project linked to `arlington-bsap-draft`,
 a mirror `code/publish.py` keeps to exactly `paper/` and `figures/pdf/` -
 Overleaf syncs a whole repository and cannot be scoped to two folders, so
 those are everything the mirror holds. Of the two, only
-`paper/arlington-bsap.tex`, `paper/sources.bib` and `figures/pdf/` matter for
+`paper/arlington-bsap.tex`, `paper/bib/sources.bib` and `figures/pdf/` matter for
 compiling.
 
-**Citations come from `paper/sources.bib`**, which is also where the `source`
+**Citations come from `paper/bib/sources.bib`**, which is also where the `source`
 columns in `data/clean/` point. Cite with `\autocite[6]{oleary2010}`; the key
 is the same one the data uses, so a claim in the prose and a cell in a table
 name the same document. The bibliography is set up but dormant - the `.tex`
@@ -102,7 +102,7 @@ silently go stale.
 | `docs/questions.csv` | What is still open: one row per item with an owner, what it bites and what would settle it |
 | `docs/setup.md` | Getting a machine set up to build; written for a collaborator joining |
 | `docs/web_access.md` | The websites the sources come from: what each needs from this machine, and what it refuses |
-| `paper/sources.bib` | Every source, cited by key from both the prose and `data/clean/`; each entry's `annotation` says what the copy held supports and where it is filed |
+| `paper/bib/sources.bib` | Every source, cited by key from both the prose and `data/clean/`; each entry's `annotation` says what the copy held supports and where it is filed |
 | `sources/documents` | Copies of the sources no number is taken from, filed by kind, with an `index.md` that `code/sources/archive.py` writes |
 
 Open questions are logged as they arise and answered in place, so the reasoning

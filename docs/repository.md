@@ -121,7 +121,7 @@ by default.
 The point of moving it is the same reason `data/clean/` is committed despite
 the usual rule against committing generated data (above): a cited copy next
 to its citation is something a reviewer can open from the same clone that
-holds `paper/sources.bib`, rather than a second system with its own sharing
+holds `paper/bib/sources.bib`, rather than a second system with its own sharing
 and sign-in. `sources/documents` sits outside the five stages, the way
 `paper/` and `style/` do - nothing reshapes it, nothing in `data/` points
 into it, and it holds no decision a number rests on, which is why `data/
@@ -143,12 +143,9 @@ from `HEAD` (`ALLOWED` in that file, checked again by `verify_tree()` right
 before the mirror commits), so `sources/documents` was never at risk of
 reaching the Overleaf mirror and needed no change to keep it out.
 
-The citation text itself did not move: every bib entry's annotation still
-reads "Filed in Drive as", because the phrase is part of what a source is
-cited as, and the task that moved the archive left citations alone. That
-phrase is now imprecise about where the copy sits - the correction is a
-deliberate editorial pass over `paper/sources.bib`, not a side effect of
-an infrastructure move, and is logged as open rather than done in passing.
+Every bib entry's annotation names its copy as "Filed in sources/documents as"
+followed by the path inside that folder, and `code/sources/archive.py` refuses
+a name that is not there.
 
 ## Why the paper is one file per section under a folder per part
 
@@ -384,7 +381,7 @@ XeTeX or LuaTeX.
 This failure is loud and costs nothing. Compile with `latexmk -pdflua
 arlington-bsap.tex` from `paper/`, or let an editor read the magic comment.
 
-**A stale `paper/arlington-bsap.fdb_latexmk` silently drops every citation.**
+**A stale `paper/build/arlington-bsap.fdb_latexmk` silently drops every citation.**
 That file is latexmk's record of which tools it ran last time. The paper uses
 biblatex with `backend=biber`; if the record holds bibtex from an earlier
 build, latexmk keeps calling bibtex, which finds no citations in a biblatex
@@ -489,7 +486,7 @@ handle), not the repository's home page.
 its Legal Authorities), not the
 Works Cited.** Chicago 14.275 and the Bluebook agree that law is not a bibliography
 item. `\printworkscited` leaves the two legal types out, and `\printauthorities`
-(`paper/bibstyle.tex`) lists them after it under Cases, Constitutions and Statutes,
+(`paper/bib/bibstyle.tex`) lists them after it under Cases, Constitutions and Statutes,
 each with the pages that cite it (`backref=true`). `@misc` and `@online` would have
 printed in the Works Cited, which is how some Commonwealth entries listed and some
 did not. Every case, act, session-law volume, constitution and code section is
@@ -511,7 +508,7 @@ the table. `code/sources/cite.py` writes all of this.
   date of approval, `titleaddon` the chapter, `shortjournal` the session-law series,
   `volume` its year, `pages` the first page, `shorttitle` the same as the title (a
   later note would otherwise print the chapter alone), `keywords = {datedintitle}`
-  because the date is already in the title, which `paper/bibstyle.tex` reads. The
+  because the date is already in the title, which `paper/bib/bibstyle.tex` reads. The
   act's own long title is in `annotation`. A volume
   cited at several chapters (the Acts of 1869–70) is one entry, titled "Acts of the
   General Assembly, Session of 1869–70", and the chapters go in the pin.

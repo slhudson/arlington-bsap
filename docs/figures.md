@@ -782,7 +782,7 @@ there the labels can be shortened and here the years cannot.
   (Sally, 6 October 2026). The Gazette row is the case the distinction is
   for: an appointment, a qualification or a press mention of a sitting
   member is service, a candidate list or an election return is a contest,
-  read off each citekey's own entry in `paper/sources.bib` rather than
+  read off each citekey's own entry in `paper/bib/sources.bib` rather than
   guessed from its name (`members_by_source.GAZETTE_KIND`), so two ticks the
   same year can be two different colours - 1919 carries both, the Gazette's
   report of who assumed office that January beside its return of who had

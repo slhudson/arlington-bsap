@@ -6,6 +6,11 @@ Writes `paper/arlington-bsap.pdf`. Not part of `bash run.sh`: the figures
 build with no LaTeX installed at all, and Overleaf compiles the report for
 real. This is for compiling it locally without having to remember how.
 
+latexmk works in `paper/build/` (ignored by git), so its aux, log and record
+files never sit beside the prose; the finished PDF is copied up to `paper/`,
+where it has always been found. The compile still runs with `paper/` as its
+working directory, so every path in the .tex files is relative to `paper/`.
+
 Two things go wrong here, and only one of them announces itself.
 
 Compiling with pdflatex stops dead, because the body text is set in Lato and
@@ -13,7 +18,7 @@ Compiling with pdflatex stops dead, because the body text is set in Lato and
 minute.
 
 The other is silent. `latexmk` keeps a record of the tools it ran last time in
-`paper/arlington-bsap.fdb_latexmk`. The report uses biblatex with
+`paper/build/arlington-bsap.fdb_latexmk`. The report uses biblatex with
 `backend=biber`; if that record holds bibtex from an earlier build, latexmk
 goes on calling bibtex, which finds nothing to do in a biblatex document. The
 PDF still builds. Every footnote citation and every cross-reference to a
@@ -44,7 +49,12 @@ import cache
 
 ROOT = Path(__file__).resolve().parents[1]
 PAPER = ROOT / "paper"
+BUILD = PAPER / "build"
 STEM = "arlington-bsap"
+# Where each document's source is, from paper/. The timelines are the one
+# document that is not the report.
+SOURCES = {"arlington-bsap": "arlington-bsap.tex",
+           "timelines": "timelines/timelines.tex"}
 
 # Each pattern is a shape the log takes when the PDF is wrong but the build
 # claimed to succeed. The message says what it means, because the log's own
@@ -79,13 +89,14 @@ def problems(log):
 
 def compile_once(clean):
     """Run latexmk, optionally clearing its record first. Returns the log."""
+    outdir = f"-outdir={BUILD.relative_to(PAPER)}"
     if clean:
-        subprocess.run(["latexmk", "-C"], cwd=PAPER,
+        subprocess.run(["latexmk", "-C", outdir, SOURCES[STEM]], cwd=PAPER,
                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     subprocess.run(
-        ["latexmk", "-pdflua", "-interaction=nonstopmode", f"{STEM}.tex"],
+        ["latexmk", "-pdflua", outdir, "-interaction=nonstopmode", SOURCES[STEM]],
         cwd=PAPER, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    log = PAPER / f"{STEM}.log"
+    log = BUILD / f"{STEM}.log"
     return log.read_text(errors="replace") if log.exists() else ""
 
 
@@ -118,7 +129,7 @@ def compile_key(inputs):
     tex = (subprocess.run(["lualatex", "--version"], capture_output=True,
                           text=True).stdout.split("\n")[0]
            if shutil.which("lualatex") else "")
-    bibs = [str(p.relative_to(ROOT)) for p in sorted(PAPER.glob("*.bib"))]
+    bibs = [str(p.relative_to(ROOT)) for p in sorted(PAPER.glob("bib/*.bib"))]
     return cache.key([*inputs, *bibs, "style/fonts", "code/paper.py"],
                      also=f"{STEM}\n{tex}")
 
@@ -129,6 +140,8 @@ def main():
                  "(bash run.sh); only the report needs it.")
 
     pdf = PAPER / f"{STEM}.pdf"
+    built = BUILD / f"{STEM}.pdf"
+    log_path = BUILD / f"{STEM}.log"
     record = cache.store() / f"inputs-{STEM}"
     if record.exists():
         if cache.restore(f"paper-{STEM}", compile_key(record.read_text().split("\n"))):
@@ -150,12 +163,13 @@ def main():
         pdf.unlink(missing_ok=True)
         sys.exit("the report did not compile correctly:\n"
                  + "\n".join(f"  - {p}" for p in found)
-                 + f"\n\nthe log is {pdf.with_suffix('.log')}, and "
+                 + f"\n\nthe log is {log_path.relative_to(ROOT)}, and "
                  "docs/repository.md explains both failures.")
-    if not pdf.exists():
-        sys.exit(f"latexmk wrote no {pdf.name}; see {pdf.with_suffix('.log')}")
+    if not built.exists():
+        sys.exit(f"latexmk wrote no {built.name}; see {log_path.relative_to(ROOT)}")
+    shutil.copyfile(built, pdf)
 
-    inputs = inputs_read(PAPER / f"{STEM}.fls")
+    inputs = inputs_read(BUILD / f"{STEM}.fls")
     cache.save(f"paper-{STEM}", compile_key(inputs), [pdf])
     record.parent.mkdir(parents=True, exist_ok=True)
     partial = record.with_name(f".{record.name}.partial")
@@ -167,5 +181,7 @@ def main():
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
-        STEM = sys.argv[1]          # e.g. "timelines", the other document in paper/
+        STEM = sys.argv[1]          # "timelines", the other document in paper/
+        if STEM not in SOURCES:
+            sys.exit(f"no document {STEM}; one of {', '.join(SOURCES)}")
     main()

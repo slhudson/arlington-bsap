@@ -1,4 +1,4 @@
-"""The registry of sources, read from paper/sources.bib.
+"""The registry of sources, read from paper/bib/sources.bib.
 
 Every `source` cell in data/built/ and data/clean/ holds a citekey from the
 bibliography.
@@ -19,7 +19,7 @@ run.sh prints a count of each on every build.
 import pathlib
 import re
 
-BIB = pathlib.Path(__file__).resolve().parents[1] / "paper" / "sources.bib"
+BIB = pathlib.Path(__file__).resolve().parents[1] / "paper" / "bib" / "sources.bib"
 
 UNSOURCED = "unsourced"
 ASSUMED = "assumed"
@@ -61,7 +61,7 @@ def race_source(year):
 
 
 def keys():
-    """Every citekey defined in paper/sources.bib."""
+    """Every citekey defined in paper/bib/sources.bib."""
     if not BIB.exists():
         raise FileNotFoundError(f"{BIB} missing - the bibliography is the registry")
     return set(re.findall(r"^@\w+\{([^,\s]+)\s*,", BIB.read_text(), re.M))
@@ -80,7 +80,7 @@ def mentioned(text):
 
 
 def dangling(paths):
-    """Every (path, citekey) a doc names that paper/sources.bib does not
+    """Every (path, citekey) a doc names that paper/bib/sources.bib does not
     define. Prose citations are checked because nothing else checks them: a
     source column is checked by check() above and a \\autocite by latex, but
     a key in a sentence can outlive the entry it names and say nothing. One
@@ -117,7 +117,7 @@ def check(values, where):
         raise AssertionError(
             f"{where}: {len(bad)} source value(s) name no entry in {BIB.name} "
             f"and are not placeholders: {', '.join(sorted(bad))}. "
-            f"Add the entry to paper/sources.bib, fix the spelling, or - if the "
+            f"Add the entry to paper/bib/sources.bib, fix the spelling, or - if the "
             f"source genuinely is not known yet - use one of: "
             f"{', '.join(PLACEHOLDERS)}.")
     return counts

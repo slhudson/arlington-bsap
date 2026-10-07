@@ -2,5 +2,5 @@
 # registered by run.sh, because git keeps drivers in .git/config, not here.
 docs/questions.csv merge=questions
 # Rows are appended at the end by parallel sessions; a merge keeps both sides.
-paper/punchlist.md merge=union
+docs/punchlist.md merge=union
 data/transcribed/by_claude/members_negatives.csv merge=union

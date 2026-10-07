@@ -1,5 +1,5 @@
-r"""The roster the data appendix prints -> paper/members_roster.tex, and the subset
-the body prints -> paper/members_roster_subsets.tex
+r"""The roster the data appendix prints -> paper/appendix/members_roster.tex, and the subset
+the body prints -> paper/appendix/members_roster_subsets.tex
 
 One row per person who has served, in the order they first took a seat, with
 the gender, race and birth year the report uses for each and a mark saying

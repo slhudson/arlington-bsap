@@ -179,7 +179,7 @@ reads are fetched on demand (`docs/repository.md`).
 inputs: `code/analysis/body_text_numbers.py` writes the numbers the prose cites
 that no figure carries as commands in `paper/body_text_numbers.tex`, and
 `code/analysis/members_roster.py` writes the appendix roster's rows to
-`paper/members_roster.tex`. `code/figures.py` runs the steps of `code/analysis/` in one process for
+`paper/appendix/members_roster.tex`. `code/figures.py` runs the steps of `code/analysis/` in one process for
 `run.sh`, and `code/stage.py` does the same for `code/build/` and `code/clean/`;
 they, `code/paper.py`, `code/merge.sh` and `code/merge_questions.py` (the
 tracker's merge driver) sit outside the stages, like
@@ -187,7 +187,7 @@ tracker's merge driver) sit outside the stages, like
 `code/merge.sh <branch>` brings a thread's branch into main once the build and
 the compile pass on the merged tree (`docs/repository.md`).
 `code/sources/` is outside them too, and writes no data layer: it holds the
-tools that serve `paper/sources.bib` and the copies filed under
+tools that serve `paper/bib/sources.bib` and the copies filed under
 `sources/documents` - fetching and
 entering a source, filing the archive, cutting a web print back to its
 article, checking a quotation against the copy it is attributed to. Only
@@ -201,12 +201,12 @@ named for what it produces: `code/fetch/elections.py`,
 
 **`data/` holds what we take numbers out of.** A source consulted only to
 settle a question — a boundary history, a news article, a methods note — is
-cited in `paper/sources.bib` and filed in `sources/documents`, committed in
+cited in `paper/bib/sources.bib` and filed in `sources/documents`, committed in
 the repository beside its citation rather than downloaded into `data/raw/`.
 The test is whether a figure derives from it. The `sources` skill has the
 tools for fetching, citing and filing one.
 
-**Every source column holds a citekey from `paper/sources.bib`.** One registry
+**Every source column holds a citekey from `paper/bib/sources.bib`.** One registry
 for the prose and the data, so a footnote in the report and a cell in a table
 name the same document. Entries are built from the document in hand, never from
 memory; what is missing from the copy we hold goes in `annotation`, which
@@ -277,7 +277,7 @@ the report for real. Locally:
 That refuses a PDF whose log reports an undefined citation, an undefined
 cross-reference or a substituted font, because latexmk exits 0 on all three
 and a report missing its bibliography looks finished. The usual cause is a
-stale `paper/arlington-bsap.fdb_latexmk` calling bibtex where this paper needs
+stale `paper/build/arlington-bsap.fdb_latexmk` calling bibtex where this paper needs
 biber, so a first failure is retried from clean before it is believed.
 `docs/repository.md` has both failure modes and the Overleaf equivalent.
 
@@ -290,7 +290,7 @@ hold what is settled
 about each: what
 each number is, what backs it, what is assumed where nothing does, and why,
 in the present tense, ending with a list of what still rests on an
-assumption. `paper/sources.bib` is the registry of sources, and each entry's
+assumption. `paper/bib/sources.bib` is the registry of sources, and each entry's
 `annotation` holds the notes on it. `docs/questions.csv` is the tracker: one row per open item, with a
 stable slug for an id, its kind, whose court it waits in, the figure or table
 it bites, the question in a sentence, what would settle it, and its

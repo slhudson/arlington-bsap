@@ -6,7 +6,7 @@
 The archive is the repository at HEAD, the census scans data/contents.csv
 marks in_git = no, and sources/documents: a copy of every source the
 report cites that no number is taken from. Its index is generated from
-paper/sources.bib and data/contents.csv, never written by hand, so it cannot
+paper/bib/sources.bib and data/contents.csv, never written by hand, so it cannot
 drift from either.
 
 The documents folder is filed by kind, one folder per kind (KINDS), and the
@@ -30,7 +30,7 @@ from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-BIB = ROOT / "paper" / "sources.bib"
+BIB = ROOT / "paper" / "bib" / "sources.bib"
 CONTENTS = ROOT / "data" / "contents.csv"
 
 # A copy of every source the report cites that no number is taken from,
@@ -529,7 +529,7 @@ def index_text(bib, claims, rows, unplaced, commit):
         "at their paths.",
         "- `documents/` holds a copy of every source the report cites that no number is "
         "taken from, filed by kind. The first column of each table is the entry's key in "
-        "`repository/paper/sources.bib`; the entry's `annotation` says what the copy is "
+        "`repository/paper/bib/sources.bib`; the entry's `annotation` says what the copy is "
         "and when it was taken.",
         "",
         "## Documents",

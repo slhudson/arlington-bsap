@@ -36,7 +36,7 @@ HEADER = ("Transcribed from {held}, read in the browser on {read}. This is not t
           "page the site serves: it refuses an automated request, so what is filed "
           "is the text layer the page carries, taken as it stands. Where the "
           "transcript and the printed page could differ the printed page governs; "
-          "the annotation in paper/sources.bib says which passages were read "
+          "the annotation in paper/bib/sources.bib says which passages were read "
           "against the page image.")
 
 PAGE = """<!doctype html><meta charset="utf-8"><style>

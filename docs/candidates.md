@@ -296,7 +296,7 @@ The source citekeys for the new matches (`census1940windridge`,
 `census1950gaines`, `census1950wimberly`, `census1950smith`,
 `census1950clair`, `census1950potter`, `census1950bach`,
 `census1940gordon`, `census1940donaldson`) are entries in
-`paper/sources.bib`, each filed in `sources/documents` with its sheet image
+`paper/bib/sources.bib`, each filed in `sources/documents` with its sheet image
 (`code/sources/ancestry.py`, which takes a `--file` naming a census-shaped table
 other than `members_census.csv`). Only `census1940ayres`'s sheet has been read for
 verification; the others carry the index's transcription unread
