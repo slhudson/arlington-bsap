@@ -49,7 +49,7 @@ GitHub repository but never link to an existing one - so the repository
 Overleaf was already linked to keeps that link and plays the mirror, and a
 newly created repository takes the whole project's name. `code/publish.py`
 keeps the invariant between them: `push` rebuilds the mirror's tree as
-exactly `paper/` and `figures/pdf/` from this repository's `HEAD`, committed
+exactly `paper/`, `figures/pdf/` and `style/fonts/` from this repository's `HEAD`, committed
 on top of the mirror's own history rather than rewriting it, so Overleaf
 keeps its common ancestor; `pull` reads the mirror's commits back to the last
 one of ours - an edit made in Overleaf - and applies the changes under
@@ -138,7 +138,7 @@ committed size was already weighed and accepted, is the kind of mechanism
 this project's own rule against premature infrastructure warns against,
 so both are plain committed files like the other 544.
 
-`code/publish.py`'s mirror push only ever exports `paper/` and `figures/pdf/`
+`code/publish.py`'s mirror push only ever exports `paper/`, `figures/pdf/` and `style/fonts/`
 from `HEAD` (`ALLOWED` in that file, checked again by `verify_tree()` right
 before the mirror commits), so `sources/documents` was never at risk of
 reaching the Overleaf mirror and needed no change to keep it out.

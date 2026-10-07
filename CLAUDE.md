@@ -350,7 +350,7 @@ is deleted. None is in force.
 stay beside the data and the code that produced them, where the threads
 work. Overleaf syncs a whole repository and cannot be scoped to two folders,
 so it is linked instead to a mirror, `arlington-bsap-draft`, which
-`code/publish.py` push keeps to exactly `paper/` and `figures/pdf/`; an edit
+`code/publish.py` push keeps to exactly `paper/`, `figures/pdf/` and `style/fonts/`; an edit
 made in Overleaf comes back with `code/publish.py` pull, which
 `code/merge.sh` runs as its first step and push as its last. `run.sh` warns
 at 80MB in all and at 6MB of text in what the mirror carries, Overleaf's

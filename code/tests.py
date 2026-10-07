@@ -2790,10 +2790,12 @@ def merge_fixture(tmp):
     git("config", "user.email", "t@t"); git("config", "user.name", "t")
     (work / "code").mkdir(); (work / "docs").mkdir()
     (work / "paper").mkdir(); (work / "figures" / "pdf").mkdir(parents=True)
-    # git archive -- paper figures/pdf (code/publish.py push) needs both to
-    # hold a committed file, which an empty directory never does.
+    # git archive -- paper figures/pdf style/fonts (code/publish.py push) needs
+    # all three to hold a committed file, which an empty directory never does.
     (work / "paper" / "arlington-bsap.tex").write_text("\\documentclass{article}\n")
     (work / "figures" / "pdf" / "a.pdf").write_bytes(b"%PDF-fake\n")
+    (work / "style" / "fonts").mkdir(parents=True)
+    (work / "style" / "fonts" / "Lato-Regular.ttf").write_bytes(b"fake-font\n")
     shutil.copy(ROOT / "code" / "merge.sh", work / "code" / "merge.sh")
     shutil.copy(ROOT / "code" / "merge_questions.py", work / "code" / "merge_questions.py")
     shutil.copy(ROOT / "code" / "publish.py", work / "code" / "publish.py")
@@ -2950,7 +2952,7 @@ def draft_remote(url):
 
 
 def publish_fixture(tmp, seeded=True):
-    """A bare 'whole' remote holding paper/, figures/pdf/ and a file outside
+    """A bare 'whole' remote holding paper/, figures/pdf/, style/fonts/ and a file outside
     both (code/notes.py, which a push must never carry to the mirror), and a
     bare 'draft' remote seeded with its own unrelated history - the project
     Overleaf would already hold before the first publish. Returns the work
@@ -2986,9 +2988,11 @@ def publish_fixture(tmp, seeded=True):
 
     git("config", "user.email", "t@t"); git("config", "user.name", "t")
     (work / "paper").mkdir(); (work / "figures" / "pdf").mkdir(parents=True)
+    (work / "style" / "fonts").mkdir(parents=True)
     (work / "code").mkdir()
     (work / "paper" / "arlington-bsap.tex").write_text("\\documentclass{article}\n")
     (work / "figures" / "pdf" / "a.pdf").write_bytes(b"%PDF-fake\n")
+    (work / "style" / "fonts" / "Lato-Regular.ttf").write_bytes(b"fake-font\n")
     (work / "code" / "notes.py").write_text("not published\n")
     git("add", "-A"); git("commit", "-qm", "seed"); git("branch", "-M", "main")
     git("push", "-q", "-u", "origin", "main")
@@ -2998,7 +3002,7 @@ def publish_fixture(tmp, seeded=True):
 def test_publish_push_writes_only_paper_and_figures_pdf():
     """The happy path: the first push is unconditional, parented on
     Overleaf's own seed commit rather than rewriting it, and carries over
-    paper/ and figures/pdf/ only - code/notes.py never reaches the mirror."""
+    paper/, figures/pdf/ and style/fonts/ only - code/notes.py never reaches the mirror."""
     with tempfile.TemporaryDirectory() as tmp:
         work, git, draft_work = publish_fixture(tmp)
         with draft_remote(Path(tmp) / "draft.git"):
@@ -3010,7 +3014,8 @@ def test_publish_push_writes_only_paper_and_figures_pdf():
         # README.md was Overleaf's own seed file, outside both folders: the
         # first publish deletes it along with anything else that is not
         # paper/ or figures/pdf/, same as every publish after it.
-        assert set(tracked) == {"paper/arlington-bsap.tex", "figures/pdf/a.pdf"}, tracked
+        assert set(tracked) == {"paper/arlington-bsap.tex", "figures/pdf/a.pdf",
+                           "style/fonts/Lato-Regular.ttf"}, tracked
         parents = subprocess.run(["git", "-C", str(draft_work), "log", "--format=%P", "-1"],
                                  check=True, capture_output=True, text=True).stdout.split()
         assert len(parents) == 1, "the first publish rewrote the mirror's history instead of building on it"
@@ -3031,7 +3036,8 @@ def test_publish_push_to_an_empty_mirror_creates_main():
         subprocess.run(["git", "-C", str(draft_work), "pull", "-q", "origin", "main"], check=True)
         tracked = subprocess.run(["git", "-C", str(draft_work), "ls-files"], check=True,
                                  capture_output=True, text=True).stdout.split()
-        assert set(tracked) == {"paper/arlington-bsap.tex", "figures/pdf/a.pdf"}, tracked
+        assert set(tracked) == {"paper/arlington-bsap.tex", "figures/pdf/a.pdf",
+                           "style/fonts/Lato-Regular.ttf"}, tracked
 
 
 def test_publish_push_refuses_when_the_mirror_is_ahead():

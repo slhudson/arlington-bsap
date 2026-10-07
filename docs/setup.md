@@ -107,7 +107,7 @@ writes which file — while `CLAUDE.md` holds the working rules.
    Invoke it through `bash`, not `./run.sh`; `run.sh` says why at the top.
 6. **The Overleaf project open and synced.** Overleaf is linked to
    `slhudson/arlington-bsap-draft`, not to this repository: a mirror holding only
-   `paper/` and `figures/pdf/`, because Overleaf syncs a whole repository
+   `paper/`, `figures/pdf/` and `style/fonts/`, because Overleaf syncs a whole repository
    and cannot be scoped to two folders (`docs/repository.md`). In Overleaf,
    the GitHub link is under the **Integrations** tab in the icon rail down
    the left of the editor, not under the Menu. Pulling there brings the

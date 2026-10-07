@@ -235,7 +235,7 @@ while IFS= read -r -d '' f; do
   size=$(( $("${STAT_BYTES[@]}" "$f") / 1024 ))
   kb=$(( kb + size ))
   case "$f" in *.pdf|*.png|*.ttf|*.gz|*.xlsx|*.xls|*.zip|*.docx) ;; *) text_kb=$(( text_kb + size ));; esac
-done < <(git ls-files -z -- paper figures/pdf 2>/dev/null) || true
+done < <(git ls-files -z -- paper figures/pdf style/fonts 2>/dev/null) || true
 if [ "$kb" -ge 81920 ]; then
   echo
   echo "WARNING: the mirrored folders total $((kb/1024))MB, approaching Overleaf's 100MB ceiling."

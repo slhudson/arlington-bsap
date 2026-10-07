@@ -1,4 +1,4 @@
-"""Publish paper/ and figures/pdf/ to the Overleaf mirror, and bring an
+"""Publish paper/ and figures/pdf/ (and style/fonts/) to the Overleaf mirror, and bring an
 Overleaf edit back. Outside the five stages, like code/merge.sh (CLAUDE.md,
 docs/repository.md).
 
@@ -7,8 +7,8 @@ docs/repository.md).
 
 Two repositories hold this project: the whole one, where the five stages and
 the threads work, and arlington-bsap-draft, which Overleaf is linked to and
-syncs nothing else. `push` rebuilds the mirror's tree as exactly paper/ and
-figures/pdf/ from this repository's HEAD, committed on the mirror as
+syncs nothing else. `push` rebuilds the mirror's tree as exactly paper/,
+figures/pdf/ and style/fonts/ (the Lato files the paper loads) from this repository's HEAD, committed on the mirror as
 "main <hash>: <subject>" - a commit on top of the mirror's own history, never
 a rewrite of it, so Overleaf keeps its common ancestor. That message is also
 how the next push recognises its own work: if the mirror's tip is not one of
@@ -46,7 +46,9 @@ from datetime import date
 from pathlib import Path
 
 PUBLISHED = re.compile(r"^main ([0-9a-f]+): ")
-ALLOWED = ("paper/", "figures/pdf/")
+# paper/ and the figures it includes, and the typeface it loads from
+# ../style/fonts/: without them the mirror cannot compile by itself.
+ALLOWED = ("paper/", "figures/pdf/", "style/fonts/")
 
 
 def root():
@@ -111,14 +113,14 @@ def last_published(draft):
 
 
 def verify_tree(draft):
-    """Every path the mirror would commit is under paper/ or figures/pdf/ -
+    """Every path the mirror would commit is under paper/, figures/pdf/ or style/fonts/ -
     the invariant the whole design rests on, checked once more right before
     the commit that would ship a violation."""
     tracked = git("ls-files", cwd=draft).stdout.splitlines()
     bad = [f for f in tracked if not f.startswith(ALLOWED)]
     if bad:
         raise SystemExit(
-            "the mirror's tree holds paths outside paper/ and figures/pdf/, refusing to commit:\n  "
+            "the mirror's tree holds paths outside paper/, figures/pdf/ and style/fonts/, refusing to commit:\n  "
             + "\n  ".join(bad))
 
 
@@ -142,7 +144,7 @@ def push(repo=None):
         if entry.name == ".git":
             continue
         shutil.rmtree(entry) if entry.is_dir() else entry.unlink()
-    exported = subprocess.run(["git", "archive", "HEAD", "--", "paper", "figures/pdf"],
+    exported = subprocess.run(["git", "archive", "HEAD", "--", "paper", "figures/pdf", "style/fonts"],
                                cwd=repo, check=True, capture_output=True)
     subprocess.run(["tar", "-x", "-C", str(draft)], input=exported.stdout, check=True)
 
@@ -182,7 +184,7 @@ def pull(repo=None):
     outside = [f for f in changed if not f.startswith("paper/")]
     if outside:
         raise SystemExit(
-            "figures are built here, never edited in Overleaf; refusing a pull that touches:\n  "
+            "only paper/ comes back from Overleaf (figures are built here, fonts are not edited); refusing a pull that touches:\n  "
             + "\n  ".join(outside))
 
     diff = git("diff", base, tip, "--", "paper", cwd=draft).stdout

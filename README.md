@@ -72,9 +72,9 @@ OCR needs a Mac; none of it is needed to rebuild.
 ## Writing
 
 Prose is written in Overleaf, in a project linked to `arlington-bsap-draft`,
-a mirror `code/publish.py` keeps to exactly `paper/` and `figures/pdf/` -
-Overleaf syncs a whole repository and cannot be scoped to two folders, so
-those are everything the mirror holds. Of the two, only
+a mirror `code/publish.py` keeps to exactly `paper/`, `figures/pdf/` and `style/fonts/` -
+Overleaf syncs a whole repository and cannot be scoped to folders, so
+those are everything the mirror holds. Of those, only
 `paper/arlington-bsap.tex`, `paper/bib/sources.bib` and `figures/pdf/` matter for
 compiling.
 
