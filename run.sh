@@ -8,7 +8,7 @@
 # run's outputs copied back instead (code/cache.py); a filtered run always
 # draws the figures it names.
 #
-# Invoke through bash, not ./run.sh: Overleaf strips the executable bit.
+# Invoke through bash, not ./run.sh: a clone or download may lose the executable bit.
 set -euo pipefail
 cd "$(dirname "$0")"
 
@@ -21,7 +21,7 @@ fi
 # The commit guard lives in .githooks/ so it is committed and reviewable, which
 # .git/hooks/ is not. Pointing at it is a local setting, so it is set here
 # rather than asked of each collaborator, and the executable bit is restored
-# because Overleaf strips it (above).
+# because a clone or download may lose it (above).
 if [ "$(git config core.hooksPath 2>/dev/null)" != ".githooks" ]; then
   git config core.hooksPath .githooks && echo "installed the commit guard (.githooks)"
 fi
@@ -89,8 +89,6 @@ BUILT_BY=(data/raw data/transcribed code/build code/citekeys.py run.sh)
 CLEANED_BY=(code/clean code/citekeys.py run.sh)       # and data/built/, by its key
 DRAWN_BY=(data/clean code/analysis code/figures.py style run.sh)
 CACHE=("$PY" code/cache.py)
-# stat's flag for a file's size differs between the Mac (BSD) and Linux (GNU).
-if stat --version >/dev/null 2>&1; then STAT_BYTES=(stat -c %s); else STAT_BYTES=(stat -f %z); fi
 REPORT=$(mktemp)
 trap 'rm -rf "$LOCK" "$REPORT"' EXIT
 
@@ -222,27 +220,4 @@ if [ "$missing" -gt 0 ]; then
   echo
   echo "$missing census scans and OCR files are not on disk; the build never reads them."
   echo "  to fetch the scans: .venv/bin/python code/fetch/census_volumes.py; the OCR (a Mac): .venv/bin/python code/transcribe/census.py"
-fi
-
-# Overleaf's limits on the files it syncs: 100MB in all, 7MB of editable
-# (text) files (CLAUDE.md, docs/repository.md). Overleaf is linked to the
-# mirror, arlington-bsap-draft, which code/publish.py keeps to exactly
-# paper/ and figures/pdf/ - so that is what these checks measure, not the
-# whole repository. They never fail the build.
-kb=0; text_kb=0
-while IFS= read -r -d '' f; do
-  [ -f "$f" ] || continue
-  size=$(( $("${STAT_BYTES[@]}" "$f") / 1024 ))
-  kb=$(( kb + size ))
-  case "$f" in *.pdf|*.png|*.ttf|*.gz|*.xlsx|*.xls|*.zip|*.docx) ;; *) text_kb=$(( text_kb + size ));; esac
-done < <(git ls-files -z -- paper figures/pdf style/fonts 2>/dev/null) || true
-if [ "$kb" -ge 81920 ]; then
-  echo
-  echo "WARNING: the mirrored folders total $((kb/1024))MB, approaching Overleaf's 100MB ceiling."
-  echo "         Time to revisit what the mirror carries - see CLAUDE.md."
-fi
-if [ "$text_kb" -ge 6144 ]; then
-  echo
-  echo "WARNING: the mirror's editable files total $((text_kb/1024))MB; Overleaf stops syncing at 7MB."
-  echo "         See CLAUDE.md."
 fi

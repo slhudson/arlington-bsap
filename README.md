@@ -23,7 +23,7 @@ code/build/       -> data/built/        the sources reshaped; every value kept
 code/clean/       -> data/clean/        every decision about what a number is
 code/analysis/    -> figures/           which numbers a figure shows
 style/                             how they are shown: conventions, palette, font
-paper/                             the prose and sources.bib, via Overleaf
+paper/                             the prose, in folders by part, and bib/sources.bib; Overleaf reads a mirror of it
 ```
 
 `bash run.sh` runs `code/build/`, the tests, `code/clean/` and
@@ -74,15 +74,13 @@ OCR needs a Mac; none of it is needed to rebuild.
 Prose is written in Overleaf, in a project linked to `arlington-bsap-draft`,
 a mirror `code/publish.py` keeps to exactly `paper/`, `figures/pdf/` and `style/fonts/` -
 Overleaf syncs a whole repository and cannot be scoped to folders, so
-those are everything the mirror holds. Of those, only
-`paper/arlington-bsap.tex`, `paper/bib/sources.bib` and `figures/pdf/` matter for
-compiling.
+those are everything the mirror holds. All of it matters for compiling: the
+main file is `paper/arlington-bsap.tex`.
 
 **Citations come from `paper/bib/sources.bib`**, which is also where the `source`
 columns in `data/clean/` point. Cite with `\autocite[6]{oleary2010}`; the key
 is the same one the data uses, so a claim in the prose and a cell in a table
-name the same document. The bibliography is set up but dormant - the `.tex`
-says how to turn it on once the first citation is written.
+name the same document.
 
 **Pull from GitHub before a writing session, push when you finish.** In
 Overleaf the control is the **Integrations** tab in the icon rail down the

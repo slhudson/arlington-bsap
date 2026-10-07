@@ -32,9 +32,9 @@ Four things, each doing one job:
   from GitHub and answer questions about it — where a number came from, what
   is still open — without being able to change anything. Either needs a paid
   Claude plan; the $20-a-month one is enough.
-- **Overleaf** is where the paper is written. It is linked to the GitHub
-  repository, so the figures the scripts produce appear in the paper without
-  being uploaded by hand.
+- **Overleaf** is where the paper is written. It is linked to a small mirror
+  of this repository (below), so the figures the scripts produce appear in the
+  paper without being uploaded by hand.
 
 ## The repository
 
@@ -62,8 +62,8 @@ code, each writing one folder of data:
   change a value.
 
 `run.sh` runs the last three every time; the first two only run when someone
-asks for them. Alongside those: `paper/` holds the LaTeX source that Overleaf
-syncs, and `docs/` holds the open questions, the record of what backs every
+asks for them. Alongside those: `paper/` holds the LaTeX source, which
+Overleaf reads through the mirror, and `docs/` holds the open questions, the record of what backs every
 number, and the reasoning behind each figure.
 
 Two rules to know before touching anything. `data/raw/` holds the sources as
@@ -102,13 +102,13 @@ writes which file — while `CLAUDE.md` holds the working rules.
    pymupdf it is installed into that same venv and no figure reads it.
 
 5. **A successful build.** `bash run.sh` from the repository folder should
-   print the tests, a build step, one line per figure, and a line about
+   print a lint, a build, the tests, a clean step, one line per figure, and a line about
    `figures/pdf` and `figures/png`. That is the test that everything works.
    Invoke it through `bash`, not `./run.sh`; `run.sh` says why at the top.
 6. **The Overleaf project open and synced.** Overleaf is linked to
    `slhudson/arlington-bsap-draft`, not to this repository: a mirror holding only
    `paper/`, `figures/pdf/` and `style/fonts/`, because Overleaf syncs a whole repository
-   and cannot be scoped to two folders (`docs/repository.md`). In Overleaf,
+   and cannot be scoped to folders (`docs/repository.md`). In Overleaf,
    the GitHub link is under the **Integrations** tab in the icon rail down
    the left of the editor, not under the Menu. Pulling there brings the
    latest paper into Overleaf; pushing there sends an edit made in Overleaf

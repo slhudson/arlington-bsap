@@ -11,7 +11,7 @@ the opposite, and this repository follows it everywhere else. These are small
 CSVs, and committing them means a cleaning decision shows up as a reviewable
 diff: a reader can see exactly which numbers moved and by how much. That matters while those are open.
 `data/built/` is not committed: it holds no decisions, rebuilds in seconds
-from the layers above, and would add 1.6MB to the text Overleaf syncs.
+from the layers above.
 `bash run.sh` makes it before anything reads it.
 
 ## Why the style layer sits outside `code/`
@@ -33,7 +33,7 @@ a figure between runs with nothing in the repo to explain it; a committed file
 is the same evidence standard as a scanned page.
 
 The one exception is twenty-four census scans the build never reads, about
-250MB that would push Overleaf past its ceiling. They are marked `in_git = no` in
+250MB of bulk nothing reads. They are marked `in_git = no` in
 `data/contents.csv` with their URL and checksum; `code/fetch/census_volumes.py`
 fetches them and refuses a byte that differs, and `run.sh` says at the end of
 every build if they are missing. A raw file the build reads is always
@@ -65,46 +65,31 @@ not two.
 
 ## Why one repository, with `paper/` inside it
 
-**One repository, with `paper/` inside it.** Overleaf syncs a whole
-repository and cannot be scoped to `paper/` and `figures/`, so it carries the
-data too. Its limits are on the files it syncs, not on git history: a
-recommended 100MB in all, and a hard 7MB on editable (text) files, past
-which GitHub sync stops working. One repository was chosen because pushing
-figures across a repository boundary would undercut the case that this setup
-is simpler than emailing files. `run.sh` warns at 80MB and at 6MB of text, so
-revisiting does not depend on anyone remembering; a gzipped file is counted
-against the whole, not against the text, since it is not editable. The scans the build never
-reads are already fetched on demand rather than committed, and so is the
-OCR of the census volumes (`data/transcribed/by_ocr/`, regenerated on a Mac by
-`code/transcribe/census.py`), which took 1.8MB of the text cap.
+**One repository, with `paper/` inside it**, so the paper and the figures
+stay beside the data and the code that produced them. Pushing figures across
+a repository boundary would undercut the case that this setup is simpler than
+emailing files. Overleaf sees only the mirror (above), so its limits - a
+recommended 100MB in all, a hard 7MB of editable text - apply to what the
+mirror holds, which is 1.4MB, 0.8MB of it text. Nothing in this repository
+measures them.
 
-The raw tables and outlines the build reads and nobody edits - everything
-under `data/raw/us_census_bureau/`, `data/raw/arlington_county/` and
-`data/raw/va_dept_of_elections/` that is a CSV or GeoJSON, 29 files, 2.1MB of
-text - are stored as `.csv.gz` and `.geojson.gz`, which is 0.4MB and clears the
-6MB warning with room. pandas reads a `.csv.gz` as it reads a `.csv`, so only the paths and the
-checksums in `data/contents.csv` changed; `data/built/` and `data/clean/` are
+Two choices were made when Overleaf still synced the whole repository, and
+stand for their own reasons. The census scans the build never reads are
+fetched on demand rather than committed, and so is the OCR of the census
+volumes (`data/transcribed/by_ocr/`, regenerated on a Mac by
+`code/transcribe/census.py`): both are bulk nothing reads. The raw tables and
+outlines the build reads and nobody edits - everything under
+`data/raw/us_census_bureau/`, `data/raw/arlington_county/` and
+`data/raw/va_dept_of_elections/` that is a CSV or GeoJSON, 29 files - are
+stored as `.csv.gz` and `.geojson.gz`, 0.4MB in place of 2.1MB. pandas reads a
+`.csv.gz` as it reads a `.csv`, so only the paths and the checksums in
+`data/contents.csv` changed; `data/built/` and `data/clean/` are
 byte-identical to what they were. `write_text()` in `code/fetch/paths.py` writes the
 gzipped form with no name or time in the header, so a refetch gives the same
 bytes and the checksum holds. The census tables in `data/built/census.csv`
 keep their names without the `.gz`, since clean steps look a table up by that
 name. The IPUMS codebooks, the 1980 record layout and the README stay plain
-text: nothing reads them, and a reader can open them. If the cap trips again,
-the next candidate is `data/transcribed/by_claude/`'s 306KB candidate history.
-
-**Overleaf stopped carrying the data on 7 October 2026**, once it was linked
-to the mirror instead of to this repository (above): the two limits above now
-apply to what `slhudson/arlington-bsap-draft` holds, not to this repository's data,
-and `run.sh` measures the mirrored folders accordingly. The reasoning for one
-repository stands regardless - it was never only about Overleaf's ceiling -
-so nothing here moved back out of `data/`.
-
-**A job that depends on another waits for its tracker row, not its branch.**
-A project is finished when its row leaves `docs/questions.csv` on `main`;
-that is what settling a question means here, and it is the only signal a
-second session can check. Branches are invisible until pushed and can be
-renamed, so a gate on "has that branch merged" passes for the wrong reason.
-Push a branch the moment it is created, so that others can see it exists.
+text: nothing reads them, and a reader can open them.
 
 ## Why `sources/documents` moved out of Drive and into the repository
 
@@ -230,7 +215,7 @@ an empty answer, which is the distinction the old design lost.
 The hook is committed under `.githooks/` rather than left in `.git/hooks/`,
 where it would be invisible to review and absent from a fresh clone. `run.sh`
 points `core.hooksPath` at it and restores the executable bit, so no
-collaborator has to install anything, and Overleaf stripping that bit does not
+collaborator has to install anything, and a clone that loses the bit does not
 disarm it.
 
 Collaborators each work in their own clone, so they cannot share a checkout;
@@ -366,7 +351,7 @@ on their own, which is why it lives in the file instead of in an Overleaf
 project setting only one author can see.
 
 The four Lato faces are committed under `style/fonts/` rather than installed,
-so the fonts travel with the repository to Overleaf and to the other author's
+so the fonts travel with the repository, and through the mirror to Overleaf, and to the other author's
 machine. All four are declared in the preamble: an undeclared face is
 substituted silently, which is the second failure below.
 

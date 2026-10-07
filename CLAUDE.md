@@ -2,7 +2,7 @@
 
 Historical and descriptive-representation analysis for Arlington County's Board
 Structure and Performance study. Figures and the final PDF are built from this
-repo; prose is written in Overleaf, which syncs the repository.
+repo; prose is written in Overleaf, which syncs a mirror of `paper/`.
 
 ## The three stages
 
@@ -348,14 +348,12 @@ is deleted. None is in force.
 
 **One repository, with `paper/` inside it**, so the paper and the figures
 stay beside the data and the code that produced them, where the threads
-work. Overleaf syncs a whole repository and cannot be scoped to two folders,
+work. Overleaf syncs a whole repository and cannot be scoped to folders,
 so it is linked instead to a mirror, `arlington-bsap-draft`, which
 `code/publish.py` push keeps to exactly `paper/`, `figures/pdf/` and `style/fonts/`; an edit
 made in Overleaf comes back with `code/publish.py` pull, which
-`code/merge.sh` runs as its first step and push as its last. `run.sh` warns
-at 80MB in all and at 6MB of text in what the mirror carries, Overleaf's
-limits; `docs/repository.md` says why two repositories and what the two
-commands do.
+`code/merge.sh` runs as its first step and push as its last.
+`docs/repository.md` says why two repositories and what the two commands do.
 
 **One session in a checkout works on main; two at once each take a
 worktree on a branch** (`git worktree list`). Collaborators each work in
