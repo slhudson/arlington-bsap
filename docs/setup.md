@@ -85,7 +85,10 @@ code, each writing one folder of data:
   committed, so nobody fetches it twice.
 - `code/transcribe/` reads the scanned documents in `sources/` into tables in
   `data/transcribed/`. It also runs only on demand, and its output is
-  committed.
+  committed. One step, `code/transcribe/comments.py`, instead reads the
+  County's correspondence from Drive, which stays off this machine's default
+  path: set `ARLINGTON_CORRESPONDENCE` to that folder before running it, or
+  it refuses.
 - `code/build/` reshapes the published and transcribed files into the tables in
   `data/built/` and decides nothing. A step is refused if a value its inputs
   carry is missing from its output.
@@ -128,10 +131,22 @@ holds the working rules.
    Project's knowledge, with its files rather than under settings or
    connectors, using a GitHub personal access token with read access. Sync
    `code/`, `docs/`, `paper/`, `data/clean/` and `data/contents.csv`, and
-   leave out `sources/` and `data/transcribed/` —
-   the figures read only `data/clean/`, because the layers above hold scans
-   and OCR that misreads digits by design. The steps below are for changing
-   things.
+   leave out `sources/` and `data/transcribed/` — 700MB of scans and
+   licensed copies the figures never read; the figures read only
+   `data/clean/`. The steps below are for changing things.
+
+   *To check a citation* — see what page a footnote comes from, without
+   access to `sources/` — every entry in `paper/bib/sources.bib` names in
+   its `annotation` the file it was read from under `sources/`, and
+   `sources/index.md` lists the same key against the same file. A reader
+   with repository access opens that file straight on GitHub. For example,
+   the footnote on `bennettvgarrett1922` in `paper/a_history/election_method.tex`
+   leads to the entry of that name in `paper/bib/sources.bib`, whose
+   annotation ends "Filed in sources as \"legal/cases/Supreme Court of
+   Appeals of Virginia 1922 - Bennett v. Garrett.pdf\""; that path, opened at
+   `https://github.com/slhudson/arlington-bsap/blob/main/sources/legal/cases/Supreme%20Court%20of%20Appeals%20of%20Virginia%201922%20-%20Bennett%20v.%20Garrett.pdf`,
+   is the Harvard Caselaw Access Project scan the annotation cites — no
+   other tool needed.
 
 2. **Git installed**, and signed in to GitHub, then the repository cloned
    (`slhudson/arlington-bsap`; about 770 MB).

@@ -225,3 +225,17 @@ if [ "$missing" -gt 0 ]; then
   echo "$missing census scans and OCR files are not on disk; the build never reads them."
   echo "  to fetch the scans: .venv/bin/python code/fetch/census_volumes.py; the OCR (a Mac): .venv/bin/python code/transcribe/census.py"
 fi
+
+# A fresh clone against GitHub's 1GB comfort line, mostly sources/. One
+# check, no hard stop (CLAUDE.md, docs/repository.md).
+tracked_kb=$(git ls-files -z | xargs -0 du -k 2>/dev/null | awk '{sum += $1} END {print sum + 0}')
+echo
+echo "tracked files: $((tracked_kb / 1024))MB"
+if [ "$tracked_kb" -gt 921600 ]; then
+  echo "WARNING: tracked files are over 900MB, approaching GitHub's 1GB comfort line for a clone."
+  echo "  the fix: mark the file in_git = no in data/contents.csv, with its checksum and origin"
+  echo "  kept, and have code/fetch/ download it on demand, the way the census scans already do."
+  echo "  largest tracked files:"
+  git ls-files -z | xargs -0 du -k 2>/dev/null | sort -rn | head -10 \
+    | awk -F'\t' '{printf "    %6dMB  %s\n", $1 / 1024, $2}'
+fi

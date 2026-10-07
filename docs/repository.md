@@ -157,6 +157,23 @@ citation for the same reason `data/clean/` is committed despite the usual rule
 against committing generated data (above): a reviewer opens it from the same
 clone that holds `paper/bib/sources.bib`.
 
+**`sources/` holds nothing a resident wrote to the Board.** The County's
+correspondence - 195 messages residents and others sent about the form of
+government - stays in Drive, on purpose: a permanent indexed archive of
+people's names, addresses and signature blocks is a different object from
+the County's own file, whatever each letter's status under FOIA
+(`docs/comments.md`). `data/transcribed/by_claude/comments.csv`, read from
+that folder by `code/transcribe/comments.py`, is the repository's record of
+it - a row per message with a count, never a name or a body - and is
+committed like any other transcription.
+
+**The repository is private because `sources/` and `data/` hold more than
+this project's own words.** `sources/` files copies of licensed and
+copyrighted material - HeinOnline session laws, newspaper scans, Ancestry
+images, journal articles - for the authors' use, and `data/` holds IPUMS
+extracts whose terms forbid redistribution; a public repository would
+redistribute both.
+
 Two large files cleared the fetch-on-demand bar the census scans use - a URL,
 and no figure reads the file - but stayed committed rather than being made
 `in_git = no`: the 1902 Virginia Constitution scan (50MB, from a Library of
@@ -166,6 +183,11 @@ Building a second on-demand fetcher for two files, when the whole archive's
 committed size was already weighed and accepted, is the kind of mechanism
 this project's own rule against premature infrastructure warns against,
 so both are plain committed files like the other 544.
+
+**`run.sh` warns at 900MB of tracked files**, GitHub's comfort line for a
+fresh clone being about 1GB; the fix it names is the one above, marking a
+file `in_git = no` in `data/contents.csv` and fetching it on demand the way
+the census scans already are. One warning, no hard stop.
 
 `code/publish.py`'s mirror push only ever exports `paper/`, `figures/pdf/` and `style/fonts/`
 from `HEAD` (`ALLOWED` in that file, checked again by `verify_tree()` right
