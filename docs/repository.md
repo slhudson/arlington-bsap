@@ -71,6 +71,15 @@ the Lato files and Overleaf could not compile; nothing said so until
 someone read a screenshot. A figure passed through a macro argument is
 covered by the `\graphicspath` folders themselves.
 
+Overleaf keeps its own server-side clone of each GitHub repository it is linked
+to, keyed to the repository's identity and not its name. On 7 October 2026 that
+clone was stuck at the 22 September state after the repository was renamed:
+every pull showed the stale tree, and a fresh import pushed the stale tree back
+into the mirror's `main` as "Merge overleaf-2026-10-07-1023 into main". Nothing
+pushed to GitHub clears it. The one fix to try is a new repository, and so a new
+identity, for the mirror, published to from `code/publish.py`, with a new
+Overleaf project imported from it and the old project trashed.
+
 ## Why one repository, with `paper/` inside it
 
 **One repository, with `paper/` inside it**, so the paper and the figures
