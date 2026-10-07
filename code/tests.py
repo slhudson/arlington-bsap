@@ -746,6 +746,23 @@ def test_two_pages_disagreeing_on_a_candidacys_votes_is_refused():
     assert err and "different vote counts" in err, f"not caught: {err}"
 
 
+def test_a_press_count_that_fills_no_blank_is_refused():
+    """The Evening Star's 1949 counts fill the blanks the county's history
+    leaves for Cox, DeLashmutt and Bechtel. A count whose candidate matches
+    no blank of that election - a misspelt name, a wrong year - would sit
+    unused while the year still read incomplete (or, worse, complete on the
+    wrong man's votes), so the fill must stop instead of skipping it."""
+    def misspell(d):
+        d = d.copy()
+        d.loc[d.record == "press_return", "candidate"] = "Nobody Atall"
+        return d
+    def fill():
+        c = elections.contests()
+        return elections.filled_from_press(c[c.year == 1949])
+    err = breaks(paths, "built", patch_built("elections", misspell), build=fill)
+    assert err and "fills 0 blank county rows" in err, f"not caught: {err}"
+
+
 def test_two_sources_disagreeing_on_race_is_a_finding():
     """Two sources naming a different race for one person."""
     def contradict(d):

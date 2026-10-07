@@ -111,13 +111,37 @@ def contest_rows(g):
         g = g[[blocks[k] for k in zip(g.page, g.election_date)]]
     named = g[~g.prose].copy()
     named["key"] = [surname(n.lstrip("*W. ")) for n in named.candidate]
-    named = named.drop_duplicates(["key", "votes"])
+    named = filled_from_press(named.drop_duplicates(["key", "votes"]))
     missing = sorted(named[named.votes.isna()].key.unique())
     partial = [t for t in pd.concat([g.candidate, g.office]) if PARTIAL.search(t)]
     note = "; ".join(filter(None, [
         f"no vote count for {', '.join(missing)}" if missing else "",
         partial[0] if partial else ""]))
     return named, not (missing or partial), note
+
+
+def filled_from_press(named: pd.DataFrame) -> pd.DataFrame:
+    """The county's County Board rows (typed, with `surname`), where a
+    candidate printed with no count takes the count a newspaper printed for
+    the same candidate in the same election, with the newspaper as the row's
+    source: the county's blank is its own record of not having the number,
+    and stays in the built table. A newspaper count that matches no blank of
+    that election stops the build."""
+    p = press_return()
+    p = p[p.year.isin(named.year.astype(int))]
+    named = named.copy()
+    for _, r in p.iterrows():
+        same = ((named.year.astype(int) == r.year) & (named.election_date == r.election_date)
+                & (named.surname == r.surname))
+        if (named.source[same] == f"{r.source} p.{r.page}").any():     # already filled
+            continue
+        blank = same & named.votes.isna()
+        if blank.sum() != 1:
+            raise AssertionError(
+                f"{r.year}: the press count for {r.candidate!r} ({r.source} p.{r.page}) fills "
+                f"{blank.sum()} blank county rows of {r.election_date}; it should fill one")
+        named.loc[blank, ["votes", "source"]] = [r.votes, f"{r.source} p.{r.page}"]
+    return named
 
 
 def _dedup_board_pages(e: pd.DataFrame) -> pd.DataFrame:
@@ -232,6 +256,18 @@ def state_return() -> pd.DataFrame:
     r = e[e.record == "state_return"].copy()
     r["year"] = r.year.astype(int)
     r["votes"] = pd.to_numeric(r.votes).astype(int)
+    return r.reset_index(drop=True)
+
+
+def press_return() -> pd.DataFrame:
+    """The County Board counts a newspaper printed for candidates the
+    county's history leaves blank, one row per candidate as keyed: year and
+    votes as numbers, the surname each is matched on, the rest as printed."""
+    e = paths.built("elections")
+    r = e[e.record == "press_return"].copy()
+    r["year"] = r.year.astype(int)
+    r["votes"] = pd.to_numeric(r.votes).astype(int)
+    r["surname"] = r.candidate.map(surname)
     return r.reset_index(drop=True)
 
 

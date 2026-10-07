@@ -50,7 +50,7 @@ year,office,dem,rep,abc,other,unrecorded,total,complete,source,note
 1946,county board,4742,0,0,5790,0,10532,True,arlingtonelections2021 p.14,
 1947,county board,0,0,0,0,13849,13849,False,arlingtonelections2021 p.15,no vote count for frisbie
 1948,county board,0,0,0,0,19585,19585,True,arlingtonelections2021 p.18,
-1949,county board,0,0,0,0,0,0,False,arlingtonelections2021 p.18,"no vote count for bechtel, cox, delashmutt"
+1949,county board,0,0,0,0,13856,13856,True,star1949returns p.A-6,
 1950,county board,5497,0,0,9931,1049,16477,True,arlingtonelections2021 p.19,
 1951,county board,7872,9077,0,13789,0,30738,True,arlingtonelections2021 p.21,
 1952,county board,6542,11440,0,110704,0,128686,True,arlingtonelections2021 p.22,

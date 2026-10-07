@@ -121,6 +121,8 @@ def generals(noms: pd.DataFrame) -> list:
             base = dict(year=year, stage="general", tier="1931 on", contest=label, date=date,
                         source=first.source if first.record == "county" else
                         f"vaelections contest {contest}")
+            if first.record == "county":
+                h = elections.filled_from_press(h)
             named = h[h.person & ~h.writein & ~h.prose]
             if first.record == "county":
                 _, complete, why = elections.contest_rows(h)

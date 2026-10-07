@@ -293,7 +293,7 @@ Cambridge (2025) are Republican, named by the county Republican committee;
 Clement (2023–2025), Granger (2024, running under the Forward Party's
 banner) and De Castro Pretelt and Olmack (2025) are independent, so in
 "other". A year is incomplete on the
-same rule turnout uses, below: 1931, 1942, 1947 and 1949. Two
+same rule turnout uses, below: 1931, 1942 and 1947. Two
 seats are elected in every fourth year from 1951 and a ballot then carries
 two votes, so shares are of votes cast; that distorts a party's share only
 where it ran fewer candidates than seats, which the county's record shows in
@@ -356,7 +356,7 @@ county's except where it prints "Vote for 1" on a larger contest (`SEATS` in
 member the roster seated that year or the build stops.
 
 A margin is not computed where the returns are incomplete (1931, 1935, 1947,
-1949, and 1942, whose names carry no counts), where no named candidate stood
+and 1942, whose one name carries no count), where no named candidate stood
 against the winner (1996, 2005), where the page prints no counts for a
 nominating contest, and for a ranked-choice contest whose counts are first
 choices. Each such row stays in the file with its reason.
@@ -482,9 +482,17 @@ it.
 **Which years are not the county's vote.** The county's own page says its
 tallies are complete only from 1971. One rule, in `code/clean/elections.py`,
 decides for `elections_results.csv` and `elections_turnout.csv` alike. A year is marked incomplete and not drawn
-where a named candidate has no count (1942, 1949, and Frisbie in 1947, whose
-page also says its totals are from 8 of 11 precincts) or where the page says
-others ran who are not listed (1931). Before 1932 the Board was elected by
+where a named candidate has no count (Campbell in 1942, unopposed and with no
+other source found, and Frisbie in 1947, whose page also says its totals are
+from 8 of 11 precincts) or where the page says others ran who are not listed
+(1931). The county's history leaves Cox, DeLashmutt and Bechtel blank in 1949;
+the Evening Star's precinct table of 9 November 1949 (star1949returns, p. A-6)
+prints 7,316, 6,306 and 234, each the sum of its 27 precinct entries, and
+`data/transcribed/by_claude/elections_results_press.csv` keys them as rows of
+their own. `elections.contest_rows()` fills a blank from such a row, so the
+county's blank stays in the built table as that source's own record and 1949
+reads complete on unofficial returns; a newspaper count that fills no blank
+stops the build. Before 1932 the Board was elected by
 district, one seat each, so every voter cast one vote; the Gazette prints the
 count for 1907 (756 voters across three districts, issue of 6 November) and 1915 (876, 3
 November) in every district, read off the page image, and O'Leary reports "(No

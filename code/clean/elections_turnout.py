@@ -85,7 +85,10 @@ def board_votes(roster) -> pd.DataFrame:
     for year, g in c.groupby("year"):
         if g.record.iloc[0] == "county":
             named, complete, note = elections.contest_rows(g)
-            votes, seats, source = named.votes.sum(), seats_filled(roster, year), named.source.iloc[0]
+            votes, seats = named.votes.sum(), seats_filled(roster, year)
+            source = named.source.iloc[0]
+            if not named.source.str.startswith(citekeys.ARLINGTON_ELECTIONS).all():
+                source = "; ".join(dict.fromkeys(named.source))    # a filled blank cites its newspaper
         else:
             g = g[g.person | g.writein]
             votes, complete, note = g.votes.sum(), True, ""

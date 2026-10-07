@@ -14,7 +14,9 @@ code/clean/elections.py selects from it.
                 "state_return" (the Almanack's and the Secretary's printed
                 county returns for President, 1876-1916, 1924, 1928) or
                 "gazette_return" (the Alexandria Gazette's printed district
-                returns for President, 1872, 1876, 1892, 1896, 1900, 1920)
+                returns for President, 1872, 1876, 1892, 1896, 1900, 1920) or
+                "press_return" (a newspaper's printed County Board counts for
+                candidates the county's history leaves blank)
     entry       O'Leary's printed line, unparsed; `district` the magisterial
                 district it is listed under
     contest     an id shared by the contest's rows: for the county, the
@@ -62,6 +64,9 @@ STATE_RETURN = BY_CLAUDE / "elections_results_state.csv"
 # The Alexandria Gazette's own district returns for President, one row per
 # ticket per district as keyed.
 GAZETTE_RETURN = BY_CLAUDE / "elections_results_gazette.csv"
+# County Board counts a newspaper printed for a candidate the county's
+# history leaves blank, one row per candidate as keyed.
+PRESS_RETURN = BY_CLAUDE / "elections_results_press.csv"
 
 NAMED = re.compile(r"^[*A-Z]")                          # a row naming a candidate
 # The qualifiers a contest heading carries.
@@ -168,6 +173,19 @@ def gazette_return() -> pd.DataFrame:
         "source": r.source, "read_from": r.read_from, "quote": r.quote, "note": r.note})
 
 
+def press_return() -> pd.DataFrame:
+    """Every County Board count a newspaper printed that the county's history
+    leaves blank, one row each, with the page it prints on and the line it
+    was read from. The clean stage decides which blank each one fills."""
+    r = source(PRESS_RETURN, dtype=str).fillna("")
+    return pd.DataFrame({
+        "record": "press_return", "office": r.office, "election_date": r.election_date,
+        "contest": r.year + " " + r.election_date + " " + r.office, "year": r.year,
+        "page": r.page, "candidate": r.candidate, "name": r.candidate, "votes": r.votes,
+        "person": True, "writein": False, "prose": False,
+        "source": r.source, "read_from": r.read_from, "quote": r.quote, "note": r.note})
+
+
 COLUMNS = ["record", "contest", "office", "district", "year", "election_date", "election_kind",
            "page", "month", "november", "primary", "special", "seats", "fills", "candidate",
            "name", "entry", "votes", "person", "writein", "prose", "party", "primary_party",
@@ -177,7 +195,7 @@ COLUMNS = ["record", "contest", "office", "district", "year", "election_date", "
 def build() -> pd.DataFrame:
     d = pd.concat([county()] + [state(p) for p in STATE]
                   + [oleary(p, office) for p, office in OLEARY.items()]
-                  + [state_return(), gazette_return()],
+                  + [state_return(), gazette_return(), press_return()],
                   ignore_index=True)
     return d[COLUMNS]
 
