@@ -87,7 +87,7 @@ stay beside the data and the code that produced them. Pushing figures across
 a repository boundary would undercut the case that this setup is simpler than
 emailing files. Overleaf sees only the mirror (above), so its limits - a
 recommended 100MB in all, a hard 7MB of editable text - apply to what the
-mirror holds, which is 1.4MB, 0.8MB of it text. Nothing in this repository
+mirror holds, which is well inside both. Nothing in this repository
 measures them.
 
 Two choices were made when Overleaf still synced the whole repository, and
@@ -97,8 +97,8 @@ volumes (`data/transcribed/by_ocr/`, regenerated on a Mac by
 `code/transcribe/census.py`): both are bulk nothing reads. The raw tables and
 outlines the build reads and nobody edits - everything under
 `sources/government/federal/us_census_bureau/`, `sources/government/local/arlington_county/` and
-`sources/government/state/va_dept_of_elections/` that is a CSV or GeoJSON, 29 files - are
-stored as `.csv.gz` and `.geojson.gz`, 0.4MB in place of 2.1MB. pandas reads a
+`sources/government/state/va_dept_of_elections/` that is a CSV or GeoJSON - are
+stored as `.csv.gz` and `.geojson.gz`, a fraction of the plain size. pandas reads a
 `.csv.gz` as it reads a `.csv`, so only the paths and the checksums in
 `data/contents.csv` changed; `data/built/` and `data/clean/` are
 byte-identical to what they were. `write_text()` in `code/fetch/paths.py` writes the
@@ -148,8 +148,8 @@ was printed under. Four entries name no publisher a rule can read, and
 `government/local/alexandria_county/`, Gilbertson's book under
 `other/national_short_ballot_organization/`.
 
-**What it costs and what it commits.** `sources/` is 666MB of cited copies and the
-census sheet images, in plain git with no LFS, with the clone at about 770MB
+**What it costs and what it commits.** `sources/` holds the cited copies and the
+census sheet images, in plain git with no LFS, and the clone is large
 (accepted by Sally, 7 October 2026). The build still reads only the folders
 `code/build/paths.py` names, and `run.sh` keys the build cache on exactly those
 folders, which `code/tests.py` holds together. A copy is committed beside its

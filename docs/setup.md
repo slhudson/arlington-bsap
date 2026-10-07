@@ -40,7 +40,7 @@ whole project also refreshes the mirror:
 
 - **`slhudson/arlington-bsap`** is the whole project: code, data, docs, paper,
   figures and the archive of cited sources in `sources/`. The
-  archive is 666 MB, so the clone is about 770 MB, a one-time download.
+  archive is large, so the clone is a sizeable one-time download.
 - **`slhudson/arlington-bsap-draft`** is a small mirror holding only `paper/`,
   `figures/pdf/` and the fonts, and Overleaf is linked to it. Overleaf syncs a whole
   repository and has a size limit the sources exceeded. Nobody clones the
@@ -134,7 +134,7 @@ holds the working rules.
    things.
 
 2. **Git installed**, and signed in to GitHub, then the repository cloned
-   (`slhudson/arlington-bsap`; about 770 MB).
+   (`slhudson/arlington-bsap`; a large download).
 3. **Claude Code installed and working.**
 4. **Python with its packages**, in a virtual environment at `.venv` inside
    the repository folder:
