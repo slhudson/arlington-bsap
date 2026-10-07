@@ -2291,16 +2291,17 @@ def test_a_step_and_a_module_are_told_apart():
 
 
 def test_docs_agree_with_run_sh():
-    """A `pip install` line in the docs that differs from run.sh."""
-    run = (ROOT / "run.sh").read_text()
+    """A `pip install` line in the docs that differs from the one a missing
+    venv prints (code/cache.py, which run.sh asks for the venv)."""
+    run = (ROOT / "code" / "cache.py").read_text()
     install = re.search(r"pip install ([a-z0-9 ]+)", run).group(1).split()
     problems = []
     for doc in [ROOT / "README.md", ROOT / "CLAUDE.md", ROOT / "docs" / "setup.md"]:
         text = doc.read_text()
         for m in re.finditer(r"pip install ([a-z0-9 ]+)", text):
             if m.group(1).split() != install:
-                problems.append(f"{doc.name}: install line says {m.group(1).split()}, run.sh says {install}")
-    assert not problems, "docs disagree with run.sh:\n  " + "\n  ".join(problems)
+                problems.append(f"{doc.name}: install line says {m.group(1).split()}, code/cache.py says {install}")
+    assert not problems, "docs disagree with code/cache.py:\n  " + "\n  ".join(problems)
 
 
 def test_a_timeline_citation_reaches_the_footnote():
@@ -3286,6 +3287,8 @@ def cache_repo():
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp).resolve()
         subprocess.run(["git", "init", "-q", str(root)], check=True)
+        (root / ".venv" / "bin").mkdir(parents=True)     # cache.environment() reads the venv
+        (root / ".venv" / "bin" / "python").write_text("")
         saved = cache.ROOT, paper.ROOT, paper.PAPER, paper.BUILD
         cache.ROOT, paper.ROOT, paper.PAPER = root, root, root / "paper"
         paper.BUILD = paper.PAPER / "build"
@@ -3373,6 +3376,45 @@ def test_a_compiles_inputs_come_from_latexmks_record():
                        "OUTPUT arlington-bsap.pdf\n")
         found = paper.inputs_read(fls)
     assert found == ["figures/pdf/members_age.pdf", "paper/arlington-bsap.tex"], found
+
+
+def test_a_worktree_with_no_venv_finds_the_primary_checkouts():
+    """Every thread that took a worktree on 7 October 2026 found .venv missing
+    (it is gitignored) and symlinked the primary's by hand. run.sh asks
+    `code/cache.py venv` for its python instead, so nothing is left to forget.
+    Run from a worktree's own copy of the script, as run.sh does; the cache
+    key reads the same packages from either checkout, or a worktree would
+    never find what the primary built."""
+    with tempfile.TemporaryDirectory() as tmp:
+        primary = Path(tmp).resolve() / "primary"
+        subprocess.run(["git", "init", "-q", str(primary)], check=True)
+        (primary / "code").mkdir()
+        shutil.copy(ROOT / "code" / "cache.py", primary / "code" / "cache.py")
+        python = primary / ".venv" / "bin" / "python"
+        python.parent.mkdir(parents=True)
+        python.write_text("")
+        site = primary / ".venv" / "lib" / "python3.0" / "site-packages" / "pandas-1.dist-info"
+        site.mkdir(parents=True)
+        git = ["git", "-C", str(primary), "-c", "user.email=t@t", "-c", "user.name=t"]
+        subprocess.run([*git, "add", "code"], check=True)
+        subprocess.run([*git, "commit", "-qm", "c"], check=True)
+        wt = primary / ".claude" / "worktrees" / "w"
+        subprocess.run([*git, "worktree", "add", "-q", str(wt)], check=True,
+                       stderr=subprocess.DEVNULL)
+        assert not (wt / ".venv").exists(), "the fixture's worktree has a venv of its own"
+        found = subprocess.run(["python3", str(wt / "code" / "cache.py"), "venv"],
+                               cwd=wt, capture_output=True, text=True)
+        assert found.stdout.strip() == str(python), found.stdout + found.stderr
+        saved = cache.ROOT
+        try:
+            cache.ROOT = wt
+            assert "pandas-1.dist-info" in cache.environment(), "a worktree's cache key ignored the venv's packages"
+        finally:
+            cache.ROOT = saved
+        python.unlink()
+        none = subprocess.run(["python3", str(wt / "code" / "cache.py"), "venv"],
+                              cwd=wt, capture_output=True, text=True)
+        assert none.returncode != 0 and "no venv" in none.stderr, "a missing venv was not reported"
 
 
 def test_a_compile_leaves_its_files_in_build_and_the_pdf_beside_the_source():

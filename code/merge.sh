@@ -48,7 +48,7 @@ branch=$1
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
 cd "$ROOT"
 BUILD=${BUILD:-"bash run.sh"}
-COMPILE=${COMPILE:-".venv/bin/python code/paper.py all"}
+COMPILE=${COMPILE:-"$ROOT/.venv/bin/python code/paper.py all"}
 PYTHON=${PYTHON:-".venv/bin/python"}
 REMOTE=origin
 
@@ -117,9 +117,6 @@ retire() {
 step "2. worktree $tree on $REMOTE/main ($(git rev-parse --short "$REMOTE/main"))"
 mkdir -p .claude/worktrees
 git worktree add -q "$tree" -b "$name" "$REMOTE/main"
-# The build wants the venv and run.sh wants it beside the script; a worktree
-# has neither, and .venv is gitignored, so the primary's serves.
-[ -e "$tree/.venv" ] || ln -s "$ROOT/.venv" "$tree/.venv"
 
 step "3. merge $branch ($(git rev-parse --short "$branch"))"
 if ! git -C "$tree" merge -q -m "merge $branch" "$branch" >/dev/null 2>&1; then

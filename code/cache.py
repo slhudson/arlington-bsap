@@ -3,6 +3,7 @@
     .venv/bin/python code/cache.py key [--also <text>] <path>...
     .venv/bin/python code/cache.py restore <stage> <key>     exit 1 if there is no entry
     .venv/bin/python code/cache.py save <stage> <key> [--report <file>] <file>...
+    python3 code/cache.py venv                               the venv's python, wherever it is
 
 `key` prints the key of the files under these paths, with --also for an
 input that is not a file in the tree (the key of the stage before, whose
@@ -39,12 +40,24 @@ def store():
     return (common if common.is_absolute() else ROOT / common) / "build-cache"
 
 
+def venv():
+    """The virtualenv's directory. A worktree has no .venv of its own (it is
+    gitignored), so it is looked for here first and then in the primary
+    checkout, the parent of the .git every worktree shares. Nothing has to
+    be linked by hand, so nothing can be forgotten."""
+    primary = Path(_git("rev-parse", "--path-format=absolute", "--git-common-dir").strip()).parent
+    for base in (ROOT, primary):
+        if (base / ".venv" / "bin" / "python").exists():
+            return base / ".venv"
+    raise SystemExit("no venv: python3 -m venv .venv && .venv/bin/pip install "
+                     "pandas matplotlib openpyxl pyflakes shapely")
+
+
 def environment():
     """What the outputs depend on besides the inputs: the Python and the
     installed packages. Upgrading pandas must not restore tables pandas wrote
     before."""
-    venv = ROOT / ".venv"
-    site = sorted(p.name for p in venv.resolve().glob("lib/python*/site-packages/*.dist-info"))
+    site = sorted(p.name for p in venv().resolve().glob("lib/python*/site-packages/*.dist-info"))
     return "\n".join([sys.version, *site])
 
 
@@ -116,7 +129,9 @@ def save(stage, k, files, report=None):
 
 if __name__ == "__main__":
     command, *args = sys.argv[1:] or [""]
-    if command == "key":
+    if command == "venv":
+        print(venv() / "bin" / "python")
+    elif command == "key":
         also = ""
         if args[:1] == ["--also"]:
             also, args = args[1], args[2:]
