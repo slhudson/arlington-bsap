@@ -1782,6 +1782,17 @@ def test_press_files_by_outlet_and_legal_by_what_the_document_is():
         assert got == where, f"{who}, {title} filed in {got}, not {where}"
 
 
+def test_the_census_bureau_is_one_folder_whatever_name_an_entry_gives_it():
+    """The HH-6 table, reintroduced: its entry names the Bureau "U.S. Census
+    Bureau" where the volumes say "U.S. Bureau of the Census", and the two
+    names filed in two folders, one of them under other/."""
+    for who in ("U.S. Census Bureau", "U.S. Bureau of the Census"):
+        e = {"type": "online", "key": "planted", "title": "HH-6", "author": who,
+             "organization": "U.S. Census Bureau, Current Population Survey"}
+        got = archive.shelf(e, f"{who} 2025 - HH-6.xls")
+        assert got == "government/federal/us_census_bureau", f"{who} files in {got}"
+
+
 def test_every_filed_copy_is_on_its_shelf():
     """A copy somewhere other than where archive.shelf() puts it: filed by
     hand, or left behind by a rule that changed. archive.py's dry run would
