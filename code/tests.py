@@ -3181,6 +3181,76 @@ def test_publish_push_refuses_a_tree_holding_a_path_outside_the_two_folders():
             assert "stray.txt" in str(e), e
 
 
+def wrapper(body, others=None):
+    """A repository's files as publish.unmirrored reads them: a wrapper with
+    this body, the font and figure the mirror does carry, and any others."""
+    return {"paper/arlington-bsap.tex": body,
+            "style/fonts/Lato-Regular.ttf": "", "figures/pdf/a.pdf": "",
+            "paper/bib/sources.bib": "", **(others or {})}
+
+
+def test_the_mirror_refuses_a_paper_that_loads_a_file_it_does_not_carry():
+    """The Lato files were missing from the first mirror and Overleaf could not
+    compile; Sally found it from a screenshot. Every path the paper loads from
+    outside paper/ has to be inside the mirror (publish.ALLOWED), whichever
+    way the .tex file names it: a font folder, a figure folder or a figure
+    named outright, a bibliography, a file \\input from outside paper/, or
+    a file read through an \\input that is itself nested."""
+    good = ("\\setmainfont{Lato}[Path = ../style/fonts/, Extension = .ttf]\n"
+            "\\graphicspath{{../figures/pdf/}}\n\\addbibresource{bib/sources.bib}\n"
+            "\\begin{document}\\includegraphics{a.pdf}\\end{document}\n")
+    assert publish.unmirrored(wrapper(good)) == [], publish.unmirrored(wrapper(good))
+
+    def refused(body, path, others=None):
+        found = publish.unmirrored(wrapper(body, others))
+        assert [p for _, _, p in found] == [path], (body, found)
+
+    refused(good.replace("../style/fonts/", "../style/other/"), "style/other")
+    moved = publish.unmirrored(wrapper(good.replace("{{../figures/pdf/}}", "{{../figures/png/}}"),
+                                       {"figures/png/a.pdf": ""}))
+    assert [p for _, _, p in moved] == ["figures/png", "figures/png/a.pdf"], moved
+    refused(good.replace("{a.pdf}", "{../figures/png/b.png}"), "figures/png/b.png",
+            {"figures/png/b.png": ""})
+    refused(good.replace("bib/sources.bib", "../data/refs.bib"), "data/refs.bib")
+    refused(good + "\\input{../code/macros}\n", "code/macros.tex", {"code/macros.tex": ""})
+    # Nested: paper/part.tex, read through the wrapper, loads the stray font.
+    refused(good + "\\input{part}\n", "style/other",
+            {"paper/part.tex": "\\setsansfont{X}[Path=../style/other/]\n"})
+    # TeX's own \\input, with no braces, as the roster files are read.
+    refused("\\makeatletter\\let\\rosterinput\\@@input\\makeatother\n" + good + "\\rosterinput ../data/r.tex\n",
+            "data/r.tex", {"data/r.tex": ""})
+    # A commented-out reference loads nothing.
+    assert publish.unmirrored(wrapper(good + "% \\input{../code/macros}\n")) == []
+
+
+def test_the_papers_own_references_are_all_in_the_mirror():
+    """The integration test of the guard above, against the committed paper."""
+    tracked = subprocess.run(["git", "ls-files"], cwd=ROOT, check=True,
+                             capture_output=True, text=True).stdout.splitlines()
+    files = {f: ((ROOT / f).read_text() if f.endswith(".tex") else "")
+             for f in tracked if (ROOT / f).exists()}
+    assert publish.unmirrored(files) == [], publish.unmirrored(files)
+
+
+def test_publish_push_refuses_a_paper_that_loads_outside_the_mirror():
+    """The same guard where it bites: push stops before exporting anything,
+    naming the file, and the mirror has no commit of ours."""
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git, draft_work = publish_fixture(tmp)
+        (work / "paper" / "arlington-bsap.tex").write_text(
+            "\\setmainfont{Lato}[Path=../style/other/]\n")
+        git("commit", "-qam", "loads a font from outside the mirror")
+        with draft_remote(Path(tmp) / "draft.git"):
+            try:
+                publish.push(repo=work)
+                assert False, "a push of a paper loading outside the mirror went through"
+            except SystemExit as e:
+                assert "style/other" in str(e), e
+        heads = subprocess.run(["git", "-C", str(Path(tmp) / "draft.git"), "branch"], check=True,
+                               capture_output=True, text=True).stdout
+        assert heads.strip() == "", "the mirror received a commit"
+
+
 def test_publish_pull_applies_an_overleaf_edit_on_its_own_branch():
     """The other happy path: a change Overleaf made under paper/ comes back
     on overleaf-<date>, main untouched, ready for code/merge.sh."""
