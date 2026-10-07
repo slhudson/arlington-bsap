@@ -1352,6 +1352,16 @@ def test_a_body_text_number_is_the_clean_tables_number():
     expected["notWhiteMenMembers"] = str(not_white_men)
     expected["whiteMenMembers"] = str(len(m) - not_white_men)
 
+    # The 2020 groups, and what a majority of one of five equal districts would
+    # take of each: more than half of total / seats, over the group's residents.
+    r20 = pd.read_csv(ROOT / "data" / "clean" / "residents.csv").set_index("year").loc[2020]
+    majority = int(r20.total // r20.board_seats // 2) + 1
+    expected["districtMajorityTwoThousandTwenty"] = f"{(majority + 500) // 1000 * 1000:,}"
+    for name, column in (("Black", "black"), ("Hispanic", "hisp"), ("Asian", "aapi")):
+        expected[f"groupShare{name}TwoThousandTwenty"] = rounded(r20[column], r20.total)
+    for name, column in (("Hispanic", "hisp"), ("Asian", "aapi")):
+        expected[f"districtNeed{name}TwoThousandTwenty"] = rounded(majority, r20[column])
+
     # The turnout rates, worked out here without code/analysis/elections.py:
     # the county's presidential vote over the men of voting age (to 1916) or
     # all adults (from 1920) on a straight line between censuses, and a

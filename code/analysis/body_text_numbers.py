@@ -25,6 +25,11 @@ whole number, with "percent" left to the sentence.
                                 300,000 in the southeastern comparison
     southeastMore               of them, those with more residents per member,
                                 spelled out
+    groupShare<Group>TwoThousandTwenty   a group's share of the county's residents
+    districtMajorityTwoThousandTwenty    residents a majority of one of five equal
+                                districts takes, to the nearest thousand
+    districtNeed<Group>TwoThousandTwenty the share of the county's residents in a
+                                group that such a majority would take
 
     Jefferson held \shareJeffersonEighteenSeventy{} percent of the county.
 
@@ -110,6 +115,30 @@ def seats() -> dict:
     return out
 
 
+def groups() -> dict:
+    """What a district majority would ask of each group in 2020, the arithmetic
+    behind Part C's claim that districts alone would give none of them a seat.
+    The Board's five seats cut the county into five equal districts, and a
+    majority of one is more than half of its residents. Black residents number
+    fewer than that, so no district of any plan of five can be majority Black;
+    the other two would need most of the county's residents of the group to
+    live in one district. The assertions stop the build if the counts change
+    what the sentence says."""
+    r = paths.read("residents").set_index("year").loc[2020]
+    district = r.total / r.board_seats
+    majority = int(district // 2) + 1
+    out = {"districtMajorityTwoThousandTwenty": thousands(majority)}
+    for name, column in (("Black", "black"), ("Hispanic", "hisp"), ("Asian", "aapi")):
+        assert r[column] < r.total / 2, f"{name} residents are now a majority of the county"
+        out[f"groupShare{name}TwoThousandTwenty"] = per_cent(r[column], r.total)
+    assert r.black < majority, "Black residents could now fill a district of five"
+    for name, column in (("Hispanic", "hisp"), ("Asian", "aapi")):
+        need = majority / r[column]
+        assert 0.5 < need < 1, f"a {name} majority district no longer takes most of the group"
+        out[f"districtNeed{name}TwoThousandTwenty"] = whole(need * 100)
+    return out
+
+
 def member_shares() -> dict:
     """How members, not seat-years, are known: one row per person, by name.
 
@@ -187,6 +216,7 @@ def numbers() -> dict:
     out.update(member_shares())
     out.update(turnout())
     out.update(seats())
+    out.update(groups())
     return out
 
 
