@@ -6,6 +6,8 @@ __pycache__/
 # build, so none of it belongs in the repository.
 paper/build/
 paper/*.pdf
+# Milestone copies of the compiled report are committed on purpose, dated, under paper/drafts/.
+!paper/drafts/*.pdf
 .env
 
 # Per-machine Claude Code settings: site permissions and the like, which
