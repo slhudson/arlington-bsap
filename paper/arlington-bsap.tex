@@ -66,14 +66,6 @@
 % that distance depending on which kind of line happened to precede it.
 \titlecontents{part}[0pt]{\addvspace{10pt}\bfseries}{Part \thecontentslabel.\hspace{0.5em}}{}{\hfill\contentspage}
 \titlecontents{section}[3.6em]{}{\contentslabel{2.4em}}{\hspace*{-3.6em}}{\hfill\contentspage}
-% The two lists after the contents read the same way the contents itself
-% does --- a number, the title, the page flushed right, no dotted leader ---
-% instead of \listoffigures and \listoftables's default, which breaks a
-% longer title onto its own line and leaves the leader and page stranded
-% below it. A number wide enough for the roster's lettered panels (\tabletitle,
-% "2A") keeps a plain figure number from sitting too close to its title.
-\titlecontents{figure}[3.2em]{}{\contentslabel{3.2em}}{\hspace*{-3.2em}}{\hfill\contentspage}
-\titlecontents{table}[3.2em]{}{\contentslabel{3.2em}}{\hspace*{-3.2em}}{\hfill\contentspage}
 \renewcommand{\thepart}{\Alph{part}}
 \titleformat{\part}{\normalfont\normalsize\bfseries}{Part \thepart.}{0.5em}{}
 % One scheme, set once, for every level (Sally, 5 October 2026): one unit,
@@ -145,22 +137,16 @@
   \par\end{minipage}\par}
 
 % A figure's or a table's title: the two lines a figure or table has always
-% carried (CAPS "Figure N" / "Table N", then a bold title), plus an entry in
-% \listoffigures or \listoftables so the two lists are not empty. \tabletitle
-% takes an optional number to print and to link where the running counter is
-% not the right one to show, as the roster's four lettered panels need
-% (\tabletitle[\rostertable{}A]{...}): the panel shares one \thetable among
-% four titles, so each must say which counter the list entry still points to.
+% carried, CAPS "Figure N" / "Table N" then a bold title. \tabletitle takes
+% an optional number to print where the running counter is not the right
+% one to show, as the roster's four lettered panels need
+% (\tabletitle[\rostertable{}A]{...}): all four share one \thetable.
 \newcommand{\figuretitle}[1]{%
-  \phantomsection
   {\raggedright\MakeUppercase{Figure \thefigure}\par}%
-  {\raggedright\bfseries #1\par}%
-  \addcontentsline{lof}{figure}{\protect\numberline{\thefigure}#1}}
+  {\raggedright\bfseries #1\par}}
 \newcommand{\tabletitle}[2][\thetable]{%
-  \phantomsection
   {\raggedright\MakeUppercase{Table #1}\par}%
-  {\raggedright\bfseries #2\par}%
-  \addcontentsline{lot}{table}{\protect\numberline{#1}#2}}
+  {\raggedright\bfseries #2\par}}
 
 % A figure goes at the top of the page it lands on, centered, above the section
 % heading if the section starts there; its title sits above it and its notes
@@ -217,11 +203,6 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 \clearpage
 \tableofcontents
-
-\renewcommand{\listfigurename}{Figures}
-\renewcommand{\listtablename}{Tables}
-\listoffigures
-\listoftables
 
 \input{0_summary}
 \input{1_history/intro}
