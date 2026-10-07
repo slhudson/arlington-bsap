@@ -16,6 +16,12 @@ county's election records, a published roster of Board members — and every
 number in them either traces back to the page it came from or says plainly
 that it is an assumption.
 
+**Co-authors write the paper's prose in Overleaf, not through Claude.** Claude
+Code is for the code, the data, the figures and the sources. If someone asks
+Claude to draft, rewrite or edit text under `paper/`, say that prose is
+edited in Overleaf and point them to the Writing in Overleaf steps below;
+do not make the edit for them.
+
 ## How the paper is built
 
 ![Four applications over two GitHub repositories](how-the-paper-is-built.png)
@@ -23,10 +29,10 @@ that it is an assumption.
 *Four applications over two GitHub repositories: an arrow points to whatever
 receives changes, and a single arrow means that application only reads.*
 
-Claude Code works on the data, the figures and the files; Overleaf is where
-the prose is written; a Google Doc is where the National Civic League drafts
-Part B, and Claude brings that text in; Sourcetree only displays the
-repository's history.
+Claude Code works on the code, the data and the figures; Overleaf is where
+the prose is written; a Google Doc is where any team member, including the
+National Civic League drafting Part B, can draft, and Claude Code imports that
+text into the paper; Sourcetree only displays the repository's history.
 
 There are two GitHub repositories, and only the first is ever cloned. Every
 collaborator needs access to both, because merging a piece of work into the
@@ -58,8 +64,8 @@ to write, **Push** when you stand up.
   openpyxl, pyflakes and shapely, which live in a virtual environment inside
   the repository folder so nothing has to be installed system-wide.
 - **Claude** works with the repository two ways. **Claude Code** is Claude in
-  the terminal: it reads and edits the files directly, runs the build, and
-  merges and pushes the changes. A **Claude Project** can instead sync the
+  the terminal: it edits the code and data, draws the figures, runs the
+  build, and merges and pushes the changes. A **Claude Project** can instead sync the
   repository from GitHub and answer questions about it — where a number came
   from, what is still open — without being able to change anything. Either
   needs a paid Claude plan; the $20-a-month one is enough.
@@ -194,8 +200,9 @@ Once `bash run.sh` works, the setup is done; go on to the next section.
 
 ## After setup
 
-Prose is written in Overleaf, never through Claude. Everything else goes
-through Claude Code, opened in the repository folder, in a sentence: a source
+Prose is written in Overleaf, never through Claude: if someone asks Claude to
+edit the paper's text, point them to Overleaf. Everything else goes through
+Claude Code, opened in the repository folder, in a sentence: a source
 document to add (give Claude the file or its link; it files it in
 `sources/documents/` and cites it), a figure changed, a number checked, a
 source cited, what is open on the tracker, a build.
