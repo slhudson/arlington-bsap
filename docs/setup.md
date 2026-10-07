@@ -16,83 +16,120 @@ county's election records, a published roster of Board members — and every
 number in them either traces back to the page it came from or says plainly
 that it is an assumption.
 
+## How the paper is built
+
+![Four applications over one GitHub repository, arlington-bsap](how-the-paper-is-built.png)
+
+*Four applications, one repository: an arrow points to whatever receives
+changes, and a single arrow means that application only reads.*
+
+Everything lives in one GitHub repository, `slhudson/arlington-bsap`. Claude
+Code works on the data, the figures and the files; Overleaf is where the
+prose is written; a Google Doc is where the National Civic League drafts
+Part B, and Claude brings that text in; Sourcetree only displays the
+repository's history.
+
+There are two GitHub repositories, and only the first is ever cloned:
+
+- **`slhudson/arlington-bsap`** is the whole project: code, data, docs, paper,
+  figures and the archive of cited sources in `sources/documents/`. The
+  archive is 666 MB, so the clone is about 770 MB, a one-time download.
+- **`slhudson/arlington-bsap-draft`** is a small mirror holding only `paper/`,
+  `figures/pdf/` and the fonts, and Overleaf is linked to it. Overleaf syncs a whole
+  repository and has a size limit the sources exceeded. Nobody clones the
+  mirror: Claude refreshes it after every merge and reads Overleaf's edits
+  back before every merge.
+
+The Overleaf project is "arlington-bsap-draft"
+(https://www.overleaf.com/project/6ac61fcaec98cfccb0215584), and it compiles
+with LuaLaTeX. The paper is one file per section, in one folder per part —
+`paper/a_history/`, `paper/b_community_input/`, `paper/c_future_work/` and
+`paper/appendix/` — so two people working in different sections never touch
+the same file. The GitHub link is under **Integrations** in the icon rail
+down the left of the editor, not under the Menu: **Pull** when you sit down
+to write, **Push** when you stand up.
+
 ## The tools
 
-Four things, each doing one job:
-
-- **Git and GitHub** keep the repository. It is private, on GitHub, and
-  everyone works from their own copy on their own machine, pushing changes
-  back when they are done.
-- **Python** does the computing. The scripts need four packages — pandas,
-  matplotlib, openpyxl and pyflakes — which live in a virtual environment inside the
-  repository folder so nothing has to be installed system-wide.
+- **Git and GitHub** keep the repository. It is private; everyone works from
+  their own copy on their own machine.
+- **Python** does the computing. The scripts need pandas, matplotlib,
+  openpyxl, pyflakes and shapely, which live in a virtual environment inside
+  the repository folder so nothing has to be installed system-wide.
 - **Claude** works with the repository two ways. **Claude Code** is Claude in
   the terminal: it reads and edits the files directly, runs the build, and
-  pushes changes back. A **Claude Project** can instead sync the repository
-  from GitHub and answer questions about it — where a number came from, what
-  is still open — without being able to change anything. Either needs a paid
-  Claude plan; the $20-a-month one is enough.
-- **Overleaf** is where the paper is written. It is linked to a small mirror
-  of this repository (below), so the figures the scripts produce appear in the
-  paper without being uploaded by hand.
+  merges and pushes the changes. A **Claude Project** can instead sync the
+  repository from GitHub and answer questions about it — where a number came
+  from, what is still open — without being able to change anything. Either
+  needs a paid Claude plan; the $20-a-month one is enough.
+- **Sourcetree** (free, from Atlassian) shows the repository as a picture:
+  open the clone in it and every commit and branch is there to look at. It is
+  for looking, not operating; nothing in this project needs a typed git
+  command.
 
 ## The repository
 
 Everything is built by one command, `bash run.sh`, from files that are
-committed in the repository. Data flows downward through four folders of
+committed in the repository. Data flows downward through five folders of
 code, each writing one folder of data:
 
 - `code/fetch/` downloads a published source and saves it, unchanged, into
-  `data/raw/`. It is run only when a new source is needed; the downloaded
-  file is committed, so nobody else needs to fetch it again.
+  `data/raw/`. It runs only when a new source is needed; the file is
+  committed, so nobody fetches it twice.
 - `code/transcribe/` reads the scanned documents in `data/raw/` into tables in
-  `data/transcribed/`. Also run only when something new needs reading, and
-  its output is committed.
+  `data/transcribed/`. It also runs only on demand, and its output is
+  committed.
 - `code/build/` reshapes the raw and transcribed files into the tables in
-  `data/built/` — stacks the claim files, puts both election records in one
-  table — and decides nothing. A step is refused if a value its inputs
+  `data/built/` and decides nothing. A step is refused if a value its inputs
   carry is missing from its output.
-- `code/clean/` turns those into the clean tables in `data/clean/`, and can
-  read nothing above `data/built/`. This is where every decision about
-  what a number *is* gets made — what a blank means, which of two
-  conflicting figures to trust, whether a census line is the Board member.
-- `code/analysis/` draws the figures from `data/clean/` into `figures/`. One
+- `code/clean/` turns those into the tables in `data/clean/`, and can read
+  nothing above `data/built/`. This is where every decision about what a
+  number *is* gets made — what a blank means, which of two conflicting
+  figures to trust, whether a census line is the Board member.
+- `code/analysis/` draws the figures from `data/clean/` into `figures/`, one
   script per figure. These scripts decide how a number is shown, and they
   cannot see anything above `data/clean/`, so a figure can never quietly
   change a value.
 
-`run.sh` runs the last three every time; the first two only run when someone
-asks for them. Alongside those: `paper/` holds the LaTeX source, which
-Overleaf reads through the mirror, and `docs/` holds the open questions, the record of what backs every
-number, and the reasoning behind each figure.
+`run.sh` runs the last three every time; the first two run on request.
+Alongside them: `paper/` holds the LaTeX source, with the bibliography in
+`paper/bib/sources.bib`, the appendix's member tables in `paper/appendix/` and
+the timelines in `paper/timelines/`; `docs/` holds the open questions
+(`docs/questions.csv`), the punch list of small fixes to the paper
+(`docs/punchlist.md`), and the record of what backs every number; and
+`sources/documents/` holds a copy of every source the report cites that no
+number is taken from.
 
 Two rules to know before touching anything. `data/raw/` holds the sources as
 published and is never edited — a defect in one is corrected in
 `code/clean/`, where the correction is visible. And `README.md` is the front
-door — it has a table of which script
-writes which file — while `CLAUDE.md` holds the working rules.
+door, with a table of which script writes which file, while `CLAUDE.md`
+holds the working rules.
 
 ## What a working setup looks like
 
 1. **Access to the GitHub repository and the Overleaf project.** Both are
    private, so someone already on them has to send the invitations — the
-   repository's owner, or any collaborator with access. Nothing else can
-   start until the GitHub one is accepted.
+   repository's owner, or any collaborator with access. Two invitations are
+   pending for Alex Keena: GitHub (`arlington-bsap`) and Overleaf
+   ("arlington-bsap-draft"). Accept both; nothing else has to happen before
+   setup. Nothing else can start until the GitHub one is accepted.
 
    *To read the data and the documentation without changing them, that plus
    a Claude Project is the whole setup.* Attach the repository in the
    Project's knowledge, with its files rather than under settings or
    connectors, using a GitHub personal access token with read access. Sync
    `code/`, `docs/`, `paper/`, `data/clean/` and `data/contents.csv`, and
-   leave out `data/raw/` and `data/transcribed/` — the figures read only
-   `data/clean/` for the same reason, that the layers above hold scans and
-   OCR that misreads digits by design. The steps below are for changing
+   leave out `data/raw/`, `data/transcribed/` and `sources/documents/` —
+   the figures read only `data/clean/`, because the layers above hold scans
+   and OCR that misreads digits by design. The steps below are for changing
    things.
 
-2. **Git installed**, and signed in to GitHub.
+2. **Git installed**, and signed in to GitHub, then the repository cloned
+   (`slhudson/arlington-bsap`; about 770 MB).
 3. **Claude Code installed and working.**
-4. **Python with pandas, matplotlib, openpyxl and pyflakes**, in a virtual environment
-   at `.venv` inside the repository folder:
+4. **Python with its packages**, in a virtual environment at `.venv` inside
+   the repository folder:
 
        python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflakes shapely
 
@@ -102,22 +139,15 @@ writes which file — while `CLAUDE.md` holds the working rules.
    pymupdf it is installed into that same venv and no figure reads it.
 
 5. **A successful build.** `bash run.sh` from the repository folder should
-   print a lint, a build, the tests, a clean step, one line per figure, and a line about
-   `figures/pdf` and `figures/png`. That is the test that everything works.
-   Invoke it through `bash`, not `./run.sh`; `run.sh` says why at the top.
-6. **The Overleaf project open and synced.** Overleaf is linked to
-   `slhudson/arlington-bsap-draft`, not to this repository: a mirror holding only
-   `paper/`, `figures/pdf/` and `style/fonts/`, because Overleaf syncs a whole repository
-   and cannot be scoped to folders (`docs/repository.md`). In Overleaf,
-   the GitHub link is under the **Integrations** tab in the icon rail down
-   the left of the editor, not under the Menu. Pulling there brings the
-   latest paper into Overleaf; pushing there sends an edit made in Overleaf
-   back to the mirror. Neither reaches this repository on its own —
-   `.venv/bin/python code/publish.py pull` brings an Overleaf edit the rest
-   of the way in, onto its own branch, and `code/publish.py` push sends this
-   repository's paper and figures out to the mirror; `code/merge.sh` runs
-   both automatically, so day to day neither is a step anyone has to
-   remember.
+   print a lint, a build, the tests, a clean step, one line per figure, and a
+   line about `figures/pdf` and `figures/png`. That is the test that
+   everything works. Invoke it through `bash`, not `./run.sh`; `run.sh` says
+   why at the top.
+6. **The Overleaf project open.** Pull in Overleaf to see the latest paper.
+   An edit made there reaches the repository without anyone running a
+   command: Claude reads it back before every merge and refreshes the mirror
+   after.
+7. **Sourcetree installed**, with the clone opened in it.
 
 ## How to help
 
@@ -133,36 +163,52 @@ If they mean to change anything — correct a number, edit a figure, add a
 source, rebuild the outputs — that is Claude Code, and the rest of the steps
 apply.
 
-The two are not exclusive and the first is far cheaper, so someone who is
-not sure can start with the Project and add Claude Code when they first hit
-something they want to change.
+Someone who is not sure can start with the Project, which is far cheaper,
+and add Claude Code when they first want to change something.
 
-Either way the invitations come first, since nothing works without them. If
-they do not have both, say exactly what to ask for and whom to ask — an
-invitation to the `slhudson/arlington-bsap` repository on GitHub, to the
-email address they will use, from the repository's owner or any existing
-collaborator. The Overleaf project is linked to a second, smaller repository,
-`slhudson/arlington-bsap-draft`, that only the project lead needs: nobody else adds
-or removes themselves there.
+Either way the invitations come first. If they do not have both, say what to
+ask for and whom to ask: an invitation to `slhudson/arlington-bsap` on GitHub
+and one to the Overleaf project, to the email address they will use, from the
+repository's owner or any existing collaborator.
 
 For the Claude Code path, any of the tools may be new or may already be in
 place; ask rather than assume, in either direction. Where something is new,
 the setup is part of the job: installing Git and signing in to GitHub,
-installing Claude Code and signing in to it, creating the Python environment
-(which happens inside Claude Code once it is running), cloning the
-repository, and connecting to the Overleaf project. Ask what operating
-system they are on and go one step at a time: say what to type, what they
-should see if it worked, and what to do if they see something else, and wait
-for them to confirm before the next step. If a step needs something only the
+installing Claude Code and signing in to it, cloning the repository,
+creating the Python environment (which happens inside Claude Code once it is
+running), and installing Sourcetree. Ask what operating system they are on
+and go one step at a time: say what to type, what they should see if it
+worked, and what to do if they see something else, and wait for them to
+confirm before the next step. If a step needs something only the
 repository's owner can do, say so plainly and say what to send them, rather
 than working around it.
 
-Once `bash run.sh` works, the setup is done. For orientation, a good first
-thing to do is to open Claude Code inside the repository folder and ask it
-to walk through `README.md` and `CLAUDE.md`; then change something small in
-one figure — `code/analysis/` has one script per figure, named for the figure it
-produces, and `style/` holds the colours, fonts and chart types they share —
-and rebuild, to see the loop work end to end.
+Once `bash run.sh` works, the setup is done; go on to the next section.
+
+## After setup
+
+There are three ways in, one for each kind of want.
+
+- **A document to add.** Drop it in Drive, or put it in `sources/documents/`
+  yourself, and tell Claude. Claude files it in the archive and cites it.
+- **Sentences to write or change.** Write in Overleaf, or tell Claude what
+  the sentence should say. Both land in the same files.
+- **Anything else** — a figure changed, a number checked, a source cited,
+  what is open on the tracker, a build. Open Claude Code in the repository
+  folder and say it in a sentence.
+
+Claude takes it from there. It makes a separate branch, a private copy of
+the project where the work can go wrong without touching anyone else's,
+does the work, merges it back and pushes, and tells you in plain words what
+changed. You never carry a file from one tool to another and never type git;
+if you want to see what happened, Sourcetree shows it.
+
+Claude will refuse two things, because the project protects them. It will not
+edit `data/raw/`, which holds the sources as published; a defect in a source
+is corrected in `code/clean/`, where a reviewer can see it. And it will not
+accept a figure edited in Overleaf, because every figure is redrawn from the
+data, so a hand edit would be overwritten by the next build.
 
 The websites the sources come from, and what each needs from this machine
-before it will give up a page, are in `docs/web_access.md`.
+before it will give up a page, are in `docs/web_access.md`. For orientation,
+ask Claude to walk through `README.md` and `CLAUDE.md`.
