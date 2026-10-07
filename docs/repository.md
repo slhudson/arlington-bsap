@@ -75,6 +75,22 @@ second session can check. Branches are invisible until pushed and can be
 renamed, so a gate on "has that branch merged" passes for the wrong reason.
 Push a branch the moment it is created, so that others can see it exists.
 
+## Why the paper is one file per section under a folder per part
+
+The paper is one file per section, under one folder per part:
+`paper/a_history/`, `paper/b_community_input/`, `paper/c_future_work/` and
+`paper/appendix/`, plus `paper/summary.tex` for the Executive Summary.
+`paper/arlington-bsap.tex` is the wrapper: the preamble, the front matter, a
+list of `\input` lines in reading order, the bibliography call and
+`\end{document}`, and holds no prose of its own.
+
+Two surfaces edit this paper, Overleaf and the repository's own Claude
+threads, and they edit it concurrently. Edits to one file collide; edits to
+different files combine. A single 1,400-line file put every edit in one
+file's way of every other. A file splits when two people are in it at once,
+not before: the split follows where the collisions actually happen, not a
+guess at where they might.
+
 ## Why one session works on main and two take worktrees
 
 Two sessions sharing one checkout once produced committed figures built
