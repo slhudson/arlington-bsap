@@ -2922,6 +2922,52 @@ def test_a_merge_with_a_real_conflict_stops_before_building():
         assert git("worktree", "list").count("\n") == 0, "the scratch worktree was left behind"
 
 
+def delete_on_thread_change_on_main(work, git, path):
+    """The 7 October 2026 shape: the thread deletes a tracked file and main,
+    which has moved on, changes it. A second figure keeps figures/pdf from
+    being empty after the deletion, which the mirror's export needs."""
+    git("checkout", "-q", "thread")
+    git("rm", "-q", path); git("commit", "-qm", "thread deletes it"); git("push", "-q", "origin", "thread")
+    git("checkout", "-q", "main")
+    (work / path).write_bytes(b"%PDF-rebuilt on main\n")
+    (work / "figures" / "pdf" / "b.pdf").write_bytes(b"%PDF-fake-b\n")
+    git("add", "-A"); git("commit", "-qm", "main rebuilds it"); git("push", "-q", "origin", "main")
+
+
+def test_a_merge_takes_the_branchs_side_of_a_deleted_build_output():
+    """A branch deleted figures/pdf/a.pdf while main rebuilt it: git stops
+    with modify/delete and no guidance, and a thread had to resolve it in a
+    scratch worktree by hand. A build output is the build's to recreate, so
+    the branch's side is taken and the merge goes on."""
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git = merge_fixture(tmp)
+        delete_on_thread_change_on_main(work, git, "figures/pdf/a.pdf")
+        run = merge(work, build="true", compile_="true")
+        assert run.returncode == 0, run.stdout + run.stderr
+        assert not (work / "figures" / "pdf" / "a.pdf").exists(), "the deletion was not kept"
+        assert git("rev-parse", "main") == git("rev-parse", "origin/main"), "main was not pushed"
+
+
+def test_a_merge_stops_on_a_deleted_file_that_is_not_a_build_output():
+    """The same conflict on a file the build does not write is a person's
+    decision: the script names it and the two commands that settle it, and
+    main is where it was."""
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git = merge_fixture(tmp)
+        git("checkout", "-q", "thread")
+        git("rm", "-q", "note.txt"); git("commit", "-qm", "thread deletes it"); git("push", "-q", "origin", "thread")
+        git("checkout", "-q", "main")
+        (work / "note.txt").write_text("main side\n")
+        git("commit", "-qam", "main changes it"); git("push", "-q", "origin", "main")
+        before = git("rev-parse", "main")
+        run = merge(work, build="true", compile_="true")
+        assert run.returncode != 0, "a modify/delete conflict on a non-output went through"
+        assert "note.txt" in run.stderr and "git rm -- note.txt" in run.stderr \
+            and "--ours -- note.txt" in run.stderr, run.stderr
+        assert git("rev-parse", "main") == before, "main moved despite the conflict"
+        assert git("worktree", "list").count("\n") == 0, "the scratch worktree was left behind"
+
+
 def hold_thread_in_worktree(work, git):
     """The thread's own worktree, as a session working on it would have one."""
     git("worktree", "add", "-q", ".claude/worktrees/t", "thread")
