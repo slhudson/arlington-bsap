@@ -1,6 +1,6 @@
 """Tests that the build's guards still work.
 
-    .venv/bin/python code/tests.py
+    .venv/bin/python code/tests.py [word ...]    # words: only tests named with one
 
 Each test reintroduces the specific mistake a guard exists to catch and
 asserts the build stops. Only guards whose failure would be silent are
@@ -3450,7 +3450,13 @@ if __name__ == "__main__":
     # The tests are independent - each builds its own input in memory or in a
     # temporary folder - so they run in a few processes at once, which takes
     # the suite from a minute to well under half of one.
-    names = sorted(n for n in globals() if n.startswith("test_"))
+    # Words on the command line keep only the tests whose name contains one:
+    #   .venv/bin/python code/tests.py press elections
+    words = sys.argv[1:]
+    names = sorted(n for n in globals() if n.startswith("test_")
+                   and (not words or any(w in n for w in words)))
+    if not names:
+        raise SystemExit(f"no test name contains {' or '.join(words)!r}")
     with ProcessPoolExecutor(max_workers=min(4, os.cpu_count() or 1)) as pool:
         results = list(pool.map(run_one, names))
     failed = 0
