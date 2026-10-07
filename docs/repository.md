@@ -53,12 +53,24 @@ exactly `paper/`, `figures/pdf/` and `style/fonts/` from this repository's `HEAD
 on top of the mirror's own history rather than rewriting it, so Overleaf
 keeps its common ancestor; `pull` reads the mirror's commits back to the last
 one of ours - an edit made in Overleaf - and applies the changes under
-`paper/` to a new branch here, `overleaf-<date>`, ready for
-`bash code/merge.sh overleaf-<date>`. A change under `figures/` on the
-Overleaf side is refused outright: figures are built here, never hand-edited
-on either side. `code/merge.sh` runs `pull` as its first step, so an Overleaf
-edit is never overwritten by a thread's merge, and `push` as its last, so
-every merge reaches Overleaf without anyone running a separate command.
+`paper/` to a new branch, `overleaf-<date>`, ready for
+`bash code/merge.sh overleaf-<date>`. The branch and its commit are made in
+a worktree under `.claude/worktrees/`, never in the primary checkout, so
+`.githooks/pre-commit` - which refuses a commit there while another session
+is live - cannot strand a pull with a staged patch and nothing to show for
+it. `pull` is idempotent: run again before that branch is merged, it finds
+the branch already holding the mirror's edit and says so instead of trying
+to recreate it; and if the edit is already in main with no branch at all -
+merged by hand, as happened on 8 October 2026 - it finds that too (reversing
+the mirror's diff applies cleanly against main) and reports nothing to pull.
+`push` reads the same way: main already absorbing an edit the mirror's own
+history does not yet show as ours is not a reason to refuse, and the commit
+it makes lands on the mirror's tip to mark it absorbed even where the tree
+itself does not change. A change under `figures/` on the Overleaf side is
+refused outright: figures are built here, never hand-edited on either side.
+`code/merge.sh` runs `pull` as its first step, so an Overleaf edit is never
+overwritten by a thread's merge, and `push` as its last, so every merge
+reaches Overleaf without anyone running a separate command.
 `code/publish.py`'s own docstring has the reasoning for building this out of
 plain git plumbing rather than `git subtree`, which handles one prefix and
 not two.

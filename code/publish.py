@@ -237,15 +237,45 @@ def verify_tree(draft):
             + "\n  ".join(bad))
 
 
+def absorbed_by_main(repo, draft, base, tip):
+    """Whether the mirror's paper/ edit between `base` and `tip` is already
+    in repo's committed main - either there is none (base == tip) or someone
+    merged it by hand instead of through pull/code/merge.sh, the way
+    bd806cb reached main as dcf8391 on 8 October 2026 with the branch
+    pull would have made never recorded anywhere. Reversing the edit's own
+    diff against main applies cleanly exactly when main already holds the
+    patched text, so that is the check: not whether we remember pulling it,
+    but whether it is there."""
+    if base == tip:
+        return True
+    diff = git("diff", base, tip, "--", "paper", cwd=draft).stdout
+    if not diff.strip():
+        return True
+    check = subprocess.run(["git", "apply", "--check", "-R"], cwd=repo, input=diff,
+                            text=True, capture_output=True)
+    return check.returncode == 0
+
+
 def push(repo=None):
     repo = repo or root()
     verify_loads(repo)
     draft = draft_checkout(repo)
     last, at_tip = last_published(draft)
+    # Set when main already carries an Overleaf edit the mirror's history
+    # does not yet show as ours (absorbed_by_main) - someone merged it by
+    # hand, as bd806cb reached main as dcf8391 on 8 October 2026. The tree
+    # this push exports will then match the mirror's tip exactly, so the
+    # usual "nothing changed" skip has to be overridden: a commit still has
+    # to land, empty or not, to mark the mirror's tip as ours and restore
+    # the bookkeeping pull and this function both read.
+    catching_up = False
     if last is not None and not at_tip:
-        raise SystemExit(
-            "the mirror has commits main has not absorbed - an edit made in Overleaf:\n"
-            "  .venv/bin/python code/publish.py pull")
+        tip = git("rev-parse", "main", cwd=draft).stdout.strip()
+        if not absorbed_by_main(repo, draft, last, tip):
+            raise SystemExit(
+                "the mirror has commits main has not absorbed - an edit made in Overleaf:\n"
+                "  .venv/bin/python code/publish.py pull")
+        catching_up = True
 
     subject = git("log", "-1", "--format=%s", "HEAD", cwd=repo).stdout.strip()
     short = git("rev-parse", "--short", "HEAD", cwd=repo).stdout.strip()
@@ -264,10 +294,11 @@ def push(repo=None):
 
     git("add", "-A", cwd=draft)
     verify_tree(draft)
-    if not git("status", "--porcelain", cwd=draft).stdout.strip():
+    if not git("status", "--porcelain", cwd=draft).stdout.strip() and not catching_up:
         print("push: nothing changed since the last publish")
         return
-    git("commit", "-q", "-m", f"main {short}: {subject}", cwd=draft)
+    git("commit", "-q", *(["--allow-empty"] if catching_up else []),
+        "-m", f"main {short}: {subject}", cwd=draft)
     git("push", "-q", "origin", "main", cwd=draft)
     head = git("rev-parse", "--short", "HEAD", cwd=draft).stdout.strip()
     print(f"push: {draft_url(repo)} main -> {head}")
@@ -288,14 +319,20 @@ def pull(repo=None):
     the hook does not even run there (it answers only for the primary
     checkout), so a live session cannot strand this the same way again.
 
-    Idempotent: if overleaf-<date> already exists, this pull already
-    absorbed the mirror's edit onto it, and nothing is pulled again - the
-    bug this guards against ran `pull` a second time (merge.sh calls it as
-    its own first step) and tried to create the same branch, which failed on
-    "already exists" and stopped the merge. The branch name is dated because
-    that is the grain pull already pulls at: more than one Overleaf edit
-    landing on the mirror the same day lands on the one branch together,
-    which is what re-running a merge on an unmerged branch has always done.
+    Idempotent two ways. If overleaf-<date> already exists, this pull
+    already absorbed the mirror's edit onto it, and nothing is pulled again
+    - the bug this guards against ran `pull` a second time (merge.sh calls
+    it as its own first step) and tried to create the same branch, which
+    failed on "already exists" and stopped the merge. The branch name is
+    dated because that is the grain pull already pulls at: more than one
+    Overleaf edit landing on the mirror the same day lands on the one
+    branch together, which is what re-running a merge on an unmerged branch
+    has always done. And if main already carries the edit without any
+    branch of ours to show for it - someone merged it by hand, as bd806cb
+    reached main as dcf8391 on 8 October 2026 - absorbed_by_main() finds
+    that by reversing the diff against main rather than by any record of
+    having pulled it, and this reports nothing to pull instead of failing
+    to apply a patch that is already there.
     """
     repo = repo or root()
     draft = draft_checkout(repo)
@@ -320,6 +357,10 @@ def pull(repo=None):
         raise SystemExit(
             "only paper/ comes back from Overleaf (figures are built here, fonts are not edited); refusing a pull that touches:\n  "
             + "\n  ".join(outside))
+
+    if absorbed_by_main(repo, draft, base, tip):
+        print("pull: nothing to pull; main already carries the mirror's edit")
+        return None
 
     branch = f"overleaf-{date.today().isoformat()}"
     if git("rev-parse", "-q", "--verify", branch, cwd=repo, check=False).returncode == 0:

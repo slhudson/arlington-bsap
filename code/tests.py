@@ -3293,6 +3293,61 @@ def test_publish_pull_twice_with_nothing_new_is_a_noop():
             "the second pull left a worktree behind"
 
 
+def test_publish_pull_reports_nothing_to_pull_when_main_already_has_the_edit_by_hand():
+    """bd806cb reached main as dcf8391 on 8 October 2026 merged by hand, with
+    the branch pull would have made never created and no record anywhere
+    that the edit was absorbed. A pull against that state used to try to
+    apply the same patch again and fail - the text it is patching in is
+    already there. It now recognises the edit is already in main (reversing
+    the diff applies cleanly) and reports nothing to pull instead."""
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git, draft_work = publish_fixture(tmp)
+        with draft_remote(Path(tmp) / "draft.git"):
+            publish.push(repo=work)
+            subprocess.run(["git", "-C", str(draft_work), "pull", "-q"], check=True)
+            (draft_work / "paper" / "arlington-bsap.tex").write_text("% from overleaf\n")
+            subprocess.run(["git", "-C", str(draft_work), "commit", "-qam", "overleaf edit"],
+                           check=True)
+            subprocess.run(["git", "-C", str(draft_work), "push", "-q"], check=True)
+            # The hand-merge: the same change, committed straight to main,
+            # with no overleaf-<date> branch and no second push.
+            (work / "paper" / "arlington-bsap.tex").write_text("% from overleaf\n")
+            git("commit", "-qam", "merged the overleaf edit by hand")
+            before = git("rev-parse", "main").strip()
+            result = publish.pull(repo=work)
+        assert result is None, "a hand-merged edit was pulled again instead of recognised"
+        assert git("rev-parse", "main").strip() == before, "pull moved main"
+        assert not any((work / ".claude" / "worktrees").glob("*")), \
+            "a hand-merged edit still left a worktree behind"
+
+
+def test_publish_push_accepts_a_hand_merged_edit_as_absorbed():
+    """The other side of the same fault: with the edit in main by hand and no
+    second push recording it, push used to see the mirror's tip as
+    something Overleaf did that main had not absorbed and refuse. It now
+    recognises main already carries that edit and publishes on top of the
+    mirror's tip, restoring the bookkeeping pull and push both read."""
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git, draft_work = publish_fixture(tmp)
+        with draft_remote(Path(tmp) / "draft.git"):
+            publish.push(repo=work)
+            subprocess.run(["git", "-C", str(draft_work), "pull", "-q"], check=True)
+            (draft_work / "paper" / "arlington-bsap.tex").write_text("% from overleaf\n")
+            subprocess.run(["git", "-C", str(draft_work), "commit", "-qam", "overleaf edit"],
+                           check=True)
+            subprocess.run(["git", "-C", str(draft_work), "push", "-q"], check=True)
+            overleaf_tip = subprocess.run(["git", "-C", str(draft_work), "rev-parse", "HEAD"],
+                                          check=True, capture_output=True, text=True).stdout.strip()
+            (work / "paper" / "arlington-bsap.tex").write_text("% from overleaf\n")
+            git("commit", "-qam", "merged the overleaf edit by hand")
+            head = publish.push(repo=work)
+        assert head, "push refused a state main had already absorbed by hand"
+        subprocess.run(["git", "-C", str(draft_work), "pull", "-q"], check=True)
+        parent = subprocess.run(["git", "-C", str(draft_work), "rev-parse", "HEAD^"],
+                                check=True, capture_output=True, text=True).stdout.strip()
+        assert parent == overleaf_tip, "the new publish did not land on top of the mirror's tip"
+
+
 # --- merging the tracker by row ---------------------------------------------------
 
 TRACKER_HEADER = "id,kind,question\n"
