@@ -3510,7 +3510,7 @@ def test_paper_holds_only_what_a_co_author_should_see():
     every co-author. Everything tracked at its top level is named here; to add
     a section folder or a generated .tex, add it to this list on purpose."""
     allowed = {"arlington-bsap.tex", "summary.tex", "body_text_numbers.tex",
-               "a_history", "b_community_input", "c_future_work", "appendix",
+               "1_history", "2_community_input", "3_future_work", "appendix",
                "tables", "bib", "timelines"}
     tracked = subprocess.run(["git", "ls-files", "paper"], cwd=ROOT, check=True,
                              capture_output=True, text=True).stdout.split("\n")

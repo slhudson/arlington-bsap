@@ -286,8 +286,8 @@ table, and let the sentence carry the shape. The grain is a judgment each time.
 
 ## Drafting the paper: what Sally has asked for (4 October 2026)
 
-Read this before editing one of the paper's section files under `paper/a_history/`,
-`paper/b_community_input/`, `paper/c_future_work/` and `paper/appendix/`, or
+Read this before editing one of the paper's section files under `paper/1_history/`,
+`paper/2_community_input/`, `paper/3_future_work/` and `paper/appendix/`, or
 `paper/summary.tex` or `paper/timelines/timelines.tex`. `paper/arlington-bsap.tex` is the
 wrapper: the preamble and the list of `\input` lines, no prose (`docs/repository.md`
 has the reasoning).

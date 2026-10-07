@@ -50,7 +50,7 @@ whole project also refreshes the mirror:
 The Overleaf project is "arlington-bsap-draft"
 (https://www.overleaf.com/project/6ac61fcaec98cfccb0215584), and it compiles
 with LuaLaTeX. The paper is one file per section, in one folder per part —
-`paper/a_history/`, `paper/b_community_input/`, `paper/c_future_work/` and
+`paper/1_history/`, `paper/2_community_input/`, `paper/3_future_work/` and
 `paper/appendix/` — so two people working in different sections never touch
 the same file. The GitHub link is under **Integrations** in the icon rail
 down the left of the editor, not under the Menu: **Pull** when you sit down

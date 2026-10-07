@@ -180,7 +180,7 @@ and `code/tests.py` refuses a file with no row or a checksum that has moved.
 ## Why the paper is one file per section under a folder per part
 
 The paper is one file per section, under one folder per part:
-`paper/a_history/`, `paper/b_community_input/`, `paper/c_future_work/` and
+`paper/1_history/`, `paper/2_community_input/`, `paper/3_future_work/` and
 `paper/appendix/`, plus `paper/summary.tex` for the Executive Summary.
 `paper/arlington-bsap.tex` is the wrapper: the preamble, the front matter, a
 list of `\input` lines in reading order, the bibliography call and
