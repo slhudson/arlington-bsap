@@ -220,7 +220,7 @@ admits to. Anything else stops the build.
 and refuses one whose annotation quotes words the filed document does not
 contain. Rose 1976 put a phrase in the Supreme Court of Appeals' mouth, the
 report repeated it onto a slide the County was sent, and the opinion had been
-in Drive the whole time. Not every quotation is the copy's own: a recorded
+in the archive the whole time. Not every quotation is the copy's own: a recorded
 negative, another entry's words, a page the OCR did not reach. Each of those
 is declared in that file with a reason a reader can check.
 
