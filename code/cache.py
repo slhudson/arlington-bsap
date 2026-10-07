@@ -49,8 +49,7 @@ def venv():
     for base in (ROOT, primary):
         if (base / ".venv" / "bin" / "python").exists():
             return base / ".venv"
-    raise SystemExit("no venv: python3 -m venv .venv && .venv/bin/pip install "
-                     "pandas matplotlib openpyxl pyflakes shapely")
+    raise SystemExit("no venv: python3 -m venv .venv && .venv/bin/pip install pandas matplotlib openpyxl pyflakes shapely")
 
 
 def environment():
