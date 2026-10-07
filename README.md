@@ -71,9 +71,12 @@ OCR needs a Mac; none of it is needed to rebuild.
 
 ## Writing
 
-Prose is written in Overleaf, in the project linked to this repository.
-Overleaf syncs the whole repo; only `paper/arlington-bsap.tex`,
-`paper/sources.bib` and `figures/pdf/` matter for compiling.
+Prose is written in Overleaf, in a project linked to `arlington-bsap-draft`,
+a mirror `code/publish.py` keeps to exactly `paper/` and `figures/pdf/` -
+Overleaf syncs a whole repository and cannot be scoped to two folders, so
+those are everything the mirror holds. Of the two, only
+`paper/arlington-bsap.tex`, `paper/sources.bib` and `figures/pdf/` matter for
+compiling.
 
 **Citations come from `paper/sources.bib`**, which is also where the `source`
 columns in `data/clean/` point. Cite with `\autocite[6]{oleary2010}`; the key

@@ -6,26 +6,34 @@
 #
 # One line per step. The steps, in order, and what each one refuses:
 #
-#   1. A scratch worktree on origin/main, after a fetch, so the merge is made
+#   1. The Overleaf mirror checked for an edit to pull back
+#      (code/publish.py pull). If there is one, it is already sitting on its
+#      own branch by the time this prints - a person reviews and merges it
+#      like any other thread's, which is what it now is - and this run stops
+#      before touching the branch it was asked to merge.
+#   2. A scratch worktree on origin/main, after a fetch, so the merge is made
 #      against what is pushed and not against a stale local main.
-#   2. The branch merged. A conflict stops it: docs/questions.csv merges row
+#   3. The branch merged. A conflict stops it: docs/questions.csv merges row
 #      by row (code/merge_questions.py), paper/punchlist.md and the negatives
 #      file by union (.gitattributes), so anything still conflicting is two
 #      sessions editing one line or one row, which is a person's decision.
 #      The worktree is removed and nothing has changed.
-#   3. bash run.sh, then code/paper.py and code/paper.py timelines, in the
+#   4. bash run.sh, then code/paper.py and code/paper.py timelines, in the
 #      worktree. A failure stops it before anything reaches main: a commit
 #      chained after a failing build was the first of the slips.
-#   4. What the build rewrote (figures/, data/clean/, the .tex files the
+#   5. What the build rewrote (figures/, data/clean/, the .tex files the
 #      analysis stage writes) committed in the worktree, so a figure rebuilt
 #      there is not lost when the worktree goes - the third slip.
-#   5. main fast-forwarded to the merge and pushed; the compiled PDF copied
+#   6. main fast-forwarded to the merge and pushed; the compiled PDF copied
 #      to the primary checkout; the branch removed on origin. The scratch
 #      worktree goes in the EXIT trap, on success and on failure alike. The
 #      thread's own worktree and local branch go only if its branch is merged
 #      into main, its tree is clean, and no live session holds it
 #      (`git worktree lock`): two threads lost their worktrees on 6 October
 #      2026 to a cleanup that asked none of the three.
+#   7. The Overleaf mirror published (code/publish.py push), so the paper and
+#      figures a thread just landed reach Overleaf without a separate step
+#      for anyone to remember.
 #
 # The build and the compile are the commands BUILD and COMPILE below;
 # code/tests.py substitutes them to prove the script stops when either fails
@@ -41,6 +49,7 @@ ROOT=$(cd "$(dirname "$0")/.." && pwd)
 cd "$ROOT"
 BUILD=${BUILD:-"bash run.sh"}
 COMPILE=${COMPILE:-".venv/bin/python code/paper.py && .venv/bin/python code/paper.py timelines"}
+PYTHON=${PYTHON:-".venv/bin/python"}
 REMOTE=origin
 
 step() { printf '%s\n' "$*"; }
@@ -59,6 +68,17 @@ fi
 
 [ "$(git config merge.questions.driver 2>/dev/null)" = "python3 code/merge_questions.py %O %A %B" ] \
   || fail "the tracker merge driver is not registered; bash run.sh installs it"
+
+step "1. checking the Overleaf mirror for an edit to pull back"
+pulled=$("$PYTHON" code/publish.py pull)
+step "   $pulled"
+case "$pulled" in
+  "pull: branch "*)
+    waiting=$(printf '%s' "$pulled" | sed -n 's/^pull: branch \([^,]*\),.*/\1/p')
+    fail "an edit from Overleaf is waiting on $waiting; merge it first:
+  bash code/merge.sh $waiting"
+    ;;
+esac
 
 git fetch -q "$REMOTE" main
 git rev-parse -q --verify "$branch" >/dev/null 2>&1 || git fetch -q "$REMOTE" "$branch:$branch" 2>/dev/null \
@@ -94,14 +114,14 @@ retire() {
   git branch -D -q "$1" 2>/dev/null || true
 }
 
-step "1. worktree $tree on $REMOTE/main ($(git rev-parse --short "$REMOTE/main"))"
+step "2. worktree $tree on $REMOTE/main ($(git rev-parse --short "$REMOTE/main"))"
 mkdir -p .claude/worktrees
 git worktree add -q "$tree" -b "$name" "$REMOTE/main"
 # The build wants the venv and run.sh wants it beside the script; a worktree
 # has neither, and .venv is gitignored, so the primary's serves.
 [ -e "$tree/.venv" ] || ln -s "$ROOT/.venv" "$tree/.venv"
 
-step "2. merge $branch ($(git rev-parse --short "$branch"))"
+step "3. merge $branch ($(git rev-parse --short "$branch"))"
 if ! git -C "$tree" merge -q -m "merge $branch" "$branch" >/dev/null 2>&1; then
   conflicts=$(git -C "$tree" diff --name-only --diff-filter=U)
   git -C "$tree" merge --abort 2>/dev/null || true
@@ -109,11 +129,11 @@ if ! git -C "$tree" merge -q -m "merge $branch" "$branch" >/dev/null 2>&1; then
 $(printf '  %s\n' $conflicts)"
 fi
 
-step "3. build and compile in the worktree"
+step "4. build and compile in the worktree"
 (cd "$tree" && eval "$BUILD") || fail "the build failed after the merge; main is unchanged"
 (cd "$tree" && eval "$COMPILE") || fail "the paper did not compile after the merge; main is unchanged"
 
-step "4. commit what the build rewrote"
+step "5. commit what the build rewrote"
 if [ -n "$(git -C "$tree" status --porcelain --untracked-files=no)" ]; then
   git -C "$tree" add -u
   git -C "$tree" commit -q -m "build after merging $branch"
@@ -123,7 +143,7 @@ else
 fi
 
 merged=$(git -C "$tree" rev-parse HEAD)
-step "5. main -> $(git rev-parse --short "$merged"), pushed; $branch removed"
+step "6. main -> $(git rev-parse --short "$merged"), pushed; $branch removed"
 git merge -q --ff-only "$merged"
 git push -q "$REMOTE" main
 for pdf in arlington-bsap timelines; do
@@ -131,3 +151,7 @@ for pdf in arlington-bsap timelines; do
 done
 git push -q "$REMOTE" --delete "$branch" 2>/dev/null || true
 retire "$branch"   # its branch is merged by the fast-forward above; the other two tests are retire's own
+
+step "7. publishing to the Overleaf mirror"
+pushed=$("$PYTHON" code/publish.py push)
+step "   $pushed"

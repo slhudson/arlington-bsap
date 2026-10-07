@@ -105,10 +105,19 @@ writes which file — while `CLAUDE.md` holds the working rules.
    print the tests, a build step, one line per figure, and a line about
    `figures/pdf` and `figures/png`. That is the test that everything works.
    Invoke it through `bash`, not `./run.sh`; `run.sh` says why at the top.
-6. **The Overleaf project open and synced.** In Overleaf, the GitHub link
-   is under the **Integrations** tab in the icon rail down the left of the
-   editor, not under the Menu; pull from GitHub before a writing session and
-   push when done, so the paper and the repository stay the same thing.
+6. **The Overleaf project open and synced.** Overleaf is linked to
+   `slhudson/arlington-bsap-draft`, not to this repository: a mirror holding only
+   `paper/` and `figures/pdf/`, because Overleaf syncs a whole repository
+   and cannot be scoped to two folders (`docs/repository.md`). In Overleaf,
+   the GitHub link is under the **Integrations** tab in the icon rail down
+   the left of the editor, not under the Menu. Pulling there brings the
+   latest paper into Overleaf; pushing there sends an edit made in Overleaf
+   back to the mirror. Neither reaches this repository on its own —
+   `.venv/bin/python code/publish.py pull` brings an Overleaf edit the rest
+   of the way in, onto its own branch, and `code/publish.py` push sends this
+   repository's paper and figures out to the mirror; `code/merge.sh` runs
+   both automatically, so day to day neither is a step anyone has to
+   remember.
 
 ## How to help
 
@@ -130,9 +139,11 @@ something they want to change.
 
 Either way the invitations come first, since nothing works without them. If
 they do not have both, say exactly what to ask for and whom to ask — an
-invitation to the `slhudson/arlington-bsap` repository on GitHub and to the
-`arlington-bsap` project on Overleaf, both to the email address they will
-use, from the repository's owner or any existing collaborator.
+invitation to the `slhudson/arlington-bsap` repository on GitHub, to the
+email address they will use, from the repository's owner or any existing
+collaborator. The Overleaf project is linked to a second, smaller repository,
+`slhudson/arlington-bsap-draft`, that only the project lead needs: nobody else adds
+or removes themselves there.
 
 For the Claude Code path, any of the tools may be new or may already be in
 place; ask rather than assume, in either direction. Where something is new,

@@ -39,6 +39,30 @@ fetches them and refuses a byte that differs, and `run.sh` says at the end of
 every build if they are missing. A raw file the build reads is always
 committed.
 
+## The Overleaf mirror
+
+Two repositories hold this project: the whole one, `arlington-bsap`, where
+the five stages and the threads work, and a second, `slhudson/arlington-bsap-draft`,
+which Overleaf is linked to and syncs nothing else. Overleaf syncs a whole
+repository and has no way to scope that to two folders, and it can create a
+GitHub repository but never link to an existing one - so the repository
+Overleaf was already linked to keeps that link and plays the mirror, and a
+newly created repository takes the whole project's name. `code/publish.py`
+keeps the invariant between them: `push` rebuilds the mirror's tree as
+exactly `paper/` and `figures/pdf/` from this repository's `HEAD`, committed
+on top of the mirror's own history rather than rewriting it, so Overleaf
+keeps its common ancestor; `pull` reads the mirror's commits back to the last
+one of ours - an edit made in Overleaf - and applies the changes under
+`paper/` to a new branch here, `overleaf-<date>`, ready for
+`bash code/merge.sh overleaf-<date>`. A change under `figures/` on the
+Overleaf side is refused outright: figures are built here, never hand-edited
+on either side. `code/merge.sh` runs `pull` as its first step, so an Overleaf
+edit is never overwritten by a thread's merge, and `push` as its last, so
+every merge reaches Overleaf without anyone running a separate command.
+`code/publish.py`'s own docstring has the reasoning for building this out of
+plain git plumbing rather than `git subtree`, which handles one prefix and
+not two.
+
 ## Why one repository, with `paper/` inside it
 
 **One repository, with `paper/` inside it.** Overleaf syncs a whole
@@ -67,6 +91,13 @@ keep their names without the `.gz`, since clean steps look a table up by that
 name. The IPUMS codebooks, the 1980 record layout and the README stay plain
 text: nothing reads them, and a reader can open them. If the cap trips again,
 the next candidate is `data/transcribed/by_claude/`'s 306KB candidate history.
+
+**Overleaf stopped carrying the data on 7 October 2026**, once it was linked
+to the mirror instead of to this repository (above): the two limits above now
+apply to what `slhudson/arlington-bsap-draft` holds, not to this repository's data,
+and `run.sh` measures the mirrored folders accordingly. The reasoning for one
+repository stands regardless - it was never only about Overleaf's ceiling -
+so nothing here moved back out of `data/`.
 
 **A job that depends on another waits for its tracker row, not its branch.**
 A project is finished when its row leaves `docs/questions.csv` on `main`;
