@@ -1,5 +1,5 @@
 """A source the report cites but takes no numbers from: fetched, filed in
-the Drive documents folder and entered in paper/sources.bib, in one step.
+sources/documents and entered in paper/sources.bib, in one step.
 
     .venv/bin/python code/sources/cite.py KEY URL --author "Hanover County" \\
         --title "Board of Supervisors" --date 2026 --note "Seven members, ..."
@@ -184,7 +184,7 @@ def main():
     if any(e["key"] == a.key for e in archive.entries(bib)):
         sys.exit(f"{a.key} is already in sources.bib")
     if not a.documents.is_dir():
-        sys.exit(f"the Drive documents folder is not mounted at {a.documents}")
+        sys.exit(f"the documents folder is not at {a.documents}")
 
     if not (a.author or a.organization or a.journal):
         sys.exit("give --author, or --organization or --journal for an unsigned piece")

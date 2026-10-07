@@ -187,7 +187,8 @@ tracker's merge driver) sit outside the stages, like
 `code/merge.sh <branch>` brings a thread's branch into main once the build and
 the compile pass on the merged tree (`docs/repository.md`).
 `code/sources/` is outside them too, and writes no data layer: it holds the
-tools that serve `paper/sources.bib` and the Drive copies - fetching and
+tools that serve `paper/sources.bib` and the copies filed under
+`sources/documents` - fetching and
 entering a source, filing the archive, cutting a web print back to its
 article, checking a quotation against the copy it is attributed to. Only
 `code/citekeys.py` sits loose at the top beside those two, because every stage
@@ -200,8 +201,8 @@ named for what it produces: `code/fetch/elections.py`,
 
 **`data/` holds what we take numbers out of.** A source consulted only to
 settle a question — a boundary history, a news article, a methods note — is
-cited in `paper/sources.bib` and filed in the project's Drive folder, not
-downloaded into `data/raw/`.
+cited in `paper/sources.bib` and filed in `sources/documents`, committed in
+the repository beside its citation rather than downloaded into `data/raw/`.
 The test is whether a figure derives from it. The `sources` skill has the
 tools for fetching, citing and filing one.
 

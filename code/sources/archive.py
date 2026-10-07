@@ -4,7 +4,7 @@
     .venv/bin/python code/sources/archive.py --apply    # file the folder, write index.md, build the zip
 
 The archive is the repository at HEAD, the census scans data/contents.csv
-marks in_git = no, and the Drive documents folder: a copy of every source the
+marks in_git = no, and sources/documents: a copy of every source the
 report cites that no number is taken from. Its index is generated from
 paper/sources.bib and data/contents.csv, never written by hand, so it cannot
 drift from either.
@@ -33,11 +33,11 @@ ROOT = Path(__file__).resolve().parents[2]
 BIB = ROOT / "paper" / "sources.bib"
 CONTENTS = ROOT / "data" / "contents.csv"
 
-# sources/documents in the project's Drive, as this Mac mounts it. The link is
-# in README.md; on another machine pass --documents.
-DOCUMENTS = (Path.home() / "Library/CloudStorage/GoogleDrive-sally@rankedchoiceva.org"
-             / ".shortcut-targets-by-id/1M4kZqG-XFRNQ9jele3PcD6mfZog7E5_Q/RCVa/research"
-             / "Virginia/Arlington/2026 - Form of Government/team/sources/documents")
+# A copy of every source the report cites that no number is taken from,
+# committed in the repository beside its citation. Moved here from the
+# project's Drive on 7 October 2026 (docs/repository.md); the Drive folder is
+# no longer where the project reads from.
+DOCUMENTS = ROOT / "sources" / "documents"
 
 # Who indexes the census schedules. Each keys the names off a scan of the same
 # NARA microfilm and serves them behind a sign-in, so what we file is a record
@@ -306,8 +306,9 @@ def _filed_spans(text):
 
 
 def filed(e):
-    """The filenames an entry says are filed in Drive, whitespace collapsed. A
-    space around a folder's slash is a typo in the annotation and not a folder
+    """The filenames an entry says are filed in sources/documents, whitespace
+    collapsed. A space around a folder's slash is a typo in the annotation
+    and not a folder
     whose name begins with one, so it is read through rather than turned into
     a copy the folder does not have."""
     return [n for _, _, n in _filed_spans(e.get("annotation", ""))]
@@ -612,7 +613,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[1])
     ap.add_argument("--apply", action="store_true",
                     help="move files, rewrite the bib, write index.md and build the zip")
-    ap.add_argument("--documents", type=Path, default=DOCUMENTS, help="the Drive documents folder")
+    ap.add_argument("--documents", type=Path, default=DOCUMENTS, help="the documents folder")
     ap.add_argument("--index", type=Path,
                     help="where to write index.md (default: the top of the documents folder; "
                          "a dry run writes it only if this is given)")
@@ -639,7 +640,7 @@ def main():
         for key, name in missing:
             print(f"  {key}: \"{name}\"")
         blockers.append(f"{len(missing)} filed cop{'y' if len(missing) == 1 else 'ies'} not found: "
-                        "file each in Drive, or correct the annotation")
+                        "file each in sources/documents, or correct the annotation")
     scans = [r["path"] for r in rows if r["in_git"] == "no"]
     absent = [p for p in scans if not (ROOT / p).exists()]
     if absent:

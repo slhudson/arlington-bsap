@@ -184,7 +184,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[1])
     ap.add_argument("--apply", action="store_true", help="cut the pages and rewrite the bib")
     ap.add_argument("--documents", type=Path, default=archive.DOCUMENTS,
-                    help="the Drive documents folder")
+                    help="the documents folder")
     a = ap.parse_args()
     if not a.documents.is_dir():
         sys.exit(f"documents folder not found: {a.documents}")

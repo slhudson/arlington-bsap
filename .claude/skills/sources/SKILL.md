@@ -1,14 +1,15 @@
 ---
 name: sources
-description: Add, fetch, cite or file a source for the Arlington BSaP report. Use whenever a document, dataset, census record, article or web page is being brought into data/raw/, cited in paper/sources.bib, or filed in the project's Drive folder.
+description: Add, fetch, cite or file a source for the Arlington BSaP report. Use whenever a document, dataset, census record, article or web page is being brought into data/raw/, cited in paper/sources.bib, or filed in sources/documents.
 ---
 
 # Sources
 
 `CLAUDE.md` has the rules: `data/` holds what we take numbers out of, a
 source consulted only to settle a question is cited in `paper/sources.bib`
-and filed in Drive, every source column holds a citekey, and a bib entry is
-built from the document in hand. This file is the tools that do it.
+and filed in `sources/documents`, every source column holds a citekey, and a
+bib entry is built from the document in hand. This file is the tools that do
+it.
 
 ## Fetching a source the build reads
 
@@ -33,7 +34,7 @@ never logged as a row with the session reporting "done". Saving a page's PDF
 to `~/Downloads` is not one of those: once the check is passed, Claude clicks
 the page's Download PDF button itself (Sally, 6 October 2026: standing
 permission for newspaper page PDFs from loc.gov and Virginia Chronicle, a
-page or two at a time), reads the file, and moves it on to Drive. Asking her
+page or two at a time), reads the file, and moves it on to `sources/documents`. Asking her
 to click it is the friction this line removes.
 
 ## Before saying no source exists
@@ -94,9 +95,12 @@ What each census column holds is in the docstring of
 `code/clean/members_census.py`; a row's `basis` and `match` say what ties
 the record to the member, and a name alone is no match.
 
-## The Drive folder
+## sources/documents
 
-The folder is filed by kind, and its index is generated.
+Committed in the repository, beside its citation: moved out of the
+project's Drive on 7 October 2026 (`docs/repository.md`), so a cited copy
+sits next to `paper/sources.bib` rather than off in Drive. The folder is
+filed by kind, and its index is generated.
 `code/sources/archive.py` files the documents folder into `legal`, `reports`, `books`, `bios`,
 `campaign websites`, `press`, `obituaries` and `census`, the kind being a rule on the
 bib entry; writes `index.md` at its top from `paper/sources.bib` and

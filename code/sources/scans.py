@@ -17,7 +17,7 @@ a copy whose pages are text does not change at all.
 
 A dry run prints what each copy would weigh. --apply rewrites it in place and
 refuses to keep a result that has fewer pages than it started with, or that is
-not smaller. The Drive copy is not the document of record: every entry carries
+not smaller. The filed copy is not the document of record: every entry carries
 the url it came from, and the annotation of a copy this has reduced says so.
 """
 import argparse

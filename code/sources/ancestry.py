@@ -5,7 +5,7 @@
     .venv/bin/python code/sources/ancestry.py --apply --redo census1940detwiler
 
 Every census row in data/transcribed/by_claude/members_census.csv cites a
-record on Ancestry, and the Drive folder keeps a copy of each beside the
+record on Ancestry, and sources/documents keeps a copy of each beside the
 sheet image, because a site behind a sign-in cannot be fetched again by
 anyone reading this repository. Ancestry refuses an automated request, so
 the copy is not the page itself: it is the record as the row already holds
@@ -149,7 +149,7 @@ def main():
     a = ap.parse_args()
 
     if not a.documents.is_dir():
-        sys.exit(f"the Drive documents folder is not mounted at {a.documents}")
+        sys.exit(f"the documents folder is not at {a.documents}")
     with a.file.open(newline="") as f:
         rows = [r for r in csv.DictReader(f) if r["source"] not in ("", "unsourced")]
     bib = archive.BIB.read_text()

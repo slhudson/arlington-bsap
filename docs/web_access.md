@@ -2,7 +2,7 @@
 
 What each website the sources come from needs from this machine, learned in
 September 2026. None of it is in `run.sh`; these are the on-demand routes
-behind `data/raw/` and the Drive folder, and they change, so check before
+behind `data/raw/` and `sources/documents`, and they change, so check before
 relying on one.
 
 - **Library of Congress, Chronicling America** (the Washington Evening Star

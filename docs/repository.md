@@ -106,6 +106,50 @@ second session can check. Branches are invisible until pushed and can be
 renamed, so a gate on "has that branch merged" passes for the wrong reason.
 Push a branch the moment it is created, so that others can see it exists.
 
+## Why `sources/documents` moved out of Drive and into the repository
+
+**`sources/documents` holds, committed, what used to sit in the project's
+Drive folder**: a copy of every source the report cites that no number is
+taken from, filed by kind, with the `index.md` that `code/sources/archive.py`
+writes at its top. Moved in on 7 October 2026, 546 files and 666MB, with the
+clone after at about 770MB - plain git, no LFS, accepted at that size (Sally,
+7 October 2026). The Drive folder itself was left in place rather than
+deleted, but nothing in the project reads it any more: `archive.DOCUMENTS`
+and every script that takes a `--documents` flag point at `sources/documents`
+by default.
+
+The point of moving it is the same reason `data/clean/` is committed despite
+the usual rule against committing generated data (above): a cited copy next
+to its citation is something a reviewer can open from the same clone that
+holds `paper/sources.bib`, rather than a second system with its own sharing
+and sign-in. `sources/documents` sits outside the five stages, the way
+`paper/` and `style/` do - nothing reshapes it, nothing in `data/` points
+into it, and it holds no decision a number rests on, which is why `data/
+holds what we take numbers out of` (CLAUDE.md) still stands: a figure never
+derives from a file under `sources/documents`, only a footnote does.
+
+Two large files cleared the fetch-on-demand bar the census scans use - a URL,
+and no figure reads the file - but stayed committed rather than being made
+`in_git = no`: the 1902 Virginia Constitution scan (50MB, from a Library of
+Virginia delivery servlet whose URL is not a stable direct download) and the
+1980 Census of Housing volume (29MB, from a plain Internet Archive link).
+Building a second on-demand fetcher for two files, when the whole archive's
+committed size was already weighed and accepted, is the kind of mechanism
+this project's own rule against premature infrastructure warns against,
+so both are plain committed files like the other 544.
+
+`code/publish.py`'s mirror push only ever exports `paper/` and `figures/pdf/`
+from `HEAD` (`ALLOWED` in that file, checked again by `verify_tree()` right
+before the mirror commits), so `sources/documents` was never at risk of
+reaching the Overleaf mirror and needed no change to keep it out.
+
+The citation text itself did not move: every bib entry's annotation still
+reads "Filed in Drive as", because the phrase is part of what a source is
+cited as, and the task that moved the archive left citations alone. That
+phrase is now imprecise about where the copy sits - the correction is a
+deliberate editorial pass over `paper/sources.bib`, not a side effect of
+an infrastructure move, and is logged as open rather than done in passing.
+
 ## Why the paper is one file per section under a folder per part
 
 The paper is one file per section, under one folder per part:

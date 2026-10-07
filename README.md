@@ -52,8 +52,8 @@ Each stage has a `paths.py` that maps its own data folders and no higher:
 `code/clean/paths.py` has no route above `data/built/`,
 `code/analysis/paths.py` none above `data/clean/`. `code/citekeys.py` is the
 citekeys `paper/sources.bib` defines, read by both data stages.
-Outside the stages, `code/sources/archive.py` writes the Drive documents
-folder's `index.md` and the zip the County receives.
+Outside the stages, `code/sources/archive.py` writes `sources/documents`'s
+`index.md` and the zip the County receives.
 
 ## Rebuilding
 
@@ -103,7 +103,7 @@ silently go stale.
 | `docs/setup.md` | Getting a machine set up to build; written for a collaborator joining |
 | `docs/web_access.md` | The websites the sources come from: what each needs from this machine, and what it refuses |
 | `paper/sources.bib` | Every source, cited by key from both the prose and `data/clean/`; each entry's `annotation` says what the copy held supports and where it is filed |
-| Drive, `sources/documents` | Copies of the sources no number is taken from, filed by kind, with an `index.md` that `code/sources/archive.py` writes: <https://drive.google.com/drive/folders/10SGuURB-ldC1AzM3ClsdL_tAiWeFIZB4> |
+| `sources/documents` | Copies of the sources no number is taken from, filed by kind, with an `index.md` that `code/sources/archive.py` writes |
 
 Open questions are logged as they arise and answered in place, so the reasoning
 survives alongside the fix.
