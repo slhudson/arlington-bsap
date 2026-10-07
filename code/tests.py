@@ -755,7 +755,11 @@ def test_a_press_count_that_fills_no_blank_is_refused():
     wrong man's votes), so the fill must stop instead of skipping it."""
     def misspell(d):
         d = d.copy()
-        d.loc[d.record == "press_return", "candidate"] = "Nobody Atall"
+        press = d.record == "press_return"
+        # A stale data/built/ has no press rows; mangling none would read as
+        # "not caught", so say what is wrong instead.
+        assert press.any(), "data/built/elections.csv has no press_return rows: run the build"
+        d.loc[press, "candidate"] = "Nobody Atall"
         return d
     def fill():
         c = elections.contests()
