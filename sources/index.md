@@ -1,6 +1,6 @@
 # Arlington BSaP: sources archive
 
-Written by `code/sources/archive.py` on 2026-10-07 from commit 839f956 of the `slhudson/arlington-bsap` repository. Generated: rerun the script rather than edit it.
+Written by `code/sources/archive.py` on 2026-10-07 from commit dcf8391 of the `slhudson/arlington-bsap` repository. Generated: rerun the script rather than edit it.
 
 - `repository/` is the repository at that commit. `bash run.sh` rebuilds every figure from it; its `README.md` says how. The scans it fetches on demand rather than commits (29 files under `sources/government/federal/us_census_bureau/`) are included at their paths.
 - `repository/sources/` holds every source the report cites as it was published, filed by group and then by who published it. The first column of each table is the entry's key in `repository/paper/bib/sources.bib`; the entry's `annotation` says what the copy is and when it was taken.
@@ -80,6 +80,7 @@ A copy is named `<who> <year> - <title>`. A press copy leads with the paper that
 | crs2023votingrightsact | Congressional Research Service | 2023-04-25 | The Voting Rights Act: Historical Development and Policy Background | `government/federal/congressional_research_service/Congressional Research Service 2023 - The Voting Rights Act - Historical Development and Policy Background.pdf` |
 | census1970housing | U.S. Bureau of the Census | 1972-08 | Census of Housing: 1970, Volume I, Housing Characteristics for States, Cities, and Counties, Part 48, Virginia | `government/federal/us_census_bureau/U.S. Bureau of the Census 1972 - Census of Housing 1970, Virginia (Chapter A).pdf` |
 | census1980housing | U.S. Bureau of the Census | 1982-08 | Census of Housing: 1980, Volume 1, Characteristics of Housing Units, Chapter A, General Housing Characteristics, Part 48, Virginia | `government/federal/us_census_bureau/U.S. Bureau of the Census 1982 - Census of Housing 1980, Virginia (Chapter A).pdf` |
+| censushh6 | U.S. Census Bureau | 2025-12 | HH-6. Average Population Per Household and Family: 1940 to Present | `government/federal/us_census_bureau/U.S. Census Bureau 2025 - HH-6. Average Population Per Household and Family - 1940 to Present.xls` |
 | doj2015section5virginiaobjections | U.S. Department of Justice, Civil Rights Division | 2015-08-07 | Voting Determination Letters for Virginia | `government/federal/us_department_of_justice/U.S. Department of Justice, Civil Rights Division 2015 - Voting Determination Letters for Virginia.pdf` |
 | doj2023section5covered | U.S. Department of Justice, Civil Rights Division | 2023-05-17 | Jurisdictions Previously Covered by Section 5 | `government/federal/us_department_of_justice/U.S. Department of Justice, Civil Rights Division 2023 - Jurisdictions Previously Covered by Section 5.pdf` |
 | doj2023section4bailouts | U.S. Department of Justice, Civil Rights Division | 2023-11-17 | Section 4 of the Voting Rights Act | `government/federal/us_department_of_justice/U.S. Department of Justice, Civil Rights Division 2023 - Section 4 of the Voting Rights Act.pdf` |
@@ -121,7 +122,6 @@ A copy is named `<who> <year> - <title>`. A press copy leads with the paper that
 | rcva2025wardstowinner | Ranked Choice Virginia | 2025-06-07 | From Wards to Winner-Take-All in Charlottesville | `other/rcva/Ranked Choice Virginia 2025 - From Wards to Winner-Take-All in Charlottesville.pdf` |
 | rcva2025reformfatigue | Ranked Choice Virginia | 2025-06-09 | Reform Fatigue in Charlottesville | `other/rcva/Ranked Choice Virginia 2025 - Reform Fatigue in Charlottesville.pdf` |
 | rcva2025revivingwards | Ranked Choice Virginia | 2025-06-08 | Reviving Wards in Charlottesville | `other/rcva/Ranked Choice Virginia 2025 - Reviving Wards in Charlottesville.pdf` |
-| censushh6 | U.S. Census Bureau | 2025-12 | HH-6. Average Population Per Household and Family: 1940 to Present | `other/us_bureau_of_the_census/U.S. Census Bureau 2025 - HH-6. Average Population Per Household and Family - 1940 to Present.xls` |
 | star1949returns |  | 1949-11-09 | Arlington County (Unofficial): The Returns by Precinct | `press/evening_star/Evening Star 1949 - Arlington County (Unofficial)- the returns by precinct.pdf` |
 | metroweekly2023dromgoole | Metro Weekly | 2023-06-14 | Arlington Democrat Jonathan Dromgoole Hopes To Make History | `press/metro_weekly/Metro Weekly 2023 - Arlington Democrat Jonathan Dromgoole Hopes To Make History.pdf` |
 
@@ -981,7 +981,7 @@ Every file under `sources/`, from `data/contents.csv`: what it is, who published
 | `sources/other/rcva/Ranked Choice Virginia 2025 - Reform Fatigue in Charlottesville.pdf` | the filed copy of rcva2025reformfatigue | `263cb20af4dbfac6` | yes |
 | `sources/other/rcva/Ranked Choice Virginia 2025 - Reviving Wards in Charlottesville.pdf` | the filed copy of rcva2025revivingwards | `b288020a003daee3` | yes |
 | `sources/other/susan_for_arlington/Cunningham 2024 - Meet Susan.pdf` | the filed copy of cunningham2024 | `0ed14958cf1fb538` | yes |
-| `sources/other/us_bureau_of_the_census/U.S. Census Bureau 2025 - HH-6. Average Population Per Household and Family - 1940 to Present.xls` | the filed copy of censushh6 | `06f3ac3172224e3b` | yes |
+| `sources/government/federal/us_census_bureau/U.S. Census Bureau 2025 - HH-6. Average Population Per Household and Family - 1940 to Present.xls` | the filed copy of censushh6 | `06f3ac3172224e3b` | yes |
 | `sources/other/vote_smart/Vote Smart 2021 - Albert Eisenberg's Biography.pdf` | the filed copy of votesmart2021eisenberg | `6edd55d892dae056` | yes |
 | `sources/other/warrock_richardson/Warrock-Richardson 1892 - The Warrock-Richardson Maryland, Virginia, and North Carolina Almanack, Editions of 1892 to 1898.pdf` | the filed copy of warrock1892 | `c1a8a033fe1558c8` | yes |
 | `sources/other/warrock_richardson/Warrock-Richardson 1900 - The Warrock-Richardson Maryland, Virginia, and North Carolina Almanack, Editions of 1900 to 1910.pdf` | the filed copy of warrock1900 | `9232c60278322323` | yes |
