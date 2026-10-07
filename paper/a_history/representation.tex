@@ -1,0 +1,38 @@
+% What this holds: Section Demographic Representation and its lead-in paragraph.
+% Read by arlington-bsap.tex. Prose lives here; formatting lives in the wrapper and style/.
+\section{Demographic Representation}\label{sec:who}
+
+In September 2019 the Arlington County Board adopted an equity resolution
+committing the County to collect and disaggregate data on disparities and to ask
+of its decisions who benefits, who is burdened and who is
+missing.\autocite{arlingtoncb2019equity} This report turns that last question on
+the Board itself. It reads the Board's history through the resolution, asking who
+has held the Board's seats and who has not: how many seats there were, who sat in
+them, and how that has changed for women, for residents of color and for the
+young.
+
+Of the \membersTotal{} people who have served on the Board since 1870,
+\whiteMenMembers{} have been white men. Table~\ref{tab:subsets} lists the
+other \notWhiteMenMembers{}, in the order they first took a seat: 13 women
+and 12 members of color, Tannia Talento among both.
+
+% waits on: member-demographics-lists
+\begin{table}[b]
+  \refstepcounter{table}\label{tab:subsets}
+  {\raggedright\MakeUppercase{Table \thetable}\par}
+  {\raggedright\bfseries Women and Members of Color on the Board\par}
+  \medskip
+  \begingroup\footnotesize\setlength{\tabcolsep}{8pt}
+  \begin{tabular}{Q}
+  \toprule
+  \rosterhead
+  \midrule
+  \rosterinput members_roster_subsets.tex
+  \bottomrule
+  \end{tabular}\endgroup
+  \par\smallskip
+  \figurenotes{
+    Notes: \rostermarks{} This table is a subset of the full roster, Table~\ref{tab:roster} in the Data Appendix.}{}
+\end{table}
+
+\clearpage
