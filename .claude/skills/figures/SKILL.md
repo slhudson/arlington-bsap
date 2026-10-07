@@ -237,6 +237,14 @@ revisit.
 
 ## Process
 
+- **A new or reshaped figure is iterated with Sally before it is finished.**
+  The first render is never what she wants (Sally, 7 October 2026). So the
+  order is: build the quickest honest render, show it as a picture, wait,
+  change what she says, show again, and only when she says it is right do
+  the finishing - caption notes, `docs/figures.md`, the full build, the
+  merge. A thread that renders once and runs to merge has spent its budget
+  on the wrong picture. The brief for a figure thread says so; "merge when
+  done" is not the default for figures.
 - **While editing one figure, run only that figure:** `bash run.sh <figure>`,
   about five seconds. It skips the tests and the data stages when nothing
   they depend on has changed. The full `bash run.sh`, about a minute, is for

@@ -418,6 +418,16 @@ next message from her is the signal. And that the build, the tests and the
 compile passed is never narrated; the merge proves it, and a failure is the
 only news.
 
+A refusal by the app's safety check is the same kind of thing (7 October
+2026, four threads). It watches every command and sometimes refuses a push
+or the merge script with a one-word reason. Try once more; if it refuses
+again, two sentences to her, what was blocked and the one command she could
+run, and nothing about the check itself. Never route the blocked command
+through another session or ask her to grant it; "just try it again" was her
+answer, and it worked. In a worktree, run git as single plain commands, one
+per line, no chains and no -C: the check refuses the chains, and a thread
+that keeps rephrasing one loses the afternoon.
+
 ## Register
 
 This repository is read by collaborators. Write about artifacts and open

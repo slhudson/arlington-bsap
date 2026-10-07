@@ -37,6 +37,16 @@ permission for newspaper page PDFs from loc.gov and Virginia Chronicle, a
 page or two at a time), reads the file, and moves it on to `sources/documents`. Asking her
 to click it is the friction this line removes.
 
+When Chrome is not answering - a blank sign-in page, the extension not
+connected, the check refusing every route - say so after the first failed
+page, not the third, and hand the fetching to Sally in a form she can act on
+without guessing: for each page, the direct link, the filename to save it
+under in `~/Downloads`, and the header line she should see on the page
+(paper, date, page number) so she can confirm she has the right one before
+saving. On 7 October 2026 a thread spent three tries on a dead Chrome, then
+asked her to hunt through an issue for the right page, and she saved the
+wrong one; the 1942 count was never found.
+
 ## Before saying no source exists
 
 Grep `paper/bib/sources.bib`, `docs/` and `data/transcribed/` for the subject
