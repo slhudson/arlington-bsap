@@ -53,8 +53,10 @@ ALLOWED = ("paper/", "figures/pdf/", "style/fonts/")
 
 
 # The documents the mirror has to compile, from paper/ as the working directory
-# (code/paper.py's SOURCES), and the folder every relative reference starts from.
-DOCUMENTS = ("paper/arlington-bsap.tex", "paper/timelines/timelines.tex")
+# (code/paper.py's SOURCES), and the folder every relative reference starts
+# from. The timelines are not here: they live under docs/, outside what the
+# mirror carries, so Overleaf never sees them.
+DOCUMENTS = ("paper/arlington-bsap.tex",)
 COMPILE_DIR = "paper"
 GRAPHIC_EXTENSIONS = ("", ".pdf", ".png", ".jpg", ".jpeg")
 # Commands whose first braced argument names a file to read, besides \input
@@ -81,7 +83,7 @@ def unmirrored(files):
     """Every file the paper loads from a path the mirror does not carry.
 
     `files` maps each repository path to its text for a .tex file (the other
-    files may map to anything). The two documents are read from DOCUMENTS and
+    files may map to anything). The document is read from DOCUMENTS and
     every file they \\input is read in turn; a reference is resolved the way
     LaTeX does, against paper/ and not against the file that makes it, and
     checked against ALLOWED. Returns (file, what it loads, the path) for each

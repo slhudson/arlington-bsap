@@ -2259,7 +2259,7 @@ def test_a_timeline_citation_reaches_the_footnote():
     compile that succeeds. Six citations were lost that way before
     \\makesavenoteenv{tabular} was added, so the pairing is checked rather
     than trusted."""
-    # The timelines live in paper/timelines/timelines.tex, with a preamble of their own.
+    # The timelines live in docs/timelines/timelines.tex, with a preamble of their own.
     for name, path in paper.SOURCES.items():
         tex = (ROOT / "paper" / path).read_text()
         live = "\n".join(re.sub(r"(?<!\\\\)%.*", "", line) for line in tex.split("\n"))
@@ -2508,12 +2508,17 @@ def test_a_census_citation_beside_other_sources_still_counts_as_a_census_sheet()
 def cited_keys():
     """Every key the paper's LaTeX cites: the report, its timelines and the
     files they \\input. Read from the source rather than the .bcf, because the
-    tests run before the paper is compiled and a .bcf is not committed."""
+    tests run before the paper is compiled and a .bcf is not committed. The
+    timelines live outside paper/ (docs/timelines/), so every directory a
+    paper.SOURCES document resolves into is searched too, not just paper/."""
     cited = set()
-    for tex in (ROOT / "paper").rglob("*.tex"):
-        live = "\n".join(re.sub(r"(?<!\\)%.*", "", line) for line in tex.read_text().split("\n"))
-        for m in re.finditer(r"\\\w*cite\w*\*?(?:\[[^\]]*\])*\{([^}]*)\}", live):
-            cited |= {k.strip() for k in m.group(1).split(",")}
+    dirs = {ROOT / "paper"} | {(ROOT / "paper" / path).resolve().parent
+                               for path in paper.SOURCES.values()}
+    for d in dirs:
+        for tex in d.rglob("*.tex"):
+            live = "\n".join(re.sub(r"(?<!\\)%.*", "", line) for line in tex.read_text().split("\n"))
+            for m in re.finditer(r"\\\w*cite\w*\*?(?:\[[^\]]*\])*\{([^}]*)\}", live):
+                cited |= {k.strip() for k in m.group(1).split(",")}
     return cited
 
 
@@ -3661,9 +3666,9 @@ def test_paper_holds_only_what_a_co_author_should_see():
     stray file added to it - a note, a scratch compile, a data file - reaches
     every co-author. Everything tracked at its top level is named here; to add
     a section folder or a generated .tex, add it to this list on purpose."""
-    allowed = {"arlington-bsap.tex", "summary.tex", "body_text_numbers.tex",
-               "1_history", "2_community_input", "3_future_work", "appendix",
-               "tables", "bib", "timelines"}
+    allowed = {"arlington-bsap.tex", "0_summary.tex", "body_text_numbers.tex",
+               "1_history", "2_community_input", "3_future_work", "4_appendix.tex",
+               "tables", "bib"}
     tracked = subprocess.run(["git", "ls-files", "paper"], cwd=ROOT, check=True,
                              capture_output=True, text=True).stdout.split("\n")
     top = {Path(f).parts[1] for f in tracked if f}

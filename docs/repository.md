@@ -75,8 +75,9 @@ reaches Overleaf without anyone running a separate command.
 plain git plumbing rather than `git subtree`, which handles one prefix and
 not two.
 
-`push` first reads the paper's `.tex` files at `HEAD` (the wrapper, the
-timelines, and everything they `\input`) and refuses if any path they load - a
+`push` first reads the paper's `.tex` files at `HEAD` (the wrapper and
+everything it `\input`s; the timelines live under `docs/`, outside the
+mirror, so Overleaf never compiles them) and refuses if any path they load - a
 font folder, a `\graphicspath` folder, a figure named outright, a bibliography, an
 included file - is outside what the mirror carries. The first mirror lacked
 the Lato files and Overleaf could not compile; nothing said so until
@@ -214,8 +215,10 @@ and `code/tests.py` refuses a file with no row or a checksum that has moved.
 ## Why the paper is one file per section under a folder per part
 
 The paper is one file per section, under one folder per part:
-`paper/1_history/`, `paper/2_community_input/`, `paper/3_future_work/` and
-`paper/appendix/`, plus `paper/summary.tex` for the Executive Summary.
+`paper/1_history/`, `paper/2_community_input/` and `paper/3_future_work/`,
+plus `paper/4_appendix.tex` for the Data Appendix, which holds no section
+folder of its own since it is a single file, and `paper/0_summary.tex` for
+the Executive Summary.
 `paper/arlington-bsap.tex` is the wrapper: the preamble, the front matter, a
 list of `\input` lines in reading order, the bibliography call and
 `\end{document}`, and holds no prose of its own. A table under `paper/tables/`

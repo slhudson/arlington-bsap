@@ -125,6 +125,24 @@
   \ifstrempty{#2}{}{#2}%
   \par\end{minipage}\par}
 
+% A figure's or a table's title: the two lines a figure or table has always
+% carried (CAPS "Figure N" / "Table N", then a bold title), plus an entry in
+% \listoffigures or \listoftables so the two lists are not empty. \tabletitle
+% takes an optional number to print and to link where the running counter is
+% not the right one to show, as the roster's four lettered panels need
+% (\tabletitle[\rostertable{}A]{...}): the panel shares one \thetable among
+% four titles, so each must say which counter the list entry still points to.
+\newcommand{\figuretitle}[1]{%
+  \phantomsection
+  {\raggedright\MakeUppercase{Figure \thefigure}\par}%
+  {\raggedright\bfseries #1\par}%
+  \addcontentsline{lof}{figure}{\protect\numberline{\thefigure}#1}}
+\newcommand{\tabletitle}[2][\thetable]{%
+  \phantomsection
+  {\raggedright\MakeUppercase{Table #1}\par}%
+  {\raggedright\bfseries #2\par}%
+  \addcontentsline{lot}{table}{\protect\numberline{#1}#2}}
+
 % A figure goes at the top of the page it lands on, centered, above the section
 % heading if the section starts there; its title sits above it and its notes
 % below. The fractions let a full-width figure share a page with text.
@@ -181,7 +199,12 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 \clearpage
 \tableofcontents
 
-\input{summary}
+\renewcommand{\listfigurename}{Figures}
+\renewcommand{\listtablename}{Tables}
+\listoffigures
+\listoftables
+
+\input{0_summary}
 \input{1_history/intro}
 \input{1_history/board_structure}
 \input{1_history/election_method}
@@ -193,7 +216,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 \input{1_history/local_authority}
 \input{2_community_input/community_input}
 \input{3_future_work/future_work}
-\input{appendix/appendix}
+\input{4_appendix}
 
 \clearpage
 \printworkscited{Works Cited}

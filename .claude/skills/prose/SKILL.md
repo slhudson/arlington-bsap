@@ -287,8 +287,8 @@ table, and let the sentence carry the shape. The grain is a judgment each time.
 ## Drafting the paper: what Sally has asked for (4 October 2026)
 
 Read this before editing one of the paper's section files under `paper/1_history/`,
-`paper/2_community_input/`, `paper/3_future_work/` and `paper/appendix/`, or
-`paper/summary.tex` or `paper/timelines/timelines.tex`. `paper/arlington-bsap.tex` is the
+`paper/2_community_input/` or `paper/3_future_work/`, or `paper/4_appendix.tex`,
+`paper/0_summary.tex` or `docs/timelines/timelines.tex`. `paper/arlington-bsap.tex` is the
 wrapper: the preamble and the list of `\input` lines, no prose (`docs/repository.md`
 has the reasoning).
 
@@ -298,7 +298,7 @@ address the argument, the story and the structure; do not infer from the list be
 that format is the most common correction.
 
 **Workflow.** The 2 October "Arlington BSaP Outline - History" slides in Drive are the
-outline. Agree a section's timeline in `paper/timelines/timelines.tex` first, then write prose
+outline. Agree a section's timeline in `docs/timelines/timelines.tex` first, then write prose
 from it; the timelines live in their own document so they can leave the paper. When a
 slide and the sources disagree, the sources win: say so and cut what no source holds,
 with a tracker row. The paper is not Board-facing yet: no "requests", no "confirm

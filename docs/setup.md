@@ -50,9 +50,10 @@ whole project also refreshes the mirror:
 The Overleaf project is "arlington-bsap-draft"
 (https://www.overleaf.com/project/6ac61fcaec98cfccb0215584), and it compiles
 with LuaLaTeX. The paper is one file per section, in one folder per part —
-`paper/1_history/`, `paper/2_community_input/`, `paper/3_future_work/` and
-`paper/appendix/` — so two people working in different sections never touch
-the same file. The GitHub link is under **Integrations** in the icon rail
+`paper/1_history/`, `paper/2_community_input/` and `paper/3_future_work/`, plus
+`paper/4_appendix.tex` for the Data Appendix, which is one file — so two
+people working in different sections never touch the same file. The GitHub
+link is under **Integrations** in the icon rail
 down the left of the editor, not under the Menu: **Pull** when you sit down
 to write, **Push** when you stand up.
 
@@ -103,10 +104,11 @@ code, each writing one folder of data:
 
 `run.sh` runs the last three every time; the first two run on request.
 Alongside them: `paper/` holds the LaTeX source, with the bibliography in
-`paper/bib/sources.bib`, the appendix's member tables in `paper/appendix/` and
-the timelines in `paper/timelines/`; `docs/` holds the open questions
-(`docs/questions.csv`), the punch list of small fixes to the paper
-(`docs/punchlist.md`), and the record of what backs every number; and
+`paper/bib/sources.bib` and the appendix's member tables in
+`paper/tables/`; `docs/` holds the open questions (`docs/questions.csv`),
+the punch list of small fixes to the paper (`docs/punchlist.md`), the
+timelines the prose is written from (`docs/timelines/timelines.tex`), and
+the record of what backs every number; and
 `sources/` holds every source the report cites, as published, filed by group
 and then by publisher.
 

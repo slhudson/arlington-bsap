@@ -1,8 +1,9 @@
 % What this holds: the Executive Summary.
 % Read by arlington-bsap.tex. Prose lives here; formatting lives in the wrapper and style/.
 \clearpage
-\section*{Executive Summary}
-\addcontentsline{toc}{section}{Executive Summary}
+\phantomsection
+\addcontentsline{toc}{part}{\protect\numberline{0}Executive Summary}
+\begingroup\renewcommand{\thepart}{0}\oldpart*{Executive Summary}\endgroup
 
 % Introduction: a summary of the Board's charge, from the scope of work; Sally
 % writes the final text.

@@ -53,10 +53,13 @@ ROOT = Path(__file__).resolve().parents[1]
 PAPER = ROOT / "paper"
 BUILD = PAPER / "build"
 STEM = "arlington-bsap"
-# Where each document's source is, from paper/. The timelines are the one
-# document that is not the report.
+# Where each document's source is, from paper/ (compiles run with paper/ as
+# cwd regardless of where a source file sits, so a path can reach outside it).
+# The timelines are the one document that is not the report, and the one
+# that lives outside paper/: docs/timelines/, so it is not part of what
+# Overleaf mirrors (code/publish.py).
 SOURCES = {"arlington-bsap": "arlington-bsap.tex",
-           "timelines": "timelines/timelines.tex"}
+           "timelines": "../docs/timelines/timelines.tex"}
 
 # Each pattern is a shape the log takes when the PDF is wrong but the build
 # claimed to succeed. The message says what it means, because the log's own

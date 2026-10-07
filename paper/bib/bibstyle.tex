@@ -36,18 +36,25 @@
       \ppspace\printlist[pageref][-\value{listtotal}]{pageref}}}}
 \DefineBibliographyStrings{english}{backrefpage={Cited on page},backrefpages={Cited on pages}}
 
+% Works Cited and each legal list keep the look they have always had --- an
+% unnumbered \section* for Works Cited, an unnumbered \subsection* for each
+% legal list --- and add themselves to the contents at section level, so a
+% reader can click to any of them the way to a regular section.
+\defbibheading{bibintocsection}{\phantomsection\section*{#1}\addcontentsline{toc}{section}{#1}}
+\defbibheading{sublistintocsection}{\phantomsection\subsection*{#1}\addcontentsline{toc}{section}{#1}}
+
 % The sources a reader looks up: everything but the law, without the pages.
 \newcommand{\printworkscited}[1]{%
-  {\renewbibmacro*{pageref}{}\printbibliography[title={#1},nottype=jurisdiction,nottype=legislation]}}
+  {\renewbibmacro*{pageref}{}\printbibliography[heading=bibintocsection,title={#1},nottype=jurisdiction,nottype=legislation]}}
 
 % The law: cases by name, constitutions and then statutes by date (a
 % legislation entry's sorttitle is its date).
 \newcommand{\printauthorities}{%
   \clearpage
   \printbibheading[title={Legal Authorities}]%
-  \printbibliography[heading=subbibliography,title={Cases},type=jurisdiction]%
-  \printbibliography[heading=subbibliography,title={Constitutions},filter=constitutions]%
-  \printbibliography[heading=subbibliography,title={Statutes},filter=statutes]}
+  \printbibliography[heading=sublistintocsection,title={Cases},type=jurisdiction]%
+  \printbibliography[heading=sublistintocsection,title={Constitutions},filter=constitutions]%
+  \printbibliography[heading=sublistintocsection,title={Statutes},filter=statutes]}
 
 % A case name is italic, in the notes and in the table.
 \DeclareFieldFormat[jurisdiction]{title}{\mkbibemph{#1}}

@@ -164,9 +164,8 @@ def tex(table: list, present: int) -> str:
         out.append("\\clearpage\\begingroup\n")
         if k == 0:
             out.append("\\refstepcounter{table}\\label{tab:roster}\\xdef\\rostertable{\\thetable}\n")
-        out.append("{\\raggedright\\MakeUppercase{Table \\rostertable{}%s}\\par}\n" % letter)
-        out.append("{\\raggedright\\bfseries Board Members, First Seated %d--%d\\par}\n"
-                    % (start, min(last, present)))
+        out.append("\\tabletitle[\\rostertable{}%s]{Board Members, First Seated %d--%d}\n"
+                    % (letter, start, min(last, present)))
         out.append("\\medskip\n")
         out.append("\\footnotesize\\setlength{\\tabcolsep}{8pt}"
                     "\\setlength{\\LTpre}{0pt}\\setlength{\\LTpost}{0pt}\n")
@@ -193,8 +192,7 @@ def subsets_tex(table: list) -> str:
     centuries = sorted({r.decade // 100 * 100 for r in group})
     out.append("\\begin{table}[b]\n")
     out.append("\\refstepcounter{table}\\label{tab:subsets}\n")
-    out.append("{\\raggedright\\MakeUppercase{Table \\thetable}\\par}\n")
-    out.append("{\\raggedright\\bfseries Women and Members of Color on the Board\\par}\n")
+    out.append("\\tabletitle{Women and Members of Color on the Board}\n")
     out.append("\\medskip\n")
     out.append("\\begingroup\\footnotesize\\setlength{\\tabcolsep}{8pt}\n")
     out.append("\\begin{tabular}{Q}\n")
