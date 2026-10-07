@@ -275,6 +275,28 @@ def push(repo=None):
 
 
 def pull(repo=None):
+    """Apply the Overleaf mirror's commits since our last publish to a new
+    branch overleaf-<date>, ready for code/merge.sh.
+
+    The branch and its commit are made in a worktree under
+    .claude/worktrees/, the way a thread's own branch is, never in the
+    primary checkout: .githooks/pre-commit refuses a commit there while
+    another session is live, and a pull that died mid-commit on 8 October
+    2026 (mirror commits 638a1c4, bd806cb) left a staged patch and nothing
+    else to show for it. A worktree's commit is exactly that worktree's own
+    tree - the applied patch and nothing another session has in flight - and
+    the hook does not even run there (it answers only for the primary
+    checkout), so a live session cannot strand this the same way again.
+
+    Idempotent: if overleaf-<date> already exists, this pull already
+    absorbed the mirror's edit onto it, and nothing is pulled again - the
+    bug this guards against ran `pull` a second time (merge.sh calls it as
+    its own first step) and tried to create the same branch, which failed on
+    "already exists" and stopped the merge. The branch name is dated because
+    that is the grain pull already pulls at: more than one Overleaf edit
+    landing on the mirror the same day lands on the one branch together,
+    which is what re-running a merge on an unmerged branch has always done.
+    """
     repo = repo or root()
     draft = draft_checkout(repo)
     last, at_tip = last_published(draft)
@@ -299,18 +321,25 @@ def pull(repo=None):
             "only paper/ comes back from Overleaf (figures are built here, fonts are not edited); refusing a pull that touches:\n  "
             + "\n  ".join(outside))
 
-    diff = git("diff", base, tip, "--", "paper", cwd=draft).stdout
     branch = f"overleaf-{date.today().isoformat()}"
-    git("checkout", "-q", "-b", branch, "main", cwd=repo)
-    applied = subprocess.run(["git", "apply", "-"], cwd=repo, input=diff, text=True,
+    if git("rev-parse", "-q", "--verify", branch, cwd=repo, check=False).returncode == 0:
+        print(f"pull: branch {branch} already holds the mirror's edit, merge it")
+        return branch
+
+    diff = git("diff", base, tip, "--", "paper", cwd=draft).stdout
+    tree = Path(repo) / ".claude" / "worktrees" / branch
+    tree.parent.mkdir(parents=True, exist_ok=True)
+    git("worktree", "add", "-q", "-b", branch, str(tree), "main", cwd=repo)
+    applied = subprocess.run(["git", "apply", "-"], cwd=tree, input=diff, text=True,
                               capture_output=True)
     if applied.returncode != 0:
-        git("checkout", "-q", "main", cwd=repo)
-        git("branch", "-q", "-D", branch, cwd=repo)
+        git("worktree", "remove", "--force", str(tree), cwd=repo, check=False)
+        git("branch", "-q", "-D", branch, cwd=repo, check=False)
         raise SystemExit(f"the Overleaf edit did not apply cleanly:\n{applied.stderr}")
-    git("add", "-A", cwd=repo)
+    git("add", "-A", cwd=tree)
     span = f"{base[:7] if last else 'project start'}..{tip[:7]}"
-    git("commit", "-q", "-m", f"Overleaf edit: {span}", cwd=repo)
+    git("commit", "-q", "-m", f"Overleaf edit: {span}", cwd=tree)
+    git("worktree", "remove", str(tree), cwd=repo)
     print(f"pull: branch {branch}, ready for bash code/merge.sh {branch}")
     return branch
 

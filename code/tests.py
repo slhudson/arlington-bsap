@@ -3190,7 +3190,10 @@ def test_publish_push_refuses_a_paper_that_loads_outside_the_mirror():
 
 def test_publish_pull_applies_an_overleaf_edit_on_its_own_branch():
     """The other happy path: a change Overleaf made under paper/ comes back
-    on overleaf-<date>, main untouched, ready for code/merge.sh."""
+    on overleaf-<date>, main untouched, ready for code/merge.sh. The branch
+    is built and committed in a worktree (see
+    test_publish_pull_commits_in_a_worktree_so_a_live_session_cannot_strand_it),
+    so the primary checkout itself never leaves main."""
     with tempfile.TemporaryDirectory() as tmp:
         work, git, draft_work = publish_fixture(tmp)
         with draft_remote(Path(tmp) / "draft.git"):
@@ -3203,8 +3206,91 @@ def test_publish_pull_applies_an_overleaf_edit_on_its_own_branch():
             branch = publish.pull(repo=work)
         assert branch and branch.startswith("overleaf-"), branch
         assert git("rev-parse", "main").strip() == before, "pull moved main instead of a new branch"
-        assert git("rev-parse", "--abbrev-ref", "HEAD").strip() == branch
-        assert (work / "paper" / "arlington-bsap.tex").read_text() == "% written in Overleaf\n"
+        assert git("rev-parse", "--abbrev-ref", "HEAD").strip() == "main", \
+            "pull left the primary checkout on the new branch instead of a worktree"
+        worktree_file = subprocess.run(
+            ["git", "-C", str(work), "show", f"{branch}:paper/arlington-bsap.tex"],
+            check=True, capture_output=True, text=True).stdout
+        assert worktree_file == "% written in Overleaf\n"
+
+
+def test_publish_pull_commits_in_a_worktree_so_a_live_session_cannot_strand_it():
+    """The first fault, found 8 October 2026: pull used to commit its branch
+    directly in the primary checkout, which .githooks/pre-commit refuses
+    while another session is live there - the pull died with a staged patch
+    and no commit. The fix commits in a worktree instead, where the hook
+    never runs at all (it answers only for the primary checkout), so a live
+    session cannot block it. This reintroduces the hook and a live session
+    and checks pull still produces a commit, the primary checkout stays on
+    main with nothing staged, and the branch is reachable locally."""
+    keep = []
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git, draft_work = publish_fixture(tmp)
+        (work / ".githooks").mkdir()
+        shutil.copy(ROOT / ".githooks" / "pre-commit", work / ".githooks" / "pre-commit")
+        (work / ".githooks" / "pre-commit").chmod(0o755)
+        (work / ".claude").mkdir()
+        shutil.copy(ROOT / ".claude" / "sessions.sh", work / ".claude" / "sessions.sh")
+        git("config", "core.hooksPath", ".githooks")
+        git("add", "-A"); git("commit", "-qm", "the commit guard, for this test")
+        socks = Path(tmp) / "socks"
+        socks.mkdir()
+        old_socks = os.environ.get("CC_SOCKS")
+        os.environ["CC_SOCKS"] = str(socks)
+        try:
+            a_session(socks, work, keep)   # another session, live in this checkout
+            with draft_remote(Path(tmp) / "draft.git"):
+                publish.push(repo=work)
+                subprocess.run(["git", "-C", str(draft_work), "pull", "-q"], check=True)
+                (draft_work / "paper" / "arlington-bsap.tex").write_text("% from overleaf\n")
+                subprocess.run(["git", "-C", str(draft_work), "commit", "-qam", "overleaf edit"],
+                               check=True)
+                subprocess.run(["git", "-C", str(draft_work), "push", "-q"], check=True)
+                before = git("rev-parse", "main").strip()
+                branch = publish.pull(repo=work)
+            assert branch, "pull did not produce a branch while a session was live"
+            assert git("rev-parse", "main").strip() == before, "pull moved main"
+            assert git("branch", "--show-current").strip() == "main", \
+                "pull left the primary checkout on another branch"
+            assert git("status", "--porcelain").strip() == "", \
+                "pull left something staged in the primary checkout"
+            log = subprocess.run(["git", "-C", str(work), "log", "-1", "--format=%s", branch],
+                                 check=True, capture_output=True, text=True).stdout
+            assert log.strip().startswith("Overleaf edit:"), "the branch carries no commit"
+            assert not (work / ".claude" / "worktrees" / branch).exists(), \
+                "the worktree pull used was left behind"
+        finally:
+            if old_socks is None:
+                os.environ.pop("CC_SOCKS", None)
+            else:
+                os.environ["CC_SOCKS"] = old_socks
+            close_all(keep)
+
+
+def test_publish_pull_twice_with_nothing_new_is_a_noop():
+    """The second fault: after a pull, nothing marked the mirror's commit as
+    absorbed, so merge.sh's next run called pull again, found the same
+    diff, and tried to create the same branch - failing on "already
+    exists" and stopping the merge. A second pull with nothing new on the
+    mirror now reports the existing branch instead of recreating it, and
+    changes nothing."""
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git, draft_work = publish_fixture(tmp)
+        with draft_remote(Path(tmp) / "draft.git"):
+            publish.push(repo=work)
+            subprocess.run(["git", "-C", str(draft_work), "pull", "-q"], check=True)
+            (draft_work / "paper" / "arlington-bsap.tex").write_text("% from overleaf\n")
+            subprocess.run(["git", "-C", str(draft_work), "commit", "-qam", "overleaf edit"],
+                           check=True)
+            subprocess.run(["git", "-C", str(draft_work), "push", "-q"], check=True)
+            first = publish.pull(repo=work)
+            assert first, "the first pull produced no branch"
+            before = git("rev-parse", first).strip()
+            second = publish.pull(repo=work)
+        assert second == first, "a second pull with nothing new made a different branch"
+        assert git("rev-parse", second).strip() == before, "the second pull changed the branch"
+        assert not any((work / ".claude" / "worktrees").glob("*")), \
+            "the second pull left a worktree behind"
 
 
 # --- merging the tracker by row ---------------------------------------------------
