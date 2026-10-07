@@ -35,6 +35,7 @@ import cite  # noqa: E402
 import clippings  # noqa: E402
 import merge_questions  # noqa: E402
 import paper  # noqa: E402
+import publish  # noqa: E402
 import quotations  # noqa: E402
 
 
@@ -2755,12 +2756,32 @@ def merge_fixture(tmp):
     """A bare remote and a clone with main pushed, a branch `thread` that
     appends a tracker row and edits note.txt, and main moved on by another
     tracker row, so the merge has a union file to resolve and a clean file
-    to carry. Returns the clone's path."""
+    to carry. Returns the clone's path.
+
+    Also a bare 'draft' remote, seeded the way publish_fixture seeds one, so
+    merge.sh's own pull and push steps have a real mirror to talk to and
+    nothing to report: these tests are about the merge, not the mirror,
+    which test_publish_* above covers on its own."""
     tmp = Path(tmp)
     remote, work = tmp / "remote.git", tmp / "work"
     subprocess.run(["git", "init", "-q", "--bare", str(remote)], check=True)
     subprocess.run(["git", "clone", "-q", str(remote), str(work)], check=True,
                    stderr=subprocess.DEVNULL)
+
+    draft = tmp / "draft.git"
+    subprocess.run(["git", "init", "-q", "--bare", str(draft)], check=True)
+    draft_work = tmp / "draft-work"
+    subprocess.run(["git", "clone", "-q", str(draft), str(draft_work)], check=True,
+                   stderr=subprocess.DEVNULL)
+
+    def dgit(*args):
+        return subprocess.run(["git", "-C", str(draft_work), *args], check=True,
+                              capture_output=True, text=True).stdout
+
+    dgit("config", "user.email", "t@t"); dgit("config", "user.name", "t")
+    (draft_work / "README.md").write_text("overleaf seed\n")
+    dgit("add", "-A"); dgit("commit", "-qm", "overleaf project created")
+    dgit("branch", "-M", "main"); dgit("push", "-q", "-u", "origin", "main")
 
     def git(*args):
         return subprocess.run(["git", "-C", str(work), *args], check=True,
@@ -2768,8 +2789,14 @@ def merge_fixture(tmp):
 
     git("config", "user.email", "t@t"); git("config", "user.name", "t")
     (work / "code").mkdir(); (work / "docs").mkdir()
+    (work / "paper").mkdir(); (work / "figures" / "pdf").mkdir(parents=True)
+    # git archive -- paper figures/pdf (code/publish.py push) needs both to
+    # hold a committed file, which an empty directory never does.
+    (work / "paper" / "arlington-bsap.tex").write_text("\\documentclass{article}\n")
+    (work / "figures" / "pdf" / "a.pdf").write_bytes(b"%PDF-fake\n")
     shutil.copy(ROOT / "code" / "merge.sh", work / "code" / "merge.sh")
     shutil.copy(ROOT / "code" / "merge_questions.py", work / "code" / "merge_questions.py")
+    shutil.copy(ROOT / "code" / "publish.py", work / "code" / "publish.py")
     (work / ".gitattributes").write_text("docs/questions.csv merge=questions\n")
     # The same driver string run.sh registers; merge.sh refuses without it.
     git("config", "merge.questions.driver", "python3 code/merge_questions.py %O %A %B")
@@ -2791,10 +2818,16 @@ def merge_fixture(tmp):
 
 def merge(work, build, compile_, **env):
     """Run code/merge.sh thread in the clone with the build and compile
-    commands substituted. Returns the completed process."""
+    commands substituted. PYTHON and DRAFT_REMOTE point publish.py's pull
+    and push steps at this fixture's own interpreter and draft remote
+    (merge_fixture), so they report "nothing to pull" and a clean publish
+    unless a test overrides one to look at the mirror itself. Returns the
+    completed process."""
+    draft = Path(work).parent / "draft.git"
     return subprocess.run(["bash", "code/merge.sh", "thread"], cwd=work, text=True,
                           capture_output=True,
-                          env={**os.environ, "BUILD": build, "COMPILE": compile_, **env})
+                          env={**os.environ, "BUILD": build, "COMPILE": compile_,
+                               "PYTHON": sys.executable, "DRAFT_REMOTE": str(draft), **env})
 
 
 def test_a_merge_whose_build_fails_leaves_main_alone():
@@ -2896,6 +2929,183 @@ def test_a_merge_without_the_tracker_driver_refuses():
         run = merge(work, build="true", compile_="true")
         assert run.returncode != 0 and "merge driver" in run.stderr, run.stdout + run.stderr
         assert git("rev-parse", "main") == before
+
+
+# --- publishing to the Overleaf mirror ---------------------------------------------------
+
+@contextlib.contextmanager
+def draft_remote(url):
+    """publish.py's DRAFT_REMOTE override, the way code/merge.sh's REMOTE
+    override works, scoped to the block so parallel tests in other worker
+    processes never see it."""
+    old = os.environ.get("DRAFT_REMOTE")
+    os.environ["DRAFT_REMOTE"] = str(url)
+    try:
+        yield
+    finally:
+        if old is None:
+            os.environ.pop("DRAFT_REMOTE", None)
+        else:
+            os.environ["DRAFT_REMOTE"] = old
+
+
+def publish_fixture(tmp):
+    """A bare 'whole' remote holding paper/, figures/pdf/ and a file outside
+    both (code/notes.py, which a push must never carry to the mirror), and a
+    bare 'draft' remote seeded with its own unrelated history - the project
+    Overleaf would already hold before the first publish. Returns the work
+    clone's path, its git() helper, and the draft-work clone's path for
+    simulating an edit made in Overleaf."""
+    tmp = Path(tmp)
+    whole, draft = tmp / "whole.git", tmp / "draft.git"
+    subprocess.run(["git", "init", "-q", "--bare", str(whole)], check=True)
+    subprocess.run(["git", "init", "-q", "--bare", str(draft)], check=True)
+
+    draft_work = tmp / "draft-work"
+    subprocess.run(["git", "clone", "-q", str(draft), str(draft_work)], check=True,
+                   stderr=subprocess.DEVNULL)
+
+    def dgit(*args):
+        return subprocess.run(["git", "-C", str(draft_work), *args], check=True,
+                              capture_output=True, text=True).stdout
+
+    dgit("config", "user.email", "t@t"); dgit("config", "user.name", "t")
+    (draft_work / "README.md").write_text("overleaf seed\n")
+    dgit("add", "-A"); dgit("commit", "-qm", "overleaf project created")
+    dgit("branch", "-M", "main"); dgit("push", "-q", "-u", "origin", "main")
+
+    work = tmp / "work"
+    subprocess.run(["git", "clone", "-q", str(whole), str(work)], check=True,
+                   stderr=subprocess.DEVNULL)
+
+    def git(*args):
+        return subprocess.run(["git", "-C", str(work), *args], check=True,
+                              capture_output=True, text=True).stdout
+
+    git("config", "user.email", "t@t"); git("config", "user.name", "t")
+    (work / "paper").mkdir(); (work / "figures" / "pdf").mkdir(parents=True)
+    (work / "code").mkdir()
+    (work / "paper" / "arlington-bsap.tex").write_text("\\documentclass{article}\n")
+    (work / "figures" / "pdf" / "a.pdf").write_bytes(b"%PDF-fake\n")
+    (work / "code" / "notes.py").write_text("not published\n")
+    git("add", "-A"); git("commit", "-qm", "seed"); git("branch", "-M", "main")
+    git("push", "-q", "-u", "origin", "main")
+    return work, git, draft_work
+
+
+def test_publish_push_writes_only_paper_and_figures_pdf():
+    """The happy path: the first push is unconditional, parented on
+    Overleaf's own seed commit rather than rewriting it, and carries over
+    paper/ and figures/pdf/ only - code/notes.py never reaches the mirror."""
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git, draft_work = publish_fixture(tmp)
+        with draft_remote(Path(tmp) / "draft.git"):
+            head = publish.push(repo=work)
+        assert head, "the first push reported nothing"
+        subprocess.run(["git", "-C", str(draft_work), "pull", "-q"], check=True)
+        tracked = subprocess.run(["git", "-C", str(draft_work), "ls-files"], check=True,
+                                 capture_output=True, text=True).stdout.split()
+        # README.md was Overleaf's own seed file, outside both folders: the
+        # first publish deletes it along with anything else that is not
+        # paper/ or figures/pdf/, same as every publish after it.
+        assert set(tracked) == {"paper/arlington-bsap.tex", "figures/pdf/a.pdf"}, tracked
+        parents = subprocess.run(["git", "-C", str(draft_work), "log", "--format=%P", "-1"],
+                                 check=True, capture_output=True, text=True).stdout.split()
+        assert len(parents) == 1, "the first publish rewrote the mirror's history instead of building on it"
+
+
+def test_publish_push_refuses_when_the_mirror_is_ahead():
+    """An edit made in Overleaf must never be silently overwritten: once the
+    mirror's tip is not a commit of ours, a push refuses and names the pull
+    command instead of discarding what is there."""
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git, draft_work = publish_fixture(tmp)
+        with draft_remote(Path(tmp) / "draft.git"):
+            publish.push(repo=work)
+            subprocess.run(["git", "-C", str(draft_work), "pull", "-q"], check=True)
+            (draft_work / "paper" / "arlington-bsap.tex").write_text("% an edit made in Overleaf\n")
+            subprocess.run(["git", "-C", str(draft_work), "commit", "-qam", "overleaf edit"], check=True)
+            subprocess.run(["git", "-C", str(draft_work), "push", "-q"], check=True)
+            try:
+                publish.push(repo=work)
+                assert False, "a push over an unabsorbed Overleaf edit went through"
+            except SystemExit as e:
+                assert "pull" in str(e), e
+
+
+def test_publish_pull_before_any_publish_is_a_noop():
+    """Before the first push there is no baseline to read Overleaf's edits
+    against, so a pull reports nothing rather than reading the mirror's
+    existing project history - which code/merge.sh's own first run depends
+    on, since its first step is this pull and its last is the first push."""
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git, draft_work = publish_fixture(tmp)
+        with draft_remote(Path(tmp) / "draft.git"):
+            result = publish.pull(repo=work)
+        assert result is None, result
+        assert "overleaf-" not in git("branch")
+
+
+def test_publish_pull_refuses_a_change_under_figures():
+    """Figures are built here; Overleaf is never the source of one. A pull
+    that would bring one back is refused outright, with nothing applied."""
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git, draft_work = publish_fixture(tmp)
+        with draft_remote(Path(tmp) / "draft.git"):
+            publish.push(repo=work)
+            subprocess.run(["git", "-C", str(draft_work), "pull", "-q"], check=True)
+            (draft_work / "figures" / "pdf" / "a.pdf").write_bytes(b"%PDF-edited-in-overleaf\n")
+            subprocess.run(["git", "-C", str(draft_work), "commit", "-qam", "edited a figure in Overleaf"],
+                           check=True)
+            subprocess.run(["git", "-C", str(draft_work), "push", "-q"], check=True)
+            before = git("rev-parse", "main").strip()
+            try:
+                publish.pull(repo=work)
+                assert False, "a pull touching figures/ went through"
+            except SystemExit as e:
+                assert "figures" in str(e), e
+            assert git("rev-parse", "main").strip() == before, "a refused pull still moved main"
+            assert "overleaf-" not in git("branch"), "a refused pull still left a branch behind"
+
+
+def test_publish_push_refuses_a_tree_holding_a_path_outside_the_two_folders():
+    """The guard that runs right before the commit that would ship to
+    Overleaf: if anything outside paper/ or figures/pdf/ were ever tracked
+    in the mirror - a bug in the export, not something normal use reaches -
+    the push stops instead of carrying it there."""
+    with tempfile.TemporaryDirectory() as tmp:
+        draft = Path(tmp) / "draft"
+        subprocess.run(["git", "init", "-q", str(draft)], check=True)
+        subprocess.run(["git", "-C", str(draft), "config", "user.email", "t@t"], check=True)
+        subprocess.run(["git", "-C", str(draft), "config", "user.name", "t"], check=True)
+        (draft / "paper").mkdir()
+        (draft / "paper" / "arlington-bsap.tex").write_text("x\n")
+        (draft / "stray.txt").write_text("should never reach the mirror\n")
+        subprocess.run(["git", "-C", str(draft), "add", "-A"], check=True)
+        try:
+            publish.verify_tree(draft)
+            assert False, "a tracked path outside paper/ and figures/pdf/ was not refused"
+        except SystemExit as e:
+            assert "stray.txt" in str(e), e
+
+
+def test_publish_pull_applies_an_overleaf_edit_on_its_own_branch():
+    """The other happy path: a change Overleaf made under paper/ comes back
+    on overleaf-<date>, main untouched, ready for code/merge.sh."""
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git, draft_work = publish_fixture(tmp)
+        with draft_remote(Path(tmp) / "draft.git"):
+            publish.push(repo=work)
+            subprocess.run(["git", "-C", str(draft_work), "pull", "-q"], check=True)
+            (draft_work / "paper" / "arlington-bsap.tex").write_text("% written in Overleaf\n")
+            subprocess.run(["git", "-C", str(draft_work), "commit", "-qam", "overleaf edit"], check=True)
+            subprocess.run(["git", "-C", str(draft_work), "push", "-q"], check=True)
+            before = git("rev-parse", "main").strip()
+            branch = publish.pull(repo=work)
+        assert branch and branch.startswith("overleaf-"), branch
+        assert git("rev-parse", "main").strip() == before, "pull moved main instead of a new branch"
+        assert git("rev-parse", "--abbrev-ref", "HEAD").strip() == branch
+        assert (work / "paper" / "arlington-bsap.tex").read_text() == "% written in Overleaf\n"
 
 
 # --- merging the tracker by row ---------------------------------------------------

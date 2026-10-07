@@ -225,21 +225,24 @@ if [ "$missing" -gt 0 ]; then
 fi
 
 # Overleaf's limits on the files it syncs: 100MB in all, 7MB of editable
-# (text) files (CLAUDE.md). These checks never fail the build.
+# (text) files (CLAUDE.md, docs/repository.md). Overleaf is linked to the
+# mirror, arlington-bsap-draft, which code/publish.py keeps to exactly
+# paper/ and figures/pdf/ - so that is what these checks measure, not the
+# whole repository. They never fail the build.
 kb=0; text_kb=0
 while IFS= read -r -d '' f; do
   [ -f "$f" ] || continue
   size=$(( $("${STAT_BYTES[@]}" "$f") / 1024 ))
   kb=$(( kb + size ))
   case "$f" in *.pdf|*.png|*.ttf|*.gz|*.xlsx|*.xls|*.zip|*.docx) ;; *) text_kb=$(( text_kb + size ));; esac
-done < <(git ls-files -z 2>/dev/null) || true
+done < <(git ls-files -z -- paper figures/pdf 2>/dev/null) || true
 if [ "$kb" -ge 81920 ]; then
   echo
-  echo "WARNING: tracked files total $((kb/1024))MB, approaching Overleaf's 100MB ceiling."
-  echo "         Time to revisit the one-repo decision - see CLAUDE.md."
+  echo "WARNING: the mirrored folders total $((kb/1024))MB, approaching Overleaf's 100MB ceiling."
+  echo "         Time to revisit what the mirror carries - see CLAUDE.md."
 fi
 if [ "$text_kb" -ge 6144 ]; then
   echo
-  echo "WARNING: editable files total $((text_kb/1024))MB; Overleaf stops syncing at 7MB."
-  echo "         The large text files are data/raw CSVs and the OCR - see CLAUDE.md."
+  echo "WARNING: the mirror's editable files total $((text_kb/1024))MB; Overleaf stops syncing at 7MB."
+  echo "         See CLAUDE.md."
 fi
