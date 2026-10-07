@@ -509,157 +509,23 @@ census and place, the database and the record number.
 **Dataset or database page** (`@dataset`, or `@online` for a page): `author` the
 publisher, `title`, `version` if any, `date` if the page gives one, `url`.
 
-## What `code/tests.py` guards, 1 October 2026
+## What `code/tests.py` guards
 
-A read of every test, each checked against the guard it names and against
-what else in the file exercises the same code.
+A guard gets a test when removing it would let the build ship a plausible
+wrong number. A guard whose absence makes the build stop anyway (a
+`KeyError` on the next line, a `min()` of an empty list) is not tested; it
+would improve a message and nothing else.
 
-**No test guards something its own code path no longer reaches.** Every
-test passes against the current build, and the substring each one checks
-for in a raised message is still live in the module it mangles.
-
-**No two tests guard the same failure the same way.** The file repeats one
-pattern on purpose, four times over - a unit test against a planted input
+Each test reintroduces the mistake and asserts the build refuses it. The
+file repeats one pattern on purpose: a unit test against a planted input
 that should fail, its mirror that should pass, and an integration test
-against the real committed data - for press-copy naming, obituary naming,
-quotation support, and citekeys named in prose. Those are not duplicates;
-they are the same guard exercised at two distances from the real data,
-which is the file's stated design.
+against the real committed data, so one guard is exercised at two
+distances from the data.
 
-**Three pairs guard the same mechanism on different columns, and could be
-folded into one parametrized test each:**
+**A mangle must change something.** `breaks()` compares every value its
+mangled function hands the build with what the original hands it, and a run
+in which none differed raises `NothingMangled`. A test whose anchor row is
+missing (stale `data/built/`, a filter that matches nothing) therefore
+fails with that message and cannot read as a guard that did not fire.
 
-- `test_race_and_gender_must_account_for_the_same_seats` and
-  `test_party_must_account_for_the_same_seats` both mangle
-  `members_by_year.months_held` and check that a column's values are
-  accounted for against the seat table - gender in one, party in the
-  other.
-- `test_an_age_group_left_out_of_every_band_is_refused` and
-  `test_an_age_group_claimed_by_two_bands_is_refused` both mangle
-  `residents.STF_AGE_GROUPS` and check the same partition invariant from
-  its two sides - a group named by no band, a group named by two.
-- `test_more_board_voters_than_registered_voters_is_rejected` and
-  `test_more_board_voters_than_presidential_voters_is_rejected` both guard
-  a reasonableness ceiling on `elections_turnout`'s board vote, against two
-  different ceilings.
-
-Each pair would read as one test looping over its two cases, with the
-column or ceiling and the expected message as the loop variable. Left as
-written, nothing is wrong - the three pairs together are six tests, not an
-unbounded pattern - so this is a proposal, not a finding of accretion.
-
-**A guard with no test, by file, where `grep` finds no test checking for
-its message anywhere in `code/tests.py`:**
-
-- `code/clean/members.py` - three of the five party-conflict checks in
-  `party_of()` and `party_attributions()`: two sources disagreeing on a
-  term's party before the county is consulted (:119), the county itself
-  printing more than one label for a term (:140), and a name's own
-  attribution conflicting with the county's label (:159). The fourth and
-  fifth (an unrecorded label, the county conflicting with the state) are
-  tested. `birth_year must be a four-digit year` (:378) is untested.
-- `code/clean/members_roster.py` - the two checks that the Jefferson rows
-  joined into Edward Duncan's term leave no gap and do not overrun it
-  (:134, :138).
-- `code/clean/members_roster_novack.py` - both checks in the
-  appointment-to-departure dating pass: an ambiguous appointment left with
-  no dated departure (:77), and an open term whose member never stood
-  again (:186).
-- `code/clean/members_roster_arlhist.py` - the parsing guards that a
-  rename, a note, a seated-date or a vacated-date names exactly one
-  roster row (:319, :334, :390, :460), and that the article's seat block
-  for a name exists and sequences as the roster expects (:376, :417, :471,
-  :473, :490, :495, :541). One of this module's checks is exercised,
-  through `test_the_seat_table_reads_the_roster_for_1912_to_1931`; the
-  rest are not.
-- `code/clean/members_roster_results.py` - county and state sources
-  disagreeing on a year in their overlap (:82), and the two checks on a
-  special election's winner (:117, :126).
-- `code/clean/members_residence.py` - a place string no precision rule
-  reads (:46).
-- `code/clean/elections.py` - a candidacy carrying more than one label, and
-  a label this build has no category for (:72, :75); a selected election
-  row with no four-digit year (:184).
-- `code/clean/elections_results.py` - a year where neither nominee's line
-  matches (:90).
-- `code/clean/elections_turnout.py` - the roster naming more terms
-  beginning after a cutoff than the turnout series expects (:74), and no
-  district election found with a count in every district (:117).
-- `code/clean/candidates.py` - a ranked-choice contest whose first choices
-  do not add up (:86), a name standing in more terms than `members.csv`
-  records or in more than one contest a year (:108, :116), and the
-  Jefferson District win count against Hjerpe's (:174).
-- `code/clean/localities.py` - an unrecorded mayor (:27), a membership
-  count outside the Code's three-to-eleven range (:47), and other than
-  exactly one Arlington row (:50).
-- `code/clean/census.py` and `code/build/census.py` - each has its own
-  "expected Arlington's one row" guard (:46 and :28); neither is tested.
-- `code/build/localities.py` - a peer locality named in the crosswalk that
-  the census source does not carry population or land area for (:72).
-
-That is not every `assert` or `raise` in `code/`; it is every one whose
-failure would be silent in the sense `CLAUDE.md` means - a build that
-keeps running and ships a plausible wrong number - rather than a type
-error or a KeyError that would stop the build output anyway. Whether each
-one is worth a test is Sally's call per guard; a few read as reachable only
-through a hand-edit of the source data these modules take as fixed, which
-is the kind of guard the existing suite tends to leave untested elsewhere
-in the file too.
-
-### Which of those thirty get a test
-
-Each guard above read once more, asking the question `CLAUDE.md` asks:
-delete it, and does the build ship a wrong number, or does it stop anyway?
-Eighteen get a test, and each is proved: with its guard removed, the test
-fails. Seven do not, and one already has a test.
-
-**Eighteen get a test, because removing the guard leaves a code path that
-produces a value.** They fall into five shapes, and the shape is what a
-test reintroduces:
-
-- *A conflict resolved by taking the first value.* The two party checks
-  in `code/clean/members.py` that no other test reaches and the label
-  check on a candidate's line in `code/clean/elections.py` are each
-  followed by a line that reads `printed[0]` or `labels[0]`, so without
-  the guard one of two disagreeing sources silently wins. So does the 2021
-  overlap check in `code/clean/members_roster_results.py`.
-- *A value that falls through to a default.* A place no precision rule
-  reads returns `None` from `code/clean/members_residence.py`; an
-  unrecorded mayor in `code/clean/localities.py` drops a mayor who sits on
-  the council.
-- *Votes in the wrong band.* A year matching neither nominee in
-  `code/clean/elections_results.py` leaves both at zero.
-- *A count or a denominator that moves.* Both checks in
-  `code/clean/elections_turnout.py`, three of the four in
-  `code/clean/candidates.py` including the pinned Jefferson win count, and
-  the Code's three-to-eleven range and the one-Arlington-row check in
-  `code/clean/localities.py`.
-- *The wrong county's row, or none.* `code/clean/census.py` and
-  `code/build/census.py` each guard Arlington's one row, and without it
-  `.iloc[0]` takes whichever row is first; `code/build/localities.py`
-  guards a peer the census carries no population or land area for.
-
-The eleven parsing guards in `code/clean/members_roster_arlhist.py` are
-the same mechanism on five declared tables: a rename, a note, a seated
-date or a vacated date must match exactly one roster row, and a mis-typed
-entry silently does nothing instead. One test that mangles one table
-reintroduces that mistake for all of them.
-
-**Seven do not, because the build stops anyway.** Each of these improves
-a message and nothing else, which is not what `CLAUDE.md` reserves a
-test for. The two checks on Edward Duncan's joined term in
-`code/clean/members_roster.py` are caught by `check_seats` a few lines
-later, which sees the gap as a seat held by nobody or the overrun as a
-seat held twice. `code/clean/members_roster_novack.py` and
-`code/clean/members_roster_results.py` each take `min()` of a list the
-guard has just found empty, so both raise either way. A birth year that
-is not four digits is caught by the age-when-seated range. A label with
-no category raises a `KeyError` in both steps that read it, and a
-ranked-choice contest with no recorded outcome raises a `KeyError` on
-the lookup that follows its check.
-
-**One already has a test.** A name's own attribution conflicting with the
-county's label, in `code/clean/members.py`, fails
-`test_reporting_cannot_overrule_a_party_the_county_prints` with the guard
-removed; its message is shared with the state check beside it, which is
-why a search for the message does not find it.
+`code/tests.py <word> ...` runs only the tests whose names contain a word.

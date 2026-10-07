@@ -90,17 +90,62 @@ def stage(folder, *names):
 registration, = stage("fetch", "registration")
 
 
+class NothingMangled(Exception):
+    """A test's mangle left every input it was handed as it found it. Not an
+    AssertionError or ValueError, so breaks() does not catch it as the build's
+    refusal: it fails the test with this message instead of reading as
+    "not caught"."""
+
+
+def same(a, b):
+    return a.equals(b) if hasattr(a, "equals") else a == b
+
+
 def breaks(module, attr, mangle, build=None):
-    """Run a build with one input mangled; return the error it raised, or None."""
+    """Run a build with one input mangled; return the error it raised, or None.
+
+    The mangle must change something. A guard test that mangles nothing (its
+    anchor row is missing from stale data, a filter matches no rows) would
+    see the build pass and read as a guard that failed to fire; so a
+    constant is compared with its mangled value, and for a function every
+    value it hands the build is compared with what the original hands it. A
+    run in which nothing differed raises NothingMangled."""
     original = getattr(module, attr)
-    setattr(module, attr, mangle(original))
+    mangled = mangle(original)
+    differed = []
+    if callable(original):
+        def watched(*a, **k):
+            got = mangled(*a, **k)
+            differed.append(not same(got, original(*a, **k)))
+            return got
+        planted = watched
+    else:
+        differed.append(not same(mangled, original))
+        planted = mangled
+
+    setattr(module, attr, planted)
     try:
         (build or module.build)()
+        error = None
+    except (AssertionError, ValueError) as e:
+        error = str(e)
+    finally:
+        setattr(module, attr, original)
+    if not any(differed):
+        raise NothingMangled(
+            f"{module.__name__}.{attr} was never handed anything the mangle changed "
+            f"(error: {error}): stale data/built/, or the test's filter matches nothing")
+    return error
+
+
+def refusal(build):
+    """The error a build raises as it stands, or None: for a test that has
+    planted its mistake some other way and has nothing for breaks() to mangle."""
+    try:
+        build()
         return None
     except (AssertionError, ValueError) as e:
         return str(e)
-    finally:
-        setattr(module, attr, original)
 
 
 def patch_source(when, change):
@@ -905,7 +950,7 @@ def test_a_misreported_age_no_census_row_uses_is_refused():
     kept = members_census.AGE_MISREPORTED
     members_census.AGE_MISREPORTED = kept + ("census1910nobody",)
     try:
-        err = breaks(paths, "built", lambda orig: orig, build=members.build)
+        err = refusal(members.build)
     finally:
         members_census.AGE_MISREPORTED = kept
     assert err and "AGE_MISREPORTED names a record" in err, f"not caught: {err}"
@@ -1064,29 +1109,17 @@ def test_a_november_election_that_seats_more_than_five_is_refused():
 
 
 def test_no_district_election_with_a_count_in_every_district_is_refused():
-    """The Gazette's supervisor counts and O'Leary's both stripped. With no
-    guard 1870-1915 has no board_votes at all, and the turnout figure starts
-    in 1931 with nothing to say the earlier series is missing."""
-    def strip_oleary(orig):
-        def patched(kind, *a, **k):
-            d = orig(kind, *a, **k)
-            if kind == elections.SUPERVISORS:
-                d = d.assign(entry=d.entry.str.replace(r"\d", "", regex=True))
-            return d
-        return patched
-
+    """The Gazette's supervisor counts stripped. With no guard 1870-1915 has
+    no board_votes at all, and the turnout figure starts in 1931 with nothing
+    to say the earlier series is missing."""
     def strip_gazette(orig):
         def patched(stem, *a, **k):
             d = orig(stem, *a, **k)
             return d.assign(votes="") if stem == "candidates_gazette" else d
         return patched
 
-    built = elections_turnout.paths.built
-    elections_turnout.paths.built = strip_gazette(built)
-    try:
-        err = breaks(elections, "oleary", strip_oleary, build=elections_turnout.board_districts)
-    finally:
-        elections_turnout.paths.built = built
+    err = breaks(elections_turnout.paths, "built", strip_gazette,
+                 build=elections_turnout.board_districts)
     assert err and "no district election with a count in every district" in err, \
         f"not caught: {err}"
 
