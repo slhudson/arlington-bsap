@@ -2758,7 +2758,7 @@ def merge_fixture(tmp):
     tracker row, so the merge has a union file to resolve and a clean file
     to carry. Returns the clone's path.
 
-    Also a bare 'draft' remote, seeded the way publish_fixture seeds one, so
+    Also a bare, empty 'draft' remote, as publish_fixture makes one, so
     merge.sh's own pull and push steps have a real mirror to talk to and
     nothing to report: these tests are about the merge, not the mirror,
     which test_publish_* above covers on its own."""
@@ -2779,9 +2779,6 @@ def merge_fixture(tmp):
                               capture_output=True, text=True).stdout
 
     dgit("config", "user.email", "t@t"); dgit("config", "user.name", "t")
-    (draft_work / "README.md").write_text("overleaf seed\n")
-    dgit("add", "-A"); dgit("commit", "-qm", "overleaf project created")
-    dgit("branch", "-M", "main"); dgit("push", "-q", "-u", "origin", "main")
 
     def git(*args):
         return subprocess.run(["git", "-C", str(work), *args], check=True,
@@ -2951,14 +2948,13 @@ def draft_remote(url):
             os.environ["DRAFT_REMOTE"] = old
 
 
-def publish_fixture(tmp, seeded=True):
+def publish_fixture(tmp):
     """A bare 'whole' remote holding paper/, figures/pdf/, style/fonts/ and a file outside
     both (code/notes.py, which a push must never carry to the mirror), and a
-    bare 'draft' remote seeded with its own unrelated history - the project
-    Overleaf would already hold before the first publish. Returns the work
+    bare 'draft' remote, empty as a mirror repository is when it has just been
+    created, with a clone of it for the tests that act as Overleaf. Returns the work
     clone's path, its git() helper, and the draft-work clone's path for
-    simulating an edit made in Overleaf. With seeded=False the draft remote
-    is empty, as a mirror repository is when it has just been created."""
+    simulating an edit made in Overleaf."""
     tmp = Path(tmp)
     whole, draft = tmp / "whole.git", tmp / "draft.git"
     subprocess.run(["git", "init", "-q", "--bare", str(whole)], check=True)
@@ -2972,11 +2968,8 @@ def publish_fixture(tmp, seeded=True):
         return subprocess.run(["git", "-C", str(draft_work), *args], check=True,
                               capture_output=True, text=True).stdout
 
+
     dgit("config", "user.email", "t@t"); dgit("config", "user.name", "t")
-    if seeded:
-        (draft_work / "README.md").write_text("overleaf seed\n")
-        dgit("add", "-A"); dgit("commit", "-qm", "overleaf project created")
-        dgit("branch", "-M", "main"); dgit("push", "-q", "-u", "origin", "main")
 
     work = tmp / "work"
     subprocess.run(["git", "clone", "-q", str(whole), str(work)], check=True,
@@ -2999,35 +2992,14 @@ def publish_fixture(tmp, seeded=True):
     return work, git, draft_work
 
 
-def test_publish_push_writes_only_paper_and_figures_pdf():
-    """The happy path: the first push is unconditional, parented on
-    Overleaf's own seed commit rather than rewriting it, and carries over
-    paper/, figures/pdf/ and style/fonts/ only - code/notes.py never reaches the mirror."""
+def test_publish_push_writes_only_paper_figures_and_fonts():
+    """The happy path, on a mirror repository just created and still empty
+    (origin/main does not exist): the first push is a root commit pushed as
+    main, carrying paper/, figures/pdf/ and style/fonts/ only - code/notes.py
+    never reaches the mirror - and a second push on top of it finds that
+    commit at the tip and goes through."""
     with tempfile.TemporaryDirectory() as tmp:
         work, git, draft_work = publish_fixture(tmp)
-        with draft_remote(Path(tmp) / "draft.git"):
-            head = publish.push(repo=work)
-        assert head, "the first push reported nothing"
-        subprocess.run(["git", "-C", str(draft_work), "pull", "-q"], check=True)
-        tracked = subprocess.run(["git", "-C", str(draft_work), "ls-files"], check=True,
-                                 capture_output=True, text=True).stdout.split()
-        # README.md was Overleaf's own seed file, outside both folders: the
-        # first publish deletes it along with anything else that is not
-        # paper/ or figures/pdf/, same as every publish after it.
-        assert set(tracked) == {"paper/arlington-bsap.tex", "figures/pdf/a.pdf",
-                           "style/fonts/Lato-Regular.ttf"}, tracked
-        parents = subprocess.run(["git", "-C", str(draft_work), "log", "--format=%P", "-1"],
-                                 check=True, capture_output=True, text=True).stdout.split()
-        assert len(parents) == 1, "the first publish rewrote the mirror's history instead of building on it"
-
-
-def test_publish_push_to_an_empty_mirror_creates_main():
-    """A mirror repository just created on GitHub has no main, so
-    origin/main does not exist. The first push used to fail on checking it
-    out; it is now a root commit pushed as main, and a second push on top of
-    it finds that commit at the tip and goes through."""
-    with tempfile.TemporaryDirectory() as tmp:
-        work, git, draft_work = publish_fixture(tmp, seeded=False)
         with draft_remote(Path(tmp) / "draft.git"):
             assert publish.push(repo=work), "the first push to an empty mirror reported nothing"
             (work / "paper" / "arlington-bsap.tex").write_text("% second\n")
@@ -3037,7 +3009,7 @@ def test_publish_push_to_an_empty_mirror_creates_main():
         tracked = subprocess.run(["git", "-C", str(draft_work), "ls-files"], check=True,
                                  capture_output=True, text=True).stdout.split()
         assert set(tracked) == {"paper/arlington-bsap.tex", "figures/pdf/a.pdf",
-                           "style/fonts/Lato-Regular.ttf"}, tracked
+                                "style/fonts/Lato-Regular.ttf"}, tracked
 
 
 def test_publish_push_refuses_when_the_mirror_is_ahead():
@@ -3061,9 +3033,9 @@ def test_publish_push_refuses_when_the_mirror_is_ahead():
 
 def test_publish_pull_before_any_publish_is_a_noop():
     """Before the first push there is no baseline to read Overleaf's edits
-    against, so a pull reports nothing rather than reading the mirror's
-    existing project history - which code/merge.sh's own first run depends
-    on, since its first step is this pull and its last is the first push."""
+    against, so a pull reports nothing - which code/merge.sh's own first run
+    depends on, since its first step is this pull and its last is the first
+    push."""
     with tempfile.TemporaryDirectory() as tmp:
         work, git, draft_work = publish_fixture(tmp)
         with draft_remote(Path(tmp) / "draft.git"):

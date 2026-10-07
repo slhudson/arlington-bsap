@@ -15,9 +15,8 @@ how the next push recognises its own work: if the mirror's tip is not one of
 these commits, something landed there since the last publish - an edit made
 in Overleaf - and the push refuses, naming the pull command instead of
 silently discarding it. The very first push finds no such commit anywhere in
-the mirror's history and runs unconditionally, parented on whatever the
-mirror already holds, which is Overleaf's own project history - or, in a
-mirror nobody has pushed to, on nothing: a root commit pushed as main.
+the mirror's history and runs unconditionally: on a mirror nobody has pushed
+to, as a root commit pushed as main.
 
 `pull` reads the mirror's commits back to the last one of ours - Overleaf's
 own edits - and applies the changes they made under paper/ to a new branch
@@ -166,9 +165,7 @@ def pull(repo=None):
     last, at_tip = last_published(draft)
     if last is None:
         # Nothing has ever been published, so there is no baseline to read
-        # Overleaf's edits against - whatever project history the mirror
-        # already holds is exactly what the first push is for, not a change
-        # to pull back.
+        # Overleaf's edits against.
         print("pull: nothing to pull; the mirror has not been published to yet")
         return None
     if at_tip:
