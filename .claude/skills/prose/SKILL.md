@@ -350,7 +350,7 @@ URL or access date in a footnote. Adjacent notes are one note or take `\fnsep`.
 **Gated.** Race, party, turnout and anything the County has not answered: correct errors
 and tighten, add no claim, and mark the spot `% waits on: <tracker row>`.
 
-**Checks after every change.** `bash run.sh`, `code/paper.py all`, then `grep -c '^!' paper/build/*.log`: the compile check does not catch a LaTeX
+**Checks after every change.** `bash run.sh`, `code/paper.py` with the argument `all`, then `grep -c '^!' paper/build/*.log`: the compile check does not catch a LaTeX
 error. A `%` comment inside a macro argument swallows its closing brace. End a reply
 with a full-path link to the rebuilt PDF; leave no dated PDF copies in the repo.
 
