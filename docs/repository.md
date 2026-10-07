@@ -280,7 +280,7 @@ the script decides what to skip.
 ## Why the build is cached, and where
 
 The build and clean stages each run their steps in one Python process
-(`code/stage.py`, as `code/figures.py` does for the figures), so the interpreter
+(`code/stage.py`, which runs the figures too), so the interpreter
 and pandas start once and not once per step. A cold `bash run.sh` went from
 103 s to 70 s. The one piece of module-level state that would carry one step's
 reads into the next, `code/build/paths.py`'s list of the tables a step read for
@@ -304,7 +304,7 @@ small enough here not to need either.
 |---|---|---|
 | build | `data/raw/`, `data/transcribed/`, `code/build/`, `code/citekeys.py` | `data/built/` |
 | clean | the build's key, `code/clean/`, `code/citekeys.py` | `data/clean/` |
-| figures, on a full run | `data/clean/`, `code/analysis/`, `code/figures.py`, `style/` | `figures/`, the three `.tex` files the analysis stage writes |
+| figures, on a full run | `data/clean/`, `code/analysis/`, `code/stage.py`, `style/` | `figures/`, the three `.tex` files the analysis stage writes |
 | each compile | the files latexmk's record says the last compile read, `paper/*.bib`, `style/fonts/`, `code/paper.py`, the TeX version | the PDF |
 
 The cache lives in `.git/build-cache/`, because every worktree of a clone shares

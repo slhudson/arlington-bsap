@@ -87,7 +87,7 @@ echo "  clean"
 # because it says which steps run.
 BUILT_BY=(data/raw data/transcribed code/build code/citekeys.py run.sh)
 CLEANED_BY=(code/clean code/citekeys.py run.sh)       # and data/built/, by its key
-DRAWN_BY=(data/clean code/analysis code/figures.py style run.sh)
+DRAWN_BY=(data/clean code/analysis code/stage.py style run.sh)
 CACHE=("$PY" code/cache.py)
 REPORT=$(mktemp)
 trap 'rm -rf "$LOCK" "$REPORT"' EXIT
@@ -159,9 +159,9 @@ draw() {
     outputs_of "$s"
     rm -f "${outputs[@]}"
   done
-  # One process draws them all (code/figures.py), so Python, pandas and
+  # One process draws them all (code/stage.py), so Python, pandas and
   # matplotlib start once and not once per figure.
-  "$PY" code/figures.py "${selected[@]}"
+  "$PY" code/stage.py analysis "${selected[@]}"
   for s in "${selected[@]}"; do
     outputs_of "$s"
     for out in "${outputs[@]}"; do

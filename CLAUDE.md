@@ -179,9 +179,9 @@ reads are fetched on demand (`docs/repository.md`).
 inputs: `code/analysis/body_text_numbers.py` writes the numbers the prose cites
 that no figure carries as commands in `paper/body_text_numbers.tex`, and
 `code/analysis/members_roster.py` writes the appendix roster's rows to
-`paper/appendix/members_roster.tex`. `code/figures.py` runs the steps of `code/analysis/` in one process for
-`run.sh`, and `code/stage.py` does the same for `code/build/` and `code/clean/`;
-they, `code/paper.py`, `code/merge.sh` and `code/merge_questions.py` (the
+`paper/appendix/members_roster.tex`. `code/stage.py` runs the steps of `code/build/`, `code/clean/` and
+`code/analysis/` in one process for `run.sh`;
+it, `code/paper.py`, `code/merge.sh` and `code/merge_questions.py` (the
 tracker's merge driver) sit outside the stages, like
 `code/tests.py`: `code/paper.py` writes `paper/arlington-bsap.pdf` on demand, and
 `code/merge.sh <branch>` brings a thread's branch into main once the build and
