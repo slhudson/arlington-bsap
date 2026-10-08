@@ -251,6 +251,11 @@ boundary change that never happened.
 
 ### The law behind the Board
 
+Part A begins with Alexandria County and the 1869 constitution and goes no
+further back. The earlier governments of the land are filed and cited should
+the prose want them: usstat1790residence, usstat1801organic,
+usstat1801supplementary, arlingtonva2011markers, nps2025rooseveltisland.
+
 How the constitutions, acts, the County Code and the Board's own papers made
 the Board and divide its work with the Manager is the report's, in Part A, and
 each source's reading is in its entry's `annotation` in `paper/bib/sources.bib`.
