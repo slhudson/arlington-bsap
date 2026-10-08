@@ -36,6 +36,7 @@ import merge_questions  # noqa: E402
 import paper  # noqa: E402
 import publish  # noqa: E402
 import quotations  # noqa: E402
+import revisions  # noqa: E402
 
 
 def stage(folder, *names):
@@ -3676,10 +3677,65 @@ def test_paper_holds_only_what_a_co_author_should_see():
     assert top <= allowed, f"paper/ holds something a co-author should not see: {sorted(top - allowed)}"
 
 
+def test_a_draft_copy_from_30_october_refuses_a_section_nobody_has_revised():
+    """paper/drafts/ holds dated copies of the compiled report, and from 30
+    October 2026 every section in one must have been revised by a person
+    (code/revisions.py): its first line reads '% revised: SH 7 October 2026',
+    not '% revised: none'. Builds a small paper/ in a temporary folder, writes
+    a copy dated the cutoff while one section still reads none, and asserts
+    the check names it; then asserts the same copy passes once the section is
+    marked, that an earlier copy passes while it is not, and that a first
+    line which is not a mark is refused rather than read as one."""
+    with tempfile.TemporaryDirectory() as tmp:
+        paper_dir = Path(tmp) / "paper"
+        (paper_dir / "drafts").mkdir(parents=True)
+        (paper_dir / revisions.WRAPPER).write_text(
+            "\\sectioninput{a}\n% \\sectioninput{commented_out}\n\\sectioninput{b}\n")
+        a, b = paper_dir / "a.tex", paper_dir / "b.tex"
+        a.write_text("% revised: SH 7 October 2026; AK 9 October 2026\n\\section{A}\n")
+        b.write_text("% revised: none\n\\section{B}\n")
+        (paper_dir / "drafts" / "arlington-bsap-2026-10-29.pdf").write_bytes(b"%PDF")
+        assert not revisions.late_copies_with_unrevised_sections(paper_dir), \
+            "a copy before the cutoff was refused"
+        (paper_dir / "drafts" / "arlington-bsap-2026-10-30.pdf").write_bytes(b"%PDF")
+        found = revisions.late_copies_with_unrevised_sections(paper_dir)
+        assert len(found) == 1 and "b.tex" in found[0] and "a.tex" not in found[0], \
+            f"the 30 October copy was not refused for the unmarked section: {found}"
+        b.write_text("% revised: SH 8 October 2026\n\\section{B}\n")
+        assert not revisions.late_copies_with_unrevised_sections(paper_dir), \
+            "a copy was refused although every section is marked"
+        # A section with subsection files reads draft while any file does, and
+        # otherwise the latest revision across them.
+        (paper_dir / revisions.WRAPPER).write_text(
+            "\\sectioninput[c,d]{a}\n\\sectioninput{c}\n\\sectioninput{d}\n")
+        c, d = paper_dir / "c.tex", paper_dir / "d.tex"
+        c.write_text("% revised: AK 9 September 2026\n")
+        d.write_text("% revised: none\n")
+        assert [revisions.label([m, *p]) for m, p in revisions.sections(paper_dir)] == ["draft"], \
+            "a section with an unrevised subsection file was not a draft"
+        d.write_text("% revised: SH 12 October 2026; AK 8 June 2026\n")
+        assert [revisions.label([m, *p]) for m, p in revisions.sections(paper_dir)] \
+            == ["revised SH 12 Oct"], "the section did not show its latest revision"
+        b.write_text("% revised\n\\section{B}\n")
+        (paper_dir / revisions.WRAPPER).write_text("\\sectioninput{a}\n\\sectioninput{b}\n")
+        try:
+            revisions.late_copies_with_unrevised_sections(paper_dir)
+        except ValueError:
+            pass
+        else:
+            raise AssertionError("a section whose first line is not a mark was read as revised")
+
+
+def test_no_real_draft_copy_after_the_cutoff_holds_an_unrevised_section():
+    """The same check on the repository's own paper/drafts/."""
+    problems = revisions.late_copies_with_unrevised_sections()
+    assert not problems, "\n  ".join(problems)
+
+
 def test_every_tex_file_under_paper_is_reached_from_a_document():
     """The report was split into one file per section, and a file nothing
     \\inputs is a section that silently dropped out of the PDF. Follow every
-    \\input (and the roster's \\rosterinput) from each document's root and
+    \\input (and the roster's \\rosterinput and the sections' \\sectioninput) from each document's root and
     require that every tracked .tex under paper/ was reached."""
     paper_dir = ROOT / "paper"
     reached, todo = set(), [paper_dir / path for path in paper.SOURCES.values()]
@@ -3689,7 +3745,7 @@ def test_every_tex_file_under_paper_is_reached_from_a_document():
             continue
         reached.add(tex)
         live = "\n".join(re.sub(r"(?<!\\)%.*", "", line) for line in tex.read_text().split("\n"))
-        for m in re.finditer(r"\\(?:input|rosterinput)\s*\{?([^}\s]+)\}?", live):
+        for m in re.finditer(r"\\(?:input|rosterinput|sectioninput)\s*(?:\[[^\]]*\])?\s*\{?([^}\s]+)\}?", live):
             name = m.group(1)
             target = paper_dir / (name if name.endswith(".tex") else name + ".tex")
             if target.exists():

@@ -233,6 +233,8 @@ file's way of every other. A file splits when two people are in it at once,
 not before: the split follows where the collisions actually happen, not a
 guess at where they might.
 
+Each section file's first line is `% revised: none` or `% revised: SH 7 October 2026` (a person's initials and the date, several separated by `; `), set only when a person has rewritten the section and not when they have read it; the contents page stamps it beside the section, a section whose subsections sit in files of their own reads draft while any of them does, and `code/revisions.py` prints the coverage.
+
 ## Why one session works on main and two take worktrees
 
 Two sessions sharing one checkout once produced committed figures built
