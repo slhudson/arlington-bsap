@@ -22,7 +22,5 @@ stays, with a one-line reason under it.
   Adds a claim about the act's origins and leaves one claim unconfirmed; wants a Fable session.
 - Board Structure: the chair custom is not in the paper: since 1990 each year's vice-chair chairs the next year, with four breaks each explained by membership, and no chair election is reported contested (arlingtonva2026members, arlnow2026chair). (members.md split, 4 Oct)
   Adds a claim about an unwritten custom the paper does not yet carry; wants a Fable session.
-- Election Method, opening block: vaacts2020c713 defines instant runoff voting and leaves the winners' procedure to State Board regulations; it states no quota. The one-sixth-for-five-seats sentence is printed as arithmetic with no citation of its own (Sally, 6 Oct asked it be cited to the statute).
-  Needs a ruling: cite the State Board's regulation instead, or leave the arithmetic uncited.
 - Part C, Board Structure: the member's salary cap from January 2024 is 119,833 in the County's June 2023 agenda item and 116,343 in the FY 2027 budget summary, so the paper says only "above $116,000"; current pay actually appropriated not found (tracker row board-pay-cap).
   Wants the adopting ordinance or minutes.
