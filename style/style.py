@@ -239,6 +239,12 @@ SOURCE_KIND = {
     "election": ("members elected", SAND),
     "service": ("members served", SAND_LINE),
 }
+# Which contests a source's returns are for. Ordered by how much of the vote
+# a source carries, so the one sequential ramp, lightest first: the Board's
+# vote, the presidential vote, and a source that carries both the darkest.
+ELECTION_RETURNS = dict(zip(
+    ("board", "president", "both"),
+    zip(("votes for County Board", "votes for President", "votes for both"), ramp(3))))
 # The gap between two blocks of a horizontal bar chart, in bar widths.
 GROUP_GAP = 0.8
 
