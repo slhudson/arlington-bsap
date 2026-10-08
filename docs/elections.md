@@ -56,6 +56,10 @@ were nominated," below.
 
 `data/clean/elections_results.csv` is Arlington's vote by party for two offices, one row
 per election and office.
+The vote for the House of Representatives is not kept: no figure compares
+Congress with the Board. O'Leary carries it from 1871, the Almanack's 1874
+table prints it by county (the 1868-1891 volume, p. 22), and the Secretary's
+reports do from 1924 (`vasecretary1928` pp. 454-456).
 
 **For President**, every fourth year from 1872. Virginia has no party
 registration, so nothing counts residents by party; the presidential vote is
