@@ -18,8 +18,8 @@ blank rather than resting on one ("Race by district, counted from the
 schedules", below). Where a source merges two categories, the figures carry
 the merge rather than splitting it on an assumption; the 1940 and 1980 cases
 are below. The exception is the district map, whose lines, city outline and
-1915 area are read from a sheet and a description ("Where the lines ran",
-below), and no number is taken from it.
+1915 area are read from two maps ("Where the lines ran", below), and no number
+is taken from it.
 
 ---
 
@@ -78,7 +78,7 @@ the nearest thing to a fixed-land series and is not what this project uses.
 
 | Change | What left Arlington |
 |---|---|
-| 1915 | 866 acres annexed by Alexandria, effective 1 April 1915: Rosemont, Shuter's Hill, Carlyle, Eisenhower East, the former West End |
+| 1915 | Part of the 866 acres Alexandria sought, effective 1 April 1915 (about 350 acres as the map draws it, below): Rosemont, Shuter's Hill, Carlyle, Eisenhower East, the former West End |
 | 1930 | A further annexation bounded by Duke Street, Quaker Lane and Four Mile Run, including the Town of Potomac, incorporated in its own right in 1908 |
 
 The first falls between the 1910 and 1920 censuses and the second around the
@@ -121,8 +121,8 @@ Arlington from Jefferson at Four Mile Run near Nauck. It is the only source
 found that draws the lines rather than only lettering each district's name
 across its own interior, which is what the two other period maps checked,
 Hopkins 1879 and Howell and Taylor 1900, do instead. The figure is
-`residents_by_district_map`, a stylized rendering in `style.DISTRICTS`'
-colors, not a reproduction of the 1907 map. The vertex file, the clean step and
+`residents_by_district_map`, a stylized rendering on one neutral ground,
+not a reproduction of the 1907 map. The vertex file, the clean step and
 the figure all exist; only the figure's DRAFT mark waits, on the 1915 line
 (`annexation-1915-line`).
 
@@ -160,38 +160,64 @@ edge is dropped, and a gap narrower than 20 meters is closed. The result is
 the Virginia side of the square, about 19,700 acres less the city.
 
 **The city as it stood.** The 1907 sheet draws no corporate limit, only the
-platted streets, so the city's outline is `rose1964`'s description of the 1912
-limits, which is in words ("one-half square north of First Street", "one-half
-a square west of West Street", the north side of Cameron Street, the old
-Francis Peyton lot, the old District line at Hooff's Run), plotted on today's
-street grid. `data/transcribed/by_claude/alexandria_limits_1912.csv` keeps a
-basis per vertex. The outline encloses about 940 acres of today's land
-against the 713 acres Rose gives for 1912. The gap is a third of the figure
-and is unexplained: some of it is shoreline filled since, and the polygon
-cannot say how much. The street the description calls First Street is today's
-First Street, north of Montgomery Street; a north line about 650 meters to the
-south would give Rose's area and is not what the words say.
+platted streets. `alexandria2024`, the city's own history of its boundaries,
+maps each change on today's city outline (pages 3 and 4), and
+`data/transcribed/by_claude/alexandria_limits_1912.csv` keys the city's corners
+off its map of 1930 by pixel position, converted by fitting the image's
+outline to today's city outline (TIGERweb) with a scaled rotation, which
+misses it by 13 meters at the median and 46 at the 90th percentile. The city
+before 1915 drawn that way covers about 680 acres against the 713 `rose1964`
+gives for 1912. Rose's description of the 1912 limits in words ("one-half
+square north of First Street", "one-half a square west of West Street", the
+north side of Cameron Street, the old Francis Peyton lot, the old District
+line at Hooff's Run) agrees with the map's corners; plotted on today's street
+grid by itself it gave about 940 acres, a third too many, because it carried
+the city east onto shoreline filled since and set the north line too far
+south. The two disagree near Jones Point, where the city's map shows a wedge
+between the 1798 limit and the river annexed in 1915, and Rose runs the 1912
+limit down the District line to the river; the build follows Rose, and the
+wedge, a few dozen acres, stays blank with the city.
+
+**The District line's south end.** The city's map also places the square's
+south corner at Jones Point about 220 meters northeast of where the straight
+southwest edge of today's county outline, carried ten miles, put it. The
+build takes the city's position; with it the city's corner at Hooff's Run
+falls 6 meters from the line, against 190 before, so the two maps agree. The
+line moves by up to about 200 meters near the city and not at all at the
+west corner.
 
 **1915.** The city's 1911 ordinance sought 866 acres from Arlington County,
 and Rose says the order "simply extended the existing north line of the City
 westward until it intersected with Braddock Road", giving the city only a part
 of that land; "the territory excluded was secured by Alexandria in the 1929
 annexation". The order gives no edge for the west side of the area.
-`data/transcribed/by_claude/alexandria_annexation_1915.csv` closes it on the
-1911 proposal's own edge, which Rose describes: Braddock Road northwest to
-Lloyd's Lane, then south to the District line. That reading gives 376 acres
-and rests on nothing more than Rose's sentence; `docs/questions.csv` holds it
-as `annexation-1915-line`. `alexandria2024` names Rosemont and Shuter's Hill
-among what the city took in 1915, and the drawn area holds both.
+`alexandria2024`'s map draws one: the old city's north line carried straight
+west, then a diagonal south to the District line, and
+`data/transcribed/by_claude/alexandria_annexation_1915.csv` keys those corners
+the same way. That gives 352 acres of county land; the map's area beyond the
+District line is Fairfax County's. The west edge rests on the city's drawing,
+which does not say what it rests on, and on nothing else; `docs/questions.csv`
+holds it as `annexation-1915-line`. An earlier reading closed the area on the
+1911 proposal's own edge, Braddock Road northwest to Lloyd's Lane and due
+south, which gave 376 acres in a different shape. `alexandria2024` names
+Rosemont and Shuter's Hill among what the city took in 1915, and the drawn
+area holds both.
 
 **1930.** `alexandria2024` bounds the 1930 annexation by Duke Street on the
 south, Quaker Lane on the west and Four Mile Run on the north. The drawn
 1930 area is what is left of today's Alexandria within the square once the
-1912 city and the 1915 area are out, about 2,700 acres, so it also holds any
-land the city took from the county later; none of it lies west of Quaker
-Lane, as the document's boundary requires. About 20 acres, at the far west,
-lie north of the Arlington and Jefferson line, so the pale area is
-Jefferson district's except for those.
+1912 city and the 1915 area are out, about 2,660 acres, within 3 percent of
+the city's own map. It therefore also holds any later change to the boundary
+with Arlington: `alexandria2024` records small adjustments in 1966 along
+Route 7, today's South Walter Reed Drive, and Four Mile Run, too small to see
+on its map. About 20 acres, at the far west, lie north of the Arlington and
+Jefferson line, which agrees with the 1930 census's footnote that the
+annexation took part of Arlington district as well as Jefferson; whether
+those 20 acres are that part or the 1966 land, the map cannot say. The clean
+step marks each piece of annexed land with the district on its side of the
+1907 line, and the figure outlines each district whole, annexed land
+included. Where the two boundary files fail to meet, a hole of about 2 acres
+is filled and a sliver too thin to keep beside the 1930 land goes with it.
 
 The NARA 1910 and 1920 enumeration-district descriptions (`nara1910eds`,
 `nara1920eds`) describe how each district was split for enumeration, by a

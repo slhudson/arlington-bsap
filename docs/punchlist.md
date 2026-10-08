@@ -11,7 +11,6 @@ the paper, commits, and deletes the lines it cleared. What it cannot settle
 stays, with a one-line reason under it.
 
 ## Open
-- District map (residents_by_district_map): no fill for the three districts; the county one neutral ground with the district lines and names, and colour only on the land Alexandria annexed, 1915 and 1930. If residents_by_district_race_adults keys its districts by the map's colours, the names carry that link instead (Sally, 8 Oct).
 
 ## Could not settle
 - Board Seats: the federal-office statute (Acts 1883-84 ch. 145) that emptied Perkins W. Squier's seat in 1884 is, as Code 1950 § 2-27, the one Dean v. Paolicelli applied to take the Board's Non-Partisan majority in 1952, so Arlington held four Board contests on 4 November 1952; one provision at both ends of the period, not yet in the paper (paolicelli1952, dailysun1952appointees). (members.md split, 4 Oct)

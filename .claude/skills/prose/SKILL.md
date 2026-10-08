@@ -336,7 +336,7 @@ if a reader would actually wonder, answer it in the sentence that raises it, and
 otherwise cut it. The test: would a resident reading this have asked?
 
 **What the body may say.** The body states the data. Where the data come from, and how
-a figure was built, goes in the Data Appendix (Residents, then Board Members, each
+a figure was built, goes in the Data Appendix (Residents, Districts, then Board Members, each
 with gender, race and ethnicity, age, residence in parallel), and only what changes how
 a reader interprets a number stays at all. Individual member sources are not printed.
 
@@ -347,7 +347,7 @@ within a part (A.1), headings in title case. Part A's sections each start a new 
 the later parts run on while they are short (`\sectionbreaksfalse` in the preamble). The
 Data Appendix follows, not a part itself (Sally, 7 October 2026): a plain bold heading,
 co-equal with a part rather than lettered as one, with its own three unnumbered headings
-(Residents, Elections, Board Members) not listed in the contents.
+(Residents, Districts, Elections, Board Members) not listed in the contents.
 
 **Figures and tables.** Top of the page, centered: FIGURE n, bold title, the figure, Notes,
 Source (Urban's form). Notes only when a reader needs them. Two type sizes, 11 and 9.

@@ -130,26 +130,34 @@ a rank. A figure never defines a ramp of its own.
   the palette's other oranges and greys already mean a party, the residual
   or no evidence.
 - **The magisterial districts.** Three unordered places, so Okabe-Ito:
-  Arlington District bluish green, Jefferson District blue, Washington
-  District reddish purple. Arlington District is not vermilion or orange,
-  which mark the county as a whole elsewhere (vermilion the per-seat line
-  and Arlington among its peers) and a Black member or candidate on the race
-  charts; of the hues left, bluish green sits furthest from the blue beside
-  it, where sky blue would read as a shade of it and yellow disappears as a
-  line on white. As with blue and reddish purple, the reuse of a category's
-  hue costs nothing because the lines are named in the legend. The county
-  behind them takes the dark grey the growth and peer figures use for a
-  reference series, because it is not a fourth district but the thing the
-  three are being read against; it leads the legend as Arlington County, and
-  the districts follow in alphabetical order. `style.DISTRICTS` and
+  Arlington District bluish green, Jefferson District reddish purple,
+  Washington District blue. Jefferson takes reddish purple because the land
+  Alexandria annexed was Jefferson's, and on the district map that land is
+  the only colour, in tints of the same hue: the line that falls fastest
+  between 1910 and 1920 and the land the district lost read as one thing
+  across the two figures (Sally, 8 October 2026). Purple is lighter than the
+  blue Jefferson had, so the line the race section is about stands out a
+  little less; the link to the map was judged worth more. Arlington District
+  is not vermilion or orange, which mark the county as a whole elsewhere
+  (vermilion the per-seat line and Arlington among its peers) and a Black
+  member or candidate on the race charts; of the hues left, bluish green sits
+  furthest from the blue beside it, where sky blue would read as a shade of
+  it and yellow disappears as a line on white. The reuse of a category's hue
+  costs nothing because the lines are named in the legend. The county behind
+  them takes the dark grey the growth and peer figures use for a reference
+  series, because it is not a fourth district but the thing the three are
+  being read against; it leads the legend as Arlington County, and the
+  districts follow in alphabetical order. `style.DISTRICTS` and
   `style.WHOLE_COUNTY`.
-- **Land Alexandria annexed.** Jefferson's blue, thinned toward white: the
-  land did not become a fourth place, it changed hands, so it keeps its
-  district's hue and loses weight. The earlier annexation, 1915, is the
-  darker tint and 1930 the paler, so the order they happened in reads as
-  the fade. Hatching was tried and declined: a texture reads as a second
-  kind of thing, and a tint reads as the same thing under a later name.
-  `style.ANNEXED`, `style.tint()`.
+- **Land Alexandria annexed.** Reddish purple, Jefferson's line colour, at
+  full strength for 1915 and thinned toward white for 1930, so the order the
+  annexations happened in reads as the fade. Not blue, which on a map reads
+  as water at the river's edge, and not vermilion, which marks the county
+  itself. Hatching was tried and declined: a texture reads as a second kind
+  of thing (6 October 2026). `style.ANNEXED`, `style.tint()`.
+- **A map's ground.** The districts on a map share the sand fill
+  (`style.MAP_GROUND`): they are named, not coloured, so the only colour on
+  the map is the thing its point is about (Sally, 8 October 2026).
 - **Peers.** Cities dark grey, counties the sand stroke, Arlington the
   per-seat vermilion. The two neutrals are close on purpose: the kind of
   government is context, and a second saturated hue would compete with
@@ -486,22 +494,27 @@ there the labels can be shortened and here the years cannot.
 
 - **residents_by_district_map.** The county as it stood before 1915, the whole
   Virginia side of the ten-mile square less the city of Alexandria, in the
-  three magisterial districts as they stood from 1870 until 1932, and the land
-  Alexandria annexed in 1915 and 1930 in two tints of Jefferson's blue. It
-  sits in Board Seats, where the three districts are first named, and the
-  race section points back to it, since residents_by_district_race_adults names the
-  districts without saying where they were. Nothing else is on it: a neighbourhood is a region,
-  so a dot answers wrongly; a stream, a road or a railway would be a mark the
-  legend does not answer; an edge between two legend colours answers itself.
-  The city is left blank, which the caption says, and the Potomac is the
-  right-hand edge. There is no legend: each area is named where it is, which is faster to read
-  than a swatch and a key (Sally, 6 October 2026), and the districts are named
-  "Arlington District" and not "Arlington" because this report is about Arlington
-  County. The 1915 area is too small to hold its name, so its name sits beside
-  it on a short leader, the only line on the map that is not an edge. Names are
-  white on the dark fill and the body grey on the others,
-  `charts.area_names()`, `style.ink_on()`. `style.AREA_EDGE` is the edge
-  between areas. While the 1915 area waits on a decision a grey DRAFT runs across the empty
+  three magisterial districts as they stood from 1870 until 1932. It sits in
+  Board Seats, where the three districts are first named, and the race
+  section points back to it, since residents_by_district_race_adults names
+  the districts without saying where they were. The districts share the sand
+  ground and are each outlined whole in dark grey, `charts.edges()`, the
+  annexed land inside them, so every dark line is a district line or the
+  county's edge; the land Alexandria annexed in 1915 and 1930 is the only
+  colour, and where the fill changes is its only edge (Sally, 8 October
+  2026). Each district is named at the centroid of the land it kept, so
+  Jefferson's name stays off the annexed land, `charts.area_names()`, which
+  stops the build if a centroid falls outside its area. The two annexations
+  are keyed in the lower left corner the shape leaves empty, under the
+  heading "annexed by Alexandria", `charts.map_legend()`: a name set on the
+  1915 piece would not fit, and a leader was a line no legend answered.
+  The districts are named "Arlington District" and not "Arlington" because
+  this report is about Arlington County. Nothing else is on the map: a
+  neighbourhood is a region, so a dot answers wrongly, and a stream, a road
+  or a railway would be a mark the legend does not answer. The city is left
+  blank, which the caption says, and the Potomac is the right-hand edge.
+  `style.AREA_EDGE` and `style.AREA_EDGE_COLOR` are the district edge. While
+  the 1915 area waits on a decision a grey DRAFT runs across the empty upper
   corner, `charts.draft_mark()`. What the lines rest on is in
   `docs/residents.md`, "Where the lines ran".
 

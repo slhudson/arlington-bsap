@@ -149,22 +149,32 @@ open (Sally, 5 October 2026).
 
 - **A map draws the territory its chart counted.** The district map beside
   `residents_by_district_race_adults` draws the county as it stood when the census
-  counted it, with the land Alexandria annexed in 1915 and 1930 shown as
-  tints of Jefferson's colour, not today's outline (Sally, 6 October 2026).
+  counted it, with the land Alexandria annexed in 1915 and 1930 shown inside
+  the districts that held it, not today's outline (Sally, 6 October 2026).
   The same rule as the denominator: the land is the population.
+- **A map colours only what its point is about.** The districts share one
+  neutral ground, `style.MAP_GROUND`, are drawn whole as they stood with a
+  dark edge, `charts.edges()`, and are named at their centres,
+  `charts.area_names()`; the annexed land is the only colour, two tints of
+  one hue, and the fill changing is its only edge (Sally, 8 October 2026).
+- **No blue fill on a map**: it reads as water (Sally, 8 October 2026).
+- **A shape traced from a published map is fitted to a modern outline the
+  map also draws**, and the fit's miss is stated in each vertex's basis, as
+  the 1907 sheet's corners and the city of Alexandria's boundary maps are.
 - **No place names unless a name can be placed truthfully.** A
   neighbourhood is a region, not a dot; a stream or a road is a mark the
   legend has to answer. The caption names the river at the frame's edge.
 - **The legend sits inside the frame where the shape leaves a corner
-  empty**, stacked, since a map has no axes to keep clear of.
+  empty**, stacked, since a map has no axes to keep clear of:
+  `charts.map_legend()`, a heading with its swatches under it.
 
 ## Legend
 
 - One legend for the whole figure, not one per panel, where one is needed.
 - **Related swatches sit together, indented under their parent.** Two tints
   of one hue read as parts of that category only when the legend shows them
-  that way: Jefferson District, then the two annexed pieces indented beneath
-  it (Sally, 6 October 2026).
+  that way: "annexed by Alexandria", then 1915 and 1930 beneath it (Sally, 6
+  and 8 October 2026).
 - One row, in stacking order, below the figure and outside the axes.
   `charts.legend()` puts it there.
 - **Centred on the plot region, not on the canvas.** `charts.fit()` does this
@@ -177,8 +187,10 @@ open (Sally, 5 October 2026).
   narrow figure — **break it into two rows rather than shrinking the type or
   cramming the swatches.** `charts.legend(fig, entries, ncol=...)` sets the
   entries per row. Never shrink the type.
-- **A map has no legend.** Each area is named on it, `charts.area_names()`, and an
-  area too small for its name takes the name beside it on a leader.
+- **A map names its districts on the map and keys only its colour.** The
+  district names sit at each district's centre; the annexed land, too small
+  and too split to name in place, is keyed in the corner (Sally, 8 October
+  2026, replacing the 6 October rule of no legend on a map).
 - A category with no data anywhere gets no swatch. An empty legend entry reads
   as a sliver too small to see rather than as zero, and the absence belongs in
   the prose. Test on the data, not on the category name.
