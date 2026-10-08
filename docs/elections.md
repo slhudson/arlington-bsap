@@ -451,6 +451,9 @@ within 12 of its 1870 count). Held to the same arithmetic for 1876 on a
 straight line between the two counts, the rate reads 76 for Virginia, 77 for
 Loudoun, 78 for Prince William, 83 for Fairfax, 89 for Alexandria County and
 91 for Alexandria city (`data/transcribed/by_claude/elections_turnout_neighbours.csv`).
+Prince William's 1880 men 21 and over are read as 2,130 (Table XXIII,
+p. 665), where the last digit could be a 6; 2,136 would read 77.6 for 1876
+against 77.8, and no printed figure moves.
 In 1880, a census year with nothing interpolated, the same ratio is 64 for the
 state, 74 to 81 for the three neighbours, 77 for the county and 78 for the
 city. So the 1876 point is the electorate as recorded and not an artifact of
