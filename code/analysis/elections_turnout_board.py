@@ -47,7 +47,7 @@ for profile in style.PROFILES:
     for name in ("president", "midterm", "governor"):
         years_of = d[d.cycle == name].year[lambda y: y >= FIRST_ONE_SEAT].to_numpy()
         rate = board_rate.reindex(years_of)       # a two-seat year is NaN: a gap
-        charts.lines(ax, years_of, {name: (rate.to_numpy(), style.BOARD_FAMILY[name])})
+        charts.lines(ax, years_of, {name: (rate.to_numpy(), style.BOARD_FAMILY[name])}, bridge=True)
 
     charts.counts(ax, 100, 10, label="votes per 100 residents of voting age")
     charts.years(ax, AXIS_FIRST, 2020, step=10, label="year", minor=None, through=2028)
