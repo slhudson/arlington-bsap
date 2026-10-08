@@ -5,8 +5,7 @@ paper/tables/members_subsets.tex (the body).
 
 One row per person who has served, in the order they first took a seat, with
 the gender, race and birth year the report uses for each and a mark saying
-what the value rests on, and an asterisk after the name of a member who has
-chaired the Board (data/clean/members_chairs.csv).
+what the value rests on.
 
     Name & Served & Seated By & Born & Gender & Race and Ethnicity \\
 
@@ -44,7 +43,7 @@ HEADER = (r"\textit{Name} & \textit{Served} & \textit{Seated By} & "
 MARKS_TEXT = ("Superscripts indicate the source for each record: the "
               "US census (c), press or published profile (p), or assumption (a). Two "
               "superscripts mean two kinds of source agree. A dash means no source gives the "
-              "value. An asterisk after a name marks a member who has chaired the Board.")
+              "value.")
 
 
 def basis(source) -> list:
@@ -87,12 +86,8 @@ class Row(NamedTuple):
 def rows(members: pd.DataFrame) -> list:
     """One Row per person, in the order of first seating. Years run from the
     first term's start to the last term's end, left open for a term that runs
-    past the last year the seat table covers. A member who has ever chaired
-    the Board carries an asterisk after the name."""
+    past the last year the seat table covers."""
     present = paths.read("members_by_year").year.max()
-    offices = paths.read("members_chairs")
-    chairs = set(offices[offices.office == "chair"].name)
-    assert chairs <= set(members.name), chairs - set(members.name)
     out = []
     ordered = members.sort_values(["start_year", "start_month"], kind="stable")
     for name, g in ordered.groupby("name", sort=False):
@@ -103,7 +98,7 @@ def rows(members: pd.DataFrame) -> list:
             years += str(int(last.end_year))
         if years == f"{int(first.start_year)}--{int(first.start_year)}":
             years = str(int(first.start_year))  # one year of service prints once
-        out.append(Row((name + ("*" if name in chairs else ""), years, SEATED[first.seated_by],
+        out.append(Row((name, years, SEATED[first.seated_by],
                         marked(first.birth_year, first.birth_year_source),
                         marked(first.gender, first.gender_source),
                         marked(first.race, first.race_source)),
