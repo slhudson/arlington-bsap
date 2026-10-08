@@ -174,23 +174,22 @@
 \renewcommand{\section}{\ifafterpart\afterpartfalse\else\ifsectionbreaks\clearpage\fi\fi\rev@section}
 \makeatother
 
-% Revision marks (Sally, 7 October 2026). The first line of every section file
-% is "% revised: none" or "% revised: SH 7 October 2026" (several revisers
-% separated by "; "): a section is marked when a person has rewritten it, and
-% reading it does not count. \sectioninput reads that line, then \inputs the
-% file, and the contents page stamps the status small and grey beside each
-% section's entry: "draft" for none, "revised SH 7 Oct" otherwise. The file is
-% the one place the status lives; code/revisions.py lists the coverage.
+% Revision marks (Sally, 7 and 8 October 2026). The first line of every
+% section file records who has touched it, "% revised: SH 7 October 2026"
+% (several entries separated by "; "), Claude being one of the authors as CC.
+% \sectioninput reads that line, then \inputs the file, and the contents page
+% stamps the latest entry small and grey beside each section's entry, "SH 7
+% Oct": who touched the draft last. The file is the one place the record
+% lives; code/revisions.py lists the coverage and holds the rule that a
+% person, not only CC, has revised a section before a draft copy is kept.
 \usepackage{xcolor}
 \makeatletter
 \newread\rev@file
-\edef\rev@none{\detokenize{none}}  % \readline gives catcode-12 characters, so compare with those
 \def\rev@abbr#1#2#3#4\relax{#1#2#3}  % October -> Oct
 \def\rev@m@January{1}\def\rev@m@February{2}\def\rev@m@March{3}\def\rev@m@April{4}
 \def\rev@m@May{5}\def\rev@m@June{6}\def\rev@m@July{7}\def\rev@m@August{8}
 \def\rev@m@September{9}\def\rev@m@October{10}\def\rev@m@November{11}\def\rev@m@December{12}
 \newcount\rev@key\newcount\rev@best
-\newif\ifrev@draft
 % One revision, "SH 7 October 2026": the latest seen so far is kept, as "SH 7 Oct".
 \def\rev@try#1 #2 #3 #4\relax{%
   \rev@key=\numexpr#4*10000+\csname rev@m@#3\endcsname*100+#2\relax
@@ -210,26 +209,17 @@
   \ifx\rev@status\@empty\PackageError{revisions}{#1.tex has no revised line first}{}\fi}
 \newcommand{\rev@fold}[1]{%
   \rev@read{#1}%
-  \ifx\rev@status\rev@none
-    \global\rev@drafttrue
-  \else
-    \expandafter\rev@scan\rev@status; \relax
-  \fi}
+  \expandafter\rev@scan\rev@status; \relax}
 % \sectioninput[parts]{file} reads one section file. A section whose
 % subsections sit in files of their own lists them as the optional argument:
-% the section reads "draft" while any of its files does, and otherwise shows
-% the latest revision across them (Sally, 7 October 2026).
+% the section shows the latest entry across them (Sally, 8 October 2026).
 \newcommand{\sectioninput}[2][]{%
   \begingroup
     \endlinechar=-1
-    \global\rev@best=0 \global\rev@draftfalse
+    \global\rev@best=0
     \rev@fold{#2}%
     \forcsvlist\rev@fold{#1}%
-    \ifrev@draft
-      \xdef\rev@label{draft}%
-    \else
-      \xdef\rev@label{revised \rev@bestitem}%
-    \fi
+    \xdef\rev@label{\rev@bestitem}%
   \endgroup
   \input{#2}}
 \DeclareRobustCommand{\tocstamp}[1]{\hspace{0.8em}{\normalfont\footnotesize\color[gray]{0.45}#1}}

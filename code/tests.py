@@ -3677,47 +3677,43 @@ def test_paper_holds_only_what_a_co_author_should_see():
     assert top <= allowed, f"paper/ holds something a co-author should not see: {sorted(top - allowed)}"
 
 
-def test_a_draft_copy_from_30_october_refuses_a_section_nobody_has_revised():
+def test_a_draft_copy_from_30_october_refuses_a_section_only_claude_has_touched():
     """paper/drafts/ holds dated copies of the compiled report, and from 30
-    October 2026 every section in one must have been revised by a person
-    (code/revisions.py): its first line reads '% revised: SH 7 October 2026',
-    not '% revised: none'. Builds a small paper/ in a temporary folder, writes
-    a copy dated the cutoff while one section still reads none, and asserts
-    the check names it; then asserts the same copy passes once the section is
-    marked, that an earlier copy passes while it is not, and that a first
-    line which is not a mark is refused rather than read as one."""
+    October 2026 every section file in one must hold an entry from a person
+    (code/revisions.py), not only Claude's CC: '% revised: CC 8 October 2026;
+    SH 9 October 2026'. Builds a small paper/ in a temporary folder, writes a
+    copy dated the cutoff while one file is Claude's alone, and asserts the
+    check names it; then asserts the same copy passes once a person has an
+    entry, that an earlier copy passes meanwhile, that a stamp shows the
+    latest entry across a section's files, and that a first line which is not
+    a mark is refused rather than read as one."""
     with tempfile.TemporaryDirectory() as tmp:
         paper_dir = Path(tmp) / "paper"
         (paper_dir / "drafts").mkdir(parents=True)
-        (paper_dir / revisions.WRAPPER).write_text(
-            "\\sectioninput{a}\n% \\sectioninput{commented_out}\n\\sectioninput{b}\n")
+        wrapper = paper_dir / revisions.WRAPPER
+        wrapper.write_text("\\sectioninput{a}\n% \\sectioninput{commented_out}\n\\sectioninput{b}\n")
         a, b = paper_dir / "a.tex", paper_dir / "b.tex"
-        a.write_text("% revised: SH 7 October 2026; AK 9 October 2026\n\\section{A}\n")
-        b.write_text("% revised: none\n\\section{B}\n")
+        a.write_text("% revised: CC 8 October 2026; AK 9 October 2026\n\\section{A}\n")
+        b.write_text("% revised: CC 8 October 2026\n\\section{B}\n")
         (paper_dir / "drafts" / "arlington-bsap-2026-10-29.pdf").write_bytes(b"%PDF")
         assert not revisions.late_copies_with_unrevised_sections(paper_dir), \
             "a copy before the cutoff was refused"
         (paper_dir / "drafts" / "arlington-bsap-2026-10-30.pdf").write_bytes(b"%PDF")
         found = revisions.late_copies_with_unrevised_sections(paper_dir)
         assert len(found) == 1 and "b.tex" in found[0] and "a.tex" not in found[0], \
-            f"the 30 October copy was not refused for the unmarked section: {found}"
-        b.write_text("% revised: SH 8 October 2026\n\\section{B}\n")
+            f"the 30 October copy was not refused for the file only Claude touched: {found}"
+        b.write_text("% revised: CC 8 October 2026; SH 8 October 2026\n\\section{B}\n")
         assert not revisions.late_copies_with_unrevised_sections(paper_dir), \
-            "a copy was refused although every section is marked"
-        # A section with subsection files reads draft while any file does, and
-        # otherwise the latest revision across them.
-        (paper_dir / revisions.WRAPPER).write_text(
-            "\\sectioninput[c,d]{a}\n\\sectioninput{c}\n\\sectioninput{d}\n")
+            "a copy was refused although a person has an entry in every file"
+        # A section's stamp is the latest entry across its files, whoever made it.
+        wrapper.write_text("\\sectioninput[c,d]{a}\n\\sectioninput{c}\n\\sectioninput{d}\n")
         c, d = paper_dir / "c.tex", paper_dir / "d.tex"
         c.write_text("% revised: AK 9 September 2026\n")
-        d.write_text("% revised: none\n")
-        assert [revisions.label([m, *p]) for m, p in revisions.sections(paper_dir)] == ["draft"], \
-            "a section with an unrevised subsection file was not a draft"
-        d.write_text("% revised: SH 12 October 2026; AK 8 June 2026\n")
-        assert [revisions.label([m, *p]) for m, p in revisions.sections(paper_dir)] \
-            == ["revised SH 12 Oct"], "the section did not show its latest revision"
+        d.write_text("% revised: CC 12 October 2026; SH 3 June 2026\n")
+        assert [revisions.label([m, *p]) for m, p in revisions.sections(paper_dir)] == ["CC 12 Oct"], \
+            "the stamp is not the latest entry across the section's files"
         b.write_text("% revised\n\\section{B}\n")
-        (paper_dir / revisions.WRAPPER).write_text("\\sectioninput{a}\n\\sectioninput{b}\n")
+        wrapper.write_text("\\sectioninput{a}\n\\sectioninput{b}\n")
         try:
             revisions.late_copies_with_unrevised_sections(paper_dir)
         except ValueError:
