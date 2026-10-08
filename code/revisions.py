@@ -14,7 +14,10 @@ stamps it beside the section on the contents page, so the file is the one
 place the status lives. Several revisers are separated by "; ".
 
 The sections are the files the wrapper pulls in with \\sectioninput, so a new
-section is listed here by listing it there. A copy of the report written to
+section is listed here by listing it there. A section whose subsections sit in
+files of their own lists them as the optional argument, and the section reads
+"draft" while any of its files is marked none; otherwise it shows the latest
+revision across them (Sally, 7 October 2026). A copy of the report written to
 paper/drafts/ on or after DRAFT_CUTOFF must have no section still marked none
 (code/tests.py).
 """
@@ -34,12 +37,22 @@ REVISION = rf"[A-Z]{{2,3}} \d{{1,2}} (?:{MONTHS}) \d{{4}}"
 MARK = re.compile(rf"^% revised: (none|{REVISION}(?:; {REVISION})*)$")
 
 
-def section_files(paper_dir=PAPER):
-    """The section files, in the order the wrapper reads them."""
+def sections(paper_dir=PAPER):
+    """[(file, [its subsection files])] in the order the wrapper reads them.
+    A subsection file is read by its own \\sectioninput line too, and is
+    listed only under its section."""
     live = [re.sub(r"(?<!\\)%.*", "", line)
             for line in (paper_dir / WRAPPER).read_text().split("\n")]
-    return [paper_dir / (m.group(1) + ".tex")
-            for m in re.finditer(r"\\sectioninput\{([^}]+)\}", "\n".join(live))]
+    found = [(paper_dir / (m.group(2) + ".tex"),
+              [paper_dir / (n + ".tex") for n in (m.group(1) or "").split(",") if n])
+             for m in re.finditer(r"\\sectioninput(?:\[([^\]]*)\])?\{([^}]+)\}", "\n".join(live))]
+    parts = {f for _, fs in found for f in fs}
+    return [(main, fs) for main, fs in found if main not in parts]
+
+
+def section_files(paper_dir=PAPER):
+    """Every file the wrapper reads as a section or part of one, in order."""
+    return [f for main, parts in sections(paper_dir) for f in [main, *parts]]
 
 
 def mark(path):
@@ -51,6 +64,22 @@ def mark(path):
         raise ValueError(f"{path.name}: the first line must be '% revised: none' or "
                          f"'% revised: SH 7 October 2026', not {lines[0]!r}")
     return m.group(1)
+
+
+def _key(revision):
+    """A revision 'SH 7 October 2026' as (year, month, day), to find the latest."""
+    who, day, month, year = revision.split()
+    return int(year), MONTHS.split("|").index(month), int(day)
+
+
+def label(files):
+    """What the contents page stamps for a section made of these files."""
+    marks = [mark(f) for f in files]
+    if "none" in marks:
+        return "draft"
+    latest = max((r for m in marks for r in m.split("; ")), key=_key)
+    who, day, month, year = latest.split()
+    return f"revised {who} {day} {month[:3]}"
 
 
 def unrevised(paper_dir=PAPER):
@@ -82,8 +111,10 @@ def main():
     width = max(len(str(f.relative_to(PAPER))) for f in files)
     for f in files:
         print(f"  {str(f.relative_to(PAPER)):<{width}}  {mark(f)}")
-    left = len(unrevised())
-    print(f"\n{len(files) - left} revised, {left} draft, of {len(files)} sections")
+    stamps = [label([main, *parts]) for main, parts in sections()]
+    left = stamps.count("draft")
+    print(f"\n{len(stamps) - left} revised, {left} draft, of {len(stamps)} sections "
+          f"({len(files)} files)")
 
 
 if __name__ == "__main__":

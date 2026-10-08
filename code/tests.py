@@ -3704,7 +3704,20 @@ def test_a_draft_copy_from_30_october_refuses_a_section_nobody_has_revised():
         b.write_text("% revised: SH 8 October 2026\n\\section{B}\n")
         assert not revisions.late_copies_with_unrevised_sections(paper_dir), \
             "a copy was refused although every section is marked"
+        # A section with subsection files reads draft while any file does, and
+        # otherwise the latest revision across them.
+        (paper_dir / revisions.WRAPPER).write_text(
+            "\\sectioninput[c,d]{a}\n\\sectioninput{c}\n\\sectioninput{d}\n")
+        c, d = paper_dir / "c.tex", paper_dir / "d.tex"
+        c.write_text("% revised: AK 9 September 2026\n")
+        d.write_text("% revised: none\n")
+        assert [revisions.label([m, *p]) for m, p in revisions.sections(paper_dir)] == ["draft"], \
+            "a section with an unrevised subsection file was not a draft"
+        d.write_text("% revised: SH 12 October 2026; AK 8 June 2026\n")
+        assert [revisions.label([m, *p]) for m, p in revisions.sections(paper_dir)] \
+            == ["revised SH 12 Oct"], "the section did not show its latest revision"
         b.write_text("% revised\n\\section{B}\n")
+        (paper_dir / revisions.WRAPPER).write_text("\\sectioninput{a}\n\\sectioninput{b}\n")
         try:
             revisions.late_copies_with_unrevised_sections(paper_dir)
         except ValueError:
@@ -3732,7 +3745,7 @@ def test_every_tex_file_under_paper_is_reached_from_a_document():
             continue
         reached.add(tex)
         live = "\n".join(re.sub(r"(?<!\\)%.*", "", line) for line in tex.read_text().split("\n"))
-        for m in re.finditer(r"\\(?:input|rosterinput|sectioninput)\s*\{?([^}\s]+)\}?", live):
+        for m in re.finditer(r"\\(?:input|rosterinput|sectioninput)\s*(?:\[[^\]]*\])?\s*\{?([^}\s]+)\}?", live):
             name = m.group(1)
             target = paper_dir / (name if name.endswith(".tex") else name + ".tex")
             if target.exists():
