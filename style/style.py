@@ -127,8 +127,8 @@ RESIDENCE["none"] = ("no location", UNRECORDED)
 # reference neutral the growth and peer figures use. See docs/figures.md.
 DISTRICTS = {
     "Arlington":  ("Arlington District", OKABE_ITO["bluish_green"]),
-    "Jefferson":  ("Jefferson District", OKABE_ITO["blue"]),
-    "Washington": ("Washington District", OKABE_ITO["reddish_purple"]),
+    "Jefferson":  ("Jefferson District", OKABE_ITO["reddish_purple"]),
+    "Washington": ("Washington District", OKABE_ITO["blue"]),
 }
 WHOLE_COUNTY = ("Arlington County", DARK)
 
