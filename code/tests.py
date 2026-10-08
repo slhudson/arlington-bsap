@@ -3712,6 +3712,11 @@ def test_a_draft_copy_from_30_october_refuses_a_section_only_claude_has_touched(
         d.write_text("% revised: CC 12 October 2026; SH 3 June 2026\n")
         assert [revisions.label([m, *p]) for m, p in revisions.sections(paper_dir)] == ["CC 12 Oct"], \
             "the stamp is not the latest entry across the section's files"
+        # A part's line stamps the latest entry across the files it lists.
+        wrapper.write_text("\\partinput[a,b]{c}\n\\sectioninput{a}\n\\sectioninput{b}\n")
+        assert [(m.name, revisions.label(fs)) for m, fs in revisions.parts(paper_dir)] \
+            == [("c.tex", "AK 9 Oct")] and len(revisions.sections(paper_dir)) == 3, \
+            "a part's stamp is not the latest entry across its files"
         b.write_text("% revised\n\\section{B}\n")
         wrapper.write_text("\\sectioninput{a}\n\\sectioninput{b}\n")
         try:
@@ -3741,7 +3746,7 @@ def test_every_tex_file_under_paper_is_reached_from_a_document():
             continue
         reached.add(tex)
         live = "\n".join(re.sub(r"(?<!\\)%.*", "", line) for line in tex.read_text().split("\n"))
-        for m in re.finditer(r"\\(?:input|rosterinput|sectioninput)\s*(?:\[[^\]]*\])?\s*\{?([^}\s]+)\}?", live):
+        for m in re.finditer(r"\\(?:input|rosterinput|sectioninput|partinput)\s*(?:\[[^\]]*\])?\s*\{?([^}\s]+)\}?", live):
             name = m.group(1)
             target = paper_dir / (name if name.endswith(".tex") else name + ".tex")
             if target.exists():

@@ -164,7 +164,9 @@
 % flushes pending figures, so a section's figures stay with it.
 \newif\ifafterpart
 \let\oldpart\part
-\renewcommand{\part}{\clearpage\afterparttrue\oldpart}
+\makeatletter
+\renewcommand{\part}{\clearpage\afterparttrue\rev@part}
+\makeatother
 \let\oldsection\section
 % Only Part A's sections start new pages for now (Sally, 4 October 2026): the
 % other parts are short or placeholders, and a page break between their
@@ -174,7 +176,7 @@
 \renewcommand{\section}{\ifafterpart\afterpartfalse\else\ifsectionbreaks\clearpage\fi\fi\rev@section}
 \makeatother
 
-% Revision marks (Sally, 7 and 8 October 2026). The first line of every
+% Revision marks (Sally, 7 and 8 October 2026), on part lines too. The first line of every
 % section file records who has touched it, "% revised: SH 7 October 2026"
 % (several entries separated by "; "), Claude being one of the authors as CC.
 % \sectioninput reads that line, then \inputs the file, and the contents page
@@ -222,11 +224,19 @@
     \xdef\rev@label{\rev@bestitem}%
   \endgroup
   \input{#2}}
+% \partinput[files]{file} is the same, for the file that opens a part: the part
+% line stamps the latest entry across the file and the files listed, which are
+% the part's own (its sections and their subsections).
+\let\partinput\sectioninput
 \DeclareRobustCommand{\tocstamp}[1]{\hspace{0.8em}{\normalfont\footnotesize\color[gray]{0.45}#1}}
 % A contents entry for an unnumbered heading, with the stamp frozen now: the
 % entry is written at shipout, by when another file's status has replaced it.
 \newcommand{\addstampedcontentsline}[2]{%
   \edef\rev@entry{\noexpand\addcontentsline{toc}{#1}{\unexpanded{#2}\noexpand\texorpdfstring{\noexpand\tocstamp{\rev@label}}{}}}%
+  \rev@entry}
+\newcommand{\rev@part}{\@ifstar{\oldpart*}{\@dblarg\rev@part@}}
+\def\rev@part@[#1]#2{%
+  \edef\rev@entry{\noexpand\oldpart[\unexpanded{#1}\noexpand\texorpdfstring{\noexpand\tocstamp{\rev@label}}{}]{\unexpanded{#2}}}%
   \rev@entry}
 \newcommand{\rev@section}{\@ifstar{\oldsection*}{\@dblarg\rev@section@}}
 \def\rev@section@[#1]#2{%
@@ -267,7 +277,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 \tableofcontents
 
 \sectioninput{0_summary}
-\sectioninput{1_history/intro}
+\partinput[1_history/board_structure,1_history/election_method,1_history/representation,1_history/representation_gender,1_history/representation_race,1_history/representation_age,1_history/representation_neighborhood,1_history/local_authority]{1_history/intro}
 \sectioninput{1_history/board_structure}
 \sectioninput{1_history/election_method}
 \sectioninput[1_history/representation_gender,1_history/representation_race,1_history/representation_age,1_history/representation_neighborhood]{1_history/representation}
@@ -276,8 +286,8 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 \sectioninput{1_history/representation_age}
 \sectioninput{1_history/representation_neighborhood}
 \sectioninput{1_history/local_authority}
-\sectioninput{2_community_input/community_input}
-\sectioninput{3_future_work/future_work}
+\partinput{2_community_input/community_input}
+\partinput{3_future_work/future_work}
 \sectioninput{4_appendix}
 
 \clearpage

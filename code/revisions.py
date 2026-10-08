@@ -11,7 +11,7 @@ Initials and a date, one entry for each time someone rewrote the file, oldest
 first, separated by "; ". Claude is an author and signs as CC (Sally, 8
 October 2026); reading a section does not count. The wrapper's \\sectioninput
 reads that same line and stamps the latest entry beside the section on the
-contents page, so the file is the one place the record lives.
+contents page (a part's line, from the files it lists with \\partinput), so the file is the one place the record lives.
 
 The sections are the files the wrapper pulls in with \\sectioninput, so a new
 section is listed here by listing it there. A section whose subsections sit in
@@ -38,17 +38,29 @@ MARK = re.compile(rf"^% revised: ({REVISION}(?:; {REVISION})*)$")
 CLAUDE = "CC"  # Claude signs as an author; its entries do not count as a person's revision
 
 
+def _calls(paper_dir):
+    live = [re.sub(r"(?<!\\)%.*", "", line)
+            for line in (paper_dir / WRAPPER).read_text().split("\n")]
+    return [(m.group(1), [paper_dir / (n + ".tex") for n in (m.group(2) or "").split(",") if n],
+             paper_dir / (m.group(3) + ".tex"))
+            for m in re.finditer(r"\\(sectioninput|partinput)(?:\[([^\]]*)\])?\{([^}]+)\}",
+                                 "\n".join(live))]
+
+
 def sections(paper_dir=PAPER):
     """[(file, [its subsection files])] in the order the wrapper reads them.
     A subsection file is read by its own \\sectioninput line too, and is
-    listed only under its section."""
-    live = [re.sub(r"(?<!\\)%.*", "", line)
-            for line in (paper_dir / WRAPPER).read_text().split("\n")]
-    found = [(paper_dir / (m.group(2) + ".tex"),
-              [paper_dir / (n + ".tex") for n in (m.group(1) or "").split(",") if n])
-             for m in re.finditer(r"\\sectioninput(?:\[([^\]]*)\])?\{([^}]+)\}", "\n".join(live))]
-    parts = {f for _, fs in found for f in fs}
-    return [(main, fs) for main, fs in found if main not in parts]
+    listed only under its section. The file that opens a part (\\partinput)
+    is listed alone."""
+    calls = _calls(paper_dir)
+    subs = {f for kind, fs, _ in calls if kind == "sectioninput" for f in fs}
+    return [(main, fs if kind == "sectioninput" else [])
+            for kind, fs, main in calls if main not in subs]
+
+
+def parts(paper_dir=PAPER):
+    """[(opening file, every file the part's line stamps from)]."""
+    return [(main, [main, *fs]) for kind, fs, main in _calls(paper_dir) if kind == "partinput"]
 
 
 def section_files(paper_dir=PAPER):
@@ -117,6 +129,8 @@ def main():
         print(f"  {str(f.relative_to(PAPER)):<{width}}  {mark(f)}")
     stamps = [label([main, *parts]) for main, parts in sections()]
     left = len(without_a_person())
+    for main, files_of_part in parts():
+        print(f"  part line of {main.name}: {label(files_of_part)}")
     print(f"\n{len(files) - left} of {len(files)} files have an entry from a person, "
           f"{left} are Claude's alone ({len(stamps)} sections)")
 
