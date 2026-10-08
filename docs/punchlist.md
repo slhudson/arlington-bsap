@@ -12,10 +12,6 @@ stays, with a one-line reason under it.
 
 ## Open
 - Data Appendix, Elections: a source-coverage figure like members_by_source (Table 2's timeline of which document covers which years) for the election returns: which source carries each year's presidential and Board votes - the Gazette's returns, the Almanack, the Secretary's reports, the county's candidate history, the state's file - so a reader sees where the turnout and margin figures' numbers come from; a figure, not a figure-and-prose rewrite (Sally, 7 Oct).
-- Part C, Board Structure: add compensation and whether the seat is a full-time job to the questions a review would take up; Portland's commission considered pay, staff and offices (Portland memo, item 2a.5), and Arlington's members are paid for what is in practice full-time work; a fact on current pay and the statute that sets it, no position (Sally, 7 Oct).
-- Election Method, opening block: state that a multi-winner ranked-choice count elects any group of voters larger than the quota (ballots divided by seats plus one, plus one) wherever those voters live, as the arithmetic of the rule, citing the 2020 statute (vaacts2020c713) for the quota; cite no advocacy writing for it. Tracker row method-proportional-claim is closed on this ruling (Sally, 6 Oct).
-- Age (A.3 and the appendix): the county's age shares stand without characterizing Arlington as young or an outlier, and Virginia's share is not cited; the two "young county" sentences are already cut on main, so check nothing else in the section says it (Sally, 6 Oct).
-- Roster (appendix): an asterisk after the name of every member who has ever chaired the Board, from data/clean/members_chairs.csv through code/analysis/members_roster.py, with one note under the panels saying what it marks; no years. That table then has a reader (Sally, 7 Oct).
 
 ## Could not settle
 - Board Seats: the federal-office statute (Acts 1883-84 ch. 145) that emptied Perkins W. Squier's seat in 1884 is, as Code 1950 § 2-27, the one Dean v. Paolicelli applied to take the Board's Non-Partisan majority in 1952, so Arlington held four Board contests on 4 November 1952; one provision at both ends of the period, not yet in the paper (paolicelli1952, dailysun1952appointees). (members.md split, 4 Oct)
@@ -26,3 +22,7 @@ stays, with a one-line reason under it.
   Adds a claim about the act's origins and leaves one claim unconfirmed; wants a Fable session.
 - Board Structure: the chair custom is not in the paper: since 1990 each year's vice-chair chairs the next year, with four breaks each explained by membership, and no chair election is reported contested (arlingtonva2026members, arlnow2026chair). (members.md split, 4 Oct)
   Adds a claim about an unwritten custom the paper does not yet carry; wants a Fable session.
+- Election Method, opening block: vaacts2020c713 defines instant runoff voting and leaves the winners' procedure to State Board regulations; it states no quota. The one-sixth-for-five-seats sentence is printed as arithmetic with no citation of its own (Sally, 6 Oct asked it be cited to the statute).
+  Needs a ruling: cite the State Board's regulation instead, or leave the arithmetic uncited.
+- Part C, Board Structure: the member's salary cap from January 2024 is 119,833 in the County's June 2023 agenda item and 116,343 in the FY 2027 budget summary, so the paper says only "above $116,000"; current pay actually appropriated not found (tracker row board-pay-cap).
+  Wants the adopting ordinance or minutes.
