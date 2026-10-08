@@ -140,11 +140,15 @@ def tint(color, strength):
     return mpl.colors.to_hex(tuple(1 - strength * (1 - c) for c in rgb))
 
 
-# The land Alexandria annexed was Jefferson district's, so each year is a
-# tint of Jefferson's blue, the earlier the darker. See docs/figures.md.
+# A map names its districts rather than colouring them, so they share one
+# neutral ground, and the only colour is the land Alexandria annexed: one hue,
+# the earlier year the darker, and not blue, which on a map reads as water.
+# See docs/figures.md.
+MAP_GROUND = SAND
+ANNEXED_HEADING = "annexed by Alexandria"
 ANNEXED = {
-    "annexed 1915": ("annexed 1915", tint(DISTRICTS["Jefferson"][1], 0.55)),
-    "annexed 1930": ("annexed 1930", tint(DISTRICTS["Jefferson"][1], 0.28)),
+    "annexed 1915": ("1915", OKABE_ITO["reddish_purple"]),
+    "annexed 1930": ("1930", tint(OKABE_ITO["reddish_purple"], 0.45)),
 }
 # A map of the county is taller than wide, so it takes this fraction of the
 # profile's width rather than the whole. See docs/figures.md.
@@ -157,13 +161,14 @@ DRAFT_ANGLE = 35
 DRAFT_COLOR = "#444444"
 DRAFT_ALPHA = 0.22
 DRAFT_SCALE = 4.5
-DRAFT_AT = (0.3, 0.3)
-# The line between two areas of a map, in points, and how far a name that is
-# too big for its area sits beside it, in points across and up, on a leader;
-# negative across is to its left, which for the 1915 area is the open ground
-# below the county's southwest edge.
-AREA_EDGE = 0.6
-NAME_BESIDE = (-22, 0)
+DRAFT_AT = (0.68, 0.78)
+# A district's edge on a map, in points, and its ink: the districts as they
+# stood, the annexed land inside them, so the only edges are the district
+# lines and the county's own.
+AREA_EDGE = 0.9
+AREA_EDGE_COLOR = DARK
+# Where a map's legend sits: the empty corner the county's shape leaves.
+MAP_LEGEND_AT = "lower left"
 # Ink for a name set on a fill: white on a dark one, the body grey on a light.
 INK_ON_DARK, INK_ON_LIGHT, DARK_BELOW = "white", "#222222", 0.45
 

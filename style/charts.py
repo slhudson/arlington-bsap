@@ -16,7 +16,7 @@ each placement is in docs/figures.md.
     scatter_pair()  two scatters stacked, the first with a broken x axis; break_x() draws the break, title_broken() titles it
     dots()          a scatter, dot area from dot_area(), named by dot_label()
     events()        a timeline strip: a dot per event at its year, filled or a ring
-    map_figure()    a map of polygons, with areas() to fill them and area_names() to name them
+    map_figure()    a map of polygons, with areas() to fill them, edges() to outline them, area_names() to name them and map_legend() to key them
     legend()        one legend for the figure, one row, below the axes
     legend_family() the same, stacked, with a heading and its entries indented under it
     dot_legend()    the same with a dot per colour, or a ring
@@ -30,7 +30,7 @@ never imports: dot_label() reaches it from here.
 """
 import numpy as np
 import shapely.geometry as sg
-from shapely.ops import polylabel
+import shapely.ops as so
 from matplotlib import pyplot as plt
 from matplotlib.legend_handler import HandlerBase, HandlerLine2D
 from matplotlib.lines import Line2D
@@ -669,33 +669,42 @@ def map_figure(profile, shapes):
 
 
 def areas(ax, shapes, color):
-    """`shapes` filled `color`, each outlined in white, so two areas that
-    meet are told apart by the edge between them."""
+    """`shapes` filled `color`, with no edge of their own: the edges are
+    drawn once, by edges()."""
     for shape in shapes:
-        ax.add_patch(Polygon(shape, closed=True, facecolor=color,
-                             edgecolor="white", linewidth=style.AREA_EDGE))
+        ax.add_patch(Polygon(shape, closed=True, facecolor=color, edgecolor=color, linewidth=0.2))
 
 
-def area_names(ax, names, beside=()):
-    """Each area's name set on it, at the centre of the largest circle that
-    fits inside, in the ink that reads on its fill; a map names its areas
-    where they are and takes no legend. `names` is ordered
-    {label: (shapes, colour)}. A label in `beside` belongs to an area too
-    small to hold it, and is set beside the area on a short leader, in the
-    body ink."""
+def edges(ax, shapes):
+    """The outline of `shapes` taken together, in the edge ink, over the
+    fills: a district drawn whole, whatever inside it is filled otherwise."""
+    whole = so.unary_union([sg.Polygon(s).buffer(0) for s in shapes])
+    for part in getattr(whole, "geoms", [whole]):
+        ax.add_patch(Polygon(np.asarray(part.exterior.coords), closed=True, facecolor="none",
+                             edgecolor=style.AREA_EDGE_COLOR, linewidth=style.AREA_EDGE, zorder=3))
+
+
+def area_names(ax, names):
+    """Each area's name set at its centroid, in the ink that reads on its
+    fill; a map names its districts where they are. `names` is
+    {label: (shapes, colour)}. A centroid that falls outside its own area
+    stops the build, since the name would then sit on another."""
     size = plt.rcParams["font.size"]
     for label, (shapes, color) in names.items():
-        biggest = max(shapes, key=lambda s: sg.Polygon(s).area)
-        centre = polylabel(sg.Polygon(biggest), tolerance=1e-4)
-        if label in beside:
-            ax.annotate(label, (centre.x, centre.y), xytext=style.NAME_BESIDE, textcoords="offset points",
-                        ha="left" if style.NAME_BESIDE[0] > 0 else "right", va="center", fontsize=size,
-                        color=style.INK_ON_LIGHT,
-                        arrowprops=dict(arrowstyle="-", color=style.INK_ON_LIGHT, lw=style.AREA_EDGE,
-                                        shrinkA=2, shrinkB=0))
-        else:
-            ax.text(centre.x, centre.y, label, ha="center", va="center", fontsize=size,
-                    color=style.ink_on(color), linespacing=1.15)
+        area = so.unary_union([sg.Polygon(s).buffer(0) for s in shapes])
+        centre = area.centroid
+        if not area.contains(centre):
+            raise AssertionError(f"{label!r}: its centroid falls outside it; name it some other way")
+        ax.text(centre.x, centre.y, label, ha="center", va="center", fontsize=size,
+                color=style.ink_on(color), linespacing=1.15)
+
+
+def map_legend(ax, heading, entries):
+    """A map's key, stacked inside the frame in the corner the shape leaves
+    empty: `heading`, then `entries` ({label: colour}) as swatches under it."""
+    handles = [Patch(facecolor=c, label=l) for l, c in entries.items()]
+    ax.legend(handles=handles, title=heading, alignment="left", loc=style.MAP_LEGEND_AT,
+              frameon=False, borderaxespad=0)
 
 
 def draft_mark(ax, text=style.DRAFT_TEXT):

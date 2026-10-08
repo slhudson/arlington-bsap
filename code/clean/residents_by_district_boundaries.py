@@ -1,8 +1,8 @@
 """The county before 1915, in five areas -> data/clean/residents_by_district_boundaries.csv
 
 The three magisterial districts as they stood from 1870 until the Board went
-at-large in 1932, and the two pieces of Jefferson district that Alexandria
-annexed in 1915 and 1930. docs/residents.md, "Where the lines ran", has the
+at-large in 1932, and the land Alexandria annexed in 1915 and 1930, each
+piece of it marked with the district that held it. docs/residents.md, "Where the lines ran", has the
 sources and the doubts.
 
 The county then was the whole Virginia side of the ten-mile square less the
@@ -121,7 +121,9 @@ def areas() -> dict:
     # shared edges, which would otherwise show as land of the city's.
     old_part = opened(alexandria.intersection(side_of(district_line, inside))
                       .intersection(side_of(southeast_side, inside)).difference(arlington), SLIVER)
-    county = closed(arlington.union(old_part))
+    # The county had no holes: one left where the two outlines fail to meet
+    # is their disagreement, and is filled.
+    county = sg.Polygon(closed(arlington.union(old_part)).exterior)
     city = snapped(polygon(limits[limits.limit == "city_1912"]), district_line)
     land = opened(county.difference(city)).simplify(SIMPLIFY)
 
@@ -131,6 +133,12 @@ def areas() -> dict:
     a1915 = opened(land.intersection(in_1915))
     a1930 = opened(land.intersection(old_part.buffer(CLOSE)).difference(in_1915))
     left = opened(land.difference(a1915).difference(a1930))
+    # A sliver of the county too thin to keep, where it borders the 1930
+    # land, is the two surveys' disagreement, and goes with that land rather
+    # than being drawn as no one's.
+    dropped = land.difference(a1915).difference(a1930).difference(left)
+    a1930 = so.unary_union([a1930] + [g for g in getattr(dropped, "geoms", [dropped])
+                                      if g.distance(a1930) < CLOSE])
 
     lines = typed(built("district_lines"))
     wa = keyed_line(lines, "boundary", "washington_arlington")
@@ -163,16 +171,33 @@ def areas() -> dict:
     return out
 
 
-SOURCES = {"annexed 1915": "rose1964", "annexed 1930": "rose1964"}
+SOURCES = {"annexed 1915": "alexandria2024", "annexed 1930": "alexandria2024"}
+
+
+def by_district(out: dict) -> list:
+    """[(area, district, polygon)]: each annexed area cut by the
+    noetzel1907 line between Arlington and Jefferson, so every piece of land
+    says which district held it before Alexandria did."""
+    aj = keyed_line(typed(built("district_lines")), "boundary", "arlington_jefferson")
+    pieces = []
+    for name, shapes in out.items():
+        for shape in shapes:
+            if name not in SOURCES:
+                pieces.append((name, name, shape))
+                continue
+            for p in so.split(shape, aj).geoms:
+                if p.area > DUST:
+                    pieces.append((name, "Arlington" if north_of(aj, p.representative_point()) else "Jefferson", p))
+    return pieces
 
 
 def main():
-    rows = []
-    for name, shapes in areas().items():
-        for part, shape in enumerate(shapes, start=1):
-            for seq, (lon, lat) in enumerate(shape.exterior.coords, start=1):
-                rows.append({"area": name, "part": part, "seq": seq, "lon": lon, "lat": lat,
-                             "source": SOURCES.get(name, "noetzel1907")})
+    rows, parts = [], {}
+    for name, district, shape in by_district(areas()):
+        part = parts[name] = parts.get(name, 0) + 1
+        for seq, (lon, lat) in enumerate(shape.exterior.coords, start=1):
+            rows.append({"area": name, "district": district, "part": part, "seq": seq,
+                         "lon": lon, "lat": lat, "source": SOURCES.get(name, "noetzel1907")})
     write(pd.DataFrame(rows), "residents_by_district_boundaries")
 
 
