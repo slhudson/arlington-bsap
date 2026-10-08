@@ -744,6 +744,17 @@ there the labels can be shortened and here the years cannot.
   cluster: Richmond for the two 9-member cities in (a), and in (b) the
   Chesapeake, Newport News, Hampton and Hanover dots are named by their
   neighbours.
+- **elections_by_source.** The election-return counterpart of
+  `members_by_source`: one row per publisher over the years it supplies the
+  presidential vote, the Board's vote or both, read off the source columns of
+  `elections_results`, `elections_turnout` and `elections_margins`
+  (`style.ELECTION_RETURNS`). The three kinds are ordered by how much of the
+  vote a source carries, so they take the sequential ramp, lightest first:
+  Board, President, both (Sally, 7 October 2026). A publisher whose years leave
+  no gap over eight years draws as one solid bar; the rest are ticks, since a
+  bar would assert coverage nothing records. Every newspaper, the Gazette
+  included, is one press row, last. Row labels are the publisher's plain name,
+  chosen by Sally.
 - **members_by_source.** A stacked timeline, one bar per document naming the
   Board, sorted by the year each bar starts rather than typed in by hand, so
   the row order is read off the same computation as the bars - the
