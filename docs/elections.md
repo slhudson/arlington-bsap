@@ -14,8 +14,9 @@ still open.
   found (`referendum-1938-canvass`).
 - The presidential figure stacks three bands, and the pre-1924 nominees are a
   table in the build (`president-figure-form`).
-- The county's presidential total for 1920 is O'Leary's, since no state
-  return has been found (`state-returns-1920`), and the Almanack that
+- The county's presidential total for 1920 is O'Leary's, and the county's
+  candidate history prints the same 835 and 996; no state return has been
+  found and none is sought. The Almanack that
   prints the others before 1924 cannot be tested against the Secretary's
   own return with anything held online; only a visit to the Library of
   Virginia would settle it (`almanack-against-secretary`).
