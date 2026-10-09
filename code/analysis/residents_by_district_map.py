@@ -38,5 +38,4 @@ for profile in style.PROFILES:
     charts.area_names(ax, {style.DISTRICTS[d][0].replace(" ", "\n", 1): (shapes[(d, d)], style.MAP_GROUND)
                            for d in DISTRICTS})
     charts.map_legend(ax, style.ANNEXED_HEADING, dict(style.ANNEXED.values()))
-    charts.draft_mark(ax)        # until annexation-1915-line is settled (docs/questions.csv)
     paths.save(fig, profile)

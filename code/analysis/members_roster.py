@@ -21,7 +21,8 @@ The roster is printed as four panels, one era each, 3A through 3D in the
 paper, each its own numbered table so a reader can cite one panel. The eras
 are fixed (1870-1899, 1900-1949, 1950-1999, 2000-present), each a whole run of
 decades; a panel breaks only between decades, and longtable carries it across
-as many pages as it needs. The subset is every member who was a woman or a
+as many pages as it needs. The marks note prints once, under the first panel
+(a panel that fills its page leaves no room for one of its own). The subset is every member who was a woman or a
 member of color, once each, in the same rows and columns under a bold heading
 for the century they first took a seat, in one table the body \input{}s. The
 roster and the evidence behind each cell are data/clean/members.csv.
@@ -177,8 +178,11 @@ def tex(table: list, present: int) -> str:
             out.append(heading(f"{d}s", first=(j == 0)) + "\n")
             for i, r in enumerate(group):
                 out.append(line(r, len(group) > 1 and i in (0, len(group) - 2)) + "\n")
-        out.append("\\end{longtable}\\par\\smallskip\n")
-        out.append("\\noindent\\figurenotes{Notes: %s}{}\\endgroup\n" % MARKS_TEXT)
+        out.append("\\end{longtable}\\par\n")
+        if k == 0:
+            out.append("\\smallskip\\noindent\\figurenotes{Notes: %s The marks are the same in "
+                       "Tables~\\rostertable{}A through \\rostertable{}D.}{}\n" % MARKS_TEXT)
+        out.append("\\endgroup\n")
     return "".join(out)
 
 
@@ -190,7 +194,7 @@ def subsets_tex(table: list) -> str:
     group = [r for r in table if r.woman or r.of_color]
     assert group, "no woman or member of color found"
     centuries = sorted({r.decade // 100 * 100 for r in group})
-    out.append("\\begin{table}[b]\n")
+    out.append("\\begin{table}[t]\n")
     out.append("\\refstepcounter{table}\\label{tab:subsets}\n")
     out.append("\\tabletitle{Women and Members of Color on the Board}\n")
     out.append("\\medskip\n")

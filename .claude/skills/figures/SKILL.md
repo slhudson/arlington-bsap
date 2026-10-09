@@ -223,7 +223,8 @@ open (Sally, 5 October 2026).
   compared differ in size, through `charts.hwhiskers()`, which holds the
   interval inside the scale.
 - **Ordered categories take `style.ramp(n)`; unordered take Okabe-Ito.** Age
-  and residence coverage are ordered. Never define a ramp in a figure.
+  and residence coverage are ordered. Never define a ramp in a figure. Lines and dots take
+  `style.line_ramp(n)`, whose lightest step reads on white (9 October 2026).
 - **Where a category's definition changes mid-figure, the legend does not
   relabel silently.** `residents_by_race` says "not Hispanic" (`style.RESIDENTS_CROSSED`)
   and rules off 1980; `members_by_race` keeps `style.RACE`.
@@ -282,14 +283,15 @@ revisit.
   looking. Build the alternative, copy its png out of `figures/` to a
   scratch path, put the script back, and show the committed version and the
   alternative side by side. Change what is committed only after they choose.
-- **Two passes before any picture goes to Sally, in this order** (Sally, 9
-  October 2026). First, legibility: can everything be read, is anything in
-  the way, is every name unambiguously its own dot's, is everything the same
-  that should be the same (two breaks, two axis labels)? Second, salience:
-  is what the eye lands on first what the section's one-sentence point is
-  about, and are the named marks the ones that point and this reader need?
-  A figure can pass the first and fail the second. List what each pass
-  finds, fix it, and only then show.
+- **Review a figure in two passes before showing it, in this order.** First
+  legibility: every label, tick and line reads at the size the paper prints
+  it, nothing collides, every name is unambiguously its own dot's, what
+  should match does (two breaks, two axis labels), and nothing claimed about
+  the picture (two gaps equal, a label beside its dot) is asserted without
+  being measured. Then storytelling: the figure's one-sentence point is what
+  a reader sees first, and the named marks are the ones that point and this
+  reader need. A figure can pass the first and fail the second. A picture
+  with a fault you know of is not sent; fix it, or name it at the top.
 - Render the figure, look at the image, and show it, before saying anything
   about it. Check it against this file first. Every rule above has been broken at least once by
   not looking.

@@ -365,8 +365,9 @@ build again, push. A session hook in `.claude/settings.json` says which case
 applies at the start of every session, in plain words. It advises and never
 blocks, but `.githooks/pre-commit` does block: a commit in the primary checkout
 is refused while more than one session is live there, because a broad `git add`
-in a shared checkout commits whatever anyone else has in flight. Take a
-worktree, or `git commit --no-verify` if you mean it. `run.sh` installs the
+in a shared checkout commits whatever anyone else has in flight. Take the
+worktree before the first edit, not when the commit is refused, or
+`git commit --no-verify` if you mean it. `run.sh` installs the
 hook. A job that depends on another session's waits for its row to leave
 `docs/questions.csv` on `main`, not for its branch. `docs/repository.md` has
 the incident behind the rule and the reasoning.
@@ -400,6 +401,10 @@ not because it does not matter. She holds that it matters and expects it done
 carefully. She delegates it because a session can see the tree and she cannot,
 so there is nothing she can add. Those are different instructions: one would
 mean hiding the work, this one means doing it without narrating it.
+
+A commit message says what changed. Git records who made it and when, so
+neither a name nor a date goes in the message; a ruling's author and date
+belong in the tracker row or the write-up that records it.
 
 So commit and push before the status message rather than report where the work
 is saved, and keep a commit hash on the sentence describing what changed, never

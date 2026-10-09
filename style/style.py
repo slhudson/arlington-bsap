@@ -45,6 +45,19 @@ def ramp(n):
             for k in range(n)]
 
 
+# A line is thin, so the lightest step of the fill ramp vanishes on white. An
+# ordered figure drawn in lines or dots takes line_ramp(n): the same hue, with
+# the light end held to a step that reads on white. See docs/figures.md.
+LINE_SEQUENTIAL = ("#6FB68F", "#1B6B4A")
+
+
+def line_ramp(n):
+    """n colours for lines and dots, lightest first, every one readable on white."""
+    lo, hi = (tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) for c in LINE_SEQUENTIAL)
+    return ["#" + "".join(f"{round(a + (b - a) * k / (n - 1)):02X}" for a, b in zip(lo, hi))
+            for k in range(n)]
+
+
 # One table per subject: column -> (legend label, colour), in stacking
 # order, axis upward.
 RACE = {
@@ -188,7 +201,7 @@ PRESIDENT = ("votes for President", DARK)
 # that are drawn, for the widest separation between them. See docs/figures.md,
 # Colour.
 BOARD_VOTES = "votes for County Board"
-BOARD_FAMILY = dict(zip(("president", "midterm", "governor"), reversed(ramp(3))))
+BOARD_FAMILY = dict(zip(("president", "midterm", "governor"), reversed(line_ramp(3))))
 BOARD_CYCLES = {"president": "presidential year", "midterm": "midterm year",
                 "governor": "governor's year", "delegates": "House of Delegates year"}
 # The dated changes to who could vote that the turnout figure rules off:
@@ -229,7 +242,7 @@ AGREEMENT = {
     "Strongly Disagree": ("strongly disagree", OKABE_ITO["vermilion"]),
 }
 # The survey's three waves. Ordered, so the sequential profile, darkest latest.
-WAVES = dict(zip((2018, 2022, 2026), zip(("2018", "2022", "2026"), ramp(3))))
+WAVES = dict(zip((2018, 2022, 2026), zip(("2018", "2022", "2026"), line_ramp(3))))
 # The sample set against the county it is drawn from: the county in the
 # reference neutral the growth figures use, the respondents in the lead.
 SAMPLE = {"county": ("Arlington residents, 2020 census", DARK),
@@ -237,13 +250,13 @@ SAMPLE = {"county": ("Arlington residents, 2020 census", DARK),
 # One share measured across several cuts of one set of respondents: one
 # series, so one colour, and the near-neutral rather than a lead.
 SURVEY_SHARE = ("share of respondents", SAND_LINE)
-# A document naming the Board either records who held a seat or who won one
-# - the one substantive distinction among the sources themselves, so it
-# stays in the one neutral family rather than taking a category's hue.
-SOURCE_KIND = {
-    "election": ("members elected", SAND),
-    "service": ("members served", SAND_LINE),
-}
+# A document naming the Board either records who held a seat or who won one.
+# A record of service is the more complete (it shows the member sat, not only
+# won), so the pair is ordered and takes the one sequential ramp, an election
+# return lighter and service darker, as ELECTION_RETURNS does.
+SOURCE_KIND = dict(zip(
+    ("election", "service"),
+    zip(("members elected", "members served"), ramp(2))))
 # Which contests a source's returns are for. Ordered by how much of the vote
 # a source carries, so the one sequential ramp, lightest first: the Board's
 # vote, the presidential vote, and a source that carries both the darkest.

@@ -26,9 +26,13 @@
 \input{body_text_numbers}  % numbers the prose cites, written by code/analysis/body_text_numbers.py
 % The columns every table under paper/tables/ shares; a table is otherwise a
 % complete file, built and \input{}ed whole (CLAUDE.md, members_roster.py).
-\newcolumntype{Q}{@{}R{28}R{14}R{18}R{10}R{11}R{19}@{}}
+\newcolumntype{Q}{@{}R{32}R{14}R{16}R{9}R{11}R{18}@{}}
 \usepackage[margin=1in]{geometry}
 \usepackage[hidelinks]{hyperref}
+% Without this, LaTeX flushes footnotes directly below the body text and
+% stacks a bottom-placed figure below that, so a page with both shows
+% footnotes above the figure instead of at the foot of the page.
+\usepackage[bottom]{footmisc}
 
 % Two type sizes: the body size, and one smaller size for notes --- the notes
 % under each figure and the footnotes. Headings and figure titles are bold at
@@ -78,7 +82,7 @@
 % (Sally, 5 October 2026). Space below is one line throughout, so a
 % heading sits close to its own text and the hierarchy reads in the space
 % above, not below.
-\titlespacing*{\part}{0pt}{2\baselineskip}{2\baselineskip}
+\titlespacing*{\part}{0pt}{2\baselineskip}{\baselineskip}
 % Sections are numbered within their part: A.1, A.2, ..., C.1.
 \counterwithin*{section}{part}
 \renewcommand{\thesection}{\thepart.\arabic{section}}
