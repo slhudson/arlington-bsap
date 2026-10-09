@@ -101,16 +101,18 @@ def board_votes(roster) -> pd.DataFrame:
 
 
 def board_districts() -> pd.DataFrame:
-    """1870-1915: the November elections with a count for every candidate in
-    all three districts, from the Gazette's own returns (candidates_gazette);
-    1907 and 1915 agree with O'Leary's to the vote, so nothing rests on him
-    here (docs/elections.md, "Which years are not the county's vote")."""
+    """1870-1915: the elections, May or November, with a count for every
+    candidate in all three districts, from the Gazette's own returns
+    (candidates_gazette); 1907 and 1915 agree with O'Leary's to the vote, so
+    nothing rests on him here (docs/elections.md, "Which years are not the
+    county's vote")."""
     g = paths.typed(paths.built("candidates_gazette"))
-    g = g[g.election_date.str[5:7] == "11"]
     rows = []
     for year, h in g.groupby("year"):
         if h.district.nunique() != 3 or h.votes.isna().any():
             continue
+        if h.groupby("district").votes.count().min() < 2:
+            continue    # an unopposed seat counts who bothered, not who could vote
         rows.append({"year": int(year), "board_votes": int(h.votes.sum()), "board_seats": 3,
                      "board_complete": True,
                      "board_source": f"{h.source.iloc[0]} p.{h.page.iloc[0]}",
@@ -191,6 +193,10 @@ def build() -> pd.DataFrame:
     assert years == [1931, 1935, 1939] + list(range(1940, members_terms.PRESENT)), \
         f"a November Board contest is missing or extra: {years}"
     board["board_voters"] = (board.board_votes / board.board_seats).round().astype(int)
+    # A district seat is its own contest and a voter votes in one district:
+    # every vote is a voter, whatever the three contests add up to.
+    district_era = board.year < 1931
+    board.loc[district_era, "board_voters"] = board.board_votes[district_era]
 
     d = board
     for part in (registration(), voting_age(), voting_age_21(), president()):

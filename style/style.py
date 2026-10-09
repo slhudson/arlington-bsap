@@ -202,6 +202,9 @@ PRESIDENT = ("votes for President", DARK)
 # Colour.
 BOARD_VOTES = "votes for County Board"
 BOARD_FAMILY = dict(zip(("president", "midterm", "governor"), reversed(line_ramp(3))))
+# The Board's vote before 1932, three district contests added up, in the
+# presidential-year shade, since the district years are not a cycle.
+BOARD_DISTRICTS = (BOARD_VOTES, line_ramp(3)[0])
 BOARD_CYCLES = {"president": "presidential year", "midterm": "midterm year",
                 "governor": "governor's year", "delegates": "House of Delegates year"}
 # The dated changes to who could vote that the turnout figure rules off:

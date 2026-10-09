@@ -1,17 +1,21 @@
 year,cycle,board_votes,board_seats,board_voters,board_complete,board_source,board_note,registered,registered_all,registered_source,voting_age,voting_age_source,voting_age_21,voting_age_21_source,voting_age_est,voting_age_est_source,president_votes,president_source
 1872,,,,,,,,,,,,,,,,,590,derived
 1876,,,,,,,,,,,,,,,,,824,derived
+1879,,565,3,565,True,alexandriagazette18790523p3 p.3,"one seat per district, so one vote per voter",,,,,,,,,,,
 1880,,,,,,,,,,,,,,,,,753,derived
 1884,,,,,,,,,,,,,,,,,773,derived
 1888,,,,,,,,,,,,,,,,,717,derived
 1892,,,,,,,,,,,,,,,,,765,derived
+1895,,914,3,914,True,alexandriagazette18950524p3 p.3,"one seat per district, so one vote per voter",,,,,,,,,,,
 1896,,,,,,,,,,,,,,,,,1039,derived
+1899,,1211,3,1211,True,alexandriagazette18990526p3 p.3,"one seat per district, so one vote per voter",,,,,,,,,,,
 1900,,,,,,,,,,,,,,,,,828,derived
+1901,,1127,3,1127,True,alexandriagazette19010524p3 p.3,"one seat per district, so one vote per voter",,,,,,,,,,,
 1904,,,,,,,,,,,,,,,,,256,derived
-1907,,756,3,252,True,alexandriagazette1907election p.2,"one seat per district, so one vote per voter",,,,,,,,,,,
+1907,,756,3,756,True,alexandriagazette1907election p.2,"one seat per district, so one vote per voter",,,,,,,,,,,
 1908,,,,,,,,,,,,,,,,,519,derived
 1912,,,,,,,,,,,,,,,,,585,derived
-1915,,876,3,292,True,alexandriagazette1915election p.2,"one seat per district, so one vote per voter",,,,,,,,,,,
+1915,,876,3,876,True,alexandriagazette1915election p.2,"one seat per district, so one vote per voter",,,,,,,,,,,
 1916,,,,,,,,,,,,,,,,,927,derived
 1920,,,,,,,,,,,,,,,,,1831,derived
 1924,,,,,,,,,,,,,,,,,2921,derived

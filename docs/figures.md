@@ -723,6 +723,15 @@ there the labels can be shortened and here the years cannot.
   Electorate" reads: its point is the collapse after 1894 and 1902 and the
   long recovery, and the 1876 point, the left edge, is its baseline before
   the collapse.
+  The presidential figure also carries the Board's vote before 1932, the three
+  district contests added up, as a second line in the Board's colour: drawn
+  only where every district had two or more candidates, since an unopposed seat
+  counts who bothered to vote and not how many could, which is how 1874, 1875,
+  1877 and 1893 drop out and 1879, 1895, 1899, 1901, 1907 and 1915 stay. The
+  line is solid between consecutive elections both drawn and dotted across one
+  that is not, the roster's schedule of elections deciding which are
+  consecutive, as `charts.lines(bridge=True)` does elsewhere (Sally, 9 October
+  2026). The legend names it "votes for County Board", not by district.
 - **elections_turnout_board.** One panel, 1932 to the present, the other half
   of the same cut. The presidential vote is one grey line throughout and the
   thread of the figure; the Board's vote is `style.BOARD_FAMILY`, three
@@ -737,9 +746,7 @@ there the labels can be shortened and here the years cannot.
   voters; from 1943 that is every House of Delegates year, and the caption
   says so. No rule marks 1966: this section is not making a voter-suppression
   claim, and the poll tax, like the Walton Act, the constitution and women
-  voting, is the president figure's (Sally, 7 October 2026). The five
-  district-era squares the pre-1932 figure once added up by district are the
-  president figure's too. The legend is flat, `charts.legend()` with
+  voting, is the president figure's (Sally, 7 October 2026).  The legend is flat, `charts.legend()` with
   `lines=`, one row of four: the president line and the three Board shades
   each named for what it is, "Board, presidential year" and so on, rather
   than stacked under a heading, which read as a lot of white space for four
