@@ -336,6 +336,21 @@ clean, or it declines to start; run from a worktree it names the primary
 checkout and the command to run there. The remote is always `origin`: the
 override had no setter.
 
+**Two merges cannot run at once.** The scratch worktree is named for the
+branch, so two merges of the same branch - a thread retrying its own merge
+while an earlier run was still going - would each remove the other's
+worktree out from under it mid-build; pyflakes and the tests then saw a
+checkout missing `run.sh` or `sources.bib`. The script takes a lock before
+step 1 and releases it in the EXIT trap, so no second run starts until the
+first finishes. The lock is a directory made with `mkdir`, atomic the way a
+plain file is not, at `$(git rev-parse --git-common-dir)/merge.lock` - outside
+the working tree, so every worktree and checkout of the clone shares one. It
+records the holder's pid and branch; a run that finds the lock held by a live
+process stops at once, naming the branch and since when, and a worktree or
+branch already named for this run, left behind by one that crashed, is
+cleared rather than failed on. A lock whose recorded pid has died is taken
+over, since a crashed run must never block merges forever.
+
 **What the script removes of the thread's own.** Two threads lost their
 worktrees on 6 October 2026, probably to the leftover cleanup after a merge. The
 thread's worktree and local branch now go only if three things hold: its branch
