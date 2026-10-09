@@ -20,7 +20,10 @@
 #      The worktree is removed and nothing has changed. One conflict is
 #      settled here: a build output (under figures/ or data/clean/) that one
 #      side deleted and the other rebuilt takes the branch's side, since the
-#      build recreates whatever the code still produces.
+#      build recreates whatever the code still produces. And a line the
+#      branch deleted from docs/punchlist.md, which the union merge brings
+#      back when main appended beside it, is removed again and named
+#      (code/merge_punchlist.py).
 #   4. bash run.sh, then code/paper.py all, in the
 #      worktree. A failure stops it before anything reaches main: a commit
 #      chained after a failing build was the first of the slips.
@@ -127,6 +130,7 @@ step "2. worktree $tree on $REMOTE/main ($(git rev-parse --short "$REMOTE/main")
 mkdir -p .claude/worktrees
 git worktree add -q "$tree" -b "$name" "$REMOTE/main"
 
+base=$(git merge-base "$REMOTE/main" "$branch")
 step "3. merge $branch ($(git rev-parse --short "$branch"))"
 if ! git -C "$tree" merge -q -m "merge $branch" "$branch" >/dev/null 2>&1; then
   # A file one side deleted and the other changed (modify/delete) is not a
@@ -163,6 +167,13 @@ if ! git -C "$tree" merge -q -m "merge $branch" "$branch" >/dev/null 2>&1; then
     fail "$msg"
   fi
   git -C "$tree" commit -q --no-edit
+fi
+
+# A union merge keeps both sides of a disputed hunk, so a line the branch
+# deleted from the punch list returns when main appended beside it.
+"$PYTHON" code/merge_punchlist.py "$tree" "$base" "$branch"
+if [ -n "$(git -C "$tree" status --porcelain --untracked-files=no -- docs/punchlist.md)" ]; then
+  git -C "$tree" commit -q -m "punch list: lines $branch deleted stay deleted" -- docs/punchlist.md
 fi
 
 step "4. build and compile in the worktree"

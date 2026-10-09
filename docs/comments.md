@@ -25,6 +25,11 @@ the index carries no name, no address and no message body, and a writer is a
 number assigned in the order the files sort. A letter the report quotes is
 cited and filed like any other source.
 
+Looking at the messages themselves goes through `code/sources/county_messages.py`,
+which prints counts, file names and the names of fields. A field that holds
+what a resident wrote (sender, subject, body) prints only when it is named
+with `--show-resident-field`, for the one message asked for.
+
 ## What the index can count and what it cannot
 
 Of the 250 messages, 195 carry a distinct body; the other 55 are the same
