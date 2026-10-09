@@ -73,7 +73,7 @@ CANDIDACY = {"won": ("won", RACE["black"][1], True),
              "lost": ("lost", RACE["black"][1], False)}
 # The county's crossed census tables, from 1980: race and Hispanic origin are
 # two questions, so Black and White there are the non-Hispanic cells. The
-# residents figure reads them from 1980; the Board figure reads the same labels.
+# residents figure reads them from 1980.
 CROSSED_LABELS = {"black": "Black, not Hispanic", "white": "White, not Hispanic"}
 CROSSED_YEAR = 1980
 RESIDENTS = {**{k: RACE[k] for k in ("black", "hisp", "aapi")},
@@ -86,10 +86,6 @@ RESIDENT_AGES = dict(zip(
     ("ageunder18", "age18to24", "age25to34", "age35to44", "age45to54", "age55to64", "age65plus"),
     zip(("under 18", "18 to 24", "25 to 34", "35 to 44", "45 to 54", "55 to 64", "65 and over"),
         ramp(7))))
-GENDER = {
-    "women": ("women", OKABE_ITO["reddish_purple"]),
-    "men":   ("men", SAND),
-}
 PARTY = {
     "dem":        ("Democratic", OKABE_ITO["sky_blue"]),
     "abc":        ("ABC", OKABE_ITO["yellow"]),

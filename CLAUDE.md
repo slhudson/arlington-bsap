@@ -66,8 +66,8 @@ before it has nothing to reach with. `code/tests.py` checks both.
 ## Naming
 
 **A file is named after what it produces.** `code/clean/residents.py` writes
-`data/clean/residents.csv`. `code/analysis/members_by_race.py` writes
-`figures/pdf/members_by_race.pdf` and `figures/png/members_by_race.png`. No `make_`
+`data/clean/residents.csv`. `code/analysis/members_by_race_gender.py` writes
+`figures/pdf/members_by_race_gender.pdf` and `figures/png/members_by_race_gender.png`. No `make_`
 prefixes, no `_chart` suffixes: the directory says what the stage does, the
 filename says which thing. A figure script does not repeat its own name:
 `paths.save(fig, profile)` takes the name from the running script, so saving
@@ -91,7 +91,7 @@ who have served on the Board; `candidates`, the people who have run for it;
 `survey`, the people a questionnaire reached, cut by which one -
 `survey_satisfaction`, `survey_rcv`; and `comments`, the letters the Board
 received. Then `residents_by_district`,
-`members_by_race`, `elections_turnout`, `localities_per_member`. A survey is its
+`members_by_race_gender`, `elections_turnout`, `localities_per_member`. A survey is its
 own subject because its respondents are a sample and not the county: a share
 of `residents` is every resident, a share of `survey_satisfaction` is every
 resident who answered. A subject is whatever a file is about, so people, places
@@ -108,7 +108,7 @@ seat or a year of Arlington's Board. And a table of votes by contest is
 `elections_results` rather than `voters`: what it counts is votes, and a voter
 appears in it once per contest.
 
-**`_by_` means grouped and counted.** `residents_by_age`, `members_by_race`:
+**`_by_` means grouped and counted.** `residents_by_age`, `members_by_race_gender`:
 the subject is sorted into categories and the figure shows how many are in
 each. A bare attribute means the attribute shown per individual, ungrouped, so
 `members_age` is a Lexis diagram with one diagonal per member and

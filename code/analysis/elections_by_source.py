@@ -84,6 +84,7 @@ def main():
     fig, ax = charts.figure()
     charts.hspans(ax, entries(ticks()))
     charts.years(ax, 1870, members.LAST, step=20, label="year", through=members.LAST + 1)
+    charts.rule(ax, note=None)
     charts.legend(fig, dict(style.ELECTION_RETURNS.values()))
     paths.save(fig)
 

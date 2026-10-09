@@ -1157,7 +1157,7 @@ def test_a_candidacy_that_matches_no_election_is_refused():
 
 def test_a_black_members_election_with_no_candidacy_is_refused():
     """Pendleton's 1883 row left out: his seat would still count in
-    members_by_race, and this figure would show 1883 as a year nobody ran."""
+    members_by_race_gender, and this figure would show 1883 as a year nobody ran."""
     err = candidacies_with(lambda d: d[d.name != "John W. Pendleton"])
     assert err and "a term, no candidacy" in err, f"not caught: {err}"
 
@@ -2234,10 +2234,10 @@ def test_a_tracker_row_naming_a_figure_no_step_produces_is_refused():
                        "(retired? name its replacement):\n  "
                        + "\n  ".join(f"{i}: {n}" for i, n in stale))
     # The guard fires on the mistake: a row naming a retired figure.
-    row = {"id": "x", "affects": "members_by_race; elections_turnout_by_decade"}
+    row = {"id": "x", "affects": "members_by_race_gender; elections_turnout_by_decade"}
     assert unproduced_figures([row], figures, tables) == [("x", "elections_turnout_by_decade")], \
         "a retired figure in `affects` was not found"
-    assert unproduced_figures([{"id": "y", "affects": "prose; members_by_race"}], figures, tables) == []
+    assert unproduced_figures([{"id": "y", "affects": "prose; members_by_race_gender"}], figures, tables) == []
 
 
 def test_a_step_and_a_module_are_told_apart():

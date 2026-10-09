@@ -330,11 +330,9 @@ def stacked_steps(ax, years, entries, spans):
 
 
 def seat_bands(profile, frame, palette, through):
-    """Seat-years by one cut of the Board, as members_by_gender,
-    members_by_race and members_by_party all draw them: a stacked step area
-    in `palette`, a seats axis, the 1932 rule, years to `through`, and a
-    legend. The three share one frame on purpose, so that a reader can set
-    them beside each other; docs/figures.md says why.
+    """Seat-years by one cut of the Board, as members_by_party draws
+    them: a stacked step area in `palette`, a seats axis, the 1932 rule,
+    years to `through`, and a legend; docs/figures.md says why.
 
     A year no source reports for this cut is a gap in the bands. Within a
     cut the columns are blank together - members_by_year.csv writes a cut
