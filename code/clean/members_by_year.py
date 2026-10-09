@@ -1,5 +1,5 @@
-"""Seats held per year, by race, gender, party, race basis and place
--> data/clean/members_by_year.csv
+"""Seats held per year, by race, gender, race and gender together, party,
+race basis and place -> data/clean/members_by_year.csv
 
 One row per year, 1870-2026, in seat-years: a member who held a seat for
 four months of a year counts 4/12, by the months members.csv says
@@ -30,7 +30,11 @@ PARTY_COLUMNS = ["dem", "abc", "rep", "ind", "unrecorded"]
 # is one more split of the same seats.
 BASIS_COLUMNS = ["race_census", "race_published", "race_default"]
 PLACE_COLUMNS = ["address", "street", "neighborhood", "side", "district", "no_place"]
-SPLIT_COLUMNS = BASIS_COLUMNS + PLACE_COLUMNS
+# Race and gender together, one column per combination: black_men, white_women
+# and so on, every pair of RACE and GENDER whether or not anyone of it has
+# sat, so the figure decides what to draw from the data.
+CROSS_COLUMNS = [f"{r}_{g}" for r in RACE.values() for g in GENDER.values()]
+SPLIT_COLUMNS = BASIS_COLUMNS + PLACE_COLUMNS + CROSS_COLUMNS
 
 
 def best_place(residence: pd.DataFrame) -> dict:
@@ -69,6 +73,7 @@ def months_held(members: pd.DataFrame, places: dict) -> pd.DataFrame:
                 rows.append({"year": year, "months": hi - lo,
                              "race": RACE[t.race], "gender": GENDER[t.gender],
                              "party": PARTY[t.party if isinstance(t.party, str) else ""],
+                             "cross": f"{RACE[t.race]}_{GENDER[t.gender]}",
                              "basis": race_basis(t.race_source),
                              "place": places.get(t["name"], "no_place")})
     return pd.DataFrame(rows)
@@ -84,7 +89,7 @@ def build() -> pd.DataFrame:
 
     built = pd.concat([split("race", RACE.values()), split("gender", GENDER.values()),
                        split("party", PARTY_COLUMNS), split("basis", BASIS_COLUMNS),
-                       split("place", PLACE_COLUMNS)], axis=1)
+                       split("place", PLACE_COLUMNS), split("cross", CROSS_COLUMNS)], axis=1)
     built = built.reindex(columns=COLUMNS[1:] + PARTY_COLUMNS + SPLIT_COLUMNS).fillna(0.0).reset_index()
     built.loc[built.year < AT_LARGE_FROM, PARTY_COLUMNS] = float("nan")
     built = built[built.year <= PRESENT]
@@ -122,8 +127,10 @@ def build() -> pd.DataFrame:
     assert list(short) == VACANT_YEARS, \
         f"seats fall short in {list(short)}; expected only {VACANT_YEARS}"
 
-    # Race, gender, party, race basis and place are splits of the same seats.
-    for name, columns in (("race basis", BASIS_COLUMNS), ("place", PLACE_COLUMNS)):
+    # Race, gender, party, race basis, place, and race with gender are splits
+    # of the same seats.
+    for name, columns in (("race basis", BASIS_COLUMNS), ("place", PLACE_COLUMNS),
+                          ("race with gender", CROSS_COLUMNS)):
         off = d.loc[(by_race - d[columns].sum(axis=1)).abs() > 1e-9, "year"]
         assert off.empty, (f"{name} does not account for the same seats as race in "
                            f"{list(off.astype(int))}")

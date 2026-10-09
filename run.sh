@@ -75,7 +75,7 @@ CLEAN=(residents residents_by_district residents_by_district_adults residents_by
 # writes the numbers the prose cites, paper/body_text_numbers.tex, instead,
 # and members_roster writes the two tables under paper/tables/: the roster,
 # members_roster.tex, and the subset the body prints, members_subsets.tex.
-FIGURES=(residents_by_age residents_by_district_map residents_by_district_race_adults residents_by_race residents_per_seat elections_turnout_president elections_turnout_board elections_board elections_president members_age candidates members_by_gender members_by_party localities_per_member members_by_race members_race_coverage members_residence_coverage survey_satisfaction_structure survey_satisfaction_by_year survey_satisfaction_sample survey_rcv_support survey_rcv_by_race body_text_numbers members_roster members_by_source elections_by_source)
+FIGURES=(residents_by_age residents_by_district_map residents_by_district_race_adults residents_by_race residents_per_seat elections_turnout_president elections_turnout_board elections_board elections_president members_age candidates members_by_gender members_by_party localities_per_member members_by_race members_by_race_gender members_race_coverage members_residence_coverage survey_satisfaction_structure survey_satisfaction_by_year survey_satisfaction_sample survey_rcv_support survey_rcv_by_race body_text_numbers members_roster members_by_source elections_by_source)
 
 echo "lint"
 "$PY" -m pyflakes code style || { echo "  pyflakes: fix the above"; exit 1; }
