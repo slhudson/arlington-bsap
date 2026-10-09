@@ -315,7 +315,7 @@ lived, are the four that would change the paper; the map is high because
 residence is County-gated, and members placed from it are the case for the
 County releasing its records (Sally, 7 October 2026).
 
-`waiting_on` names who owes the next move, not who would do the work. Eight
+`waiting_on` names who owes the next move, not who would do the work. Nine
 courts: `Sally`; `Alex` for work Sally has offered him, which waits on his yes
 until he takes it; `County` for anything the County meeting or its staff would
 answer, which includes every figure on party or the presidential
@@ -324,7 +324,11 @@ what a session can reach from here; `Physical` for a record that exists only
 in an archive or a library and takes someone going there; `Digital` for what
 sits behind a database login we do not have (HeinOnline, Westlaw, ProQuest);
 `NCL` for what only the National Civic League can supply, which Sally asks for
-when the drafting stage reaches it; and `closeout` for what cannot move until the end of the project. Who does a
+when the drafting stage reaches it; `closeout` for what cannot move until the end of the project; and
+`after-draft` for work that begins once the 30 October draft is in, which
+includes every question for the County that is not needed before then: those
+are held and sent together in one request, not put to the County as they
+arise (Sally, 9 October 2026). Who does a
 Physical or Digital row is for Sally and Alex to settle; the court does not
 say. An ask Sally makes whose answer is the County's waits on the County. How
 the work gets done is in `settles`, so no column repeats it.
