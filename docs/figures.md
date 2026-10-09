@@ -76,7 +76,7 @@ ordered figure drawn in fills takes `style.ramp(n)` (Sally, 9 October 2026).
   ballot, by falling turnout). All three draw from the one ramp, so they read
   as a family; the no-evidence grey in the first two stays outside it, since
   an absence is not a step on the scale.
-- Unordered, Okabe-Ito: `members_by_race`, `members_by_gender`, `residents_by_race`,
+- Unordered, Okabe-Ito: `members_by_race_gender`, `members_by_race`, `members_by_gender`, `residents_by_race`,
   and the party and growth figures.
 
 - **Race.** Black orange, Hispanic or Latino bluish green, Asian and Pacific
@@ -552,6 +552,31 @@ there the labels can be shortened and here the years cannot.
   in any year gets no band and no legend entry, because an empty swatch
   reads as a sliver too small to see rather than as zero, and the absence is
   a finding for the prose. The test is on the data, not the category name.
+- **members_by_race_gender.** The one Board figure the paper prints for who
+  served: race and gender together, beside the subsets table, which counts the
+  same people. Before 1932 the Board is three district seats, not a count, so
+  each seat is a lane, Jefferson at the bottom and Washington on top (south to
+  north), coloured by who held it and read in months straight from the
+  roster, so the Board begins in July 1870 and not at a year boundary; the
+  district's name sits in its lane in the empty years, at `style.DISTRICT_NAMES_AT`, one step down
+  from a tick label (`style.DENSE_TICKS`) so it fits the lane. From 1932 the
+  seats are counted by the year, as in the three single-cut figures, the
+  bands ordered by size, the group with the fewest seat-years over the whole
+  record at the bottom, and the chips fall where they may, with one exception: the Latina women's
+  band sits just under the White women's, since Tannia Talento finishes the
+  term of a White woman, and a band at the very bottom would lift the Black
+  men's band half a seat in 2023 (Sally, 9 October 2026); a second order that hung the men of color from the top was rendered
+  and declined. Men take their race's hue and women its darker
+  shade (`style.darker`); White women take the taupe, `style.SAND_LINE`, the
+  largest group's stroke colour, not a darkened sand. Labels are
+  `Black men`, `Latino men`, `Latina women`, `White men`, `White women`
+  (Sally, 9 October 2026). The axis begins where the data does, in July 1870,
+  so its left end is flush like the right (`charts.years(begin=)`). The legend is a grid of
+  three columns, Black, Latino, White, men above women, so a woman's
+  shade sits under her race's hue and the Black column is one deep because
+  no Black woman has served; a cell with no seat anywhere stays empty.
+  `members_by_race` and `members_by_gender` stay in the repository; the paper
+  prints this figure in place of both.
 - **members_race_coverage.** A diagnostic: of the seat-years in each year,
   what the occupant's race rests on, as a stacked step area on the seat axis,
   so it reads like the seat figures and like `members_residence_coverage`, and

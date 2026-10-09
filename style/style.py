@@ -288,6 +288,41 @@ MARGIN = 0.037        # white on all four sides, as a fraction of the width, mea
 LEGEND_GAP = 0.2      # inches between the lowest ink of the plot and the legend
 DENSE_TICKS = 0.85    # tick label size, as a fraction of the profile's, where an axis names every year of a close sequence; see docs/figures.md
 
+
+# Race and gender together (members_by_race_gender): a man takes his race's
+# hue and a woman its darker shade, except White women, who take the largest
+# group's stroke colour, a taupe (docs/figures.md). Column -> (legend label, colour), in stacking
+# order, axis upward.
+DARKEN = 0.6
+
+
+def darker(color, k=DARKEN):
+    """`color` with each channel scaled by k: a woman's shade of her race's hue."""
+    r, g, b = mpl.colors.to_rgb(color)
+    return mpl.colors.to_hex((r * k, g * k, b * k))
+
+
+RACE_GENDER = {
+    "white_women": ("White women", SAND_LINE),
+    "hisp_women":  ("Latina women", darker(RACE["hisp"][1])),
+    "black_men":   ("Black men", RACE["black"][1]),
+    "hisp_men":    ("Latino men", RACE["hisp"][1]),
+    "white_men":   ("White men", SAND),
+}
+# A roster row's (race, gender) -> its column above.
+RACE_GENDER_COLUMN = {("White", "woman"): "white_women", ("Hispanic", "woman"): "hisp_women",
+                      ("Black", "man"): "black_men", ("Hispanic", "man"): "hisp_men",
+                      ("White", "man"): "white_men"}
+# The legend's grid, a column per race and men above women; None is an empty cell.
+RACE_GENDER_GRID = (("black_men", "hisp_men", "white_men"),
+                    (None, "hisp_women", "white_women"))
+# Before 1932 each district's seat is a lane, south at the bottom, named in
+# the empty years after the last seat there; the name steps down like a
+# dense tick label.
+DISTRICT_LANES = {"Jefferson": 0, "Arlington": 1, "Washington": 2}
+DISTRICT_NAMES_AT = 1912
+DISTRICT_NAMES_SIZE = DENSE_TICKS
+
 EXPANSION_YEAR = 1932
 EXPANSION_NOTE = "1932: Board expansion"
 EXPANSION_LINE = dict(color="#000000", lw=1.0, ls=(0, (4, 2)))

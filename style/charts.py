@@ -18,6 +18,8 @@ each placement is in docs/figures.md.
     events()        a timeline strip: a dot per event at its year, filled or a ring
     map_figure()    a map of polygons, with areas() to fill them, edges() to outline them, area_names() to name them and map_legend() to key them
     legend()        one legend for the figure, one row, below the axes
+    legend_grid()   the same laid out as a grid, a column per group
+    district_lanes() the district seats before 1932 as named lanes
     legend_family() the same, stacked, with a heading and its entries indented under it
     dot_legend()    the same with a dot per colour, or a ring
     rule()          a dated vertical rule with its note above the frame
@@ -357,6 +359,24 @@ def seat_bands(profile, frame, palette, through):
     return fig
 
 
+def district_lanes(ax, roster, through=style.EXPANSION_YEAR):
+    """The district seats before `through` as lanes, one per district in
+    style.DISTRICT_LANES, each stretch coloured by who held it
+    (style.RACE_GENDER) and read in months straight from `roster`, so the
+    Board begins in July 1870. The district's name sits in its lane in the
+    empty years. roster: the members table, with district, held_from and
+    held_to in months, race and gender."""
+    for _, t in roster[roster.district.isin(style.DISTRICT_LANES)].iterrows():
+        lane = style.DISTRICT_LANES[t.district]
+        colour = style.RACE_GENDER[style.RACE_GENDER_COLUMN[(t.race, t.gender)]][1]
+        ax.fill_between([t.held_from / 12, min(t.held_to / 12, through)], lane, lane + 1,
+                        facecolor=colour, linewidth=0)
+    size = plt.rcParams["xtick.labelsize"] * style.DISTRICT_NAMES_SIZE
+    for name, lane in style.DISTRICT_LANES.items():
+        ax.text(style.DISTRICT_NAMES_AT, lane + 0.5, f"{name} District",
+                ha="center", va="center", fontsize=size, zorder=6)
+
+
 def fit(fig, profile=style.DEFAULT_PROFILE):
     """Size and place this figure: the canvas is the profile's width, the
     plot is the profile's aspect times as wide as tall, and style.MARGIN of
@@ -492,6 +512,23 @@ def legend(fig, entries, ncol=None, hollow=(), lines=(), dashed=()):
     fig.legend(handles=[handle(label, c) for label, c in pairs],
                labels=[label for label, _ in pairs],
                loc="outside lower center", ncol=ncol or len(entries))
+
+
+def legend_grid(fig, grid, palette, held):
+    """One legend laid out as `grid`, rows of palette keys with None for an
+    empty cell, a column per group; a key not in `held` leaves its cell
+    empty. palette is {key: (label, colour)}."""
+    handles, labels_ = [], []
+    for col in range(len(grid[0])):
+        for row in grid:
+            k = row[col]
+            if k is None or k not in held:
+                handles.append(Patch(facecolor="none", edgecolor="none"))
+                labels_.append("")
+            else:
+                handles.append(Patch(facecolor=palette[k][1]))
+                labels_.append(palette[k][0])
+    fig.legend(handles=handles, labels=labels_, loc="outside lower center", ncol=len(grid[0]))
 
 
 class _Under(Line2D):
@@ -801,10 +838,12 @@ def rule(ax, year=style.EXPANSION_YEAR, note=style.EXPANSION_NOTE, ha="center", 
 
 
 def years(ax, first, last, step=10, label="census year", minor=10, through=None,
-          bars=None, dense=False):
+          bars=None, dense=False, begin=None):
     """A year axis labelled every `step` years, anchored on `last`, with an
     unlabelled tick every `minor` years between. `through` is where the axis
-    ends; otherwise a little clear of `last`. `bars` is the width the bars
+    ends; otherwise a little clear of `last`. `begin` is where it starts,
+    otherwise a little clear of `first`, as `through` is at the other end:
+    a figure whose data begins mid-year ends its axis there. `bars` is the width the bars
     on this axis were drawn at: the limits then clear half a bar, so that
     the first and last are drawn whole rather than sliced by the frame.
     `dense` names every year of a close sequence at style.DENSE_TICKS."""
@@ -812,7 +851,7 @@ def years(ax, first, last, step=10, label="census year", minor=10, through=None,
     pad = span * 0.03
     if bars:
         pad = max(pad, bars / 2 + span * 0.01)
-    ax.set_xlim(first - pad, through or last + pad)
+    ax.set_xlim(begin or first - pad, through or last + pad)
     major = sorted(range(last, first - 1, -step))
     ax.set_xticks(major)
     if minor and minor < step:

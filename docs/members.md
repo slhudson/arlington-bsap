@@ -308,6 +308,11 @@ O'Leary's elections alone would give every one of those months to a sitting
 member. `members_by_race` counts what the roster holds, and no count of it is
 kept here.
 
+The district lanes of `members_by_race_gender` read each member's months
+straight from the roster, so a seat begins and ends in the month the roster
+names and the Board begins in July 1870; the stacked years after 1932 count
+seat-years like the other seat figures.
+
 `members_roster.check_district_seats` holds the reading in place: each of the
 three districts has exactly one member in every month from 1870 to 1931, save
 the six months before the Board sat and three recorded vacancies: Washington

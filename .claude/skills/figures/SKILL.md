@@ -228,6 +228,13 @@ open (Sally, 5 October 2026).
 - **Where a category's definition changes mid-figure, the legend does not
   relabel silently.** `residents_by_race` says "not Hispanic" (`style.RESIDENTS_CROSSED`)
   and rules off 1980; `members_by_race` keeps `style.RACE`.
+- **Race and gender together: a man takes his race's hue and a woman its
+  darker shade, White women the taupe** (`style.RACE_GENDER`, Sally, 9
+  October 2026). The label is `Latino` or `Latina`, not `Hispanic or Latino`, on the
+  members figures (`Latino men`, `Latina women`). The legend is
+  `charts.legend_grid()`, three columns, Black, Latino, White, men above
+  women. The stack is ordered by size, smallest group at the bottom.
+  Before 1932 the Board is lanes by district, `charts.district_lanes()`.
 - **No textures.** Distinguish with colour. Tested on the district map, 6
   October 2026: hatching for the two annexations was rendered and declined
   for two tints. A filled dot against an open
