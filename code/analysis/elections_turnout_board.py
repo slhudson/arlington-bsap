@@ -49,7 +49,7 @@ for profile in style.PROFILES:
         rate = board_rate.reindex(years_of)       # a two-seat year is NaN: a gap
         charts.lines(ax, years_of, {name: (rate.to_numpy(), style.BOARD_FAMILY[name])}, bridge=True)
 
-    charts.counts(ax, 100, 10, label="votes per 100 residents of voting age")
+    charts.counts(ax, 70, 10, label="votes per 100 residents of voting age")
     charts.years(ax, AXIS_FIRST, 2020, step=10, label="year", minor=None, through=2028)
     charts.rule(ax, 1940, "1940: staggered terms begin", ha="left", tier=0)
 
