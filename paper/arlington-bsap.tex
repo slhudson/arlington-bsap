@@ -29,6 +29,10 @@
 \newcolumntype{Q}{@{}R{28}R{14}R{18}R{10}R{11}R{19}@{}}
 \usepackage[margin=1in]{geometry}
 \usepackage[hidelinks]{hyperref}
+% Without this, LaTeX flushes footnotes directly below the body text and
+% stacks a bottom-placed figure below that, so a page with both shows
+% footnotes above the figure instead of at the foot of the page.
+\usepackage[bottom]{footmisc}
 
 % Two type sizes: the body size, and one smaller size for notes --- the notes
 % under each figure and the footnotes. Headings and figure titles are bold at
