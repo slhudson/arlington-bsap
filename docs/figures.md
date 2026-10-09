@@ -76,26 +76,21 @@ ordered figure drawn in fills takes `style.ramp(n)` (Sally, 9 October 2026).
   ballot, by falling turnout). All three draw from the one ramp, so they read
   as a family; the no-evidence grey in the first two stays outside it, since
   an absence is not a step on the scale.
-- Unordered, Okabe-Ito: `members_by_race_gender`, `members_by_race`, `members_by_gender`, `residents_by_race`,
+- Unordered, Okabe-Ito: `members_by_race_gender`, `residents_by_race`,
   and the party and growth figures.
 
 - **Race.** Black orange, Hispanic or Latino bluish green, Asian and Pacific
-  Islander blue, White sand. Asian and Pacific Islander takes blue rather
-  than reddish purple because the reddish purple carries women on the
-  gender chart, and the two should not read as the same category across a
-  section.
+  Islander blue, White sand.
 - **Age.** Ordered: see the palette rule above. Seven bands on the
   sequential profile, `style.ramp(7)`, light for the youngest. The
   near-neutral rule is set aside, as it is for party: there is no largest
   group holding the mass here, since the bands are of comparable size and the
   darkest is not the biggest.
-- **Gender.** Women reddish purple, men sand. Urban's guide says: "Urban
-  tries not to use color palettes that reinforce gender or racial
-  stereotypes (e.g., pink for women and blue for men)." Half the pairing
-  goes: men take the same near-neutral the largest group takes everywhere
-  else, so the figure reads the way the race figures do, the mass as
-  backdrop and the subject carrying the colour, rather than as a gendered
-  pair.
+- **Gender.** No colour of its own. Urban's guide says: "Urban tries not to
+  use color palettes that reinforce gender or racial stereotypes (e.g., pink
+  for women and blue for men)." So gender is carried as a shade of the
+  member's race, as `members_by_race_gender` draws it, and no hue means
+  women.
 - **Growth.** Two counts of people, no categories: population dark grey
   `#5C5859`, residents per seat vermilion. Not Okabe-Ito's blue, which is
   Asian and Pacific Islander on the race charts; the growth figure comes
@@ -226,12 +221,11 @@ Black and White are everyone in the race, Hispanic or not. So on
 `residents_by_race` the legend says "Black, not Hispanic" and "White,
 not Hispanic" (`style.RESIDENTS_CROSSED`), and a dashed rule at 1980 marks
 where the definition changes; the caption says what the series before it
-are. `members_by_race` reads the same two labels (`style.CROSSED_LABELS`) over
-the whole of 1870 to 2026. The Board's race is not a census crosstab, and
-Hispanic there is from published research, not a cell, but the figure carries
-a Hispanic band, so its Black and White members are not Hispanic, and the two
-figures name the same band the same way. Before 1980 no one is coded
-Hispanic, so the label is true there by construction.
+are. The Board figure, `members_by_race_gender`, carries a Latino group
+beside Black and White, so its Black and White members are not Latino; its
+labels (`Black men`, `White women`) say nothing of Hispanic origin, since the
+Latino band is drawn beside them. Before 1980 no one is coded Hispanic, so
+that is true there by construction.
 
 ## Legend
 
@@ -545,14 +539,14 @@ there the labels can be shortened and here the years cannot.
   crosses no gap (Sally, 6 October 2026). The axis starts at 1870 so the ring
   sits at its own census. `docs/residents.md` has the adults table.
 
-- **members_by_race, members_by_gender, members_by_party.** Seat counts rather than
+- **members_by_party.** Seat counts rather than
   shares, so the 1932 expansion is legible on the axis. All bands are drawn,
   men and White included: they are the denominator, and without them two
   seats of five and two of three look the same. A category holding no seat
   in any year gets no band and no legend entry, because an empty swatch
   reads as a sliver too small to see rather than as zero, and the absence is
   a finding for the prose. The test is on the data, not the category name.
-- **members_by_race_gender.** The one Board figure the paper prints for who
+- **members_by_race_gender.** The Board figure for who
   served: race and gender together, beside the subsets table, which counts the
   same people. Before 1932 the Board is three district seats, not a count, so
   each seat is a lane, Jefferson at the bottom and Washington on top (south to
@@ -560,7 +554,7 @@ there the labels can be shortened and here the years cannot.
   roster, so the Board begins in July 1870 and not at a year boundary; the
   district's name sits in its lane in the empty years, at `style.DISTRICT_NAMES_AT`, one step down
   from a tick label (`style.DENSE_TICKS`) so it fits the lane. From 1932 the
-  seats are counted by the year, as in the three single-cut figures, the
+  seats are counted by the year, as in `members_by_party`, the
   bands ordered by size, the group with the fewest seat-years over the whole
   record at the bottom, and the chips fall where they may, with one exception: the Latina women's
   band sits just under the White women's, since Tannia Talento finishes the
@@ -575,8 +569,8 @@ there the labels can be shortened and here the years cannot.
   three columns, Black, Latino, White, men above women, so a woman's
   shade sits under her race's hue and the Black column is one deep because
   no Black woman has served; a cell with no seat anywhere stays empty.
-  `members_by_race` and `members_by_gender` stay in the repository; the paper
-  prints this figure in place of both.
+  Race alone and gender alone were drawn as separate figures and retired
+  when this one replaced them (9 October 2026).
 - **members_race_coverage.** A diagnostic: of the seat-years in each year,
   what the occupant's race rests on, as a stacked step area on the seat axis,
   so it reads like the seat figures and like `members_residence_coverage`, and
@@ -605,7 +599,7 @@ there the labels can be shortened and here the years cannot.
 - **members_residence_coverage.** A diagnostic to show the County: of the
   seat-years in each year, how exactly the occupant's home is known, as a
   stacked step area on the seat axis. It counts seat-years, like
-  `members_by_race`, and not the members sitting on 1 July, so a vacancy shows
+  `members_by_race_gender`, and not the members sitting on 1 July, so a vacancy shows
   as a gap below the seats that exist and a partial year as a fractional band;
   a 1 July count would draw a full Board through both. Its yearly total is
   asserted equal to men + women in `members_by_year`. One hue, darkest

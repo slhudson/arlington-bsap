@@ -305,7 +305,7 @@ Black member's recorded service:
   service begins, 1871, 1872, 1879 and 1887;
 - Rowe's resignation stands the Jefferson seat empty from April to June 1879. Reading
 O'Leary's elections alone would give every one of those months to a sitting
-member. `members_by_race` counts what the roster holds, and no count of it is
+member. `members_by_race_gender` counts what the roster holds, and no count of it is
 kept here.
 
 The district lanes of `members_by_race_gender` read each member's months

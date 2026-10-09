@@ -1,7 +1,6 @@
 """Board seats by party, 1932-2026 -> figures/members_by_party.pdf, .png
 
-A stacked step area of seat-years in style.PARTY, on the frame
-members_by_race and members_by_gender share, with the 1932 rule. Party is
+A stacked step area of seat-years in style.PARTY, with the 1932 rule. Party is
 recorded only from the at-large Board, so the years before it are gaps. A
 category with no seat in any year gets no band and no legend entry.
 """
