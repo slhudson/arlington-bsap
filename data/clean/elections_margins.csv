@@ -1,31 +1,31 @@
 year,stage,tier,contest,party,date,method,counting,seats,winners,last_winner_votes,top_loser,top_loser_votes,margin_votes,votes_cast,margin_share,share_of,candidates,other_labels,contested_other,status,source,note
-1870,general,before 1931,Arlington District,,May 28,,,1,H. Dwight Smith,,,,,,,,,,,not computed,oleary2010 p.9,O'Leary names the winner and no one else
-1870,general,before 1931,Jefferson District,,May 28,,,1,Storm V. Boyd,,,,,,,,,,,not computed,oleary2010 p.9,O'Leary names the winner and no one else
+1870,general,before 1931,Arlington District,,1870-05,,,1,H. D. Smith,218.0,Oscar Bailey,55.0,163.0,273.0,0.5970695970695971,votes cast,2.0,,,computed,alexandriagazette18700528p3,read from the page image
+1870,general,before 1931,Jefferson District,,1870-05,,,1,S. V. Boyd,168.0,Jefferson Tacey,32.0,136.0,200.0,0.68,votes cast,2.0,,,computed,alexandriagazette18700528p3,read from the page image
 1870,general,before 1931,Washington District,,May 28,,,1,Charles W. Payne,,,,,,,,,,,not computed,oleary2010 p.9,O'Leary names the winner and no one else
-1871,general,before 1931,Arlington District,,May,,,1,H. Dwight Smith,,,,,,,,,,,not computed,oleary2010 p.9,O'Leary names the winner and no one else
-1871,general,before 1931,Jefferson District,,May,,,1,William A. Rowe,,,,,,,,,,,not computed,oleary2010 p.9,O'Leary names the winner and no one else
-1871,general,before 1931,Washington District,,May,,,1,Edward Deeble,,,,,,,,,,,not computed,oleary2010 p.9,O'Leary names the winner and no one else
+1871,general,before 1931,Arlington District,,1871-05-25,,,1,H. D. Smith,,,,,,,votes cast,1.0,,,not computed,alexandriagazette18710526p3,no loser is named
+1871,general,before 1931,Jefferson District,,1871-05-25,,,1,W. A. Rowe,,,,,,,votes cast,1.0,,,not computed,alexandriagazette18710526p3,no loser is named
+1871,general,before 1931,Washington District,,1871-05-25,,,1,E. S. Deeble,,,,,,,votes cast,1.0,,,not computed,alexandriagazette18710526p3,no loser is named
+1872,general,before 1931,Washington District,,1872-05-23,,,1,Febrey,,,,,,,votes cast,1.0,,,not computed,alexandriagazette18720524p3,no loser is named
 1872,general,before 1931,Arlington District,,May 25,,,1,John B. Syphax,,,,,,,,,,,not computed,oleary2010 p.10,O'Leary names the winner and no one else
 1872,general,before 1931,Jefferson District,,May 25,,,1,William A. Rowe,,,,,,,,,,,not computed,oleary2010 p.10,O'Leary names the winner and no one else
-1872,general,before 1931,Washington District,,May 25,,,1,Henry W. Febrey,,,,,,,,,,,not computed,oleary2010 p.10,O'Leary names the winner and no one else
-1873,general,before 1931,Arlington District,,May 24,,,1,Francis D. Schutt,,,,,,,,,,,not computed,oleary2010 p.10,O'Leary names the winner and no one else
+1873,general,before 1931,Arlington District,,1873-05-22,,,1,F. G. Schutt,,,,,,,votes cast,1.0,,,not computed,alexandriagazette18730526p3,no loser is named
 1873,general,before 1931,Jefferson District,,May 24,,,1,William A. Rowe,,,,,,,,,,,not computed,oleary2010 p.10,O'Leary names the winner and no one else
 1873,general,before 1931,Washington District,,May 24,,,1,Vacant – Samuel Titus appointed in Dec.,,,,,,,,,,,not computed,oleary2010 p.10,O'Leary names the winner and no one else
-1874,general,before 1931,Arlington District,,May 23,,,1,Francis G. Schutt,,,,,,,,,,,not computed,oleary2010 p.11,O'Leary names the winner and no one else
-1874,general,before 1931,Jefferson District,,May 23,,,1,William A. Rowe,,,,,,,,,,,not computed,oleary2010 p.11,O'Leary names the winner and no one else
-1874,general,before 1931,Washington District,,May 23,,,1,Gilbert Vandenberg,,,,,,,,,,,not computed,oleary2010 p.11,O'Leary names the winner and no one else
-1875,general,before 1931,Arlington District,,May 22,,,1,Francis G. Schutt,,,,,,,,,,,not computed,oleary2010 p.12,O'Leary names the winner and no one else
-1875,general,before 1931,Jefferson District,,May 22,,,1,William A. Rowe,,,,,,,,,,,not computed,oleary2010 p.12,O'Leary names the winner and no one else
-1875,general,before 1931,Washington District,,May 22,,,1,Gilbert Vandenberg,,,,,,,,,,,not computed,oleary2010 p.12,O'Leary names the winner and no one else
-1877,general,before 1931,Arlington District,,May,,,1,William H. Robinson,,,,,,,,,,,not computed,oleary2010 p.13,O'Leary names the winner and no one else
-1877,general,before 1931,Jefferson District,,May,,,1,William A. Rowe,,,,,,,,,,,not computed,oleary2010 p.13,O'Leary names the winner and no one else
-1877,general,before 1931,Washington District,,May,,,1,Charles W. Payne,,,,,,,,,,,not computed,oleary2010 p.13,O'Leary names the winner and no one else
-1879,general,before 1931,Arlington District,,May,,,1,William A. Rowe,,,,,,,,,,,not computed,oleary2010 p.14,O'Leary names the winner and no one else
-1879,general,before 1931,Jefferson District,,May,,,1,Travis B. Pinn,,,,,,,,,,,not computed,oleary2010 p.14,O'Leary names the winner and no one else
-1879,general,before 1931,Washington District,,May,,,1,Francis G. Schutt,,,,,,,,,,,not computed,oleary2010 p.14,O'Leary names the winner and no one else
-1881,general,before 1931,Arlington District,,May,,,1,William A. Rowe,,,,,,,,,,,not computed,oleary2010 p.14,O'Leary names the winner and no one else
-1881,general,before 1931,Jefferson District,,May,,,1,Travis B. Pinn,,,,,,,,,,,not computed,oleary2010 p.14,O'Leary names the winner and no one else
-1881,general,before 1931,Washington District,,May,,,1,Christopher Costello,,,,,,,,,,,not computed,oleary2010 p.14,O'Leary names the winner and no one else
+1874,general,before 1931,Arlington District,,1874-05-28,,,1,F. H. Schutt,103.0,,,,103.0,,votes cast,1.0,,,not computed,alexandriagazette18740529p2,"no opponent is printed, so no margin; the count is read from the page image"
+1874,general,before 1931,Jefferson District,,1874-05-28,,,1,W. A. Rowe,68.0,,,,68.0,,votes cast,1.0,,,not computed,alexandriagazette18740529p2,"no opponent is printed, so no margin; the count is read from the page image"
+1874,general,before 1931,Washington District,,1874-05-28,,,1,Gilbert Vanderberg,27.0,H. W. Febrey,26.0,1.0,53.0,0.018867924528301886,votes cast,2.0,,,computed,alexandriagazette18740530p2,read from the page image
+1875,general,before 1931,Arlington District,,1875-05-27,,,1,F. G. Schutt,125.0,,,,125.0,,votes cast,1.0,,,not computed,alexandriagazette18750528p3,"no opponent is printed, so no margin; the count is read from the page image"
+1875,general,before 1931,Jefferson District,,1875-05-27,,,1,W. A. Rowe,83.0,,,,83.0,,votes cast,1.0,,,not computed,alexandriagazette18750528p3,"no opponent is printed, so no margin; the count is read from the page image"
+1875,general,before 1931,Washington District,,1875-05-27,,,1,G. C. Vandeburg,42.0,,,,42.0,,votes cast,1.0,,,not computed,alexandriagazette18750528p3,"no opponent is printed, so no margin; the count is read from the page image"
+1877,general,before 1931,Arlington District,,1877-05,,,1,Wm. H. Robertson,29.0,James H. Stevens,1.0,28.0,30.0,0.9333333333333333,votes cast,2.0,,,computed,alexandriagazette18770526p3,read from the page image
+1877,general,before 1931,Jefferson District,,1877-05,,,1,William A. Rowe,22.0,,,,22.0,,votes cast,1.0,,,not computed,alexandriagazette18770526p3,"no opponent is printed, so no margin; the count is read from the page image"
+1877,general,before 1931,Washington District,,1877-05,,,1,Charles W. Payne,18.0,G. Vandenburg,17.0,1.0,35.0,0.02857142857142857,votes cast,2.0,,,computed,alexandriagazette18770526p3,read from the page image
+1879,general,before 1931,Arlington District,,1879-05-22,,,1,W. A. Rowe,184.0,W. H. Robertson,87.0,97.0,271.0,0.35793357933579334,votes cast,2.0,,,computed,alexandriagazette18790523p3,read from the page image
+1879,general,before 1931,Jefferson District,,1879-05-22,,,1,T. B. Pinn,106.0,W. Harris,62.0,44.0,168.0,0.2619047619047619,votes cast,2.0,,,computed,alexandriagazette18790523p3,read from the page image
+1879,general,before 1931,Washington District,,1879-05-22,,,1,Frank G. Schutt,66.0,Thomas Jewell,59.0,7.0,126.0,0.05555555555555555,votes cast,3.0,,,computed,alexandriagazette18790524p3,read from the page image
+1881,general,before 1931,Arlington District,,1881-05-26,,,1,W. A. Rowe,,,,,,,votes cast,1.0,,,not computed,alexandriagazette18810527p2,no loser is named
+1881,general,before 1931,Jefferson District,,1881-05-26,,,1,T. B. Pinn,,,,,,,votes cast,1.0,,,not computed,alexandriagazette18810527p2,no loser is named
+1881,general,before 1931,Washington District,,1881-05-26,,,1,Christopher Costello,,,,,,,votes cast,1.0,,,not computed,alexandriagazette18810527p2,no loser is named
 1883,general,before 1931,Arlington District,,May,,,1,Perkins W. Squier,,,,,,,,,,,not computed,oleary2010 p.15,O'Leary names the winner and no one else
 1883,general,before 1931,Jefferson District,,May,,,1,John W. Pendleton,,,,,,,,,,,not computed,oleary2010 p.15,O'Leary names the winner and no one else
 1883,general,before 1931,Washington District,,May,,,1,Christopher Costello,,,,,,,,,,,not computed,oleary2010 p.15,O'Leary names the winner and no one else
@@ -34,9 +34,9 @@ year,stage,tier,contest,party,date,method,counting,seats,winners,last_winner_vot
 1885,general,before 1931,Washington District,,1885-05-28,,,1,John D. Payne,,,,,,,votes cast,1.0,,,not computed,alexandriagazette18850529p3,no loser is named
 1885,nomination,before 1931,Arlington District,Republican,1885-05-28,regular nomination,,1,W. A. Rowe,,,,,,,votes cast,1.0,,,not computed,alexandriagazette18850529p3,no losing candidate is named
 1885,nomination,before 1931,Jefferson District,Republican,1885-05-28,regular nomination,,1,Dr. Tucker,,,,,,,votes cast,1.0,,,not computed,alexandriagazette18850529p3,no losing candidate is named
-1887,general,before 1931,Arlington District,,May,,,1,Horatio Ball,,,,,,,,,,,not computed,oleary2010 p.17,O'Leary names the winner and no one else
-1887,general,before 1931,Jefferson District,,May,,,1,Tibbett Allen,,,,,,,,,,,not computed,oleary2010 p.17,O'Leary names the winner and no one else
-1887,general,before 1931,Washington District,,May,,,1,A. B. Grunwell,,,,,,,,,,,not computed,oleary2010 p.17,O'Leary names the winner and no one else
+1887,general,before 1931,Arlington District,,1887-05-26,,,1,Horatio Ball,,,,,,,votes cast,1.0,,,not computed,alexandriagazette18870531p2,no loser is named
+1887,general,before 1931,Jefferson District,,1887-05-26,,,1,Tibbet Allen,,,,,,,votes cast,1.0,,,not computed,alexandriagazette18870531p2,no loser is named
+1887,general,before 1931,Washington District,,1887-05-26,,,1,A. B. Grunwell,,,,,,,votes cast,1.0,,,not computed,alexandriagazette18870531p2,no loser is named
 1889,general,before 1931,Arlington District,,1889-05-23,,,1,F. S. Corbett,,,,,,,votes cast,1.0,,,not computed,alexandriagazette18890525p3,no loser is named
 1889,general,before 1931,Jefferson District,,1889-05-23,,,1,Frank Hume,,,,,,,votes cast,1.0,,,not computed,alexandriagazette18890525p3,no loser is named
 1889,general,before 1931,Washington District,,1889-05-23,,,1,W. Wilson,,,,,,,votes cast,1.0,,,not computed,alexandriagazette18890525p3,no loser is named
@@ -44,7 +44,7 @@ year,stage,tier,contest,party,date,method,counting,seats,winners,last_winner_vot
 1891,general,before 1931,Arlington District,,May,,,1,Millard F. Birth,,,,,,,,,,,not computed,oleary2010 p.18,O'Leary names the winner and no one else
 1891,general,before 1931,Jefferson District,,May,,,1,Frank Hume,,,,,,,,,,,not computed,oleary2010 p.18,O'Leary names the winner and no one else
 1893,general,before 1931,Arlington District,,1893-05-25,,,1,John W. Clarke,172.0,M. F. Birch,130.0,42.0,302.0,0.1390728476821192,votes cast,2.0,,,computed,alexandriagazette18930526p3,read from the page image
-1893,general,before 1931,Jefferson District,,1893-05-25,,,1,Frank Hume,,,,,,,votes cast,1.0,,,not computed,alexandriagazette18930526p3,no loser is named
+1893,general,before 1931,Jefferson District,,1893-05-25,,,1,Frank Hume,203.0,,,,203.0,,votes cast,1.0,,,not computed,alexandriagazette18930526p3,"no opponent is printed, so no margin; the count is read from the page image"
 1893,general,before 1931,Washington District,,1893-05-25,,,1,R. H. Phillips,151.0,J. Costello,52.0,99.0,222.0,0.44594594594594594,votes cast,3.0,,,computed,alexandriagazette18930526p3,read from the page image
 1895,general,before 1931,Arlington District,,1895-05-23,,,1,Corbett,158.0,Hayes,101.0,57.0,390.0,0.14615384615384616,votes cast,4.0,,,computed,alexandriagazette18950524p3,read from the page image
 1895,general,before 1931,Jefferson District,,1895-05-23,,,1,Duncan,162.0,Hume,119.0,43.0,281.0,0.15302491103202848,votes cast,2.0,,,computed,alexandriagazette18950524p3,read from the page image
@@ -58,9 +58,9 @@ year,stage,tier,contest,party,date,method,counting,seats,winners,last_winner_vot
 1901,general,before 1931,Arlington District,,1901-05-23,,,1,Darby,400.0,Corbett,74.0,326.0,474.0,0.6877637130801688,votes cast,2.0,,,computed,alexandriagazette19010524p3,read from the page image
 1901,general,before 1931,Jefferson District,,1901-05-23,,,1,Duncan,281.0,Rust,130.0,151.0,411.0,0.36739659367396593,votes cast,2.0,,,computed,alexandriagazette19010524p3,read from the page image
 1901,general,before 1931,Washington District,,1901-05-23,,,1,Costello,132.0,Saegmuller,110.0,22.0,242.0,0.09090909090909091,votes cast,2.0,,,computed,alexandriagazette19010524p3,read from the page image
-1903,general,before 1931,Arlington District,,November 3,,,1,W.W. Douglas,,,,,,,,,,,not computed,oleary2010 p.23,O'Leary names the winner and no one else
-1903,general,before 1931,Jefferson District,,November 3,,,1,D. N. Rust,,,,,,,,,,,not computed,oleary2010 p.23,O'Leary names the winner and no one else
-1903,general,before 1931,Washington District,,November 3,,,1,W. N. Febrey County,,,,,,,,,,,not computed,oleary2010 p.23,O'Leary names the winner and no one else
+1903,general,before 1931,Arlington District,,1903-11-03,,,1,W. W. Douglass,,,,,,,votes cast,1.0,,,not computed,alexandriagazette19031104p3,no loser is named
+1903,general,before 1931,Jefferson District,,1903-11-03,,,1,D. N. Rust,,,,,,,votes cast,1.0,,,not computed,alexandriagazette19031104p3,no loser is named
+1903,general,before 1931,Washington District,,1903-11-03,,,1,W. N. Febrey,,,,,,,votes cast,1.0,,,not computed,alexandriagazette19031104p3,no loser is named
 1907,general,before 1931,Arlington District,,1907-11-05,,,1,Corbett,213.0,Hagan,189.0,24.0,402.0,0.05970149253731343,votes cast,2.0,,,computed,alexandriagazette1907election,read from the page image
 1907,general,before 1931,Jefferson District,,1907-11-05,,,1,E. Duncan,61.0,Walter U. Varney,59.0,2.0,161.0,0.012422360248447204,votes cast,3.0,,,computed,alexandriagazette1907election,read from the page image
 1907,general,before 1931,Washington District,,1907-11-05,,,1,W. N. Febrey,98.0,G. W. Donaldson,73.0,25.0,193.0,0.12953367875647667,votes cast,3.0,,,computed,alexandriagazette1907election,read from the page image

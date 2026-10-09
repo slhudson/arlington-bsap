@@ -215,7 +215,11 @@ def district_rows() -> list:
                    date=h.election_date.iloc[0], seats=1, winners="; ".join(won["name"]),
                    candidates=len(h), source=h.source.iloc[0], share_of="votes cast")
         read = ", ".join(sorted(set(h.read_from)))
-        if lost.empty:
+        if lost.empty and h.votes.notna().all():
+            # One candidate, so there is no margin; the printed count is the contest's votes.
+            row.update(status="not computed", votes_cast=h.votes.sum(), last_winner_votes=won.votes.max(),
+                       note=f"no opponent is printed, so no margin; the count is read from the {read}")
+        elif lost.empty:
             row.update(status="not computed", note="no loser is named")
         elif h.votes.isna().any():
             row.update(status="not computed", note="a candidate's count is not printed or not legible")

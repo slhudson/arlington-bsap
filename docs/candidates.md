@@ -20,9 +20,10 @@ the whole point. Coverage runs era by era:
   (`alexandriagazette18850529p3`, read on the page image), and Dr. Tucker, whose
   race is not known, the "regular republican candidate" beaten in Jefferson
   District the same day. O'Leary names only winners, so the other losses are
-  the Gazette's to supply, and it supplies few: the 1870s returns come
-  township by township, and the weeks after the 1871, 1877 and 1883 elections
-  return no issue from Chronicling America. Open.
+  the Gazette's to supply, and it supplies few: its returns name losers, with
+  counts, for 1870, 1874, 1877 and 1879 and a district's lone candidate for
+  1874 and 1875; for 1871, 1872, 1873 and 1881 it names winners alone; and the
+  May and June issues of 1883 are not on Virginia Chronicle. Open.
 - **1888–1930**: the Gazette's returns for 1891 to 1901 and 1919 name those who
   lost a supervisor's race (Rowe and Tucker, above, lost in 1885); 1889 and
   1903 give winners only, and 1911's table of names by district is of county
@@ -308,18 +309,23 @@ is still unwritten.
 holds what the Gazette prints of each Board election it reports with losers named,
 one row per candidate: the district, the votes and outcome as printed, a race word
 where the paper puts one beside the name, the page, and the sentence. It covers
-1885, 1889, 1891, 1893, 1895, 1897, 1899, 1901 and 1919; 1887, 1889 and 1903 print
-winners only, and so does the 1881 report, which names Rowe, Pinn and Costello.
+1870 to 1875, 1877, 1879, 1881, 1885, 1887, 1889, 1891, 1893, 1895, 1897, 1899, 1901, 1903 and 1919.
+Counts are printed for 1870 (Arlington and Jefferson Townships), 1874 and 1875 (a
+lone candidate in two or three districts), 1877, 1879, 1893 to 1901 and 1919.
+1871, 1881, 1887, 1889 and 1903 print winners only, 1872 names only the Washington
+winner, and 1873 prints the ballots polled in each township, 85, 57 and 5, and
+names only the Arlington winner.
 O'Leary prints the losers of 1907 and 1915 and the Gazette agrees with him,
 so they are not repeated; the table of names by district that the Gazette of 8
 November 1911 prints (`alexandriagazette19111108p2`, read on the page image) is of
 the county offices voted for on 7 November, clerk, commonwealth's attorney, sheriff
 and commissioner of revenue, and the issues of 8 to 11 November print no contest
 for supervisor; 1919 is an election
-O'Leary does not list at all. 1871, 1877 and 1883 return no issue for the weeks
-after them. The Gazette's issues after 1921 are not on Chronicling America.
+O'Leary does not list at all. Chronicling America returns no issue for the weeks
+after 1871, 1877 and 1883; Virginia Chronicle holds 1871 and 1877 and has no
+issue of May or June 1883, and none for 27 May 1872. The Gazette's issues after 1921 are not on Chronicling America.
 
-Four things in it are findings.
+Five things in it are findings.
 
 - **Rowe lost in 1885.** William A. Rowe, who won Arlington District in 1879 and
   1881, was "the regular republican nominee" beaten by George W. Veitch, "the
@@ -339,6 +345,14 @@ Four things in it are findings.
   1889 and 1891 and names no Phillips in 1891; `docs/members.md` carries him as
   Black on these two notices and the Gazette's report of his death, and the
   table holds both wins.
+- **Who lost, 1870–1879.** 1870: Oscar Bailey (55) to H. D. Smith (218) in Arlington
+  Township and Jefferson Tacey (32) to S. V. Boyd (168) in Jefferson. 1874: H. W.
+  Febrey (26) to Gilbert Vanderberg (27) in Washington, a margin of one. 1877: James
+  H. Stevens (1) to Wm. H. Robertson (29) in Arlington and G. Vandenburg (17) to Charles
+  W. Payne (18) in Washington. 1879: W. H. Robertson (87) to W. A. Rowe (184) in
+  Arlington, W. Harris (62) to T. B. Pinn (106) in Jefferson, and Thomas Jewell (59) and
+  S. D. Beach (1) to Frank G. Schutt (66) in Washington. Pinn's 106 and Harris's 62 are
+  faint on the page (`board-returns-hard-reads`).
 - **Who lost, 1893–1901.** 1893: Birch (130) to Clarke (172) in Arlington; J.
   Costello (52) and G. W. Donaldson (19) to R. H. Phillips (151) in Washington.
   1895: Birch, Hayes (101) and Clark (41) to Corbett (158) in Arlington; Palmer to
