@@ -4,13 +4,16 @@
     .venv/bin/python code/paper.py timelines  # the other document
     .venv/bin/python code/paper.py all        # every document in SOURCES
 
-Writes `paper/arlington-bsap.pdf`. Not part of `bash run.sh`: the figures
+Writes `paper/arlington-bsap.pdf` and prints its absolute path as the last
+line. Not part of `bash run.sh`: the figures
 build with no LaTeX installed at all, and Overleaf compiles the report for
 real. This is for compiling it locally without having to remember how.
 
 latexmk works in `paper/build/` (ignored by git), so its aux, log and record
 files never sit beside the prose; the finished PDF is copied up to `paper/`,
-where it has always been found. The compile still runs with `paper/` as its
+where it has always been found. Nothing readable is left in `paper/build/`:
+a PDF there would outlive the next compile's failure and be linked to as
+current, so `publish()` moves it up rather than copying it. The compile still runs with `paper/` as its
 working directory, so every path in the .tex files is relative to `paper/`.
 
 Two things go wrong here, and only one of them announces itself.
@@ -92,6 +95,13 @@ def problems(log):
     return found
 
 
+def publish(built, pdf):
+    """Move the finished PDF from the build folder up beside the source.
+    Moved, not copied: the build folder keeps no PDF a reader could open
+    and mistake for the latest."""
+    shutil.move(built, pdf)
+
+
 def compile_once(clean):
     """Run latexmk, optionally clearing its record first. Returns the log."""
     outdir = f"-outdir={BUILD.relative_to(PAPER)}"
@@ -150,9 +160,11 @@ def main():
     record = cache.store() / f"inputs-{STEM}"
     if record.exists():
         if cache.restore(f"paper-{STEM}", compile_key(record.read_text().split("\n"))):
+            built.unlink(missing_ok=True)
             print(f"-> paper/{pdf.name}: inputs unchanged since a cached compile, copied back")
-            return
+            return pdf
 
+    built.unlink(missing_ok=True)
     log = compile_once(clean=False)
     found = problems(log)
     if found:
@@ -166,13 +178,14 @@ def main():
     if found:
         # Raise rather than leave a PDF that reads as finished.
         pdf.unlink(missing_ok=True)
+        built.unlink(missing_ok=True)
         sys.exit("the report did not compile correctly:\n"
                  + "\n".join(f"  - {p}" for p in found)
                  + f"\n\nthe log is {log_path.relative_to(ROOT)}, and "
                  "docs/repository.md explains both failures.")
     if not built.exists():
         sys.exit(f"latexmk wrote no {built.name}; see {log_path.relative_to(ROOT)}")
-    shutil.copyfile(built, pdf)
+    publish(built, pdf)
 
     inputs = inputs_read(BUILD / f"{STEM}.fls")
     cache.save(f"paper-{STEM}", compile_key(inputs), [pdf])
@@ -182,11 +195,17 @@ def main():
     partial.replace(record)
     print(f"-> paper/{pdf.name} ({pdf.stat().st_size // 1024}KB), "
           "no undefined citations, references or fonts")
+    return pdf
 
 
 if __name__ == "__main__":
     wanted = sys.argv[1] if len(sys.argv) > 1 else "arlington-bsap"
     if wanted != "all" and wanted not in SOURCES:
         sys.exit(f"no document {wanted}; one of {', '.join(SOURCES)}, or all")
+    wrote = {}
     for STEM in (SOURCES if wanted == "all" else [wanted]):
-        main()
+        wrote[STEM] = main()
+    # The report is the PDF briefs link to, so it is the last line whatever
+    # else was compiled.
+    last = "arlington-bsap" if "arlington-bsap" in wrote else STEM
+    print(wrote[last])

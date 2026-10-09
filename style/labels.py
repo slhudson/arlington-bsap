@@ -31,6 +31,11 @@ PLACES = {
 }
 
 
+# After every place beside the dot has failed, the same places again, stood
+# off by this many LEADERs more each time and joined to the dot by a line,
+# before the build gives up.
+RINGS = 3
+
 # A name belongs to its dot only if every other dot is at least this many
 # times as far from it.
 CLEAR = 2.0
@@ -52,13 +57,15 @@ def dot_label(ax, x, y, text, area, color="black", bold=False, first=None, leade
     figure's size is final; `first` is a place from PLACES to try before
     the rest. `leader` stands the name off and draws a short line to the
     dot, for a dot in a row too tight to name beside it."""
+    # Every name carries a leader, drawn only where place() stands it off.
     line = dict(arrowstyle="-", color=style.GREY, lw=plt.rcParams["axes.linewidth"],
-                shrinkA=1, shrinkB=np.sqrt(area) / 2 + 1) if leader else None
+                shrinkA=1, shrinkB=np.sqrt(area) / 2 + 1)
     ann = ax.annotate(text, (x, y), xytext=(0, 0), textcoords="offset points",
                       color=color, fontweight="bold" if bold else "normal",
                       fontsize=plt.rcParams["font.size"], arrowprops=line)
     # Placed last, against the final geometry, so layout must not make room for it.
     ann.set_in_layout(False)
+    ann.arrow_patch.set_visible(leader)
     if not hasattr(ax, "dot_labels"):
         ax.dot_labels = []
     ax.dot_labels.append((ann, x, y, area, first, bold, leader))
@@ -100,11 +107,16 @@ def place(fig):
             for k, (ann, x, y, area, first, bold, leader) in enumerate(queue):
                 cx, cy = ax.transData.transform((x, y))
                 size = plt.rcParams["font.size"]
-                stand = LEADER * size if leader else 0
-                across = np.sqrt(area) / 2 + GAP_ACROSS * size + stand
-                updown = np.sqrt(area) / 2 + GAP_UPDOWN * size + stand
                 why = {}
-                for place in ([first] if first else []) + [p for p in PLACES if p != first]:
+                near = ([first] if first else []) + [p for p in PLACES if p != first]
+                # Beside the dot first; then every place again, farther out
+                # each time, with a leader line.
+                for ring, place in [(0, p) for p in near] + [(r, p) for r in range(1, RINGS + 1) for p in near]:
+                    lead = leader or ring > 0
+                    stand = (ring + bool(leader)) * LEADER * size if lead else 0
+                    across = np.sqrt(area) / 2 + GAP_ACROSS * size + stand
+                    updown = np.sqrt(area) / 2 + GAP_UPDOWN * size + stand
+                    ann.arrow_patch.set_visible(lead)
                     ux, uy, ha, va = PLACES[place]
                     drop = HALF_CAP * size if va == "baseline" else 0
                     ann.set_position((ux * across, uy * updown - drop))
@@ -119,21 +131,22 @@ def place(fig):
                     dist = [_to_box(dx, dy, (b.x0, b.y0, b.x1, b.y1)) - rad for dx, dy, rad in dots]
                     own = int(np.argmin([np.hypot(dx - cx, dy - cy) for dx, dy, _ in dots]))
                     hit = [p[4] for p in placed if _overlap(box, p)]
+                    key = f"{place}+{ring}" if ring else place
                     if not inside:
-                        why[place] = "leaves the frame"
+                        why[key] = "leaves the frame"
                     elif hit:
-                        why[place] = f"touches {hit[0]!r}"
+                        why[key] = f"touches {hit[0]!r}"
                     elif any(d < 0 for i, d in enumerate(dist) if i != own):
-                        why[place] = "covers another dot"
+                        why[key] = "covers another dot"
                     # A leader may start inside a dot that overlaps its own;
                     # past that it must clear every dot.
-                    elif leader and any(_to_segment(dx, dy, (cx, cy), _nearest(cx, cy, b)) < rad + pad
+                    elif lead and any(_to_segment(dx, dy, (cx, cy), _nearest(cx, cy, b)) < rad + pad
                                         for i, (dx, dy, rad) in enumerate(dots)
                                         if i != own and np.hypot(dx - cx, dy - cy) > rad + dots[own][2]):
-                        why[place] = "its leader crosses another dot"
-                    elif not leader and min((d for i, d in enumerate(dist) if i != own),
+                        why[key] = "its leader crosses another dot"
+                    elif not lead and min((d for i, d in enumerate(dist) if i != own),
                                             default=np.inf) < CLEAR * max(dist[own], pad):
-                        why[place] = "sits too near another dot"
+                        why[key] = "sits too near another dot"
                     else:
                         placed.append((*box, ann.get_text()))
                         break
@@ -152,8 +165,8 @@ def place(fig):
             queue.insert(0, queue.pop(k))
         else:
             raise AssertionError(
-                f"no clear place beside its dot for the name {queue[0][0].get_text()!r}: "
-                + "; ".join(f"{p} {w}" for p, w in why.items()))
+                f"no clear place beside its dot, or stood off with a leader, for the name "
+                f"{queue[0][0].get_text()!r}: " + "; ".join(f"{p} {w}" for p, w in why.items()))
 
 
 def _overlap(a, b):

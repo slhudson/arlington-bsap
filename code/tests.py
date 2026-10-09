@@ -2209,6 +2209,37 @@ def run_sh_steps(name):
     return re.search(rf"^{name}=\((.*?)\)$", run, re.M).group(1).split()
 
 
+SUBJECTS = ("residents", "elections", "members", "candidates", "localities", "survey", "comments")
+
+
+def unproduced_figures(rows, figures, tables):
+    """(row id, name) for every name in a row's `affects` that is named like
+    a figure - a subject first, then underscores, as figures/pdf/ names are -
+    and is neither a figure some step produces nor a table in data/clean/."""
+    shape = re.compile(rf"^(?:{'|'.join(SUBJECTS)})(?:_[a-z0-9]+)+$")
+    return [(r["id"], name) for r in rows
+            for name in (t.strip() for t in re.split(r"[;,]", r["affects"]))
+            if shape.match(name) and name not in figures and name not in tables]
+
+
+def test_a_tracker_row_naming_a_figure_no_step_produces_is_refused():
+    """A row's `affects` cell named a figure that had been retired two days
+    before, so the row promised a change to a picture that no longer
+    existed. Every figure-shaped name there must be a step in run.sh's
+    FIGURES or a table the clean stage writes."""
+    tables = {p.stem for p in (ROOT / "data" / "clean").glob("*.csv")}
+    figures = set(run_sh_steps("FIGURES"))
+    stale = unproduced_figures(tracker_rows(), figures, tables)
+    assert not stale, ("docs/questions.csv rows whose `affects` names a figure no step produces "
+                       "(retired? name its replacement):\n  "
+                       + "\n  ".join(f"{i}: {n}" for i, n in stale))
+    # The guard fires on the mistake: a row naming a retired figure.
+    row = {"id": "x", "affects": "members_by_race; elections_turnout_by_decade"}
+    assert unproduced_figures([row], figures, tables) == [("x", "elections_turnout_by_decade")], \
+        "a retired figure in `affects` was not found"
+    assert unproduced_figures([{"id": "y", "affects": "prose; members_by_race"}], figures, tables) == []
+
+
 def test_a_step_and_a_module_are_told_apart():
     """A file in a stage folder that run.sh does not list but writes
     something anyway, or one it lists that writes nothing.
@@ -2345,6 +2376,120 @@ def test_a_paper_build_that_lost_something_is_refused():
         found = paper.problems(log)
         assert found, f"a good build, said the log: {log!r}"
         assert expected in found[0], (expected, found)
+
+
+def test_a_compile_leaves_no_pdf_in_the_build_folder():
+    """A copy left in paper/build/ outlives the compile that wrote it: one
+    from 7 October was linked to as the current report for two days. The
+    PDF is moved up beside the source, so the build folder holds none."""
+    with tempfile.TemporaryDirectory() as tmp:
+        build, up = Path(tmp) / "build", Path(tmp) / "report.pdf"
+        build.mkdir()
+        (build / "report.pdf").write_bytes(b"%PDF-new\n")
+        paper.publish(build / "report.pdf", up)
+        assert up.read_bytes() == b"%PDF-new\n", "the PDF did not reach paper/"
+        assert not list(build.glob("*.pdf")), f"a PDF stayed in the build folder: {list(build.glob('*.pdf'))}"
+
+
+def test_a_broken_axis_whose_gap_differs_from_the_others_is_refused():
+    """The gap is measured from where the axes sit. Two breaks the figure
+    drew 0.09 and 0.28 of its width apart were claimed to match, so a
+    break_x whose gap is not style.BREAK_GAP, or not the other break's,
+    raises."""
+    stage_charts, style_mod = style_modules()
+    fig, (n1, f1), (n2, f2) = stage_charts.scatter_pair()
+    stage_charts.break_x(n1, f1, "x", (0, 10), 5)
+    stage_charts.break_x(n2, f2, "x", (0, 10), 5)       # matching gaps pass
+    fig = stage_charts.plt.figure()
+    near = fig.add_axes([0.1, 0.1, 0.4, 0.8])
+    far = fig.add_axes([0.5 + style_mod.BREAK_GAP * 3, 0.1, 0.2, 0.8], sharey=near)
+    near.break_ratio = style_mod.BROKEN
+    try:
+        stage_charts.break_x(near, far, "x", (0, 10), 5)
+    except ValueError as e:
+        assert "gap" in str(e), e
+    else:
+        raise AssertionError("a break three times wider than style.BREAK_GAP was drawn")
+
+
+def style_modules():
+    """(charts, style): style/ holds both and has no paths.py, so putting it
+    on the path reaches nothing of the data."""
+    sys.path.insert(0, str(ROOT / "style"))
+    try:
+        return importlib.import_module("charts"), importlib.import_module("style")
+    finally:
+        sys.path.remove(str(ROOT / "style"))
+
+
+def crowded_scatter(n):
+    """A figure with n dots packed in the middle of its plot, each named."""
+    import numpy as np
+    charts, style_mod = style_modules()
+    labels = sys.modules["labels"]
+    fig, ax = charts.plt.subplots(figsize=(3.2, 3.2))
+    rng = np.random.default_rng(3)
+    x, y = rng.uniform(0.4, 0.6, n), rng.uniform(0.4, 0.6, n)
+    ax.set_xlim(0, 1); ax.set_ylim(0, 1)
+    area = charts.dot_area()
+    charts.dots(ax, x, y, area, [style_mod.GREY] * n)
+    for i in range(n):
+        labels.dot_label(ax, x[i], y[i], f"Name {i}", area)
+    return labels, fig, ax
+
+
+def test_every_name_in_a_crowded_scatter_is_placed_or_the_refusal_names_one():
+    """Eight spots beside the dot dropped names in a dense scatter. Ten dots
+    in a tenth of the plot need names stood off with a leader line; with the
+    stand-off rings switched off (the old behaviour) the same figure is
+    refused, and twenty dots are refused with the name that found no place."""
+    labels, fig, ax = crowded_scatter(10)
+    labels.place(fig)
+    assert any(a.arrow_patch.get_visible() for a, *_ in ax.dot_labels), \
+        "ten crowded dots were all named beside their dots, so the test no longer crowds them"
+    saved, labels.RINGS = labels.RINGS, 0
+    try:
+        _, fig, ax = crowded_scatter(10)
+        try:
+            labels.place(fig)
+        except AssertionError:
+            pass
+        else:
+            raise AssertionError("without the stand-off rings a crowded scatter was placed: the test proves nothing")
+    finally:
+        labels.RINGS = saved
+    _, fig, ax = crowded_scatter(20)
+    try:
+        labels.place(fig)
+    except AssertionError as e:
+        assert "Name " in str(e) and "no clear place" in str(e), e
+    else:
+        raise AssertionError("twenty names in a tenth of the plot were all placed")
+
+
+def test_the_county_message_reader_prints_no_resident_unless_asked():
+    """The County's messages carry residents' names, phones and addresses,
+    and a session printed them into its output. render() shows only counts
+    and field names until a resident field is named, and the summary has
+    nothing of a message in it at all."""
+    import county_messages as cm
+    message = {"date": "2025-12-01", "subject": "Dolores Vane on the Board",
+               "sender": "dvane@example.org",
+               "body": "Dolores Vane, 22 Elm St, 703-555-0142\nFrom: staff@arlingtonva.us"}
+    quiet = cm.render(message)
+    for secret in ("Dolores", "Vane", "Elm St", "703-555", "example.org"):
+        assert secret not in quiet, f"{secret!r} printed with no flag:\n{quiet}"
+    assert "body: (resident field" in quiet and "forwarded: true" in quiet, quiet
+    loud = cm.render(message, show=["body"])
+    assert "703-555-0142" in loud and "Dolores Vane on the Board" not in loud, \
+        "naming body should print the body and only the body"
+    try:
+        cm.render(message, show=["date"])
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("a flag naming something that is not a resident field was accepted")
+    assert "Vane" not in cm.summary({"Correspondence": 176, "Advisory": 72})
 
 
 def test_a_clean_paper_log_passes():
@@ -2798,7 +2943,10 @@ def merge_fixture(tmp):
     shutil.copy(ROOT / "code" / "merge.sh", work / "code" / "merge.sh")
     shutil.copy(ROOT / "code" / "merge_questions.py", work / "code" / "merge_questions.py")
     shutil.copy(ROOT / "code" / "publish.py", work / "code" / "publish.py")
-    (work / ".gitattributes").write_text("docs/questions.csv merge=questions\n")
+    shutil.copy(ROOT / "code" / "merge_punchlist.py", work / "code" / "merge_punchlist.py")
+    (work / "docs" / "punchlist.md").write_text("first fix\nsecond fix\n")
+    (work / ".gitattributes").write_text(
+        "docs/questions.csv merge=questions\ndocs/punchlist.md merge=union\n")
     # The same driver string run.sh registers; merge.sh refuses without it.
     git("config", "merge.questions.driver", "python3 code/merge_questions.py %O %A %B")
     (work / "docs" / "questions.csv").write_text("a,b\n1,2\n")
@@ -2900,6 +3048,27 @@ def test_a_merge_takes_the_branchs_side_of_a_deleted_build_output():
         assert run.returncode == 0, run.stdout + run.stderr
         assert not (work / "figures" / "pdf" / "a.pdf").exists(), "the deletion was not kept"
         assert git("rev-parse", "main") == git("rev-parse", "origin/main"), "main was not pushed"
+
+
+def test_a_merge_does_not_bring_back_a_punch_list_line_the_branch_deleted():
+    """docs/punchlist.md merges by union, so a branch that clears the last
+    item while main appends another leaves one disputed hunk, and the union
+    keeps both sides: the cleared item is open again. The merge removes it
+    and says which line."""
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git = merge_fixture(tmp)
+        git("checkout", "-q", "thread")
+        (work / "docs" / "punchlist.md").write_text("first fix\n")
+        git("commit", "-qam", "thread clears the second fix"); git("push", "-q", "origin", "thread")
+        git("checkout", "-q", "main")
+        with open(work / "docs" / "punchlist.md", "a") as f:
+            f.write("third fix\n")
+        git("commit", "-qam", "main adds a fix"); git("push", "-q", "origin", "main")
+        run = merge(work, build="true", compile_="true")
+        assert run.returncode == 0, run.stdout + run.stderr
+        left = (work / "docs" / "punchlist.md").read_text()
+        assert left == "first fix\nthird fix\n", f"punch list after the merge:\n{left}"
+        assert "second fix" in run.stdout, "the removed line was not named"
 
 
 def test_a_merge_stops_on_a_deleted_file_that_is_not_a_build_output():
@@ -3651,9 +3820,14 @@ def test_a_compile_leaves_its_files_in_build_and_the_pdf_beside_the_source():
         os.environ["PATH"] = f"{bin_dir}{os.pathsep}{saved_path}"
         try:
             paper.STEM = "arlington-bsap"
-            paper.main()
+            (root / "paper" / "build").mkdir()
+            (root / "paper" / "build" / "arlington-bsap.pdf").write_bytes(b"%PDF-stale")
+            wrote = paper.main()
         finally:
             os.environ["PATH"], paper.STEM = saved_path, saved_stem
+        assert wrote == root / "paper" / "arlington-bsap.pdf", f"main() reported {wrote}"
+        left = list((root / "paper" / "build").glob("*.pdf"))
+        assert not left, f"a PDF is readable in paper/build/: {left}"
         assert (root / "paper" / "build" / "arlington-bsap.log").exists(), "latexmk's files are not in paper/build/"
         assert (root / "paper" / "arlington-bsap.pdf").read_bytes() == b"%PDF-fake", \
             "the PDF was not copied up beside the source"

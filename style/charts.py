@@ -583,10 +583,26 @@ def title_broken(near, text):
     near.set_title(text, x=_middle(near))
 
 
+def check_break_gap(near, far):
+    """Refuse a broken axis whose gap is not style.BREAK_GAP, or differs
+    from another break on the same figure. The gap is measured from where
+    the two axes sit, as a fraction of the figure's width, not taken from
+    the constant a helper meant to use: two cuts drawn 0.09 and 0.28 apart
+    were once reported as matching."""
+    gap = far.get_position().x0 - near.get_position().x1
+    drawn = getattr(near.figure, "break_gaps", [])
+    for other in [style.BREAK_GAP, *drawn]:
+        if abs(gap - other) > 1e-6:
+            raise ValueError(f"this break's gap is {gap:.3f} of the figure's width, "
+                             f"not {other:.3f} like the others (style.BREAK_GAP)")
+    near.figure.break_gaps = [*drawn, gap]
+
+
 def _break(near, far, label, per):
     """What every broken x axis shares: the label centred under both sides,
     names allowed to run into the gap, the facing spines hidden and the cut
     drawn the same length on each side."""
+    check_break_gap(near, far)
     near.set_xlabel(label)
     near.xaxis.label.set_x(_middle(near))
     near.label_overflow = far
