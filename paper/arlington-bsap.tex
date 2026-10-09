@@ -21,12 +21,13 @@
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
-% A roster column of a share of the text width, set ragged right.
-\newcolumntype{R}[1]{>{\raggedright\arraybackslash}p{\dimexpr(\textwidth-10\tabcolsep)*#1/100\relax}}
+% The roster's six column widths and the slack shared among their gaps, set
+% for each table by code/analysis/members_roster.py before it opens.
+\newlength{\rcA}\newlength{\rcB}\newlength{\rcC}\newlength{\rcD}\newlength{\rcE}\newlength{\rcF}\newlength{\rcslack}
 \input{body_text_numbers}  % numbers the prose cites, written by code/analysis/body_text_numbers.py
 % The columns every table under paper/tables/ shares; a table is otherwise a
 % complete file, built and \input{}ed whole (CLAUDE.md, members_roster.py).
-\newcolumntype{Q}{@{}R{32}R{14}R{16}R{9}R{11}R{18}@{}}
+\newcolumntype{Q}{@{}>{\raggedright\arraybackslash}p{\rcA}>{\raggedright\arraybackslash}p{\rcB}>{\raggedright\arraybackslash}p{\rcC}>{\raggedright\arraybackslash}p{\rcD}>{\raggedright\arraybackslash}p{\rcE}>{\raggedright\arraybackslash}p{\rcF}@{}}
 \usepackage[margin=1in]{geometry}
 \usepackage[hidelinks]{hyperref}
 % Without this, LaTeX flushes footnotes directly below the body text and

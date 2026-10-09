@@ -127,6 +127,26 @@ def panels(table: list) -> list:
     return out
 
 
+def fit(table: list) -> str:
+    r"""Lines that set the six column widths (\rcA to \rcF, declared in the
+    preamble, read by its Q column type) inside the current group, which must
+    already have its type size and \tabcolsep. Each column is as wide as its
+    widest entry, the header included, and the width left over is shared
+    equally among the five gaps, so the white space between columns is the
+    same wherever the table breaks. The name column is measured on the
+    longest name in the roster, so all four panels and the subset share one
+    set of widths."""
+    samples = [esc(max((r.cells[0] for r in table), key=len)), "1870--1873", "special election",
+               r"1822\textsuperscript{c,\,p}", r"woman\textsuperscript{c,\,p}",
+               r"\textit{Race and Ethnicity}"]
+    names = "ABCDEF"
+    out = [r"\settowidth{\rc%s}{%s}" % (n, t) for n, t in zip(names, samples)]
+    out.append(r"\setlength{\rcslack}{\dimexpr(\textwidth-0.5pt-%s-10\tabcolsep)/5\relax}"
+               % "-".join(r"\rc" + n for n in names))
+    out += [r"\addtolength{\rc%s}{\rcslack}" % n for n in names[:5]]
+    return "\n".join(out) + "\n"
+
+
 def esc(s: str) -> str:
     return s.replace("&", r"\&")
 
@@ -170,6 +190,7 @@ def tex(table: list, present: int) -> str:
         out.append("\\medskip\n")
         out.append("\\footnotesize\\setlength{\\tabcolsep}{8pt}"
                     "\\setlength{\\LTpre}{0pt}\\setlength{\\LTpost}{0pt}\n")
+        out.append(fit(table))
         out.append("\\begin{longtable}{Q}\n")
         out.append("\\toprule %s \\midrule \\endfirsthead\n" % HEADER)
         out.append("\\toprule %s \\midrule \\endhead\n" % HEADER)
@@ -199,6 +220,7 @@ def subsets_tex(table: list) -> str:
     out.append("\\tabletitle{Women and Members of Color on the Board}\n")
     out.append("\\medskip\n")
     out.append("\\begingroup\\footnotesize\\setlength{\\tabcolsep}{8pt}\n")
+    out.append(fit(table))
     out.append("\\begin{tabular}{Q}\n")
     out.append("\\toprule\n%s\n\\midrule\n" % HEADER)
     for k, c in enumerate(centuries):
