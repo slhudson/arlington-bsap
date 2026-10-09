@@ -65,6 +65,12 @@ Ordered categories take one sequential ramp, `style.SEQUENTIAL`, drawn on by
 more of the thing. Unordered categories take Okabe-Ito, where no hue implies
 a rank. A figure never defines a ramp of its own.
 
+**A line is thinner than a fill, so it takes `style.line_ramp(n)`.** The same
+hue with the light end held to a step that reads on white: the fill ramp's
+lightest step vanishes as a line or a dot. An ordered figure drawn in lines or
+dots (`elections_turnout_board`, `survey_satisfaction_by_year`) takes it; an
+ordered figure drawn in fills takes `style.ramp(n)` (Sally, 9 October 2026).
+
 - Ordered: `residents_by_age` (young to old), `members_residence_coverage`
   (how exactly a home is named), and `elections_turnout_board` (what led the
   ballot, by falling turnout). All three draw from the one ramp, so they read
@@ -100,7 +106,7 @@ a rank. A figure never defines a ramp of its own.
 - **Turnout.** The presidential vote is the reference the Board's voters are
   read against, and takes the growth figure's dark grey, in both turnout
   figures. The Board's voters, in elections_turnout_board, are ordered by
-  what led the ballot, not categorical, so they take `style.ramp(3)` off the
+  what led the ballot, not categorical, so they take `style.line_ramp(3)` off the
   one sequential green rather than a family of their own: darkest for a
   presidential year, lighter for a midterm, lightest for a governor's year.
   A House of Delegates year is never drawn (every one is a two-seat gap), so
@@ -693,7 +699,7 @@ there the labels can be shortened and here the years cannot.
 - **elections_turnout_board.** One panel, 1932 to the present, the other half
   of the same cut. The presidential vote is one grey line throughout and the
   thread of the figure; the Board's vote is `style.BOARD_FAMILY`, three
-  shades off the one sequential green ramp (`style.ramp(3)`, Colour above),
+  shades off the one sequential green ramp (`style.line_ramp(3)`, Colour above),
   by what led the ballot, presidential, midterm and governor's year, darkest
   first, drawn only in years with one seat on the ballot. Grey against green
   so the Board reads as one thing against the presidential line, three shades
@@ -798,12 +804,12 @@ there the labels can be shortened and here the years cannot.
   dots, which read as a different kind of mark from the bars above them
   rather than the same row continued (Sally, 6 October 2026).
 
-  A document either records who held the seat or who won it, and that is
-  the one substantive distinction among the sources themselves, so it
-  stays in the near-neutral family rather than taking a category's hue
-  (`style.SOURCE_KIND`): the lighter sand fill for members elected, the
-  taupe stroke colour for members served, lighter first in the legend
-  (Sally, 6 October 2026). The Gazette row is the case the distinction is
+  A document either records who held the seat or who won it. A record of
+  service is the more complete, since it shows the member sat and not only
+  won, so the pair is ordered and takes the one sequential ramp
+  (`style.SOURCE_KIND`), as `elections_by_source` does: members elected
+  light, members served dark, lighter first in the legend (Sally, 9 October
+  2026, replacing the two near-neutrals of 6 October). The Gazette row is the case the distinction is
   for: an appointment, a qualification or a press mention of a sitting
   member is service, a candidate list or an election return is a contest,
   read off each citekey's own entry in `paper/bib/sources.bib` rather than

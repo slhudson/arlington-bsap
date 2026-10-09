@@ -11,7 +11,7 @@ of ticks instead, at the year each citekey's own date carries, and the row
 sorts by its earliest tick like any other.
 
 A document either records who held the seat or who won it, and the two
-colours carry that distinction (style.SOURCE_KIND): the Gazette row is mixed,
+shades of the one ramp carry that distinction, service the darker (style.SOURCE_KIND): the Gazette row is mixed,
 an appointment or a press mention of a sitting member beside a candidate list
 or an election return, so its ticks take the colour of the item, not the row.
 """
