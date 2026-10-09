@@ -13,7 +13,7 @@ each placement is in docs/figures.md.
     stacked_steps() composition over continuous years; runs() finds the gaps
     age_band()      youngest to oldest as a band; strokes() draws tenures over it
     scatter()       one scatter, squarer than a time series
-    scatter_pair()  two scatters stacked, the first with a broken x axis; break_x() draws the break, title_broken() titles it
+    scatter_pair()  two scatters stacked, each with its own broken x axis; break_x() draws a break whose far side holds one outlier, break_x_floor() one whose near side is the empty run to zero, title_broken() titles either
     dots()          a scatter, dot area from dot_area(), named by dot_label()
     events()        a timeline strip: a dot per event at its year, filled or a ring
     map_figure()    a map of polygons, with areas() to fill them, edges() to outline them, area_names() to name them and map_legend() to key them
@@ -545,50 +545,82 @@ def scatter(profile=style.DEFAULT_PROFILE):
     return figure(profile, aspect=style.SQUARE)
 
 
-def scatter_pair(profile=style.DEFAULT_PROFILE):
-    """Two scatters stacked, one above the other, each at full width (Sally,
-    4 October 2026: side by side they made no sense). The first has its x
-    axis broken: returns (near, far) for it, then the
-    second panel's axes, a plain scatter. Title the first with
-    title_broken(), so that it is centred over both of its sides."""
-    # Two plots need more than the default start; at 0.62 of the width the
-    # first draw collapses constrained layout and fit() warns before it recovers.
+def _broken_pair(fig, rect, ratio):
+    """Two axes splitting `rect` ((x0, y0, x1, y1), figure fraction) by
+    `ratio`, style.BREAK_GAP apart; add_axes(), not a nested gridspec, so
+    the gap is exact (docs/figures.md, localities_per_member)."""
+    x0, y0, x1, y1 = rect
+    near_w = (x1 - x0 - style.BREAK_GAP) * ratio[0] / sum(ratio)
+    far_w = (x1 - x0 - style.BREAK_GAP) - near_w
+    near = fig.add_axes([x0, y0, near_w, y1 - y0])
+    far = fig.add_axes([x0 + near_w + style.BREAK_GAP, y0, far_w, y1 - y0], sharey=near)
+    near.break_ratio = ratio
+    return near, far
+
+
+def scatter_pair(profile=style.DEFAULT_PROFILE, ratios=(style.BROKEN, style.BROKEN)):
+    """Two scatters stacked, each at full width with its own broken x axis:
+    returns fig, (near, far), (near, far). `ratios` is each panel's (near,
+    far) widths: style.BROKEN where far holds one outlier, style.BROKEN_FLOOR
+    where near is only the run up from zero."""
     width = style.figsize(profile)[0]
-    fig = plt.figure(figsize=(width, width * 1.25))
-    outer = fig.add_gridspec(2, 1, hspace=0.25, height_ratios=(1.5, 1))
-    inner = outer[0].subgridspec(1, 2, width_ratios=style.BROKEN, wspace=0.0)
-    near = fig.add_subplot(inner[0])
-    far = fig.add_subplot(inner[1], sharey=near)
-    second = fig.add_subplot(outer[1])
+    fig = plt.figure(figsize=(width, width * 1.6), layout="none")
     fig.plot_aspect = style.PAIR
-    return fig, (near, far), second
+    outer = fig.add_gridspec(2, 1, hspace=style.PAIR_HSPACE)
+    top = _broken_pair(fig, outer[0].get_position(fig).extents, ratios[0])
+    bottom = _broken_pair(fig, outer[1].get_position(fig).extents, ratios[1])
+    return fig, top, bottom
+
+
+def _middle(near):
+    """The middle of a broken axis's two sides, in the near side's axes fraction."""
+    ratio = near.break_ratio
+    return sum(ratio) / 2 / ratio[0]
 
 
 def title_broken(near, text):
-    """A panel title centred over a broken axis's two sides, not over the
-    near side alone."""
-    near.set_title(text, x=sum(style.BROKEN) / 2 / style.BROKEN[0])
+    """A panel title centred over both sides of a broken axis."""
+    near.set_title(text, x=_middle(near))
 
 
-def break_x(near, far, label, far_limits, far_tick, per=1):
-    """The break between the two sides of a broken x axis: the facing
-    spines hidden and a short slash across the axis line on each side,
-    and the axis label under the near side, which holds the data. The far
-    side runs over `far_limits` with one labelled tick at `far_tick`."""
+def _break(near, far, label, per):
+    """What every broken x axis shares: the label centred under both sides,
+    names allowed to run into the gap, the facing spines hidden and the cut
+    drawn the same length on each side."""
     near.set_xlabel(label)
+    near.xaxis.label.set_x(_middle(near))
     near.label_overflow = far
     far.label_overflow = near
-    far.set_xlim(*far_limits)
-    far.xaxis.set_major_locator(FixedLocator([far_tick]))
-    far.xaxis.set_major_formatter(THOUSANDS if per == 1 else FuncFormatter(lambda v, _: f"{int(v / per):,}"))
+    for ax in (near, far):
+        ax.xaxis.set_major_formatter(THOUSANDS if per == 1 else FuncFormatter(lambda v, _: f"{int(v / per):,}"))
     near.spines["right"].set_visible(False)
     far.spines["left"].set_visible(False)
     far.tick_params(axis="y", left=False, labelleft=False)
-    ratio = style.BROKEN[0] / style.BROKEN[1]
-    for ax, x, dx in ((near, 1, 0.012), (far, 0, 0.012 * ratio)):
+    ratio = near.break_ratio[0] / near.break_ratio[1]
+    base = 0.012
+    for ax, x, dx in ((near, 1, base * max(1, 1 / ratio)), (far, 0, base * max(1, ratio))):
         ax.plot([x - dx, x + dx], [-0.02, 0.02], transform=ax.transAxes,
                 color=plt.rcParams["axes.edgecolor"], lw=plt.rcParams["axes.linewidth"],
                 clip_on=False)
+
+
+def break_x(near, far, label, far_limits, far_tick, per=1):
+    """A broken x axis whose far side holds one outlier: the far side runs
+    over `far_limits` with one labelled tick at `far_tick`."""
+    far.set_xlim(*far_limits)
+    far.xaxis.set_major_locator(FixedLocator([far_tick]))
+    _break(near, far, label, per)
+
+
+def break_x_floor(near, far, label, near_top, far_limits, far_step, per=1):
+    """A broken x axis whose near side is only the run up from zero, to
+    `near_top`, with its 0 tick: the far side holds the data over
+    `far_limits`, ticked every `far_step`."""
+    near.set_xlim(0, near_top)
+    near.xaxis.set_major_locator(FixedLocator([0]))
+    far.set_xlim(*far_limits)
+    far.xaxis.set_major_locator(MultipleLocator(far_step))
+    _break(near, far, label, per)
 
 
 def dot_area(highlight=False, profile=style.DEFAULT_PROFILE):

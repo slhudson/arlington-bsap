@@ -21,7 +21,9 @@ whole number, with "percent" left to the sentence.
     residentsPerSeat<Year>      residents per Board seat, to the nearest thousand
     perMember<Locality>         residents per member of a Virginia locality's
                                 governing body, 2020, to the nearest thousand
-    southeastPlaces             the other cities and counties of 150,000 to
+    densityArlington            Arlington's residents per square mile, 2020, to
+                                the nearest thousand
+    southeastPlaces            the other cities and counties of 150,000 to
                                 300,000 in the southeastern comparison
     southeastMore               of them, those with more residents per member,
                                 spelled out
@@ -92,9 +94,14 @@ def seats() -> dict:
     va = va[va.residents >= 100_000].copy()
     va["per"] = va.residents / va.members
     me = va[va.locality == "Arlington"].iloc[0]
-    for name in ("Arlington", "Loudoun", "VirginiaBeach", "Norfolk", "Chesapeake"):
+    for name in ("Arlington", "Loudoun", "VirginiaBeach", "Norfolk", "Chesapeake", "Alexandria"):
         row = va[va.locality.str.replace(" ", "") == name].iloc[0]
         out[f"perMember{name}"] = thousands(row.per)
+    va["density"] = va.residents / va.land_sq_mi
+    denser = va[va.density > me.residents / me.land_sq_mi]
+    assert list(denser.locality) == ["Alexandria"], \
+        "Alexandria is no longer the one Virginia place denser than Arlington"
+    out["densityArlington"] = thousands(me.residents / me.land_sq_mi)
     above = va[va.per > me.per]
     assert (above.kind == "county").all() and (above.residents > me.residents).all(), \
         "the Virginia places above Arlington are no longer all larger counties"

@@ -62,7 +62,8 @@ open (Sally, 5 October 2026).
 ## Layout
 
 - Nothing cramped. The bottom margin especially. Constrained layout is on by
-  default; do not switch it off for hand-tuned padding.
+  default; do not switch it off for hand-tuned padding. `charts.scatter_pair()`
+  is the one exception: it places its broken axes itself, so the gaps are exact.
 - No text collisions anywhere: tick labels, legends, annotations, end labels.
 - Two-panel figures go side by side, not stacked, with one exception: a pair
   of scatters (`charts.scatter_pair()`) stacks, each panel at full width, so
@@ -84,18 +85,32 @@ open (Sally, 5 October 2026).
 
 ## Scatters
 
-- Start both axes at zero where possible; break an axis (`charts.break_x()`,
-  in `charts.scatter_pair()`) rather than lose a far point or start above zero.
+- Start both axes at zero where possible; break an axis rather than lose a
+  far point or start above zero. `charts.break_x()` cuts before one outlier
+  (`style.BROKEN`); `charts.break_x_floor()` cuts the empty run up to a set's
+  floor, showing only the 0 (`style.BROKEN_FLOOR`). Every break in a figure is
+  the same width, `style.BREAK_GAP`, and its axis label is centred under both
+  sides. Measure the gaps, do not judge them by eye.
 - Squarer than the time series: `charts.scatter()` takes `style.SQUARE`.
-  Two scatters with different x axes may share one figure as two panels when
-  they answer one question and one legend and one note serve both:
-  `charts.scatter_pair()`, which takes `style.PAIR`. The peer localities are
-  the case.
+  Two scatters may share one figure as two panels when they answer one
+  question and one legend and one note serve both: `charts.scatter_pair()`,
+  which takes `style.PAIR`. The peer localities are the case. Two panels on
+  the same measure may each take their own y range.
 - One dot size. Area does not carry a third measure a reader can read.
 - Name dots with `charts.dot_label()` and let `labels.place()` choose
-  where; never hand-place a name. Every cluster gets at least one name; a dot
-  too crowded to name beside it takes `leader=True`. A name that finds no
-  clear place stops the build: pick another representative for its cluster.
+  where. A dot too crowded to name beside it takes `leader=True`; `first=`
+  steers a leader away from a dot touching its own. A name that finds no
+  clear place stops the build: drop the name, never the check.
+- **A name sits to the right of its dot** unless something stops it: the
+  easiest place to read (Sally, 9 October 2026). Where the frame is all that
+  stops it, widen the axis.
+- **Which dots get names is a question about the reader**, not about coverage
+  (Sally, 9 October 2026). Name the places the reader knows and the prose
+  compares; in a figure for the County, Virginia's places, as many as fit.
+  A second panel names only what it adds that the first does not: the
+  southeastern panel names Arlington alone, because what it adds is where
+  Arlington stands among places its size, not which peer is which. A dot is
+  never named only to stand for its cluster.
 
 ## Type
 
@@ -267,6 +282,14 @@ revisit.
   looking. Build the alternative, copy its png out of `figures/` to a
   scratch path, put the script back, and show the committed version and the
   alternative side by side. Change what is committed only after they choose.
+- **Two passes before any picture goes to Sally, in this order** (Sally, 9
+  October 2026). First, legibility: can everything be read, is anything in
+  the way, is every name unambiguously its own dot's, is everything the same
+  that should be the same (two breaks, two axis labels)? Second, salience:
+  is what the eye lands on first what the section's one-sentence point is
+  about, and are the named marks the ones that point and this reader need?
+  A figure can pass the first and fail the second. List what each pass
+  finds, fix it, and only then show.
 - Render the figure, look at the image, and show it, before saying anything
   about it. Check it against this file first. Every rule above has been broken at least once by
   not looking.

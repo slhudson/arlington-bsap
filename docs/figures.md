@@ -370,7 +370,7 @@ latitude, so the aspect is read off the data and not typed.
 **Two-panel figures go side by side**, not stacked, because a composition
 panel needs to be taller than it is wide when its early values are small.
 The exception is a pair of scatters, which stack so that each has the full
-width for its names (localities_peers).
+width for its names (localities_per_member).
 
 **Stacked bars** for composition at intervals, at a width about twice the
 gap between bars, which is Urban's rule. No band is textured: a single
@@ -444,7 +444,7 @@ there the labels can be shortened and here the years cannot.
   exist, and the two differ where a seat sat vacant, which the label "residents per
   seat" says and which keeps a vacancy from drawing a spike. A cube-root-law benchmark is not drawn: the law is
   descriptive, not normative, its reference class is national parliaments,
-  and as drawn it implied a 62-member Board (localities_peers is the comparison instead).
+  and as drawn it implied a 62-member Board (localities_per_member is the comparison instead).
 - **residents_by_race.** Counts as unstacked lines, because a stacked band
   of height zero and one that has not started are the same picture, and a
   line simply begins the year the Census first reported that group. White
@@ -632,7 +632,7 @@ there the labels can be shortened and here the years cannot.
   October 2026). It is the one series in the figure that is a category
   rather than a measurement of the band or the strokes, so it takes a
   saturated colour, vermilion, where the rest of the figure is near-neutral
-  - the same choice `residents_per_seat` and `localities_peers` make for
+  - the same choice `residents_per_seat` and `localities_per_member` make for
   Arlington's own series against reference lines, even though here it marks
   the reference (the county) and not the subject (the Board); Sally chose
   it anyway; see "Colour" above for where that convention usually points
@@ -734,29 +734,46 @@ there the labels can be shortened and here the years cannot.
   Staggered Terms, as the electorate half of that subsection's claim: seats
   elected a year apart are chosen by electorates of different size, which is
   a 1932-on sawtooth, not a 150-year collapse.
-- **localities_peers.** Arlington beside every Virginia city and county of
-  100,000 or more, in two panels that share a legend and a note: (a)
-  members against residents, (b) residents per member against density. They
-  were two figures, because each answers a different question about who
-  Arlington's peers are (places its size, places as dense), and are one now
-  because the paper reads them together and one legend and one set of notes
-  serve both. Both axes start at zero; panel (a)'s residents axis breaks so
-  that Fairfax, at 1.15 million, stays in view. The two panels are stacked,
-  one above the other, each at full width (Sally, 4 October 2026: side by
-  side, at half width, they made no sense and could not carry their names);
-  the figure is a page tall (`style.PAIR`, 0.88). Residents and residents
-  per member are in thousands, so the tick labels stay short. A name may
-  run on into the gap of a broken axis, where nothing is drawn. Dots are one
-  size: area was tried for population and for density, and in both a reader
-  could not read the third measure off it. Residents per member rather than
-  members per resident, to match residents_per_seat. Names are placed by
-  `labels.place()`: every name sits nearer its own dot than half the
-  distance to any other and touches nothing; a dot too crowded to name
-  beside it (Alexandria, on the 7-member row; Stafford) takes a short leader.
-  Not every dot can be named, so a name stands for its
-  cluster: Richmond for the two 9-member cities in (a), and in (b) the
-  Chesapeake, Newport News, Hampton and Hanover dots are named by their
-  neighbours.
+- **localities_per_member.** Arlington beside its peers on one measure,
+  residents per member against residents, in two panels that share a legend:
+  (a) every Virginia city and county of 100,000 or more, (b) every
+  southeastern city and county of 150,000 to 300,000. Each panel answers
+  a different question about who Arlington's peers are (Virginia's larger
+  places; places its size across the region), and on the same measure a
+  reader carries what (a) shows into (b). The two panels were two figures,
+  and (a) once set members against residents and a third panel set
+  residents per member against density; residents per member against
+  residents says what the first did, and density's one point, that only
+  Alexandria is denser, is a sentence in the prose (Sally, 9 October 2026).
+  The panels are stacked, each at full width (Sally, 4 October 2026: side by
+  side, at half width, they made no sense and could not carry their names),
+  and each takes its own y range, (b) running to 70,000 so its top dots
+  clear the title. Both residents axes start at zero and break, and both
+  breaks are drawn the same: one gap width, `style.BREAK_GAP`, and the same
+  cut mark on each side. Panel (a) breaks where Fairfax, at 1.15 million,
+  stands alone (`style.BROKEN`, the near side wide); panel (b) breaks
+  between zero and its set's floor (`style.BROKEN_FLOOR`, the near side
+  only wide enough to show the 0), so the empty run up to 150,000 is cut
+  rather than drawn, and its far side starts at 140,000 so the first dot
+  clears the cut. The axis label is centred under both sides of a break.
+  The two sides are placed with `add_axes()` and not a nested gridspec:
+  constrained layout does not hold an explicit `wspace` on a nested
+  gridspec, and it once drew the two panels' gaps at different widths.
+  Residents and residents per member are in thousands, so the tick labels
+  stay short. Dots are one size: area was tried for population and for
+  density, and in both a reader could not read the third measure off it.
+  Residents per member rather than members per resident, to match
+  residents_per_seat. Panel (a) names as many Virginia places as fit, the
+  places a reader of the report knows; panel (b) names only Arlington,
+  since what it adds is where Arlington stands among places its size, not
+  which peer is which (Sally, 9 October 2026). A name sits to the right of
+  its dot where nothing stops it, and (a)'s near side runs to 640,000 so
+  that Virginia Beach's can; a dot too crowded to name beside it takes a
+  short leader (Alexandria and Norfolk in (a), Arlington in (b), whose dot
+  touches Lafayette's, so its name sits above and to the left). The figure
+  sits in Part A's Board Seats, at the end of the history it lands: where
+  nearly a century of five seats leaves Arlington beside places like it
+  (Sally, 9 October 2026). Part C's Board Seats points back to it.
 - **elections_by_source.** The election-return counterpart of
   `members_by_source`: one row per publisher over the years it supplies the
   presidential vote, the Board's vote or both, read off the source columns of

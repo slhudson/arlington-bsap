@@ -18,10 +18,8 @@ Nothing. Which localities are shown is a decision, and it is below.
 ## The peer set
 `localities.csv` sets Arlington's Board beside the governing body of every
 Virginia independent city and of fourteen counties: the thirteen largest
-other than Arlington, and Rockingham. The figures show those of 100,000
-residents or more and leave the choice of peer to the
-reader: places Arlington's size in panel (a) of `localities_peers`, places as
-dense in panel (b).
+other than Arlington, and Rockingham. Panel (a) of `localities_per_member` shows those of 100,000
+residents or more.
 
 A city's council is the Richmond Charter Review Commission's count
 (`richmond2023`, Appendix D). A Mayor elected at large counts as a member,
@@ -74,8 +72,8 @@ Arlington carries about 48,000 residents per member. Five peers carry more:
 Clayton, Baldwin, Cherokee, Forsyth and Lafayette, all counties of five seats
 or fewer. The other 75 carry between 7,000 and 48,000. Cities top out at
 about 43,000, in Huntsville, which has five seats; the lowest are Tennessee's
-county commissions, Sullivan, Sumner and Williamson with 24 seats each. `localities_southeastern` shows it, cities and
-counties in two colours.
+county commissions, Sullivan, Sumner and Williamson with 24 seats each. Panel (b) of
+`localities_per_member` shows it, cities and counties in two colours.
 
 The appendix also prints how each council is elected, ward or at large. It is
 keyed but not used: proportional at-large methods mean at-largeness does not
