@@ -3,6 +3,17 @@
 % Read by arlington-bsap.tex. Prose lives here; formatting lives in the wrapper and style/.
 \section{Demographic Representation}\label{sec:who}
 
+\begin{figure}[t]
+  \centering
+  \refstepcounter{figure}\label{fig:board-race-gender}
+  \figuretitle{Board Members by Race and Gender}
+  \medskip
+  \includegraphics[width=\textwidth]{members_by_race_gender.pdf}
+  \smallskip
+  \figurenotes{
+    Notes: Before 1932 each band is one district's seat, colored by who held it; from 1932 the bands count seats by the year. Members not identified as of color are counted as White, as the Data Appendix explains. Census records identify gender for \genderCensusShareMembers{} percent of members. Pronouns and honorifics in press coverage identify gender for nearly all the rest. Two members who served before 1900 could not be identified through either method and are assumed to be men.}{}
+\end{figure}
+
 In September 2019 the Arlington County Board adopted an equity resolution
 committing the County to collect and disaggregate data on disparities and to ask
 of its decisions who benefits, who is burdened and who is
@@ -16,18 +27,3 @@ Of the \membersTotal{} people who have served on the Board since 1870,
 \whiteMenMembers{} have been white men. Table~\ref{tab:subsets} lists the
 other \notWhiteMenMembers{}, in the order they first took a seat: 13 women
 and 12 members of color, Tannia Talento among both.
-
-% waits on: member-demographics-lists
-\setlength{\textfloatsep}{36pt plus 2pt minus 4pt}
-\input{tables/members_subsets}
-
-\begin{figure}[t]
-  \centering
-  \refstepcounter{figure}\label{fig:board-race-gender}
-  \figuretitle{Board Members by Race and Gender}
-  \medskip
-  \includegraphics[width=\textwidth]{members_by_race_gender.pdf}
-  \smallskip
-  \figurenotes{
-    Notes: Before 1932 each band is one district's seat, colored by who held it; from 1932 the bands count seats by the year. Members not identified as of color are counted as White, as the Data Appendix explains. Census records identify gender for \genderCensusShareMembers{} percent of members. Pronouns and honorifics in press coverage identify gender for nearly all the rest. Two members who served before 1900 could not be identified through either method and are assumed to be men.}{}
-\end{figure}
