@@ -385,7 +385,9 @@ where a candidate has no label and no other candidate has a non-Democratic,
 non-ABC one.
 
 Before 1931 each district's seat is its own contest. The Gazette's counts
-give sixteen district margins (1893-1901, 1907, 1915, 1919), each read off the page image, and the
+give twenty-seven district margins (1870, 1874, 1877, 1879, 1893-1901, 1907, 1915, 1919), each read off the page image,
+and seven more contests with one candidate and a printed count (1874 Arlington and Jefferson, 1875,
+1877 Jefferson, 1893 Jefferson), which have votes cast and no margin; the
 highest count is checked against the roster. The nominating stage is keyed for 1885 only, where the Gazette names
 the "regular republican" nominee and a "citizens'" candidate against them in
 Arlington District; the other years and districts are gaps.
