@@ -11,7 +11,7 @@ the paper, commits, and deletes the lines it cleared. What it cannot settle
 stays, with a one-line reason under it.
 
 ## Open
-- Data Appendix: the two source timelines, members_by_source and elections_by_source, are different colours although they are the same kind of figure; members_by_source colours two kinds of record (style.SOURCE_KIND: service and election return), elections_by_source a three-step ramp for what a publisher carries (style.ELECTION_RETURNS: Board, President, both). Make them read as one family, e.g. the election-return colour shared between them; Sally to see the two side by side first (Sally, 9 Oct).
+- Data Appendix: the two source timelines, members_by_source and elections_by_source, are different colours although they are the same kind of figure. Both are ordered, so both take the one sequential ramp: in members_by_source a record of service is more complete than an election return (it shows the member sat, not only won), so election return lighter, service darker, replacing the two categorical colours of style.SOURCE_KIND; elections_by_source keeps its Board, President, both ramp (style.ELECTION_RETURNS). Show Sally the two side by side before merging (Sally, 9 Oct).
 
 ## Could not settle
 - Board Seats: the federal-office statute (Acts 1883-84 ch. 145) that emptied Perkins W. Squier's seat in 1884 is, as Code 1950 § 2-27, the one Dean v. Paolicelli applied to take the Board's Non-Partisan majority in 1952, so Arlington held four Board contests on 4 November 1952; one provision at both ends of the period, not yet in the paper (paolicelli1952, dailysun1952appointees). (members.md split, 4 Oct)
