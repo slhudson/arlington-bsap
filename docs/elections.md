@@ -388,7 +388,7 @@ Before 1931 each district's seat is its own contest. The Gazette's counts
 give twenty-seven district margins (1870, 1874, 1877, 1879, 1893-1901, 1907, 1915, 1919), each read off the page image,
 and seven more contests with one candidate and a printed count (1874 Arlington and Jefferson, 1875,
 1877 Jefferson, 1893 Jefferson), which have votes cast and no margin; the
-highest count is checked against the roster. The nominating stage is keyed for 1885 only, where the Gazette names
+highest count is checked against the roster. A single printed name is read as a single candidate, so the printed count stands as votes cast; a losing candidate the Gazette omitted would make that count too low by the loser's share, and the Gazette prints every candidate in its contested races down to one vote. The nominating stage is keyed for 1885 only, where the Gazette names
 the "regular republican" nominee and a "citizens'" candidate against them in
 Arlington District; the other years and districts are gaps.
 
