@@ -583,8 +583,10 @@ there the labels can be shortened and here the years cannot.
   a reader can see at once which years the race figure stands on a default.
   Its legend says what each shade is in words ("race from a census sheet",
   "race from the press or a profile", "assumed White, no source"), so the
-  figure needs no note; it shares one figure, as panel (a), with the residence
-  figure as panel (b), under one short note (Sally, 4 October 2026).
+  figure needs no note; it is the one coverage figure the Data Appendix prints.
+  The residence coverage figure left the paper on 9 October 2026: the County
+  either supplies better data and the analysis follows, or it does not, and the
+  point that the data are needed is made.
   It reads `members_by_year`, as does every figure on the seat axis, so a
   vacancy is decided once, in the clean stage, and shows as a notch in all of
   them. Counts rather than a share, because two of three and four of five are
