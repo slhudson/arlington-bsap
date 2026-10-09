@@ -45,6 +45,14 @@
 # code/tests.py substitutes them to prove the script stops when either fails
 # and goes on when both pass. Nothing else overrides them, and the remote is
 # always origin.
+#
+# A lock, held for the whole run and shared by every worktree and checkout of
+# the clone, keeps two merges from running at once: the scratch worktree in
+# step 2 is named for the branch, and two merges going at the same time could
+# each remove the other's mid-build. A merge that finds the lock held by a
+# live process stops at once, naming the branch and since when; one whose
+# process has died is taken over, since a crashed run must never block merges
+# forever.
 set -euo pipefail
 
 usage() { echo "usage: bash code/merge.sh <branch>" >&2; exit 2; }
@@ -75,6 +83,24 @@ fi
 [ "$(git config merge.questions.driver 2>/dev/null)" = "python3 code/merge_questions.py %O %A %B" ] \
   || fail "the tracker merge driver is not registered; bash run.sh installs it"
 
+GITCOMMON=$(git rev-parse --path-format=absolute --git-common-dir)
+LOCK="$GITCOMMON/merge.lock"
+take_lock() {
+  mkdir "$LOCK" 2>/dev/null || return 1
+  { echo "holder_pid=$$"; echo "holder_branch=$branch"; echo "holder_since=$(date)"; } > "$LOCK/info"
+}
+if ! take_lock; then
+  holder_pid= holder_branch= holder_since=
+  [ -f "$LOCK/info" ] && . "$LOCK/info"
+  if [ -n "$holder_pid" ] && kill -0 "$holder_pid" 2>/dev/null; then
+    fail "$holder_branch has been merging since $holder_since (pid $holder_pid); wait for it to finish"
+  fi
+  step "   the lock was held by pid ${holder_pid:-?} (dead); taking it over"
+  rm -rf "$LOCK"
+  take_lock || fail "could not take the merge lock at $LOCK"
+fi
+trap 'rm -rf "$LOCK"' EXIT
+
 step "1. checking the Overleaf mirror for an edit to pull back"
 pulled=$("$PYTHON" code/publish.py pull)
 step "   $pulled"
@@ -102,10 +128,12 @@ git rev-parse -q --verify "$branch" >/dev/null 2>&1 || git fetch -q "$REMOTE" "$
 
 name=merge-$(echo "$branch" | tr '/' '-')
 tree=.claude/worktrees/$name
-# The scratch worktree is this script's own, so it goes whatever happened.
+# The scratch worktree is this script's own, so it goes whatever happened,
+# and so does the lock taken above.
 cleanup() {
   git worktree remove --force "$tree" >/dev/null 2>&1 || true
   git branch -D -q "$name" >/dev/null 2>&1 || true
+  rm -rf "$LOCK"
 }
 trap cleanup EXIT
 
@@ -128,6 +156,11 @@ retire() {
 
 step "2. worktree $tree on $REMOTE/main ($(git rev-parse --short "$REMOTE/main"))"
 mkdir -p .claude/worktrees
+# A worktree or branch already named this is a leftover from a run that
+# crashed before cleaning up; the lock just taken proves nothing live still
+# holds it, so it is safe to clear rather than fail on "already exists".
+git worktree remove --force "$tree" >/dev/null 2>&1 || true
+git branch -D -q "$name" >/dev/null 2>&1 || true
 git worktree add -q "$tree" -b "$name" "$REMOTE/main"
 
 base=$(git merge-base "$REMOTE/main" "$branch")

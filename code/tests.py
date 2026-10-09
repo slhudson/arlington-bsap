@@ -3135,6 +3135,26 @@ def test_a_merge_from_a_worktree_says_where_to_run_it():
         assert str(work.resolve()) in run.stderr and "bash code/merge.sh thread" in run.stderr, run.stderr
 
 
+def test_a_second_merge_refuses_while_the_first_holds_the_lock():
+    """Two merges of the same branch each used to delete the other's scratch
+    worktree mid-build. A lock held by a live process (here, this test's own
+    pid, which is alive) stops the second run before it touches anything,
+    and the first's worktree is left exactly as it was."""
+    with tempfile.TemporaryDirectory() as tmp:
+        work, git = merge_fixture(tmp)
+        lock = Path(work) / ".git" / "merge.lock"
+        lock.mkdir()
+        (lock / "info").write_text(
+            f"holder_pid={os.getpid()}\nholder_branch=thread\nholder_since=earlier\n")
+        tree = Path(work) / ".claude" / "worktrees" / "merge-thread"
+        git("worktree", "add", "-q", str(tree), "-b", "merge-thread", "origin/main")
+        run = merge(work, build="true", compile_="true")
+        assert run.returncode != 0, "a second merge went through while the lock was held"
+        assert "thread" in run.stderr and "merging" in run.stderr, run.stderr
+        assert tree.exists(), "the first merge's worktree was removed by the refused second one"
+        assert lock.exists(), "the lock was removed by the refused merge"
+
+
 def test_a_merge_without_the_tracker_driver_refuses():
     """Without the driver git quietly falls back to its own merge of the
     tracker, which is the line-based merge this replaced."""
