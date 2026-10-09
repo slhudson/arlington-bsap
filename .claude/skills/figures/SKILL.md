@@ -268,6 +268,12 @@ revisit.
   looking. Build the alternative, copy its png out of `figures/` to a
   scratch path, put the script back, and show the committed version and the
   alternative side by side. Change what is committed only after they choose.
+- **Review a figure in two passes before showing it.** First legibility:
+  every label, tick and line reads at the size the paper prints it, nothing
+  collides, nothing claimed about the picture (two gaps equal, a label
+  beside its dot) is asserted without being measured. Then storytelling:
+  the figure's one-sentence point is what a reader sees first. A picture
+  with a fault you know of is not sent; fix it, or name it at the top.
 - Render the figure, look at the image, and show it, before saying anything
   about it. Check it against this file first. Every rule above has been broken at least once by
   not looking.
