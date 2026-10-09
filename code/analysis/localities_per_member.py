@@ -42,7 +42,7 @@ for profile in style.PROFILES:
     charts.comma_axis(near_a.yaxis, 120_000, 20_000, "residents per member (thousands)", per=1000)
     charts.comma_axis(near_a.xaxis, NEAR_A, 200_000, "", per=1000)
     charts.break_x(near_a, far_a, "residents (thousands)", FAR_A, FAR_TICK_A, per=1000)
-    charts.title_broken(near_a, "(a) Virginia localities with 100,000 or more residents")
+    charts.title_broken(near_a, "(a) Virginia localities with 100,000+ residents")
 
     se = paths.read("localities_southeastern")
     se["per_member"] = se["residents"] / se["members"]
@@ -58,7 +58,7 @@ for profile in style.PROFILES:
                          first="above left")  # away from Lafayette, whose dot touches Arlington's
     charts.comma_axis(near_b.yaxis, 70_000, 10_000, "residents per member (thousands)", per=1000)
     charts.break_x_floor(near_b, far_b, "residents (thousands)", NEAR_B, FAR_B, 50_000, per=1000)
-    charts.title_broken(near_b, "(b) southeastern localities with 150,000 to 300,000 residents")
+    charts.title_broken(near_b, "(b) Southeast localities with 150,000-300,000 residents")
 
     charts.dot_legend(fig, localities.LEGEND, profile)
     paths.save(fig, profile)
