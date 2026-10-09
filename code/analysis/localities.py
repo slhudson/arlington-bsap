@@ -1,6 +1,5 @@
 """Virginia's localities of at least SMALLEST residents, ready to plot. A
-module, not a step: both peer figures read it so they agree on which
-localities are shown and how Arlington is marked.
+module, not a step: localities_per_member reads it for panel (a).
 
 Arlington sorts last, so no other dot is drawn over it, and takes its own
 colour and the larger dot; every other locality takes its kind's colour.
