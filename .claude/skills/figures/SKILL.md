@@ -208,7 +208,8 @@ open (Sally, 5 October 2026).
   compared differ in size, through `charts.hwhiskers()`, which holds the
   interval inside the scale.
 - **Ordered categories take `style.ramp(n)`; unordered take Okabe-Ito.** Age
-  and residence coverage are ordered. Never define a ramp in a figure.
+  and residence coverage are ordered. Never define a ramp in a figure. Lines and dots take
+  `style.line_ramp(n)`, whose lightest step reads on white (9 October 2026).
 - **Where a category's definition changes mid-figure, the legend does not
   relabel silently.** `residents_by_race` says "not Hispanic" (`style.RESIDENTS_CROSSED`)
   and rules off 1980; `members_by_race` keeps `style.RACE`.
