@@ -11,7 +11,6 @@ the paper, commits, and deletes the lines it cleared. What it cannot settle
 stays, with a one-line reason under it.
 
 ## Open
-- Board turnout figure (elections_turnout_board): a dotted segment bridges each Board line across its gaps (the multi-seat years), the convention the census figures follow (charts.lines(..., bridge=True); docs/figures.md), so the presidential-year line does not read as ending in 1948 and 1956 as a stray point; the caption says what the dotted stretches are (Sally, 8 Oct).
 
 ## Could not settle
 - Board Seats: the federal-office statute (Acts 1883-84 ch. 145) that emptied Perkins W. Squier's seat in 1884 is, as Code 1950 § 2-27, the one Dean v. Paolicelli applied to take the Board's Non-Partisan majority in 1952, so Arlington held four Board contests on 4 November 1952; one provision at both ends of the period, not yet in the paper (paolicelli1952, dailysun1952appointees). (members.md split, 4 Oct)
