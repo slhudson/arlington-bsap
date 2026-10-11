@@ -11,6 +11,7 @@ the paper, commits, and deletes the lines it cleared. What it cannot settle
 stays, with a one-line reason under it.
 
 ## Open
+- Whole paper: em dashes take a space on each side (Washington --- Arlington), set as `~--- ` so a line never starts with the dash; add the rule to the prose skill (Sally, 10 Oct).
 - Part A preamble, footnote on the 1874 amendment: cite Va. Const. of 1869, art. VII, sec. 2 (amended 1874), not the 1873 resolution; waits on a held copy of the amended article (tracker row constitution-1874-text) (Sally, 10 Oct).
 - Part C, Election Method: add the election calendar as a question a review would take up: which cycle the Board is elected on, and what aligning its elections with federal or with state elections would do. Part A's Staggered Terms and Figure 3 (elections_turnout_board) already show the Board's electorate varying with what leads the ballot, presidential, midterm or governor's year; the question points back to that, takes no position, and cites the statute that sets the calendar. Structural: adds a question to the section's two-question framing (Sally, 9 Oct).
 - Roster, Table 2 (code/analysis/members_roster.py): columns are now each as wide as their widest entry with the spare width shared equally between them, on branch roster-columns, unmerged until Sally has seen the page (Sally, 9 Oct).
