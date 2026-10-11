@@ -187,11 +187,12 @@ print.
 
 ## Citing a provision as amended
 
-A constitution or code section cited as it stood after an amendment is cited
-as the provision first, in the form a lawyer expects - *Va. Const. of 1869,
-art. VII, sec. 2 (amended 1874)* - and then the document that prints the text
-we hold, such as the resolution or act that carried the amendment. The reader
-sees the law; the second cite says which copy the words were read from.
+A constitution or code section in force after an amendment is cited as
+amended, in the form a lawyer expects: *Va. Const. of 1869, art. VII, sec. 2
+(amended 1874)*. The citation names the law, not the document an amendment
+travelled in. If no copy we hold prints the provision as amended, that is a
+sourcing gap: a tracker row to file one, never a second citation in the
+footnote standing in for it.
 
 ## Quoting a legal source
 
