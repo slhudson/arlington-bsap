@@ -161,7 +161,7 @@ ANNEXED = {
 }
 # A map of the county is taller than wide, so it takes this fraction of the
 # profile's width rather than the whole. See docs/figures.md.
-MAP_WIDTH = 0.5
+MAP_WIDTH = 0.45
 # The watermark on a figure still waiting on a decision: its words, the
 # angle it runs at, where its centre sits in the axes, its grey, how faint,
 # and its size as a multiple of the body type.

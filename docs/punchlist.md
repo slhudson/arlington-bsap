@@ -11,6 +11,7 @@ the paper, commits, and deletes the lines it cleared. What it cannot settle
 stays, with a one-line reason under it.
 
 ## Open
+- Data Appendix, Districts, The County's Outline: the County's GIS county polygon and the Census Bureau's TIGERweb Alexandria outline are filed in sources/ but have no sources.bib entry, so the appendix cannot cite them; enter both and cite them there (Sally, 10 Oct: a figure's sources live in the appendix, not its notes).
 - Whole paper: em dashes take a space on each side (Washington --- Arlington), set as `~--- ` so a line never starts with the dash; add the rule to the prose skill (Sally, 10 Oct).
 - Part A preamble, footnote on the 1874 amendment: cite Va. Const. of 1869, art. VII, sec. 2 (amended 1874), not the 1873 resolution; waits on a held copy of the amended article (tracker row constitution-1874-text) (Sally, 10 Oct).
 - Part C, Election Method: add the election calendar as a question a review would take up: which cycle the Board is elected on, and what aligning its elections with federal or with state elections would do. Part A's Staggered Terms and Figure 3 (elections_turnout_board) already show the Board's electorate varying with what leads the ballot, presidential, midterm or governor's year; the question points back to that, takes no position, and cites the statute that sets the calendar. Structural: adds a question to the section's two-question framing (Sally, 9 Oct).
