@@ -185,6 +185,14 @@ be an entry in `paper/bib/sources.bib`, or the build stops. What is missing from
 the copy we hold goes in the entry's `annotation`, which biblatex does not
 print.
 
+## Citing a provision as amended
+
+A constitution or code section cited as it stood after an amendment is cited
+as the provision first, in the form a lawyer expects - *Va. Const. of 1869,
+art. VII, sec. 2 (amended 1874)* - and then the document that prints the text
+we hold, such as the resolution or act that carried the amendment. The reader
+sees the law; the second cite says which copy the words were read from.
+
 ## Quoting a legal source
 
 `code/sources/quotations.py` checks every entry filed under `legal/` against its own
