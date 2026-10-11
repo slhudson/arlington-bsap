@@ -121,6 +121,21 @@
 
 \input{bib/bibstyle}
 
+% Two kinds of citation (Sally, 10 October 2026). \autocite is a note the
+% reader sees. \trace backs a sentence the reader does not need a note for -
+% a fact a figure shows, or one the paragraph's note already covers - and
+% keeps its citekey in the source, so every claim stays traceable. While
+% \traces is true (drafting), a trace prints as a grey note marked "trace";
+% set it false for the reader's copy and a trace prints nothing, and its
+% source is not in the bibliography unless a note the reader sees cites it:
+% an entry no reader can tie to a claim does not belong there.
+\newif\iftraces\tracestrue
+\newcommand{\trace}[2][]{%
+  \iftraces
+    \AtNextCite{\renewcommand*{\mkbibfootnote}[1]{\footnote{\color[gray]{0.5}trace: ##1}}}%
+    {\color[gray]{0.5}\autocite[#1]{#2}}%
+  \fi}
+
 % The paper includes the PDF versions; figures/png/ is for slides and email.
 \graphicspath{{../figures/pdf/}}
 % Figures that share a page in a pair (race, and the two coverage panels) give
