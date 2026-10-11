@@ -43,6 +43,28 @@ when things happened, the figure itself says so, in the legend or the caption:
 an irregular spacing with no stated reason is a question the figure leaves
 open (Sally, 5 October 2026).
 
+## The caption's notes
+
+The notes are written for a reader who only ever looks at the figure: that
+reader should come away with its story, not with how it was made (Sally, 10
+October 2026).
+
+- **Walk the picture, not the method.** Say what the reader is looking at.
+  How the figure was built goes in the data appendix, with one line in the
+  note pointing there.
+- **Name each mark the way the eye sees it**: "the dark pink region", "the
+  tan shaded region", not "the 1915 tint".
+- **Tell the figure's story in time order**, each mark getting its sentence
+  where it enters the story, and end on the present, where the reader stands.
+
+Sally's note for the district map, the model:
+
+> This map outlines the territory known as Alexandria County from 1870 to
+> 1915. The dark pink region was annexed by the City of Alexandria in 1915,
+> and the remaining territory was renamed Arlington County in 1920. In 1930,
+> the City annexed another portion of the County, leaving the tan shaded
+> region under the Board's jurisdiction until the present day.
+
 ## Content
 
 - **Every mark a reader can see is a question, and the legend or the caption
